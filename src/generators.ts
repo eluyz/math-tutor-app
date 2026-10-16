@@ -132,7 +132,7 @@ export const templates: Template[] = [
         question: `−${a} + ${b} = ?`, answer,
         explanation: `Porównaj ${a} i ${b}; ${b} − ${a} = ${number(b - a)}. Znak wyniku odpowiada liczbie o większej wartości bezwzględnej.`,
         hint: "Różne znaki oznaczają odejmowanie wartości bezwzględnych.",
-        nextHint: `Oblicz różnicę ${Math.max(a, b)} − ${Math.min(a, b)} i wybierz znak większej liczby.`,
+        nextHint: `Oblicz różnicę ${Math.max(a, b)} − ${Math.min(a, b)} i wybierz znak składnika o większej wartości bezwzględnej.`,
         errorRules: [
           ...possible("signed", "SIGNED_ADDED_MAGNITUDES", r(a + b), answer,
             "dodano wartości bezwzględne mimo różnych znaków.", "Odejmij wartości bezwzględne."),

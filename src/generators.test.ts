@@ -127,6 +127,17 @@ describe("15 parametrycznych rodzin zadań", () => {
     }
   });
 
+  it.each([
+    { level: "medium" as const, a: 7, b: 3, question: "−7 + 3 = ?", result: r(-4), difference: "7 − 3" },
+    { level: "easy" as const, a: 2, b: 5, question: "−2 + 5 = ?", result: r(3), difference: "5 − 2" },
+  ])("podpowiada znak składnika o większej wartości bezwzględnej dla $question", ({ level, a, b, question, result, difference }) => {
+    const family = templates.find((item) => item.id === "signed-add")!;
+    const item = makeInstance(family, { a, b }, level);
+    expect(item.question).toBe(question);
+    expect(item.answer).toEqual(result);
+    expect(item.nextHint).toBe(`Oblicz różnicę ${difference} i wybierz znak składnika o większej wartości bezwzględnej.`);
+  });
+
   it("sprawdza odpowiedź dokładnie, bez fałszywych diagnoz", () => {
     for (const item of all) {
       const right = `${item.answer.numerator}/${item.answer.denominator}`;
