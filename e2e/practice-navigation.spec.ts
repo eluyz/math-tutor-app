@@ -176,9 +176,9 @@ for (const { name, viewport } of [
         expect(seen.has(question)).toBe(false);
         seen.add(question);
         families.add((await page.locator(".question").getAttribute("data-template-id"))!);
-        await expect(page.getByLabel("Twoja odpowiedź")).toHaveValue("");
+        for (const field of await page.locator(".exercise-panel > form input").all()) await expect(field).toHaveValue("");
         await expect(page.locator(".feedback")).toHaveCount(0);
-        await page.getByLabel("Twoja odpowiedź").fill("9999");
+        for (const field of await page.locator(".exercise-panel > form input").all()) await field.fill("9999");
         await page.getByRole("button", { name: "Sprawdź", exact: true }).click();
         await page.getByRole("button", { name: "Pokaż kolejną podpowiedź" }).click();
         await page.getByRole("button", { name: number === 10 ? "Zakończ sesję" : "Następne zadanie" }).click();

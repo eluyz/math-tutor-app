@@ -2,18 +2,22 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   checkAnswer,
   checkStep,
+  getAnswerSpec,
   type CategoryId,
   type CheckResult,
   type StepResult,
 } from "./exercises";
-import { categories, difficultyLabels, feedback, ui } from "./locales/pl";
-import { createGenerator, templates, type Difficulty, type GeneratedExercise } from "./generators";
+import { categories, studyCategories, difficultyLabels, feedback, ui, answerHints } from "./locales/pl";
+import { createGenerator, allTemplates, type Difficulty, type GeneratedTask } from "./generators";
+import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
+import { AnswerFields } from "./AnswerFields";
+import { MatrixDisplay } from "./MatrixDisplay";
 import { advanceSession, createSession, recordFirstAttempt, summarizeSession, SESSION_LENGTH, type SessionState } from "./session";
 import { SessionSummaryPanel } from "./SessionSummaryPanel";
 
 export default function App() {
   const generator = useRef<ReturnType<typeof createGenerator> | null>(null);
-  const [active, setActive] = useState<GeneratedExercise | null>(null);
+  const [active, setActive] = useState<GeneratedTask | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>("order");
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [session, setSession] = useState<SessionState | null>(null);
@@ -22,25 +26,27 @@ export default function App() {
   const sessionDone = session?.completed ?? false;
   const summary = session ? summarizeSession(session) : null;
   const [repeated, setRepeated] = useState(false);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState<AnswerInput>("");
   const [submittedAnswer, setSubmittedAnswer] = useState("");
   const [result, setResult] = useState<CheckResult | null>(null);
   const [hintExpanded, setHintExpanded] = useState(false);
   const [stepVisible, setStepVisible] = useState(false);
   const [stepAnswer, setStepAnswer] = useState("");
   const [stepResult, setStepResult] = useState<StepResult | null>(null);
-  const visibleTemplates = templates.filter((template) => template.category === selectedCategory);
+  const visibleTemplates = allTemplates.filter((template) => template.category === selectedCategory);
+  const studying = studyCategories.some((category) => category.id === selectedCategory);
+  const visibleCategories = (studying ? studyCategories : categories).filter((category) => allTemplates.some((template) => template.category === category.id));
 
   useEffect(() => {
     if (active) document.getElementById("answer")?.focus();
-  }, [active?.contentKey]);
+  }, [active]);
 
   useEffect(() => {
     if (sessionDone) document.getElementById("session-complete")?.focus();
   }, [sessionDone]);
 
-  function resetAnswer() {
-    setAnswer("");
+  function resetAnswer(exercise: GeneratedTask | null = null) {
+    setAnswer(exercise ? emptyAnswer(getAnswerSpec(exercise)) : "");
     setSubmittedAnswer("");
     setResult(null);
     setHintExpanded(false);
@@ -55,10 +61,10 @@ export default function App() {
     setSession(next);
   }
 
-  function showExercise(next: { exercise: GeneratedExercise; repeated: boolean }) {
-    setActive(next.exercise);
+  function showExercise(next: { exercise: GeneratedTask; repeated: boolean }) {
+    setActive({ ...next.exercise });
     setRepeated(next.repeated);
-    resetAnswer();
+    resetAnswer(next.exercise);
   }
 
   function newExercise(category = selectedCategory, level = difficulty, templateId?: string) {
@@ -93,7 +99,7 @@ export default function App() {
     if (sessionRef.current) {
       updateSession(recordFirstAttempt(sessionRef.current, active.id, nextResult.kind));
     }
-    setSubmittedAnswer(answer);
+    setSubmittedAnswer(describeInput(answer, getAnswerSpec(active)));
     setResult(nextResult);
     setHintExpanded(false);
     setStepVisible(false);
@@ -180,8 +186,8 @@ export default function App() {
               {ui.start} <span aria-hidden="true">↗</span>
             </button>
             <div className="hero-meta">
-              <span>15 RODZIN</span>
-              <span>PIĘĆ TEMATÓW DO ĆWICZENIA</span>
+              <span>{allTemplates.length} RODZIN</span>
+              <span>PODSTAWY I MATEMATYKA NA STUDIA</span>
             </div>
           </div>
           <div className="hero-art" aria-hidden="true">
@@ -217,16 +223,21 @@ export default function App() {
               </h2>
             </div>
             <p>
-              Pięć obszarów i wiele wariantów zadań. Po pomyłce możesz
+              Wybierz dział i rodzinę ćwiczeń. Po pomyłce możesz
               skorzystać ze wskazówek i spróbować ponownie.
             </p>
           </div>
+          <div className="study-groups" role="group" aria-label="Działy nauki">
+            <button type="button" disabled={sessionNumber > 0} aria-pressed={!studying} onClick={() => { setSelectedCategory("order"); newExercise("order"); }}>Powtórka podstaw</button>
+            <button type="button" disabled={sessionNumber > 0} aria-pressed={studying} onClick={() => { setSelectedCategory("quadratics"); newExercise("quadratics"); }}>Matematyka na studia</button>
+          </div>
+          {studying && <p className="input-help">Autorskie materiały do samodzielnej nauki. Nie są oficjalnymi materiałami UWM.</p>}
           <div
             className="category-picker"
             role="group"
             aria-label="Kategorie ćwiczeń"
           >
-            {categories.map((category) => (
+            {visibleCategories.map((category) => (
               <button
                 key={category.id}
                 type="button"
@@ -314,20 +325,14 @@ export default function App() {
                   >
                     {active.question}
                   </div>
+                  {"matrices" in active && active.matrices && <div className="given-matrices">
+                    {active.matrices.map((matrix) => <MatrixDisplay key={matrix.label} {...matrix} />)}
+                  </div>}
+                  {"startingHint" in active && <p className="starting-hint"><strong>Jak zacząć:</strong> {active.startingHint}</p>}
                   <form onSubmit={submitAnswer}>
-                    <label htmlFor="answer">{ui.answer}</label>
-                    <div className="answer-row">
-                      <input
-                        id="answer"
-                        type="text"
-                        inputMode={
-                          active.category === "fractions" ? "text" : "decimal"
-                        }
-                        autoComplete="off"
-                        aria-describedby="answer-help"
-                        value={answer}
-                        onChange={(event) => {
-                          setAnswer(event.target.value);
+                    <AnswerFields spec={getAnswerSpec(active)} value={answer} fractionInput={active.category === "fractions" || "startingHint" in active}
+                        onChange={(value) => {
+                          setAnswer(value);
                           setSubmittedAnswer("");
                           setResult(null);
                           setHintExpanded(false);
@@ -335,15 +340,9 @@ export default function App() {
                           setStepAnswer("");
                           setStepResult(null);
                         }}
-                        placeholder={ui.answerPlaceholder}
                       />
-                      <button type="submit" className="check-button">
-                        {ui.check} <span aria-hidden="true">→</span>
-                      </button>
-                    </div>
                     <p id="answer-help" className="input-help">
-                      Możesz wpisać liczbę, ułamek a/b lub równoważną wartość
-                      dziesiętną.
+                      {answerHints[getAnswerSpec(active).kind]}
                     </p>
                   </form>
                   {result && (

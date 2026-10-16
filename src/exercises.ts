@@ -1,11 +1,16 @@
 import { equalRational, parseAnswer, type Rational } from "./rational";
+import { assessAnswer, type AnswerSpec, type AnswerInput, type AnswerAssessment } from "./answers";
+import type { Matrix } from "./matrices";
 
 export type CategoryId =
   | "order"
   | "signed"
   | "fractions"
   | "algebra"
-  | "equations";
+  | "equations"
+  | "quadratics"
+  | "matrices"
+  | "determinants";
 
 export type ErrorRule = {
   errorCode: string;
@@ -34,6 +39,17 @@ export type Exercise = {
   };
 };
 
+/** Legacy scalar exercises keep their public shape; new exercises use a tagged answer. */
+export type TypedExercise = Omit<Exercise, "answer"> & {
+  answer: AnswerSpec;
+  startingHint: string;
+  matrices?: readonly { label: string; values: Matrix }[];
+};
+export type AnyExercise = Exercise | TypedExercise;
+export function getAnswerSpec(exercise: AnyExercise): AnswerSpec {
+  return "numerator" in exercise.answer ? { kind: "scalar", value: exercise.answer } : exercise.answer;
+}
+
 export type Hypothesis = Omit<ErrorRule, "wrongAnswer">;
 export type Diagnosis =
   | { kind: "hypotheses"; candidates: Hypothesis[]; ambiguous: boolean }
@@ -61,6 +77,8 @@ export type FeedbackCopy = {
   invalidNumber: string;
   divisionByZero: string;
   tooLong: string;
+  invalidStructure: string;
+  invalidChoice: string;
   correctPrefix: string;
   incorrectPrefix: string;
   stepCorrectPrefix: string;
@@ -70,10 +88,14 @@ export type FeedbackCopy = {
 };
 
 function invalidMessage(
-  reason: "empty" | "format" | "division-by-zero" | "too-long",
+  reason: Extract<AnswerAssessment, { kind: "invalid" }>["reason"],
   feedback: FeedbackCopy,
 ): string {
   switch (reason) {
+    case "structure":
+      return feedback.invalidStructure;
+    case "choice":
+      return feedback.invalidChoice;
     case "empty":
       return feedback.empty;
     case "division-by-zero":
@@ -86,7 +108,7 @@ function invalidMessage(
 }
 
 export function diagnose(
-  exercise: Exercise,
+  exercise: AnyExercise,
   answer: Rational,
   feedback: FeedbackCopy,
 ): Diagnosis {
@@ -108,18 +130,19 @@ export function diagnose(
 }
 
 export function checkAnswer(
-  exercise: Exercise,
-  rawAnswer: string,
+  exercise: AnyExercise,
+  rawAnswer: AnswerInput,
   feedback: FeedbackCopy,
 ): CheckResult {
-  const parsed = parseAnswer(rawAnswer);
+  const spec = getAnswerSpec(exercise);
+  const parsed = assessAnswer(spec, rawAnswer);
   if (parsed.kind === "invalid") {
     return {
       kind: "invalid",
       message: invalidMessage(parsed.reason, feedback),
     };
   }
-  if (equalRational(parsed.value, exercise.answer)) {
+  if (parsed.kind === "correct") {
     return {
       kind: "correct",
       message: `${feedback.correctPrefix} ${exercise.explanation}`,
@@ -128,12 +151,15 @@ export function checkAnswer(
   return {
     kind: "incorrect",
     message: feedback.incorrectPrefix,
-    diagnosis: diagnose(exercise, parsed.value, feedback),
+    diagnosis: spec.kind === "scalar" && typeof rawAnswer === "string"
+      ? diagnose(exercise, (parseAnswer(rawAnswer) as { kind: "valid"; value: Rational }).value, feedback)
+      : { kind: "undetermined", errorCode: "UNDETERMINED", category: exercise.category,
+        confidence: "none", explanation: feedback.undeterminedExplanation, hint: feedback.undeterminedHint },
   };
 }
 
 export function checkStep(
-  exercise: Exercise,
+  exercise: AnyExercise,
   rawAnswer: string,
   feedback: FeedbackCopy,
 ): StepResult {

@@ -1,4 +1,5 @@
-import type { CategoryId, ErrorRule, Exercise } from "./exercises";
+import type { CategoryId, ErrorRule, Exercise, TypedExercise } from "./exercises";
+import { educationPool, educationTemplates } from "./education/catalog";
 import {
   addRational,
   equalRational,
@@ -17,6 +18,7 @@ export type GeneratedExercise = Exercise & {
   contentKey: string;
   difficulty: Difficulty;
 };
+export type GeneratedTask = GeneratedExercise | (TypedExercise & Omit<GeneratedExercise, keyof Exercise>);
 type Details = Omit<Exercise, "id" | "category" | "title">;
 export type Template = {
   id: string;
@@ -394,6 +396,8 @@ export const templates: Template[] = [
   },
 ];
 
+export const allTemplates = [...templates, ...educationTemplates];
+
 function combinations(choices: Record<string, readonly number[]>): Parameters[] {
   return Object.entries(choices).reduce<Parameters[]>(
     (acc, [key, values]) => acc.flatMap((previous) =>
@@ -446,10 +450,10 @@ export function createGenerator(seed: number = Date.now()) {
   const random = seededRandom(seed);
   const seen = new Set<string>();
   return {
-    next(category: CategoryId, difficulty: Difficulty, templateId?: string): { exercise: GeneratedExercise; repeated: boolean } {
+    next(category: CategoryId, difficulty: Difficulty, templateId?: string): { exercise: GeneratedTask; repeated: boolean } {
       const available = templateId
-        ? pool(category, difficulty).filter((item) => item.templateId === templateId)
-        : pool(category, difficulty);
+        ? taskPool(category, difficulty).filter((item) => item.templateId === templateId)
+        : taskPool(category, difficulty);
       if (available.length === 0) throw new Error(`No exercises for ${category}/${difficulty}`);
       let unused = available.filter((item) => !seen.has(item.contentKey));
       const repeated = unused.length === 0;
@@ -463,4 +467,12 @@ export function createGenerator(seed: number = Date.now()) {
     },
     seenCount: () => seen.size,
   };
+}
+
+const taskCache = new Map<string, readonly GeneratedTask[]>();
+/** Legacy pools stay independently auditable; UI/session pools include typed education tasks. */
+export function taskPool(category: CategoryId, difficulty: Difficulty): readonly GeneratedTask[] {
+  const key = `${category}:${difficulty}`;
+  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty)]);
+  return taskCache.get(key)!;
 }

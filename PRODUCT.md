@@ -32,6 +32,16 @@ Potrzeba co najmniej 7 ważnych pierwszych prób. Przy 8–10 poprawnych z 10 pr
 
 To pierwszy ograniczony etap adaptacji, nie pełny adaptacyjny dobór rodzin. Poziom nie zmienia się w trakcie sesji. Nie ma trwałej historii, localStorage, backendu, kont ani zewnętrznych żądań; statystyki znikają po odświeżeniu. Podsumowanie otrzymuje fokus i ma opisane wartości dostępne dla czytników ekranu oraz czytelne na telefonie.
 
+## MT-EDU-001 — autorski pakiet od algebry do macierzy
+
+Oferta zachowuje pięć dotychczasowych kategorii i rozszerza je do 35 rodzin w dwóch działach: „Powtórka podstaw” oraz „Matematyka na studia”. Nowe kategorie to wzory i równania kwadratowe, macierze oraz wyznaczniki. Cztery rodziny powtórkowe ćwiczą minusy i nawiasy, jednomiany i potęgi, współczynniki iloczynu nawiasów oraz równania z ułamkiem. Sześć rodzin kwadratowych obejmuje trzy wzory, deltę, jej interpretację i rozwiązywanie dla wszystkich trzech znaków delty.
+
+Siedem rodzin macierzowych uczy wymiaru, indeksów od 1, dodawania, odejmowania, skalowania, transpozycji prostokątnej i iloczynu AB z przykładami nieprzemienności. Użytkownik wpisuje całe macierze wynikowe do 3×3. Trzy rodziny wyznaczników obejmują ad−bc, sześć iloczynów Sarrusa i zerowy wiersz. Obliczenia są dokładne, także dla ułamków, minusów i zera.
+
+Przed odpowiedzią dostępna jest wskazówka „Jak zacząć”; po błędzie stopniowe podpowiedzi, po poprawnej odpowiedzi pełne kroki. Formularz nie podaje z góry liczby pierwiastków: użytkownik sam wybiera przypadek, a następnie wpisuje wartości, bez znaczenia kolejności. Niekompletny lub niepoprawnie zapisany formularz jest nieważną próbą. Te same wyniki correct/incorrect/invalid sterują dotychczasowymi statystykami i sugestią poziomu sesji.
+
+To samodzielnie opracowane materiały do nauki, nie oficjalny kurs UWM ani ocena umiejętności. Nowe rodziny bez uzasadnionej reguły pokazują neutralną nieustaloną przyczynę. Zachowano tryb swobodny w jednej rodzinie, sesje i reset formularzy. Nie ma backendu, trwałego zapisu, nowych zależności, zaokrąglania wyników ani swobodnego parsera wyrażeń. Viète, macierz odwrotna, Cramer i analiza matematyczna pozostają poza tym pakietem.
+
 ## Zasady produktu
 
 - Język ma być życzliwy i nie zawstydzać po pomyłce.

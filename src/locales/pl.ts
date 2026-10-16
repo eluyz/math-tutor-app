@@ -14,6 +14,20 @@ export const categories: { id: CategoryId; label: string }[] = [
   { id: "equations", label: "Równania liniowe" },
 ];
 
+export const studyCategories: { id: CategoryId; label: string }[] = [
+  { id: "quadratics", label: "Wzory i równania kwadratowe" },
+  { id: "matrices", label: "Macierze" },
+  { id: "determinants", label: "Wyznaczniki" },
+];
+
+export const answerHints = {
+  scalar: "Możesz wpisać liczbę, ułamek a/b lub równoważną wartość dziesiętną.",
+  list: "Uzupełnij każde opisane pole. Możesz użyć liczb całkowitych lub dokładnych ułamków a/b.",
+  matrix: "Wpisz wszystkie elementy macierzy, wiersz po wierszu. Dopuszczalne są liczby całkowite i dokładne ułamki a/b.",
+  choice: "Wybierz jedną z podanych odpowiedzi.",
+  roots: "Wybierz liczbę pierwiastków. Jeśli istnieją, wpisz dokładne wartości (także ułamki a/b), bez zaokrąglania.",
+} as const;
+
 export const ui = {
   start: "Rozpocznij ćwiczenia",
   answer: "Twoja odpowiedź",
@@ -56,6 +70,8 @@ export const feedback: FeedbackCopy = {
   invalidNumber: "Wpisz jedną liczbę lub ułamek w formacie a/b.",
   divisionByZero: "Mianownik nie może być zerem.",
   tooLong: "Odpowiedź jest zbyt długa. Wpisz krótszą liczbę lub ułamek.",
+  invalidStructure: "Uzupełnij wszystkie pola odpowiedzi w podanym układzie.",
+  invalidChoice: "Wybierz jedną z podanych odpowiedzi.",
   correctPrefix: "Dobrze!",
   incorrectPrefix:
     "Ta odpowiedź jest matematycznie niepoprawna. Spróbuj ponownie.",

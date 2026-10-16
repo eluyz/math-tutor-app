@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do ćwiczenia podstaw matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 15 parametrycznych rodzin w pięciu obszarach: kolejność działań, liczby dodatnie i ujemne, ułamki, podstawy algebry oraz równania liniowe. Interfejs jest po polsku i działa na telefonie oraz komputerze.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 35 parametrycznych rodzin: dotychczasowe pięć kategorii podstaw oraz wzory i równania kwadratowe, macierze i wyznaczniki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
 
@@ -42,13 +42,17 @@ To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system 
 
 ### Odpowiedzi i wskazówki
 
+MT-EDU-001 dodaje 20 rodzin: minus przed nawiasem, jednomiany i wykładniki, iloczyn nawiasów, przekształcenia równań z ułamkiem; kwadrat sumy i różnicy, różnicę kwadratów, deltę i równania kwadratowe; wymiar i odczyt elementu macierzy, dodawanie, odejmowanie, skalar, transpozycję i mnożenie; wyznaczniki 2×2, Sarrusa dla 3×3 i własność zerowego wiersza. Każda rodzina ma poziomy łatwy/średni/trudny oraz dyskretną wskazówkę „Jak zacząć” przed odpowiedzią. Pełne kroki i wynik pojawiają się po poprawnej ocenie.
+
+Format odpowiedzi zależy od pytania: liczba/ułamek, opisane pola współczynników, pełna macierz w siatce do 3×3 albo kontrolowany wybór. W równaniu kwadratowym samodzielnie wybierz liczbę pierwiastków rzeczywistych i, gdy istnieją, wpisz ich dokładne wartości. Kolejność dwóch pierwiastków jest dowolna. Nie wymagamy zaokrągleń: generowane rzeczywiste pierwiastki są wymierne. Niepełny formularz jest nieważną odpowiedzią, więc nie zużywa pierwszej ważnej próby w sesji. Zmiana przykładu czyści wszystkie pola, wybory, wskazówki i ocenę. Pola macierzy są opisane wierszem i kolumną, licząc od 1; Tab przechodzi przez nie wierszami.
+
 Wpisz liczbę lub ułamek `a/b`. Możesz użyć minusa `-` lub `−` także w liczniku i mianowniku. Przy ułamkach można też użyć dokładnie równoważnego zapisu dziesiętnego, np. `3/4`, `0.75` i `0,75` są uznawane za tę samą wartość. `0.3333333333` nie jest dokładnie równe `1/3`. Dzielenie przez zero, zbyt długie i nieprawidłowe wejście są odrzucane.
 
 Po błędnej odpowiedzi zobaczysz wstępną wskazówkę oraz ewentualną **hipotezę** o typie pomyłki. Kolejną wskazówkę możesz odsłonić samodzielnie. Sześć rodzin oferuje dodatkowe pytanie o pierwszy krok rozwiązania; odpowiedź na nie zmienia następną podpowiedź, ale nie ustala przyczyny wcześniejszego błędu. Zmiana odpowiedzi głównej usuwa ocenę i wskazówki poprzedniej próby. Pełne rozwiązanie jest pokazywane po poprawnej odpowiedzi. Próbując ponownie, pracujesz nad tym samym zadaniem.
 
 Niepoprawność wyniku jest matematycznie potwierdzona. Przyczyna błędu pozostaje przypuszczeniem opartym na końcowej odpowiedzi. Gdy kilka pomyłek daje ten sam wynik, aplikacja pokazuje wszystkie pasujące możliwości; gdy żadna reguła nie pasuje, wyświetla „nieustalona przyczyna”. Szczegóły opisuje [ERROR_TAXONOMY.md](ERROR_TAXONOMY.md).
 
-Automatyczny audyt potwierdza **647 różnych treści** w 15 rodzinach na trzech poziomach oraz 557 różnych treści w próbie losowania z ośmiu ustalonych seedów. Dawne 15 przykładów pozostaje w katalogu referencyjnym i testach regresyjnych. Architektura generatora, ograniczenia i sposób dodania rodziny są w [GENERATORS.md](GENERATORS.md).
+Automatyczny audyt zachowuje **647 różnych treści** pierwotnych 15 rodzin oraz 557 treści w dawnej próbie z ośmiu seedów. Nowe 20 rodzin ma osobny audyt wszystkich 24 kandydatów na poziom (co najmniej 10 odmiennych treści na rodzinę i poziom). Macierze nie powstają z ogromnego iloczynu dziewięciu parametrów. Szczegóły katalogu, ograniczeń i niezależnego sprawdzania są w [GENERATORS.md](GENERATORS.md).
 
 ## CI i GitHub Pages
 
@@ -61,3 +65,5 @@ W tym repozytorium Pages używa źródła GitHub Actions. Po scaleniu zmian do `
 Odpowiedzi są sprawdzane lokalnie i deterministycznie, bez `eval` i tolerancji zmiennoprzecinkowej. Nie ma backendu, kont, telemetrii ani przesyłania odpowiedzi na serwer. Generator, pierwsze oceny i podsumowanie sesji istnieją tylko w pamięci karty; odświeżenie strony je usuwa. Automatyczne zmiany poziomu, adaptacyjny dobór rodzin i trwała historia nie są częścią MT-003B.1.
 
 Projekt jest dostępny na licencji [MIT](LICENSE). Bezpośrednie zależności używają licencji MIT lub Apache 2.0; szczegóły są w [ARCHITECTURE.md](ARCHITECTURE.md). Zobacz też [PRODUCT.md](PRODUCT.md), [ROADMAP.md](ROADMAP.md) i [CONTRIBUTING.md](CONTRIBUTING.md).
+
+Pakiet MT-EDU-001 nie obejmuje dowolnego parsera symbolicznego, przybliżonych pierwiastków niewymiernych, Viète'a, macierzy odwrotnej, Cramera, granic, pochodnych ani całek. Nie zapisuje postępów trwale i nie zmienia zakresu adaptacji MT-003B.1.
