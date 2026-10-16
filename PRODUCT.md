@@ -42,6 +42,14 @@ Przed odpowiedzią dostępna jest wskazówka „Jak zacząć”; po błędzie st
 
 To samodzielnie opracowane materiały do nauki, nie oficjalny kurs UWM ani ocena umiejętności. Nowe rodziny bez uzasadnionej reguły pokazują neutralną nieustaloną przyczynę. Zachowano tryb swobodny w jednej rodzinie, sesje i reset formularzy. Nie ma backendu, trwałego zapisu, nowych zależności, zaokrąglania wyników ani swobodnego parsera wyrażeń. Viète, macierz odwrotna, Cramer i analiza matematyczna pozostają poza tym pakietem.
 
+## MT-EDU-002A — brudnopis i dostępne rozwiązania
+
+Panel zadania ma brudnopis Rysuj/Pisz z niezależnymi treściami, symbolami w miejscu kursora, gumką całych śladów, ograniczoną historią, odwracalnym ręcznym czyszczeniem i powiększeniem. Domyślne automatyczne czyszczenie można wyłączyć na czas pracy w karcie, także między sesjami. Automatyczny reset usuwa historię poprzedniego zadania; błędne próby, wskazówki, podgląd, zmiana trybu i rozmiaru nie usuwają notatek.
+
+Każda z 35 rodzin ma rzeczywiste, deterministyczne rozwiązanie: działanie i powód każdego kroku, a na końcu pełną odpowiedź. Przycisk jest dostępny przed oceną; kolejne etapy można odsłaniać osobno lub naraz. Podgląd przed pierwszą ważną oceną jest osobną kategorią sesji, nie sukcesem, błędem ani pominięciem. Nie zmienia wcześniejszej ważnej oceny. Do sugestii poziomu liczą się tylko samodzielnie sprawdzone odpowiedzi; dotychczasowe minimum i progi pozostają takie same.
+
+Notatki nie są interpretowane ani wysyłane; odświeżenie usuwa je wraz z ustawieniem czyszczenia. Szablony matematyczne, eksport, rozpoznawanie pisma i trwała historia pozostają poza V1. Chromium jest automatycznie testowany na 375/768/1280 px; Safari iPad/iPhone wymaga osobnego testu ręcznego na urządzeniu.
+
 ## Zasady produktu
 
 - Język ma być życzliwy i nie zawstydzać po pomyłce.
