@@ -1,9 +1,10 @@
 import { algebraTemplates } from "./algebra";
+import { matrixTemplates } from "./matrixLessons";
 import { makeEducationInstance, VARIANTS_PER_LEVEL, type EducationInstance } from "./types";
 import type { CategoryId } from "../exercises";
 import type { Difficulty } from "../generators";
 
-export const educationTemplates = [...algebraTemplates];
+export const educationTemplates = [...algebraTemplates, ...matrixTemplates];
 const cache = new Map<string, readonly EducationInstance[]>();
 export function educationPool(category: CategoryId, difficulty: Difficulty): readonly EducationInstance[] {
   const key = `${category}:${difficulty}`;
