@@ -1,0 +1,14 @@
+.solution-panel { margin: 1.2rem 0; padding: 1rem; border: 1px solid #9bada1; border-radius: 10px; min-width: 0; overflow-wrap: anywhere; }
+.solution-panel h4 { margin: .2rem 0; }
+.solution-panel h5 { font-size: 1rem; font-weight: 600; line-height: 1.5; margin-bottom: .4rem; }
+.solution-panel h5:focus { outline: 2px solid #2d684a; outline-offset: 3px; }
+.solution-panel ol { padding-left: 1.2rem; }
+.solution-panel li { margin: 1rem 0; padding-left: .2rem; }
+.solution-panel p { line-height: 1.6; white-space: pre-wrap; }
+.solution-panel button { min-height: 44px; max-width: 100%; padding: .6rem .8rem; background: #f1f6ef; border: 1px solid #627e6b; border-radius: 6px; color: #183b2b; cursor: pointer; font: inherit; }
+.solution-panel button:disabled { opacity: .45; cursor: default; }
+.solution-calculation { font-family: monospace; }
+.solution-final { background: #edf4e8; padding: .7rem; }
+.solution-answer { font-weight: bold; font-size: 1.15rem; }
+.solution-panel dl > div { display: flex; flex-wrap: wrap; gap: .5rem; }
+.solution-panel dd { margin: 0; font-weight: bold; }

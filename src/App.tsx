@@ -1,3 +1,5 @@
+import { SolutionPanel } from "./solutions/SolutionPanel";
+import { Scratchpad } from "./scratchpad/Scratchpad";
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   checkAnswer,
@@ -12,11 +14,12 @@ import { createGenerator, allTemplates, type Difficulty, type GeneratedTask } fr
 import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
-import { advanceSession, createSession, recordFirstAttempt, summarizeSession, SESSION_LENGTH, type SessionState } from "./session";
+import { advanceSession, createSession, recordFirstAttempt, recordSolutionViewed, summarizeSession, SESSION_LENGTH, type SessionState } from "./session";
 import { SessionSummaryPanel } from "./SessionSummaryPanel";
 
 export default function App() {
   const generator = useRef<ReturnType<typeof createGenerator> | null>(null);
+  const [run, setRun] = useState(0);
   const [active, setActive] = useState<GeneratedTask | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>("order");
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
@@ -62,6 +65,7 @@ export default function App() {
   }
 
   function showExercise(next: { exercise: GeneratedTask; repeated: boolean }) {
+    setRun((current) => current + 1);
     setActive({ ...next.exercise });
     setRepeated(next.repeated);
     resetAnswer(next.exercise);
@@ -329,6 +333,11 @@ export default function App() {
                     {active.matrices.map((matrix) => <MatrixDisplay key={matrix.label} {...matrix} />)}
                   </div>}
                   {"startingHint" in active && <p className="starting-hint"><strong>Jak zacząć:</strong> {active.startingHint}</p>}
+                </>
+              ) : null}
+              <Scratchpad run={run} active={!!active} />
+              {active ? (
+                <>
                   <form onSubmit={submitAnswer}>
                     <AnswerFields spec={getAnswerSpec(active)} value={answer} fractionInput={active.category === "fractions" || "startingHint" in active}
                         onChange={(value) => {
@@ -450,6 +459,9 @@ export default function App() {
                       )}
                     </div>
                   )}
+                  <SolutionPanel key={run} task={active} inSession={sessionNumber > 0} onReveal={() => {
+                    if (sessionRef.current) updateSession(recordSolutionViewed(sessionRef.current, active.id));
+                  }} />
                   {(sessionNumber > 0 || result?.kind === "correct") && (
                     <button key={active.id} type="button" className="next-button" onClick={(event) => { if (event.detail < 2) nextExercise(); }}>
                       {sessionNumber === 10 ? "Zakończ sesję" : sessionNumber > 0 ? ui.next : ui.nextExample} <span aria-hidden="true">→</span>

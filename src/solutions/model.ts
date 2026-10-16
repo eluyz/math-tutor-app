@@ -66,7 +66,7 @@ export function solutionFor(task: GeneratedTask): Solution {
       return finish(scalar(last.result));
     }
     case "fraction-add": case "fraction-subtract": {
-      working(`Rozszerz oba ułamki do mianownika ${a * b}`, "Mnożymy licznik i mianownik przez tę samą niezerową liczbę, więc wartość ułamka nie zmienia się.", calc("product", p, b), calc("product", q, a), calc("product", a, b));
+      working(`Rozszerz do mianownika ${a * b}: ${p}/${a} = ${p * b}/${a * b}, ${q}/${b} = ${q * a}/${a * b}`, "Mnożymy licznik i mianownik przez tę samą niezerową liczbę, więc wartość ułamka nie zmienia się.", calc("product", p, b), calc("product", q, a), calc("product", a, b));
       const numerator = calc(id === "fraction-add" ? "sum" : "difference", p * b, q * a);
       working("Wykonaj działanie na licznikach", "Przy wspólnym mianowniku mianownik pozostaje ten sam.", numerator);
       const result = calculate("quotient", numerator.result, r(a * b));
