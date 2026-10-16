@@ -604,6 +604,47 @@ footer p {
   color: #fff;
 }
 
+.practice-controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 4px 0 20px;
+}
+.difficulty-picker,
+.practice-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.practice-controls button {
+  min-height: 40px;
+  padding: 8px 13px;
+  border: 1px solid #2b6248;
+  background: #fdfcf8;
+  color: #204a38;
+  font-size: 13px;
+  font-weight: 700;
+}
+.difficulty-picker button[aria-pressed="true"],
+.practice-controls button:hover:not(:disabled) {
+  background: #1e4937;
+  color: white;
+}
+.practice-controls button:disabled,
+.category-picker button:disabled,
+.exercise-item:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+.session-progress {
+  color: #315545;
+  font-size: 14px;
+  font-weight: 700;
+  margin: 0 0 12px;
+}
+
 .input-help,
 .submitted-answer {
   color: #66776d;

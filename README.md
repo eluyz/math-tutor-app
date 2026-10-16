@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do ćwiczenia podstaw matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 15 zadań w pięciu obszarach: kolejność działań, liczby dodatnie i ujemne, ułamki, podstawy algebry oraz równania liniowe. Interfejs jest po polsku i działa na telefonie oraz komputerze.
+Otwarta aplikacja do ćwiczenia podstaw matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 15 parametrycznych rodzin w pięciu obszarach: kolejność działań, liczby dodatnie i ujemne, ułamki, podstawy algebry oraz równania liniowe. Interfejs jest po polsku i działa na telefonie oraz komputerze.
 
 ## Uruchomienie
 
@@ -28,11 +28,15 @@ Build zapisuje statyczne pliki w `dist/`. `base` Vite jest ustawione na `/math-t
 
 ## Jak działają ćwiczenia
 
-Wybierz kategorię i zadanie, a następnie wpisz liczbę lub ułamek `a/b`. Możesz użyć minusa `-` lub `−` także w liczniku i mianowniku. Przy ułamkach można też użyć dokładnie równoważnego zapisu dziesiętnego, np. `3/4`, `0.75` i `0,75` są uznawane za tę samą wartość. `0.3333333333` nie jest dokładnie równe `1/3`. Dzielenie przez zero, zbyt długie i nieprawidłowe wejście są odrzucane.
+Wybierz kategorię, poziom (łatwy, średni, trudny) i rodzinę albo kliknij **Nowe zadanie**, aby wylosować wariant z wybranej kategorii. **Rozpocznij sesję (10 zadań)** uruchamia krótką serię w wybranym temacie i na wybranym poziomie; **Następne zadanie** przechodzi dalej także wtedy, gdy chcesz pominąć bieżący wariant. Licznik pokazuje numer zadania, a po dziesiątym pojawia się komunikat o zakończeniu. Przełączenie poziomu lub kategorii podczas sesji jest zablokowane. Losowanie nie powtarza identycznej treści, dopóki pula wybranego zakresu się nie wyczerpie; po wyczerpaniu pojawia się komunikat o wznowieniu puli.
 
-Po błędnej odpowiedzi zobaczysz wstępną wskazówkę oraz ewentualną **hipotezę** o typie pomyłki. Kolejną wskazówkę możesz odsłonić samodzielnie. Pięć zadań oferuje dodatkowe pytanie o pierwszy krok rozwiązania; odpowiedź na nie zmienia następną podpowiedź, ale nie ustala przyczyny wcześniejszego błędu. Zmiana odpowiedzi głównej usuwa ocenę i wskazówki poprzedniej próby. Pełne rozwiązanie jest pokazywane po poprawnej odpowiedzi. Następne ćwiczenie otwiera osobny przycisk.
+Wpisz liczbę lub ułamek `a/b`. Możesz użyć minusa `-` lub `−` także w liczniku i mianowniku. Przy ułamkach można też użyć dokładnie równoważnego zapisu dziesiętnego, np. `3/4`, `0.75` i `0,75` są uznawane za tę samą wartość. `0.3333333333` nie jest dokładnie równe `1/3`. Dzielenie przez zero, zbyt długie i nieprawidłowe wejście są odrzucane.
+
+Po błędnej odpowiedzi zobaczysz wstępną wskazówkę oraz ewentualną **hipotezę** o typie pomyłki. Kolejną wskazówkę możesz odsłonić samodzielnie. Sześć rodzin oferuje dodatkowe pytanie o pierwszy krok rozwiązania; odpowiedź na nie zmienia następną podpowiedź, ale nie ustala przyczyny wcześniejszego błędu. Zmiana odpowiedzi głównej usuwa ocenę i wskazówki poprzedniej próby. Pełne rozwiązanie jest pokazywane po poprawnej odpowiedzi. Próbując ponownie, pracujesz nad tym samym zadaniem.
 
 Niepoprawność wyniku jest matematycznie potwierdzona. Przyczyna błędu pozostaje przypuszczeniem opartym na końcowej odpowiedzi. Gdy kilka pomyłek daje ten sam wynik, aplikacja pokazuje wszystkie pasujące możliwości; gdy żadna reguła nie pasuje, wyświetla „nieustalona przyczyna”. Szczegóły opisuje [ERROR_TAXONOMY.md](ERROR_TAXONOMY.md).
+
+Automatyczny audyt potwierdza **647 różnych treści** w 15 rodzinach na trzech poziomach oraz 557 różnych treści w próbie losowania z ośmiu ustalonych seedów. Dawne 15 przykładów pozostaje w katalogu referencyjnym i testach regresyjnych. Architektura generatora, ograniczenia i sposób dodania rodziny są w [GENERATORS.md](GENERATORS.md).
 
 ## CI i GitHub Pages
 
@@ -42,6 +46,6 @@ W tym repozytorium Pages używa źródła GitHub Actions. Po scaleniu zmian do `
 
 ## Zakres i prywatność
 
-Odpowiedzi są sprawdzane lokalnie i deterministycznie, bez `eval` i tolerancji zmiennoprzecinkowej. Nie ma backendu, kont, telemetrii ani przesyłania odpowiedzi na serwer. Stan ukończonych ćwiczeń istnieje tylko w pamięci bieżącej sesji; odświeżenie strony go usuwa.
+Odpowiedzi są sprawdzane lokalnie i deterministycznie, bez `eval` i tolerancji zmiennoprzecinkowej. Nie ma backendu, kont, telemetrii ani przesyłania odpowiedzi na serwer. Generator i stan sesji istnieją tylko w pamięci karty; odświeżenie strony je usuwa. Automatyczna adaptacja trudności i trwała historia są odłożone na kolejne etapy.
 
 Projekt jest dostępny na licencji [MIT](LICENSE). Bezpośrednie zależności używają licencji MIT lub Apache 2.0; szczegóły są w [ARCHITECTURE.md](ARCHITECTURE.md). Zobacz też [PRODUCT.md](PRODUCT.md), [ROADMAP.md](ROADMAP.md) i [CONTRIBUTING.md](CONTRIBUTING.md).

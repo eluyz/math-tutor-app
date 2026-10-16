@@ -16,6 +16,12 @@ Podpowiedzi są odsłaniane stopniowo. W pięciu zadaniach użytkownik może dod
 
 MT-002 nie zapisuje historii, nie dobiera adaptacyjnie ćwiczeń i nie rozpoznaje wszystkich możliwych przyczyn pomyłek. Taksonomię i ograniczenia opisuje [ERROR_TAXONOMY.md](ERROR_TAXONOMY.md).
 
+## MT-003A
+
+Zamiast wybierać wyłącznie z 15 niezmiennych przykładów, użytkownik ćwiczy 15 rodzin zadań w trzech ręcznie wybieranych poziomach. Może losować nowy wariant w wybranej kategorii lub rodzinie oraz przejść sesję 10 zadań z licznikiem postępu i ekranem zakończenia. W sesji można przejść dalej także bez poprawnej odpowiedzi; licznik oznacza zadania pokazane, a nie liczbę poprawnych rozwiązań.
+
+Testy potwierdzają 647 różnych treści w dostępnych pulach. Nowe zadanie powstaje tylko po działaniu użytkownika; ponowna próba zachowuje bieżący wariant. Losowanie i dane odpowiedzi pozostają w pamięci przeglądarki. Reguły błędów wynikają z parametrów danego zadania i nadal przedstawiają jedynie hipotezy. Dotychczasowe 15 przykładów pozostaje przypadkami referencyjnymi testów regresyjnych. Dobór adaptacyjny i zapis postępów nie są częścią MT-003A.
+
 ## Zasady produktu
 
 - Język ma być życzliwy i nie zawstydzać po pomyłce.
