@@ -1,4 +1,4 @@
-# Taksonomia typowych błędów — MT-002
+# Taksonomia typowych błędów — MT-002 i MT-003A
 
 Każda reguła ma stabilny `errorCode`, `category`, `confidence`, polskie `explanation` i dydaktyczne `hint`. Reguła uruchamia się, gdy końcowa odpowiedź jest matematycznie niepoprawna i odpowiada znanemu wzorcowi wyniku. **Kod oznacza hipotezę o drodze do wyniku, a nie potwierdzenie procesu myślenia.** Wszystkie reguły oparte tylko na odpowiedzi końcowej mają `confidence: low`.
 
@@ -31,4 +31,6 @@ Przykład nierozpoznanej przyczyny: dla `3 + 4 × 2` odpowiedź `10` jest niepop
 
 ## Granice rozpoznawania
 
-Reguły obejmują wybrane wyniki w 15 stałych zadaniach; nie analizują zapisu kroków użytkownika i nie uczą się z danych. Nie służą do oceniania zdolności ani diagnozowania przyczyn edukacyjnych. Dokładne porównanie ułamków nie używa tolerancji: `3/4` i `0,75` są równoważne, ale skończony zapis `0,3333333333` nie jest dokładnie równy `1/3`. Odpowiedzi nie opuszczają przeglądarki.
+W MT-003A reguły dla wygenerowanych instancji powstają z bieżących parametrów. Dla `a + b × c` wynik `(a + b) × c` może uruchomić `ORDER_LEFT_TO_RIGHT`, o ile nie jest jednocześnie wynikiem poprawnym. Dla `x² + kx` różne hipotezy mogą prowadzić do tego samego wyniku; aplikacja wyświetla je razem z `confidence: low`. Reguły po kolizji z poprawną odpowiedzią są odrzucane. Rodziny bez wiarygodnego dopasowania zwracają `UNDETERMINED` i ogólną wskazówkę. Kody z powyższej tabeli opisują 15 przykładów referencyjnych; generator używa części tych kodów i nowych kodów takich jak `EQUATION_STOPPED_AT_AX` lub `EQUATION_STOPPED_AT_QUOTIENT`.
+
+Reguły nie analizują zapisu kroków użytkownika i nie uczą się z danych. Nie służą do oceniania zdolności ani diagnozowania przyczyn edukacyjnych. Dokładne porównanie ułamków nie używa tolerancji: `3/4` i `0,75` są równoważne, ale skończony zapis `0,3333333333` nie jest dokładnie równy `1/3`. Odpowiedzi nie opuszczają przeglądarki.

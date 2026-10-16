@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   checkAnswer,
   checkStep,
@@ -6,11 +6,21 @@ import {
   type CheckResult,
   type StepResult,
 } from "./exercises";
-import { categories, exercises, feedback, ui } from "./locales/pl";
+import { categories, feedback, ui } from "./locales/pl";
+import { createGenerator, templates, type Difficulty, type GeneratedExercise } from "./generators";
+
+const difficultyLabels: Record<Difficulty, string> = {
+  easy: "Łatwy", medium: "Średni", hard: "Trudny",
+};
 
 export default function App() {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const generator = useRef<ReturnType<typeof createGenerator> | null>(null);
+  const [active, setActive] = useState<GeneratedExercise | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>("order");
+  const [difficulty, setDifficulty] = useState<Difficulty>("easy");
+  const [sessionNumber, setSessionNumber] = useState(0);
+  const [sessionDone, setSessionDone] = useState(false);
+  const [repeated, setRepeated] = useState(false);
   const [answer, setAnswer] = useState("");
   const [submittedAnswer, setSubmittedAnswer] = useState("");
   const [result, setResult] = useState<CheckResult | null>(null);
@@ -18,15 +28,17 @@ export default function App() {
   const [stepVisible, setStepVisible] = useState(false);
   const [stepAnswer, setStepAnswer] = useState("");
   const [stepResult, setStepResult] = useState<StepResult | null>(null);
-  const [completed, setCompleted] = useState<string[]>([]);
-  const active = activeIndex === null ? null : exercises[activeIndex];
-  const visibleExercises = exercises
-    .map((exercise, index) => ({ exercise, index }))
-    .filter(({ exercise }) => exercise.category === selectedCategory);
+  const visibleTemplates = templates.filter((template) => template.category === selectedCategory);
 
-  function selectExercise(index: number) {
-    setActiveIndex(index);
-    setSelectedCategory(exercises[index].category);
+  useEffect(() => {
+    if (active) document.getElementById("answer")?.focus();
+  }, [active?.contentKey]);
+
+  useEffect(() => {
+    if (sessionDone) document.getElementById("session-complete")?.focus();
+  }, [sessionDone]);
+
+  function resetAnswer() {
     setAnswer("");
     setSubmittedAnswer("");
     setResult(null);
@@ -36,9 +48,26 @@ export default function App() {
     setStepResult(null);
   }
 
+  function newExercise(category = selectedCategory, level = difficulty, templateId?: string) {
+    generator.current ??= createGenerator();
+    const next = generator.current.next(category, level, templateId);
+    setActive(next.exercise);
+    setRepeated(next.repeated);
+    setSessionDone(false);
+    resetAnswer();
+  }
+
   function startExercises() {
-    selectExercise(0);
+    setSessionNumber(0);
+    newExercise();
     document.getElementById("practice")?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function startSession() {
+    generator.current = createGenerator();
+    setSessionDone(false);
+    setSessionNumber(1);
+    newExercise();
   }
 
   function submitAnswer(event: FormEvent<HTMLFormElement>) {
@@ -51,11 +80,6 @@ export default function App() {
     setStepVisible(false);
     setStepAnswer("");
     setStepResult(null);
-    if (nextResult.kind === "correct") {
-      setCompleted((previous) =>
-        previous.includes(active.id) ? previous : [...previous, active.id],
-      );
-    }
   }
 
   function submitStep(event: FormEvent<HTMLFormElement>) {
@@ -64,11 +88,15 @@ export default function App() {
   }
 
   function nextExercise() {
-    selectExercise(
-      activeIndex === null || activeIndex === exercises.length - 1
-        ? 0
-        : activeIndex + 1,
-    );
+    if (sessionNumber === 10) {
+      setActive(null);
+      setSessionNumber(0);
+      setSessionDone(true);
+      resetAnswer();
+      return;
+    }
+    if (sessionNumber > 0) setSessionNumber(sessionNumber + 1);
+    newExercise();
   }
 
   return (
@@ -79,7 +107,9 @@ export default function App() {
           href="/math-tutor-app/"
           onClick={(event) => {
             event.preventDefault();
-            setActiveIndex(null);
+            setActive(null);
+            setSessionNumber(0);
+            resetAnswer();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           aria-label="Math Tutor — strona startowa"
@@ -123,7 +153,7 @@ export default function App() {
               {ui.start} <span aria-hidden="true">↗</span>
             </button>
             <div className="hero-meta">
-              <span>01 — 15</span>
+              <span>15 RODZIN</span>
               <span>PIĘĆ TEMATÓW DO ĆWICZENIA</span>
             </div>
           </div>
@@ -160,7 +190,7 @@ export default function App() {
               </h2>
             </div>
             <p>
-              Pięć obszarów i piętnaście krótkich zadań. Po pomyłce możesz
+              Pięć obszarów i wiele wariantów zadań. Po pomyłce możesz
               skorzystać ze wskazówek i spróbować ponownie.
             </p>
           </div>
@@ -175,42 +205,63 @@ export default function App() {
                 type="button"
                 className={selectedCategory === category.id ? "active" : ""}
                 aria-pressed={selectedCategory === category.id}
-                onClick={() =>
-                  selectExercise(
-                    exercises.findIndex(
-                      (exercise) => exercise.category === category.id,
-                    ),
-                  )
-                }
+                disabled={sessionNumber > 0}
+                onClick={() => {
+                  setSelectedCategory(category.id);
+                  setSessionDone(false);
+                  newExercise(category.id);
+                }}
               >
                 {category.label}
               </button>
             ))}
           </div>
+          <div className="practice-controls">
+            <div className="difficulty-picker" role="group" aria-label="Poziom trudności">
+              {(["easy", "medium", "hard"] as const).map((level) => (
+                <button key={level} type="button" disabled={sessionNumber > 0}
+                  aria-pressed={difficulty === level}
+                  onClick={() => {
+                    setDifficulty(level);
+                    setSessionDone(false);
+                    newExercise(selectedCategory, level);
+                  }}>
+                  {difficultyLabels[level]}
+                </button>
+              ))}
+            </div>
+            {sessionNumber === 0 && (
+              <div className="practice-actions">
+                <button type="button" onClick={() => { setSessionDone(false); newExercise(); }}>Nowe zadanie</button>
+                <button type="button" onClick={startSession}>Rozpocznij sesję (10 zadań)</button>
+              </div>
+            )}
+          </div>
+          {sessionNumber > 0 && <p className="session-progress" role="status">Sesja: zadanie {sessionNumber} z 10</p>}
+          {repeated && active && <p className="session-progress">Pula wariantów w tym temacie i poziomie się wyczerpała; zaczynamy ją ponownie.</p>}
           <div className="exercise-layout">
-            <div className="exercise-list" aria-label="Lista ćwiczeń">
-              {visibleExercises.map(({ exercise, index }) => (
+            <div className="exercise-list" aria-label="Rodziny ćwiczeń">
+              {visibleTemplates.map((template, index) => (
                 <button
                   type="button"
-                  key={exercise.id}
-                  className={`exercise-item ${activeIndex === index ? "selected" : ""}`}
-                  onClick={() => selectExercise(index)}
-                  aria-current={activeIndex === index ? "step" : undefined}
+                  key={template.id}
+                  disabled={sessionNumber > 0}
+                  className={`exercise-item ${active?.templateId === template.id ? "selected" : ""}`}
+                  onClick={() => { setSessionDone(false); newExercise(selectedCategory, difficulty, template.id); }}
+                  aria-current={active?.templateId === template.id ? "step" : undefined}
                 >
                   <span className="exercise-number">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <span className="exercise-text">
-                    <strong>{exercise.title}</strong>
-                    <small>{exercise.question}</small>
+                    <strong>{template.title}</strong>
+                    <small>Losuj kolejny wariant</small>
                   </span>
                   <span
                     className="exercise-state"
-                    aria-label={
-                      completed.includes(exercise.id) ? ui.completed : ui.open
-                    }
+                    aria-label={ui.open}
                   >
-                    {completed.includes(exercise.id) ? "✓" : "→"}
+                    →
                   </span>
                 </button>
               ))}
@@ -220,8 +271,7 @@ export default function App() {
                 <>
                   <div className="panel-top">
                     <span>
-                      ZADANIE {String(activeIndex! + 1).padStart(2, "0")} /{" "}
-                      {exercises.length}
+                      {sessionNumber > 0 ? `SESJA ${sessionNumber} / 10` : "ĆWICZENIE"} · {difficultyLabels[difficulty].toUpperCase()}
                     </span>
                     <span>✳</span>
                   </div>
@@ -233,6 +283,7 @@ export default function App() {
                   <div
                     className="question"
                     aria-label={`Zadanie: ${active.question}`}
+                    aria-live="polite"
                   >
                     {active.question}
                   </div>
@@ -371,19 +422,12 @@ export default function App() {
                           )}
                         </>
                       )}
-                      {result.kind === "correct" && (
-                        <button
-                          type="button"
-                          className="next-button"
-                          onClick={nextExercise}
-                        >
-                          {activeIndex === exercises.length - 1
-                            ? "Wróć do pierwszego zadania"
-                            : ui.next}{" "}
-                          <span aria-hidden="true">→</span>
-                        </button>
-                      )}
                     </div>
+                  )}
+                  {(sessionNumber > 0 || result?.kind === "correct") && (
+                    <button type="button" className="next-button" onClick={nextExercise}>
+                      {sessionNumber === 10 ? "Zakończ sesję" : ui.next} <span aria-hidden="true">→</span>
+                    </button>
                   )}
                   <p className="panel-footnote">
                     Błędy są częścią nauki. Możesz próbować tyle razy, ile
@@ -396,17 +440,14 @@ export default function App() {
                     ↗
                   </span>
                   <span className="eyebrow">TWOJA PRZESTRZEŃ DO NAUKI</span>
-                  <h3>
-                    Gotowy na
-                    <br />
-                    <em>pierwszy krok?</em>
+                  <h3 id={sessionDone ? "session-complete" : undefined} tabIndex={sessionDone ? -1 : undefined}>
+                    {sessionDone ? "Sesja zakończona!" : <>Gotowy na<br /><em>pierwszy krok?</em></>}
                   </h3>
                   <p>
-                    Wybierz temat z listy po lewej, aby rozpocząć krótkie
-                    ćwiczenie.
+                    {sessionDone ? "Udało Ci się przejść przez 10 zadań. Możesz rozpocząć nową sesję albo ćwiczyć dalej." : "Wybierz temat z listy po lewej, aby rozpocząć krótkie ćwiczenie."}
                   </p>
-                  <button type="button" onClick={() => selectExercise(0)}>
-                    Zacznij od pierwszego zadania{" "}
+                  <button type="button" onClick={() => newExercise()}>
+                    {sessionDone ? "Ćwicz dalej" : "Zacznij od pierwszego zadania"}{" "}
                     <span aria-hidden="true">→</span>
                   </button>
                 </div>
