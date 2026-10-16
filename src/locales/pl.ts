@@ -25,6 +25,8 @@ export const ui = {
   completed: "Ukończone",
   open: "Otwórz",
   next: "Następne zadanie",
+  newExample: "Nowy przykład",
+  nextExample: "Następny przykład",
   moreHint: "Pokaż kolejną podpowiedź",
   step: "Sprawdź pierwszy krok",
 } as const;

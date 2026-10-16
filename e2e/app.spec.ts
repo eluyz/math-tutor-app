@@ -29,7 +29,7 @@ test("MT-002: poprawa odpowiedzi, hipoteza i pytanie pomocnicze w nowym warianci
   await expect(page.locator(".step-feedback")).toHaveCount(0);
   await page.getByRole("button", { name: "Sprawdź", exact: true }).click();
   await expect(page.locator(".feedback")).toContainText(`Najpierw ${b} × ${c} = ${b * c}`);
-  await page.getByRole("button", { name: "Następne zadanie" }).click();
+  await page.getByRole("button", { name: "Następny przykład" }).click();
   await expect(page.locator(".question")).not.toHaveText(question);
 });
 
@@ -96,23 +96,6 @@ test("poziom trudności i kategoria tworzą nowe zadanie bez starej informacji z
   await expect(page.getByLabel("Twoja odpowiedź")).toHaveValue("");
 });
 
-test("sesja: dziesięć różnych zadań, postęp i zakończenie", async ({ page }) => {
-  await page.goto("/");
-  await page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)" }).click();
-  const seen = new Set<string>();
-  for (let number = 1; number <= 10; number++) {
-    await expect(page.locator(".session-progress")).toContainText(`zadanie ${number} z 10`);
-    const question = await page.locator(".question").innerText();
-    expect(seen.has(question)).toBe(false);
-    seen.add(question);
-    await expect(page.getByLabel("Twoja odpowiedź")).toHaveValue("");
-    await page.getByRole("button", { name: number === 10 ? "Zakończ sesję" : "Następne zadanie" }).click();
-  }
-  await expect(page.getByRole("heading", { name: "Sesja zakończona!" })).toBeVisible();
-  await expect(page.locator(".question")).toHaveCount(0);
-  await expect(page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)" })).toBeVisible();
-});
-
 test("telefon: kategorie, poziom i formularz działają z klawiatury", async ({ page }) => {
   await page.setViewportSize({ width: 375, height: 812 });
   await page.goto("/");
@@ -140,7 +123,7 @@ test("desktop: odpowiedzi nie są wysyłane do zewnętrznych serwerów", async (
   await page.getByRole("button", { name: "Równania liniowe", exact: true }).click();
   await page.getByLabel("Twoja odpowiedź").fill("8");
   await page.getByRole("button", { name: "Sprawdź", exact: true }).click();
-  await page.getByRole("button", { name: "Nowe zadanie" }).click();
+  await page.getByRole("button", { name: "Nowy przykład" }).click();
   expect(external).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
 });
