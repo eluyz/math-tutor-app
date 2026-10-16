@@ -31,6 +31,26 @@ export const ui = {
   step: "Sprawdź pierwszy krok",
 } as const;
 
+export const difficultyLabels = {
+  easy: "Łatwy", medium: "Średni", hard: "Trudny",
+} as const;
+
+export const sessionCopy = {
+  complete: "Sesja zakończona!",
+  shown: "Pokazane zadania",
+  correct: "Poprawne za pierwszą ważną próbą",
+  incorrect: "Wymagały poprawy po pierwszej ważnej próbie",
+  skipped: "Pominięte bez ważnej oceny",
+  counting: "Liczymy tylko pierwszą ważną ocenę każdego zadania. Puste i nieprawidłowe zapisy nie są ważną próbą. Późniejsze poprawki i podpowiedzi nie zmieniają pierwszej oceny.",
+  caveat: "To prosty wskaźnik z jednej sesji, nie diagnoza umiejętności. Ty decydujesz o poziomie kolejnej sesji.",
+  insufficient: "Za mało danych do sugestii poziomu",
+  minimum: "Sugestia wymaga ważnej oceny co najmniej 7 z 10 zadań. Możesz powtórzyć sesję na obecnym poziomie lub wybrać poziom ręcznie.",
+  suggested: "Sugerowany poziom",
+  accept: "Rozpocznij kolejną sesję na sugerowanym poziomie",
+  repeat: "Rozpocznij sesję na obecnym poziomie",
+  practice: "Ćwicz dalej",
+} as const;
+
 export const feedback: FeedbackCopy = {
   empty: "Wpisz odpowiedź przed sprawdzeniem.",
   invalidNumber: "Wpisz jedną liczbę lub ułamek w formacie a/b.",
