@@ -1,3 +1,5 @@
+import { higherPool, supportsHigher } from "./advanced/catalog";
+import { higherDifficulties } from "./difficulty";
 import type { CategoryId, ErrorRule, Exercise, TypedExercise } from "./exercises";
 import { educationPool, educationTemplates } from "./education/catalog";
 import {
@@ -397,7 +399,7 @@ export const templates: Template[] = [
   },
 ];
 
-export const allTemplates = [...templates, ...educationTemplates].map((template) => ({ ...template, supportedDifficulties: [...legacyDifficulties] as readonly Difficulty[] }));
+export const allTemplates = [...templates, ...educationTemplates].map((template) => ({ ...template, supportedDifficulties: [...legacyDifficulties, ...(supportsHigher(template.id) ? higherDifficulties : [])] as readonly Difficulty[] }));
 
 function combinations(choices: Record<string, readonly number[]>): Parameters[] {
   return Object.entries(choices).reduce<Parameters[]>(
@@ -475,6 +477,14 @@ const taskCache = new Map<string, readonly GeneratedTask[]>();
 /** Legacy pools stay independently auditable; UI/session pools include typed education tasks. */
 export function taskPool(category: CategoryId, difficulty: Difficulty): readonly GeneratedTask[] {
   const key = `${category}:${difficulty}`;
-  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty)]);
+  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty), ...higherPool(category, difficulty, allTemplates)]);
   return taskCache.get(key)!;
+}
+
+/** Availability is data, never a fallback to another level or family. */
+export function availableDifficulties(category: CategoryId): readonly Difficulty[] {
+  return difficulties.filter((level) => allTemplates.some((t) => t.category === category && t.supportedDifficulties.includes(level)));
+}
+export function supportsDifficulty(templateId: string, difficulty: Difficulty): boolean {
+  return allTemplates.find((t) => t.id === templateId)?.supportedDifficulties.includes(difficulty) ?? false;
 }

@@ -1,3 +1,4 @@
+import { difficultyConfig } from "./difficulty";
 import { SolutionPanel } from "./solutions/SolutionPanel";
 import { Scratchpad } from "./scratchpad/Scratchpad";
 import { useEffect, useRef, useState, type FormEvent } from "react";
@@ -10,7 +11,7 @@ import {
   type StepResult,
 } from "./exercises";
 import { categories, studyCategories, difficultyLabels, feedback, ui, answerHints } from "./locales/pl";
-import { createGenerator, allTemplates, type Difficulty, type GeneratedTask } from "./generators";
+import { createGenerator, allTemplates, supportsDifficulty, availableDifficulties, type Difficulty, type GeneratedTask } from "./generators";
 import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
@@ -28,6 +29,7 @@ export default function App() {
   const sessionNumber = session && !session.completed ? session.entries.length : 0;
   const sessionDone = session?.completed ?? false;
   const summary = session ? summarizeSession(session) : null;
+  const [unavailable, setUnavailable] = useState<string | null>(null);
   const [repeated, setRepeated] = useState(false);
   const [answer, setAnswer] = useState<AnswerInput>("");
   const [submittedAnswer, setSubmittedAnswer] = useState("");
@@ -72,6 +74,11 @@ export default function App() {
   }
 
   function newExercise(category = selectedCategory, level = difficulty, templateId?: string) {
+    if ((templateId && !supportsDifficulty(templateId, level)) || !availableDifficulties(category).includes(level)) {
+      updateSession(null); setActive(null); setUnavailable(templateId ?? "category");
+      setRun((current) => current + 1); resetAnswer(); return;
+    }
+    setUnavailable(null);
     generator.current ??= createGenerator();
     const next = generator.current.next(category, level, templateId);
     updateSession(null);
@@ -84,11 +91,13 @@ export default function App() {
   }
 
   function newPracticeExample(level = difficulty) {
-    newExercise(selectedCategory, level, active?.templateId);
+    newExercise(selectedCategory, level, active?.templateId ?? (unavailable && unavailable !== "category" ? unavailable : undefined));
   }
 
   function startSession(level = difficulty) {
     if (sessionRef.current && !sessionRef.current.completed) return;
+    if (!availableDifficulties(selectedCategory).includes(level)) return;
+    setUnavailable(null);
     generator.current = createGenerator();
     const next = generator.current.next(selectedCategory, level);
     updateSession(createSession(selectedCategory, level, next.exercise.id));
@@ -145,6 +154,7 @@ export default function App() {
           onClick={(event) => {
             event.preventDefault();
             setActive(null);
+            setUnavailable(null);
             updateSession(null);
             resetAnswer();
             window.scrollTo({ top: 0, behavior: "smooth" });
@@ -259,8 +269,8 @@ export default function App() {
           </div>
           <div className="practice-controls">
             <div className="difficulty-picker" role="group" aria-label="Poziom trudności">
-              {(["easy", "medium", "hard"] as const).map((level) => (
-                <button key={level} type="button" disabled={sessionNumber > 0}
+              {difficultyConfig.map(({ id: level, description }) => (
+                <button key={level} type="button" title={description.pl} disabled={sessionNumber > 0 || !availableDifficulties(selectedCategory).includes(level)}
                   aria-pressed={difficulty === level}
                   onClick={() => {
                     setDifficulty(level);
@@ -279,13 +289,18 @@ export default function App() {
           </div>
           {sessionNumber > 0 && <p className="session-progress" role="status">Sesja: zadanie {sessionNumber} z 10</p>}
           {repeated && active && <p className="session-progress">Pula wariantów w tym temacie i poziomie się wyczerpała; zaczynamy ją ponownie.</p>}
+          {unavailable && <div className="unavailable" role="status">
+            <p>Ta rodzina nie ma zadań na poziomie {difficultyLabels[difficulty]}. Wybierz niższy poziom albo inną dostępną rodzinę.</p>
+            <button type="button" onClick={() => newExercise()}>Wybierz dostępne zadanie</button>
+          </div>}
           <div className="exercise-layout">
             <div className="exercise-list" aria-label="Rodziny ćwiczeń">
               {visibleTemplates.map((template, index) => (
                 <button
                   type="button"
                   key={template.id}
-                  disabled={sessionNumber > 0}
+                  disabled={sessionNumber > 0 || !template.supportedDifficulties.includes(difficulty)}
+                  title={template.supportedDifficulties.includes(difficulty) ? undefined : `Dostępne poziomy: ${template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}`}
                   className={`exercise-item ${active?.templateId === template.id ? "selected" : ""}`}
                   onClick={() => newExercise(selectedCategory, difficulty, template.id)}
                   aria-current={active?.templateId === template.id ? "step" : undefined}
@@ -295,7 +310,7 @@ export default function App() {
                   </span>
                   <span className="exercise-text">
                     <strong>{template.title}</strong>
-                    <small>Losuj kolejny wariant</small>
+                    <small>{template.supportedDifficulties.includes(difficulty) ? "Losuj kolejny wariant" : `Dostępne: ${template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}`}</small>
                   </span>
                   <span
                     className="exercise-state"
@@ -473,7 +488,7 @@ export default function App() {
                   </p>
                 </>
               ) : summary && session ? (
-                <SessionSummaryPanel summary={summary} difficulty={session.difficulty}
+                <SessionSummaryPanel available={availableDifficulties(session.category)} summary={summary} difficulty={session.difficulty}
                   onStartSession={startSession} onPractice={() => newExercise()} />
               ) : (
                 <div className="empty-panel">

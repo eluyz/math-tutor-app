@@ -149,3 +149,12 @@ describe("rozwiązanie a samodzielne pierwsze próby", () => {
     expect(recordSolutionViewed(state, "9")).toBe(state);
   });
 });
+
+it("rekomenduje sąsiedni rzeczywiście dostępny poziom, bez pustych obietnic", () => {
+  const summary = { shown: 10, correct: 8, incorrect: 0, skipped: 0, solutionViewed: 2 };
+  expect(suggestLevel("hard", summary, ["easy","hard","expert"])).toEqual({ kind: "suggestion", difficulty: "expert" });
+  expect(suggestLevel("expert", summary, ["easy","hard","expert"])).toEqual({ kind: "suggestion", difficulty: "expert" });
+  expect(suggestLevel("advanced", summary, ["easy","hard","expert"])).toEqual({ kind: "insufficient" });
+  expect(suggestLevel("expert", { ...summary, correct: 4, incorrect: 3, skipped: 1 }, ["easy","hard","expert"])).toEqual({ kind: "suggestion", difficulty: "hard" });
+  expect(suggestLevel("expert", { ...summary, correct: 6, incorrect: 0 })).toEqual({ kind: "insufficient" });
+});

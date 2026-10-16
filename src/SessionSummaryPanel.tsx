@@ -4,13 +4,14 @@ import { suggestLevel, type SessionSummary } from "./session";
 
 type Props = {
   summary: SessionSummary;
+  available: readonly Difficulty[];
   difficulty: Difficulty;
   onStartSession: (level: Difficulty) => void;
   onPractice: () => void;
 };
 
-export function SessionSummaryPanel({ summary, difficulty, onStartSession, onPractice }: Props) {
-  const suggestion = suggestLevel(difficulty, summary);
+export function SessionSummaryPanel({ summary, available, difficulty, onStartSession, onPractice }: Props) {
+  const suggestion = suggestLevel(difficulty, summary, available);
   return (
     <section className="session-summary" aria-labelledby="session-complete">
       <h3 id="session-complete" tabIndex={-1} aria-describedby="session-summary-counts">
