@@ -1,4 +1,4 @@
-import type { CategoryId, ErrorRule, Exercise } from "./exercises";
+import type { CategoryId, ErrorRule, Exercise, TypedExercise } from "./exercises";
 import {
   addRational,
   equalRational,
@@ -17,6 +17,7 @@ export type GeneratedExercise = Exercise & {
   contentKey: string;
   difficulty: Difficulty;
 };
+export type GeneratedTask = GeneratedExercise | (TypedExercise & Omit<GeneratedExercise, keyof Exercise>);
 type Details = Omit<Exercise, "id" | "category" | "title">;
 export type Template = {
   id: string;

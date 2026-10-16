@@ -56,6 +56,8 @@ export const feedback: FeedbackCopy = {
   invalidNumber: "Wpisz jedną liczbę lub ułamek w formacie a/b.",
   divisionByZero: "Mianownik nie może być zerem.",
   tooLong: "Odpowiedź jest zbyt długa. Wpisz krótszą liczbę lub ułamek.",
+  invalidStructure: "Uzupełnij wszystkie pola odpowiedzi w podanym układzie.",
+  invalidChoice: "Wybierz jedną z podanych odpowiedzi.",
   correctPrefix: "Dobrze!",
   incorrectPrefix:
     "Ta odpowiedź jest matematycznie niepoprawna. Spróbuj ponownie.",

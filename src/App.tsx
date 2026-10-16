@@ -2,18 +2,22 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import {
   checkAnswer,
   checkStep,
+  getAnswerSpec,
   type CategoryId,
   type CheckResult,
   type StepResult,
 } from "./exercises";
 import { categories, difficultyLabels, feedback, ui } from "./locales/pl";
-import { createGenerator, templates, type Difficulty, type GeneratedExercise } from "./generators";
+import { createGenerator, templates, type Difficulty, type GeneratedTask } from "./generators";
+import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
+import { AnswerFields } from "./AnswerFields";
+import { MatrixDisplay } from "./MatrixDisplay";
 import { advanceSession, createSession, recordFirstAttempt, summarizeSession, SESSION_LENGTH, type SessionState } from "./session";
 import { SessionSummaryPanel } from "./SessionSummaryPanel";
 
 export default function App() {
   const generator = useRef<ReturnType<typeof createGenerator> | null>(null);
-  const [active, setActive] = useState<GeneratedExercise | null>(null);
+  const [active, setActive] = useState<GeneratedTask | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>("order");
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
   const [session, setSession] = useState<SessionState | null>(null);
@@ -22,7 +26,7 @@ export default function App() {
   const sessionDone = session?.completed ?? false;
   const summary = session ? summarizeSession(session) : null;
   const [repeated, setRepeated] = useState(false);
-  const [answer, setAnswer] = useState("");
+  const [answer, setAnswer] = useState<AnswerInput>("");
   const [submittedAnswer, setSubmittedAnswer] = useState("");
   const [result, setResult] = useState<CheckResult | null>(null);
   const [hintExpanded, setHintExpanded] = useState(false);
@@ -39,8 +43,8 @@ export default function App() {
     if (sessionDone) document.getElementById("session-complete")?.focus();
   }, [sessionDone]);
 
-  function resetAnswer() {
-    setAnswer("");
+  function resetAnswer(exercise: GeneratedTask | null = null) {
+    setAnswer(exercise ? emptyAnswer(getAnswerSpec(exercise)) : "");
     setSubmittedAnswer("");
     setResult(null);
     setHintExpanded(false);
@@ -55,10 +59,10 @@ export default function App() {
     setSession(next);
   }
 
-  function showExercise(next: { exercise: GeneratedExercise; repeated: boolean }) {
+  function showExercise(next: { exercise: GeneratedTask; repeated: boolean }) {
     setActive(next.exercise);
     setRepeated(next.repeated);
-    resetAnswer();
+    resetAnswer(next.exercise);
   }
 
   function newExercise(category = selectedCategory, level = difficulty, templateId?: string) {
@@ -93,7 +97,7 @@ export default function App() {
     if (sessionRef.current) {
       updateSession(recordFirstAttempt(sessionRef.current, active.id, nextResult.kind));
     }
-    setSubmittedAnswer(answer);
+    setSubmittedAnswer(describeInput(answer));
     setResult(nextResult);
     setHintExpanded(false);
     setStepVisible(false);
@@ -314,20 +318,14 @@ export default function App() {
                   >
                     {active.question}
                   </div>
+                  {"matrices" in active && active.matrices && <div className="given-matrices">
+                    {active.matrices.map((matrix) => <MatrixDisplay key={matrix.label} {...matrix} />)}
+                  </div>}
+                  {"startingHint" in active && <p className="starting-hint"><strong>Jak zacząć:</strong> {active.startingHint}</p>}
                   <form onSubmit={submitAnswer}>
-                    <label htmlFor="answer">{ui.answer}</label>
-                    <div className="answer-row">
-                      <input
-                        id="answer"
-                        type="text"
-                        inputMode={
-                          active.category === "fractions" ? "text" : "decimal"
-                        }
-                        autoComplete="off"
-                        aria-describedby="answer-help"
-                        value={answer}
-                        onChange={(event) => {
-                          setAnswer(event.target.value);
+                    <AnswerFields spec={getAnswerSpec(active)} value={answer} fractionInput={active.category === "fractions"}
+                        onChange={(value) => {
+                          setAnswer(value);
                           setSubmittedAnswer("");
                           setResult(null);
                           setHintExpanded(false);
@@ -335,12 +333,7 @@ export default function App() {
                           setStepAnswer("");
                           setStepResult(null);
                         }}
-                        placeholder={ui.answerPlaceholder}
                       />
-                      <button type="submit" className="check-button">
-                        {ui.check} <span aria-hidden="true">→</span>
-                      </button>
-                    </div>
                     <p id="answer-help" className="input-help">
                       Możesz wpisać liczbę, ułamek a/b lub równoważną wartość
                       dziesiętną.

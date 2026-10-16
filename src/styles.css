@@ -645,6 +645,21 @@ footer p {
   margin: 0 0 12px;
 }
 
+.given-matrices { display: flex; flex-wrap: wrap; gap: 18px; margin: 18px 0; }
+.given-matrix, .matrix-grid { border-collapse: collapse; table-layout: fixed; width: 100%; max-width: 320px; }
+.given-matrix caption, .matrix-grid caption { text-align: left; font-weight: 700; margin: 8px 0; }
+.given-matrix th, .matrix-grid th { font-size: 11px; font-weight: 500; }
+.given-matrix td, .given-matrix th, .matrix-grid td, .matrix-grid th { padding: 5px; text-align: center; }
+.given-matrix td { border: 1px solid #c9d4c9; }
+.given-matrix th:first-child, .matrix-grid th:first-child { width: 34px; }
+.matrix-grid input, .coefficient-field input, .answer-row select { width: 100%; min-width: 0; min-height: 44px; padding: 6px; border: 1px solid #8b9f90; background: white; font: inherit; }
+.answer-row select { flex: 1; }
+.structured-answer fieldset { min-width: 0; margin: 0 0 12px; padding: 10px; border: 1px solid #c9d4c9; }
+.structured-answer legend { font-weight: 700; }
+.coefficient-field { margin: 10px 0; }
+.starting-hint { font-size: 14px; line-height: 1.6; }
+.feedback p { white-space: pre-line; overflow-wrap: anywhere; }
+
 .session-summary h3 {
   font-size: clamp(28px, 4vw, 42px);
   margin: 0 0 20px;
