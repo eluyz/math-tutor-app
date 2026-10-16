@@ -60,6 +60,6 @@ describe("jawnie typowane odpowiedzi", () => {
     for (let index = 1; index <= 10; index++) {
       session = advanceSession(session, index === 1 ? exercise.id : String(index), String(index + 1));
     }
-    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 0, incorrect: 1, skipped: 9 });
+    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 0, incorrect: 1, solutionViewed: 0, skipped: 9 });
   });
 });
