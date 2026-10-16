@@ -7,7 +7,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   const check = <button type="submit" className="check-button">{ui.check} <span aria-hidden="true">→</span></button>;
   if (spec.kind === "roots") {
     const input = typeof value !== "string" && value.kind === "roots" ? value : { classification: "", values: [] as string[] };
-    return <div className="structured-answer"><fieldset><legend>{ui.answer}</legend>
+    return <div className="structured-answer"><fieldset aria-describedby="answer-help"><legend>{ui.answer}</legend>
       <label htmlFor="answer">Liczba pierwiastków rzeczywistych</label>
       <select id="answer" value={input.classification} onChange={(event) => {
         const classification = event.target.value;
@@ -36,7 +36,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   if (spec.kind === "choice") return <>
     <label htmlFor="answer">{ui.answer}</label>
     <div className="answer-row">
-      <select id="answer" value={typeof value !== "string" && value.kind === "choice" ? value.value : ""}
+      <select id="answer" aria-describedby="answer-help" value={typeof value !== "string" && value.kind === "choice" ? value.value : ""}
         onChange={(event) => onChange({ kind: "choice", value: event.target.value })}>
         <option value="">Wybierz odpowiedź</option>
         {spec.options.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
@@ -46,7 +46,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   if (spec.kind === "list") {
     const values = spec.values.map((_, i) => typeof value !== "string" && value.kind === "list" ? value.values[i] ?? "" : "");
     return <div className="structured-answer">
-      <fieldset><legend>{ui.answer}</legend>
+      <fieldset aria-describedby="answer-help"><legend>{ui.answer}</legend>
         {spec.unordered && <p>Kolejność wpisanych pierwiastków nie ma znaczenia.</p>}
         {values.map((entry, index) => <div className="coefficient-field" key={index}>
           <label htmlFor={index === 0 ? "answer" : `answer-${index}`}>{spec.labels[index]}</label>
@@ -59,7 +59,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   const values = spec.values.map((row, i) => row.map((_, j) =>
     typeof value !== "string" && value.kind === "matrix" ? value.values[i]?.[j] ?? "" : ""));
   return <div className="structured-answer">
-    <fieldset><legend>{ui.answer}</legend>
+    <fieldset aria-describedby="answer-help"><legend>{ui.answer}</legend>
       <table className="matrix-grid"><caption>Macierz odpowiedzi — {values.length} × {values[0].length}</caption>
         <thead><tr><th scope="col">W/K</th>{values[0].map((_, j) => <th scope="col" key={j}>Kol. {j + 1}</th>)}</tr></thead>
         <tbody>{values.map((row, i) => <tr key={i}><th scope="row">W. {i + 1}</th>

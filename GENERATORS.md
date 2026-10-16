@@ -1,30 +1,62 @@
-# Generatory zadań — MT-003A
+# Generatory zadań — MT-003A i MT-EDU-001
 
-`src/generators.ts` dostarcza 15 parametrycznych rodzin po trzy w każdej kategorii. Rodzina (`Template`) ma stabilne `id`, kategorię, tytuł, zakresy `parameterSets` dla poziomów `easy`, `medium`, `hard` i czystą funkcję `create(parameters)`. Funkcja zwraca treść, dokładną odpowiedź, wyjaśnienie, dwie wskazówki, opcjonalne pytanie o pierwszy krok i opcjonalne reguły typowych błędów. Komponent React otrzymuje gotowe `GeneratedExercise` i nadal używa `checkAnswer` oraz `checkStep` z MT-002.
+UI i sesje używają `allTemplates` oraz `taskPool`: 35 rodzin na poziomach easy/medium/hard. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-## Rodziny i ograniczenia
+## Pierwotne rodziny
 
-| Kategoria | Rodziny | Dobór parametrów |
-| --- | --- | --- |
-| Kolejność działań | `order-add-product`, `order-subtract-product`, `order-parentheses` | Dodatnie całkowite; nawias albo pierwszeństwo mnożenia. Trudniejsze zakresy obejmują wynik ujemny przy odejmowaniu. |
-| Liczby dodatnie i ujemne | `signed-add`, `signed-subtract-negative`, `signed-product` | Dodawanie różnych znaków, podwójny minus oraz od jednego do trzech czynników w zależności od poziomu. |
-| Ułamki | `fraction-add`, `fraction-subtract`, `fraction-product` | Dodatnie, niezerowe mianowniki; na wyższych poziomach różne mianowniki i możliwy wynik ujemny. |
-| Algebra | `algebra-substitute`, `algebra-like-terms`, `algebra-distribute` | Wartość x i współczynniki dobrane tak, by pytanie było jednoznaczne; poziom trudny obejmuje ujemne x. |
-| Równania | `equation-add`, `equation-subtract`, `equation-fraction` | Najpierw wybierane jest rozwiązanie x, potem współczynniki i prawa strona. `equation-fraction` ma niezerowy dzielnik, a na wyższych poziomach wymaga także pracy z ułamkową prawą stroną. |
+| Kategoria | Rodziny |
+| --- | --- |
+| Kolejność działań | `order-add-product`, `order-subtract-product`, `order-parentheses` |
+| Liczby dodatnie i ujemne | `signed-add`, `signed-subtract-negative`, `signed-product` |
+| Ułamki | `fraction-add`, `fraction-subtract`, `fraction-product` |
+| Algebra | `algebra-substitute`, `algebra-like-terms`, `algebra-distribute` |
+| Równania | `equation-add`, `equation-subtract`, `equation-fraction` |
 
-Trudność zmienia nie tylko wielkość liczb: dochodzą różne mianowniki, ujemne wyniki, dodatkowy czynnik lub ułamkowa prawa strona. Parametry są skończonymi listami; `makeInstance` odrzuca wartości spoza list. Obliczenia ułamkowe używają `rational()` i operacji na `bigint`, bez tolerancji i `eval`. Poziom może wybrać użytkownik; nie ma automatycznej adaptacji.
+Pierwotny `Template` ma zakresy `parameterSets` i czyste `create(parameters)`. `makeInstance` waliduje parametry. `pool` tworzy skończone kombinacje i deduplikuje treści. Zachowano dokładne ułamki, kroki pomocnicze i niskopewne hipotezy z MT-002; `possible()` odrzuca kolizję błędnej odpowiedzi z poprawnym wynikiem. Wyższe poziomy dodają m.in. znaki ujemne, różne mianowniki i kolejne czynniki.
 
-## Instancje, losowanie i powtórki
+`src/generators.test.ts` nadal audytuje 647 różnych treści tych 15 rodzin, ich odpowiedzi, kroki i reguły. Dawna próba z ośmiu seedów dawała 557 treści; aktualne losowanie obejmuje także EDU i ma osobną kontrolę unikalności. Piętnaście stałych przykładów w `src/locales/pl.ts` pozostaje katalogiem referencyjnym, nie źródłem losowania w UI.
 
-Każda instancja zawiera `templateId`, numeryczne `parameters`, stabilne `id` wynikające z szablonu i parametrów, `difficulty` oraz `contentKey` wyprowadzony z widocznej, kanonicznie spacjowanej treści. `pool(category, difficulty)` tworzy wszystkie kombinacje dopuszczalnych parametrów i usuwa identyczne treści. `createGenerator(seed)` używa deterministycznego `xorshift32`; przy każdym `next(category, difficulty, templateId?)` wybiera spośród treści jeszcze niewidzianych w danej sesji. Przy wyczerpaniu puli usuwa jej klucze z pamięci, zwraca `repeated: true` i rozpoczyna nowy cykl. Nie ma nieograniczonego losowania próbnego ani pętli czekającej na unikat. Seed jest parametrem modułu do testów; interfejs tworzy go z czasu podczas rozpoczęcia sesji.
+## MT-EDU-001 — 20 nowych rodzin
 
-Test `src/generators.test.ts` enumeruje wszystkie pule, niezależnie liczy odpowiedzi i etapy oraz sprawdza reguły, parametry i osiem ustalonych seedów. Potwierdza **647 unikalnych treści** w pełnym zbiorze i **557 unikalnych treści** w próbie z ośmiu seedów. Zachowane 15 przykładów w `src/locales/pl.ts` pozostaje regresją MT-002, nie jest źródłem losowania w interfejsie.
+Cztery nowe rodziny powtórkowe dodano do istniejących kategorii algebry/równań. Trzy nowe kategorie są w dziale „Matematyka na studia”. Każda rodzina ma trzy poziomy. Materiały są autorskie, nie stanowią oficjalnego programu UWM.
 
-## Jak dodać nową rodzinę
+| Rodzina | Umiejętność i odpowiedź |
+| --- | --- |
+| `algebra-negative-brackets` | Minus/mnożnik przed nawiasem; współczynnik przy x i wyraz wolny |
+| `algebra-monomials` | Iloczyn współczynników, suma wykładników tej samej podstawy; dwa pola |
+| `algebra-polynomial-product` | Cztery iloczyny i łączenie wyrazów; współczynniki przy x², x i stała |
+| `equation-fraction-balance` | Odjęcie ułamka i mnożenie obu stron; dokładne x |
+| `quadratic-square-sum` | (ax+b)²; trzy współczynniki, także podwójny iloczyn |
+| `quadratic-square-difference` | (ax−b)²; ujemny środkowy współczynnik, dodatnia stała |
+| `quadratic-difference-squares` | Rozpoznanie rozkładu u²−v²; kontrolowany wybór czynników |
+| `quadratic-discriminant` | Δ=b²−4ac ze znakami; liczba |
+| `quadratic-delta-sign` | Trzy znaki delty i liczba pierwiastków; kontrolowany wybór |
+| `quadratic-roots` | Wybór dwóch/jednego podwójnego/braku pierwiastków; dokładne wartości w dowolnej kolejności |
+| `matrix-dimensions` | Liczba wierszy i kolumn w tej kolejności |
+| `matrix-entry` | Odczyt aᵢⱼ; indeksy od 1 |
+| `matrix-add` | Pełna suma macierzy zgodnych wymiarami |
+| `matrix-subtract` | Pełna różnica, także odjęcie ujemnych elementów |
+| `matrix-scale` | Skalar mnoży każde pole, także zera i ułamki |
+| `matrix-transpose` | Pełne Aᵀ, w tym 2×3 ↔ 3×2 |
+| `matrix-product` | Pełne AB: wiersz razy kolumna; porównanie z BA |
+| `determinant-two` | ad−bc: wyniki dodatnie, ujemne i zero |
+| `determinant-sarrus` | Sześć iloczynów 3×3 i odjęcie całej drugiej sumy |
+| `determinant-zero-row` | Świadomy wybór własności zerowego wiersza |
 
-1. Dodaj wpis `Template` z unikalnym `id`, kategorią i trzema zestawami dozwolonych parametrów; nie umieszczaj zera w polu dzielnika.
-2. Napisz czystą funkcję `create`, która oblicza odpowiedź jako `Rational` i składa treść, wyjaśnienie, wskazówki oraz ewentualny etap pomocniczy z tych samych parametrów. Treść musi jednoznacznie określać zadanie.
-3. Regułę błędu twórz z błędnego obliczenia dla bieżących parametrów. `possible()` pomija regułę, gdy jej wynik jest poprawną odpowiedzią. Komunikat ma pozostać hipotezą z niską pewnością.
-4. Dodaj niezależny wzór do audytu w `src/generators.test.ts`, sprawdź etap pomocniczy i liczbę unikalnych treści. Przetestuj też warianty na telefonie i komputerze, jeśli nowa treść jest długa.
+### Dokładność, granice i wydajność
 
-W przyszłości teksty rodzin należy przenieść do katalogu językowego przy dodawaniu angielskiego. Sesja i pamięć powtórek nie są zapisywane po odświeżeniu strony; historię przewiduje MT-004.
+`EducationTemplate.create(variant, difficulty)` otrzymuje jeden indeks 0–23. Pola macierzy są pochodnymi tego indeksu i małych wartości, a nie iloczynem dziewięciu niezależnych list. Jedna rodzina ma maksymalnie 24 kandydatów na poziom; 20 rodzin to najwyżej 1440 kandydatów na wszystkich poziomach (łącznie z pierwotnymi pulami najwyżej 2087 instancji). Testy wymagają co najmniej 10 różnych treści na rodzinę/poziom. Pule są buforowane; `makeEducationInstance` odrzuca indeksy spoza zakresu.
+
+`contentKey` nowych zadań obejmuje pytanie i dane pokazanych macierzy, więc stałe polecenie „Oblicz A + B” z innymi macierzami jest nową treścią. `id` obejmuje rodzinę, poziom i indeks. To pozwala zachować pamięć treści oraz indywidualne oceny sesji.
+
+Łatwe zadania macierzowe mają małe liczby całkowite; wyższe poziomy wprowadzają wymiary prostokątne i dokładne ułamki. Siatka jest najwyżej 3×3. Wyznaczniki są wyłącznie 2×2 i 3×3; Sarrus nie jest uogólniany na większe macierze. Przypadki Δ≥0 konstruujemy z wymiernych pierwiastków i całkowitych współczynników. Dla Δ<0 nie żądamy pozornych przybliżeń rzeczywistych.
+
+`TypedExercise` ma `AnswerSpec`: scalar, list, matrix, choice albo roots (kontrolowany wybór przypadku i lista wartości). Formularz roots nie ujawnia oczekiwanej liczby pierwiastków. Współczynniki są uporządkowane; pierwiastki porównywane jako wielozbiór. Niekompletne lub źle zapisane pola dają invalid; kompletna zła wartość daje incorrect. Wspólne statusy zachowują pierwsze próby i sugestie MT-003B.1. Nowe rodziny nie wymyślają przyczyn błędów: domyślnie mają puste reguły i neutralną diagnozę.
+
+### Audyt i dodawanie treści
+
+`src/education/catalog.test.ts` niezależnie przelicza wszystkie warianty i poziomy: współczynniki, tożsamości wielomianowe, podstawienia do równań, deltę, dokładne pierwiastki i każdą komórkę działań macierzowych. Wyznaczniki 3×3 są sprawdzane przez rekurencyjny Laplace, a nie ponowne użycie Sarrusa. Testy obejmują znaki i zero, nieprzemienność, błędne i niekompletne odpowiedzi, odwrotną kolejność pierwiastków, skończone pule i powtórki. `matrices.test.ts` osobno testuje operacje i niewykonalne wymiary; `answers.test.ts` wspólne statusy oraz sesje. Playwright sprawdza rzeczywiste interakcje na telefonie i komputerze.
+
+Nową rodzinę edukacyjną dodaj do odpowiedniego modułu `education/`, wybierz precyzyjny typ odpowiedzi, zdefiniuj skończony zakres wariantu i własne wyjaśnienia krokowe. Dodaj niezależny rachunek w audycie oraz test UI, jeśli zmienia się sposób odpowiedzi. Nie zwiększaj liczby niezależnych parametrów pól macierzy. Stare skalarne rodziny można nadal rozszerzać przez `Template`, ale każda zmiana wymaga odpowiedniego niezależnego audytu.
+
+Bez `eval`, zaokrąglania, dowolnego parsera symbolicznego, Viète'a, macierzy odwrotnej, Cramera i analizy matematycznej w obecnym zakresie. Trwała historia to MT-004. Przy przyszłym tłumaczeniu teksty rodzin należy przenieść do katalogów językowych.

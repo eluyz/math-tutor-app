@@ -20,6 +20,14 @@ export const studyCategories: { id: CategoryId; label: string }[] = [
   { id: "determinants", label: "Wyznaczniki" },
 ];
 
+export const answerHints = {
+  scalar: "Możesz wpisać liczbę, ułamek a/b lub równoważną wartość dziesiętną.",
+  list: "Uzupełnij każde opisane pole. Możesz użyć liczb całkowitych lub dokładnych ułamków a/b.",
+  matrix: "Wpisz wszystkie elementy macierzy, wiersz po wierszu. Dopuszczalne są liczby całkowite i dokładne ułamki a/b.",
+  choice: "Wybierz jedną z podanych odpowiedzi.",
+  roots: "Wybierz liczbę pierwiastków. Jeśli istnieją, wpisz dokładne wartości (także ułamki a/b), bez zaokrąglania.",
+} as const;
+
 export const ui = {
   start: "Rozpocznij ćwiczenia",
   answer: "Twoja odpowiedź",

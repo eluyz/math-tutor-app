@@ -7,7 +7,7 @@ import {
   type CheckResult,
   type StepResult,
 } from "./exercises";
-import { categories, studyCategories, difficultyLabels, feedback, ui } from "./locales/pl";
+import { categories, studyCategories, difficultyLabels, feedback, ui, answerHints } from "./locales/pl";
 import { createGenerator, allTemplates, type Difficulty, type GeneratedTask } from "./generators";
 import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { AnswerFields } from "./AnswerFields";
@@ -39,7 +39,7 @@ export default function App() {
 
   useEffect(() => {
     if (active) document.getElementById("answer")?.focus();
-  }, [active?.contentKey]);
+  }, [active]);
 
   useEffect(() => {
     if (sessionDone) document.getElementById("session-complete")?.focus();
@@ -62,7 +62,7 @@ export default function App() {
   }
 
   function showExercise(next: { exercise: GeneratedTask; repeated: boolean }) {
-    setActive(next.exercise);
+    setActive({ ...next.exercise });
     setRepeated(next.repeated);
     resetAnswer(next.exercise);
   }
@@ -330,7 +330,7 @@ export default function App() {
                   </div>}
                   {"startingHint" in active && <p className="starting-hint"><strong>Jak zacząć:</strong> {active.startingHint}</p>}
                   <form onSubmit={submitAnswer}>
-                    <AnswerFields spec={getAnswerSpec(active)} value={answer} fractionInput={active.category === "fractions"}
+                    <AnswerFields spec={getAnswerSpec(active)} value={answer} fractionInput={active.category === "fractions" || "startingHint" in active}
                         onChange={(value) => {
                           setAnswer(value);
                           setSubmittedAnswer("");
@@ -342,8 +342,7 @@ export default function App() {
                         }}
                       />
                     <p id="answer-help" className="input-help">
-                      Możesz wpisać liczbę, ułamek a/b lub równoważną wartość
-                      dziesiętną.
+                      {answerHints[getAnswerSpec(active).kind]}
                     </p>
                   </form>
                   {result && (

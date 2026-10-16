@@ -121,6 +121,7 @@ describe("niezależny audyt edukacyjnych rodzin", () => {
         }
       }
       expect(questions.size, `${template.id}/${level}`).toBeGreaterThanOrEqual(10);
+      expect(educationPool(template.category, level).filter((item) => item.templateId === template.id).length).toBeGreaterThanOrEqual(10);
     }
   });
 
@@ -129,6 +130,19 @@ describe("niezależny audyt edukacyjnych rodzin", () => {
       const roots = educationPool("quadratics", level).filter((item) => item.templateId === "quadratic-roots");
       expect(new Set(roots.map((item) => item.answer.kind === "roots" ? item.answer.values.length : -1))).toEqual(new Set([0, 1, 2]));
     }
+  });
+
+  it("buforuje skończony katalog bez kombinatorycznego wzrostu", () => {
+    let total = 0;
+    const categories = [...new Set(educationTemplates.map((template) => template.category))];
+    for (const category of categories) for (const level of difficulties) {
+      const items = educationPool(category, level);
+      expect(educationPool(category, level)).toBe(items);
+      expect(items.length).toBeLessThanOrEqual(educationTemplates.filter((t) => t.category === category).length * 24);
+      total += items.length;
+    }
+    expect(total).toBeLessThanOrEqual(1440);
+    expect(total).toBeGreaterThanOrEqual(20 * 3 * 10);
   });
 
   it("ma skończone pule, deterministyczne losowanie i pamięć treści", () => {

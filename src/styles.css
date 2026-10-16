@@ -716,6 +716,7 @@ footer p {
 .submitted-answer {
   display: block;
   margin-top: 8px;
+  overflow-wrap: anywhere;
 }
 .diagnosis {
   margin-top: 16px;
