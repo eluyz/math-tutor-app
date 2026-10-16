@@ -462,7 +462,7 @@ export default function App() {
                   <p className="panel-intro">{a.intro}</p>
                   <div
                     className="question"
-                    data-exercise-id={active.id}
+                    data-exercise-run={run}
                     data-template-id={active.templateId}
                     data-difficulty={active.difficulty}
                     aria-label={`${a.problem}: ${active.question}`}

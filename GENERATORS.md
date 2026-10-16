@@ -1,6 +1,6 @@
-# Generatory zadań — MT-003A i MT-EDU-001
+# Generatory zadań — MT-003A, MT-EDU-001 i MT-EDU-003
 
-UI i sesje używają `allTemplates` oraz `taskPool`: 35 rodzin na poziomach easy/medium/hard. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+UI i sesje używają `allTemplates` oraz `taskPool`: 35 rodzin na poziomach easy/medium/hard; 29 z nich także na advanced/expert. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 ## Pierwotne rodziny
 
@@ -45,7 +45,7 @@ Cztery nowe rodziny powtórkowe dodano do istniejących kategorii algebry/równa
 
 ### Dokładność, granice i wydajność
 
-`EducationTemplate.create(variant, difficulty)` otrzymuje jeden indeks 0–23. Pola macierzy są pochodnymi tego indeksu i małych wartości, a nie iloczynem dziewięciu niezależnych list. Jedna rodzina ma maksymalnie 24 kandydatów na poziom; 20 rodzin to najwyżej 1440 kandydatów na wszystkich poziomach (łącznie z pierwotnymi pulami 2092 instancje). Testy wymagają co najmniej 10 różnych treści na rodzinę/poziom. Pule są buforowane; `makeEducationInstance` odrzuca indeksy spoza zakresu.
+`EducationTemplate.create(variant, difficulty)` otrzymuje jeden indeks 0–23. Pola macierzy są pochodnymi tego indeksu i małych wartości, a nie iloczynem dziewięciu niezależnych list. Jedna rodzina ma maksymalnie 24 kandydatów na poziom; 20 rodzin to najwyżej 1440 kandydatów na wszystkich poziomach (łącznie z pierwotnymi pulami 2092 instancje w historycznym stanie trzech poziomów; obecne uzupełnienia i L4/L5 opisano niżej). Testy wymagają co najmniej 10 różnych treści na rodzinę/poziom. Pule są buforowane; `makeEducationInstance` odrzuca indeksy spoza zakresu.
 
 `contentKey` nowych zadań obejmuje pytanie i dane pokazanych macierzy, więc stałe polecenie „Oblicz A + B” z innymi macierzami jest nową treścią. `id` obejmuje rodzinę, poziom i indeks. To pozwala zachować pamięć treści oraz indywidualne oceny sesji.
 
@@ -60,3 +60,64 @@ Cztery nowe rodziny powtórkowe dodano do istniejących kategorii algebry/równa
 Nową rodzinę edukacyjną dodaj do odpowiedniego modułu `education/`, wybierz precyzyjny typ odpowiedzi, zdefiniuj skończony zakres wariantu i własne wyjaśnienia krokowe. Dodaj niezależny rachunek w audycie oraz test UI, jeśli zmienia się sposób odpowiedzi. Nie zwiększaj liczby niezależnych parametrów pól macierzy. Stare skalarne rodziny można nadal rozszerzać przez `Template`, ale każda zmiana wymaga odpowiedniego niezależnego audytu.
 
 Bez `eval`, zaokrąglania, dowolnego parsera symbolicznego, Viète'a, macierzy odwrotnej, Cramera i analizy matematycznej w obecnym zakresie. Trwała historia to MT-004. Przy przyszłym tłumaczeniu teksty rodzin należy przenieść do katalogów językowych.
+
+## MT-EDU-003 — pięć poziomów i dwie wersje językowe
+
+Kanoniczne ID, kolejność, opisy oraz etykiety PL/EN są w `src/difficulty.ts`: easy, medium, hard, advanced, expert. `allTemplates[].supportedDifficulties` deklaruje rzeczywiste wsparcie; `availableDifficulties(category)` wyznacza zakres sesji i rekomendacji. Niedostępna rodzina nie jest zastępowana poziomem hard. UI pokazuje wyjaśnienie i dostępną alternatywę. Nowe poziomy wykorzystują `advanced/schema.ts`, `catalog.ts` i `engine.ts`, oddzielone od React.
+
+Instancje: **3501** (historyczne **2092**, uzupełnienia **17**, L4/L5 **1392**).
+Rodziny L4: **29**, L5: **29**. Nowe identyfikatory rodzin: **0**. Każda z ośmiu kategorii wspiera oba wyższe poziomy. Każda wspierana kombinacja rodzina × poziom ma co najmniej 10 różnych treści. Nowe L4/L5 mają dokładnie 24 warianty na kombinację. Język nie mnoży liczby wariantów matematycznych.
+
+Pierwotne siatki parametrów `templates/parameterSets` i 2092 historyczne pytania, wyniki oraz formaty odpowiedzi zachowano. `education/supplements.ts` dodaje tylko 17 jawnych zestawów, bez rozszerzania iloczynów kartezjańskich: po jednym dla trzech poziomów każdej z trzech rodzin liczb ze znakami (9), dwa dla łatwego odejmowania ułamków i sześć dla podstawiania (4 easy, 1 medium, 1 hard). Uzupełniają 13 historycznych kombinacji mających wcześniej 6–9 treści. `pool` pozostaje audytem starych siatek; `taskPool` dodaje uzupełnienia i nowe poziomy. Zmienia to celowo wielkość niektórych pul oraz sekwencję losowania, nie treść istniejących przykładów. Skalarne `id` obejmuje teraz poziom, usuwając pięć dawnych kolizji między poziomami; nie ma trwałego stanu wymagającego migracji. Identyfikatory są niezmienne podczas zmiany języka. DOM używa wyłącznie numeru uruchomienia, bez parametrów przechowywanych w technicznym ID.
+
+### Mapa wszystkich 35 rodzin
+
+`1–5` oznacza wszystkie poziomy; `1–3` oznacza świadome ograniczenie. Wszystkie wyższe poziomy korzystają ze znaków i dokładnych ułamków. Poniższe symbole opisują wzorce, nie jeden stały przykład.
+
+| Rodzina | Poziomy | L3 — zachowane | L4 — Zaawansowany | L5 — Ekspert |
+| --- | --- | --- | --- | --- |
+| order-add-product | 1–5 | dodawanie i iloczyn | suma z iloczynem zawierającym iloraz w nawiasie | zagnieżdżone ilorazy, nawiasy, iloczyn i końcowa różnica |
+| order-subtract-product | 1–5 | odejmowanie iloczynu | odejmowanie iloczynu różnicy podzielonego przez liczbę | cały licznik złożony z różnicy i iloczynu podzielony przez sumę |
+| order-parentheses | 1–5 | jeden nawias i mnożenie | iloczyn dwóch nawiasów i dzielenie | ilorazy wewnątrz dwóch czynników i ich iloczyn |
+| signed-add | 1–3 | różne znaki i wartości bezwzględne | — pojedyncza czynność | — złożenia są w signed-product |
+| signed-subtract-negative | 1–3 | minus ujemnej liczby | — pojedyncza zmiana działania | — złożenia są w signed-product |
+| signed-product | 1–5 | kilka czynników ze znakami | ujemny ułamek razy różnica z ilorazem | dodatkowe dzielenie przez sumę; plan znaków i kolejności |
+| fraction-add | 1–5 | wspólny mianownik dwóch ułamków | suma dwóch ilorazów ułamków | cała suma dzielona przez kolejną różnicę |
+| fraction-subtract | 1–5 | odejmowanie dwóch ułamków | różnica dwóch ilorazów ułamków | mianownik będący sumą oraz odejmowany iloczyn z nawiasem |
+| fraction-product | 1–5 | iloczyn dwóch ułamków | iloczyn sumy i różnicy ułamków | cały iloczyn dzielony przez kolejną różnicę |
+| algebra-substitute | 1–5 | x²+kx dla ujemnego x | podstawienie ułamka do kwadratu nawiasu i iloczynu | kwadrat wyrażenia liniowego oraz drugi iloczyn z nawiasem |
+| algebra-like-terms | 1–5 | łączenie współczynników i podstawienie | dwa różne nawiasy przed podstawieniem | trzeci nawias, racjonalne współczynniki i podstawienie |
+| algebra-distribute | 1–5 | mnożnik przed jednym nawiasem | różnica dwóch rozwinięć; dwa współczynniki | iloczyn dwóch nawiasów minus wyrażenie liniowe; trzy współczynniki |
+| equation-add | 1–5 | ax+b=c | nawias po lewej i x po obu stronach | różne dodatkowe nawiasy i ułamki po obu stronach |
+| equation-subtract | 1–5 | ax−b=c | odejmowany nawias i x po obu stronach | dodatkowe różne wyrażenia liniowe i przekształcenia dwustronne |
+| equation-fraction | 1–5 | x/a+b=c | przesunięta niewiadoma w liczniku i x po obu stronach | dodatkowe ilorazy nawiasów po obu stronach |
+| algebra-negative-brackets | 1–5 | ujemny mnożnik przed nawiasem | różnica dwóch nawiasów ze znakami | ujemny iloczyn dwóch nawiasów minus trzeci nawias |
+| algebra-monomials | 1–5 | mnożenie współczynników i potęg | mnożenie i dzielenie jednomianów dla x≠0 | uproszczenie ilorazu, następnie łączenie jednomianów podobnych |
+| algebra-polynomial-product | 1–5 | dwa nawiasy i redukcja | dwa ogólne nawiasy i dodatkowy wyraz liniowy | różnica dwóch iloczynów nawiasów |
+| equation-fraction-balance | 1–5 | odjęcie ułamka i mnożenie | ułamkowe wyrażenia liniowe po obu stronach | dodatkowe różne ułamkowe nawiasy, zebranie x i stałych |
+| quadratic-square-sum | 1–5 | (ax+b)² | kwadrat minus wyrażenie liniowe | dwa kwadraty minus iloczyn dwóch nawiasów |
+| quadratic-square-difference | 1–5 | (ax−b)² | kwadrat różnicy minus wyrażenie liniowe | dwa kwadraty z różnymi znakami minus iloczyn nawiasów |
+| quadratic-difference-squares | 1–5 | rozpoznanie wzoru | równanie (2x+a)²=b²; liczba i wartości pierwiastków | równanie (2x+a)²=(x+b)²; uproszczenie i dwa czynniki liniowe |
+| quadratic-discriminant | 1–5 | delta uporządkowanego równania | rozwinięcie iloczynu i redukcja przed deltą | różne kwadraty po obu stronach; dopiero potem a,b,c i delta |
+| quadratic-delta-sign | 1–3 | liczba pierwiastków ze znaku delty | — klasyfikacja pozostaje elementarna | — rozumowanie w quadratic-roots/discriminant |
+| quadratic-roots | 1–5 | gotowe ax²+bx+c=0 | uproszczenie iloczynu i obliczenie pierwiastków | kwadraty po obu stronach; wszystkie trzy znaki delty i dokładne wartości |
+| matrix-dimensions | 1–3 | odczyt wierszy i kolumn | — sama czynność nie ma uczciwego L4 | — wymiary są kontrolowane w złożonych działaniach |
+| matrix-entry | 1–3 | odczyt aᵢⱼ | — sam odczyt nie jest złożonym zadaniem | — indeksowanie jest częścią każdego działania L4/L5 |
+| matrix-add | 1–5 | A+B | 2A+B | (3/2)(A+Bᵀ)−C |
+| matrix-subtract | 1–5 | A−B | Aᵀ−B | (A−B)C |
+| matrix-scale | 1–5 | kA | (−3/2)(A+B) | (−3/2)AB−C |
+| matrix-transpose | 1–5 | Aᵀ, także prostokątna | (AB)ᵀ | (AB−C)ᵀ |
+| matrix-product | 1–5 | AB, wiersz × kolumna | AB−C | (AB)ᵀ−(3/2)C |
+| determinant-two | 1–5 | ad−bc | det(2A−B) | det(AB−Cᵀ) dla 2×2 |
+| determinant-sarrus | 1–5 | sześć iloczynów | det(2A−B) dla 3×3 | det(AB−Cᵀ) dla 3×3 |
+| determinant-zero-row | 1–3 | własność zerowego wiersza | — nie wydłużamy sztucznie odczytu własności | — przypadki zerowe występują w pełnych działaniach |
+
+Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapowe wzorce. Zmiana rodzaju odpowiedzi na L4/L5 jest celowa, np. równanie z różnicy kwadratów ma `roots`, a rozwinięcie złożonego nawiasu `list`. Formularz wynika z konkretnego `AnswerSpec`, nie z nazwy rodziny.
+
+### Rachunek, tłumaczenia i audyt
+
+`MathProblem` obejmuje drzewa dokładnych działań, wielomiany, równania i wyrażenia macierzowe. Rozwiązanie realizuje porządek drzewa: zagnieżdżone działania, współczynniki według potęg, przenoszenie stron, delta, pierwiastki, każde pole każdej operacji macierzowej, sześć podpisanych iloczynów Sarrusa. Nie dzieli istniejącego opisu na zdania ani nie wykonuje kodu z treści. Dzielniki są niezerowe; rzeczywiste pierwiastki są dokładnie wymierne. Macierze nie przekraczają 3×3.
+
+`advanced/catalog.test.ts` sprawdza wszystkie nowe warianty arytmetyką niezależną od operatorów produkcyjnych. Wielomiany weryfikuje przez podstawienia, a współczynniki równania odzyskuje z wartości w 0, 1 i −1. Sprawdza pierwiastki podstawieniem oraz sumą i iloczynem; macierze osobnymi pętlami, wyznaczniki rekurencyjnym Laplace'em. Osobno weryfikuje każdy rachunek pośredni, wynik finalny, odpowiedzi poprawne/błędne/niekompletne, wymiary, unikalność i deklaracje dostępności. `supplements.test.ts` kontroluje minimum 10, globalną unikalność ID i sumy dokumentacji. Dawne audyty nadal niezależnie przeliczają pierwotne siatki.
+
+`locales/catalog.ts` wybiera prezentację PL/EN dla tego samego modelu. `locales/lessons-en.ts` zawiera autorskie parametryczne polecenia, wskazówki i opisy starych kroków; `locales/math.ts` oba katalogi komunikatów nowego silnika. Dawne polskie fabryki pozostają źródłem zgodnych treści PL. Język nie wpływa na generator, parametry, `id`, `contentKey`, wartości ani rachunki. `locales/lessons.test.ts` audytuje oba języki dla wszystkich instancji, zgodność rachunków i wyników, pełność kluczy i brak polskich komunikatów w EN. Zmiana metod starego rozwiązania wymaga jednoczesnego przeglądu odpowiadającej mu angielskiej sceny; test kontroluje również zgodność liczby etapów.

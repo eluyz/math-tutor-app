@@ -272,7 +272,8 @@ describe("rzeczywiste zaawansowane i eksperckie zadania", () => {
     const legacy = [...categories, ...studyCategories].flatMap(({ id }) =>
       legacyDifficulties.flatMap((d) => taskPool(id, d)),
     );
-    expect(legacy).toHaveLength(2092);
+    expect(legacy.filter((t) => !t.supplemental)).toHaveLength(2092);
+    expect(legacy.filter((t) => t.supplemental)).toHaveLength(17);
   });
   it("nie zastępuje nieobsługiwanej rodziny poziomem hard i odrzuca błędne warianty", () => {
     const elementary = allTemplates.find((t) => t.id === "matrix-entry")!;

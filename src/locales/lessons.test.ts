@@ -22,6 +22,8 @@ describe("kompletne angielskie lekcje bez zmiany tożsamości", () => {
         expect(en.contentKey).toBe(task.contentKey);
         expect(en.parameters).toEqual(task.parameters);
         expect(en.difficulty).toBe(task.difficulty);
+        expect("startingHint" in en).toBe("startingHint" in task);
+        expect("numerator" in en.answer).toBe("numerator" in task.answer);
         expect(getAnswerSpec(en)).toEqual(englishAnswer(getAnswerSpec(task)));
         expect(enSteps.length).toBe(plSteps.length);
         for (const [i, step] of enSteps.entries()) {
@@ -38,6 +40,22 @@ describe("kompletne angielskie lekcje bez zmiany tożsamości", () => {
           en.explanation,
           en.hint,
           en.nextHint,
+          ...(getAnswerSpec(en).kind === "list"
+            ? (
+                getAnswerSpec(en) as Extract<
+                  ReturnType<typeof getAnswerSpec>,
+                  { kind: "list" }
+                >
+              ).labels
+            : []),
+          ...(getAnswerSpec(en).kind === "choice"
+            ? (
+                getAnswerSpec(en) as Extract<
+                  ReturnType<typeof getAnswerSpec>,
+                  { kind: "choice" }
+                >
+              ).options.map((o) => o.label)
+            : []),
           ...en.errorRules.flatMap((r) => [r.explanation, r.hint]),
           ...(en.step
             ? [en.step.question, en.step.correctHint, en.step.incorrectHint]

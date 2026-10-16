@@ -202,7 +202,14 @@ const fieldLabels: Record<string, string> = {
 };
 export function englishAnswer(spec: AnswerSpec): AnswerSpec {
   if (spec.kind === "list")
-    return { ...spec, labels: spec.labels.map((s) => fieldLabels[s] ?? s) };
+    return {
+      ...spec,
+      labels: spec.labels.map((s) => {
+        if (!fieldLabels[s])
+          throw new Error(`Missing English answer label: ${s}`);
+        return fieldLabels[s];
+      }),
+    };
   if (spec.kind === "choice")
     return {
       ...spec,
@@ -469,11 +476,11 @@ function legacyScenes(task: GeneratedTask): Scene[] {
     ],
     "matrix-dimensions": [
       [
-        "Count the horizontal rows",
+        `Count the horizontal rows: ${"matrices" in task ? task.matrices![0].values.length : 0}`,
         "Rows run horizontally and are numbered from 1.",
       ],
       [
-        "Count the vertical columns",
+        `Count the vertical columns: ${"matrices" in task ? task.matrices![0].values[0].length : 0}`,
         "Write the number of rows first and then the number of columns.",
       ],
     ],
@@ -483,7 +490,7 @@ function legacyScenes(task: GeneratedTask): Scene[] {
         "The first index specifies the row, counting from 1.",
       ],
       [
-        `Read column ${p.j} in that row`,
+        `Read column ${p.j} in that row: ${id === "matrix-entry" && "matrices" in task ? f(task.matrices![0].values[p.i - 1][p.j - 1]) : ""}`,
         "The second index specifies the column; use their intersection.",
       ],
     ],
@@ -717,12 +724,10 @@ export function englishTask(task: GeneratedTask): GeneratedTask {
         : "Correct answer shown in the final solution step.",
     )
     .join("\n");
-  return {
+  const presentation = {
     ...task,
     title: info[0],
     question: q,
-    answer,
-    startingHint: info[1],
     hint: info[1],
     nextHint: info[2],
     solution,
@@ -738,4 +743,9 @@ export function englishTask(task: GeneratedTask): GeneratedTask {
       };
     }),
   };
+  // Keep the original answer representation and hint availability. Locale changes
+  // presentation, rather than enabling extra help or changing the editor type.
+  if ("numerator" in task.answer)
+    return { ...presentation, answer: task.answer };
+  return { ...presentation, answer, startingHint: info[1] };
 }

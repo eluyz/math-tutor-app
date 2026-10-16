@@ -1,3 +1,4 @@
+import { supplementalPool } from "./education/supplements";
 import { higherPool, supportsHigher } from "./advanced/catalog";
 import { higherDifficulties } from "./difficulty";
 import type { CategoryId, ErrorRule, Exercise, TypedExercise } from "./exercises";
@@ -17,6 +18,7 @@ export type { Difficulty };
 export type Parameters = Readonly<Record<string, number>>;
 export type GeneratedExercise = Exercise & {
   templateId: string;
+  supplemental?: true;
   parameters: Parameters;
   contentKey: string;
   difficulty: Difficulty;
@@ -417,7 +419,7 @@ export function makeInstance(template: Template, parameters: Parameters, difficu
   const details = template.create(parameters);
   const contentKey = details.question.replace(/\s+/g, " ").trim();
   return {
-    ...details, id: `${template.id}:${JSON.stringify(parameters)}`,
+    ...details, id: `${template.id}:${difficulty}:${JSON.stringify(parameters)}`,
     templateId: template.id, parameters: { ...parameters }, contentKey,
     difficulty, category: template.category, title: template.title,
   };
@@ -477,7 +479,7 @@ const taskCache = new Map<string, readonly GeneratedTask[]>();
 /** Legacy pools stay independently auditable; UI/session pools include typed education tasks. */
 export function taskPool(category: CategoryId, difficulty: Difficulty): readonly GeneratedTask[] {
   const key = `${category}:${difficulty}`;
-  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty), ...higherPool(category, difficulty, allTemplates)]);
+  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty), ...supplementalPool(category, difficulty, templates), ...higherPool(category, difficulty, allTemplates)]);
   return taskCache.get(key)!;
 }
 

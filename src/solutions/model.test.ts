@@ -59,7 +59,7 @@ describe("rzeczywiste rozwiązania wszystkich 35 rodzin", () => {
     }
   });
   it("dokumentowana suma obejmuje faktyczne instancje wszystkich pul i poziomów", () => {
-    expect(tasks.filter((t) => isLegacyDifficulty(t.difficulty))).toHaveLength(2092);
+    expect(tasks.filter((t) => isLegacyDifficulty(t.difficulty) && !t.supplemental)).toHaveLength(2092);
     const docs = readFileSync(new URL("../../GENERATORS.md", import.meta.url), "utf8");
     expect(docs).toContain("łącznie z pierwotnymi pulami 2092 instancje");
   });

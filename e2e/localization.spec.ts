@@ -5,6 +5,7 @@ const polish =
 async function english(page: Page) {
   await page.getByRole("button", { name: "English", exact: true }).click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
+  await expect(page).toHaveTitle("Math Tutor — Mathematics step by step");
 }
 async function noPolish(page: Page) {
   expect(await page.locator("main").innerText()).not.toMatch(polish);
@@ -65,7 +66,7 @@ for (const viewport of [
       await page.getByRole("button", { name: /Najpierw mnożenie/ }).click();
       const id = await page
         .locator(".question")
-        .getAttribute("data-exercise-id");
+        .getAttribute("data-exercise-run");
       const drawing = page.getByRole("img", { name: "Pole rysowania" });
       await drawing.scrollIntoViewIfNeeded();
       const box = (await drawing.boundingBox())!;
@@ -103,8 +104,9 @@ for (const viewport of [
         page.getByRole("button", { name: "English", exact: true }),
       ).toBeFocused();
       await expect(page.locator("html")).toHaveAttribute("lang", "en");
+      await expect(page).toHaveTitle("Math Tutor — Mathematics step by step");
       await expect(page.locator(".question")).toHaveAttribute(
-        "data-exercise-id",
+        "data-exercise-run",
         id!,
       );
       await expect(page.getByLabel("Your answer", { exact: true })).toHaveValue(
@@ -145,7 +147,7 @@ for (const viewport of [
       await page.getByRole("button", { name: /Adding fractions/ }).click();
       const id = await page
         .locator(".question")
-        .getAttribute("data-exercise-id");
+        .getAttribute("data-exercise-run");
       await page
         .getByRole("button", { name: "Show solution", exact: true })
         .click();
@@ -156,7 +158,7 @@ for (const viewport of [
       await noPolish(page);
       await page.getByRole("button", { name: "Polski", exact: true }).click();
       await expect(page.locator(".question")).toHaveAttribute(
-        "data-exercise-id",
+        "data-exercise-run",
         id!,
       );
       await page.getByRole("button", { name: "English", exact: true }).click();
@@ -284,10 +286,10 @@ for (const viewport of [
       await page.getByLabel("Notatki tekstowe").pressSequentially("my notes");
       const id = await page
         .locator(".question")
-        .getAttribute("data-exercise-id");
+        .getAttribute("data-exercise-run");
       await english(page);
       await expect(page.locator(".question")).toHaveAttribute(
-        "data-exercise-id",
+        "data-exercise-run",
         id!,
       );
       await expect(page.locator(".session-progress")).toHaveText(
