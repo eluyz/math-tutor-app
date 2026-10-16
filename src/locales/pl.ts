@@ -45,9 +45,7 @@ export const ui = {
   step: "Sprawdź pierwszy krok",
 } as const;
 
-export const difficultyLabels = {
-  easy: "Łatwy", medium: "Średni", hard: "Trudny",
-} as const;
+export { difficultyLabels } from "../difficulty";
 
 export const sessionCopy = {
   complete: "Sesja zakończona!",

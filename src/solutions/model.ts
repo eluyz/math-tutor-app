@@ -1,25 +1,16 @@
 import type { Rational } from "../rational";
-import { rational as r, addRational, subtractRational, multiplyRational, divideRational } from "../rational";
+import { rational as r, addRational, divideRational } from "../rational";
 import { formatRational as f, type AnswerSpec } from "../answers";
 import { getAnswerSpec } from "../exercises";
 import type { GeneratedTask } from "../generators";
 import type { Matrix } from "../matrices";
 
-export type Calculation = Readonly<{ operation: "sum" | "difference" | "product" | "quotient"; operands: readonly Rational[]; result: Rational }>;
-export type SolutionStep = Readonly<{ kind: "working"; action: string; reason: string; calculations: readonly Calculation[] }>
-  | Readonly<{ kind: "answer"; action: string; reason: string; answer: AnswerSpec }>;
-export type Solution = readonly [SolutionStep, ...SolutionStep[]];
-const operators = { sum: addRational, difference: subtractRational, product: multiplyRational, quotient: divideRational };
-export function calculate(operation: Calculation["operation"], ...operands: Rational[]): Calculation {
-  if (operands.length < 2) throw new Error("A calculation needs two operands");
-  return { operation, operands, result: operands.slice(1).reduce(operators[operation], operands[0]) };
-}
-export function calculationText(c: Calculation): string {
-  const sign = { sum: " + ", difference: " − ", product: " × ", quotient: " ÷ " }[c.operation];
-  return `${c.operands.map((v) => `(${f(v)})`).join(sign)} = ${f(c.result)}`;
-}
+import { calculate, type Solution, type SolutionStep, type Calculation } from "./types";
+export { calculate, calculationText } from "./types";
+export type { Solution, SolutionStep, Calculation } from "./types";
 /** Every branch constructs mathematical stages from parameters, never from explanation prose. */
 export function solutionFor(task: GeneratedTask): Solution {
+  if ("solution" in task && task.solution) return task.solution;
   const steps: SolutionStep[] = [];
   const working = (action: string, reason: string, ...calculations: Calculation[]) => { steps.push({ kind: "working", action, reason, calculations }); };
   const calc = (operation: Calculation["operation"], ...numbers: number[]) => calculate(operation, ...numbers.map((v) => r(v)));

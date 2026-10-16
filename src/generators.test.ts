@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { checkAnswer, checkStep } from "./exercises";
-import { createGenerator, difficulties, makeInstance, pool, templates, type GeneratedExercise } from "./generators";
+import { createGenerator, makeInstance, pool, templates, type GeneratedExercise } from "./generators";
+import { legacyDifficulties as difficulties } from "./difficulty";
 import { categories, feedback } from "./locales/pl";
 import { equalRational, rational as r, type Rational } from "./rational";
 

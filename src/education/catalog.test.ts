@@ -1,7 +1,8 @@
 import { describe, expect, it } from "vitest";
+import { legacyDifficulties as difficulties } from "../difficulty";
 import { educationTemplates, educationPool } from "./catalog";
 import { makeEducationInstance, VARIANTS_PER_LEVEL, type EducationInstance } from "./types";
-import { createGenerator, difficulties, taskPool, allTemplates } from "../generators";
+import { createGenerator, taskPool, allTemplates } from "../generators";
 import { checkAnswer } from "../exercises";
 import { feedback } from "../locales/pl";
 import { emptyAnswer, formatRational as f, type AnswerInput, type AnswerSpec } from "../answers";

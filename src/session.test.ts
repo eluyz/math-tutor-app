@@ -89,12 +89,14 @@ describe("pierwsze ważne próby w pojedynczej sesji", () => {
   });
 });
 
-const levels: Difficulty[] = ["easy", "medium", "hard"];
+import { difficulties as levels } from "./difficulty";
 // Jawna tabela oczekiwań dla 0, 1, ..., 10 poprawnych pierwszych prób.
 const expected: Record<Difficulty, Difficulty[]> = {
   easy:   ["easy", "easy", "easy", "easy", "easy", "easy", "easy", "easy", "medium", "medium", "medium"],
   medium: ["easy", "easy", "easy", "easy", "easy", "medium", "medium", "medium", "hard", "hard", "hard"],
-  hard:   ["medium", "medium", "medium", "medium", "medium", "hard", "hard", "hard", "hard", "hard", "hard"],
+  hard:   ["medium", "medium", "medium", "medium", "medium", "hard", "hard", "hard", "advanced", "advanced", "advanced"],
+  advanced: ["hard", "hard", "hard", "hard", "hard", "advanced", "advanced", "advanced", "expert", "expert", "expert"],
+  expert: ["advanced", "advanced", "advanced", "advanced", "advanced", "expert", "expert", "expert", "expert", "expert", "expert"],
 };
 
 describe("ostrożna sugestia poziomu na następną sesję", () => {
