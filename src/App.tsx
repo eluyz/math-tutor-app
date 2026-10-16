@@ -59,8 +59,12 @@ export default function App() {
 
   function startExercises() {
     setSessionNumber(0);
-    newExercise();
+    newPracticeExample();
     document.getElementById("practice")?.scrollIntoView({ behavior: "smooth" });
+  }
+
+  function newPracticeExample(level = difficulty) {
+    newExercise(selectedCategory, level, active?.templateId);
   }
 
   function startSession() {
@@ -95,8 +99,12 @@ export default function App() {
       resetAnswer();
       return;
     }
-    if (sessionNumber > 0) setSessionNumber(sessionNumber + 1);
-    newExercise();
+    if (sessionNumber > 0) {
+      setSessionNumber(sessionNumber + 1);
+      newExercise();
+    } else {
+      newPracticeExample();
+    }
   }
 
   return (
@@ -224,7 +232,7 @@ export default function App() {
                   onClick={() => {
                     setDifficulty(level);
                     setSessionDone(false);
-                    newExercise(selectedCategory, level);
+                    newPracticeExample(level);
                   }}>
                   {difficultyLabels[level]}
                 </button>
@@ -232,7 +240,7 @@ export default function App() {
             </div>
             {sessionNumber === 0 && (
               <div className="practice-actions">
-                <button type="button" onClick={() => { setSessionDone(false); newExercise(); }}>Nowe zadanie</button>
+                <button type="button" onClick={() => newPracticeExample()}>{ui.newExample}</button>
                 <button type="button" onClick={startSession}>Rozpocznij sesję (10 zadań)</button>
               </div>
             )}
@@ -282,6 +290,8 @@ export default function App() {
                   </p>
                   <div
                     className="question"
+                    data-template-id={active.templateId}
+                    data-difficulty={active.difficulty}
                     aria-label={`Zadanie: ${active.question}`}
                     aria-live="polite"
                   >
@@ -426,7 +436,7 @@ export default function App() {
                   )}
                   {(sessionNumber > 0 || result?.kind === "correct") && (
                     <button type="button" className="next-button" onClick={nextExercise}>
-                      {sessionNumber === 10 ? "Zakończ sesję" : ui.next} <span aria-hidden="true">→</span>
+                      {sessionNumber === 10 ? "Zakończ sesję" : sessionNumber > 0 ? ui.next : ui.nextExample} <span aria-hidden="true">→</span>
                     </button>
                   )}
                   <p className="panel-footnote">
