@@ -6,20 +6,21 @@ import {
   type CheckResult,
   type StepResult,
 } from "./exercises";
-import { categories, feedback, ui } from "./locales/pl";
+import { categories, difficultyLabels, feedback, ui } from "./locales/pl";
 import { createGenerator, templates, type Difficulty, type GeneratedExercise } from "./generators";
-
-const difficultyLabels: Record<Difficulty, string> = {
-  easy: "Łatwy", medium: "Średni", hard: "Trudny",
-};
+import { advanceSession, createSession, recordFirstAttempt, summarizeSession, SESSION_LENGTH, type SessionState } from "./session";
+import { SessionSummaryPanel } from "./SessionSummaryPanel";
 
 export default function App() {
   const generator = useRef<ReturnType<typeof createGenerator> | null>(null);
   const [active, setActive] = useState<GeneratedExercise | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>("order");
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
-  const [sessionNumber, setSessionNumber] = useState(0);
-  const [sessionDone, setSessionDone] = useState(false);
+  const [session, setSession] = useState<SessionState | null>(null);
+  const sessionRef = useRef<SessionState | null>(null);
+  const sessionNumber = session && !session.completed ? session.entries.length : 0;
+  const sessionDone = session?.completed ?? false;
+  const summary = session ? summarizeSession(session) : null;
   const [repeated, setRepeated] = useState(false);
   const [answer, setAnswer] = useState("");
   const [submittedAnswer, setSubmittedAnswer] = useState("");
@@ -48,17 +49,26 @@ export default function App() {
     setStepResult(null);
   }
 
-  function newExercise(category = selectedCategory, level = difficulty, templateId?: string) {
-    generator.current ??= createGenerator();
-    const next = generator.current.next(category, level, templateId);
+  function updateSession(next: SessionState | null) {
+    // Keep event guards current even before React renders a queued state update.
+    sessionRef.current = next;
+    setSession(next);
+  }
+
+  function showExercise(next: { exercise: GeneratedExercise; repeated: boolean }) {
     setActive(next.exercise);
     setRepeated(next.repeated);
-    setSessionDone(false);
     resetAnswer();
   }
 
+  function newExercise(category = selectedCategory, level = difficulty, templateId?: string) {
+    generator.current ??= createGenerator();
+    const next = generator.current.next(category, level, templateId);
+    updateSession(null);
+    showExercise(next);
+  }
+
   function startExercises() {
-    setSessionNumber(0);
     newPracticeExample();
     document.getElementById("practice")?.scrollIntoView({ behavior: "smooth" });
   }
@@ -67,17 +77,22 @@ export default function App() {
     newExercise(selectedCategory, level, active?.templateId);
   }
 
-  function startSession() {
+  function startSession(level = difficulty) {
+    if (sessionRef.current && !sessionRef.current.completed) return;
     generator.current = createGenerator();
-    setSessionDone(false);
-    setSessionNumber(1);
-    newExercise();
+    const next = generator.current.next(selectedCategory, level);
+    updateSession(createSession(selectedCategory, level, next.exercise.id));
+    setDifficulty(level);
+    showExercise(next);
   }
 
   function submitAnswer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!active) return;
     const nextResult = checkAnswer(active, answer, feedback);
+    if (sessionRef.current) {
+      updateSession(recordFirstAttempt(sessionRef.current, active.id, nextResult.kind));
+    }
     setSubmittedAnswer(answer);
     setResult(nextResult);
     setHintExpanded(false);
@@ -92,19 +107,23 @@ export default function App() {
   }
 
   function nextExercise() {
-    if (sessionNumber === 10) {
-      setActive(null);
-      setSessionNumber(0);
-      setSessionDone(true);
-      resetAnswer();
+    const current = sessionRef.current;
+    if (current) {
+      if (!active || current.completed || current.entries[current.entries.length - 1].exerciseId !== active.id) return;
+      const next = current.entries.length < SESSION_LENGTH
+        ? generator.current!.next(current.category, current.difficulty) : undefined;
+      const updated = advanceSession(current, active.id, next?.exercise.id);
+      if (updated === current) return;
+      updateSession(updated);
+      if (next) showExercise(next);
+      else {
+        setActive(null);
+        setRepeated(false);
+        resetAnswer();
+      }
       return;
     }
-    if (sessionNumber > 0) {
-      setSessionNumber(sessionNumber + 1);
-      newExercise();
-    } else {
-      newPracticeExample();
-    }
+    newPracticeExample();
   }
 
   return (
@@ -116,7 +135,7 @@ export default function App() {
           onClick={(event) => {
             event.preventDefault();
             setActive(null);
-            setSessionNumber(0);
+            updateSession(null);
             resetAnswer();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
@@ -216,7 +235,6 @@ export default function App() {
                 disabled={sessionNumber > 0}
                 onClick={() => {
                   setSelectedCategory(category.id);
-                  setSessionDone(false);
                   newExercise(category.id);
                 }}
               >
@@ -231,7 +249,6 @@ export default function App() {
                   aria-pressed={difficulty === level}
                   onClick={() => {
                     setDifficulty(level);
-                    setSessionDone(false);
                     newPracticeExample(level);
                   }}>
                   {difficultyLabels[level]}
@@ -241,7 +258,7 @@ export default function App() {
             {sessionNumber === 0 && (
               <div className="practice-actions">
                 <button type="button" onClick={() => newPracticeExample()}>{ui.newExample}</button>
-                <button type="button" onClick={startSession}>Rozpocznij sesję (10 zadań)</button>
+                <button type="button" onClick={() => startSession()}>Rozpocznij sesję (10 zadań)</button>
               </div>
             )}
           </div>
@@ -255,7 +272,7 @@ export default function App() {
                   key={template.id}
                   disabled={sessionNumber > 0}
                   className={`exercise-item ${active?.templateId === template.id ? "selected" : ""}`}
-                  onClick={() => { setSessionDone(false); newExercise(selectedCategory, difficulty, template.id); }}
+                  onClick={() => newExercise(selectedCategory, difficulty, template.id)}
                   aria-current={active?.templateId === template.id ? "step" : undefined}
                 >
                   <span className="exercise-number">
@@ -435,7 +452,7 @@ export default function App() {
                     </div>
                   )}
                   {(sessionNumber > 0 || result?.kind === "correct") && (
-                    <button type="button" className="next-button" onClick={nextExercise}>
+                    <button key={active.id} type="button" className="next-button" onClick={(event) => { if (event.detail < 2) nextExercise(); }}>
                       {sessionNumber === 10 ? "Zakończ sesję" : sessionNumber > 0 ? ui.next : ui.nextExample} <span aria-hidden="true">→</span>
                     </button>
                   )}
@@ -444,20 +461,23 @@ export default function App() {
                     potrzebujesz.
                   </p>
                 </>
+              ) : summary && session ? (
+                <SessionSummaryPanel summary={summary} difficulty={session.difficulty}
+                  onStartSession={startSession} onPractice={() => newExercise()} />
               ) : (
                 <div className="empty-panel">
                   <span className="empty-symbol" aria-hidden="true">
                     ↗
                   </span>
                   <span className="eyebrow">TWOJA PRZESTRZEŃ DO NAUKI</span>
-                  <h3 id={sessionDone ? "session-complete" : undefined} tabIndex={sessionDone ? -1 : undefined}>
-                    {sessionDone ? "Sesja zakończona!" : <>Gotowy na<br /><em>pierwszy krok?</em></>}
+                  <h3>
+                    Gotowy na<br /><em>pierwszy krok?</em>
                   </h3>
                   <p>
-                    {sessionDone ? "Udało Ci się przejść przez 10 zadań. Możesz rozpocząć nową sesję albo ćwiczyć dalej." : "Wybierz temat z listy po lewej, aby rozpocząć krótkie ćwiczenie."}
+                    Wybierz temat z listy po lewej, aby rozpocząć krótkie ćwiczenie.
                   </p>
                   <button type="button" onClick={() => newExercise()}>
-                    {sessionDone ? "Ćwicz dalej" : "Zacznij od pierwszego zadania"}{" "}
+                    Zacznij od pierwszego zadania{" "}
                     <span aria-hidden="true">→</span>
                   </button>
                 </div>

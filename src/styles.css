@@ -645,6 +645,46 @@ footer p {
   margin: 0 0 12px;
 }
 
+.session-summary h3 {
+  font-size: clamp(28px, 4vw, 42px);
+  margin: 0 0 20px;
+}
+.session-summary p {
+  line-height: 1.6;
+}
+.session-summary dl {
+  margin: 0;
+}
+.session-summary dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 0;
+  border-bottom: 1px solid #d9dfd6;
+}
+.session-summary dt {
+  min-width: 0;
+}
+.session-summary dd {
+  margin: 0;
+  flex-shrink: 0;
+  font-size: 22px;
+  font-weight: 700;
+}
+.summary-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 12px;
+}
+.summary-actions .next-button {
+  margin: 0;
+  white-space: normal;
+  text-align: left;
+  line-height: 1.5;
+}
+
 .input-help,
 .submitted-answer {
   color: #66776d;

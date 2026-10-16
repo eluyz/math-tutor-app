@@ -22,6 +22,16 @@ Zamiast wybierać wyłącznie z 15 niezmiennych przykładów, użytkownik ćwicz
 
 Testy potwierdzają 647 różnych treści w dostępnych pulach. Nowe zadanie powstaje tylko po działaniu użytkownika; ponowna próba zachowuje bieżący wariant. Losowanie i dane odpowiedzi pozostają w pamięci przeglądarki. Reguły błędów wynikają z parametrów danego zadania i nadal przedstawiają jedynie hipotezy. Dotychczasowe 15 przykładów pozostaje przypadkami referencyjnymi testów regresyjnych. Dobór adaptacyjny i zapis postępów nie są częścią MT-003A.
 
+## MT-003A.1 i MT-003B.1
+
+MT-003A.1 zachowuje rodzinę i poziom w swobodnym ćwiczeniu przy „Nowy przykład” i „Następny przykład”; ręczna zmiana poziomu zachowuje rodzinę. Sesje nadal mieszają rodziny w wybranej kategorii.
+
+MT-003B.1 dodaje podsumowanie 10 zadań i opcjonalną sugestię poziomu na następną sesję. Dla każdego zadania zapisuje tylko pierwszą ważną ocenę głównej odpowiedzi. Nieważne zapisy są pomijane, a ponowienia, podpowiedzi i poprawienie błędu nie zmieniają pierwszej oceny. Przejście dalej bez ważnej oceny oznacza pominięcie. Podsumowanie opisuje te zdarzenia, a nie wiedzę lub przyczyny błędów użytkownika.
+
+Potrzeba co najmniej 7 ważnych pierwszych prób. Przy 8–10 poprawnych z 10 proponowany jest jeden poziom wyżej, przy 0–4 jeden niżej, przy 5–7 obecny, w granicach łatwy–trudny. Przy mniejszej liczbie ważnych prób aplikacja wyjaśnia brak danych i umożliwia powtórzenie obecnego poziomu. Użytkownik musi świadomie zaakceptować sugestię, aby rozpocząć nową sesję; może też pozostać przy obecnym poziomie lub wybrać inny ręcznie. Nowa sesja resetuje statystyki.
+
+To pierwszy ograniczony etap adaptacji, nie pełny adaptacyjny dobór rodzin. Poziom nie zmienia się w trakcie sesji. Nie ma trwałej historii, localStorage, backendu, kont ani zewnętrznych żądań; statystyki znikają po odświeżeniu. Podsumowanie otrzymuje fokus i ma opisane wartości dostępne dla czytników ekranu oraz czytelne na telefonie.
+
 ## Zasady produktu
 
 - Język ma być życzliwy i nie zawstydzać po pomyłce.
