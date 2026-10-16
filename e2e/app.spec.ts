@@ -52,6 +52,36 @@ test("ułamki: nieprawidłowy mianownik i równoważna liczba dziesiętna", asyn
   await page.getByLabel("Twoja odpowiedź").fill("0,75");
   await page.getByRole("button", { name: "Sprawdź", exact: true }).click();
   await expect(page.getByRole("status")).toContainText("2/4 + 1/4 = 3/4");
+  await page.getByLabel("Twoja odpowiedź").fill("−3/−4");
+  await page.getByRole("button", { name: "Sprawdź", exact: true }).click();
+  await expect(page.getByRole("status")).toContainText("2/4 + 1/4 = 3/4");
+});
+
+test("edycja odpowiedzi usuwa ocenę, podpowiedzi i etap poprzedniej próby", async ({
+  page,
+}) => {
+  await page.goto("/");
+  await page.getByRole("button", { name: /Rozpocznij ćwiczenia/ }).click();
+  const answer = page.getByLabel("Twoja odpowiedź");
+  const check = page.getByRole("button", { name: "Sprawdź", exact: true });
+  await answer.fill("14");
+  await check.click();
+  await page.getByRole("button", { name: "Pokaż kolejną podpowiedź" }).click();
+  await page.getByRole("button", { name: "Sprawdź pierwszy krok" }).click();
+  await page.getByLabel("Ile wynosi 4 × 2?").fill("9");
+  await page.getByRole("button", { name: "Sprawdź krok" }).click();
+  await expect(page.locator(".step-feedback")).toBeVisible();
+
+  await answer.fill("11");
+  await expect(page.getByRole("status")).toHaveCount(0);
+  await expect(page.getByLabel("Ile wynosi 4 × 2?")).toHaveCount(0);
+  await check.click();
+  await expect(page.getByRole("status")).toContainText("Brawo!");
+
+  await answer.fill("10");
+  await expect(page.getByRole("status")).toHaveCount(0);
+  await check.click();
+  await expect(page.getByRole("status")).toContainText("Nieustalona przyczyna");
 });
 
 test("niejednoznaczny wynik pokazuje obie hipotezy i pytanie pomocnicze", async ({
@@ -76,6 +106,23 @@ test("niejednoznaczny wynik pokazuje obie hipotezy i pytanie pomocnicze", async 
   await page.getByRole("button", { name: "Sprawdź krok" }).click();
   await expect(page.locator(".step-feedback")).toContainText(
     "policz osobno 2x",
+  );
+  await expect(page.locator(".step-feedback")).toContainText(
+    "Nie ustala to przyczyny wcześniejszej odpowiedzi",
+  );
+  await expect(page.getByRole("status")).toContainText(
+    "Kilka możliwych przyczyn",
+  );
+  await page.getByLabel("Ile wynosi x² dla x = 3?").fill("6");
+  await page.getByRole("button", { name: "Sprawdź krok" }).click();
+  await expect(page.locator(".step-feedback")).toContainText(
+    "Ten krok wymaga poprawy",
+  );
+  await expect(page.locator(".step-feedback")).toContainText(
+    "Nie ustala to przyczyny wcześniejszej odpowiedzi",
+  );
+  await expect(page.getByRole("status")).toContainText(
+    "Kilka możliwych przyczyn",
   );
 });
 

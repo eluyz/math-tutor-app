@@ -37,8 +37,10 @@ export const feedback: FeedbackCopy = {
   correctPrefix: "Dobrze!",
   incorrectPrefix:
     "Ta odpowiedź jest matematycznie niepoprawna. Spróbuj ponownie.",
-  stepCorrectPrefix: "Ten krok jest poprawny.",
-  stepIncorrectPrefix: "Ten krok wymaga poprawy.",
+  stepCorrectPrefix:
+    "Ten krok jest poprawny. Nie ustala to przyczyny wcześniejszej odpowiedzi.",
+  stepIncorrectPrefix:
+    "Ten krok wymaga poprawy. Nie ustala to przyczyny wcześniejszej odpowiedzi.",
   undeterminedExplanation:
     "Nieustalona przyczyna. Na podstawie tego wyniku nie potrafimy wskazać konkretnej pomyłki.",
   undeterminedHint:

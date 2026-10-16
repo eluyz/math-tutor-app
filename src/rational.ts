@@ -71,8 +71,10 @@ export function parseAnswer(raw: string): ParsedAnswer {
   const input = raw.trim();
   if (!input) return { kind: "invalid", reason: "empty" };
   if (input.length > 100) return { kind: "invalid", reason: "too-long" };
+  // Accept the mathematical minus only where a signed number is valid.
+  const normalized = input.replace(/\u2212/g, "-");
 
-  const fraction = /^([+-]?\d+)\s*\/\s*([+-]?\d+)$/.exec(input);
+  const fraction = /^([+-]?\d+)\s*\/\s*([+-]?\d+)$/.exec(normalized);
   if (fraction) {
     const denominator = BigInt(fraction[2]);
     if (denominator === 0n)
@@ -80,11 +82,11 @@ export function parseAnswer(raw: string): ParsedAnswer {
     return { kind: "valid", value: rational(BigInt(fraction[1]), denominator) };
   }
 
-  if (!/^[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(input)) {
+  if (!/^[+-]?(?:\d+(?:[.,]\d*)?|[.,]\d+)$/.test(normalized)) {
     return { kind: "invalid", reason: "format" };
   }
-  const sign = input.startsWith("-") ? -1n : 1n;
-  const unsigned = input.replace(/^[+-]/, "").replace(",", ".");
+  const sign = normalized.startsWith("-") ? -1n : 1n;
+  const unsigned = normalized.replace(/^[+-]/, "").replace(",", ".");
   const [whole = "0", decimal = ""] = unsigned.split(".");
   const denominator = 10n ** BigInt(decimal.length);
   const numerator =

@@ -25,6 +25,7 @@ describe("deterministyczne sprawdzanie i diagnoza", () => {
     ["fraction-add", "0,75", "2/4 + 1/4"],
     ["fraction-subtract", "2/4", "5/6 − 2/6"],
     ["fraction-multiply", "0.5", "6/12 = 1/2"],
+    ["signed-product", "15", "3 × 5 = 15"],
   ])(
     "%s akceptuje %s i podaje poprawne wyjaśnienie",
     (id, answer, explanation) => {
@@ -70,6 +71,15 @@ describe("deterministyczne sprawdzanie i diagnoza", () => {
         result.diagnosis.candidates.map((candidate) => candidate.errorCode),
       ).toEqual(["ALGEBRA_SQUARE_AS_DOUBLE", "ALGEBRA_COEFFICIENT_IGNORED"]);
     }
+  });
+
+  it("obsługuje znak matematyczny w błędnych odpowiedziach bez zmiany pewności", () => {
+    const result = incorrect("signed-product", "−15");
+    expect(result.diagnosis).toMatchObject({
+      kind: "hypotheses",
+      ambiguous: false,
+      candidates: [{ errorCode: "SIGNED_PRODUCT_SIGN", confidence: "low" }],
+    });
   });
 
   it("dla innego błędnego wyniku zwraca nieustaloną przyczynę", () => {
@@ -132,5 +142,17 @@ describe("pytania pomocnicze", () => {
       kind: "invalid",
       message: feedback.divisionByZero,
     });
+  });
+
+  it("nie przedstawia odpowiedzi pomocniczej jako dowodu przyczyny błędu", () => {
+    const exercise = byId("algebra-substitute");
+    const diagnosis = incorrect(exercise.id, "12").diagnosis;
+    for (const [answer, kind] of [["9", "correct"], ["6", "incorrect"]] as const) {
+      const step = checkStep(exercise, answer, feedback);
+      expect(step.kind).toBe(kind);
+      expect(step.message).toContain("Nie ustala to przyczyny wcześniejszej odpowiedzi");
+      expect(step.message).not.toContain(exercise.explanation);
+      expect(incorrect(exercise.id, "12").diagnosis).toEqual(diagnosis);
+    }
   });
 });

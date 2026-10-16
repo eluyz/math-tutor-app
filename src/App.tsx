@@ -248,7 +248,15 @@ export default function App() {
                         autoComplete="off"
                         aria-describedby="answer-help"
                         value={answer}
-                        onChange={(event) => setAnswer(event.target.value)}
+                        onChange={(event) => {
+                          setAnswer(event.target.value);
+                          setSubmittedAnswer("");
+                          setResult(null);
+                          setHintExpanded(false);
+                          setStepVisible(false);
+                          setStepAnswer("");
+                          setStepResult(null);
+                        }}
                         placeholder={ui.answerPlaceholder}
                       />
                       <button type="submit" className="check-button">

@@ -18,6 +18,12 @@ describe("dokładne porównywanie odpowiedzi", () => {
     ["  2 / 4  ", ".5"],
     ["+5", "5,0"],
     ["-0", "0"],
+    ["−7", "-7"],
+    ["−0,5", "-1/2"],
+    ["−3/4", "3/−4"],
+    ["−3/−4", "3/4"],
+    ["-3/−4", "3/4"],
+    ["  −3 / −4  ", "0,75"],
   ])("uznaje %s i %s za równoważne", (left, right) => {
     expect(equalRational(valid(left), valid(right))).toBe(true);
   });
@@ -37,6 +43,11 @@ describe("dokładne porównywanie odpowiedzi", () => {
     ["  ", "empty"],
     ["1/0", "division-by-zero"],
     ["0/0", "division-by-zero"],
+    ["1/−0", "division-by-zero"],
+    ["1/−00", "division-by-zero"],
+    ["−/4", "format"],
+    ["1/−", "format"],
+    ["−−3", "format"],
     ["3+4", "format"],
     ["1/2/3", "format"],
     ["Infinity", "format"],
@@ -45,6 +56,7 @@ describe("dokładne porównywanie odpowiedzi", () => {
     ["1e3", "format"],
     ["1/0.5", "format"],
     ["9".repeat(101), "too-long"],
+    [`−${"9".repeat(100)}`, "too-long"],
   ] as const)("odrzuca %s z powodem %s", (input, reason) => {
     expect(parseAnswer(input)).toEqual({ kind: "invalid", reason });
   });
