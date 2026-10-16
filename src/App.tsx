@@ -1,18 +1,39 @@
 import { useState, type FormEvent } from "react";
-import { checkAnswer, type CheckResult } from "./exercises";
-import { exercises, feedback, ui } from "./locales/pl";
+import {
+  checkAnswer,
+  checkStep,
+  type CategoryId,
+  type CheckResult,
+  type StepResult,
+} from "./exercises";
+import { categories, exercises, feedback, ui } from "./locales/pl";
 
 export default function App() {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<CategoryId>("order");
   const [answer, setAnswer] = useState("");
+  const [submittedAnswer, setSubmittedAnswer] = useState("");
   const [result, setResult] = useState<CheckResult | null>(null);
+  const [hintExpanded, setHintExpanded] = useState(false);
+  const [stepVisible, setStepVisible] = useState(false);
+  const [stepAnswer, setStepAnswer] = useState("");
+  const [stepResult, setStepResult] = useState<StepResult | null>(null);
   const [completed, setCompleted] = useState<string[]>([]);
   const active = activeIndex === null ? null : exercises[activeIndex];
+  const visibleExercises = exercises
+    .map((exercise, index) => ({ exercise, index }))
+    .filter(({ exercise }) => exercise.category === selectedCategory);
 
   function selectExercise(index: number) {
     setActiveIndex(index);
+    setSelectedCategory(exercises[index].category);
     setAnswer("");
+    setSubmittedAnswer("");
     setResult(null);
+    setHintExpanded(false);
+    setStepVisible(false);
+    setStepAnswer("");
+    setStepResult(null);
   }
 
   function startExercises() {
@@ -24,12 +45,30 @@ export default function App() {
     event.preventDefault();
     if (!active) return;
     const nextResult = checkAnswer(active, answer, feedback);
+    setSubmittedAnswer(answer);
     setResult(nextResult);
+    setHintExpanded(false);
+    setStepVisible(false);
+    setStepAnswer("");
+    setStepResult(null);
     if (nextResult.kind === "correct") {
       setCompleted((previous) =>
         previous.includes(active.id) ? previous : [...previous, active.id],
       );
     }
+  }
+
+  function submitStep(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    if (active?.step) setStepResult(checkStep(active, stepAnswer, feedback));
+  }
+
+  function nextExercise() {
+    selectExercise(
+      activeIndex === null || activeIndex === exercises.length - 1
+        ? 0
+        : activeIndex + 1,
+    );
   }
 
   return (
@@ -84,8 +123,8 @@ export default function App() {
               {ui.start} <span aria-hidden="true">↗</span>
             </button>
             <div className="hero-meta">
-              <span>01 — 03</span>
-              <span>TRZY KRÓTKIE ZADANIA NA START</span>
+              <span>01 — 15</span>
+              <span>PIĘĆ TEMATÓW DO ĆWICZENIA</span>
             </div>
           </div>
           <div className="hero-art" aria-hidden="true">
@@ -115,19 +154,42 @@ export default function App() {
         >
           <div className="section-heading">
             <div>
-              <span className="eyebrow">NA DOBRY POCZĄTEK</span>
+              <span className="eyebrow">UCZ SIĘ KROK PO KROKU</span>
               <h2 id="practice-title">
                 Wybierz temat<span className="period">.</span>
               </h2>
             </div>
             <p>
-              Nie musisz pamiętać wszystkiego. Zacznij od jednego zadania i
-              zobacz, co już potrafisz.
+              Pięć obszarów i piętnaście krótkich zadań. Po pomyłce możesz
+              skorzystać ze wskazówek i spróbować ponownie.
             </p>
+          </div>
+          <div
+            className="category-picker"
+            role="group"
+            aria-label="Kategorie ćwiczeń"
+          >
+            {categories.map((category) => (
+              <button
+                key={category.id}
+                type="button"
+                className={selectedCategory === category.id ? "active" : ""}
+                aria-pressed={selectedCategory === category.id}
+                onClick={() =>
+                  selectExercise(
+                    exercises.findIndex(
+                      (exercise) => exercise.category === category.id,
+                    ),
+                  )
+                }
+              >
+                {category.label}
+              </button>
+            ))}
           </div>
           <div className="exercise-layout">
             <div className="exercise-list" aria-label="Lista ćwiczeń">
-              {exercises.map((exercise, index) => (
+              {visibleExercises.map(({ exercise, index }) => (
                 <button
                   type="button"
                   key={exercise.id}
@@ -135,10 +197,12 @@ export default function App() {
                   onClick={() => selectExercise(index)}
                   aria-current={activeIndex === index ? "step" : undefined}
                 >
-                  <span className="exercise-number">0{index + 1}</span>
+                  <span className="exercise-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                   <span className="exercise-text">
-                    <strong>{exercise.topic}</strong>
-                    <small>{exercise.title}</small>
+                    <strong>{exercise.title}</strong>
+                    <small>{exercise.question}</small>
                   </span>
                   <span
                     className="exercise-state"
@@ -146,7 +210,7 @@ export default function App() {
                       completed.includes(exercise.id) ? ui.completed : ui.open
                     }
                   >
-                    {completed.includes(exercise.id) ? "✓" : "↗"}
+                    {completed.includes(exercise.id) ? "✓" : "→"}
                   </span>
                 </button>
               ))}
@@ -155,13 +219,16 @@ export default function App() {
               {active ? (
                 <>
                   <div className="panel-top">
-                    <span>ZADANIE 0{activeIndex! + 1} / 03</span>
+                    <span>
+                      ZADANIE {String(activeIndex! + 1).padStart(2, "0")} /{" "}
+                      {exercises.length}
+                    </span>
                     <span>✳</span>
                   </div>
-                  <h3>{active.topic}</h3>
+                  <h3>{active.title}</h3>
                   <p className="panel-intro">
-                    Spróbuj rozwiązać zadanie. Jeśli się pomylisz, dostaniesz
-                    wskazówkę.
+                    Spróbuj rozwiązać zadanie. Wskazówki pomogą Ci samodzielnie
+                    poprawić odpowiedź.
                   </p>
                   <div
                     className="question"
@@ -175,19 +242,23 @@ export default function App() {
                       <input
                         id="answer"
                         type="text"
-                        inputMode="decimal"
+                        inputMode={
+                          active.category === "fractions" ? "text" : "decimal"
+                        }
                         autoComplete="off"
+                        aria-describedby="answer-help"
                         value={answer}
-                        onChange={(event) => {
-                          setAnswer(event.target.value);
-                          setResult(null);
-                        }}
+                        onChange={(event) => setAnswer(event.target.value)}
                         placeholder={ui.answerPlaceholder}
                       />
                       <button type="submit" className="check-button">
                         {ui.check} <span aria-hidden="true">→</span>
                       </button>
                     </div>
+                    <p id="answer-help" className="input-help">
+                      Możesz wpisać liczbę, ułamek a/b lub równoważną wartość
+                      dziesiętną.
+                    </p>
                   </form>
                   {result && (
                     <div className={`feedback ${result.kind}`} role="status">
@@ -198,7 +269,112 @@ export default function App() {
                             ? ui.incorrect
                             : ui.invalid}
                       </strong>
+                      {result.kind !== "invalid" && (
+                        <span className="submitted-answer">
+                          Odpowiedź: {submittedAnswer}
+                        </span>
+                      )}
                       <p>{result.message}</p>
+                      {result.kind === "incorrect" && (
+                        <>
+                          {result.diagnosis.kind === "hypotheses" ? (
+                            <div className="diagnosis">
+                              <strong>
+                                {result.diagnosis.ambiguous
+                                  ? "Kilka możliwych przyczyn"
+                                  : "Możliwa przyczyna"}
+                              </strong>
+                              <ul>
+                                {result.diagnosis.candidates.map(
+                                  (candidate) => (
+                                    <li key={candidate.errorCode}>
+                                      {candidate.explanation}
+                                    </li>
+                                  ),
+                                )}
+                              </ul>
+                            </div>
+                          ) : (
+                            <p className="diagnosis">
+                              {result.diagnosis.explanation}
+                            </p>
+                          )}
+                          <p className="learning-hint">
+                            <strong>Pierwsza wskazówka:</strong> {active.hint}
+                          </p>
+                          <div className="hint-actions">
+                            <button
+                              type="button"
+                              onClick={() => setHintExpanded(true)}
+                              disabled={hintExpanded}
+                            >
+                              {ui.moreHint}
+                            </button>
+                            {active.step && (
+                              <button
+                                type="button"
+                                onClick={() => setStepVisible(true)}
+                                disabled={stepVisible}
+                              >
+                                {ui.step}
+                              </button>
+                            )}
+                          </div>
+                          {hintExpanded && (
+                            <p className="learning-hint">
+                              <strong>Kolejna wskazówka:</strong>{" "}
+                              {result.diagnosis.kind === "hypotheses" &&
+                              !result.diagnosis.ambiguous
+                                ? result.diagnosis.candidates[0].hint
+                                : active.nextHint}
+                            </p>
+                          )}
+                          {stepVisible && active.step && (
+                            <form className="step-form" onSubmit={submitStep}>
+                              <label htmlFor="step-answer">
+                                {active.step.question}
+                              </label>
+                              <div className="answer-row">
+                                <input
+                                  id="step-answer"
+                                  type="text"
+                                  inputMode="decimal"
+                                  autoComplete="off"
+                                  value={stepAnswer}
+                                  onChange={(event) => {
+                                    setStepAnswer(event.target.value);
+                                    setStepResult(null);
+                                  }}
+                                  placeholder="Wpisz wynik pierwszego kroku"
+                                />
+                                <button type="submit" className="check-button">
+                                  Sprawdź krok
+                                </button>
+                              </div>
+                              {stepResult && (
+                                <p
+                                  className={`step-feedback ${stepResult.kind}`}
+                                  aria-live="polite"
+                                >
+                                  {stepResult.message}
+                                </p>
+                              )}
+                            </form>
+                          )}
+                        </>
+                      )}
+                      {result.kind === "correct" && (
+                        <button
+                          type="button"
+                          className="next-button"
+                          onClick={nextExercise}
+                        >
+                          {activeIndex === exercises.length - 1
+                            ? "Wróć do pierwszego zadania"
+                            : ui.next}{" "}
+                          <span aria-hidden="true">→</span>
+                        </button>
+                      )}
                     </div>
                   )}
                   <p className="panel-footnote">
