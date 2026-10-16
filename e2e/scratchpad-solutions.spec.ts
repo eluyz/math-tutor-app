@@ -32,6 +32,87 @@ for (const { name, viewport } of [
     expect(await page.evaluate(() => localStorage.length + sessionStorage.length)).toBe(0);
   });
 
+  test("natywna historia: auto-clear ON odcina Undo i Redo po usunięciu tekstu Backspace", async ({ page }) => {
+    await page.getByRole("button", { name: "Pisz", exact: true }).click();
+    const text = page.getByLabel("Notatki tekstowe");
+    await text.pressSequentially("notatka poprzedniego zadania");
+    await text.press("ControlOrMeta+a");
+    await text.press("Backspace");
+    await expect(text).toHaveValue("");
+    await page.getByRole("button", { name: "Nowy przykład", exact: true }).click();
+    await text.press("ControlOrMeta+z");
+    await expect(text).toHaveValue("");
+    await text.press("ControlOrMeta+Shift+z");
+    await expect(text).toHaveValue("");
+    await text.press("ControlOrMeta+z");
+    await expect(text).toHaveValue("");
+    await expect(page.getByRole("button", { name: "Cofnij", exact: true })).toBeDisabled();
+    await expect(page.getByRole("button", { name: "Ponów", exact: true })).toBeDisabled();
+  });
+
+  test("natywna historia: nowa notatka ma Undo i Redo bez dostępu do poprzedniego zadania", async ({ page }) => {
+    await page.getByRole("button", { name: "Pisz", exact: true }).click();
+    const text = page.getByLabel("Notatki tekstowe");
+    await text.pressSequentially("stare obliczenia");
+    await text.press("ControlOrMeta+a");
+    await text.press("Backspace");
+    await page.getByRole("button", { name: "Nowy przykład", exact: true }).click();
+    await text.pressSequentially("nowe obliczenia");
+    await text.press("ControlOrMeta+z");
+    await expect(text).toHaveValue("");
+    // More than the first shortcut: typing must not reopen the old editor history.
+    await text.press("ControlOrMeta+z");
+    await expect(text).toHaveValue("");
+    await text.press("ControlOrMeta+z");
+    await expect(text).toHaveValue("");
+    await text.press("ControlOrMeta+Shift+z");
+    await expect(text).toHaveValue("nowe obliczenia");
+    await text.press("ControlOrMeta+Shift+z");
+    await expect(text).toHaveValue("nowe obliczenia");
+  });
+
+  test("natywna historia: auto-clear OFF zachowuje Undo i Redo między zadaniami, trybami i powiększeniem", async ({ page }) => {
+    await page.getByRole("button", { name: "Pisz", exact: true }).click();
+    await page.getByLabel("Czyść brudnopis przy nowym zadaniu").uncheck();
+    const text = page.getByLabel("Notatki tekstowe");
+    await text.pressSequentially("zachowaj historie");
+    await page.getByRole("button", { name: "Nowy przykład", exact: true }).click();
+    await expect(text).toHaveValue("zachowaj historie");
+    await text.press("ControlOrMeta+z"); await expect(text).toHaveValue("");
+    await text.press("ControlOrMeta+Shift+z"); await expect(text).toHaveValue("zachowaj historie");
+    await text.press("ControlOrMeta+a"); await text.press("Backspace");
+    await page.getByRole("button", { name: "Nowy przykład", exact: true }).click();
+    await page.getByRole("button", { name: "Rysuj", exact: true }).click();
+    await page.getByRole("button", { name: "Pisz", exact: true }).click();
+    await page.getByRole("button", { name: "Powiększ", exact: true }).click();
+    await page.setViewportSize({ width: viewport.height, height: viewport.width });
+    await text.press("ControlOrMeta+z"); await expect(text).toHaveValue("zachowaj historie");
+    await text.press("ControlOrMeta+Shift+z"); await expect(text).toHaveValue("");
+    await page.getByRole("button", { name: "Zamknij", exact: true }).click();
+    await page.setViewportSize(viewport);
+    await text.press("ControlOrMeta+z"); await expect(text).toHaveValue("zachowaj historie");
+  });
+
+  test("natywna historia: bieżące zadanie zachowuje Undo/Redo i odwracalne ręczne czyszczenie", async ({ page }) => {
+    await page.getByRole("button", { name: "Pisz", exact: true }).click();
+    const text = page.getByLabel("Notatki tekstowe");
+    await text.pressSequentially("biezace obliczenia");
+    await text.press("ControlOrMeta+a"); await text.press("Backspace");
+    await page.getByRole("button", { name: "Rysuj", exact: true }).click();
+    await page.getByRole("button", { name: "Pisz", exact: true }).click();
+    await page.getByRole("button", { name: "Powiększ", exact: true }).click();
+    await text.press("ControlOrMeta+z"); await expect(text).toHaveValue("biezace obliczenia");
+    await text.press("ControlOrMeta+Shift+z"); await expect(text).toHaveValue("");
+    await page.getByRole("button", { name: "Zamknij", exact: true }).click();
+    await text.press("ControlOrMeta+z"); await expect(text).toHaveValue("biezace obliczenia");
+    await page.getByRole("button", { name: "Wyczyść wszystko", exact: true }).click();
+    await expect(text).toHaveValue("");
+    await text.press("ControlOrMeta+z"); await expect(text).toHaveValue("biezace obliczenia");
+    await text.press("ControlOrMeta+Shift+z"); await expect(text).toHaveValue("");
+    await page.getByRole("button", { name: "Cofnij", exact: true }).click();
+    await expect(text).toHaveValue("biezace obliczenia");
+  });
+
   test("notatki, symbole w zaznaczeniu, natywne undo/redo, tryby, rysunki i clear z undo", async ({ page }) => {
     const notes = page.getByRole("region", { name: "Brudnopis", exact: true });
     const text = page.getByLabel("Notatki tekstowe"), svg = page.getByRole("img", { name: "Pole rysowania" });

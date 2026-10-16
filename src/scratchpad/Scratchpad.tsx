@@ -6,6 +6,7 @@ const symbols = ["x²", "√", "Δ", "×", "÷", "±", "→", "≠"];
 type Gesture = { pointerId: number; points: Point[]; erased: Set<number>; erasing: boolean };
 export function Scratchpad({ run, active }: { run: number; active: boolean }) {
   const [state, dispatch] = useReducer(scratchpadReducer, undefined, createScratchpad);
+  const [editorGeneration, setEditorGeneration] = useState(0);
   const [tool, setTool] = useState<"pen" | "eraser">("pen");
   const [expanded, setExpanded] = useState(false);
   const [draft, setDraft] = useState<readonly Point[]>([]);
@@ -28,9 +29,16 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
   }
   useLayoutEffect(() => {
     cancelGesture();
+    if (run !== state.run && state.autoClear) {
+      // A blank value can still have native Undo history after Backspace.
+      // Replace only the editor at this boundary, even when its text is unchanged.
+      setEditorGeneration((generation) => generation + 1);
+      selection.current = { start: 0, end: 0 };
+      programmaticHistory.current = false;
+    }
     dispatch({ type: "run", run });
   }, [run]);
-  // Keep the same uncontrolled textarea mounted: mode/resize/overlay don't erase native Undo.
+  // Other changes keep this uncontrolled textarea mounted and preserve native Undo.
   useLayoutEffect(() => {
     if (textarea.current && textarea.current.value !== state.present.text) {
       textarea.current.value = state.present.text;
@@ -141,7 +149,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
             onMouseDown={(event) => event.preventDefault()} onClick={() => insertSymbol(symbol)}>{symbol}</button>)}
         </div>
         <label htmlFor="scratchpad-text">Notatki tekstowe</label>
-        <textarea ref={textarea} id="scratchpad-text" rows={7} spellCheck={false}
+        <textarea key={editorGeneration} ref={textarea} id="scratchpad-text" rows={7} spellCheck={false}
           onSelect={(event) => { selection.current = { start: event.currentTarget.selectionStart, end: event.currentTarget.selectionEnd }; }}
           onInput={(event) => { dispatch({ type: "text", text: event.currentTarget.value }); programmaticHistory.current = false; }}
           onKeyDown={(event) => {
