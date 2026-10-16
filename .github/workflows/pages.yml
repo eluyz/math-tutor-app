@@ -29,7 +29,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Download the verified main build
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: site-dist
           path: dist
@@ -37,10 +37,10 @@ jobs:
           github-token: ${{ github.token }}
 
       - name: Prepare Pages artifact
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
