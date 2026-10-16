@@ -16,6 +16,15 @@ const cases: { spec: AnswerSpec; right: AnswerInput; wrong: AnswerInput }[] = [
     right: { kind: "choice", value: "none" }, wrong: { kind: "choice", value: "two" } },
 ];
 describe("jawnie typowane odpowiedzi", () => {
+  it("formularz pierwiastków sprawdza wybór, kompletność i wartości bez ujawniania rozwiązania", () => {
+    const spec: AnswerSpec = { kind: "roots", values: [r(-1, 2), r(3)] };
+    expect(assessAnswer(spec, emptyAnswer(spec)).kind).toBe("invalid");
+    expect(assessAnswer(spec, { kind: "roots", classification: "two", values: ["3", ""] }).kind).toBe("invalid");
+    expect(assessAnswer(spec, { kind: "roots", classification: "two", values: ["3", "−1/2"] }).kind).toBe("correct");
+    expect(assessAnswer(spec, { kind: "roots", classification: "double", values: ["3"] }).kind).toBe("incorrect");
+    expect(assessAnswer(spec, { kind: "roots", classification: "none", values: [] }).kind).toBe("incorrect");
+    expect(assessAnswer({ kind: "roots", values: [] }, { kind: "roots", classification: "none", values: [] }).kind).toBe("correct");
+  });
   it.each(cases)("$spec.kind: wspólne correct / incorrect / invalid", ({ spec, right, wrong }) => {
     expect(assessAnswer(spec, right).kind).toBe("correct");
     expect(assessAnswer(spec, wrong).kind).toBe("incorrect");

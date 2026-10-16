@@ -5,6 +5,25 @@ type Props = { spec: AnswerSpec; value: AnswerInput; onChange: (value: AnswerInp
 
 export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   const check = <button type="submit" className="check-button">{ui.check} <span aria-hidden="true">→</span></button>;
+  if (spec.kind === "roots") {
+    const input = typeof value !== "string" && value.kind === "roots" ? value : { classification: "", values: [] as string[] };
+    return <div className="structured-answer"><fieldset><legend>{ui.answer}</legend>
+      <label htmlFor="answer">Liczba pierwiastków rzeczywistych</label>
+      <select id="answer" value={input.classification} onChange={(event) => {
+        const classification = event.target.value;
+        onChange({ kind: "roots", classification, values: Array(classification === "two" ? 2 : classification === "double" ? 1 : 0).fill("") });
+      }}>
+        <option value="">Wybierz odpowiedź</option><option value="two">Dwa różne pierwiastki</option>
+        <option value="double">Jeden pierwiastek podwójny</option><option value="none">Brak pierwiastków rzeczywistych</option>
+      </select>
+      {input.values.length > 0 && <p>Kolejność wpisanych pierwiastków nie ma znaczenia.</p>}
+      {input.values.map((entry, i) => <div className="coefficient-field" key={i}>
+        <label htmlFor={`root-${i}`}>Pierwiastek {i + 1}</label>
+        <input id={`root-${i}`} type="text" autoComplete="off" value={entry}
+          onChange={(event) => onChange({ kind: "roots", classification: input.classification, values: input.values.map((v, j) => i === j ? event.target.value : v) })} />
+      </div>)}
+    </fieldset>{check}</div>;
+  }
   if (spec.kind === "scalar") return <>
     <label htmlFor="answer">{ui.answer}</label>
     <div className="answer-row">

@@ -7,8 +7,8 @@ import {
   type CheckResult,
   type StepResult,
 } from "./exercises";
-import { categories, difficultyLabels, feedback, ui } from "./locales/pl";
-import { createGenerator, templates, type Difficulty, type GeneratedTask } from "./generators";
+import { categories, studyCategories, difficultyLabels, feedback, ui } from "./locales/pl";
+import { createGenerator, allTemplates, type Difficulty, type GeneratedTask } from "./generators";
 import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
@@ -33,7 +33,9 @@ export default function App() {
   const [stepVisible, setStepVisible] = useState(false);
   const [stepAnswer, setStepAnswer] = useState("");
   const [stepResult, setStepResult] = useState<StepResult | null>(null);
-  const visibleTemplates = templates.filter((template) => template.category === selectedCategory);
+  const visibleTemplates = allTemplates.filter((template) => template.category === selectedCategory);
+  const studying = studyCategories.some((category) => category.id === selectedCategory);
+  const visibleCategories = (studying ? studyCategories : categories).filter((category) => allTemplates.some((template) => template.category === category.id));
 
   useEffect(() => {
     if (active) document.getElementById("answer")?.focus();
@@ -97,7 +99,7 @@ export default function App() {
     if (sessionRef.current) {
       updateSession(recordFirstAttempt(sessionRef.current, active.id, nextResult.kind));
     }
-    setSubmittedAnswer(describeInput(answer));
+    setSubmittedAnswer(describeInput(answer, getAnswerSpec(active)));
     setResult(nextResult);
     setHintExpanded(false);
     setStepVisible(false);
@@ -184,8 +186,8 @@ export default function App() {
               {ui.start} <span aria-hidden="true">↗</span>
             </button>
             <div className="hero-meta">
-              <span>15 RODZIN</span>
-              <span>PIĘĆ TEMATÓW DO ĆWICZENIA</span>
+              <span>{allTemplates.length} RODZIN</span>
+              <span>PODSTAWY I MATEMATYKA NA STUDIA</span>
             </div>
           </div>
           <div className="hero-art" aria-hidden="true">
@@ -221,16 +223,21 @@ export default function App() {
               </h2>
             </div>
             <p>
-              Pięć obszarów i wiele wariantów zadań. Po pomyłce możesz
+              Wybierz dział i rodzinę ćwiczeń. Po pomyłce możesz
               skorzystać ze wskazówek i spróbować ponownie.
             </p>
           </div>
+          <div className="study-groups" role="group" aria-label="Działy nauki">
+            <button type="button" disabled={sessionNumber > 0} aria-pressed={!studying} onClick={() => { setSelectedCategory("order"); newExercise("order"); }}>Powtórka podstaw</button>
+            <button type="button" disabled={sessionNumber > 0} aria-pressed={studying} onClick={() => { setSelectedCategory("quadratics"); newExercise("quadratics"); }}>Matematyka na studia</button>
+          </div>
+          {studying && <p className="input-help">Autorskie materiały do samodzielnej nauki. Nie są oficjalnymi materiałami UWM.</p>}
           <div
             className="category-picker"
             role="group"
             aria-label="Kategorie ćwiczeń"
           >
-            {categories.map((category) => (
+            {visibleCategories.map((category) => (
               <button
                 key={category.id}
                 type="button"

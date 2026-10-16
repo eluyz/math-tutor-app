@@ -14,6 +14,12 @@ export const categories: { id: CategoryId; label: string }[] = [
   { id: "equations", label: "Równania liniowe" },
 ];
 
+export const studyCategories: { id: CategoryId; label: string }[] = [
+  { id: "quadratics", label: "Wzory i równania kwadratowe" },
+  { id: "matrices", label: "Macierze" },
+  { id: "determinants", label: "Wyznaczniki" },
+];
+
 export const ui = {
   start: "Rozpocznij ćwiczenia",
   answer: "Twoja odpowiedź",
