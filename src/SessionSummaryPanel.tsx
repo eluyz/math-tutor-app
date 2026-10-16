@@ -20,6 +20,7 @@ export function SessionSummaryPanel({ summary, difficulty, onStartSession, onPra
         <div><dt>{sessionCopy.shown}</dt><dd>{summary.shown}</dd></div>
         <div><dt>{sessionCopy.correct}</dt><dd>{summary.correct}/{summary.shown}</dd></div>
         <div><dt>{sessionCopy.incorrect}</dt><dd>{summary.incorrect}</dd></div>
+        <div><dt>{sessionCopy.solutionViewed}</dt><dd>{summary.solutionViewed}</dd></div>
         <div><dt>{sessionCopy.skipped}</dt><dd>{summary.skipped}</dd></div>
       </dl>
       <p>{sessionCopy.counting}</p>

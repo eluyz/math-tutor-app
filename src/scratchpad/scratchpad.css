@@ -1,0 +1,16 @@
+.scratchpad { margin: 1.3rem 0; padding: 1rem; background: #f8f7f2; border: 1px solid #b9c6bd; border-radius: 12px; min-width: 0; }
+.scratchpad [hidden] { display: none !important; }
+.scratchpad-heading, .scratchpad-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin-bottom: .6rem; }
+.scratchpad-heading { justify-content: space-between; }
+.scratchpad h4 { margin: 0; font-size: 1.1rem; }
+.scratchpad button { min-height: 44px; padding: .5rem .7rem; border: 1px solid #728577; border-radius: 6px; background: white; color: #183b2b; font: inherit; cursor: pointer; }
+.scratchpad button[aria-pressed="true"] { background: #183b2b; color: white; }
+.scratchpad button:disabled { opacity: .45; cursor: default; }
+.scratchpad-drawing { display: block; width: 100%; aspect-ratio: 5 / 3; background: white; border: 1px solid #728577; touch-action: none; user-select: none; cursor: crosshair; }
+.scratchpad-drawing polyline { stroke: #173e2b; fill: none; stroke-width: 4; stroke-linecap: round; stroke-linejoin: round; }
+.scratchpad textarea { display: block; width: 100%; box-sizing: border-box; min-height: 150px; resize: vertical; padding: .8rem; font: 1rem/1.6 monospace; color: #152f23; background: white; }
+.scratchpad .scratchpad-auto { display: flex; align-items: center; gap: .6rem; margin-top: .8rem; font-size: .9rem; }
+.scratchpad-auto input { flex: 0 0 auto; width: 22px; height: 22px; }
+.scratchpad-expanded { position: fixed; z-index: 100; inset: 0; margin: 0; border-radius: 0; overflow-y: auto; padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left)); background: #f8f7f2; }
+.scratchpad-expanded .scratchpad-drawing { max-width: 1100px; margin: auto; }
+.scratchpad-expanded textarea { min-height: 45vh; }

@@ -3,7 +3,7 @@ import { checkAnswer, type CheckResult } from "./exercises";
 import type { Difficulty } from "./generators";
 import { exercises, feedback } from "./locales/pl";
 import {
-  advanceSession, createSession, recordFirstAttempt, summarizeSession, suggestLevel,
+  advanceSession, createSession, recordFirstAttempt, recordSolutionViewed, summarizeSession, suggestLevel,
   type SessionState,
 } from "./session";
 
@@ -27,7 +27,7 @@ describe("pierwsze ważne próby w pojedynczej sesji", () => {
     }
     expect(session.completed).toBe(true);
     expect(session.entries).toHaveLength(10);
-    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 0, incorrect: 0, skipped: 10 });
+    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 0, incorrect: 0, solutionViewed: 0, skipped: 10 });
     expect(advanceSession(session, "exercise-10", "exercise-11")).toBe(session);
   });
 
@@ -35,7 +35,7 @@ describe("pierwsze ważne próby w pojedynczej sesji", () => {
     const session = complete([
       "correct", "correct", "correct", "correct", "correct", "correct", "correct", "incorrect", "incorrect", null,
     ]);
-    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 7, incorrect: 2, skipped: 1 });
+    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 7, incorrect: 2, solutionViewed: 0, skipped: 1 });
   });
 
   it.each(["", "   ", "abc", "1/0", "1 + 2"])("zapis %j nie jest ważną próbą ani oceną przed pominięciem", (raw) => {
@@ -73,7 +73,7 @@ describe("pierwsze ważne próby w pojedynczej sesji", () => {
 
   it("pominięcie po samych nieważnych odpowiedziach nie jest błędną pierwszą próbą", () => {
     const session = complete(["invalid", null, "invalid", "correct", "incorrect"]);
-    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 1, incorrect: 1, skipped: 8 });
+    expect(summarizeSession(session)).toEqual({ shown: 10, correct: 1, incorrect: 1, solutionViewed: 0, skipped: 8 });
     expect(recordFirstAttempt(session, "exercise-10", "correct")).toBe(session);
   });
 
@@ -85,7 +85,7 @@ describe("pierwsze ważne próby w pojedynczej sesji", () => {
       entries: [{ exerciseId: "new-exercise", firstAttempt: null }],
     });
     expect(summarizeSession(next)).toBeNull();
-    expect(summarizeSession(previous)).toEqual({ shown: 10, correct: 10, incorrect: 0, skipped: 0 });
+    expect(summarizeSession(previous)).toEqual({ shown: 10, correct: 10, incorrect: 0, solutionViewed: 0, skipped: 0 });
   });
 });
 
@@ -101,7 +101,7 @@ describe("ostrożna sugestia poziomu na następną sesję", () => {
   it.each(levels.flatMap((difficulty) => Array.from({ length: 7 }, (_, valid) => ({ difficulty, valid }))))(
     "$difficulty: $valid ważnych prób to za mało danych niezależnie od ich poprawności", ({ difficulty, valid }) => {
       for (let correct = 0; correct <= valid; correct++) {
-        expect(suggestLevel(difficulty, { shown: 10, correct, incorrect: valid - correct, skipped: 10 - valid }))
+        expect(suggestLevel(difficulty, { shown: 10, correct, incorrect: valid - correct, solutionViewed: 0, skipped: 10 - valid }))
           .toEqual({ kind: "insufficient" });
       }
     },
@@ -110,11 +110,40 @@ describe("ostrożna sugestia poziomu na następną sesję", () => {
   it.each(levels.flatMap((difficulty) => [7, 8, 9, 10].flatMap((valid) =>
     Array.from({ length: valid + 1 }, (_, correct) => ({ difficulty, valid, correct })),
   )))("$difficulty: $correct poprawnych / $valid ważnych prób", ({ difficulty, valid, correct }) => {
-    const summary = { shown: 10, correct, incorrect: valid - correct, skipped: 10 - valid };
+    const summary = { shown: 10, correct, incorrect: valid - correct, solutionViewed: 0, skipped: 10 - valid };
     expect(suggestLevel(difficulty, summary)).toEqual({ kind: "suggestion", difficulty: expected[difficulty][correct] });
   });
 
   it("nie sugeruje poziomu na podstawie nieukończonej sesji", () => {
-    expect(suggestLevel("medium", { shown: 9, correct: 9, incorrect: 0, skipped: 0 })).toEqual({ kind: "insufficient" });
+    expect(suggestLevel("medium", { shown: 9, correct: 9, incorrect: 0, solutionViewed: 0, skipped: 0 })).toEqual({ kind: "insufficient" });
+  });
+});
+
+
+describe("rozwiązanie a samodzielne pierwsze próby", () => {
+  it("reveal po invalid blokuje przepisywanie wyniku; ponowne i nieaktualne reveal są bezczynne", () => {
+    const initial = createSession("matrices", "hard", "one");
+    const revealed = recordSolutionViewed(recordFirstAttempt(initial, "one", "invalid"), "one");
+    expect(revealed.entries[0].firstAttempt).toBe("solution-viewed");
+    for (const kind of ["correct", "incorrect", "invalid"] as const) expect(recordFirstAttempt(revealed, "one", kind)).toBe(revealed);
+    expect(recordSolutionViewed(revealed, "one")).toBe(revealed);
+    expect(recordSolutionViewed(initial, "stale")).toBe(initial);
+    for (const kind of ["correct", "incorrect"] as const) {
+      const assessed = recordFirstAttempt(initial, "one", kind);
+      expect(recordSolutionViewed(assessed, "one")).toBe(assessed);
+    }
+  });
+  it("liczy osobno obejrzane rozwiązania, zachowując progi samodzielnych ocen", () => {
+    let state = createSession("order", "medium", "0");
+    for (let i = 0; i < 10; i++) {
+      state = i < 4 ? recordFirstAttempt(state, String(i), "correct") : i < 7
+        ? recordFirstAttempt(state, String(i), "incorrect") : i < 9 ? recordSolutionViewed(state, String(i)) : state;
+      state = advanceSession(state, String(i), String(i + 1));
+    }
+    const summary = summarizeSession(state)!;
+    expect(summary).toEqual({ shown: 10, correct: 4, incorrect: 3, solutionViewed: 2, skipped: 1 });
+    expect(suggestLevel("medium", summary)).toEqual({ kind: "suggestion", difficulty: "easy" });
+    expect(suggestLevel("medium", { ...summary, incorrect: 2, solutionViewed: 3 })).toEqual({ kind: "insufficient" });
+    expect(recordSolutionViewed(state, "9")).toBe(state);
   });
 });

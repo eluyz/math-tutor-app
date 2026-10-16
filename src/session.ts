@@ -2,7 +2,7 @@ import type { CategoryId, CheckResult } from "./exercises";
 import type { Difficulty } from "./generators";
 
 export const SESSION_LENGTH = 10;
-type FirstAttempt = "correct" | "incorrect" | null;
+type FirstAttempt = "correct" | "incorrect" | "solution-viewed" | null;
 type SessionEntry = Readonly<{ exerciseId: string; firstAttempt: FirstAttempt }>;
 export type SessionState = Readonly<{
   category: CategoryId;
@@ -15,6 +15,7 @@ export type SessionSummary = Readonly<{
   correct: number;
   incorrect: number;
   skipped: number;
+  solutionViewed: number;
 }>;
 export type LevelSuggestion =
   | { kind: "insufficient" }
@@ -35,6 +36,13 @@ export function recordFirstAttempt(session: SessionState, exerciseId: string, ki
   };
 }
 
+/** Viewing before a valid assessment is its own immutable first result. */
+export function recordSolutionViewed(session: SessionState, exerciseId: string): SessionState {
+  const current = session.entries[session.entries.length - 1];
+  if (session.completed || current.exerciseId !== exerciseId || current.firstAttempt !== null) return session;
+  return { ...session, entries: [...session.entries.slice(0, -1), { ...current, firstAttempt: "solution-viewed" }] };
+}
+
 /** Exercise identity makes repeated or stale navigation events a no-op. */
 export function advanceSession(session: SessionState, exerciseId: string, nextExerciseId?: string): SessionState {
   const current = session.entries[session.entries.length - 1];
@@ -50,6 +58,7 @@ export function summarizeSession(session: SessionState): SessionSummary | null {
     shown: session.entries.length,
     correct: session.entries.filter((entry) => entry.firstAttempt === "correct").length,
     incorrect: session.entries.filter((entry) => entry.firstAttempt === "incorrect").length,
+    solutionViewed: session.entries.filter((entry) => entry.firstAttempt === "solution-viewed").length,
     skipped: session.entries.filter((entry) => entry.firstAttempt === null).length,
   };
 }
