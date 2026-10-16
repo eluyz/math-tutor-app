@@ -14,7 +14,7 @@ UI i sesje używają `allTemplates` oraz `taskPool`: 35 rodzin na poziomach easy
 
 Pierwotny `Template` ma zakresy `parameterSets` i czyste `create(parameters)`. `makeInstance` waliduje parametry. `pool` tworzy skończone kombinacje i deduplikuje treści. Zachowano dokładne ułamki, kroki pomocnicze i niskopewne hipotezy z MT-002; `possible()` odrzuca kolizję błędnej odpowiedzi z poprawnym wynikiem. Wyższe poziomy dodają m.in. znaki ujemne, różne mianowniki i kolejne czynniki.
 
-`src/generators.test.ts` nadal audytuje 647 różnych treści tych 15 rodzin, ich odpowiedzi, kroki i reguły. Dawna próba z ośmiu seedów dawała 557 treści; aktualne losowanie obejmuje także EDU i ma osobną kontrolę unikalności. Piętnaście stałych przykładów w `src/locales/pl.ts` pozostaje katalogiem referencyjnym, nie źródłem losowania w UI.
+`src/generators.test.ts` nadal audytuje 647 różnych treści tych 15 rodzin (652 instancje po zsumowaniu osobnych pul kategorii i poziomów; część treści powtarza się między poziomami), ich odpowiedzi, kroki i reguły. Dawna próba z ośmiu seedów dawała 557 treści; aktualne losowanie obejmuje także EDU i ma osobną kontrolę unikalności. Piętnaście stałych przykładów w `src/locales/pl.ts` pozostaje katalogiem referencyjnym, nie źródłem losowania w UI.
 
 ## MT-EDU-001 — 20 nowych rodzin
 
@@ -45,7 +45,7 @@ Cztery nowe rodziny powtórkowe dodano do istniejących kategorii algebry/równa
 
 ### Dokładność, granice i wydajność
 
-`EducationTemplate.create(variant, difficulty)` otrzymuje jeden indeks 0–23. Pola macierzy są pochodnymi tego indeksu i małych wartości, a nie iloczynem dziewięciu niezależnych list. Jedna rodzina ma maksymalnie 24 kandydatów na poziom; 20 rodzin to najwyżej 1440 kandydatów na wszystkich poziomach (łącznie z pierwotnymi pulami najwyżej 2087 instancji). Testy wymagają co najmniej 10 różnych treści na rodzinę/poziom. Pule są buforowane; `makeEducationInstance` odrzuca indeksy spoza zakresu.
+`EducationTemplate.create(variant, difficulty)` otrzymuje jeden indeks 0–23. Pola macierzy są pochodnymi tego indeksu i małych wartości, a nie iloczynem dziewięciu niezależnych list. Jedna rodzina ma maksymalnie 24 kandydatów na poziom; 20 rodzin to najwyżej 1440 kandydatów na wszystkich poziomach (łącznie z pierwotnymi pulami 2092 instancje). Testy wymagają co najmniej 10 różnych treści na rodzinę/poziom. Pule są buforowane; `makeEducationInstance` odrzuca indeksy spoza zakresu.
 
 `contentKey` nowych zadań obejmuje pytanie i dane pokazanych macierzy, więc stałe polecenie „Oblicz A + B” z innymi macierzami jest nową treścią. `id` obejmuje rodzinę, poziom i indeks. To pozwala zachować pamięć treści oraz indywidualne oceny sesji.
 
