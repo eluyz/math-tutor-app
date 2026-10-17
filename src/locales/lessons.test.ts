@@ -5,11 +5,35 @@ import { categories, studyCategories, feedback } from "./pl";
 import { englishTask, englishAnswer } from "./lessons-en";
 import { solutionFor } from "../solutions/model";
 import { getAnswerSpec, checkAnswer } from "../exercises";
+import { polishLearningText as polish } from "../../e2e/helpers/localization";
 const tasks = [...categories, ...studyCategories].flatMap(({ id }) =>
   difficulties.flatMap((d) => taskPool(id, d)),
 );
-const polish =
-  /[ąćęłńóśźż]|\b(Oblicz|Rozwiąż|Podaj|Wybierz|Pomnóż|Podziel|Przy|Wiersz|Kolumna|Pierwiastek|Poprawna|Wyznacznik|Macierz|Iloczyn|wynik|wiersz|kolumna|Współczynnik|Wyraz)\b/u;
+describe("audyt polskich tekstów w angielskiej wersji", () => {
+  it.each([
+    "BEZ PRESJI. KROK PO KROKU.",
+    "bez presji",
+    "KROK PO KROKU",
+    "OBLICZ WYNIK",
+    "Pokaz rozwiazanie",
+    "SPRAWDZ ODPOWIEDZ",
+    "Wspolczynnik dla doroslych",
+    "Rozwiąż równanie",
+    "ŁATWY",
+  ])("wykrywa polski tekst: %s", (text) => {
+    expect(text).toMatch(polish);
+  });
+
+  it.each([
+    "NO PRESSURE. STEP BY STEP.",
+    "Show solution",
+    "Check your answer",
+    "Multiply a row by a coefficient, then add it to another row.",
+  ])("akceptuje angielski tekst: %s", (text) => {
+    expect(text).not.toMatch(polish);
+  });
+});
+
 describe("kompletne angielskie lekcje bez zmiany tożsamości", () => {
   it.each(allTemplates)(
     "$id: każdy poziom i wariant ma treść, kroki i etykiety EN",

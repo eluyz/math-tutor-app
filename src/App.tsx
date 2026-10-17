@@ -249,7 +249,7 @@ export default function App() {
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <span className="eyebrow">
-              <span className="eyebrow-line" /> BEZ PRESJI. KROK PO KROKU.
+              <span className="eyebrow-line" /> {a.eyebrow}
             </span>
             <h1 id="hero-title">
               {a.hero1}

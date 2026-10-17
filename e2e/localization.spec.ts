@@ -1,7 +1,6 @@
 import { numeric } from "./helpers/arithmetic";
+import { polishLearningText as polish } from "./helpers/localization";
 import { test, expect, type Page } from "@playwright/test";
-const polish =
-  /[ąćęłńóśźżĄĆĘŁŃÓŚŹŻ]|\b(Oblicz|Rozwiąż|Wybierz|Podaj|Współczynnik|Macierz|Wyznacznik|Brudnopis|Pokaż|Sprawdź|Poprawna|Iloczyn|Zadanie|Odpowiedź)\b/u;
 async function english(page: Page) {
   await page.getByRole("button", { name: "English", exact: true }).click();
   await expect(page.locator("html")).toHaveAttribute("lang", "en");
@@ -59,6 +58,17 @@ for (const viewport of [
       expect(
         await page.evaluate(() => localStorage.length + sessionStorage.length),
       ).toBe(0);
+    });
+    test("slogan hero zmienia się z polskiego na angielski i z powrotem", async ({
+      page,
+    }) => {
+      const slogan = page.locator(".hero .eyebrow");
+      await expect(slogan).toHaveText("BEZ PRESJI. KROK PO KROKU.");
+      await english(page);
+      await expect(slogan).toHaveText("NO PRESSURE. STEP BY STEP.");
+      await noPolish(page);
+      await page.getByRole("button", { name: "Polski", exact: true }).click();
+      await expect(slogan).toHaveText("BEZ PRESJI. KROK PO KROKU.");
     });
     test("zmiana języka zachowuje odpowiedź, diagnozę, częściowe kroki i natywne Undo brudnopisu", async ({
       page,
