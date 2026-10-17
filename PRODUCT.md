@@ -56,3 +56,11 @@ Notatki nie są interpretowane ani wysyłane; odświeżenie usuwa je wraz z usta
 - Wyjaśnienia muszą być poprawne matematycznie i pokazywać kolejność kroków.
 - Odpowiedzi użytkownika pozostają na urządzeniu.
 - Interfejs musi działać na małym ekranie i z klawiaturą.
+
+## MT-EDU-003 — pięć poziomów oraz pełny proces PL/EN
+
+Pięć poziomów to Łatwy/Easy, Średni/Medium, Trudny/Hard, Zaawansowany/Advanced i Ekspert/Expert. Dwa wyższe w 29 rodzinach łączą techniki zamiast zwiększać wyłącznie liczby: ułamkowe działania z nawiasami, przekształcenia dwustronne, kilka nawiasów przed deltą, wieloetapowe wyrażenia macierzowe i wyznaczniki. Wszystkie osiem kategorii ma oba poziomy. Sześć czynności elementarnych pozostaje jawnie ograniczone do trzech niższych. Pełna mapa i 3501 instancji są opisane oraz audytowane w GENERATORS.md.
+
+Cała nauka działa po polsku i angielsku: wybór, treść, typowane odpowiedzi, pomoc i diagnoza, uzasadnione etapy, brudnopis oraz sesje. Przełącznik w nagłówku zmienia tylko prezentację, zachowując to samo zadanie i stan pracy. Domyślny PL i preferencja języka istnieją wyłącznie w pamięci. Tekst użytkownika pozostaje jego tekstem, bez tłumaczenia, rozpoznawania pisma lub wysyłania.
+
+Historyczne przykłady pozostają, a 17 jawnych uzupełnień zapewnia minimum 10 dla małych pul. Rekomendacje obejmują pięć dostępnych poziomów w kategorii z niezmienionymi zasadami samodzielności i progami. Publikacja pozostaje osobną decyzją po CI, niezależnej recenzji i zgodzie użytkownika.

@@ -89,12 +89,14 @@ describe("pierwsze ważne próby w pojedynczej sesji", () => {
   });
 });
 
-const levels: Difficulty[] = ["easy", "medium", "hard"];
+import { difficulties as levels } from "./difficulty";
 // Jawna tabela oczekiwań dla 0, 1, ..., 10 poprawnych pierwszych prób.
 const expected: Record<Difficulty, Difficulty[]> = {
   easy:   ["easy", "easy", "easy", "easy", "easy", "easy", "easy", "easy", "medium", "medium", "medium"],
   medium: ["easy", "easy", "easy", "easy", "easy", "medium", "medium", "medium", "hard", "hard", "hard"],
-  hard:   ["medium", "medium", "medium", "medium", "medium", "hard", "hard", "hard", "hard", "hard", "hard"],
+  hard:   ["medium", "medium", "medium", "medium", "medium", "hard", "hard", "hard", "advanced", "advanced", "advanced"],
+  advanced: ["hard", "hard", "hard", "hard", "hard", "advanced", "advanced", "advanced", "expert", "expert", "expert"],
+  expert: ["advanced", "advanced", "advanced", "advanced", "advanced", "expert", "expert", "expert", "expert", "expert", "expert"],
 };
 
 describe("ostrożna sugestia poziomu na następną sesję", () => {
@@ -146,4 +148,13 @@ describe("rozwiązanie a samodzielne pierwsze próby", () => {
     expect(suggestLevel("medium", { ...summary, incorrect: 2, solutionViewed: 3 })).toEqual({ kind: "insufficient" });
     expect(recordSolutionViewed(state, "9")).toBe(state);
   });
+});
+
+it("rekomenduje sąsiedni rzeczywiście dostępny poziom, bez pustych obietnic", () => {
+  const summary = { shown: 10, correct: 8, incorrect: 0, skipped: 0, solutionViewed: 2 };
+  expect(suggestLevel("hard", summary, ["easy","hard","expert"])).toEqual({ kind: "suggestion", difficulty: "expert" });
+  expect(suggestLevel("expert", summary, ["easy","hard","expert"])).toEqual({ kind: "suggestion", difficulty: "expert" });
+  expect(suggestLevel("advanced", summary, ["easy","hard","expert"])).toEqual({ kind: "insufficient" });
+  expect(suggestLevel("expert", { ...summary, correct: 4, incorrect: 3, skipped: 1 }, ["easy","hard","expert"])).toEqual({ kind: "suggestion", difficulty: "hard" });
+  expect(suggestLevel("expert", { ...summary, correct: 6, incorrect: 0 })).toEqual({ kind: "insufficient" });
 });

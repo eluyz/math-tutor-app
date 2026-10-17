@@ -28,7 +28,7 @@ Build zapisuje statyczne pliki w `dist/`. `base` Vite jest ustawione na `/math-t
 
 ## Jak działają ćwiczenia
 
-Wybierz kategorię, poziom (łatwy, średni, trudny) i rodzinę. **Nowy przykład** oraz dostępny po poprawnej odpowiedzi **Następny przykład** losują kolejną treść z tej samej rodziny na bieżącym poziomie. Zmiana poziomu również zachowuje rodzinę; inny rodzaj zadania wybierzesz na liście rodzin lub przez zmianę kategorii. Każda zmiana przykładu czyści odpowiedź, ocenę, wskazówki i pytanie pomocnicze. Jeśli nic jeszcze nie wybrano, **Nowy przykład** rozpoczyna ćwiczenie w bieżącej kategorii.
+Wybierz kategorię, poziom (łatwy, średni, trudny, zaawansowany, ekspert) i rodzinę. **Nowy przykład** oraz dostępny po poprawnej odpowiedzi **Następny przykład** losują kolejną treść z tej samej rodziny na bieżącym poziomie. Zmiana poziomu również zachowuje rodzinę; inny rodzaj zadania wybierzesz na liście rodzin lub przez zmianę kategorii. Każda zmiana przykładu czyści odpowiedź, ocenę, wskazówki i pytanie pomocnicze. Jeśli nic jeszcze nie wybrano, **Nowy przykład** rozpoczyna ćwiczenie w bieżącej kategorii.
 
 **Rozpocznij sesję (10 zadań)** uruchamia serię mieszającą rodziny w wybranym temacie i na wybranym poziomie; **Następne zadanie** przechodzi dalej także wtedy, gdy chcesz pominąć bieżący wariant. Licznik pokazuje numer zadania, a po dziesiątym pojawia się komunikat o zakończeniu. Przełączenie rodziny, poziomu lub kategorii podczas sesji jest zablokowane. Losowanie nie powtarza identycznej treści, dopóki pula wybranego zakresu się nie wyczerpie; po wyczerpaniu pojawia się komunikat o wznowieniu puli.
 
@@ -36,7 +36,7 @@ Wybierz kategorię, poziom (łatwy, średni, trudny) i rodzinę. **Nowy przykła
 
 Po dziesiątym zadaniu zobaczysz liczbę pokazanych zadań, poprawnych pierwszych ważnych prób, zadań z błędną pierwszą próbą oraz pominięć bez ważnej oceny. Liczy się wyłącznie pierwsza sprawdzona odpowiedź o statusie poprawnym lub niepoprawnym. Puste i nieprawidłowe zapisy nie są ważną próbą. Powtarzanie sprawdzenia, edycja, podpowiedzi i późniejsza poprawa błędu nie zmieniają pierwszej oceny; samo wpisanie odpowiedzi bez sprawdzenia nie jest próbą.
 
-Sugestia poziomu wymaga ważnej pierwszej próby w co najmniej 7 z 10 zadań. Przy mniejszej liczbie pojawia się „Za mało danych do sugestii poziomu” i możliwość powtórzenia obecnego poziomu. Przy wystarczających danych 8–10 poprawnych pierwszych prób sugeruje jeden poziom wyżej, 0–4 jeden poziom niżej, a 5–7 powtórzenie obecnego. Sugestia pozostaje w granicach łatwy–trudny; progi odnoszą się do wszystkich 10 zadań, nie tylko ocenionych.
+Sugestia poziomu wymaga ważnej pierwszej próby w co najmniej 7 z 10 zadań. Przy mniejszej liczbie pojawia się „Za mało danych do sugestii poziomu” i możliwość powtórzenia obecnego poziomu. Przy wystarczających danych 8–10 poprawnych pierwszych prób sugeruje jeden poziom wyżej, 0–4 jeden poziom niżej, a 5–7 powtórzenie obecnego. Sugestia pozostaje w granicach łatwy–ekspert i uwzględnia dostępność w kategorii; progi odnoszą się do wszystkich 10 zadań, nie tylko ocenionych.
 
 To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system adaptacyjnego doboru rodzin. Poziom i kategoria nie zmieniają się samoczynnie. Dopiero **Rozpocznij kolejną sesję na sugerowanym poziomie** rozpoczyna nową serię na proponowanym poziomie i resetuje statystyki. Możesz też zostać przy obecnym poziomie, wybrać inny ręcznie lub wrócić do swobodnego ćwiczenia. Dane pozostają tylko w pamięci aplikacji; odświeżenie je usuwa.
 
@@ -79,3 +79,17 @@ Odpowiedzi są sprawdzane lokalnie i deterministycznie, bez `eval` i tolerancji 
 Projekt jest dostępny na licencji [MIT](LICENSE). Bezpośrednie zależności używają licencji MIT lub Apache 2.0; szczegóły są w [ARCHITECTURE.md](ARCHITECTURE.md). Zobacz też [PRODUCT.md](PRODUCT.md), [ROADMAP.md](ROADMAP.md) i [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Pakiet MT-EDU-001 nie obejmuje dowolnego parsera symbolicznego, przybliżonych pierwiastków niewymiernych, Viète'a, macierzy odwrotnej, Cramera, granic, pochodnych ani całek. Nie zapisuje postępów trwale i nie zmienia zakresu adaptacji MT-003B.1.
+
+## MT-EDU-003 — pięć poziomów, Polski / English
+
+Nagłówek ma przełącznik **🇵🇱 Polski | 🇬🇧 English** (PL/EN na małym ekranie). Domyślnie działa polski. Cały proces nauki jest dostępny po angielsku: polecenia, rodziny, pola odpowiedzi, diagnozy i podpowiedzi, kroki z uzasadnieniami, brudnopis, sesje i rekomendacje. Zmiana języka tłumaczy także już widoczne komunikaty i kroki, zachowując wariant, odpowiedź, wynik pierwszej próby, notatki, natywne Undo/Redo i stopień odsłonięcia rozwiązania. `lang` dokumentu i tytuł karty są aktualizowane. Ustawienie pozostaje w pamięci karty; odświeżenie przywraca polski. Treść notatek użytkownika nie jest tłumaczona ani wysyłana.
+
+Do dotychczasowych poziomów dodano **Zaawansowany / Advanced** oraz **Ekspert / Expert**. Pierwszy wymaga kilku zależnych działań, drugi planowania złożenia technik. Oba wspiera **29 z 35 rodzin**, we wszystkich ośmiu kategoriach. Każda nowa kombinacja ma 24 różne warianty. Sześć elementarnych rodzin pozostaje na poziomach 1–3; na wyższych są oznaczone jako niedostępne, z możliwością wyboru innej rodziny. Nie ma podmiany na hard. Pełna mapa różnic poziomów znajduje się w [GENERATORS.md](GENERATORS.md).
+
+Łącznie jest **3501 instancji matematycznych**: 2092 historyczne, 17 jawnych uzupełnień małych pul niższych poziomów i 1392 nowych L4/L5. Nie dodano nowych nazw rodzin. Wszystkie wspierane kombinacje mają co najmniej 10 treści. Zachowano historyczne pytania, wyniki i formaty; techniczne ID skalarów zawiera teraz poziom, a dodanie 17 przykładów celowo poszerza niektóre niższe pule. Rekomendacja porusza się o jeden sąsiedni dostępny poziom w kategorii, od easy do expert, przy dotychczasowym minimum 7 samodzielnych ocen i progach 8/10 oraz 4/10. Podgląd przed oceną nie jest samodzielną próbą.
+
+Testy obejmują wszystkie wspierane rodziny/poziomy/warianty oraz obie wersje językowe. Playwright obejmuje PL/EN na 375/768/1280 px, zmiany języka w zadaniu i sesji, nowe typowane odpowiedzi, górną granicę rekomendacji, brudnopis i wszystkie wcześniejsze regresje. Kontrole lokalne nie oznaczają zatwierdzenia przez niezależnego recenzenta ani testu fizycznego Safari. Przed merge nadal wymagane są zielone CI, przegląd ChatGPT Work i zgoda użytkownika.
+
+### English
+
+Use **English** in the header to learn with fully authored English questions, hints, explanations, scratchpad controls and session feedback. Changing language keeps the same exercise and your work. Five difficulty levels are available; Advanced and Expert cover 29 families with 24 variants each. Elementary families clearly show their supported levels. Everything runs locally; refreshing clears notes, results and language preference.

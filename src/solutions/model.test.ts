@@ -1,3 +1,4 @@
+import { isLegacyDifficulty } from "../difficulty";
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
 import { allTemplates, difficulties, taskPool } from "../generators";
@@ -38,7 +39,7 @@ describe("rzeczywiste rozwiązania wszystkich 35 rodzin", () => {
     }
   });
   it("Sarrus zawiera sześć oddzielnych iloczynów z właściwym znakiem i sumami", () => {
-    for (const task of tasks.filter((t) => t.templateId === "determinant-sarrus")) {
+    for (const task of tasks.filter((t) => t.templateId === "determinant-sarrus" && isLegacyDifficulty(t.difficulty))) {
       const steps = solutionFor(task);
       expect(steps.slice(1, 4).every((s) => s.action.startsWith("+ ↘"))).toBe(true);
       expect(steps.slice(4, 7).every((s) => s.action.startsWith("− ↗"))).toBe(true);
@@ -50,7 +51,7 @@ describe("rzeczywiste rozwiązania wszystkich 35 rodzin", () => {
     }
   });
   it("iloczyn macierzy wyjaśnia każdy element jako wiersz × kolumna", () => {
-    for (const task of tasks.filter((t) => t.templateId === "matrix-product")) {
+    for (const task of tasks.filter((t) => t.templateId === "matrix-product" && isLegacyDifficulty(t.difficulty))) {
       const steps = solutionFor(task), spec = getAnswerSpec(task);
       if (spec.kind !== "matrix") throw new Error("Matrix expected");
       expect(steps).toHaveLength(2 + spec.values.flat().length);
@@ -58,7 +59,7 @@ describe("rzeczywiste rozwiązania wszystkich 35 rodzin", () => {
     }
   });
   it("dokumentowana suma obejmuje faktyczne instancje wszystkich pul i poziomów", () => {
-    expect(tasks).toHaveLength(2092);
+    expect(tasks.filter((t) => isLegacyDifficulty(t.difficulty) && !t.supplemental)).toHaveLength(2092);
     const docs = readFileSync(new URL("../../GENERATORS.md", import.meta.url), "utf8");
     expect(docs).toContain("łącznie z pierwotnymi pulami 2092 instancje");
   });

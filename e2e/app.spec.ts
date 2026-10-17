@@ -38,13 +38,14 @@ test("niejednoznaczny wynik algebry pozostaje hipotezą po obu odpowiedziach pom
   await page.getByRole("button", { name: "Podstawy algebry", exact: true }).click();
   const family = page.getByRole("button", { name: /Podstawianie do wyrażenia/ });
   let selected: { x: number; k: number } | undefined;
-  for (let attempt = 0; attempt < 6; attempt++) {
+  for (let attempt = 0; attempt < 10; attempt++) {
     await family.click();
     const question = await page.locator(".question").innerText();
     const match = question.match(/^Oblicz x² \+ (\d+)x dla x = (\d+)\.$/);
     expect(match).not.toBeNull();
     const [, k, x] = match!.map(Number);
-    if (x === k + 1) { selected = { x, k }; break; }
+    // The supplemental x=2, k=1 makes both formulas correct; choose a genuinely wrong collision.
+    if (x === k + 1 && x !== 2) { selected = { x, k }; break; }
   }
   expect(selected).toBeDefined();
   await page.getByLabel("Twoja odpowiedź").fill(String(selected!.x * (selected!.k + 2)));

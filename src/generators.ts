@@ -1,3 +1,6 @@
+import { supplementalPool } from "./education/supplements";
+import { higherPool, supportsHigher } from "./advanced/catalog";
+import { higherDifficulties } from "./difficulty";
 import type { CategoryId, ErrorRule, Exercise, TypedExercise } from "./exercises";
 import { educationPool, educationTemplates } from "./education/catalog";
 import {
@@ -9,11 +12,13 @@ import {
   type Rational,
 } from "./rational";
 
-export type Difficulty = "easy" | "medium" | "hard";
-export const difficulties: Difficulty[] = ["easy", "medium", "hard"];
+import { difficulties, legacyDifficulties, type Difficulty } from "./difficulty";
+export { difficulties };
+export type { Difficulty };
 export type Parameters = Readonly<Record<string, number>>;
 export type GeneratedExercise = Exercise & {
   templateId: string;
+  supplemental?: true;
   parameters: Parameters;
   contentKey: string;
   difficulty: Difficulty;
@@ -24,7 +29,7 @@ export type Template = {
   id: string;
   category: CategoryId;
   title: string;
-  parameterSets: Record<Difficulty, Record<string, readonly number[]>>;
+  parameterSets: Partial<Record<Difficulty, Record<string, readonly number[]>>>;
   create: (parameters: Parameters) => Details;
 };
 
@@ -396,7 +401,7 @@ export const templates: Template[] = [
   },
 ];
 
-export const allTemplates = [...templates, ...educationTemplates];
+export const allTemplates = [...templates, ...educationTemplates].map((template) => ({ ...template, supportedDifficulties: [...legacyDifficulties, ...(supportsHigher(template.id) ? higherDifficulties : [])] as readonly Difficulty[] }));
 
 function combinations(choices: Record<string, readonly number[]>): Parameters[] {
   return Object.entries(choices).reduce<Parameters[]>(
@@ -414,7 +419,7 @@ export function makeInstance(template: Template, parameters: Parameters, difficu
   const details = template.create(parameters);
   const contentKey = details.question.replace(/\s+/g, " ").trim();
   return {
-    ...details, id: `${template.id}:${JSON.stringify(parameters)}`,
+    ...details, id: `${template.id}:${difficulty}:${JSON.stringify(parameters)}`,
     templateId: template.id, parameters: { ...parameters }, contentKey,
     difficulty, category: template.category, title: template.title,
   };
@@ -426,7 +431,8 @@ export function pool(category: CategoryId, difficulty: Difficulty): readonly Gen
   if (!cache.has(key)) {
     const unique = new Map<string, GeneratedExercise>();
     for (const template of templates.filter((item) => item.category === category))
-      for (const parameters of combinations(template.parameterSets[difficulty])) {
+      for (const parameters of combinations(template.parameterSets[difficulty] ?? {})) {
+        if (!template.parameterSets[difficulty]) continue;
         const instance = makeInstance(template, parameters, difficulty);
         if (!unique.has(instance.contentKey)) unique.set(instance.contentKey, instance);
       }
@@ -473,6 +479,14 @@ const taskCache = new Map<string, readonly GeneratedTask[]>();
 /** Legacy pools stay independently auditable; UI/session pools include typed education tasks. */
 export function taskPool(category: CategoryId, difficulty: Difficulty): readonly GeneratedTask[] {
   const key = `${category}:${difficulty}`;
-  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty)]);
+  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty), ...supplementalPool(category, difficulty, templates), ...higherPool(category, difficulty, allTemplates)]);
   return taskCache.get(key)!;
+}
+
+/** Availability is data, never a fallback to another level or family. */
+export function availableDifficulties(category: CategoryId): readonly Difficulty[] {
+  return difficulties.filter((level) => allTemplates.some((t) => t.category === category && t.supportedDifficulties.includes(level)));
+}
+export function supportsDifficulty(templateId: string, difficulty: Difficulty): boolean {
+  return allTemplates.find((t) => t.id === templateId)?.supportedDifficulties.includes(difficulty) ?? false;
 }

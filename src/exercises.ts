@@ -1,5 +1,6 @@
 import { equalRational, parseAnswer, type Rational } from "./rational";
 import { assessAnswer, type AnswerSpec, type AnswerInput, type AnswerAssessment } from "./answers";
+import type { Solution } from "./solutions/types";
 import type { Matrix } from "./matrices";
 
 export type CategoryId =
@@ -43,6 +44,7 @@ export type Exercise = {
 export type TypedExercise = Omit<Exercise, "answer"> & {
   answer: AnswerSpec;
   startingHint: string;
+  solution?: Solution;
   matrices?: readonly { label: string; values: Matrix }[];
 };
 export type AnyExercise = Exercise | TypedExercise;

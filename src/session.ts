@@ -1,3 +1,4 @@
+import { difficulties } from "./difficulty";
 import type { CategoryId, CheckResult } from "./exercises";
 import type { Difficulty } from "./generators";
 
@@ -64,10 +65,11 @@ export function summarizeSession(session: SessionState): SessionSummary | null {
 }
 
 /** One-session indicator, not an assessment of a person's mathematical ability. */
-export function suggestLevel(current: Difficulty, summary: SessionSummary): LevelSuggestion {
+export function suggestLevel(current: Difficulty, summary: SessionSummary, available: readonly Difficulty[] = difficulties): LevelSuggestion {
   if (summary.shown !== SESSION_LENGTH || summary.correct + summary.incorrect < 7)
     return { kind: "insufficient" };
-  const levels: Difficulty[] = ["easy", "medium", "hard"];
+  const levels = difficulties.filter((level) => available.includes(level));
+  if (!levels.includes(current)) return { kind: "insufficient" };
   const direction = summary.correct >= 8 ? 1 : summary.correct <= 4 ? -1 : 0;
   const index = Math.max(0, Math.min(levels.length - 1, levels.indexOf(current) + direction));
   return { kind: "suggestion", difficulty: levels[index] };

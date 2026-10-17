@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { checkAnswer, checkStep } from "./exercises";
-import { createGenerator, difficulties, makeInstance, pool, templates, type GeneratedExercise } from "./generators";
+import { createGenerator, makeInstance, pool, taskPool, templates, type GeneratedExercise } from "./generators";
+import { legacyDifficulties as difficulties } from "./difficulty";
 import { categories, feedback } from "./locales/pl";
 import { equalRational, rational as r, type Rational } from "./rational";
 
@@ -178,7 +179,7 @@ describe("15 parametrycznych rodzin zadań", () => {
     expect(new Set(sequence(42)).size).toBe(10);
 
     const generator = createGenerator(13);
-    const size = pool("signed", "easy").filter((item) => item.templateId === "signed-add").length;
+    const size = taskPool("signed", "easy").filter((item) => item.templateId === "signed-add").length;
     const seen = new Set<string>();
     for (let index = 0; index < size; index++) {
       const next = generator.next("signed", "easy", "signed-add");

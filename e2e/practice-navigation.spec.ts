@@ -141,16 +141,16 @@ for (const { name, viewport } of [
       await page.getByRole("button", { name: "Średni", exact: true }).click();
       const seen = new Set<string>();
       const repeated = page.getByText("Pula wariantów w tym temacie i poziomie się wyczerpała; zaczynamy ją ponownie.", { exact: true });
-      // Poziom średni ma dziewięć różnych sum: −[7, 8, 9] + [3, 4, 5].
-      for (let index = 0; index < 9; index++) {
+      // Dziewięć historycznych sum oraz jawne uzupełnienie MT-EDU-003: −6 + 2.
+      for (let index = 0; index < 10; index++) {
         await expectExercise(page, "signed-add", "medium", "Dodawanie różnych znaków");
         const question = await page.locator(".question").innerText();
         expect(seen.has(question)).toBe(false);
         seen.add(question);
         await expect(repeated).toHaveCount(0);
-        if (index < 8) await page.getByRole("button", { name: "Nowy przykład" }).click();
+        if (index < 9) await page.getByRole("button", { name: "Nowy przykład" }).click();
       }
-      expect(seen.size).toBe(9);
+      expect(seen.size).toBe(10);
       await page.getByRole("button", { name: "Nowy przykład" }).click();
       await expect(repeated).toBeVisible();
       await expectExercise(page, "signed-add", "medium", "Dodawanie różnych znaków");

@@ -786,3 +786,13 @@ footer p {
     display: grid;
   }
 }
+
+.language-picker { display: flex; flex: 0 0 auto; gap: 5px; }
+.language-picker button { min-height: 44px; padding: 7px 9px; background: #fff; border: 1px solid #315545; border-radius: 6px; color: #204a38; font: inherit; }
+.language-picker button[aria-pressed="true"] { background: #204a38; color: #fff; }
+.language-short { display: none; }
+.topbar { height: auto; min-height: 94px; gap: 12px; flex-wrap: wrap; padding-top: 14px; padding-bottom: 14px; }
+@media (max-width: 1100px) { .topbar-note { display: none; } }
+@media (max-width: 480px) { .language-full { display: none; } .language-short { display: inline; } .language-picker button { padding: 6px; font-size: 13px; } }
+.unavailable { padding: 14px; border: 1px solid #728577; margin: 15px 0; line-height: 1.6; }
+.unavailable button { min-height: 44px; padding: 8px 12px; }
