@@ -38,11 +38,11 @@ Po dziesiątym zadaniu zobaczysz liczbę pokazanych zadań, poprawnych pierwszyc
 
 Sugestia poziomu wymaga ważnej pierwszej próby w co najmniej 7 z 10 zadań. Przy mniejszej liczbie pojawia się „Za mało danych do sugestii poziomu” i możliwość powtórzenia obecnego poziomu. Przy wystarczających danych 8–10 poprawnych pierwszych prób sugeruje jeden poziom wyżej, 0–4 jeden poziom niżej, a 5–7 powtórzenie obecnego. Sugestia pozostaje w granicach łatwy–ekspert i uwzględnia dostępność w kategorii; progi odnoszą się do wszystkich 10 zadań, nie tylko ocenionych.
 
-To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system adaptacyjnego doboru rodzin. Poziom i kategoria nie zmieniają się samoczynnie. Dopiero **Rozpocznij kolejną sesję na sugerowanym poziomie** rozpoczyna nową serię na proponowanym poziomie i resetuje statystyki. Możesz też zostać przy obecnym poziomie, wybrać inny ręcznie lub wrócić do swobodnego ćwiczenia. Dane pozostają tylko w pamięci aplikacji; odświeżenie je usuwa.
+To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system adaptacyjnego doboru rodzin. Poziom i kategoria nie zmieniają się samoczynnie. Dopiero **Rozpocznij kolejną sesję na sugerowanym poziomie** rozpoczyna nową serię na proponowanym poziomie i resetuje statystyki. Możesz też zostać przy obecnym poziomie, wybrać inny ręcznie lub wrócić do swobodnego ćwiczenia. Aktywna sesja pozostaje tylko w pamięci aplikacji; odświeżenie ją usuwa. Metadane ukończonych sesji są lokalnie zapisywane przez MT-004A.
 
 ### Brudnopis i rozwiązania — MT-EDU-002A
 
-**Brudnopis** jest pod treścią zadania. **Rysuj** obsługuje mysz, dotyk i piórko; **Pióro**, **Gumka**, **Cofnij** i **Ponów** operują na całych śladach. Gumka usuwa każdy dotknięty ślad w całości. **Pisz** to zwykły tekst, z przyciskami `x²`, `√`, `Δ`, `×`, `÷`, `±`, `→`, `≠` wstawianymi w miejscu kursora lub zamiast zaznaczenia. Przełączenie trybu zachowuje obie treści. Wpisywanie i symbole korzystają z natywnej historii edytora; przyciski historii pozwalają też cofnąć ręczne czyszczenie tekstu i rysunku razem. Historia operacji aplikacji jest ograniczona do 80 zmian.
+**Brudnopis** jest domyślnie zwiniętym paskiem pomiędzy treścią zadania (wraz z macierzami i wskazówką wstępną) a polem odpowiedzi i przyciskiem **Sprawdź**. **Pokaż brudnopis / Show scratchpad** rozwija narzędzia, a **Schowaj brudnopis / Hide scratchpad** je ukrywa. Zwijanie zachowuje ten sam edytor, zaznaczenie, tryb, tekst, rysunki oraz Undo/Redo. Zamknięcie w ten sposób powiększonego panelu zwalnia blokadę przewijania i oddaje fokus przyciskowi. **Rysuj** obsługuje mysz, dotyk i piórko; **Pióro**, **Gumka**, **Cofnij** i **Ponów** operują na całych śladach. Gumka usuwa każdy dotknięty ślad w całości. **Pisz** to zwykły tekst, z przyciskami `x²`, `√`, `Δ`, `×`, `÷`, `±`, `→`, `≠` wstawianymi w miejscu kursora lub zamiast zaznaczenia. Przełączenie trybu zachowuje obie treści. Wpisywanie i symbole korzystają z natywnej historii edytora; przyciski historii pozwalają też cofnąć ręczne czyszczenie tekstu i rysunku razem. Historia operacji aplikacji jest ograniczona do 80 zmian.
 
 Domyślnie **Czyść brudnopis przy nowym zadaniu** jest zaznaczone: każde nowe uruchomienie zadania (również powtórzona treść), zmiana rodziny/kategorii/poziomu i nowa sesja czyści obie treści i historię. Odznacz checkbox, aby zachować notatki także między sesjami. **Wyczyść** zawsze czyści oba tryby i można to cofnąć. **Powiększ** otwiera obszar z przyciskiem **Zamknij**, obsługą Escape i klawiatury; zmiana rozmiaru zachowuje wektory. Notatki i preferencja istnieją tylko w pamięci bieżącej karty, do odświeżenia strony.
 
@@ -74,13 +74,13 @@ W tym repozytorium Pages używa źródła GitHub Actions. Po scaleniu zmian do `
 
 ## Zakres i prywatność
 
-Odpowiedzi są sprawdzane lokalnie i deterministycznie, bez `eval` i tolerancji zmiennoprzecinkowej. Nie ma backendu, kont, telemetrii ani przesyłania odpowiedzi na serwer. Generator, pierwsze oceny i podsumowanie sesji istnieją tylko w pamięci karty; odświeżenie strony je usuwa. Automatyczne zmiany poziomu, adaptacyjny dobór rodzin i trwała historia nie są częścią MT-003B.1.
+Odpowiedzi są sprawdzane lokalnie i deterministycznie, bez `eval` i tolerancji zmiennoprzecinkowej. Nie ma backendu, kont, telemetrii ani przesyłania odpowiedzi na serwer. Generator i aktywna sesja istnieją tylko w pamięci karty; odświeżenie strony je usuwa. MT-004A zachowuje jedynie minimalną historię ukończeń w localStorage. Automatyczne zmiany poziomu i adaptacyjny dobór rodzin pozostają poza zakresem.
 
 Projekt jest dostępny na licencji [MIT](LICENSE). Bezpośrednie zależności używają licencji MIT lub Apache 2.0; szczegóły są w [ARCHITECTURE.md](ARCHITECTURE.md). Zobacz też [PRODUCT.md](PRODUCT.md), [ROADMAP.md](ROADMAP.md) i [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Pakiet MT-EDU-001 nie obejmuje dowolnego parsera symbolicznego, przybliżonych pierwiastków niewymiernych, Viète'a, macierzy odwrotnej, Cramera, granic, pochodnych ani całek. Nie zapisuje postępów trwale i nie zmienia zakresu adaptacji MT-003B.1.
 
-## MT-EDU-003 — pięć poziomów, Polski / English
+## MT-EDU-003 — pięć poziomów, Polski / English (scalone i opublikowane)
 
 Nagłówek ma przełącznik **🇵🇱 Polski | 🇬🇧 English** (PL/EN na małym ekranie). Domyślnie działa polski. Cały proces nauki jest dostępny po angielsku: polecenia, rodziny, pola odpowiedzi, diagnozy i podpowiedzi, kroki z uzasadnieniami, brudnopis, sesje i rekomendacje. Zmiana języka tłumaczy także już widoczne komunikaty i kroki, zachowując wariant, odpowiedź, wynik pierwszej próby, notatki, natywne Undo/Redo i stopień odsłonięcia rozwiązania. `lang` dokumentu i tytuł karty są aktualizowane. Ustawienie pozostaje w pamięci karty; odświeżenie przywraca polski. Treść notatek użytkownika nie jest tłumaczona ani wysyłana.
 
@@ -92,4 +92,18 @@ Testy obejmują wszystkie wspierane rodziny/poziomy/warianty oraz obie wersje j�
 
 ### English
 
-Use **English** in the header to learn with fully authored English questions, hints, explanations, scratchpad controls and session feedback. Changing language keeps the same exercise and your work. Five difficulty levels are available; Advanced and Expert cover 29 families with 24 variants each. Elementary families clearly show their supported levels. Everything runs locally; refreshing clears notes, results and language preference.
+Use **English** in the header to learn with fully authored English questions, hints, explanations, scratchpad controls and session feedback. Changing language keeps the same exercise and your work. Five difficulty levels are available; Advanced and Expert cover 29 families with 24 variants each. Elementary families clearly show their supported levels. Everything runs locally. Completed-session metadata is saved in this browser; refreshing clears the active exercise, unfinished session, notes and language preference. Use **My progress** to review or export history, or delete it after confirmation.
+
+## MT-004A — Moje postępy / My progress (PR do przeglądu)
+
+Nawigacja pozwala wrócić z pulpitu do tej samej pracy: odpowiedzi, sesji, odsłoniętych kroków i brudnopisu. Historia zapisuje się dopiero po zakończeniu 10. zadania, dokładnie raz dla ID sesji. Zawiera czas ukończenia według zegara urządzenia (JSON: ISO UTC, widok: lokalny czas), kategorię, poziom, cztery liczniki oraz `templateId` i pierwszy rezultat każdego zadania. Nie zawiera treści odpowiedzi, technicznych ID ćwiczeń, parametrów, tekstu, rysunków ani języka.
+
+Pulpit pokazuje sumy, rozbicie kategorii i poziomów, ostatnie sesje oraz filtry kategorii, poziomu i ostatnich 30 dni. Procent to jawnie **poprawne / samodzielnie ocenione** (`correct / (correct + incorrect)`). Przy zerowym mianowniku nie ma procentu; przy mniej niż 7 samodzielnych ocenach jest informacja o małej ilości danych. Pominięcia i podgląd przed oceną mają osobne liczniki; podgląd po ocenie i późniejsze poprawki jej nie zmieniają. To historia pracy, nie ocena wiedzy.
+
+Zapis używa jednego klucza `math-tutor.progress.v1`, schematu `version: 1` i maksymalnie **200 ostatnich ukończeń**. Starsze sesje są usuwane. Brak miejsca lub dostępu nie przerywa nauki: nowe wyniki pozostają w pamięci i pojawia się komunikat. Uszkodzone dane lub nieznana wersja nie są nadpisywane; można wyeksportować nowe wyniki z pamięci lub świadomie usunąć historię.
+
+**Eksportuj historię (.json) / Export history (.json)** pobiera całą dostępną historię, niezależnie od filtrów. **Usuń historię / Delete history** wymaga potwierdzenia, usuwa wyłącznie klucz aplikacji i wyniki z pamięci; ponowne wyświetlenie ukończonej sesji ich nie odtwarza. Przy błędzie kasowania dane pozostają i komunikat nie obiecuje sukcesu. Import jest poza V1.
+
+Dane istnieją tylko w danej przeglądarce i na tym urządzeniu, bez kont, synchronizacji, cookies śledzących, backendu ani telemetrii. Wyczyszczenie danych Safari lub innej przeglądarki może usunąć historię bez możliwości odzyskania; eksport jest ręczną kopią. Notatki, aktywne zadanie, niedokończona sesja i język nie są utrwalane.
+
+Testy Chromium obejmują PL/EN i 375/768/1280 px, rzeczywiste wpisywanie, Backspace, Undo/Redo, zwijanie bez remountu i błędy storage. Fizyczny iPhone/iPad Safari nadal wymaga testu ręcznego przed merge; automatyczne stuby ograniczeń storage i emulacja dotyku go nie zastępują. MT-004A wymaga zielonego CI, niezależnej recenzji ChatGPT Work oraz zgody użytkownika. Nie jest jeszcze scalone ani opublikowane.

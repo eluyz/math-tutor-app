@@ -30,3 +30,11 @@ Polecenia EN, tytuły, wskazówki, etykiety i diagnozy uzupełniaj w `locales/le
 Audytuj wszystkie rodziny × wspierane poziomy × warianty. Do wzorów użyj niezależnych podstawień, do wyznaczników Laplace'a, do ułamków niezależnego mnożenia krzyżowego. Sprawdzaj brak zerowych mianowników, poprawność każdego pośredniego rachunku i pełny wynik końcowy. Testuj PL→EN→PL z wpisaną i sprawdzoną odpowiedzią, diagnozą, pomocniczym krokiem, częściowym i pełnym rozwiązaniem, notatkami/rysunkiem oraz sesją. Zachowaj minimum 7 samodzielnych ocen i granice easy/expert. Zmiana języka, trybu i powiększenie nie mogą niszczyć natywnego Undo/Redo.
 
 W Chromium sprawdzaj 375, 768 i 1280 px oraz angielski przepływ aż do podsumowania i rekomendacji. Safari na fizycznym iPhonie/iPadzie weryfikuj dodatkowo w obu językach; zanotuj urządzenie i wersję. Testy emulowanego viewportu nie są takim testem. Żaden commit ani PR nie upoważnia do merge lub deploy bez osobnej zgody użytkownika.
+
+## Lokalna historia — MT-004A
+
+Zapisuj jedynie zdarzenie ukończenia sesji i kanoniczne ID rodziny/poziomu oraz pierwszy wynik z `session.ts`. Nie przeliczaj historii z formularzy lub przetłumaczonego tekstu. Nie zapisuj odpowiedzi, ID/parametrów ćwiczeń, notatek, rysunków, aktywnej sesji ani języka. Walidator i numer schematu są kontraktem, a limit historii wynosi 200. Odczyt, zapis, quota, nieznana wersja i kasowanie muszą mieć testy; uszkodzone/przyszłe dane nie mogą być cicho nadpisywane.
+
+Testy prywatności dopuszczają tylko `math-tutor.progress.v1` po ukończeniu sesji, bez innych kluczy localStorage, sessionStorage lub zewnętrznych żądań. Testuj zapis dokładnie raz, powrót do wyniku, usunięcie i reload, eksport niezależny od filtrów, procent z jawnym mianownikiem, PL/EN i powrót do nauki bez resetu.
+
+Brudnopis ma być domyślnie zwinięty pomiędzy treścią a odpowiedzią. Nie używaj conditional mount ani klucza zależnego od zwinięcia/widoku/języka. Sprawdzaj realne wpisywanie, Backspace, Ctrl/Cmd+Z, Redo, zaznaczenie i tożsamość textarea, rysunki, auto-clear ON/OFF oraz schowanie modala bez osieroconej blokady przewijania. Tylko nowe zadanie z auto-clear ON odcina historię.
