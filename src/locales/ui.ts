@@ -218,6 +218,7 @@ const en: UiCopy = {
         quadratics: "Identities and quadratic equations",
         matrices: "Matrices",
         determinants: "Determinants",
+        systems: "Systems of equations",
       } as Record<string, string>
     )[c.id],
   })),

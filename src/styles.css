@@ -358,6 +358,7 @@ input:focus-visible {
   line-height: 1.6;
   font-size: 14px;
 }
+.question.university-question { white-space: pre-line; font-size: clamp(1rem, 2.2vw, 1.25rem); line-height: 1.65; overflow-wrap: anywhere; }
 .question {
   background: #eaf0e7;
   border-left: 3px solid #d48657;

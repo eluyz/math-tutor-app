@@ -11,7 +11,8 @@ export type CategoryId =
   | "equations"
   | "quadratics"
   | "matrices"
-  | "determinants";
+  | "determinants"
+  | "systems";
 
 export type ErrorRule = {
   errorCode: string;

@@ -1,4 +1,5 @@
 import { supplementalPool } from "./education/supplements";
+import { universityPool, universityTemplates } from "./university/catalog";
 import { higherPool, supportsHigher } from "./advanced/catalog";
 import { higherDifficulties } from "./difficulty";
 import type { CategoryId, ErrorRule, Exercise, TypedExercise } from "./exercises";
@@ -401,7 +402,8 @@ export const templates: Template[] = [
   },
 ];
 
-export const allTemplates = [...templates, ...educationTemplates].map((template) => ({ ...template, supportedDifficulties: [...legacyDifficulties, ...(supportsHigher(template.id) ? higherDifficulties : [])] as readonly Difficulty[] }));
+export const historicalTemplates = [...templates, ...educationTemplates].map((template) => ({ ...template, supportedDifficulties: [...legacyDifficulties, ...(supportsHigher(template.id) ? higherDifficulties : [])] as readonly Difficulty[] }));
+export const allTemplates = [...historicalTemplates, ...universityTemplates];
 
 function combinations(choices: Record<string, readonly number[]>): Parameters[] {
   return Object.entries(choices).reduce<Parameters[]>(
@@ -479,7 +481,7 @@ const taskCache = new Map<string, readonly GeneratedTask[]>();
 /** Legacy pools stay independently auditable; UI/session pools include typed education tasks. */
 export function taskPool(category: CategoryId, difficulty: Difficulty): readonly GeneratedTask[] {
   const key = `${category}:${difficulty}`;
-  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty), ...supplementalPool(category, difficulty, templates), ...higherPool(category, difficulty, allTemplates)]);
+  if (!taskCache.has(key)) taskCache.set(key, [...pool(category, difficulty), ...educationPool(category, difficulty), ...supplementalPool(category, difficulty, templates), ...higherPool(category, difficulty, historicalTemplates), ...universityPool(category, difficulty)]);
   return taskCache.get(key)!;
 }
 

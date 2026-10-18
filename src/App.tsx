@@ -502,7 +502,7 @@ export default function App() {
                   <h3>{active.title}</h3>
                   <p className="panel-intro">{a.intro}</p>
                   <div
-                    className="question"
+                    className={`question${"university" in active ? " university-question" : ""}`}
                     data-exercise-run={run}
                     data-template-id={active.templateId}
                     data-difficulty={active.difficulty}

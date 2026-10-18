@@ -8,6 +8,7 @@ import {
 } from "../answers";
 import {
   allTemplates,
+  historicalTemplates,
   taskPool,
   createGenerator,
   availableDifficulties,
@@ -249,7 +250,7 @@ describe("rzeczywiste zaawansowane i eksperckie zadania", () => {
   it("deklaracje dostępności odpowiadają rzeczywistym pulom; każda kategoria wspiera oba poziomy", () => {
     const ids = new Set<string>();
     let count = 0;
-    for (const { id: category } of [...categories, ...studyCategories])
+    for (const { id: category } of [...categories, ...studyCategories].filter((c) => historicalTemplates.some((t) => t.category === c.id)))
       for (const level of higherDifficulties) {
         expect(availableDifficulties(category)).toContain(level);
         const pool = taskPool(category, level);
@@ -269,7 +270,7 @@ describe("rzeczywiste zaawansowane i eksperckie zadania", () => {
       }
     expect(count).toBe(1392);
     expect(descriptors).toHaveLength(29);
-    const legacy = [...categories, ...studyCategories].flatMap(({ id }) =>
+    const legacy = [...categories, ...studyCategories].filter((c) => historicalTemplates.some((t) => t.category === c.id)).flatMap(({ id }) =>
       legacyDifficulties.flatMap((d) => taskPool(id, d)),
     );
     expect(legacy.filter((t) => !t.supplemental)).toHaveLength(2092);

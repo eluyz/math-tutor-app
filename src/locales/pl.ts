@@ -15,6 +15,7 @@ export const categories: { id: CategoryId; label: string }[] = [
 ];
 
 export const studyCategories: { id: CategoryId; label: string }[] = [
+  { id: "systems", label: "Układy równań" },
   { id: "quadratics", label: "Wzory i równania kwadratowe" },
   { id: "matrices", label: "Macierze" },
   { id: "determinants", label: "Wyznaczniki" },

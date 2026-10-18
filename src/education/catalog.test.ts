@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { legacyDifficulties as difficulties } from "../difficulty";
 import { educationTemplates, educationPool } from "./catalog";
 import { makeEducationInstance, VARIANTS_PER_LEVEL, type EducationInstance } from "./types";
-import { createGenerator, taskPool, allTemplates } from "../generators";
+import { createGenerator, taskPool, allTemplates, historicalTemplates } from "../generators";
 import { checkAnswer } from "../exercises";
 import { feedback } from "../locales/pl";
 import { emptyAnswer, formatRational as f, type AnswerInput, type AnswerSpec } from "../answers";
@@ -148,7 +148,8 @@ describe("niezależny audyt edukacyjnych rodzin", () => {
 
   it("ma skończone pule, deterministyczne losowanie i pamięć treści", () => {
     expect(educationTemplates).toHaveLength(20);
-    expect(allTemplates).toHaveLength(35);
+    expect(historicalTemplates).toHaveLength(35);
+    expect(allTemplates).toEqual(expect.arrayContaining(historicalTemplates));
     for (const template of educationTemplates) {
       const items = educationPool(template.category, "medium").filter((item) => item.templateId === template.id);
       expect(items.length).toBeLessThanOrEqual(VARIANTS_PER_LEVEL);
