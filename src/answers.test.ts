@@ -6,6 +6,10 @@ import { exercises, feedback } from "./locales/pl";
 import { advanceSession, createSession, recordFirstAttempt, summarizeSession } from "./session";
 
 const cases: { spec: AnswerSpec; right: AnswerInput; wrong: AnswerInput }[] = [
+  { spec: { kind: "limit", value: {kind:"finite",value:r(-2,3)} }, right: {kind:"limit",classification:"finite",value:"-4/6"}, wrong: {kind:"limit",classification:"finite",value:"2/3"} },
+  { spec: { kind: "limit", value: {kind:"positive-infinity"} }, right: {kind:"limit",classification:"positive-infinity",value:""}, wrong: {kind:"limit",classification:"negative-infinity",value:""} },
+  { spec: { kind: "limit", value: {kind:"negative-infinity"} }, right: {kind:"limit",classification:"negative-infinity",value:""}, wrong: {kind:"limit",classification:"does-not-exist",value:""} },
+  { spec: { kind: "limit", value: {kind:"does-not-exist"} }, right: {kind:"limit",classification:"does-not-exist",value:""}, wrong: {kind:"limit",classification:"positive-infinity",value:""} },
   { spec: { kind: "scalar", value: r(3, 4) }, right: "0,75", wrong: "3" },
   { spec: { kind: "list", values: [r(-2), r(3, 4)], labels: ["x₁", "x₂"], unordered: true },
     right: { kind: "list", values: ["0.75", "−2"] }, wrong: { kind: "list", values: ["-2", "-2"] } },
@@ -16,6 +20,12 @@ const cases: { spec: AnswerSpec; right: AnswerInput; wrong: AnswerInput }[] = [
     right: { kind: "choice", value: "none" }, wrong: { kind: "choice", value: "two" } },
 ];
 describe("jawnie typowane odpowiedzi", () => {
+  it("granice: brak wyboru i błędny zapis nie są ważną oceną; oscylacja nie jest nieskończonością", () => {
+    const spec:AnswerSpec={kind:"limit",value:{kind:"does-not-exist"}};
+    for(const input of ["+∞", {kind:"limit",classification:"injected",value:""}, ...["","1/0","∞","0/0","x","2 + 2"].map(value=>({kind:"limit",classification:"finite",value}))] as AnswerInput[]) expect(assessAnswer(spec,input).kind).toBe("invalid");
+    expect(assessAnswer(spec,{kind:"limit",classification:"finite",value:"0"}).kind).toBe("incorrect");
+    expect(assessAnswer(spec,{kind:"limit",classification:"positive-infinity",value:""}).kind).toBe("incorrect");
+  });
   it("formularz pierwiastków sprawdza wybór, kompletność i wartości bez ujawniania rozwiązania", () => {
     const spec: AnswerSpec = { kind: "roots", values: [r(-1, 2), r(3)] };
     expect(assessAnswer(spec, emptyAnswer(spec)).kind).toBe("invalid");

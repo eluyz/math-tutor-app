@@ -199,7 +199,7 @@ describe("P2: niezależny audyt wszystkich funkcji i poziomów", () => {
         for (let v = 0; v < 24; v++) {
           const task = makeUniversityTask(family.id, v, level),
             problem = task.university;
-          if (problem.kind === "system") throw new Error("Function expected");
+        if (problem.kind === "system" || problem.kind === "sequence-rational" || problem.kind === "sequence-geometric" || problem.kind === "sequence-conjugate") throw new Error("Function expected");
           keys.add(task.contentKey);
           audit(problem, task.answer);
           for (const locale of ["pl", "en"] as const) {

@@ -124,7 +124,7 @@ Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapow
 
 ## MT-EDU-004 — P1: układy równań
 
-MT-EDU-004: **1392** nowych instancji; łącznie **4893**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
+MT-EDU-004: **1728** nowych instancji; łącznie **5229**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
 
 | Rodzina | Poziomy | Umiejętność |
 | --- | --- | --- |
@@ -150,3 +150,13 @@ Klasyfikacja nie udostępnia pozornych pól x/y dla układów osobliwych. Układ
 | function-composition | medium, hard, advanced, expert | Dwie funkcje liniowe, kwadratowa z liniową, dwie kwadratowe, f∘g−g∘f |
 
 Każda z 37 par ma 24 warianty. Przedziały są normalizowanymi zbiorami z wymiernymi końcami, flagami domknięcia i nieskończonością; formularz oferuje kontrolowane, semantyczne odpowiedzi. Nie parsuje dowolnych zapisów symbolicznych. Zera mają neutralny wybór liczby 0/1/2 bez ujawnienia wyniku i wymagają dokładnych wartości; pojedyncze zero nie jest błędnie nazywane podwójnym. Wielomiany złożeń mają opisane pola współczynników, łącznie z zerami. Audyt niezależnie rozwija wielomiany przez splot i potęgi, sprawdza kompletność zer i wszystkie obliczenia. Audyt dziedziny sprawdza każdy punkt graniczny i każdą komórkę stałego znaku czynników. Wykresy pozostają opcjonalnym zakresem przyszłym.
+
+### P3: granice ciągów — 336 instancji
+
+| Rodzina | Poziomy | Umiejętność |
+| --- | --- | --- |
+| sequence-rational | easy, medium, hard, advanced, expert | Stopnie i współczynniki wiodące, zero i oba znaki nieskończoności; L4 redukcja różnicy rosnących wyrażeń; L5 dwa skracające się składniki i mnożenie przez n |
+| sequence-geometric | easy, medium, hard, advanced, expert | Wszystkie przypadki q, dominacja, oscylacje; L4 równe moduły i skracanie; L5 ilorazy z odmiennymi podciągami |
+| sequence-conjugate | medium, hard, advanced, expert | Sprzężenie, √(n²)=n dla n≥1; L4 n(√(n²+b)−n), L5 usunięcie również składnika liniowego i drugi rząd |
+
+14 par × 24 warianty. Typ `limit` rozróżnia dokładną liczbę, +∞, −∞ i brak granicy. Nieprawidłowy zapis liczby jest błędem formatu, a nie błędną oceną matematyczną. Ciągi geometryczne są analizowane symbolicznie po n=2k+p i połączeniu równych podstaw. Oscylacja ani postać ∞−∞ nie jest automatycznie wynikiem nieskończonym. Audyt używa niezależnego splotu wielomianów, osobnego grupowania dodatnich modułów i dokładnych tożsamości sprzężenia; nie zgaduje granic z kilku wyrazów.

@@ -81,6 +81,14 @@ const pl = {
     language: "Język aplikacji",
   },
   answers: {
+    limit: {
+      classification: "Rodzaj granicy",
+      finite: "Skończona liczba",
+      "positive-infinity": "+∞",
+      "negative-infinity": "−∞",
+      "does-not-exist": "Granica nie istnieje",
+      value: "Dokładna wartość granicy",
+    },
     zeros: {
       count: "Liczba rzeczywistych miejsc zerowych",
       two: "Dwa różne miejsca zerowe",
@@ -200,6 +208,8 @@ const en: UiCopy = {
     practice: "Keep practising",
   },
   answerHints: {
+    limit:
+      "Distinguish a finite number, +∞, −∞ and a limit that does not exist. Enter a finite limit as an exact number or fraction a/b.",
     scalar: "Enter a number, a fraction a/b or an exactly equivalent decimal.",
     list: "Complete every labelled field. Integers and exact fractions a/b are accepted.",
     matrix:
@@ -229,6 +239,7 @@ const en: UiCopy = {
         determinants: "Determinants",
         systems: "Systems of equations",
         functions: "Functions",
+        "sequence-limits": "Limits of sequences",
       } as Record<string, string>
     )[c.id],
   })),
@@ -295,6 +306,14 @@ const en: UiCopy = {
     language: "Application language",
   },
   answers: {
+    limit: {
+      classification: "Type of limit",
+      finite: "Finite number",
+      "positive-infinity": "+∞",
+      "negative-infinity": "−∞",
+      "does-not-exist": "The limit does not exist",
+      value: "Exact value of the limit",
+    },
     zeros: {
       count: "Number of real zeros",
       two: "Two distinct zeros",

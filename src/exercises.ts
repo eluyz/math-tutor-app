@@ -13,7 +13,8 @@ export type CategoryId =
   | "matrices"
   | "determinants"
   | "systems"
-  | "functions";
+  | "functions"
+  | "sequence-limits";
 
 export type ErrorRule = {
   errorCode: string;

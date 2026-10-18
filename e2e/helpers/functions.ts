@@ -19,8 +19,8 @@ export const shownFraction = (text: string): Rational => {
 export function shownPolynomial(text: string): Rational[] {
   const coefficients: Rational[] = [q(0)];
   if (text.trim() === "0") return coefficients;
-  for (const token of text.matchAll(/\(([^()]+)\)(?:·x([²³⁴]?))?/g)) {
-    const power = token[0].includes("·x")
+  for (const token of text.matchAll(/\(([^()]+)\)(?:·[xn]([²³⁴]?))?/g)) {
+    const power = /·[xn]/.test(token[0])
       ? token[2] === "⁴"
         ? 4
         : token[2] === "³"

@@ -60,7 +60,32 @@ export type FunctionProblem =
       inner: Polynomial;
       commutator: boolean;
     }>;
-export type UniversityProblem = SystemProblem | FunctionProblem;
+export type RationalExpression =
+  | Readonly<{ kind: "ratio"; numerator: Polynomial; denominator: Polynomial }>
+  | Readonly<{
+      kind: "difference" | "product";
+      left: RationalExpression;
+      right: RationalExpression;
+    }>;
+export type GeometricTerm = Readonly<{ coefficient: Rational; base: Rational }>;
+export type SequenceProblem =
+  | Readonly<{ kind: "sequence-rational"; expression: RationalExpression }>
+  | Readonly<{
+      kind: "sequence-geometric";
+      terms: readonly GeometricTerm[];
+      denominator?: readonly GeometricTerm[];
+    }>
+  | Readonly<{
+      kind: "sequence-conjugate";
+      mode: "basic" | "scaled" | "multiply" | "second-order";
+      a: Rational;
+      b: Rational;
+      k: Rational;
+    }>;
+export type UniversityProblem =
+  | SystemProblem
+  | FunctionProblem
+  | SequenceProblem;
 export type UniversityFamily = Readonly<{
   id: string;
   category: CategoryId;

@@ -5,13 +5,22 @@ import type { GeneratedTask } from "../generators";
 import type { UniversityProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
+import { sequenceFamilies, presentSequence } from "./sequences";
 
 export const UNIVERSITY_VARIANTS = 24;
-export const universityFamilies = [...systemFamilies, ...functionFamilies];
+export const universityFamilies = [
+  ...systemFamilies,
+  ...functionFamilies,
+  ...sequenceFamilies,
+];
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "system"
     ? presentSystem(problem, locale)
-    : presentFunction(problem, locale);
+    : problem.kind === "sequence-rational" ||
+        problem.kind === "sequence-geometric" ||
+        problem.kind === "sequence-conjugate"
+      ? presentSequence(problem, locale)
+      : presentFunction(problem, locale);
 export const universityTemplates = universityFamilies.map((family) => ({
   id: family.id,
   category: family.category,

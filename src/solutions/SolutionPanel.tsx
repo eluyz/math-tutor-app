@@ -14,6 +14,14 @@ function FinalAnswer({ answer }: { answer: AnswerSpec }) {
       ? copy.answers.zeros
       : c;
   switch (answer.kind) {
+    case "limit":
+      return (
+        <p className="solution-answer">
+          {answer.value.kind === "finite"
+            ? f(answer.value.value)
+            : copy.answers.limit[answer.value.kind]}
+        </p>
+      );
     case "scalar":
       return <p className="solution-answer">{f(answer.value)}</p>;
     case "list":

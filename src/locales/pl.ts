@@ -17,12 +17,14 @@ export const categories: { id: CategoryId; label: string }[] = [
 export const studyCategories: { id: CategoryId; label: string }[] = [
   { id: "systems", label: "Układy równań" },
   { id: "functions", label: "Funkcje" },
+  { id: "sequence-limits", label: "Granice ciągów" },
   { id: "quadratics", label: "Wzory i równania kwadratowe" },
   { id: "matrices", label: "Macierze" },
   { id: "determinants", label: "Wyznaczniki" },
 ];
 
 export const answerHints = {
+  limit: "Rozróżnij liczbę, +∞, −∞ i brak granicy. Dla skończonej granicy wpisz dokładną liczbę lub ułamek a/b.",
   scalar: "Możesz wpisać liczbę, ułamek a/b lub równoważną wartość dziesiętną.",
   list: "Uzupełnij każde opisane pole. Możesz użyć liczb całkowitych lub dokładnych ułamków a/b.",
   matrix: "Wpisz wszystkie elementy macierzy, wiersz po wierszu. Dopuszczalne są liczby całkowite i dokładne ułamki a/b.",
