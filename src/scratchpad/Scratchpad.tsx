@@ -251,6 +251,17 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
         <div className="scratchpad-heading">
           <h4>{s.name}</h4>
           <button
+            ref={expandButton}
+            hidden={expanded || !open}
+            type="button"
+            onClick={() => {
+              cancelGesture();
+              setExpanded(true);
+            }}
+          >
+            {s.expand}
+          </button>
+          <button
             ref={toggleButton}
             type="button"
             aria-expanded={open}
@@ -273,17 +284,6 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
             }}
           >
             {open ? s.hide : s.show}
-          </button>
-          <button
-            ref={expandButton}
-            hidden={expanded || !open}
-            type="button"
-            onClick={() => {
-              cancelGesture();
-              setExpanded(true);
-            }}
-          >
-            {s.expand}
           </button>
           <button
             ref={closeButton}
