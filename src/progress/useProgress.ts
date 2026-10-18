@@ -15,6 +15,7 @@ export function useProgress() {
     const next = deleteProgress(current.current, browserStorage);
     current.current = next;
     setState(next);
+    return next.issue === null;
   }
   return { ...state, record, clear };
 }

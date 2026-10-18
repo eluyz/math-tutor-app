@@ -50,6 +50,7 @@ for (const viewport of [
       });
       await page.goto("/");
       await page.getByRole("button", { name: /Najpierw mnożenie/ }).click();
+      await page.getByRole("button", { name: "Pokaż brudnopis", exact: true }).click();
     });
     test.afterEach(async ({ page }) => {
       expect(errors.get(page)).toEqual([]);

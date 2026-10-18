@@ -1,4 +1,5 @@
 import { numeric } from "./helpers/arithmetic";
+import { expectOnlyProgressStorage } from "./helpers/progress";
 import { polishLearningText as polish } from "./helpers/localization";
 import { test, expect, type Page } from "@playwright/test";
 async function english(page: Page) {
@@ -55,9 +56,7 @@ for (const viewport of [
           () => document.documentElement.scrollWidth > innerWidth,
         ),
       ).toBe(false);
-      expect(
-        await page.evaluate(() => localStorage.length + sessionStorage.length),
-      ).toBe(0);
+      await expectOnlyProgressStorage(page);
     });
     test("slogan hero zmienia się z polskiego na angielski i z powrotem", async ({
       page,
@@ -74,6 +73,7 @@ for (const viewport of [
       page,
     }) => {
       await page.getByRole("button", { name: /Najpierw mnożenie/ }).click();
+      await page.getByRole("button", { name: "Pokaż brudnopis", exact: true }).click();
       const id = await page
         .locator(".question")
         .getAttribute("data-exercise-run");
@@ -283,6 +283,7 @@ for (const viewport of [
       page,
     }) => {
       await page.getByRole("button", { name: /Najpierw mnożenie/ }).click();
+      await page.getByRole("button", { name: "Pokaż brudnopis", exact: true }).click();
       await page
         .getByRole("button", {
           name: "Rozpocznij sesję (10 zadań)",
