@@ -124,7 +124,7 @@ Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapow
 
 ## MT-EDU-004 — P1: układy równań
 
-MT-EDU-004: **504** nowych instancji; łącznie **4005**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
+MT-EDU-004: **1392** nowych instancji; łącznie **4893**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
 
 | Rodzina | Poziomy | Umiejętność |
 | --- | --- | --- |
@@ -135,3 +135,18 @@ MT-EDU-004: **504** nowych instancji; łącznie **4005**. Rdzeń MT-EDU-003 zach
 | system-cramer-three | hard, advanced, expert | Dokładne cztery wyznaczniki 3×3; L4 ułamki/nawiasy; L5 u=x+y, v=y+z, w=z i odwrócenie zmiany |
 
 Klasyfikacja nie udostępnia pozornych pól x/y dla układów osobliwych. Układy oznaczone wymagają wszystkich uporządkowanych wartości. Cramer przy D=0 przechodzi do klasyfikacji eliminacją, bez dzielenia. Każde rozwiązanie jest sprawdzane w oryginalnych równaniach. Niezależny audyt korzysta z rozwinięcia Laplace'a, własnej arytmetyki ułamków i podstawienia wszystkich niewiadomych; nie korzysta z produkcyjnego solvera. Zapis historii obejmuje nowe kanoniczne ID rodzin bez zmiany schematu.
+
+### P2: funkcje — 888 instancji
+
+| Rodzina | Poziomy | Umiejętność |
+| --- | --- | --- |
+| function-value | easy, medium, hard, advanced, expert | Wartości; L3 ułamki i niezerowy mianownik; L4 złożenie; L5 różnica złożeń z argumentami przeciwnymi |
+| function-domain | easy, medium, hard, advanced, expert | Wielomiany, bieguny, pierwiastki; L3–L5 przecięcie warunków i ścisła dodatniość pierwiastka w mianowniku |
+| function-zeros | easy, medium, hard, advanced, expert | Zera liniowe/kwadratowe, wszystkie znaki delty; L3–L5 wykluczenia dziedziny, złożenia i różnica liczników |
+| function-linear | easy, medium, hard, advanced, expert | Rekonstrukcja z dwóch punktów; L4 h=f+g, L5 h=f∘g i odzyskanie współczynników f |
+| function-monotonicity | easy, medium, hard | Znak nachylenia, również stała; upraszczanie złożeń i różnic funkcji liniowych |
+| function-vertex | easy, medium, hard, advanced, expert | Wierzchołek i oś; postać kanoniczna, ogólna, ułamki, złożenie, różnica przesuniętych kwadratów |
+| function-range | easy, medium, hard, advanced, expert | Dokładny zbiór wartości po obliczeniu wierzchołka, zwrot ramion i osiągany koniec |
+| function-composition | medium, hard, advanced, expert | Dwie funkcje liniowe, kwadratowa z liniową, dwie kwadratowe, f∘g−g∘f |
+
+Każda z 37 par ma 24 warianty. Przedziały są normalizowanymi zbiorami z wymiernymi końcami, flagami domknięcia i nieskończonością; formularz oferuje kontrolowane, semantyczne odpowiedzi. Nie parsuje dowolnych zapisów symbolicznych. Zera mają neutralny wybór liczby 0/1/2 bez ujawnienia wyniku i wymagają dokładnych wartości; pojedyncze zero nie jest błędnie nazywane podwójnym. Wielomiany złożeń mają opisane pola współczynników, łącznie z zerami. Audyt niezależnie rozwija wielomiany przez splot i potęgi, sprawdza kompletność zer i wszystkie obliczenia. Audyt dziedziny sprawdza każdy punkt graniczny i każdą komórkę stałego znaku czynników. Wykresy pozostają opcjonalnym zakresem przyszłym.

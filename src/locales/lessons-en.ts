@@ -193,7 +193,7 @@ export const familyEnglish: Record<string, readonly [string, string, string]> =
     ],
   };
 const fieldLabels: Record<string, string> = {
-  x: "x", y: "y", z: "z",
+  x: "x", y: "y", z: "z", a: "a", b: "b", "xᵥ": "xᵥ", "yᵥ": "yᵥ", "x²": "x²", "x³": "x³", "x⁴": "x⁴", "1": "1",
   "Współczynnik przy x²": "Coefficient of x²",
   "Współczynnik przy x": "Coefficient of x",
   "Wyraz wolny": "Constant term",
@@ -226,6 +226,9 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
               "system-one": "Exactly one solution",
               "system-none": "No solutions",
               "system-many": "Infinitely many solutions",
+              "function-increasing": "Strictly increasing",
+              "function-decreasing": "Strictly decreasing",
+              "function-constant": "Constant",
             } as Record<string, string>
           )[o.value] ?? o.label,
       })),

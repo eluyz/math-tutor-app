@@ -66,13 +66,15 @@ export default function App() {
     active && checkedInput !== null
       ? checkAnswer(active, checkedInput, feedback)
       : null;
+  const activeSpec = active ? getAnswerSpec(active) : null;
+  const functionZeros = activeSpec?.kind === "roots" && activeSpec.context === "zeros";
   const submittedAnswer =
     checkedInput === null
       ? ""
       : typeof checkedInput !== "string" &&
           checkedInput.kind === "roots" &&
           checkedInput.classification === "none"
-        ? copy.answers.none
+        ? functionZeros ? copy.answers.zeros.none : copy.answers.none
         : describeInput(
             checkedInput,
             active ? getAnswerSpec(active) : undefined,
@@ -546,7 +548,7 @@ export default function App() {
                       }}
                     />
                     <p id="answer-help" className="input-help">
-                      {answerHints[getAnswerSpec(active).kind]}
+                      {functionZeros ? copy.answers.zeros.help : answerHints[getAnswerSpec(active).kind]}
                     </p>
                   </form>
                   {result && (

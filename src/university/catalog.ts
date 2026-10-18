@@ -4,9 +4,14 @@ import type { Locale } from "../locales/types";
 import type { GeneratedTask } from "../generators";
 import type { UniversityProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
+import { functionFamilies, presentFunction } from "./functions";
 
 export const UNIVERSITY_VARIANTS = 24;
-export const universityFamilies = [...systemFamilies];
+export const universityFamilies = [...systemFamilies, ...functionFamilies];
+const present = (problem: UniversityProblem, locale: Locale) =>
+  problem.kind === "system"
+    ? presentSystem(problem, locale)
+    : presentFunction(problem, locale);
 export const universityTemplates = universityFamilies.map((family) => ({
   id: family.id,
   category: family.category,
@@ -27,7 +32,7 @@ export function localizeUniversity(
   locale: Locale,
 ): UniversityTask {
   const family = universityFamilies.find((f) => f.id === task.templateId)!;
-  const presentation = presentSystem(task.university, locale);
+  const presentation = present(task.university, locale);
   return {
     ...task,
     ...presentation,
@@ -50,7 +55,7 @@ export function makeUniversityTask(
   )
     throw new Error("Unsupported university exercise");
   const university = family.create(variant, difficulty),
-    presentation = presentSystem(university, "pl");
+    presentation = present(university, "pl");
   return {
     ...presentation,
     id: `${id}:${difficulty}:${variant}`,

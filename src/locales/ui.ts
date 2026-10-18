@@ -81,6 +81,15 @@ const pl = {
     language: "Język aplikacji",
   },
   answers: {
+    zeros: {
+      count: "Liczba rzeczywistych miejsc zerowych",
+      two: "Dwa różne miejsca zerowe",
+      double: "Jedno miejsce zerowe",
+      none: "Brak rzeczywistych miejsc zerowych",
+      order: "Kolejność miejsc zerowych nie ma znaczenia.",
+      root: (n: number) => `Miejsce zerowe ${n}`,
+      help: "Wybierz liczbę miejsc zerowych i podaj ich dokładne wartości. Sprawdź wykluczenia z dziedziny.",
+    },
     roots: "Liczba pierwiastków rzeczywistych",
     choose: "Wybierz odpowiedź",
     two: "Dwa różne pierwiastki",
@@ -219,6 +228,7 @@ const en: UiCopy = {
         matrices: "Matrices",
         determinants: "Determinants",
         systems: "Systems of equations",
+        functions: "Functions",
       } as Record<string, string>
     )[c.id],
   })),
@@ -285,6 +295,15 @@ const en: UiCopy = {
     language: "Application language",
   },
   answers: {
+    zeros: {
+      count: "Number of real zeros",
+      two: "Two distinct zeros",
+      double: "One zero",
+      none: "No real zeros",
+      order: "The order of the zeros does not matter.",
+      root: (n) => `Zero ${n}`,
+      help: "Choose the number of zeros and enter their exact values. Check domain exclusions.",
+    },
     roots: "Number of real roots",
     choose: "Choose an answer",
     two: "Two distinct roots",

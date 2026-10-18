@@ -9,6 +9,10 @@ import "./solutions.css";
 function FinalAnswer({ answer }: { answer: AnswerSpec }) {
   const { copy } = useLocale();
   const c = copy.solution;
+  const roots =
+    answer.kind === "roots" && answer.context === "zeros"
+      ? copy.answers.zeros
+      : c;
   switch (answer.kind) {
     case "scalar":
       return <p className="solution-answer">{f(answer.value)}</p>;
@@ -38,10 +42,10 @@ function FinalAnswer({ answer }: { answer: AnswerSpec }) {
       return (
         <p className="solution-answer">
           {answer.values.length === 0
-            ? c.none
+            ? roots.none
             : answer.values.length === 1
-              ? `${c.double}: x₀ = ${f(answer.values[0])}`
-              : `${c.two}: x₁ = ${f(answer.values[0])}; x₂ = ${f(answer.values[1])}`}
+              ? `${roots.double}: x₀ = ${f(answer.values[0])}`
+              : `${roots.two}: x₁ = ${f(answer.values[0])}; x₂ = ${f(answer.values[1])}`}
         </p>
       );
   }

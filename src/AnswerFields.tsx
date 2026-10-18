@@ -18,6 +18,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
     </button>
   );
   if (spec.kind === "roots") {
+    const labels = spec.context === "zeros" ? c.zeros : c;
     const input =
       typeof value !== "string" && value.kind === "roots"
         ? value
@@ -26,7 +27,9 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
       <div className="structured-answer">
         <fieldset aria-describedby="answer-help">
           <legend>{ui.answer}</legend>
-          <label htmlFor="answer">{c.roots}</label>
+          <label htmlFor="answer">
+            {spec.context === "zeros" ? c.zeros.count : c.roots}
+          </label>
           <select
             id="answer"
             value={input.classification}
@@ -46,14 +49,14 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
             }}
           >
             <option value="">{c.choose}</option>
-            <option value="two">{c.two}</option>
-            <option value="double">{c.double}</option>
-            <option value="none">{c.none}</option>
+            <option value="two">{labels.two}</option>
+            <option value="double">{labels.double}</option>
+            <option value="none">{labels.none}</option>
           </select>
-          {input.values.length > 0 && <p>{c.order}</p>}
+          {input.values.length > 0 && <p>{labels.order}</p>}
           {input.values.map((entry, i) => (
             <div className="coefficient-field" key={i}>
-              <label htmlFor={`root-${i}`}>{c.root(i + 1)}</label>
+              <label htmlFor={`root-${i}`}>{labels.root(i + 1)}</label>
               <input
                 id={`root-${i}`}
                 type="text"

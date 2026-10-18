@@ -2,7 +2,7 @@ import { equalRational, parseAnswer, type Rational, type ParsedAnswer } from "./
 import type { Matrix } from "./matrices";
 
 export type AnswerSpec =
-  | { kind: "roots"; values: readonly Rational[] }
+  | { kind: "roots"; values: readonly Rational[]; context?: "zeros" }
   | { kind: "scalar"; value: Rational }
   | { kind: "list"; values: readonly Rational[]; labels: readonly string[]; unordered?: boolean }
   | { kind: "matrix"; values: Matrix }
