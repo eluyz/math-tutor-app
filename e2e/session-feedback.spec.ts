@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { expectOnlyProgressStorage } from "./helpers/progress";
 
 type Outcome = "correct" | "corrected" | "incorrect" | "skip";
 const accept = "Rozpocznij kolejną sesję na sugerowanym poziomie";
@@ -108,8 +109,7 @@ for (const { name, viewport } of [
       await expect(page.getByRole("status")).toHaveText("Sugerowany poziom: Średni");
       await expect(page.getByRole("button", { name: "Średni", exact: true })).toHaveAttribute("aria-pressed", "true");
       expect(external).toEqual([]);
-      expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length })))
-        .toEqual({ local: 0, session: 0 });
+      await expectOnlyProgressStorage(page);
     });
 
     test("akceptacja sugestii zmienia poziom dopiero po kliknięciu i resetuje statystyki", async ({ page }) => {

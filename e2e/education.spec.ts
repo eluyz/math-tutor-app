@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { expectOnlyProgressStorage } from "./helpers/progress";
 import { parseAnswer, rational as r, addRational as add, subtractRational as sub, multiplyRational as mul, type Rational } from "../src/rational";
 
 const format = (value: Rational) => `${value.numerator}/${value.denominator}`;
@@ -80,7 +81,7 @@ for (const { name, viewport } of [
   test.afterEach(async ({ page }) => {
     expect(external.get(page)).toEqual([]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
-    expect(await page.evaluate(() => localStorage.length + sessionStorage.length)).toBe(0);
+    await expectOnlyProgressStorage(page);
   });
 
   test("pełna macierz: błąd, wskazówki, poprawa, reset, tab i poziom; transpozycja i mnożenie", async ({ page }) => {

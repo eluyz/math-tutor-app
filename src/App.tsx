@@ -31,11 +31,18 @@ import {
   type SessionState,
 } from "./session";
 import { SessionSummaryPanel } from "./SessionSummaryPanel";
+import { completedSession } from "./progress/model";
+import { useProgress } from "./progress/useProgress";
+import { ProgressDashboard } from "./progress/ProgressDashboard";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
   const { categories, studyCategories, feedback, ui, answerHints } = copy;
   const a = copy.app;
+  const progress = useProgress();
+  const [view, setView] = useState<"learn" | "progress">("learn");
+  const sessionId = useRef<string | null>(null);
+  const previousView = useRef(view);
   const generator = useRef<ReturnType<typeof createGenerator> | null>(null);
   const [run, setRun] = useState(0);
   const [source, setActive] = useState<GeneratedTask | null>(null);
@@ -97,6 +104,14 @@ export default function App() {
     if (sessionDone) document.getElementById("session-complete")?.focus();
   }, [sessionDone]);
 
+  useEffect(() => {
+    if (previousView.current !== view)
+      document
+        .getElementById(view === "progress" ? "progress-title" : "practice-title")
+        ?.focus();
+    previousView.current = view;
+  }, [view]);
+
   function resetAnswer(exercise: GeneratedTask | null = null) {
     setAnswer(exercise ? emptyAnswer(getAnswerSpec(exercise)) : "");
     setCheckedInput(null);
@@ -107,6 +122,12 @@ export default function App() {
   }
 
   function updateSession(next: SessionState | null) {
+    if (next?.completed && !sessionRef.current?.completed && sessionId.current) {
+      const record = completedSession(
+        next, sessionId.current, new Date().toISOString(),
+      );
+      if (record) progress.record(record);
+    }
     // Keep event guards current even before React renders a queued state update.
     sessionRef.current = next;
     setSession(next);
@@ -162,7 +183,10 @@ export default function App() {
     setUnavailable(null);
     generator.current = createGenerator();
     const next = generator.current.next(selectedCategory, level);
-    updateSession(createSession(selectedCategory, level, next.exercise.id));
+    sessionId.current = crypto.randomUUID();
+    updateSession(createSession(
+      selectedCategory, level, next.exercise.id, next.exercise.templateId,
+    ));
     setDifficulty(level);
     showExercise(next);
   }
@@ -201,7 +225,9 @@ export default function App() {
         current.entries.length < SESSION_LENGTH
           ? generator.current!.next(current.category, current.difficulty)
           : undefined;
-      const updated = advanceSession(current, active.id, next?.exercise.id);
+      const updated = advanceSession(
+        current, active.id, next?.exercise.id, next?.exercise.templateId,
+      );
       if (updated === current) return;
       updateSession(updated);
       if (next) showExercise(next);
@@ -223,6 +249,10 @@ export default function App() {
           href="/math-tutor-app/"
           onClick={(event) => {
             event.preventDefault();
+            if (view === "progress") {
+              setView("learn");
+              return;
+            }
             setActive(null);
             setUnavailable(null);
             updateSession(null);
@@ -245,7 +275,18 @@ export default function App() {
         <LanguagePicker />
       </header>
 
+      <nav className="view-navigation" aria-label={copy.progress.navigation}>
+        <button type="button" aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
+          {copy.progress.learn}
+        </button>
+        <button type="button" aria-current={view === "progress" ? "page" : undefined} onClick={() => setView("progress")}>
+          {copy.progress.title}
+        </button>
+      </nav>
+      {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
+
       <main>
+        <div hidden={view !== "learn"}>
         <section className="hero" aria-labelledby="hero-title">
           <div className="hero-copy">
             <span className="eyebrow">
@@ -301,7 +342,7 @@ export default function App() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">{a.learnSteps}</span>
-              <h2 id="practice-title">
+              <h2 id="practice-title" tabIndex={-1}>
                 {a.chooseTopic}
                 <span className="period">.</span>
               </h2>
@@ -484,7 +525,7 @@ export default function App() {
                   )}
                 </>
               ) : null}
-              <Scratchpad run={run} active={!!active} />
+              <Scratchpad run={run} active={!!active && view === "learn"} />
               {active ? (
                 <>
                   <form onSubmit={submitAnswer}>
@@ -671,6 +712,14 @@ export default function App() {
             </div>
           </div>
         </section>
+        </div>
+        <ProgressDashboard
+          active={view === "progress"}
+          history={progress.history}
+          issue={progress.issue}
+          onDelete={progress.clear}
+          onLearn={() => setView("learn")}
+        />
       </main>
       <footer>
         <span>

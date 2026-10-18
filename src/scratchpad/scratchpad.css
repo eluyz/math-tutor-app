@@ -1,4 +1,7 @@
 .scratchpad { margin: 1.3rem 0; padding: 1rem; background: #f8f7f2; border: 1px solid #b9c6bd; border-radius: 12px; min-width: 0; }
+.scratchpad-collapsed { margin: .6rem 0; padding: .4rem .7rem; }
+.scratchpad-collapsed .scratchpad-heading { margin: 0; }
+.scratchpad-heading h4 { margin-right: auto; }
 .scratchpad [hidden] { display: none !important; }
 .scratchpad-heading, .scratchpad-toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .45rem; margin-bottom: .6rem; }
 .scratchpad-heading { justify-content: space-between; }

@@ -1,4 +1,5 @@
 import { expect, test, type Page, type Locator } from "@playwright/test";
+import { expectOnlyProgressStorage } from "./helpers/progress";
 
 async function draw(page: Page, svg: Locator, erase = false) {
   await svg.scrollIntoViewIfNeeded();
@@ -25,11 +26,12 @@ for (const { name, viewport } of [
     await page.addInitScript(() => { Date.now = () => 42; });
     await page.goto("/");
     await page.getByRole("button", { name: /Najpierw mnożenie/ }).click();
+    await page.getByRole("button", { name: "Pokaż brudnopis", exact: true }).click();
   });
   test.afterEach(async ({ page }) => {
     expect(external.get(page)).toEqual([]);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
-    expect(await page.evaluate(() => localStorage.length + sessionStorage.length)).toBe(0);
+    await expectOnlyProgressStorage(page);
   });
 
   test("natywna historia: auto-clear ON odcina Undo i Redo po usunięciu tekstu Backspace", async ({ page }) => {
@@ -147,8 +149,11 @@ for (const { name, viewport } of [
     await page.getByRole("button", { name: "Powiększ", exact: true }).click();
     const dialog = page.getByRole("dialog", { name: "Brudnopis", exact: true });
     await expect(dialog).toBeVisible(); await expect(dialog.getByRole("button", { name: "Zamknij", exact: true })).toBeFocused();
+    await page.keyboard.press("Tab");
+    await page.keyboard.press("Shift+Tab"); await expect(dialog.getByRole("button", { name: "Zamknij", exact: true })).toBeFocused();
+    await page.keyboard.press("Shift+Tab"); await expect(dialog.getByRole("button", { name: "Schowaj brudnopis", exact: true })).toBeFocused();
     await page.keyboard.press("Shift+Tab"); await expect(dialog.getByLabel("Czyść brudnopis przy nowym zadaniu")).toBeFocused();
-    await page.keyboard.press("Tab"); await expect(dialog.getByRole("button", { name: "Zamknij", exact: true })).toBeFocused();
+    await page.keyboard.press("Tab"); await expect(dialog.getByRole("button", { name: "Schowaj brudnopis", exact: true })).toBeFocused();
     await page.setViewportSize({ width: viewport.height, height: viewport.width });
     await expect(svg.locator("[data-stroke]")).toHaveAttribute("points", points!);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);

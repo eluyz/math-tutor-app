@@ -30,7 +30,7 @@ MT-003B.1 dodaje podsumowanie 10 zadań i opcjonalną sugestię poziomu na nast�
 
 Potrzeba co najmniej 7 ważnych pierwszych prób. Przy 8–10 poprawnych z 10 proponowany jest jeden poziom wyżej, przy 0–4 jeden niżej, przy 5–7 obecny, w granicach łatwy–trudny. Przy mniejszej liczbie ważnych prób aplikacja wyjaśnia brak danych i umożliwia powtórzenie obecnego poziomu. Użytkownik musi świadomie zaakceptować sugestię, aby rozpocząć nową sesję; może też pozostać przy obecnym poziomie lub wybrać inny ręcznie. Nowa sesja resetuje statystyki.
 
-To pierwszy ograniczony etap adaptacji, nie pełny adaptacyjny dobór rodzin. Poziom nie zmienia się w trakcie sesji. Nie ma trwałej historii, localStorage, backendu, kont ani zewnętrznych żądań; statystyki znikają po odświeżeniu. Podsumowanie otrzymuje fokus i ma opisane wartości dostępne dla czytników ekranu oraz czytelne na telefonie.
+To pierwszy ograniczony etap adaptacji, nie pełny adaptacyjny dobór rodzin. Poziom nie zmienia się w trakcie sesji. W samym MT-003B.1 nie było trwałej historii; MT-004A dodaje zapis ukończeń, zachowując bieżącą sesję w pamięci. Nadal nie ma backendu, kont ani zewnętrznych żądań. Podsumowanie otrzymuje fokus i ma opisane wartości dostępne dla czytników ekranu oraz czytelne na telefonie.
 
 ## MT-EDU-001 — autorski pakiet od algebry do macierzy
 
@@ -57,10 +57,22 @@ Notatki nie są interpretowane ani wysyłane; odświeżenie usuwa je wraz z usta
 - Odpowiedzi użytkownika pozostają na urządzeniu.
 - Interfejs musi działać na małym ekranie i z klawiaturą.
 
-## MT-EDU-003 — pięć poziomów oraz pełny proces PL/EN
+## MT-EDU-003 — pięć poziomów oraz pełny proces PL/EN (scalone i opublikowane)
 
 Pięć poziomów to Łatwy/Easy, Średni/Medium, Trudny/Hard, Zaawansowany/Advanced i Ekspert/Expert. Dwa wyższe w 29 rodzinach łączą techniki zamiast zwiększać wyłącznie liczby: ułamkowe działania z nawiasami, przekształcenia dwustronne, kilka nawiasów przed deltą, wieloetapowe wyrażenia macierzowe i wyznaczniki. Wszystkie osiem kategorii ma oba poziomy. Sześć czynności elementarnych pozostaje jawnie ograniczone do trzech niższych. Pełna mapa i 3501 instancji są opisane oraz audytowane w GENERATORS.md.
 
 Cała nauka działa po polsku i angielsku: wybór, treść, typowane odpowiedzi, pomoc i diagnoza, uzasadnione etapy, brudnopis oraz sesje. Przełącznik w nagłówku zmienia tylko prezentację, zachowując to samo zadanie i stan pracy. Domyślny PL i preferencja języka istnieją wyłącznie w pamięci. Tekst użytkownika pozostaje jego tekstem, bez tłumaczenia, rozpoznawania pisma lub wysyłania.
 
 Historyczne przykłady pozostają, a 17 jawnych uzupełnień zapewnia minimum 10 dla małych pul. Rekomendacje obejmują pięć dostępnych poziomów w kategorii z niezmienionymi zasadami samodzielności i progami. Publikacja pozostaje osobną decyzją po CI, niezależnej recenzji i zgodzie użytkownika.
+
+## MT-004A — historia pracy i składany brudnopis (PR do przeglądu)
+
+„Moje postępy / My progress” zachowuje do 200 ukończonych sesji na danym urządzeniu i w danej przeglądarce. Pokazuje liczbę sesji, samodzielnych poprawnych i błędnych pierwszych ocen, podglądów przed oceną i pominięć, według kategorii i poziomów oraz w ostatnich sesjach. Kategorie i poziomy pozostają wspólne dla PL/EN. Filtry obejmują kategorię, poziom i wszystkie/ostatnie 30 dni. Procent zawsze ma mianownik samodzielnie ocenionych zadań; brak takich ocen nie staje się wynikiem 0%. Mała liczba ocen jest jawnie oznaczona, bez diagnozowania poziomu wiedzy, streaków ani nowych rekomendacji.
+
+Zapis następuje tylko po zakończeniu sesji. Utrwalane są anonimowe ID sesji, czas, kategoria, trudność, liczniki oraz rodzina i pierwszy rezultat każdego z 10 zadań. Nie zapisujemy odpowiedzi, brudnopisu, aktywnego zadania, niedokończonej sesji ani języka. Zmiana języka i nawigacja pulpit ↔ ćwiczenia zachowują pracę w bieżącej karcie. Odświeżenie przywraca jedynie historię ukończeń.
+
+Użytkownik może wyeksportować całą dostępną historię do JSON oraz usunąć ją po potwierdzeniu. Dane nie synchronizują się; wyczyszczenie przeglądarki może je bezpowrotnie usunąć. Przy niedostępnym storage nauka trwa w pamięci z komunikatem. Nieznana wersja lub uszkodzony zapis nie jest nadpisywany. Nieudane kasowanie nie jest pokazywane jako sukces.
+
+Układ zadania to: treść i dane → niewielki pasek brudnopisu → odpowiedź → Sprawdź. Brudnopis domyślnie jest zwinięty. Pokazanie/schowanie nie odmontowuje edytora, nie zmienia zaznaczenia, trybu, tekstu, rysunków ani Undo/Redo. Auto-clear nadal działa wyłącznie na granicy nowego uruchomienia zadania, według checkboxa. Powiększenie, symbole i obsługa dotyku pozostają. Schowanie powiększenia zwalnia fokus i przewijanie.
+
+Import, synchronizacja urządzeń, utrwalanie niedokończonych sesji lub notatek, adaptacyjna powtórka i nowe działy są poza tym PR. Ręczna kontrola fizycznego Safari, zielone CI, recenzja Work i zgoda użytkownika pozostają bramkami przed merge.

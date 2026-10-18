@@ -7,7 +7,9 @@ import {
   studyCategories,
 } from "./pl";
 import type { FeedbackCopy } from "../exercises";
+import { progressCopy } from "./progress";
 const pl = {
+  progress: progressCopy.pl,
   ui: oldUi as Record<keyof typeof oldUi, string>,
   feedback,
   session: sessionCopy as Record<keyof typeof sessionCopy, string>,
@@ -96,6 +98,8 @@ const pl = {
   },
   scratchpad: {
     name: "Brudnopis",
+    show: "Pokaż brudnopis",
+    hide: "Schowaj brudnopis",
     draw: "Rysuj",
     write: "Pisz",
     pen: "Pióro",
@@ -132,6 +136,7 @@ const pl = {
 };
 export type UiCopy = typeof pl;
 const en: UiCopy = {
+  progress: progressCopy.en,
   ui: {
     start: "Start practising",
     answer: "Your answer",
@@ -296,6 +301,8 @@ const en: UiCopy = {
   },
   scratchpad: {
     name: "Scratchpad",
+    show: "Show scratchpad",
+    hide: "Hide scratchpad",
     draw: "Draw",
     write: "Write",
     pen: "Pen",

@@ -33,6 +33,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
   const [editorGeneration, setEditorGeneration] = useState(0);
   const [tool, setTool] = useState<"pen" | "eraser">("pen");
   const [expanded, setExpanded] = useState(false);
+  const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState<readonly Point[]>([]);
   const [erased, setErased] = useState<ReadonlySet<number>>(new Set());
   const gesture = useRef<Gesture | null>(null);
@@ -41,6 +42,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
   const panel = useRef<HTMLDivElement>(null);
   const expandButton = useRef<HTMLButtonElement>(null);
   const closeButton = useRef<HTMLButtonElement>(null);
+  const toggleButton = useRef<HTMLButtonElement>(null);
   const svg = useRef<SVGSVGElement>(null);
   const selection = useRef({ start: 0, end: 0 });
   const programmaticHistory = useRef(false);
@@ -76,7 +78,10 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
     }
   }, [state.present.text]);
   useEffect(() => {
-    if (!active) setExpanded(false);
+    if (!active) {
+      cancelGesture();
+      setExpanded(false);
+    }
   }, [active]);
   useEffect(() => {
     if (!expanded) return;
@@ -86,7 +91,9 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
     closeButton.current?.focus();
     return () => {
       document.body.style.overflow = before;
-      opener?.focus();
+      if (opener?.getClientRects().length) opener.focus();
+      else if (toggleButton.current?.getClientRects().length)
+        toggleButton.current.focus();
     };
   }, [expanded]);
 
@@ -213,7 +220,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
     <div hidden={!active}>
       <div
         ref={panel}
-        className={`scratchpad${expanded ? " scratchpad-expanded" : ""}`}
+        className={`scratchpad${expanded ? " scratchpad-expanded" : ""}${!open ? " scratchpad-collapsed" : ""}`}
         role={expanded ? "dialog" : "region"}
         aria-modal={expanded ? true : undefined}
         aria-label={s.name}
@@ -244,8 +251,32 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
         <div className="scratchpad-heading">
           <h4>{s.name}</h4>
           <button
+            ref={toggleButton}
+            type="button"
+            aria-expanded={open}
+            aria-controls="scratchpad-content"
+            onClick={() => {
+              cancelGesture();
+              if (open) {
+                if (textarea.current) selection.current = {
+                  start: textarea.current.selectionStart,
+                  end: textarea.current.selectionEnd,
+                };
+                setExpanded(false);
+              } else if (textarea.current) {
+                textarea.current.setSelectionRange(
+                  selection.current.start, selection.current.end,
+                );
+              }
+              setOpen(!open);
+              toggleButton.current?.focus();
+            }}
+          >
+            {open ? s.hide : s.show}
+          </button>
+          <button
             ref={expandButton}
-            hidden={expanded}
+            hidden={expanded || !open}
             type="button"
             onClick={() => {
               cancelGesture();
@@ -266,6 +297,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
             {s.close}
           </button>
         </div>
+        <div id="scratchpad-content" hidden={!open}>
         {controls}
         <div hidden={state.mode !== "draw"}>
           <p className="input-help" id="drawing-help">
@@ -394,6 +426,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
           {s.auto}
         </label>
         <p className="input-help">{s.privacy}</p>
+        </div>
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import type { Difficulty } from "./generators";
 
 export const SESSION_LENGTH = 10;
 type FirstAttempt = "correct" | "incorrect" | "solution-viewed" | null;
-type SessionEntry = Readonly<{ exerciseId: string; firstAttempt: FirstAttempt }>;
+type SessionEntry = Readonly<{ exerciseId: string; templateId?: string; firstAttempt: FirstAttempt }>;
 export type SessionState = Readonly<{
   category: CategoryId;
   difficulty: Difficulty;
@@ -22,8 +22,8 @@ export type LevelSuggestion =
   | { kind: "insufficient" }
   | { kind: "suggestion"; difficulty: Difficulty };
 
-export function createSession(category: CategoryId, difficulty: Difficulty, exerciseId: string): SessionState {
-  return { category, difficulty, entries: [{ exerciseId, firstAttempt: null }], completed: false };
+export function createSession(category: CategoryId, difficulty: Difficulty, exerciseId: string, templateId?: string): SessionState {
+  return { category, difficulty, entries: [{ exerciseId, ...(templateId ? { templateId } : {}), firstAttempt: null }], completed: false };
 }
 
 /** Only the first valid main answer for the current exercise is recorded. */
@@ -45,12 +45,12 @@ export function recordSolutionViewed(session: SessionState, exerciseId: string):
 }
 
 /** Exercise identity makes repeated or stale navigation events a no-op. */
-export function advanceSession(session: SessionState, exerciseId: string, nextExerciseId?: string): SessionState {
+export function advanceSession(session: SessionState, exerciseId: string, nextExerciseId?: string, nextTemplateId?: string): SessionState {
   const current = session.entries[session.entries.length - 1];
   if (session.completed || current.exerciseId !== exerciseId) return session;
   if (session.entries.length === SESSION_LENGTH) return { ...session, completed: true };
   if (!nextExerciseId || session.entries.some((entry) => entry.exerciseId === nextExerciseId)) return session;
-  return { ...session, entries: [...session.entries, { exerciseId: nextExerciseId, firstAttempt: null }] };
+  return { ...session, entries: [...session.entries, { exerciseId: nextExerciseId, ...(nextTemplateId ? { templateId: nextTemplateId } : {}), firstAttempt: null }] };
 }
 
 export function summarizeSession(session: SessionState): SessionSummary | null {
