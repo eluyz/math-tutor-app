@@ -17,6 +17,66 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
       {ui.check} <span aria-hidden="true">→</span>
     </button>
   );
+  if (spec.kind === "system") {
+    const input =
+      typeof value !== "string" && value.kind === "system"
+        ? value
+        : { classification: "", values: [] };
+    return (
+      <div className="structured-answer">
+        <fieldset aria-describedby="answer-help">
+          <legend>{ui.answer}</legend>
+          <label htmlFor="answer">{c.system.classification}</label>
+          <select
+            id="answer"
+            value={input.classification}
+            onChange={(event) =>
+              onChange({
+                kind: "system",
+                classification: event.target.value,
+                values:
+                  event.target.value === "system-one"
+                    ? spec.variables.map(() => "")
+                    : [],
+              })
+            }
+          >
+            <option value="">{c.choose}</option>
+            {(["system-one", "system-none", "system-many"] as const).map(
+              (kind) => (
+                <option key={kind} value={kind}>
+                  {c.system[kind]}
+                </option>
+              ),
+            )}
+          </select>
+          {input.classification === "system-one" &&
+            spec.variables.map((variable, i) => (
+              <div className="coefficient-field" key={variable}>
+                <label htmlFor={`system-value-${i}`}>{variable}</label>
+                <input
+                  id={`system-value-${i}`}
+                  type="text"
+                  inputMode="text"
+                  autoComplete="off"
+                  value={input.values[i] ?? ""}
+                  onChange={(event) =>
+                    onChange({
+                      kind: "system",
+                      classification: input.classification,
+                      values: spec.variables.map((_, j) =>
+                        i === j ? event.target.value : (input.values[j] ?? ""),
+                      ),
+                    })
+                  }
+                />
+              </div>
+            ))}
+        </fieldset>
+        {check}
+      </div>
+    );
+  }
   if (spec.kind === "limit") {
     const input =
       typeof value !== "string" && value.kind === "limit"

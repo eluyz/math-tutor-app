@@ -87,6 +87,7 @@ function laplace(a: Matrix): Rational {
 }
 function input(spec: AnswerSpec): AnswerInput {
   if (spec.kind === "limit") return {kind:"limit",classification:spec.value.kind,value:spec.value.kind === "finite"?f(spec.value.value):""};
+  if (spec.kind === "system") return {kind:"system",classification:spec.classification,values:spec.values.map(f)};
   if (spec.kind === "scalar") return f(spec.value);
   if (spec.kind === "matrix")
     return { kind: "matrix", values: spec.values.map((row) => row.map(f)) };

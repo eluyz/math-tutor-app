@@ -24,6 +24,7 @@ export const studyCategories: { id: CategoryId; label: string }[] = [
 ];
 
 export const answerHints = {
+  system: "Wybierz klasyfikację. Przy dokładnie jednym rozwiązaniu wpisz wszystkie niewiadome w opisanych polach.",
   limit: "Rozróżnij liczbę, +∞, −∞ i brak granicy. Dla skończonej granicy wpisz dokładną liczbę lub ułamek a/b.",
   scalar: "Możesz wpisać liczbę, ułamek a/b lub równoważną wartość dziesiętną.",
   list: "Uzupełnij każde opisane pole. Możesz użyć liczb całkowitych lub dokładnych ułamków a/b.",

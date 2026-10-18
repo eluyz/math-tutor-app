@@ -134,7 +134,7 @@ MT-EDU-004: **1728** nowych instancji; łącznie **5229**. Rdzeń MT-EDU-003 zac
 | system-cramer-two | easy, medium, hard, advanced, expert | D, D_x, D_y, warunek D≠0; L4 nawiasy, L5 zmiana niewiadomych |
 | system-cramer-three | hard, advanced, expert | Dokładne cztery wyznaczniki 3×3; L4 ułamki/nawiasy; L5 u=x+y, v=y+z, w=z i odwrócenie zmiany |
 
-Klasyfikacja nie udostępnia pozornych pól x/y dla układów osobliwych. Układy oznaczone wymagają wszystkich uporządkowanych wartości. Cramer przy D=0 przechodzi do klasyfikacji eliminacją, bez dzielenia. Każde rozwiązanie jest sprawdzane w oryginalnych równaniach. Niezależny audyt korzysta z rozwinięcia Laplace'a, własnej arytmetyki ułamków i podstawienia wszystkich niewiadomych; nie korzysta z produkcyjnego solvera. Zapis historii obejmuje nowe kanoniczne ID rodzin bez zmiany schematu.
+Typ `system` wymaga wyboru klasyfikacji i wszystkich uporządkowanych niewiadomych przy dokładnie jednym rozwiązaniu, także w rodzinie klasyfikacyjnej. Puste lub nieprawidłowe współrzędne pozostają błędem formatu. Przy układzie sprzecznym lub nieoznaczonym pola x/y nie są pokazywane. Układy oznaczone wymagają wszystkich uporządkowanych wartości. Cramer przy D=0 przechodzi do klasyfikacji eliminacją, bez dzielenia. Każde rozwiązanie jest sprawdzane w oryginalnych równaniach. Niezależny audyt korzysta z rozwinięcia Laplace'a, własnej arytmetyki ułamków i podstawienia wszystkich niewiadomych; nie korzysta z produkcyjnego solvera. Zapis historii obejmuje nowe kanoniczne ID rodzin bez zmiany schematu.
 
 ### P2: funkcje — 888 instancji
 

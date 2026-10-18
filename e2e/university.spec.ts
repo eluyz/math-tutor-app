@@ -143,6 +143,18 @@ for (const width of [375, 768, 1280])
           const computed = await readSystem(page);
           seen.add(computed.classification);
           await page.locator("#answer").selectOption(computed.classification);
+          if (computed.values.length) {
+            await page
+              .getByRole("button", {
+                name: en ? "Check" : "Sprawdź",
+                exact: true,
+              })
+              .click();
+            await expect(page.locator(".feedback")).toHaveClass(
+              "feedback invalid",
+            );
+            await fillSystem(page);
+          }
           await page
             .getByRole("button", {
               name: en ? "Check" : "Sprawdź",
@@ -152,7 +164,9 @@ for (const width of [375, 768, 1280])
           await expect(page.locator(".feedback")).toHaveClass(
             "feedback correct",
           );
-          await expect(page.locator(".coefficient-field")).toHaveCount(0);
+          await expect(page.locator(".coefficient-field")).toHaveCount(
+            computed.values.length,
+          );
           await page
             .getByRole("button", {
               name: en ? "New example" : "Nowy przykład",

@@ -59,9 +59,15 @@ export async function readSystem(page: Page) {
 export async function fillSystem(page: Page) {
   const answer = await readSystem(page);
   if (!answer.values.length) throw new Error("A unique system was expected");
+  const classification = await page
+    .locator("#answer")
+    .evaluate((e) => e.tagName === "SELECT");
+  if (classification) await page.locator("#answer").selectOption("system-one");
   for (let i = 0; i < answer.values.length; i++)
     await page
-      .locator(i ? `#answer-${i}` : "#answer")
+      .locator(
+        classification ? `#system-value-${i}` : i ? `#answer-${i}` : "#answer",
+      )
       .fill(fractionText(answer.values[i]));
   return answer;
 }

@@ -284,7 +284,7 @@ export function presentSystem(p: SystemProblem, locale: Locale) {
     classification: t("klasyfikacja", "classification"),
     cramer: t("reguła Cramera", "Cramer's rule"),
   }[p.method];
-  const question = `${t("Układ", "System")} ${n}×${n} — ${method}. ${p.method === "classification" ? t("Wybierz liczbę rozwiązań.", "Choose the number of solutions.") : t("Wyznacz wszystkie niewiadome.", "Find all the variables.")}\n${systemEquations(p)}`;
+  const question = `${t("Układ", "System")} ${n}×${n} — ${method}. ${p.method === "classification" ? t("Sklasyfikuj układ. Przy jednym rozwiązaniu wyznacz wszystkie niewiadome.", "Classify the system. If unique, find every variable.") : t("Wyznacz wszystkie niewiadome.", "Find all the variables.")}\n${systemEquations(p)}`;
   lesson.work(
     t(
       "Zapisz równoważny układ współczynników",
@@ -414,20 +414,14 @@ export function presentSystem(p: SystemProblem, locale: Locale) {
       );
     });
   }
-  const options = [
-    {
-      value: "system-one",
-      label: t("Dokładnie jedno rozwiązanie", "Exactly one solution"),
-    },
-    { value: "system-none", label: t("Brak rozwiązań", "No solutions") },
-    {
-      value: "system-many",
-      label: t("Nieskończenie wiele rozwiązań", "Infinitely many solutions"),
-    },
-  ];
   const answer: AnswerSpec =
     p.method === "classification" || classification !== "system-one"
-      ? { kind: "choice", value: classification, options }
+      ? {
+          kind: "system",
+          classification,
+          variables: ["x", "y", "z"].slice(0, n),
+          values,
+        }
       : { kind: "list", labels: ["x", "y", "z"].slice(0, n), values };
   const hint = {
     substitution: t(

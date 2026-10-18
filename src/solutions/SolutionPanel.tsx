@@ -14,6 +14,24 @@ function FinalAnswer({ answer }: { answer: AnswerSpec }) {
       ? copy.answers.zeros
       : c;
   switch (answer.kind) {
+    case "system":
+      return (
+        <>
+          <p className="solution-answer">
+            {copy.answers.system[answer.classification]}
+          </p>
+          {answer.classification === "system-one" && (
+            <dl>
+              {answer.values.map((value, i) => (
+                <div key={i}>
+                  <dt>{answer.variables[i]}</dt>
+                  <dd>{f(value)}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </>
+      );
     case "limit":
       return (
         <p className="solution-answer">

@@ -30,7 +30,11 @@ describe("P1 niezależny audyt układów", () => {
                 : [...row],
           );
           const determinant = laplace(matrix);
-          if (task.answer.kind === "list") {
+          if (
+            task.answer.kind === "list" ||
+            (task.answer.kind === "system" &&
+              task.answer.classification === "system-one")
+          ) {
             expect(determinant.numerator).not.toBe(0n);
             const values = task.answer.values;
             expect(values).toHaveLength(n);
@@ -49,13 +53,12 @@ describe("P1 niezależny audyt układów", () => {
                 eq(values[column], d(laplace(replaced), determinant)),
               ).toBe(true);
             }
-          } else {
-            if (task.answer.kind !== "choice")
-              throw new Error("Classification expected");
+          }
+          if (task.answer.kind === "system") {
             // Nonzero first coefficient fixes rank >= 1; augmented 2×2 minors detect inconsistency.
             const dx = laplace(matrix.map((row, i) => [p.rhs[i], row[1]]));
             const dy = laplace(matrix.map((row, i) => [row[0], p.rhs[i]]));
-            expect(task.answer.value).toBe(
+            expect(task.answer.classification).toBe(
               determinant.numerator !== 0n
                 ? "system-one"
                 : dx.numerator !== 0n || dy.numerator !== 0n
@@ -67,11 +70,17 @@ describe("P1 niezależny audyt układów", () => {
             const localized = localizeUniversity(task, locale),
               spec = localized.answer;
             const input =
-              spec.kind === "list"
-                ? { kind: "list" as const, values: spec.values.map(f) }
-                : spec.kind === "choice"
-                  ? { kind: "choice" as const, value: spec.value }
-                  : "";
+              spec.kind === "system"
+                ? {
+                    kind: "system" as const,
+                    classification: spec.classification,
+                    values: spec.values.map(f),
+                  }
+                : spec.kind === "list"
+                  ? { kind: "list" as const, values: spec.values.map(f) }
+                  : spec.kind === "choice"
+                    ? { kind: "choice" as const, value: spec.value }
+                    : "";
             expect(
               checkAnswer(localized, input, uiCopy[locale].feedback).kind,
             ).toBe("correct");
@@ -80,21 +89,30 @@ describe("P1 niezależny audyt układów", () => {
                 .kind,
             ).toBe("invalid");
             const wrong =
-              spec.kind === "list"
+              spec.kind === "system"
                 ? {
-                    kind: "list" as const,
-                    values: spec.values.map((val, i) =>
-                      i ? f(val) : "999999",
-                    ),
+                    kind: "system" as const,
+                    classification:
+                      spec.classification === "system-none"
+                        ? "system-many"
+                        : "system-none",
+                    values: [],
                   }
-                : {
-                    kind: "choice" as const,
-                    value:
-                      spec.kind === "choice"
-                        ? spec.options.find((o) => o.value !== spec.value)!
-                            .value
-                        : "",
-                  };
+                : spec.kind === "list"
+                  ? {
+                      kind: "list" as const,
+                      values: spec.values.map((val, i) =>
+                        i ? f(val) : "999999",
+                      ),
+                    }
+                  : {
+                      kind: "choice" as const,
+                      value:
+                        spec.kind === "choice"
+                          ? spec.options.find((o) => o.value !== spec.value)!
+                              .value
+                          : "",
+                    };
             expect(
               checkAnswer(localized, wrong, uiCopy[locale].feedback).kind,
             ).toBe("incorrect");
@@ -183,8 +201,8 @@ describe("P1 niezależny audyt układów", () => {
           method,
         };
         const presentation = presentSystem(problem, "en");
-        if (presentation.answer.kind === "choice")
-          expect(presentation.answer.value).toBe(outcome);
+        if (presentation.answer.kind === "system")
+          expect(presentation.answer.classification).toBe(outcome);
         else
           expect(presentation.answer).toEqual({
             kind: "list",

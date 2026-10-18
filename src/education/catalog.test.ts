@@ -11,6 +11,7 @@ import type { Matrix } from "../matrices";
 
 export function inputFor(spec: AnswerSpec): AnswerInput {
   if (spec.kind === "limit") return {kind:"limit",classification:spec.value.kind,value:spec.value.kind === "finite"?f(spec.value.value):""};
+  if (spec.kind === "system") return {kind:"system",classification:spec.classification,values:spec.values.map(f)};
   if (spec.kind === "scalar") return f(spec.value);
   if (spec.kind === "choice") return { kind: "choice", value: spec.value };
   if (spec.kind === "roots") return { kind: "roots", classification: ["none", "double", "two"][spec.values.length], values: [...spec.values].reverse().map(f) };

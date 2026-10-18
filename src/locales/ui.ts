@@ -81,6 +81,12 @@ const pl = {
     language: "Język aplikacji",
   },
   answers: {
+    system: {
+      classification: "Rodzaj układu",
+      "system-one": "Dokładnie jedno rozwiązanie",
+      "system-none": "Brak rozwiązań",
+      "system-many": "Nieskończenie wiele rozwiązań",
+    },
     limit: {
       classification: "Rodzaj granicy",
       finite: "Skończona liczba",
@@ -208,6 +214,8 @@ const en: UiCopy = {
     practice: "Keep practising",
   },
   answerHints: {
+    system:
+      "Choose the classification. For exactly one solution, enter every variable in its labelled field.",
     limit:
       "Distinguish a finite number, +∞, −∞ and a limit that does not exist. Enter a finite limit as an exact number or fraction a/b.",
     scalar: "Enter a number, a fraction a/b or an exactly equivalent decimal.",
@@ -306,6 +314,12 @@ const en: UiCopy = {
     language: "Application language",
   },
   answers: {
+    system: {
+      classification: "Type of system",
+      "system-one": "Exactly one solution",
+      "system-none": "No solutions",
+      "system-many": "Infinitely many solutions",
+    },
     limit: {
       classification: "Type of limit",
       finite: "Finite number",
