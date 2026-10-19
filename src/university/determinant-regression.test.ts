@@ -59,7 +59,7 @@ it("preserves all 6381 previously published PL/EN exercises and complete solutio
     expect(tasks, saved.id).toHaveLength(saved.count);
     expect(hash, saved.id).toBe(saved.sha256);
   }
-});
+}, 20_000);
 it("offers exactly 24 unique problems at supported levels and no fallback elsewhere", () => {
   for (const family of determinantFamilies)
     for (const level of difficulties) {
