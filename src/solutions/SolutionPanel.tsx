@@ -9,7 +9,37 @@ import "./solutions.css";
 function FinalAnswer({ answer }: { answer: AnswerSpec }) {
   const { copy } = useLocale();
   const c = copy.solution;
+  const roots =
+    answer.kind === "roots" && answer.context === "zeros"
+      ? copy.answers.zeros
+      : c;
   switch (answer.kind) {
+    case "system":
+      return (
+        <>
+          <p className="solution-answer">
+            {copy.answers.system[answer.classification]}
+          </p>
+          {answer.classification === "system-one" && (
+            <dl>
+              {answer.values.map((value, i) => (
+                <div key={i}>
+                  <dt>{answer.variables[i]}</dt>
+                  <dd>{f(value)}</dd>
+                </div>
+              ))}
+            </dl>
+          )}
+        </>
+      );
+    case "limit":
+      return (
+        <p className="solution-answer">
+          {answer.value.kind === "finite"
+            ? f(answer.value.value)
+            : copy.answers.limit[answer.value.kind]}
+        </p>
+      );
     case "scalar":
       return <p className="solution-answer">{f(answer.value)}</p>;
     case "list":
@@ -38,10 +68,10 @@ function FinalAnswer({ answer }: { answer: AnswerSpec }) {
       return (
         <p className="solution-answer">
           {answer.values.length === 0
-            ? c.none
+            ? roots.none
             : answer.values.length === 1
-              ? `${c.double}: x₀ = ${f(answer.values[0])}`
-              : `${c.two}: x₁ = ${f(answer.values[0])}; x₂ = ${f(answer.values[1])}`}
+              ? `${roots.double}: x₀ = ${f(answer.values[0])}`
+              : `${roots.two}: x₁ = ${f(answer.values[0])}; x₂ = ${f(answer.values[1])}`}
         </p>
       );
   }

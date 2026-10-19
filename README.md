@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 35 parametrycznych rodzin: dotychczasowe pięć kategorii podstaw oraz wzory i równania kwadratowe, macierze i wyznaczniki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 51 parametrycznych rodzin w 11 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje i granice ciągów. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
 
@@ -46,7 +46,7 @@ To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system 
 
 Domyślnie **Czyść brudnopis przy nowym zadaniu** jest zaznaczone: każde nowe uruchomienie zadania (również powtórzona treść), zmiana rodziny/kategorii/poziomu i nowa sesja czyści obie treści i historię. Odznacz checkbox, aby zachować notatki także między sesjami. **Wyczyść** zawsze czyści oba tryby i można to cofnąć. **Powiększ** otwiera obszar z przyciskiem **Zamknij**, obsługą Escape i klawiatury; zmiana rozmiaru zachowuje wektory. Notatki i preferencja istnieją tylko w pamięci bieżącej karty, do odświeżenia strony.
 
-**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 35 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
+**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 51 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
 
 W sesji podgląd przed pierwszą ważną oceną zapisuje osobny rezultat **Rozwiązanie obejrzane przed pierwszą ważną oceną**. Późniejsze przepisanie wyniku nie podwyższa liczby samodzielnych poprawnych odpowiedzi. Podgląd po ważnej poprawnej/błędnej próbie zachowuje jej ocenę. Cztery kategorie podsumowania sumują się do 10. Do minimum 7 ocen i dotychczasowych progów sugestii wchodzą wyłącznie samodzielne poprawne/błędne próby; obejrzenie rozwiązania nie jest błędem ucznia.
 
@@ -92,9 +92,9 @@ Testy obejmują wszystkie wspierane rodziny/poziomy/warianty oraz obie wersje j�
 
 ### English
 
-Use **English** in the header to learn with fully authored English questions, hints, explanations, scratchpad controls and session feedback. Changing language keeps the same exercise and your work. Five difficulty levels are available; Advanced and Expert cover 29 families with 24 variants each. Elementary families clearly show their supported levels. Everything runs locally. Completed-session metadata is saved in this browser; refreshing clears the active exercise, unfinished session, notes and language preference. Use **My progress** to review or export history, or delete it after confirmation.
+Use **English** in the header to learn with fully authored English questions, hints, explanations, scratchpad controls and session feedback. Changing language keeps the same exercise and your work. Five difficulty levels are available; Advanced and Expert now cover 43 families each; every new supported pair has 24 variants. Elementary families clearly show their supported levels. Everything runs locally. Completed-session metadata is saved in this browser; refreshing clears the active exercise, unfinished session, notes and language preference. Use **My progress** to review or export history, or delete it after confirmation.
 
-## MT-004A — Moje postępy / My progress (PR do przeglądu)
+## MT-004A — Moje postępy / My progress (scalone i opublikowane w PR #15)
 
 Nawigacja pozwala wrócić z pulpitu do tej samej pracy: odpowiedzi, sesji, odsłoniętych kroków i brudnopisu. Historia zapisuje się dopiero po zakończeniu 10. zadania, dokładnie raz dla ID sesji. Zawiera czas ukończenia według zegara urządzenia (JSON: ISO UTC, widok: lokalny czas), kategorię, poziom, cztery liczniki oraz `templateId` i pierwszy rezultat każdego zadania. Nie zawiera treści odpowiedzi, technicznych ID ćwiczeń, parametrów, tekstu, rysunków ani języka.
 
@@ -106,4 +106,27 @@ Zapis używa jednego klucza `math-tutor.progress.v1`, schematu `version: 1` i ma
 
 Dane istnieją tylko w danej przeglądarce i na tym urządzeniu, bez kont, synchronizacji, cookies śledzących, backendu ani telemetrii. Wyczyszczenie danych Safari lub innej przeglądarki może usunąć historię bez możliwości odzyskania; eksport jest ręczną kopią. Notatki, aktywne zadanie, niedokończona sesja i język nie są utrwalane.
 
-Testy Chromium obejmują PL/EN i 375/768/1280 px, rzeczywiste wpisywanie, Backspace, Undo/Redo, zwijanie bez remountu i błędy storage. Fizyczny iPhone/iPad Safari nadal wymaga testu ręcznego przed merge; automatyczne stuby ograniczeń storage i emulacja dotyku go nie zastępują. MT-004A wymaga zielonego CI, niezależnej recenzji ChatGPT Work oraz zgody użytkownika. Nie jest jeszcze scalone ani opublikowane.
+Testy Chromium obejmują PL/EN i 375/768/1280 px, rzeczywiste wpisywanie, Backspace, Undo/Redo, zwijanie bez remountu i błędy storage. Fizyczny iPhone/iPad Safari nadal wymaga testu ręcznego przed merge; automatyczne stuby ograniczeń storage i emulacja dotyku go nie zastępują. MT-004A jest na main od PR #15 (9499955); CI i Deploy Pages dla tego commita zakończyły się sukcesem. MT-EDU-004 pozostaje osobnym PR do przeglądu, bez merge ani deploy.
+
+## MT-EDU-004 — P0–P3 (implementacja do niezależnego przeglądu)
+
+Zachowano 3501 wcześniejszych instancji i dodano **16 rodzin**, **1728 nowych wariantów** w 72 wspieranych parach rodzina/poziom, po 24 warianty. Łącznie: **51 rodzin**, **5229 instancji**, 11 kategorii. Advanced i Expert wspierają po 43 rodziny łącznie z historycznymi. Pełna mapa poziomów i niezależnego audytu jest w [GENERATORS.md](GENERATORS.md).
+
+| Checkpoint | Rzeczywisty zakres | Nowe rodziny / warianty |
+| --- | --- | --- |
+| P0 | Powiększ → Schowaj / Expand → Hide w DOM, Tab i układzie; zwinięty Pokaż/Show | 0 / 0 |
+| P1 | Podstawianie, eliminacja, klasyfikacja, Cramer 2×2/3×3; ułamki, nawiasy i odwracalne zmiany niewiadomych | 5 / 504 |
+| P2 | Wartości, dziedziny, zera, liniowe współczynniki i monotoniczność, wierzchołek, oś, zbiór wartości i złożenia | 8 / 888 |
+| P3 | Ilorazy wielomianów, granice wymierne i ±∞, ciągi geometryczne, oscylacje, redukcja i sprzężenia | 3 / 336 |
+
+Układ oznaczony wymaga wszystkich niewiadomych, także po wybraniu klasyfikacji „jedno rozwiązanie”. Pozostałe klasy mają jednoznaczny wybór bez pozornych pól x/y. Rozwiązania używają dokładnych ułamków i weryfikują każde oryginalne równanie. Cramer nigdy nie dzieli przez zerowy wyznacznik. Zera funkcji mają osobny wybór liczby 0/1/2, bez ujawnienia oczekiwanej liczby; skrócenie nie przywraca punktu wykluczonego z dziedziny. Dziedziny i zbiory wartości są kontrolowanymi, dokładnymi zbiorami przedziałów, a odpowiedzi wielomianowe opisanymi współczynnikami.
+
+Granice ciągów rozróżniają skończoną liczbę, +∞, −∞ i brak granicy. Skończona liczba wymaga poprawnego zapisu przed ważną oceną. Dominacja jest dowodzona z potęg i współczynników; ciągi geometryczne mają osobną analizę parzystych i nieparzystych indeksów. Nie zgadujemy wyniku z kilku wyrazów i nie nazywamy oscylacji nieskończonością.
+
+Nowe zadania mają pełne polecenia, wskazówki i uzasadnione rozwiązania PL/EN. Korzystają z dotychczasowych sesji 10 zadań, pierwszej samodzielnej oceny i lokalnej historii. Język nie zmienia zadania, odpowiedzi, notatek, wyników ani odsłoniętych kroków. Rozwijanie i powiększanie brudnopisu zachowuje ten sam edytor i Undo/Redo.
+
+**P4–P6 są przyszłym zakresem:** granice funkcji, pochodne, całki i funkcje dwóch zmiennych nie są częścią PR #17. Nie dodano ich przycisków, parsera swobodnych wyrażeń, przybliżonych odpowiedzi ani wykresów. Wszystko działa lokalnie, bez nowych zależności, backendu i zewnętrznych tłumaczeń. Automatyczne testy Chromium PL/EN obejmują 375/768/1280 px; fizycznego Safari nie testowano. Przed scaleniem wymagane są CI dla HEAD, niezależna recenzja Work i decyzja użytkownika.
+
+### Systems, functions and sequence limits in English
+
+Choose **English**, then **University mathematics**. Systems require every unknown for a unique solution; singular systems use an explicit classification. Functions include domains, zeros, linear reconstruction, quadratic vertices/ranges and compositions. Sequence limits distinguish finite values, both signs of infinity and nonexistence. Every supported new family/level has 24 variants, authored hints and step-by-step reasoning. Changing language preserves your work. Function limits, derivatives, integrals and two-variable calculus remain future stages.

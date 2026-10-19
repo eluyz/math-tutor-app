@@ -6,6 +6,7 @@ import { getAnswerSpec } from "../exercises";
 import { solutionFor, calculationText } from "../solutions/model";
 import type { Solution } from "../solutions/types";
 import type { HigherTask } from "../advanced/catalog";
+import { isUniversityTask, localizeUniversity } from "../university/catalog";
 import {
   derive,
   expressionText,
@@ -192,6 +193,7 @@ export const familyEnglish: Record<string, readonly [string, string, string]> =
     ],
   };
 const fieldLabels: Record<string, string> = {
+  x: "x", y: "y", z: "z", a: "a", b: "b", "xᵥ": "xᵥ", "yᵥ": "yᵥ", "x²": "x²", "x³": "x³", "x⁴": "x⁴", "1": "1",
   "Współczynnik przy x²": "Coefficient of x²",
   "Współczynnik przy x": "Coefficient of x",
   "Wyraz wolny": "Constant term",
@@ -221,6 +223,12 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
               two: "Two distinct real roots",
               double: "One repeated root",
               none: "No real roots",
+              "system-one": "Exactly one solution",
+              "system-none": "No solutions",
+              "system-many": "Infinitely many solutions",
+              "function-increasing": "Strictly increasing",
+              "function-decreasing": "Strictly decreasing",
+              "function-constant": "Constant",
             } as Record<string, string>
           )[o.value] ?? o.label,
       })),
@@ -660,6 +668,7 @@ const diagnosis: Record<string, string> = {
     "the calculation stopped at the value of x divided by its denominator",
 };
 export function englishTask(task: GeneratedTask): GeneratedTask {
+  if (isUniversityTask(task)) return localizeUniversity(task, "en");
   const info = familyEnglish[task.templateId];
   if (!info) throw new Error(`Missing English family: ${task.templateId}`);
   let solution: Solution, q: string;

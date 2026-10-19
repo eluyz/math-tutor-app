@@ -17,3 +17,8 @@
 .scratchpad-expanded { position: fixed; z-index: 100; inset: 0; margin: 0; border-radius: 0; overflow-y: auto; padding: max(1rem, env(safe-area-inset-top)) max(1rem, env(safe-area-inset-right)) max(1rem, env(safe-area-inset-bottom)) max(1rem, env(safe-area-inset-left)); background: #f8f7f2; }
 .scratchpad-expanded .scratchpad-drawing { max-width: 1100px; margin: auto; }
 .scratchpad-expanded textarea { min-height: 45vh; }
+@media (max-width: 600px) {
+  .scratchpad:not(.scratchpad-collapsed) .scratchpad-heading { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .scratchpad:not(.scratchpad-collapsed) .scratchpad-heading h4 { grid-column: 1 / -1; }
+  .scratchpad:not(.scratchpad-collapsed) .scratchpad-heading > button { align-self: stretch; }
+}

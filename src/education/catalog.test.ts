@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { legacyDifficulties as difficulties } from "../difficulty";
 import { educationTemplates, educationPool } from "./catalog";
 import { makeEducationInstance, VARIANTS_PER_LEVEL, type EducationInstance } from "./types";
-import { createGenerator, taskPool, allTemplates } from "../generators";
+import { createGenerator, taskPool, allTemplates, historicalTemplates } from "../generators";
 import { checkAnswer } from "../exercises";
 import { feedback } from "../locales/pl";
 import { emptyAnswer, formatRational as f, type AnswerInput, type AnswerSpec } from "../answers";
@@ -10,6 +10,8 @@ import { rational as r, addRational, subtractRational, multiplyRational, divideR
 import type { Matrix } from "../matrices";
 
 export function inputFor(spec: AnswerSpec): AnswerInput {
+  if (spec.kind === "limit") return {kind:"limit",classification:spec.value.kind,value:spec.value.kind === "finite"?f(spec.value.value):""};
+  if (spec.kind === "system") return {kind:"system",classification:spec.classification,values:spec.values.map(f)};
   if (spec.kind === "scalar") return f(spec.value);
   if (spec.kind === "choice") return { kind: "choice", value: spec.value };
   if (spec.kind === "roots") return { kind: "roots", classification: ["none", "double", "two"][spec.values.length], values: [...spec.values].reverse().map(f) };
@@ -148,7 +150,8 @@ describe("niezależny audyt edukacyjnych rodzin", () => {
 
   it("ma skończone pule, deterministyczne losowanie i pamięć treści", () => {
     expect(educationTemplates).toHaveLength(20);
-    expect(allTemplates).toHaveLength(35);
+    expect(historicalTemplates).toHaveLength(35);
+    expect(allTemplates).toEqual(expect.arrayContaining(historicalTemplates));
     for (const template of educationTemplates) {
       const items = educationPool(template.category, "medium").filter((item) => item.templateId === template.id);
       expect(items.length).toBeLessThanOrEqual(VARIANTS_PER_LEVEL);

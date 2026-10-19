@@ -1,4 +1,4 @@
-import type { AnswerInput, AnswerSpec } from "./answers";
+import { limitKinds, type AnswerInput, type AnswerSpec } from "./answers";
 import { useLocale } from "./locales/LocaleProvider";
 
 type Props = {
@@ -17,7 +17,120 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
       {ui.check} <span aria-hidden="true">→</span>
     </button>
   );
+  if (spec.kind === "system") {
+    const input =
+      typeof value !== "string" && value.kind === "system"
+        ? value
+        : { classification: "", values: [] };
+    return (
+      <div className="structured-answer">
+        <fieldset aria-describedby="answer-help">
+          <legend>{ui.answer}</legend>
+          <label htmlFor="answer">{c.system.classification}</label>
+          <select
+            id="answer"
+            value={input.classification}
+            onChange={(event) =>
+              onChange({
+                kind: "system",
+                classification: event.target.value,
+                values:
+                  event.target.value === "system-one"
+                    ? spec.variables.map(() => "")
+                    : [],
+              })
+            }
+          >
+            <option value="">{c.choose}</option>
+            {(["system-one", "system-none", "system-many"] as const).map(
+              (kind) => (
+                <option key={kind} value={kind}>
+                  {c.system[kind]}
+                </option>
+              ),
+            )}
+          </select>
+          {input.classification === "system-one" &&
+            spec.variables.map((variable, i) => (
+              <div className="coefficient-field" key={variable}>
+                <label htmlFor={`system-value-${i}`}>{variable}</label>
+                <input
+                  id={`system-value-${i}`}
+                  type="text"
+                  inputMode="text"
+                  autoComplete="off"
+                  value={input.values[i] ?? ""}
+                  onChange={(event) =>
+                    onChange({
+                      kind: "system",
+                      classification: input.classification,
+                      values: spec.variables.map((_, j) =>
+                        i === j ? event.target.value : (input.values[j] ?? ""),
+                      ),
+                    })
+                  }
+                />
+              </div>
+            ))}
+        </fieldset>
+        {check}
+      </div>
+    );
+  }
+  if (spec.kind === "limit") {
+    const input =
+      typeof value !== "string" && value.kind === "limit"
+        ? value
+        : { classification: "", value: "" };
+    return (
+      <div className="structured-answer">
+        <fieldset aria-describedby="answer-help">
+          <legend>{ui.answer}</legend>
+          <label htmlFor="answer">{c.limit.classification}</label>
+          <select
+            id="answer"
+            value={input.classification}
+            onChange={(event) =>
+              onChange({
+                kind: "limit",
+                classification: event.target.value,
+                value: "",
+              })
+            }
+          >
+            <option value="">{c.choose}</option>
+            {limitKinds.map((kind) => (
+              <option key={kind} value={kind}>
+                {c.limit[kind]}
+              </option>
+            ))}
+          </select>
+          {input.classification === "finite" && (
+            <div className="coefficient-field">
+              <label htmlFor="limit-value">{c.limit.value}</label>
+              <input
+                id="limit-value"
+                type="text"
+                inputMode="text"
+                autoComplete="off"
+                value={input.value}
+                onChange={(event) =>
+                  onChange({
+                    kind: "limit",
+                    classification: "finite",
+                    value: event.target.value,
+                  })
+                }
+              />
+            </div>
+          )}
+        </fieldset>
+        {check}
+      </div>
+    );
+  }
   if (spec.kind === "roots") {
+    const labels = spec.context === "zeros" ? c.zeros : c;
     const input =
       typeof value !== "string" && value.kind === "roots"
         ? value
@@ -26,7 +139,9 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
       <div className="structured-answer">
         <fieldset aria-describedby="answer-help">
           <legend>{ui.answer}</legend>
-          <label htmlFor="answer">{c.roots}</label>
+          <label htmlFor="answer">
+            {spec.context === "zeros" ? c.zeros.count : c.roots}
+          </label>
           <select
             id="answer"
             value={input.classification}
@@ -46,14 +161,14 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
             }}
           >
             <option value="">{c.choose}</option>
-            <option value="two">{c.two}</option>
-            <option value="double">{c.double}</option>
-            <option value="none">{c.none}</option>
+            <option value="two">{labels.two}</option>
+            <option value="double">{labels.double}</option>
+            <option value="none">{labels.none}</option>
           </select>
-          {input.values.length > 0 && <p>{c.order}</p>}
+          {input.values.length > 0 && <p>{labels.order}</p>}
           {input.values.map((entry, i) => (
             <div className="coefficient-field" key={i}>
-              <label htmlFor={`root-${i}`}>{c.root(i + 1)}</label>
+              <label htmlFor={`root-${i}`}>{labels.root(i + 1)}</label>
               <input
                 id={`root-${i}`}
                 type="text"

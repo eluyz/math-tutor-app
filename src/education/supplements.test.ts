@@ -1,3 +1,4 @@
+import { isUniversityTask } from "../university/catalog";
 import { readFileSync } from "node:fs";
 import { isLegacyDifficulty } from "../difficulty";
 import { it, expect } from "vitest";
@@ -15,7 +16,9 @@ it("każda wspierana rodzina × poziom ma minimum dziesięć odmiennych treści 
     difficulties.flatMap((d) => taskPool(id, d)),
   );
   expect(new Set(all.map((t) => t.id)).size).toBe(all.length);
-  expect(all).toHaveLength(3501);
+  expect(all.filter((t) => !isUniversityTask(t))).toHaveLength(3501);
+  const added = all.filter(isUniversityTask);
+  expect(new Set(added.map((t) => t.contentKey)).size).toBe(added.length);
   for (const template of allTemplates)
     for (const level of difficulties) {
       const pool = taskPool(template.category, level).filter(
@@ -69,15 +72,16 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   const all = [...categories, ...studyCategories].flatMap(({ id }) =>
     difficulties.flatMap((d) => taskPool(id, d)),
   );
-  const historical = all.filter(
+  const initial = all.filter((t) => !isUniversityTask(t));
+  const historical = initial.filter(
     (t) => isLegacyDifficulty(t.difficulty) && !t.supplemental,
   ).length;
-  const additions = all.filter((t) => t.supplemental).length;
-  const higher = all.filter((t) => !isLegacyDifficulty(t.difficulty)).length;
-  const advanced = allTemplates.filter((t) =>
+  const additions = initial.filter((t) => t.supplemental).length;
+  const higher = initial.filter((t) => !isLegacyDifficulty(t.difficulty)).length;
+  const advanced = allTemplates.filter((t) => initial.some((task) => task.templateId === t.id)).filter((t) =>
     t.supportedDifficulties.includes("advanced"),
   ).length;
-  const expert = allTemplates.filter((t) =>
+  const expert = allTemplates.filter((t) => initial.some((task) => task.templateId === t.id)).filter((t) =>
     t.supportedDifficulties.includes("expert"),
   ).length;
   const doc = readFileSync(
@@ -86,7 +90,15 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   );
   for (const template of allTemplates) expect(doc).toContain(`| ${template.id} |`);
   expect(doc).toContain(
-    `Instancje: **${all.length}** (historyczne **${historical}**, uzupełnienia **${additions}**, L4/L5 **${higher}**).`,
+    `Instancje: **${initial.length}** (historyczne **${historical}**, uzupełnienia **${additions}**, L4/L5 **${higher}**).`,
   );
+  expect(doc).toContain(`MT-EDU-004: **${all.length - initial.length}** nowych instancji; łącznie **${all.length}**.`);
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
+  const addedTemplates = allTemplates.filter((template) => !initial.some((task) => task.templateId === template.id));
+  expect(doc).toContain(`Bieżący katalog UI i sesji: **${allTemplates.length} rodzin**, **${all.length} instancji**.`);
+  expect(doc).toContain(`Nowe rodziny: **${addedTemplates.length}**. Pary rodzina/poziom: **${addedTemplates.reduce((sum, template) => sum + template.supportedDifficulties.length, 0)}**.`);
+  expect(doc).toContain(`Łącznie rodziny L4: **${allTemplates.filter((t) => t.supportedDifficulties.includes("advanced")).length}**, L5: **${allTemplates.filter((t) => t.supportedDifficulties.includes("expert")).length}**.`);
+  const readme = readFileSync(new URL("../../README.md", import.meta.url), "utf8");
+  expect(readme).toContain(`**${allTemplates.length} rodzin**`);
+  expect(readme).toContain(`**${all.length} instancji**`);
 });

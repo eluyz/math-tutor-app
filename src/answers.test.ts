@@ -6,6 +6,13 @@ import { exercises, feedback } from "./locales/pl";
 import { advanceSession, createSession, recordFirstAttempt, summarizeSession } from "./session";
 
 const cases: { spec: AnswerSpec; right: AnswerInput; wrong: AnswerInput }[] = [
+  {spec:{kind:"system",classification:"system-one",variables:["x","y"],values:[r(-2),r(1,3)]},right:{kind:"system",classification:"system-one",values:["-4/2","2/6"]},wrong:{kind:"system",classification:"system-one",values:["1/3","-2"]}},
+  {spec:{kind:"system",classification:"system-none",variables:["x","y"],values:[]},right:{kind:"system",classification:"system-none",values:[]},wrong:{kind:"system",classification:"system-many",values:[]}},
+  {spec:{kind:"system",classification:"system-many",variables:["x","y"],values:[]},right:{kind:"system",classification:"system-many",values:[]},wrong:{kind:"system",classification:"system-none",values:[]}},
+  { spec: { kind: "limit", value: {kind:"finite",value:r(-2,3)} }, right: {kind:"limit",classification:"finite",value:"-4/6"}, wrong: {kind:"limit",classification:"finite",value:"2/3"} },
+  { spec: { kind: "limit", value: {kind:"positive-infinity"} }, right: {kind:"limit",classification:"positive-infinity",value:""}, wrong: {kind:"limit",classification:"negative-infinity",value:""} },
+  { spec: { kind: "limit", value: {kind:"negative-infinity"} }, right: {kind:"limit",classification:"negative-infinity",value:""}, wrong: {kind:"limit",classification:"does-not-exist",value:""} },
+  { spec: { kind: "limit", value: {kind:"does-not-exist"} }, right: {kind:"limit",classification:"does-not-exist",value:""}, wrong: {kind:"limit",classification:"positive-infinity",value:""} },
   { spec: { kind: "scalar", value: r(3, 4) }, right: "0,75", wrong: "3" },
   { spec: { kind: "list", values: [r(-2), r(3, 4)], labels: ["x₁", "x₂"], unordered: true },
     right: { kind: "list", values: ["0.75", "−2"] }, wrong: { kind: "list", values: ["-2", "-2"] } },
@@ -16,6 +23,20 @@ const cases: { spec: AnswerSpec; right: AnswerInput; wrong: AnswerInput }[] = [
     right: { kind: "choice", value: "none" }, wrong: { kind: "choice", value: "two" } },
 ];
 describe("jawnie typowane odpowiedzi", () => {
+  it("klasyfikacja układu oznaczonego wymaga wszystkich niewiadomych, także po błędnym wyborze",()=>{
+    const spec:AnswerSpec={kind:"system",classification:"system-one",variables:["x","y"],values:[r(1),r(2)]};
+    for(const values of [[],["1"],["1",""],["1","1/0"]])expect(assessAnswer(spec,{kind:"system",classification:"system-one",values}).kind).toBe("invalid");
+    expect(assessAnswer(spec,{kind:"system",classification:"system-none",values:[]}).kind).toBe("incorrect");
+    expect(assessAnswer(spec,{kind:"system",classification:"injected",values:[]}).kind).toBe("invalid");
+    expect(assessAnswer({...spec,classification:"system-none",values:[]},{kind:"system",classification:"system-one",values:["1",""]}).kind).toBe("invalid");
+    expect(assessAnswer({...spec,classification:"system-none",values:[]},{kind:"system",classification:"system-one",values:["1","2"]}).kind).toBe("incorrect");
+  });
+  it("granice: brak wyboru i błędny zapis nie są ważną oceną; oscylacja nie jest nieskończonością", () => {
+    const spec:AnswerSpec={kind:"limit",value:{kind:"does-not-exist"}};
+    for(const input of ["+∞", {kind:"limit",classification:"injected",value:""}, ...["","1/0","∞","0/0","x","2 + 2"].map(value=>({kind:"limit",classification:"finite",value}))] as AnswerInput[]) expect(assessAnswer(spec,input).kind).toBe("invalid");
+    expect(assessAnswer(spec,{kind:"limit",classification:"finite",value:"0"}).kind).toBe("incorrect");
+    expect(assessAnswer(spec,{kind:"limit",classification:"positive-infinity",value:""}).kind).toBe("incorrect");
+  });
   it("formularz pierwiastków sprawdza wybór, kompletność i wartości bez ujawniania rozwiązania", () => {
     const spec: AnswerSpec = { kind: "roots", values: [r(-1, 2), r(3)] };
     expect(assessAnswer(spec, emptyAnswer(spec)).kind).toBe("invalid");
@@ -41,7 +62,7 @@ describe("jawnie typowane odpowiedzi", () => {
     expect(assessAnswer({ ...spec, values: [r(2), r(2)], unordered: true }, { kind: "list", values: ["2", "3"] }).kind).toBe("incorrect");
   });
   it("odrzuca niekompletne, źle ukształtowane i nieprawidłowe macierze", () => {
-    const spec = cases[2].spec;
+    const spec = cases.find(({spec}) => spec.kind === "matrix")!.spec;
     for (const input of [
       { kind: "matrix", values: [["1", ""], ["0", "3"]] },
       { kind: "matrix", values: [["1", "2"]] },
@@ -49,8 +70,8 @@ describe("jawnie typowane odpowiedzi", () => {
       { kind: "matrix", values: [["1/0", "2"], ["0", "3"]] },
       { kind: "matrix", values: [["eval(2)", "2"], ["0", "3"]] },
     ] as AnswerInput[]) expect(assessAnswer(spec, input).kind).toBe("invalid");
-    expect(assessAnswer(cases[1].spec, { kind: "list", values: ["-2"] }).kind).toBe("invalid");
-    expect(assessAnswer(cases[3].spec, { kind: "choice", value: "injected" }).kind).toBe("invalid");
+    expect(assessAnswer(cases.find(({spec}) => spec.kind === "list")!.spec, { kind: "list", values: ["-2"] }).kind).toBe("invalid");
+    expect(assessAnswer(cases.find(({spec}) => spec.kind === "choice")!.spec, { kind: "choice", value: "injected" }).kind).toBe("invalid");
   });
   it.each(cases)("$spec.kind: sesja liczy tylko pierwszą ważną ocenę", ({ spec, right, wrong }) => {
     const exercise: TypedExercise = { ...exercises[0], answer: spec, startingHint: "Wskazówka" };

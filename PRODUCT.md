@@ -65,7 +65,7 @@ Cała nauka działa po polsku i angielsku: wybór, treść, typowane odpowiedzi,
 
 Historyczne przykłady pozostają, a 17 jawnych uzupełnień zapewnia minimum 10 dla małych pul. Rekomendacje obejmują pięć dostępnych poziomów w kategorii z niezmienionymi zasadami samodzielności i progami. Publikacja pozostaje osobną decyzją po CI, niezależnej recenzji i zgodzie użytkownika.
 
-## MT-004A — historia pracy i składany brudnopis (PR do przeglądu)
+## MT-004A — historia pracy i składany brudnopis (scalone i opublikowane w PR #15)
 
 „Moje postępy / My progress” zachowuje do 200 ukończonych sesji na danym urządzeniu i w danej przeglądarce. Pokazuje liczbę sesji, samodzielnych poprawnych i błędnych pierwszych ocen, podglądów przed oceną i pominięć, według kategorii i poziomów oraz w ostatnich sesjach. Kategorie i poziomy pozostają wspólne dla PL/EN. Filtry obejmują kategorię, poziom i wszystkie/ostatnie 30 dni. Procent zawsze ma mianownik samodzielnie ocenionych zadań; brak takich ocen nie staje się wynikiem 0%. Mała liczba ocen jest jawnie oznaczona, bez diagnozowania poziomu wiedzy, streaków ani nowych rekomendacji.
 
@@ -76,3 +76,17 @@ Użytkownik może wyeksportować całą dostępną historię do JSON oraz usuną
 Układ zadania to: treść i dane → niewielki pasek brudnopisu → odpowiedź → Sprawdź. Brudnopis domyślnie jest zwinięty. Pokazanie/schowanie nie odmontowuje edytora, nie zmienia zaznaczenia, trybu, tekstu, rysunków ani Undo/Redo. Auto-clear nadal działa wyłącznie na granicy nowego uruchomienia zadania, według checkboxa. Powiększenie, symbole i obsługa dotyku pozostają. Schowanie powiększenia zwalnia fokus i przewijanie.
 
 Import, synchronizacja urządzeń, utrwalanie niedokończonych sesji lub notatek, adaptacyjna powtórka i nowe działy są poza tym PR. Ręczna kontrola fizycznego Safari, zielone CI, recenzja Work i zgoda użytkownika pozostają bramkami przed merge.
+
+## MT-EDU-004 — P0–P3: układy, funkcje i granice ciągów
+
+Zakres dodaje 16 rodzin i 1728 wariantów, zachowując 3501 wcześniejszych instancji. Łącznie jest 51 rodzin w 11 kategoriach. Każda nowa deklarowana para rodzina/poziom ma 24 różne treści z pełną prezentacją PL/EN. Dostępne poziomy są jawne: klasyfikacja układów i monotoniczność liniowej pozostają na 1–3, Cramer 3×3 zaczyna od hard, pozostałe rodziny wspierają pięć poziomów oprócz złożeń zaczynających od medium.
+
+Układy uczą podstawiania, eliminacji, rzędu i klasyfikacji oraz Cramera 2×2/3×3. Wyższe poziomy wymagają redukcji nawiasów i odwrócenia pomocniczych niewiadomych. Wszystkie wyniki są dokładne i sprawdzane we wszystkich oryginalnych równaniach. Wybór jednego rozwiązania wymaga wszystkich wartości; pozostałe klasy nie wymagają fikcyjnych x/y.
+
+Funkcje obejmują wartości, dziedzinę, miejsca zerowe z wykluczeniami, współczynniki liniowej z punktów i złożeń, monotoniczność, wierzchołek i oś symetrii, osiągany koniec zbioru wartości i złożenia. Nie przywracamy dziury w dziedzinie po skróceniu czynnika. Przedziały mają jawnie otwarte/zamknięte końce; formularz zer nie zdradza ich liczby.
+
+Granice ciągów wynikają z dokładnych potęg, współczynników, sprzężenia i podciągów. Odpowiedź rozróżnia liczbę, +∞, −∞ i brak granicy. Oscylacje nie stają się nieskończonością; postać różnicy rosnących wyrażeń wymaga przekształcenia. Wyjaśnienia opisują dominację, nie przybliżenia dla kilku indeksów.
+
+P0 ustawia Powiększ/Expand przed Schowaj/Hide w DOM, Tab i układzie. Brudnopis pozostaje domyślnie zwinięty. Zachowuje edytor, zaznaczenie, treści, rysunki, historię, auto-clear, pełny ekran, fokus i scroll. Scoring, podgląd przed oceną oraz lokalne postępy pozostają zgodne z wcześniejszym produktem. Nie dodano backendu, telemetrii ani usług tłumaczeniowych.
+
+P4–P6 (granice funkcji, pochodne, całki i dwie zmienne) pozostają przyszłymi etapami. PR #17 obejmuje wyłącznie P0–P3 i nie oznacza zatwierdzenia Work, merge lub publikacji. Fizyczny Safari wymaga osobnego testu ręcznego.

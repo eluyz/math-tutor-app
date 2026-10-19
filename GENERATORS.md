@@ -1,6 +1,6 @@
-# Generatory zadań — MT-003A, MT-EDU-001 i MT-EDU-003
+# Generatory zadań — katalog bieżący i rozwój historyczny
 
-UI i sesje używają `allTemplates` oraz `taskPool`: 35 rodzin na poziomach easy/medium/hard; 29 z nich także na advanced/expert. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **51 rodzin**, **5229 instancji**. `allTemplates` i `taskPool` obejmują zachowane 35 historycznych rodzin oraz 16 nowych z P1–P3. Po 43 rodziny wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 ## Pierwotne rodziny
 
@@ -65,12 +65,12 @@ Bez `eval`, zaokrąglania, dowolnego parsera symbolicznego, Viète'a, macierzy o
 
 Kanoniczne ID, kolejność, opisy oraz etykiety PL/EN są w `src/difficulty.ts`: easy, medium, hard, advanced, expert. `allTemplates[].supportedDifficulties` deklaruje rzeczywiste wsparcie; `availableDifficulties(category)` wyznacza zakres sesji i rekomendacji. Niedostępna rodzina nie jest zastępowana poziomem hard. UI pokazuje wyjaśnienie i dostępną alternatywę. Nowe poziomy wykorzystują `advanced/schema.ts`, `catalog.ts` i `engine.ts`, oddzielone od React.
 
-Instancje: **3501** (historyczne **2092**, uzupełnienia **17**, L4/L5 **1392**).
+Historyczny rdzeń MT-EDU-003 — Instancje: **3501** (historyczne **2092**, uzupełnienia **17**, L4/L5 **1392**).
 Rodziny L4: **29**, L5: **29**. Nowe identyfikatory rodzin: **0**. Każda z ośmiu kategorii wspiera oba wyższe poziomy. Każda wspierana kombinacja rodzina × poziom ma co najmniej 10 różnych treści. Nowe L4/L5 mają dokładnie 24 warianty na kombinację. Język nie mnoży liczby wariantów matematycznych.
 
 Pierwotne siatki parametrów `templates/parameterSets` i 2092 historyczne pytania, wyniki oraz formaty odpowiedzi zachowano. `education/supplements.ts` dodaje tylko 17 jawnych zestawów, bez rozszerzania iloczynów kartezjańskich: po jednym dla trzech poziomów każdej z trzech rodzin liczb ze znakami (9), dwa dla łatwego odejmowania ułamków i sześć dla podstawiania (4 easy, 1 medium, 1 hard). Uzupełniają 13 historycznych kombinacji mających wcześniej 6–9 treści. `pool` pozostaje audytem starych siatek; `taskPool` dodaje uzupełnienia i nowe poziomy. Zmienia to celowo wielkość niektórych pul oraz sekwencję losowania, nie treść istniejących przykładów. Skalarne `id` obejmuje teraz poziom, usuwając pięć dawnych kolizji między poziomami; nie ma trwałego stanu wymagającego migracji. Identyfikatory są niezmienne podczas zmiany języka. DOM używa wyłącznie numeru uruchomienia, bez parametrów przechowywanych w technicznym ID.
 
-### Mapa wszystkich 35 rodzin
+### Mapa 35 historycznych rodzin MT-EDU-003
 
 `1–5` oznacza wszystkie poziomy; `1–3` oznacza świadome ograniczenie. Wszystkie wyższe poziomy korzystają ze znaków i dokładnych ułamków. Poniższe symbole opisują wzorce, nie jeden stały przykład.
 
@@ -121,3 +121,48 @@ Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapow
 `advanced/catalog.test.ts` sprawdza wszystkie nowe warianty arytmetyką niezależną od operatorów produkcyjnych. Wielomiany weryfikuje przez podstawienia, a współczynniki równania odzyskuje z wartości w 0, 1 i −1. Sprawdza pierwiastki podstawieniem oraz sumą i iloczynem; macierze osobnymi pętlami, wyznaczniki rekurencyjnym Laplace'em. Osobno weryfikuje każdy rachunek pośredni, wynik finalny, odpowiedzi poprawne/błędne/niekompletne, wymiary, unikalność i deklaracje dostępności. `supplements.test.ts` kontroluje minimum 10, globalną unikalność ID i sumy dokumentacji. Dawne audyty nadal niezależnie przeliczają pierwotne siatki.
 
 `locales/catalog.ts` wybiera prezentację PL/EN dla tego samego modelu. `locales/lessons-en.ts` zawiera autorskie parametryczne polecenia, wskazówki i opisy starych kroków; `locales/math.ts` oba katalogi komunikatów nowego silnika. Dawne polskie fabryki pozostają źródłem zgodnych treści PL. Język nie wpływa na generator, parametry, `id`, `contentKey`, wartości ani rachunki. `locales/lessons.test.ts` audytuje oba języki dla wszystkich instancji, zgodność rachunków i wyników, pełność kluczy i brak polskich komunikatów w EN. Zmiana metod starego rozwiązania wymaga jednoczesnego przeglądu odpowiadającej mu angielskiej sceny; test kontroluje również zgodność liczby etapów.
+
+## MT-EDU-004 — katalog P1–P3
+
+MT-EDU-004: **1728** nowych instancji; łącznie **5229**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
+
+Nowe rodziny: **16**. Pary rodzina/poziom: **72**. Łącznie rodziny L4: **43**, L5: **43**.
+
+### P1: układy równań — 504 instancje
+
+| Rodzina | Poziomy | Umiejętność |
+| --- | --- | --- |
+| system-substitution | easy, medium, hard, advanced, expert | Izolowanie, podstawienie, dokładne ułamki; L4 rozwijanie nawiasów, L5 pomocnicze u=x+y, v=x−y i powrót do x,y |
+| system-elimination | easy, medium, hard, advanced, expert | Eliminacja z niezerowym elementem głównym i pełnymi operacjami na wierszach; L4 nawiasy, L5 zmiana niewiadomych |
+| system-classification | easy, medium, hard | Rząd, sprzeczność 0=c, zmienne swobodne i trzy klasy rozwiązań, w tym zerowy wiersz |
+| system-cramer-two | easy, medium, hard, advanced, expert | D, D_x, D_y, warunek D≠0; L4 nawiasy, L5 zmiana niewiadomych |
+| system-cramer-three | hard, advanced, expert | Dokładne cztery wyznaczniki 3×3; L4 ułamki/nawiasy; L5 u=x+y, v=y+z, w=z i odwrócenie zmiany |
+
+Typ `system` wymaga wyboru klasyfikacji i wszystkich uporządkowanych niewiadomych przy dokładnie jednym rozwiązaniu, także w rodzinie klasyfikacyjnej. Puste lub nieprawidłowe współrzędne pozostają błędem formatu. Przy układzie sprzecznym lub nieoznaczonym pola x/y nie są pokazywane. Układy oznaczone wymagają wszystkich uporządkowanych wartości. Cramer przy D=0 przechodzi do klasyfikacji eliminacją, bez dzielenia. Każde rozwiązanie jest sprawdzane w oryginalnych równaniach. Niezależny audyt korzysta z rozwinięcia Laplace'a, własnej arytmetyki ułamków i podstawienia wszystkich niewiadomych; nie korzysta z produkcyjnego solvera. Zapis historii obejmuje nowe kanoniczne ID rodzin bez zmiany schematu.
+
+### P2: funkcje — 888 instancji
+
+| Rodzina | Poziomy | Umiejętność |
+| --- | --- | --- |
+| function-value | easy, medium, hard, advanced, expert | Wartości; L3 ułamki i niezerowy mianownik; L4 złożenie; L5 różnica złożeń z argumentami przeciwnymi |
+| function-domain | easy, medium, hard, advanced, expert | Wielomiany, bieguny, pierwiastki; L3–L5 przecięcie warunków i ścisła dodatniość pierwiastka w mianowniku |
+| function-zeros | easy, medium, hard, advanced, expert | Zera liniowe/kwadratowe, wszystkie znaki delty; L3–L5 wykluczenia dziedziny, złożenia i różnica liczników |
+| function-linear | easy, medium, hard, advanced, expert | Rekonstrukcja z dwóch punktów; L4 h=f+g, L5 h=f∘g i odzyskanie współczynników f |
+| function-monotonicity | easy, medium, hard | Znak nachylenia, również stała; upraszczanie złożeń i różnic funkcji liniowych |
+| function-vertex | easy, medium, hard, advanced, expert | Wierzchołek i oś; postać kanoniczna, ogólna, ułamki, złożenie, różnica przesuniętych kwadratów |
+| function-range | easy, medium, hard, advanced, expert | Dokładny zbiór wartości po obliczeniu wierzchołka, zwrot ramion i osiągany koniec |
+| function-composition | medium, hard, advanced, expert | Dwie funkcje liniowe, kwadratowa z liniową, dwie kwadratowe, f∘g−g∘f |
+
+Każda z 37 par ma 24 warianty. Przedziały są normalizowanymi zbiorami z wymiernymi końcami, flagami domknięcia i nieskończonością; formularz oferuje kontrolowane, semantyczne odpowiedzi. Nie parsuje dowolnych zapisów symbolicznych. Zera mają neutralny wybór liczby 0/1/2 bez ujawnienia wyniku i wymagają dokładnych wartości; pojedyncze zero nie jest błędnie nazywane podwójnym. Wielomiany złożeń mają opisane pola współczynników, łącznie z zerami. Audyt niezależnie rozwija wielomiany przez splot i potęgi, sprawdza kompletność zer i wszystkie obliczenia. Audyt dziedziny sprawdza każdy punkt graniczny i każdą komórkę stałego znaku czynników. Wykresy pozostają opcjonalnym zakresem przyszłym.
+
+### P3: granice ciągów — 336 instancji
+
+| Rodzina | Poziomy | Umiejętność |
+| --- | --- | --- |
+| sequence-rational | easy, medium, hard, advanced, expert | Stopnie i współczynniki wiodące, zero i oba znaki nieskończoności; L4 redukcja różnicy rosnących wyrażeń; L5 dwa skracające się składniki i mnożenie przez n |
+| sequence-geometric | easy, medium, hard, advanced, expert | Wszystkie przypadki q, dominacja, oscylacje; L4 równe moduły i skracanie; L5 ilorazy z odmiennymi podciągami |
+| sequence-conjugate | medium, hard, advanced, expert | Sprzężenie, √(n²)=n dla n≥1; L4 n(√(n²+b)−n), L5 usunięcie również składnika liniowego i drugi rząd |
+
+14 par × 24 warianty. Typ `limit` rozróżnia dokładną liczbę, +∞, −∞ i brak granicy. Nieprawidłowy zapis liczby jest błędem formatu, a nie błędną oceną matematyczną. Ciągi geometryczne są analizowane symbolicznie po n=2k+p i połączeniu równych podstaw. Oscylacja ani postać ∞−∞ nie jest automatycznie wynikiem nieskończonym. Audyt używa niezależnego splotu wielomianów, osobnego grupowania dodatnich modułów i dokładnych tożsamości sprzężenia; nie zgaduje granic z kilku wyrazów.
+
+P4–P6 pozostają przyszłym zakresem ROADMAP. Powyższy katalog obejmuje wyłącznie P1–P3; P0 zmienia brudnopis bez dodawania instancji.

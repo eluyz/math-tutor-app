@@ -81,6 +81,29 @@ const pl = {
     language: "Język aplikacji",
   },
   answers: {
+    system: {
+      classification: "Rodzaj układu",
+      "system-one": "Dokładnie jedno rozwiązanie",
+      "system-none": "Brak rozwiązań",
+      "system-many": "Nieskończenie wiele rozwiązań",
+    },
+    limit: {
+      classification: "Rodzaj granicy",
+      finite: "Skończona liczba",
+      "positive-infinity": "+∞",
+      "negative-infinity": "−∞",
+      "does-not-exist": "Granica nie istnieje",
+      value: "Dokładna wartość granicy",
+    },
+    zeros: {
+      count: "Liczba rzeczywistych miejsc zerowych",
+      two: "Dwa różne miejsca zerowe",
+      double: "Jedno miejsce zerowe",
+      none: "Brak rzeczywistych miejsc zerowych",
+      order: "Kolejność miejsc zerowych nie ma znaczenia.",
+      root: (n: number) => `Miejsce zerowe ${n}`,
+      help: "Wybierz liczbę miejsc zerowych i podaj ich dokładne wartości. Sprawdź wykluczenia z dziedziny.",
+    },
     roots: "Liczba pierwiastków rzeczywistych",
     choose: "Wybierz odpowiedź",
     two: "Dwa różne pierwiastki",
@@ -191,6 +214,10 @@ const en: UiCopy = {
     practice: "Keep practising",
   },
   answerHints: {
+    system:
+      "Choose the classification. For exactly one solution, enter every variable in its labelled field.",
+    limit:
+      "Distinguish a finite number, +∞, −∞ and a limit that does not exist. Enter a finite limit as an exact number or fraction a/b.",
     scalar: "Enter a number, a fraction a/b or an exactly equivalent decimal.",
     list: "Complete every labelled field. Integers and exact fractions a/b are accepted.",
     matrix:
@@ -218,6 +245,9 @@ const en: UiCopy = {
         quadratics: "Identities and quadratic equations",
         matrices: "Matrices",
         determinants: "Determinants",
+        systems: "Systems of equations",
+        functions: "Functions",
+        "sequence-limits": "Limits of sequences",
       } as Record<string, string>
     )[c.id],
   })),
@@ -284,6 +314,29 @@ const en: UiCopy = {
     language: "Application language",
   },
   answers: {
+    system: {
+      classification: "Type of system",
+      "system-one": "Exactly one solution",
+      "system-none": "No solutions",
+      "system-many": "Infinitely many solutions",
+    },
+    limit: {
+      classification: "Type of limit",
+      finite: "Finite number",
+      "positive-infinity": "+∞",
+      "negative-infinity": "−∞",
+      "does-not-exist": "The limit does not exist",
+      value: "Exact value of the limit",
+    },
+    zeros: {
+      count: "Number of real zeros",
+      two: "Two distinct zeros",
+      double: "One zero",
+      none: "No real zeros",
+      order: "The order of the zeros does not matter.",
+      root: (n) => `Zero ${n}`,
+      help: "Choose the number of zeros and enter their exact values. Check domain exclusions.",
+    },
     roots: "Number of real roots",
     choose: "Choose an answer",
     two: "Two distinct roots",
