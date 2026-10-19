@@ -21,6 +21,8 @@ import {
 import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
+import { DeterminantDisplay } from "./DeterminantDisplay";
+import { isUniversityTask } from "./university/catalog";
 import {
   advanceSession,
   createSession,
@@ -513,6 +515,9 @@ export default function App() {
                   >
                     {active.question}
                   </div>
+                  {isUniversityTask(active) && active.university.kind === "determinant" && (
+                    <DeterminantDisplay matrix={active.university.matrix} locale={locale} />
+                  )}
                   {"matrices" in active && active.matrices && (
                     <div className="given-matrices">
                       {active.matrices.map((matrix) => (

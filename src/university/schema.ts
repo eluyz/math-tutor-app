@@ -137,12 +137,28 @@ export type DerivativeProblem =
       revenue?: PolynomialFormula;
       cap: Rational;
     }>;
+/** Separate from the 1×1–3×3 answer-matrix model. */
+export type SquareDeterminantMatrix = readonly (readonly Rational[])[];
+export type DeterminantRowOperation = Readonly<
+  | { kind: "add"; target: number; source: number; multiple: Rational }
+  | { kind: "swap"; first: number; second: number }
+  | { kind: "scale"; row: number; factor: Rational }
+>;
+export type DeterminantProblem = Readonly<{
+  kind: "determinant";
+  method: "laplace-four" | "row-operations" | "laplace-five" | "properties";
+  matrix: SquareDeterminantMatrix;
+  /** Operations reduce the displayed matrix to an upper triangular matrix. */
+  reductions?: readonly DeterminantRowOperation[];
+  dependentRows?: readonly [number, number];
+}>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
   | SequenceProblem
   | FunctionLimitProblem
-  | DerivativeProblem;
+  | DerivativeProblem
+  | DeterminantProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export type UniversityFamily = Readonly<{
