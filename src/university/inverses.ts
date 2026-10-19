@@ -9,7 +9,7 @@ import { inverse, product, rank, type ExactMatrix } from "./linearAlgebraMath";
 const compact=(a:ExactMatrix)=>`[${a.map(row=>`[${row.map(f).join(", ")}]`).join("; ")}]`;
 const choice=(value:string, locale:Locale):AnswerSpec=>({kind:"choice",value,options:[{value:"inverse-yes",label:locale==="pl"?"Istnieje odwrotność":"An inverse exists"},{value:"inverse-no",label:locale==="pl"?"Brak odwrotności":"No inverse"}]});
 function two(v:number, level:Difficulty): ExactMatrix {
-  const a=r(level==="easy"?1:(v%3)+1), b=r(v-11), d=r(v%2?-2:2);
+  const a=level==="hard"?r((v%3)+1,2):r(level==="easy"?1:(v%3)+1), b=r(v-11), d=r(v%2?-2:2);
   const top=[a,b], bottom=[r(0),d];
   if(level==="easy") return [top,bottom];
   const k=r(level==="medium"?v%3+1:level==="hard"?v%3+4:level==="advanced"?v%3+7:-(v%3+10));
@@ -28,7 +28,7 @@ function three(v:number, level:Difficulty):ExactMatrix {
 }
 const family=(id:string,titles:Record<Locale,string>,supportedDifficulties:readonly Difficulty[],create:UniversityFamily["create"]):UniversityFamily=>({id,category:"matrices",titles,supportedDifficulties,create});
 export const inverseFamilies:readonly UniversityFamily[]=[
-  family("inverse-two",{pl:"Macierz odwrotna 2×2",en:"Inverse matrix 2×2"},["easy","medium","hard","advanced"],(v,d)=>({kind:"linear-inverse",matrix:d==="hard" && v%4===0? (()=>{const a=two(v,d);return [a[0],a[0].map(x=>mul(x,r(v%3+1)))];})():two(v,d),method:"inverse"})),
+  family("inverse-two",{pl:"Macierz odwrotna 2×2",en:"Inverse matrix 2×2"},["easy","medium","hard"],(v,d)=>({kind:"linear-inverse",matrix:d==="hard" && v%4===0? (()=>{const a=two(v,d);return [a[0],a[0].map(x=>mul(x,r(v%3+1)))];})():two(v,d),method:"inverse"})),
   family("inverse-three",{pl:"Macierz odwrotna 3×3",en:"Inverse matrix 3×3"},["hard","advanced","expert"],(v,d)=>({kind:"linear-inverse",matrix:three(v,d),method:"inverse"})),
   family("inverse-existence",{pl:"Warunek odwracalności",en:"Invertibility condition"},["medium","hard","advanced"],(v,d)=>{const a=d!=="medium"&&v%2?three(v,d):two(v,d);return {kind:"linear-inverse",method:"classification",matrix:v%3===0?[...a.slice(0,-1),a[0].map(x=>mul(x,r(d==="medium"?2:d==="hard"?3:4)))]:a};}),
   family("inverse-applications",{pl:"Równanie macierzowe AX = B",en:"Matrix equation AX = B"},["medium","hard","advanced","expert"],(v,d)=>{

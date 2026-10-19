@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **78 rodzin**, **7389 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A oraz 11 rodzin MT-EDU-006B. Po 69 rodzin wspiera advanced, a 65 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **78 rodzin**, **7365 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A oraz 11 rodzin MT-EDU-006B. Po 68 rodzin wspiera advanced, a 65 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **69**, L5: **65**.
+Łącznie rodziny L4: **68**, L5: **65**.
 
 ## Pierwotne rodziny
 
@@ -216,11 +216,11 @@ Trzy 4×4 rodziny mają 72+48+96=216 wariantów, 5×5 ma 48. Macierze zawierają
 
 ## MT-EDU-006B — dokładna algebra liniowa
 
-MT-EDU-006B: **744** nowych instancji; łącznie **7389**. Jedenaście rodzin, 31 par rodzina/poziom × 24 prawdziwie różne zadania. P0: 4 rodziny / 336; P1: 3 / 144; P2: 2 / 168; opcjonalne P3 częściowo: 2 / 96. Wszystkie dawne 6645 lekcji PL/EN, ID i klucze treści są porównywane z niezależnym archiwum `main` `ea1cae4017b1c972f7762cc36aca5f1b0e223b79`.
+MT-EDU-006B: **720** nowych instancji; łącznie **7365**. Jedenaście rodzin, 30 par rodzina/poziom × 24 prawdziwie różne zadania. P0: 4 rodziny / 312; P1: 3 / 144; P2: 2 / 168; opcjonalne P3 częściowo: 2 / 96. Wszystkie dawne 6645 lekcji PL/EN, ID i klucze treści są porównywane z niezależnym archiwum `main` `ea1cae4017b1c972f7762cc36aca5f1b0e223b79`.
 
 | Rodzina | Poziomy | Rzeczywisty zakres |
 | --- | --- | --- |
-| inverse-two | easy, medium, hard, advanced | 2×2, det=0 na hard; poprawna macierz albo kontrolowany brak odwrotności |
+| inverse-two | easy, medium, hard | 2×2, det=0 na hard; poprawna macierz albo kontrolowany brak odwrotności |
 | inverse-three | hard, advanced, expert | 3×3, dokładny Gauss–Jordan z zamianami wierszy i ułamkami |
 | inverse-existence | medium, hard, advanced | Rząd=n/det≠0 dla 2×2/3×3; także osobliwe przypadki |
 | inverse-applications | medium, hard, advanced, expert | AX=B, X=A⁻¹B, wymiary 2×1, 2×2, 3×2 i kontrola AX |

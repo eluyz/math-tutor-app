@@ -16,6 +16,14 @@ const independentInverse=(A:ExactMatrix):ExactMatrix|null=>{
 };
 const I=(n:number):Rational[][]=>Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>q(i===j?1:0)));
 describe("P0 exact inverses and AX=B",()=>{
+  it("keeps elementary 2×2 work on honest levels and adds singular and fractional hard cases",()=>{
+    const family=inverseFamilies.find(item=>item.id==="inverse-two")!;
+    expect(family.supportedDifficulties).toEqual(["easy","medium","hard"]);
+    expect(()=>makeUniversityTask("inverse-two",0,"advanced")).toThrow();
+    const hard=Array.from({length:24},(_,v)=>makeUniversityTask("inverse-two",v,"hard"));
+    expect(hard.filter(task=>task.answer.kind==="choice").length).toBeGreaterThanOrEqual(6);
+    expect(hard.some(task=>task.university.kind==="linear-inverse"&&task.university.matrix.flat().some(value=>value.denominator>1n))).toBe(true);
+  });
   it("audits every variant and both full lessons against independent cofactors and multiplication",()=>{
     for(const family of inverseFamilies) for(const level of difficulties) {
       if(!family.supportedDifficulties.includes(level))continue;

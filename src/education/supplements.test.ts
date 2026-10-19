@@ -127,7 +127,7 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(added006a).toHaveLength(264);
   const added006b=all.filter((task)=>linearIds.has(task.templateId));
   expect(doc).toContain(`MT-EDU-006A: **${added006a.length}** nowych instancji; łącznie **${all.length-added006b.length}**.`);
-  expect(added006b).toHaveLength(744);
+  expect(added006b).toHaveLength(720);
   expect(doc).toContain(`MT-EDU-006B: **${added006b.length}** nowych instancji; łącznie **${all.length}**.`);
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
   const addedTemplates = allTemplates.filter(
