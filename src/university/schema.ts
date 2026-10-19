@@ -160,6 +160,12 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>;
+export type ElementaryAnalysisProblem =
+  | Readonly<{ kind: "analysis-log-domain"; mode: "linear" | "ratio" | "radical"; p: Rational; base: Rational }>
+  | Readonly<{ kind: "analysis-power-law"; mode: "log-power" | "power-log" | "combined"; base: Rational; exponent: number; argument: Rational }>
+  | Readonly<{ kind: "analysis-elementary-equation"; mode: "exponential" | "logarithmic" | "log-product"; base: Rational; p: Rational; multiplier: Rational; shift: Rational; exponent: number }>
+  | Readonly<{ kind: "analysis-log-inequality"; p: Rational; base: Rational; exponent: number; relation: "greater" | "at-most" }>
+  | Readonly<{ kind: "analysis-absolute"; mode: "equation" | "domain" | "inside" | "sum-inside" | "sum-outside"; p: Rational; q: Rational; radius: Rational }>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
@@ -167,7 +173,8 @@ export type UniversityProblem =
   | FunctionLimitProblem
   | DerivativeProblem
   | DeterminantProblem
-  | LinearAlgebraProblem;
+  | LinearAlgebraProblem
+  | ElementaryAnalysisProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>

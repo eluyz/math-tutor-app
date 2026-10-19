@@ -4,6 +4,7 @@ import { inverseFamilies } from "../university/inverses";
 import { rankFamilies } from "../university/ranks";
 import { gaussFamilies } from "../university/gauss";
 import { cramerFourFamilies } from "../university/cramerFour";
+import { elementaryAnalysisFamilies } from "../university/elementaryAnalysis";
 import { readFileSync } from "node:fs";
 import { isLegacyDifficulty } from "../difficulty";
 import { it, expect } from "vitest";
@@ -111,10 +112,11 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   );
   const determinantIds = new Set(determinantFamilies.map((family) => family.id));
   const linearIds = new Set([...inverseFamilies,...rankFamilies,...gaussFamilies,...cramerFourFamilies].map((family) => family.id));
+  const analysisIds = new Set(elementaryAnalysisFamilies.map((family) => family.id));
   const calculus = (category: string) =>
     ["function-limits", "derivatives"].includes(category);
   const added004 = all.filter(
-    (t) => isUniversityTask(t) && !calculus(t.category) && !determinantIds.has(t.templateId) && !linearIds.has(t.templateId),
+    (t) => isUniversityTask(t) && !calculus(t.category) && !determinantIds.has(t.templateId) && !linearIds.has(t.templateId) && !analysisIds.has(t.templateId),
   );
   const added005 = all.filter((t) => calculus(t.category));
   expect(doc).toContain(
@@ -126,13 +128,16 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   const added006a = all.filter((task) => determinantIds.has(task.templateId));
   expect(added006a).toHaveLength(264);
   const added006b=all.filter((task)=>linearIds.has(task.templateId));
-  expect(doc).toContain(`MT-EDU-006A: **${added006a.length}** nowych instancji; łącznie **${all.length-added006b.length}**.`);
+  const added007=all.filter((task)=>analysisIds.has(task.templateId));
+  expect(doc).toContain(`MT-EDU-006A: **${added006a.length}** nowych instancji; łącznie **${all.length-added006b.length-added007.length}**.`);
   expect(added006b).toHaveLength(720);
-  expect(doc).toContain(`MT-EDU-006B: **${added006b.length}** nowych instancji; łącznie **${all.length}**.`);
+  expect(doc).toContain(`MT-EDU-006B: **${added006b.length}** nowych instancji; łącznie **${all.length-added007.length}**.`);
+  expect(added007).toHaveLength(384);
+  expect(doc).toContain(`MT-EDU-007 P0: **${added007.length}** nowych instancji; łącznie **${all.length}**.`);
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
   const addedTemplates = allTemplates.filter(
     (template) =>
-      !calculus(template.category) && !determinantIds.has(template.id) && !linearIds.has(template.id) &&
+      !calculus(template.category) && !determinantIds.has(template.id) && !linearIds.has(template.id) && !analysisIds.has(template.id) &&
       !initial.some((task) => task.templateId === template.id),
   );
   expect(doc).toContain(

@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **78 rodzin**, **7365 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A oraz 11 rodzin MT-EDU-006B. Po 68 rodzin wspiera advanced, a 65 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **83 rodzin**, **7749 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 5 rodzin P0 MT-EDU-007. Po 69 rodzin wspiera advanced, a 66 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **68**, L5: **65**.
+Łącznie rodziny L4: **69**, L5: **66**.
 
 ## Pierwotne rodziny
 
@@ -235,3 +235,17 @@ MT-EDU-006B: **720** nowych instancji; łącznie **7365**. Jedenaście rodzin, 3
 `linearAlgebraMath.ts` przechowuje wyłącznie dokładne `Rational`/BigInt, waliduje wymiary, wykonuje Gaussa–Jordana albo eliminację z osobnym podstawieniem wstecznym. Macierz 4×4 jest tylko danymi i tabelą: nie zmienia limitu starego formularza macierzy 3×3. Przy jednym rozwiązaniu formularz `system` wymaga wszystkich niewiadomych; zadanie klasyfikacyjne i przypadek osobliwy używają kontrolowanego `choice`, bez swobodnej oceny wzorów parametrycznych. Pierwsza nieważna odpowiedź nie zużywa samodzielnej próby sesji.
 
 `inverses.test.ts` sprawdza obie strony AA⁻¹=I metodą niezależnych dopełnień; `ranks.test.ts` liczy wszystkie rzędy przez minory; `gauss.test.ts` stosuje Laplace'a/Cramera i podstawia wszystkie niewiadome do oryginalnych równań. Testy przechodzą przez każdą instancję PL/EN i poprawne, błędne oraz nieważne formularze. `linear-algebra-regression.test.ts` porównuje pełne hash'e wszystkich 6645 poprzednich zadań i lekcji, a Playwright bada widoki 375/768/1280 px. Własny solver produkcyjny nie jest źródłem oczekiwań audytu. P3 dodaje `cramer-four` i `inverse-right-applications`. `cramerFour.test.ts` porównuje każdy wyznacznik 4×4 z niezależnym wzorem Leibniza, sprawdza D=0 bez dzielenia, wszystkie podstawienia i pełne lekcje PL/EN. Układ dwóch równań macierzowych pozostaje przyszły; nie deklarujemy pokrycia prywatnych arkuszy ani fizycznego Safari.
+
+## MT-EDU-007 P0 — logarytmy, potęgi i moduł
+
+MT-EDU-007 P0: **384** nowych instancji; łącznie **7749**. Pięć rodzin, 16 uczciwych par rodzina/poziom po 24 odrębne treści każda. Wartości są wymierne dokładnie; nie stosujemy parsera wyrażeń ani przybliżeń logarytmów.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| analysis-log-domain | easy, medium, hard | Dodatniość argumentu; znak ilorazu i wyłączenie bieguna; pierwiastek nad logarytmem w mianowniku z wyłączeniem log_a(1)=0 |
+| analysis-power-law | easy, medium, hard | log_a(a^k)=k, a^(log_a u)=u przy u>0, suma obu praw z dokładnym ułamkiem |
+| analysis-elementary-equation | easy, medium, hard | Równanie wykładnicze, logarytmiczne z dziedziną i suma dwóch logarytmów wymagająca odrzucenia niedozwolonego pierwiastka |
+| analysis-log-inequality | medium, hard | Log_a(x-p)>k oraz ≤k; obie strony podstawy 1, w tym odwrócenie znaku dla 0<a<1 |
+| analysis-absolute | easy, medium, hard, advanced, expert | Dwa rozwiązania \|x−p\|=r; dziedzina pierwiastka z modułem; przedział ostry; suma dwóch modułów ≤ lub ≥ progu z trzema obszarami |
+
+Odpowiedzi używają istniejących typów `scalar`, `roots` i kontrolowanego wyboru kanonicznego zbioru (`setKey`). Dziedziny i zbiory rozwiązań zachowują otwarte/domknięte końce. `elementaryAnalysis.test.ts` sprawdza wszystkie 384 warianty w PL/EN niezależnymi warunkami algebraicznymi i punktami brzegowymi, `correct/incorrect/invalid` oraz unikalność treści. `function-analysis-regression.test.ts` porównuje 7365 pełnych lekcji PL/EN z opublikowanym `main` 793315c. P1–P3 nie są częścią tego checkpointu.

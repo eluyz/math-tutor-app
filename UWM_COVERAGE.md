@@ -2,7 +2,7 @@
 
 To **wstępna mapa tematów**, oparta na indeksie M01–W03 z [Issue #20](https://github.com/eluyz/math-tutor-app/issues/20) i na faktycznych generatorach w repozytorium. Nie mieliśmy dostępu do 43 prywatnych PDF-ów (221 stron), oryginalnych poleceń ani kluczy odpowiedzi. `Pokryte` oznacza opanowanie typu zadania opisanego w Issue, **nie** potwierdzenie zgodności z każdym arkuszem. `Częściowo` oznacza węższy przypadek; `teoria` to temat, którego nie da się uczciwie utożsamić z samym ćwiczeniem rachunkowym. Zgodność z konkretnymi podpunktami i formą zaliczenia pozostaje **do weryfikacji** na podstawie prywatnych źródeł. Nie określamy kolejności wejściówek.
 
-ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. MT-EDU-006A / PR #21 na main pokryło kontrolowane M08–M11. MT-EDU-006B dodaje M12–M14 i U05–U08 w granicach opisanych poniżej; Pełne M05 pozostaje przyszłe; U03 obejmuje teraz kontrolowane układy 4×4. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
+ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. MT-EDU-006A / PR #21 na main pokryło kontrolowane M08–M11. MT-EDU-006B dodaje M12–M14 i U05–U08 w granicach opisanych poniżej; pełne M05 pozostaje przyszłe; U03 obejmuje teraz kontrolowane układy 4×4. MT-EDU-007 P0 dodaje wybrane F02–F04/F07. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
 
 | Kod | Umiejętność z indeksu | Status | Rodziny Math Tutor / granica pokrycia |
 | --- | --- | --- | --- |
@@ -35,12 +35,12 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | C05 | Postać Eulera 1^∞ | brak | — |
 | C06 | Pojęcia ciągu, monotoniczność, ograniczoność | teoria | —; zadania z granic nie uczą całej teorii |
 | F01 | Dziedzina: pierwiastek i ułamek | pokryte | `function-domain` |
-| F02 | Dziedzina logarytmu | brak | — |
-| F03 | Moduł w dziedzinie | brak | — |
-| F04 | Kilka warunków dziedziny | częściowo | `function-domain`; pierwiastki i mianowniki, bez log/modułu |
+| F02 | Dziedzina logarytmu | częściowo | `analysis-log-domain`; dodatni argument liniowy i ilorazowy, dodatkowy warunek pierwiastka/mianownika; nie dowolne złożenia |
+| F03 | Moduł w dziedzinie | częściowo | `analysis-absolute`; pierwiastek z \|x−p\|−r, kontrolowane brzegi, bez ogólnych złożeń |
+| F04 | Kilka warunków dziedziny | częściowo | `function-domain`, `analysis-log-domain`; przecięcia dla pierwiastka, ilorazu i logarytmu w kontrolowanych postaciach |
 | F05 | Własności z wykresu | brak | —; brak wykresów do odczytu |
 | F06 | Parzystość, złożenie i odwrotność | częściowo | `function-composition`; bez parzystości/odwrotności |
-| F07 | Prawa exp/log, równania i nierówności | brak | — |
+| F07 | Prawa exp/log, równania i nierówności | częściowo | `analysis-power-law`, `analysis-elementary-equation`, `analysis-log-inequality`; wybrane dokładne tożsamości i równania, bez ogólnych złożeń |
 | G01 | Granica przez podstawienie | pokryte | `limit-point` |
 | G02 | 0/0 przez skrócenie | pokryte | `limit-point` |
 | G03 | Granice jednostronne i brak granicy | pokryte | `limit-point` |

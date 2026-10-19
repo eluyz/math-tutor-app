@@ -1,0 +1,953 @@
+{
+  "source": "793315c025377ee78176fb54208f3156fdf957c2",
+  "families": [
+    {
+      "id": "order-add-product",
+      "category": "order",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 129,
+      "sha256": "3eae59eba1a758bf2a6f053af9b14d1731ba3d1659e36aee62316addb67c608b"
+    },
+    {
+      "id": "order-subtract-product",
+      "category": "order",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 90,
+      "sha256": "ff790b0d0daf271226d79cd28aa1c2a15d9b2f45b963900a9cdcddaee582a75c"
+    },
+    {
+      "id": "order-parentheses",
+      "category": "order",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 84,
+      "sha256": "ca78c48054d41596205bd02a645bbfac00dcbcc3bd6e65fa80395bcb3ed4c0c7"
+    },
+    {
+      "id": "signed-add",
+      "category": "signed",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 30,
+      "sha256": "e3ff11e1b8be0df1b75991f63b464b30238ccb8d24ca7bef524d3dafb5c0d1ca"
+    },
+    {
+      "id": "signed-subtract-negative",
+      "category": "signed",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 30,
+      "sha256": "f71040dc0927a9bdc3a57a832cbf70620c7438dd9fd505d942bfc6d1fdcc6b71"
+    },
+    {
+      "id": "signed-product",
+      "category": "signed",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 78,
+      "sha256": "0540a0904154d890bd712b7bb0100e39884e693b71768b9b19213c1833be89f8"
+    },
+    {
+      "id": "fraction-add",
+      "category": "fractions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "65927a6527b0db7a02d580bc85c38a04c06e78c3e67981f4d280b01402fecdc7"
+    },
+    {
+      "id": "fraction-subtract",
+      "category": "fractions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 90,
+      "sha256": "e72a114b054d4223031c1ad411e3dd3cc269b36946238fece514416fe7ccfd1a"
+    },
+    {
+      "id": "fraction-product",
+      "category": "fractions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "da20e7af6c381eb99374c823db94bc10c12212bdc6a69f11925ce2b0878888c8"
+    },
+    {
+      "id": "algebra-substitute",
+      "category": "algebra",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 78,
+      "sha256": "86a4e77a9d426af1b4a1edb9c9efab7eaeb4dc9b3825862e55f3c50493226e9a"
+    },
+    {
+      "id": "algebra-like-terms",
+      "category": "algebra",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 84,
+      "sha256": "6876bb13aebea1fd366c748de771a79b31f2ee43a87261705b118a26cd7f5957"
+    },
+    {
+      "id": "algebra-distribute",
+      "category": "algebra",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 90,
+      "sha256": "91827bb29a71e0bf2ce7ae84978192fdc27748d4be04dce5fa2b972f7a99e93a"
+    },
+    {
+      "id": "equation-add",
+      "category": "equations",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 102,
+      "sha256": "f66add875794ed22bc8693b4a2839d53acb4c8c2a891522f9b71bc9a6cabd363"
+    },
+    {
+      "id": "equation-subtract",
+      "category": "equations",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 102,
+      "sha256": "61e0f557d395df947ffdd159cd414fd7788b02155c361cade320c2eedf17d7fd"
+    },
+    {
+      "id": "equation-fraction",
+      "category": "equations",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 114,
+      "sha256": "9df0f7c5fbf52dab4855e0385aa1d7f2991cc89c4052cf080b181f238025571c"
+    },
+    {
+      "id": "algebra-negative-brackets",
+      "category": "algebra",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "f741da079a8ca04dbe98d4e88737b641ed889fdd2feb77309f9466e1116b2e34"
+    },
+    {
+      "id": "algebra-monomials",
+      "category": "algebra",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "ea51ecaa7709d3d4baf48d6c9cccc63b2db0f915844d9fcb40eb5caa01f3d4d5"
+    },
+    {
+      "id": "algebra-polynomial-product",
+      "category": "algebra",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "ed5e9238647e3f6651b5cfe519c8fc6105e2a1cf9d663da7ff39497913344959"
+    },
+    {
+      "id": "equation-fraction-balance",
+      "category": "equations",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "2fb3c9b1d185ada053a9d06e3c04566cfd4bfbff87a1b574512c5c90e38920ba"
+    },
+    {
+      "id": "quadratic-square-sum",
+      "category": "quadratics",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "6d46788ca02a3566c48aea1e80d770c44813268031e744220e6426c43ded6c1c"
+    },
+    {
+      "id": "quadratic-square-difference",
+      "category": "quadratics",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "fc62dae5d30be535b67e5c5b9af25a70bb684773070e647f3a5add7e2644ce81"
+    },
+    {
+      "id": "quadratic-difference-squares",
+      "category": "quadratics",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "0f65c1e8062442b291dfe9cac61bc03d129a504bfe4e0b67c58f2d6e1f63709b"
+    },
+    {
+      "id": "quadratic-discriminant",
+      "category": "quadratics",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "42531479fe72059349504310df99079ac3ae7448c2cb16cc75e253e7b07ce049"
+    },
+    {
+      "id": "quadratic-delta-sign",
+      "category": "quadratics",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 72,
+      "sha256": "d0ce125a5918cc6ce3d3be3f31c382d14b4316a85c05e7129838c04f834e2d9f"
+    },
+    {
+      "id": "quadratic-roots",
+      "category": "quadratics",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "18dc4001eaff3f4289e0814ac51af551f6967732268ab4fc5ce73ccf00f9bdb8"
+    },
+    {
+      "id": "matrix-dimensions",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 72,
+      "sha256": "9e03626187e591fc1bfd3b8d6132eb4d34e334733a2616e74bdc3e999faa3a50"
+    },
+    {
+      "id": "matrix-entry",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 72,
+      "sha256": "0eed93d9a87f1d06161fb6c192066038fba168e011d8f1b1d947032def369b1e"
+    },
+    {
+      "id": "matrix-add",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "9da17ab8de85de0e7ec00fb25b781e1ba0e49b6fb9c01306d7aeb84a1a62b2db"
+    },
+    {
+      "id": "matrix-subtract",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "c59d37deadbf37813c0adcff5deccca6670c469360f92ef4d982d2c10d886ad4"
+    },
+    {
+      "id": "matrix-scale",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "cad6d310659969c7d39d468dc47b2494c872962a4b6fd0a9958a384cf2a87587"
+    },
+    {
+      "id": "matrix-transpose",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "8046648ecbdd5ca904a1115d5c8257f812de6929daea0d9b89a135465a0d5dac"
+    },
+    {
+      "id": "matrix-product",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "c7801d75080b5ba333eef2de249c900129c2aedc924f48992fad5f655d87412d"
+    },
+    {
+      "id": "determinant-two",
+      "category": "determinants",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "93db83f52d5505aa3809118b949b8ab24bb9e132bba0d9e01fb7adb9cfe02809"
+    },
+    {
+      "id": "determinant-sarrus",
+      "category": "determinants",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "371d09d3edc1760014130455c39b6d5eb51ed989cfdc9e85990fc83aad53bfce"
+    },
+    {
+      "id": "determinant-zero-row",
+      "category": "determinants",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 72,
+      "sha256": "63d35e7aeb15299fd785712aac04b723d753c061f841bf8e9d453530c74994ff"
+    },
+    {
+      "id": "system-substitution",
+      "category": "systems",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "284659827c994ee757c853c80567b231b19d490de1161def79967545f458f3cd"
+    },
+    {
+      "id": "system-elimination",
+      "category": "systems",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "34976193f969296548fd40fde829be010362bbb4c0fcf46f7481d32b47339797"
+    },
+    {
+      "id": "system-classification",
+      "category": "systems",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 72,
+      "sha256": "ea96041f9792242153184d1acec9b9c11ec177dd2a2ac88c53cea02bca4e8228"
+    },
+    {
+      "id": "system-cramer-two",
+      "category": "systems",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "2a1d0563771aff4dc421d64c19509bf65a2b580d190151cbc12f705432bf0889"
+    },
+    {
+      "id": "system-cramer-three",
+      "category": "systems",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "6ce3f9ef562a0323dc7b58a554dcb4c20eb6129671d1c6c2727e890e7340ef5d"
+    },
+    {
+      "id": "function-value",
+      "category": "functions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "3cac353a104bbfa1910124211246c57755ec26671525715f664d14b23cbf7433"
+    },
+    {
+      "id": "function-domain",
+      "category": "functions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "89fa14234940c7773638f369cf4d01de73dcc648ff70400ba1ef6cf3d1bcc8a2"
+    },
+    {
+      "id": "function-zeros",
+      "category": "functions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "9a1f592a3c45dfd7bec80a5a7d7ebf6cb41bc5ffabe4f11e6c4c99faee4a4fc7"
+    },
+    {
+      "id": "function-linear",
+      "category": "functions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "fb7f78e8eecf8fa98c67fd0cfd70e4757a98cdbc8e8c58b0ea614421c69e15fa"
+    },
+    {
+      "id": "function-monotonicity",
+      "category": "functions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 72,
+      "sha256": "6813a5f66898cd4696d5aef7663c27eb3f8a2b742512c461f8d91700c42f2c6c"
+    },
+    {
+      "id": "function-vertex",
+      "category": "functions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "8ba2693b7e00cc4d1dd668bbd09b745f8b98a10f66e208f3cadf52991786844e"
+    },
+    {
+      "id": "function-range",
+      "category": "functions",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "0af0c7e2d0ed2b236e6d34fd4f925630ecfe268aff784b08d610f5fd5f827385"
+    },
+    {
+      "id": "function-composition",
+      "category": "functions",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "7c83fa8b5315ef51811639ceda60b26b6f4c15a15234e63d2547286352e2ebc8"
+    },
+    {
+      "id": "sequence-rational",
+      "category": "sequence-limits",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "22be42c0b5e7ce87934e09175931fe96bde2188e1a003484153353d7f72117ff"
+    },
+    {
+      "id": "sequence-geometric",
+      "category": "sequence-limits",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "bb625ca252e10b9a3697a192baed0a7c97ae6087f277ce36a861cbf45489b2fe"
+    },
+    {
+      "id": "sequence-conjugate",
+      "category": "sequence-limits",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "6f3e9ebba16efdf143e8ddb56cee3e1a06996dc194eb2868b6b6e1b1b1631d02"
+    },
+    {
+      "id": "limit-conjugate",
+      "category": "function-limits",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "029a951b07ae64166e83c2c766d3dc448f296a9407412b1f6efba8b922aabdb0"
+    },
+    {
+      "id": "limit-point",
+      "category": "function-limits",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "5bd08c7dfdc3e1e3b7c505bb9ac7d7a44320fea6cef72b1e8080a60b6aee297e"
+    },
+    {
+      "id": "limit-infinity",
+      "category": "function-limits",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "4ec3ee7c9e253b860ea7a36d474d6b58b00da5beadc12f16b34fee19d2f70834"
+    },
+    {
+      "id": "derivative-rational-point",
+      "category": "derivatives",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "33814d62f70ae14a47ff7748e10a09d8e005f27088157c5a280632b20de50967"
+    },
+    {
+      "id": "derivative-profit-maximum",
+      "category": "derivatives",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "422f602a99643e04635e21eaaa68519ecdc344559a329c0ab6343633affcdf37"
+    },
+    {
+      "id": "derivative-formula",
+      "category": "derivatives",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "debfeb560fed91036ef0fcf7ffd2bc8af0c2ba3ddd5135a7339e8c1b635aa6c4"
+    },
+    {
+      "id": "derivative-point",
+      "category": "derivatives",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 120,
+      "sha256": "555a238b951dca6a2fa7982bd7d926e8e986b680e67e17b25d0cf0fe7c1367c8"
+    },
+    {
+      "id": "derivative-tangent",
+      "category": "derivatives",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "a684ca2ddf73de4e2522d5d02306083db42cb8b636ce29dbe951e679dde1f2a2"
+    },
+    {
+      "id": "derivative-stationary",
+      "category": "derivatives",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "a3a9b8b849b9e3158e1c94b69f49b0d7add65321d7559ec5b486d0e2e4676b6b"
+    },
+    {
+      "id": "derivative-extrema",
+      "category": "derivatives",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "12806020e94a158b5258cc9597a4edea0ce4da203a206292083b0e96453db57b"
+    },
+    {
+      "id": "derivative-monotonicity",
+      "category": "derivatives",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "c2dc409b9363af0e155597b7b1bd2ff5825c0eee715bbd84f468af84c725f291"
+    },
+    {
+      "id": "derivative-economics",
+      "category": "derivatives",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "72100c4d6b7d58756bb43ccf7410b8b1565973634bb8d2af34aa3d14668332a4"
+    },
+    {
+      "id": "determinant-laplace-four",
+      "category": "determinants",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "4518d13c07038204aa21e633ff7dcd38cdc06239825ab665baa9626adcaea1e6"
+    },
+    {
+      "id": "determinant-row-operations",
+      "category": "determinants",
+      "levels": [
+        "advanced",
+        "expert"
+      ],
+      "count": 48,
+      "sha256": "65cc6b195f0a68b7f6809122b5062cdf813cdf2db4007ae127ff91401390e0ba"
+    },
+    {
+      "id": "determinant-laplace-five",
+      "category": "determinants",
+      "levels": [
+        "advanced",
+        "expert"
+      ],
+      "count": 48,
+      "sha256": "ec8ce246967e6d695addf45ff6a671b52caf2f1d73951efa376f3980528a1f39"
+    },
+    {
+      "id": "determinant-properties",
+      "category": "determinants",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "a45559826beacd4793c3e8a364ffb89e94ed12b76a113c3de57e365382c9f7df"
+    },
+    {
+      "id": "inverse-two",
+      "category": "matrices",
+      "levels": [
+        "easy",
+        "medium",
+        "hard"
+      ],
+      "count": 72,
+      "sha256": "3d1052afc620b2a0e2933bb102993df7d4e7360e9e306121fd523d56dc09d89c"
+    },
+    {
+      "id": "inverse-three",
+      "category": "matrices",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "9b2853bdc7964265c0765c03493b2ceccd59137ef04a544e5f552582e7764343"
+    },
+    {
+      "id": "inverse-existence",
+      "category": "matrices",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced"
+      ],
+      "count": 72,
+      "sha256": "931baf7e66d53cbc78ea5f6d80234e2b96460e99a2d771b6ebd0a92128f8f075"
+    },
+    {
+      "id": "inverse-applications",
+      "category": "matrices",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "959aa9e96f92de7f150faa66fff9dc20651423cc5bb602ea1ae39b90487c6b8f"
+    },
+    {
+      "id": "inverse-right-applications",
+      "category": "matrices",
+      "levels": [
+        "advanced",
+        "expert"
+      ],
+      "count": 48,
+      "sha256": "a5db0598032458d07672a4b09d29207e0993734c44f8f80f19658864e5fc83bc"
+    },
+    {
+      "id": "matrix-rank",
+      "category": "matrices",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced"
+      ],
+      "count": 72,
+      "sha256": "6734de57198e5857e2ed085518df7e516060a159bd5f33f8fc45c647527891b8"
+    },
+    {
+      "id": "capelli-given-ranks",
+      "category": "systems",
+      "levels": [
+        "easy"
+      ],
+      "count": 24,
+      "sha256": "b2028aa8c563a52c556732cbb3047bd7e49ade6f5114a88c3aea3168db29cdc5"
+    },
+    {
+      "id": "capelli-matrices",
+      "category": "systems",
+      "levels": [
+        "hard",
+        "advanced"
+      ],
+      "count": 48,
+      "sha256": "d91364ed98f5fbf36939aede47213fa0027ef53d65c57b6ec187ac95a7b559da"
+    },
+    {
+      "id": "gauss-unique",
+      "category": "systems",
+      "levels": [
+        "medium",
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 96,
+      "sha256": "943fb6abb7a16c13bc556204e29f6121a6c42a56f1accb01652713e298e96fca"
+    },
+    {
+      "id": "gauss-classification",
+      "category": "systems",
+      "levels": [
+        "hard",
+        "advanced",
+        "expert"
+      ],
+      "count": 72,
+      "sha256": "492bd879509a3d7a93ddd1c84c9770ec970eee8a3ce59cd8bbcdf4093f351e57"
+    },
+    {
+      "id": "cramer-four",
+      "category": "systems",
+      "levels": [
+        "advanced",
+        "expert"
+      ],
+      "count": 48,
+      "sha256": "ce57e236ec7b5080acaa91d94aa302ace9d855f173c3f378b3be34240073071a"
+    }
+  ]
+}

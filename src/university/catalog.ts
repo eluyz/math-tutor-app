@@ -2,7 +2,7 @@ import type { TypedExercise, CategoryId } from "../exercises";
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import type { GeneratedTask } from "../generators";
-import type { UniversityProblem, LinearAlgebraProblem } from "./schema";
+import type { UniversityProblem, LinearAlgebraProblem, ElementaryAnalysisProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { sequenceFamilies, presentSequence } from "./sequences";
@@ -13,6 +13,7 @@ import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
+import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./elementaryAnalysis";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -26,11 +27,15 @@ export const universityFamilies = [
   ...rankFamilies,
   ...gaussFamilies,
   ...cramerFourFamilies,
+  ...elementaryAnalysisFamilies,
 ];
+const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";
 const present = (problem: UniversityProblem, locale: Locale) =>
-  isInverse(problem)
+  isElementaryAnalysis(problem)
+    ? presentElementaryAnalysis(problem, locale)
+    : isInverse(problem)
     ? presentInverse(problem, locale)
     : isRank(problem)
     ? presentRank(problem, locale)

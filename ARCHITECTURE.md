@@ -1,5 +1,9 @@
 # Architektura
 
+## MT-EDU-007 P0 — dokładne funkcje elementarne
+
+`src/university/elementaryAnalysis.ts` opisuje autorskie parametryczne zadania log/exp/moduł i buduje prezentacje PL/EN poza React. `ElementaryAnalysisProblem` przechowuje typowany model, a `realSets.ts` normalizuje dokładne zbiory przedziałów i daje kontrolowane opcje odpowiedzi. Nie obliczamy logarytmu zmiennoprzecinkowo: korzystamy z jawnych tożsamości odwrotności funkcji i dokładnej arytmetyki `Rational`/BigInt. `elementaryAnalysis.test.ts` przelicza każdy wariant niezależnymi warunkami dziedziny, znaków i punktów brzegowych. Archiwum 7365 wcześniejszych lekcji PL/EN ma osobny test skrótów z opublikowanego `main`.
+
 ## MT-EDU-002A — niezależne cykle życia
 
 `src/scratchpad/model.ts` jest czystym reduktorem notatek: tekst i uporządkowane wektorowe ślady w stabilnej przestrzeni 1000×600, ograniczone migawki historii (80), wspólne odwracalne clear, atomowe pióro i gumka. Gumka sprawdza przecięcia całego przesuniętego segmentu ze śladami. Automatyczny reset według monotonnie rosnącego numeru uruchomienia usuwa także historię; nie porównuje treści ani identyfikatora wylosowanego wariantu. Opcja auto-clear domyślnie ON pozostaje w pamięci komponentu także po zakończeniu sesji. Przy OFF zachowujemy notatki i historię między uruchomieniami.
