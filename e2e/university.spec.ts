@@ -214,7 +214,12 @@ for (const width of [375, 768, 1280])
         for (let i = 0; i < 10; i++) {
           if (i < 8) {
             await fillSystem(page);
-            if (i === 1) await page.locator("#answer").fill("999999");
+            if (i === 1) {
+              if (await page.locator("#answer").evaluate((element) => element.tagName === "SELECT")) {
+                const selected = await page.locator("#answer").inputValue();
+                await page.locator("#answer").selectOption(selected === "system-one" ? "system-none" : selected === "system-none" ? "system-many" : "system-none");
+              } else await page.locator("#answer").fill("999999");
+            }
             await page
               .getByRole("button", {
                 name: en ? "Check" : "Sprawdź",

@@ -2,7 +2,7 @@
 
 To **wstępna mapa tematów**, oparta na indeksie M01–W03 z [Issue #20](https://github.com/eluyz/math-tutor-app/issues/20) i na faktycznych generatorach w repozytorium. Nie mieliśmy dostępu do 43 prywatnych PDF-ów (221 stron), oryginalnych poleceń ani kluczy odpowiedzi. `Pokryte` oznacza opanowanie typu zadania opisanego w Issue, **nie** potwierdzenie zgodności z każdym arkuszem. `Częściowo` oznacza węższy przypadek; `teoria` to temat, którego nie da się uczciwie utożsamić z samym ćwiczeniem rachunkowym. Zgodność z konkretnymi podpunktami i formą zaliczenia pozostaje **do weryfikacji** na podstawie prywatnych źródeł. Nie określamy kolejności wejściówek.
 
-ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. Priorytet najbliższej rozbudowy: **M08–M11** (ten PR), następnie **M12–M14 i U03–U08**. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
+ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. MT-EDU-006A / PR #21 na main pokryło kontrolowane M08–M11. MT-EDU-006B dodaje M12–M14 i U05–U08 w granicach opisanych poniżej; Pełne M05 pozostaje przyszłe; U03 obejmuje teraz kontrolowane układy 4×4. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
 
 | Kod | Umiejętność z indeksu | Status | Rodziny Math Tutor / granica pokrycia |
 | --- | --- | --- | --- |
@@ -10,24 +10,24 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | M02 | Transpozycja | pokryte | `matrix-transpose` |
 | M03 | Mnożenie i wykonalność | częściowo | `matrix-product`, `matrix-dimensions`; bez ogólnego testu wykonalności |
 | M04 | Działania złożone i potęgi | częściowo | `matrix-product`, `matrix-add`; bez dowolnych potęg |
-| M05 | Równanie macierzowe i układ dwóch macierzy | brak | — |
+| M05 | Równanie macierzowe i układ dwóch macierzy | częściowo | `inverse-applications`, `inverse-right-applications`; AX=B i XA=B, bez układu dwóch równań |
 | M06 | Wyznacznik 2×2 | pokryte | `determinant-two` |
 | M07 | Wyznacznik 3×3 | pokryte | `determinant-sarrus` |
 | M08 | Laplace 4×4 z zerami | pokryte | `determinant-laplace-four` |
 | M09 | 4×4 bez dogodnych zer, operacje wierszowe | częściowo | `determinant-row-operations`; wybrane kontrolowane struktury |
 | M10 | Wyznacznik 5×5 | częściowo | `determinant-laplace-five`; struktury z zerami/blokami, nie dowolna gęsta macierz |
 | M11 | Własności i wyznacznik zerowy | częściowo | `determinant-properties`, `determinant-zero-row`; zależność wierszy, zamiana, skalar, dodanie wielokrotności |
-| M12 | Macierz odwrotna | brak | — |
-| M13 | Równanie z odwrotnością | brak | — |
-| M14 | Rząd macierzy | częściowo | `system-classification`; bez samodzielnego obliczania rzędu dowolnej macierzy |
+| M12 | Macierz odwrotna | częściowo | `inverse-two`, `inverse-three`, `inverse-existence`; 2×2/3×3, także osobliwe, bez ogólnej 4×4 |
+| M13 | Równanie z odwrotnością | częściowo | `inverse-applications`, `inverse-right-applications`; AX=B → A⁻¹B i XA=B → BA⁻¹, tylko 2×2/3×3 |
+| M14 | Rząd macierzy | częściowo | `matrix-rank`, `capelli-matrices`; 2×3, 3×3, 3×4 z eliminacją, bez dowolnej 4×4 |
 | U01 | Rozpoznanie układu Cramera | częściowo | `system-cramer-two`, `system-cramer-three`; warunek D≠0 wyjaśniony, brak osobnej klasyfikacji |
 | U02 | Cramer 3 niewiadome | pokryte | `system-cramer-three` |
-| U03 | Cramer 4 niewiadome | brak | — |
+| U03 | Cramer 4 niewiadome | częściowo | `cramer-four`; dokładne D,D1–D4 i klasyfikacja D=0 w kontrolowanych układach 4×4 |
 | U04 | Łańcuch równości / jedna niewiadoma | częściowo | `system-substitution`; bez dedykowanego łańcucha |
-| U05 | Liczba rozwiązań z podanych rzędów | brak | — |
-| U06 | Klasyfikacja przez obliczenie rzędów | częściowo | `system-classification`; kontrolowane układy 2×2 |
-| U07 | Gauss: jedno rozwiązanie | częściowo | `system-elimination`; 2×2, bez ogólnego 3×3/4×4 |
-| U08 | Gauss: parametry i sprzeczność | częściowo | `system-classification`; bez pełnej parametryzacji |
+| U05 | Liczba rozwiązań z podanych rzędów | pokryte | `capelli-given-ranks`; poprawne relacje r(A), r([A|b]), n |
+| U06 | Klasyfikacja przez obliczenie rzędów | częściowo | `capelli-matrices`, `gauss-classification`; jawne 3×3/3×4/4×4, kontrolowane struktury |
+| U07 | Gauss: jedno rozwiązanie | częściowo | `gauss-unique`; 3×3/4×4, zamiana wierszy i podstawienie wsteczne w kontrolowanych układach |
+| U08 | Gauss: parametry i sprzeczność | częściowo | `gauss-classification`, `capelli-matrices`; konkretne wiersze sprzeczne i demonstracja parametrów, formularz ocenia wyłącznie klasę |
 | C01 | Granica wielomianu i ilorazu | pokryte | `sequence-rational` |
 | C02 | Pierwiastek w ilorazie | częściowo | `sequence-conjugate`; tylko wybrane postaci |
 | C03 | Różnica pierwiastków | pokryte | `sequence-conjugate` |
