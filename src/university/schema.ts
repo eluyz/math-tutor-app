@@ -166,6 +166,11 @@ export type ElementaryAnalysisProblem =
   | Readonly<{ kind: "analysis-elementary-equation"; mode: "exponential" | "logarithmic" | "log-product"; base: Rational; p: Rational; multiplier: Rational; shift: Rational; exponent: number }>
   | Readonly<{ kind: "analysis-log-inequality"; p: Rational; base: Rational; exponent: number; relation: "greater" | "at-most" }>
   | Readonly<{ kind: "analysis-absolute"; mode: "equation" | "domain" | "inside" | "sum-inside" | "sum-outside"; p: Rational; q: Rational; radius: Rational }>;
+export type AsymptoteProblem =
+  | Readonly<{ kind: "analysis-euler"; variable: "sequence" | "function"; mode: "basic" | "scaled" | "ratio" | "offset"; a: Rational; b: Rational; c: Rational }>
+  | Readonly<{ kind: "analysis-asymptote-vertical"; mode: "simple" | "hole" | "double" | "cancellation"; at: Rational; coefficient: Rational }>
+  | Readonly<{ kind: "analysis-asymptote-horizontal"; mode: "rational" | "radical" | "linear"; a: Rational; b: Rational; c: Rational }>
+  | Readonly<{ kind: "analysis-asymptote-oblique"; mode: "rational" | "radical" | "quadratic"; a: Rational; b: Rational; c: Rational; at: Rational }>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
@@ -174,7 +179,8 @@ export type UniversityProblem =
   | DerivativeProblem
   | DeterminantProblem
   | LinearAlgebraProblem
-  | ElementaryAnalysisProblem;
+  | ElementaryAnalysisProblem
+  | AsymptoteProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>

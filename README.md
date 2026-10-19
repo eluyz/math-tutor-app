@@ -1,10 +1,10 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **83 rodzin** i **7749 instancji** w 13 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji i pochodne. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **88 rodzin** i **8133 instancji** w 13 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji i pochodne. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
 
-MT-EDU-007 P0 dodaje dziedziny logarytmów, prawa potęg i logarytmów, proste równania i nierówności z podstawą większą od 1 lub między 0 i 1 oraz moduł w dziedzinie i nierównościach. Wyniki są dokładnymi liczbami albo kontrolowanymi zbiorami z właściwymi punktami brzegowymi. P1–P3 są jeszcze w pracy; fizycznego Safari nie testowano.
+MT-EDU-007 P0 dodaje dziedziny logarytmów, prawa potęg i logarytmów, proste równania i nierówności z podstawą większą od 1 lub między 0 i 1 oraz moduł w dziedzinie i nierównościach. Wyniki są dokładnymi liczbami albo kontrolowanymi zbiorami z właściwymi punktami brzegowymi. P1 dodaje granice Eulera ciągów i funkcji oraz asymptoty pionowe, poziome i ukośne, z dokładnymi wynikami e^q, znakami granic jednostronnych i rozróżnieniem dziury od bieguna. P2–P3 są jeszcze w pracy; fizycznego Safari nie testowano.
 
 Wymagany Node.js 22.12+ i npm. W katalogu repozytorium:
 

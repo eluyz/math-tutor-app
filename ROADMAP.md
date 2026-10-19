@@ -17,7 +17,7 @@
 | MT-EDU-006A | Scalone na main w PR #21 | Wstępna [mapa 64 kompetencji](UWM_COVERAGE.md); autorskie Laplace 4×4/5×5, operacje wierszowe i własności wyznaczników |
 | MT-EDU-006B P0–P2 | Implementacja Issue #22 do recenzji | Odwrotności 2×2/3×3, AX=B, rząd macierzy, Capelli oraz Gauss 3×3/4×4: 9 rodzin, 624 instancje |
 | MT-EDU-006B P3 | Częściowo wykonany zakres opcjonalny | Cramer 4×4 i XA=B wdrożone; układ dwóch równań macierzowych odłożony |
-| MT-EDU-007 | W realizacji: P0 ukończony | 5 rodzin / 384 warianty log/exp/moduł; P1 Euler/asymptoty, P2 L’Hospital/druga pochodna i opcjonalne P3 pozostają kolejnymi checkpointami |
+| MT-EDU-007 | W realizacji: P0–P1 ukończone | 10 rodzin / 768 wariantów: log/exp/moduł, Euler i asymptoty; P2 L’Hospital/druga pochodna i opcjonalne P3 pozostają kolejnymi checkpointami |
 | MT-EDU-008 | Przyszły etap | Całki I01–I08: bezpośrednie, trygonometryczne, podstawienie, części, powracające, oznaczone, pola, długości łuków |
 | MT-EDU-009 | Przyszły etap | Dwie zmienne W01–W03: pochodne cząstkowe, ekstrema, granice i ciągłość |
 | MT-EXAM-001 | Przyszły etap po domknięciu mapy | Tryb sprawdzianu, dobór umiejętności i powtórki |

@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **83 rodzin**, **7749 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 5 rodzin P0 MT-EDU-007. Po 69 rodzin wspiera advanced, a 66 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **88 rodzin**, **8133 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 10 rodzin P0–P1 MT-EDU-007. Po 74 rodziny wspierają advanced, a 69 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **69**, L5: **66**.
+Łącznie rodziny L4: **74**, L5: **69**.
 
 ## Pierwotne rodziny
 
@@ -248,4 +248,18 @@ MT-EDU-007 P0: **384** nowych instancji; łącznie **7749**. Pięć rodzin, 16 u
 | analysis-log-inequality | medium, hard | Log_a(x-p)>k oraz ≤k; obie strony podstawy 1, w tym odwrócenie znaku dla 0<a<1 |
 | analysis-absolute | easy, medium, hard, advanced, expert | Dwa rozwiązania \|x−p\|=r; dziedzina pierwiastka z modułem; przedział ostry; suma dwóch modułów ≤ lub ≥ progu z trzema obszarami |
 
-Odpowiedzi używają istniejących typów `scalar`, `roots` i kontrolowanego wyboru kanonicznego zbioru (`setKey`). Dziedziny i zbiory rozwiązań zachowują otwarte/domknięte końce. `elementaryAnalysis.test.ts` sprawdza wszystkie 384 warianty w PL/EN niezależnymi warunkami algebraicznymi i punktami brzegowymi, `correct/incorrect/invalid` oraz unikalność treści. `function-analysis-regression.test.ts` porównuje 7365 pełnych lekcji PL/EN z opublikowanym `main` 793315c. P1–P3 nie są częścią tego checkpointu.
+Odpowiedzi używają istniejących typów `scalar`, `roots` i kontrolowanego wyboru kanonicznego zbioru (`setKey`). Dziedziny i zbiory rozwiązań zachowują otwarte/domknięte końce. `elementaryAnalysis.test.ts` sprawdza wszystkie 384 warianty w PL/EN niezależnymi warunkami algebraicznymi i punktami brzegowymi, `correct/incorrect/invalid` oraz unikalność treści. `function-analysis-regression.test.ts` porównuje 7365 pełnych lekcji PL/EN z opublikowanym `main` 793315c. P1 jest opisany niżej; P2–P3 pozostają przyszłymi checkpointami.
+
+## MT-EDU-007 P1 — granice Eulera i asymptoty
+
+MT-EDU-007 P1: **384** nowych instancji; łącznie **8133**. Pięć rodzin i 16 par rodzina/poziom × 24 unikalne pytania. Zachowano wszystkie 7365 lekcji sprzed MT-EDU-007. Nie przybliżamy liczby e: odpowiedź e^q ma kontrolowany identyfikator i dokładny wykładnik wymierny.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| analysis-euler-sequence | medium, hard, advanced, expert | Ciąg (1+a/n)^n, skalowany wykładnik, iloraz dwóch liniowych ciągów i przesunięty wykładnik; także e^0=1 |
+| analysis-euler-function | medium, hard, advanced, expert | Analogiczna granica funkcji przy x→0; uzasadnienie przez logarytm dodatniej podstawy |
+| analysis-asymptote-vertical | medium, hard, advanced | Biegun prosty, biegun podwójny, skrócenie i dziura; osobne znaki granic jednostronnych |
+| analysis-asymptote-horizontal | medium, hard, advanced | Iloraz liniowych wielomianów, pierwiastek z x²+1 z rozróżnieniem ±∞, brak asymptoty przy prostej o niezerowym nachyleniu |
+| analysis-asymptote-oblique | advanced, expert | Dzielenie wielomianów, sprzężenie √(x²+1), asymptota ukośna/pozioma w różnych kierunkach oraz brak prostej dla funkcji kwadratowej |
+
+`analysisLimitsAsymptotes.test.ts` niezależnie wyprowadza wykładniki, znaki granic oraz proste asymptotyczne dla każdego wariantu PL/EN, sprawdza format i wynik odpowiedzi. Wszystkie proste zapisuje jako dokładne współczynniki wymierne. Test katalogu wymusza globalnie różne treści między rodzinami i poziomami.

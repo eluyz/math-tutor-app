@@ -1,5 +1,9 @@
 # Architektura
 
+## MT-EDU-007 P1 — dokładne granice i asymptoty
+
+`analysisLimitsAsymptotes.ts` rozdziela parametry zadania od prezentacji PL/EN. Granice Eulera przechodzą przez dokładną tożsamość 1+t i `ln(1+t)/t→1`; odpowiedź e^q jest kontrolowanym wyborem kanonicznego wymiernego wykładnika, bez przybliżenia liczby e ani parsera wyrażeń. Asymptoty mają osobne odpowiedzi dla +∞ i −∞ albo dla granic jednostronnych. Współczynniki prostych i redukcje wymierne używają `Rational`, a brak asymptoty ma jawny wybór. `analysisLimitsAsymptotes.test.ts` wylicza niezależnie wszystkie 384 przypadki.
+
 ## MT-EDU-007 P0 — dokładne funkcje elementarne
 
 `src/university/elementaryAnalysis.ts` opisuje autorskie parametryczne zadania log/exp/moduł i buduje prezentacje PL/EN poza React. `ElementaryAnalysisProblem` przechowuje typowany model, a `realSets.ts` normalizuje dokładne zbiory przedziałów i daje kontrolowane opcje odpowiedzi. Nie obliczamy logarytmu zmiennoprzecinkowo: korzystamy z jawnych tożsamości odwrotności funkcji i dokładnej arytmetyki `Rational`/BigInt. `elementaryAnalysis.test.ts` przelicza każdy wariant niezależnymi warunkami dziedziny, znaków i punktów brzegowych. Archiwum 7365 wcześniejszych lekcji PL/EN ma osobny test skrótów z opublikowanego `main`.
