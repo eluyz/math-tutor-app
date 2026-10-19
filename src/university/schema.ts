@@ -175,6 +175,12 @@ export type AdvancedCalculusProblem =
   | Readonly<{ kind: "analysis-lhospital"; mode: "polynomial-one" | "polynomial-two" | "exponential-one" | "exponential-two"; at: Rational; coefficient: Rational }>
   | Readonly<{ kind: "analysis-log-exp-derivative"; mode: "log" | "exp" | "log-abs" | "product"; at: Rational; coefficient: Rational; shift: Rational }>
   | Readonly<{ kind: "analysis-concavity"; mode: "cubic" | "quartic" | "mixed"; at: Rational; coefficient: Rational; cubic: Rational; shift: Rational }>;
+export type FunctionStudyProblem = Readonly<{
+  kind: "analysis-study-polynomial" | "analysis-study-rational";
+  at: Rational;
+  coefficient: Rational;
+  target: "stationary" | "global";
+}>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
@@ -185,7 +191,8 @@ export type UniversityProblem =
   | LinearAlgebraProblem
   | ElementaryAnalysisProblem
   | AsymptoteProblem
-  | AdvancedCalculusProblem;
+  | AdvancedCalculusProblem
+  | FunctionStudyProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>

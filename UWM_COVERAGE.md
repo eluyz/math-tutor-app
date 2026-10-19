@@ -2,7 +2,7 @@
 
 To **wstępna mapa tematów**, oparta na indeksie M01–W03 z [Issue #20](https://github.com/eluyz/math-tutor-app/issues/20) i na faktycznych generatorach w repozytorium. Nie mieliśmy dostępu do 43 prywatnych PDF-ów (221 stron), oryginalnych poleceń ani kluczy odpowiedzi. `Pokryte` oznacza opanowanie typu zadania opisanego w Issue, **nie** potwierdzenie zgodności z każdym arkuszem. `Częściowo` oznacza węższy przypadek; `teoria` to temat, którego nie da się uczciwie utożsamić z samym ćwiczeniem rachunkowym. Zgodność z konkretnymi podpunktami i formą zaliczenia pozostaje **do weryfikacji** na podstawie prywatnych źródeł. Nie określamy kolejności wejściówek.
 
-ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. MT-EDU-006A / PR #21 na main pokryło kontrolowane M08–M11. MT-EDU-006B dodaje M12–M14 i U05–U08 w granicach opisanych poniżej; pełne M05 pozostaje przyszłe; U03 obejmuje teraz kontrolowane układy 4×4. MT-EDU-007 P0 dodaje wybrane F02–F04/F07, P1 kontrolowane C05/G04/G06/G07, a P2 D03/D04/D07. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
+ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. MT-EDU-006A / PR #21 na main pokryło kontrolowane M08–M11. MT-EDU-006B dodaje M12–M14 i U05–U08 w granicach opisanych poniżej; pełne M05 pozostaje przyszłe; U03 obejmuje teraz kontrolowane układy 4×4. MT-EDU-007 P0 dodaje wybrane F02–F04/F07, P1 kontrolowane C05/G04/G06/G07, P2 D03/D04/D07, a częściowe P3 D08/D09. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
 
 | Kod | Umiejętność z indeksu | Status | Rodziny Math Tutor / granica pokrycia |
 | --- | --- | --- | --- |
@@ -56,8 +56,8 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | D05 | Monotoniczność i ekstrema lokalne | częściowo | `derivative-monotonicity`, `derivative-extrema`; kontrolowane wielomiany |
 | D06 | Brak pochodnej w punkcie krytycznym | brak | — |
 | D07 | Wypukłość i przegięcia | częściowo | `analysis-concavity`; znak drugiej pochodnej, zero bez przegięcia i dwa przegięcia w kontrolowanych wielomianach |
-| D08 | Pełne badanie funkcji | brak | — |
-| D09 | Szkic z tabeli | brak | — |
+| D08 | Pełne badanie funkcji | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; dwie kontrolowane postacie, bez ogólnych funkcji |
+| D09 | Szkic z tabeli | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; przedziały znaków i zachowanie w rozwiązaniu, bez narysowanego wykresu |
 | D10 | Ekstrema globalne | częściowo | `derivative-profit-maximum`; ograniczony model kwadratowy |
 | I01 | Całka bezpośrednia po uproszczeniu | brak | — |
 | I02 | Całka trygonometryczna i tablicowa | brak | — |

@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **91 rodzin**, **8397 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 13 rodzin P0–P2 MT-EDU-007. Po 77 rodzin wspiera advanced, a 72 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **93 rodzin**, **8493 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 15 rodzin P0–P3 MT-EDU-007. Po 79 rodzin wspiera advanced, a 74 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **77**, L5: **72**.
+Łącznie rodziny L4: **79**, L5: **74**.
 
 ## Pierwotne rodziny
 
@@ -248,7 +248,7 @@ MT-EDU-007 P0: **384** nowych instancji; łącznie **7749**. Pięć rodzin, 16 u
 | analysis-log-inequality | medium, hard | Log_a(x-p)>k oraz ≤k; obie strony podstawy 1, w tym odwrócenie znaku dla 0<a<1 |
 | analysis-absolute | easy, medium, hard, advanced, expert | Dwa rozwiązania \|x−p\|=r; dziedzina pierwiastka z modułem; przedział ostry; suma dwóch modułów ≤ lub ≥ progu z trzema obszarami |
 
-Odpowiedzi używają istniejących typów `scalar`, `roots` i kontrolowanego wyboru kanonicznego zbioru (`setKey`). Dziedziny i zbiory rozwiązań zachowują otwarte/domknięte końce. `elementaryAnalysis.test.ts` sprawdza wszystkie 384 warianty w PL/EN niezależnymi warunkami algebraicznymi i punktami brzegowymi, `correct/incorrect/invalid` oraz unikalność treści. `function-analysis-regression.test.ts` porównuje 7365 pełnych lekcji PL/EN z opublikowanym `main` 793315c. P1 jest opisany niżej; P2 jest opisany niżej; P3 pozostaje przyszłym checkpointem.
+Odpowiedzi używają istniejących typów `scalar`, `roots` i kontrolowanego wyboru kanonicznego zbioru (`setKey`). Dziedziny i zbiory rozwiązań zachowują otwarte/domknięte końce. `elementaryAnalysis.test.ts` sprawdza wszystkie 384 warianty w PL/EN niezależnymi warunkami algebraicznymi i punktami brzegowymi, `correct/incorrect/invalid` oraz unikalność treści. `function-analysis-regression.test.ts` porównuje 7365 pełnych lekcji PL/EN z opublikowanym `main` 793315c. P1 jest opisany niżej; P2 jest opisany niżej; P3 jest częściowo opisany niżej; brakujące scenariusze pozostają przyszłe.
 
 ## MT-EDU-007 P1 — granice Eulera i asymptoty
 
@@ -275,3 +275,14 @@ MT-EDU-007 P2: **264** nowych instancji; łącznie **8397**. Trzy rodziny, 11 pa
 | analysis-concavity | hard, advanced, expert | Zmiana znaku f'' dla sześcianu, brak przegięcia przy zerze podwójnym czwartej potęgi, dwa rzeczywiste przegięcia w mieszanym wielomianie czwartego stopnia |
 
 `advancedCalculus.test.ts` wyznacza niezależnie wyniki dla wszystkich 264 wariantów PL/EN, liczy pochodne i znaki f'' dokładną arytmetyką oraz odróżnia zera bez zmiany znaku. Sprawdza poprawne, błędne i nieprawidłowe formularze.
+
+## MT-EDU-007 P3 — częściowe badanie funkcji
+
+MT-EDU-007 P3 (częściowo): **96** nowych instancji; łącznie **8493**. Dwie rodziny, cztery pary rodzina/poziom po 24 różne pytania. Pełne lekcje przedstawiają dziedzinę, miejsca zerowe, symetrię, granice i asymptoty, znaki f' i f'', ekstrema oraz wypukłość; formularz ocenia jeden logiczny wynik zamiast wielkiej listy własności. Expert dodaje porównanie punktów krytycznych i końców ograniczonego domkniętego przedziału.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| analysis-study-polynomial | advanced, expert | Przesunięty wielomian m(t³−3t): trzy dokładne zera (w tym ±√3 symbolicznie), dwie stacjonarne wartości, przegięcie, globalne max/min na [a−3/2,a+3/2] |
+| analysis-study-rational | advanced, expert | m(t+1/t): wykluczony biegun, asymptota pionowa i ukośna, brak rzeczywistych zer, dwa stacjonarne punkty, brak przegięcia w biegunie, globalne max/min na [a+1/2,a+2] |
+
+`functionStudy.test.ts` niezależnie podstawia punkty kandydatów, bada znaki obu pochodnych i granice asymptotyczne dla wszystkich 96 wariantów PL/EN. P3 pozostaje **częściowy**: nie ma niesmooth stycznych dla |x|, ogólnych funkcji wymiernych ani renderowanego wykresu. Tabele znaków są zapisane w krokach, a nie przedstawiane jako narysowany wykres.
