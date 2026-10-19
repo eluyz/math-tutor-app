@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **67 rodzin**, **6645 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005 oraz 4 nowe rodziny wyznaczników MT-EDU-006A. Po 59 rodzin wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **78 rodzin**, **7389 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A oraz 11 rodzin MT-EDU-006B. Po 69 rodzin wspiera advanced, a 65 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **59**, L5: **59**.
+Łącznie rodziny L4: **69**, L5: **65**.
 
 ## Pierwotne rodziny
 
@@ -213,3 +213,25 @@ MT-EDU-006A: **264** nowych instancji; łącznie **6645**. Nowe rodziny: **4**. 
 Trzy 4×4 rodziny mają 72+48+96=216 wariantów, 5×5 ma 48. Macierze zawierają małe liczby całkowite i niektóre dokładne ułamki; odpowiedź jest skalarna, bez 16 lub 25 pól. Poziomy nie są sztucznie uzupełniane: easy jest niedostępny we wszystkich czterech, medium tylko w rodzinie własności. `SquareDeterminantMatrix` nie podnosi limitu starych formularzy do 3×3. Wyznacznik liczymy przez Laplace'a dla 4×4/5×5; Sarrus jest używany tylko dla minora 3×3. Redukcja uwzględnia znak po zamianie, czynnik skali i niezmienność przy dodaniu wielokrotności innego wiersza.
 
 `determinants.test.ts` niezależnie oblicza każde 264 pytania metodą dokładnej eliminacji BigInt i kontroluje pokazane minory, znaki, czynniki, wszystkie typowane rachunki, poprawne/błędne/nieważne odpowiedzi oraz tekst PL/EN. Testuje także macierze jednostkowe, trójkątne, zależne, skalowane, zamienione i odrzucenie niewłaściwego wymiaru. `determinant-regression.test.ts` porównuje SHA-256 pełnego zadania i rozwiązania dla wszystkich dawnych 6381 wariantów w obu językach z archiwum scalonego `main` 69452a6. Playwright sprawdza sześć kombinacji języka i szerokości 375/768/1280, kroki, brudnopis, Undo, sesję i lokalną historię. Ręczny test fizycznego Safari pozostaje do wykonania.
+
+## MT-EDU-006B — dokładna algebra liniowa
+
+MT-EDU-006B: **744** nowych instancji; łącznie **7389**. Jedenaście rodzin, 31 par rodzina/poziom × 24 prawdziwie różne zadania. P0: 4 rodziny / 336; P1: 3 / 144; P2: 2 / 168; opcjonalne P3 częściowo: 2 / 96. Wszystkie dawne 6645 lekcji PL/EN, ID i klucze treści są porównywane z niezależnym archiwum `main` `ea1cae4017b1c972f7762cc36aca5f1b0e223b79`.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| inverse-two | easy, medium, hard, advanced | 2×2, det=0 na hard; poprawna macierz albo kontrolowany brak odwrotności |
+| inverse-three | hard, advanced, expert | 3×3, dokładny Gauss–Jordan z zamianami wierszy i ułamkami |
+| inverse-existence | medium, hard, advanced | Rząd=n/det≠0 dla 2×2/3×3; także osobliwe przypadki |
+| inverse-applications | medium, hard, advanced, expert | AX=B, X=A⁻¹B, wymiary 2×1, 2×2, 3×2 i kontrola AX |
+| matrix-rank | medium, hard, advanced | 2×3, 3×3, 3×4; zerowa macierz, zależne wiersze, ułamki i zamiany |
+| capelli-given-ranks | easy | 2–5 niewiadomych, podane możliwe rzędy, trzy klasy rozwiązania |
+| capelli-matrices | hard, advanced | Rząd A i [A|b] z jawnej macierzy; 3×3 oraz 3×4, sprzeczność i parametry |
+| gauss-unique | medium, hard, advanced, expert | Układy 3×3/4×4, 3/4 pola x,y,z,w, zamiana zerowego pivota, podstawienie wsteczne |
+| gauss-classification | hard, advanced, expert | 3×3/4×4, jedno/brak/nieskończenie wiele, jawny wiersz sprzeczny i demonstracja parametrów |
+| cramer-four | advanced, expert | 4×4: D i D1…D4 przez Laplace’a, podstawienie czterech niewiadomych, przy D=0 klasyfikacja z rang |
+| inverse-right-applications | advanced, expert | XA=B, X=BA⁻¹; 2×2/3×3 i dokładne ułamki |
+
+`linearAlgebraMath.ts` przechowuje wyłącznie dokładne `Rational`/BigInt, waliduje wymiary, wykonuje Gaussa–Jordana albo eliminację z osobnym podstawieniem wstecznym. Macierz 4×4 jest tylko danymi i tabelą: nie zmienia limitu starego formularza macierzy 3×3. Przy jednym rozwiązaniu formularz `system` wymaga wszystkich niewiadomych; zadanie klasyfikacyjne i przypadek osobliwy używają kontrolowanego `choice`, bez swobodnej oceny wzorów parametrycznych. Pierwsza nieważna odpowiedź nie zużywa samodzielnej próby sesji.
+
+`inverses.test.ts` sprawdza obie strony AA⁻¹=I metodą niezależnych dopełnień; `ranks.test.ts` liczy wszystkie rzędy przez minory; `gauss.test.ts` stosuje Laplace'a/Cramera i podstawia wszystkie niewiadome do oryginalnych równań. Testy przechodzą przez każdą instancję PL/EN i poprawne, błędne oraz nieważne formularze. `linear-algebra-regression.test.ts` porównuje pełne hash'e wszystkich 6645 poprzednich zadań i lekcji, a Playwright bada widoki 375/768/1280 px. Własny solver produkcyjny nie jest źródłem oczekiwań audytu. P3 dodaje `cramer-four` i `inverse-right-applications`. `cramerFour.test.ts` porównuje każdy wyznacznik 4×4 z niezależnym wzorem Leibniza, sprawdza D=0 bez dzielenia, wszystkie podstawienia i pełne lekcje PL/EN. Układ dwóch równań macierzowych pozostaje przyszły; nie deklarujemy pokrycia prywatnych arkuszy ani fizycznego Safari.

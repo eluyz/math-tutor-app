@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 67 parametrycznych rodzin w 13 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji i pochodne. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 78 parametrycznych rodzin w 13 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji i pochodne. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
 
@@ -46,7 +46,7 @@ To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system 
 
 Domyślnie **Czyść brudnopis przy nowym zadaniu** jest zaznaczone: każde nowe uruchomienie zadania (również powtórzona treść), zmiana rodziny/kategorii/poziomu i nowa sesja czyści obie treści i historię. Odznacz checkbox, aby zachować notatki także między sesjami. **Wyczyść** zawsze czyści oba tryby i można to cofnąć. **Powiększ** otwiera obszar z przyciskiem **Zamknij**, obsługą Escape i klawiatury; zmiana rozmiaru zachowuje wektory. Notatki i preferencja istnieją tylko w pamięci bieżącej karty, do odświeżenia strony.
 
-**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 67 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
+**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 78 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
 
 W sesji podgląd przed pierwszą ważną oceną zapisuje osobny rezultat **Rozwiązanie obejrzane przed pierwszą ważną oceną**. Późniejsze przepisanie wyniku nie podwyższa liczby samodzielnych poprawnych odpowiedzi. Podgląd po ważnej poprawnej/błędnej próbie zachowuje jej ocenę. Cztery kategorie podsumowania sumują się do 10. Do minimum 7 ocen i dotychczasowych progów sugestii wchodzą wyłącznie samodzielne poprawne/błędne próby; obejrzenie rozwiązania nie jest błędem ucznia.
 
@@ -147,12 +147,18 @@ Choose **English → University mathematics → Limits of functions / Derivative
 
 ## MT-EDU-006A — wyznaczniki 4×4 i 5×5
 
-Bieżący katalog zawiera **67 rodzin** i **6645 instancji**. MT-EDU-006A dodaje 4 autorskie rodziny i 264 warianty: Laplace 4×4 z zerami (72), redukcja wierszowa 4×4 (48), Laplace 5×5→4×4→3×3 (48) oraz własności wyznacznika i zależność wierszy (96). Każda z 11 wspieranych par rodzina/poziom ma 24 różne pytania. Po 59 rodzin wspiera Advanced i Expert. Dotychczasowe 6381 instancji, odpowiedzi i pełne rozwiązania PL/EN są sprawdzane wobec archiwum opublikowanego `main`.
+Po MT-EDU-006A katalog zawierał **67 rodzin** i **6645 instancji**. Ten etap dodaje 4 autorskie rodziny i 264 warianty: Laplace 4×4 z zerami (72), redukcja wierszowa 4×4 (48), Laplace 5×5→4×4→3×3 (48) oraz własności wyznacznika i zależność wierszy (96). Każda z 11 wspieranych par rodzina/poziom ma 24 różne pytania. Po 59 rodzin wspiera Advanced i Expert. Dotychczasowe 6381 instancji, odpowiedzi i pełne rozwiązania PL/EN są sprawdzane wobec archiwum opublikowanego `main`.
 
 Wybierz **Matematyka na studia → Wyznaczniki**. Macierz 4×4 lub 5×5 jest czytelną tabelą; odpowiedź to jedna dokładna liczba lub ułamek. Kolejne kroki pokazują wybrany wiersz lub kolumnę, numerowany minor, znak `(-1)^(i+j)`, rachunek 3×3 metodą Sarrusa **tylko dla minora 3×3**, a przy redukcji każdą operację, zmianę znaku lub czynnika i iloczyn przekątnej. Można rozwinąć po innym wierszu/kolumnie; wynik jest ten sam. Zmiana języka nie losuje nowej macierzy ani nie kasuje odpowiedzi, kroków lub brudnopisu.
 
-Mapa [64 kompetencji z indeksu Issue #20](UWM_COVERAGE.md) rozróżnia pełne i częściowe pokrycie oraz luki. Jest wstępna: prywatnych 43 PDF-ów nie udostępniono w repozytorium i nie twierdzimy, że porównaliśmy oryginalne pytania. Macierze odwrotne, Cramer 4 zmiennych, pełna rzędowość/Gauss, log/exp, całki i dwie zmienne pozostają przyszłymi etapami z [ROADMAP.md](ROADMAP.md). Nie dodano backendu ani nowych zależności. Automatyczne testy interfejsu używają Chromium; fizyczny iPhone/iPad Safari wymaga osobnego testu ręcznego.
+Mapa [64 kompetencji z indeksu Issue #20](UWM_COVERAGE.md) rozróżnia pełne i częściowe pokrycie oraz luki. Jest wstępna: prywatnych 43 PDF-ów nie udostępniono w repozytorium i nie twierdzimy, że porównaliśmy oryginalne pytania. Po MT-EDU-006A przyszłe były macierze odwrotne, Cramer 4 zmiennych i pełniejszy Gauss. Aktualny zakres MT-EDU-006B opisano poniżej; Cramer 4, log/exp, całki i dwie zmienne pozostają w [ROADMAP.md](ROADMAP.md). Nie dodano backendu ani nowych zależności. Automatyczne testy interfejsu używają Chromium; fizyczny iPhone/iPad Safari wymaga osobnego testu ręcznego.
 
 ### English
 
 Choose **University mathematics → Determinants** for authored 4×4/5×5 tasks. The answer is one exact scalar. The solution exposes Laplace cofactors and minors or each determinant-preserving/sign-changing row operation, followed by the final exact value. The 64-topic coverage map documents which university topics remain partial or absent; it does not reproduce private course PDFs.
+
+## MT-EDU-006B — odwracanie, rząd i eliminacja Gaussa
+
+Jedenaście autorskich rodzin dodaje **744 instancje** do zachowanych 6645: obecnie **78 rodzin** i **7389 instancji** w 13 kategoriach. Macierz odwrotną 2×2/3×3 obliczamy dokładnie metodą Gaussa–Jordana; osobny wybór rozpoznaje macierze osobliwe. Równanie `AX=B` wymaga właściwej kolejności `X=A⁻¹B` i sprawdzenia przez mnożenie. Rząd macierzy prostokątnych i kwadratowych wynika z konkretnych operacji wierszowych. Układy 3×3/4×4 mają eliminację i podstawienie wsteczne, a osobne zadania klasyfikacyjne pokazują sprzeczność albo parametry swobodne bez oceniania dowolnego tekstu symbolicznego. Wszystkie odpowiedzi używają dokładnych ułamków.
+
+Każda wspierana para rodzina/poziom ma 24 odrębne zadania i autorskie rozwiązania PL/EN. Testy niezależnie porównują odwrotności z dopełnieniami, rzędy z minorami i rozwiązania z podstawieniem oraz wyznacznikami. Zrzut z opublikowanego `main` po PR #21 chroni wszystkie 6645 wcześniejszych lekcji PL/EN. Szczegóły zakresu i ograniczeń są w [GENERATORS.md](GENERATORS.md) oraz [UWM_COVERAGE.md](UWM_COVERAGE.md). Opcjonalne P3 dodało regułę Cramera dla czterech niewiadomych i równanie `XA=B`; układ dwóch równań macierzowych pozostaje do dalszego etapu. Test fizycznego Safari nie został wykonany w chmurze.
