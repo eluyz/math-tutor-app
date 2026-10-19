@@ -9,6 +9,7 @@ import { polishLearningText } from "./helpers/localization";
 const button=(page:Page,name:string)=>page.getByRole("button",{name,exact:true});
 const cases=[
   {id:"analysis-lhospital",category:"function-limits",level:"expert",pl:"Reguła de l’Hospitala",en:"L’Hôpital’s rule"},
+  {id:"analysis-lhospital-infinity",category:"function-limits",level:"expert",pl:"Reguła de l’Hospitala przy nieskończoności",en:"L’Hôpital’s rule at infinity"},
   {id:"analysis-log-exp-derivative",category:"derivatives",level:"advanced",pl:"Pochodne logarytmu i funkcji wykładniczej",en:"Logarithmic and exponential derivatives"},
   {id:"analysis-concavity",category:"derivatives",level:"expert",pl:"Druga pochodna i przegięcia",en:"Second derivative and inflection points"},
 ] as const;

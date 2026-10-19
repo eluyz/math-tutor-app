@@ -37,7 +37,7 @@ export const universityFamilies = [
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
-const isAdvancedCalculus = (problem: UniversityProblem): problem is AdvancedCalculusProblem => problem.kind === "analysis-lhospital" || problem.kind === "analysis-log-exp-derivative" || problem.kind === "analysis-concavity";
+const isAdvancedCalculus = (problem: UniversityProblem): problem is AdvancedCalculusProblem => problem.kind === "analysis-lhospital" || problem.kind === "analysis-lhospital-infinity" || problem.kind === "analysis-log-exp-derivative" || problem.kind === "analysis-concavity";
 const isFunctionStudy = (problem: UniversityProblem): problem is FunctionStudyProblem => problem.kind === "analysis-study-polynomial" || problem.kind === "analysis-study-rational";
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";

@@ -8,7 +8,7 @@ Build Vite 8 dzieli kod React/React DOM i logikę Math Tutor na osobne pliki prz
 
 ## MT-EDU-007 P2 — kontrolowane przypadki pochodnych
 
-`advancedCalculus.ts` parametryzuje tylko dokładnie rozwiązywalne postaci. Reguła de l’Hospitala jest stosowana do jawnego 0/0 z istniejącymi pochodnymi i niezerowym mianownikiem pochodnej poza punktem; przy ponownym 0/0 warunki są sprawdzane drugi raz. Pochodne ln/e^u są liczone w punktach, gdzie logarytm jest dopuszczalny, a wynik wymierny. Dla drugiej pochodnej odpowiedź rozróżnia brak przegięcia, jedno przegięcie i dwa; sama równość f''=0 nie wystarcza. `advancedCalculus.test.ts` stosuje osobne wzory dla wartości i znaków oraz sprawdza każdy wariant w PL/EN.
+`advancedCalculus.ts` parametryzuje tylko dokładnie rozwiązywalne postaci. Reguła de l’Hospitala jest stosowana do jawnego 0/0 lub ±∞/∞ z istniejącymi pochodnymi i niezerowym mianownikiem pochodnej poza punktem; przy ponownym 0/0 warunki są sprawdzane drugi raz. Przypadki w nieskończoności uwzględniają wielomiany i logarytmy o kontrolowanej dziedzinie. Pochodne ln/e^u są liczone w punktach, gdzie logarytm jest dopuszczalny, a wynik wymierny. Dla drugiej pochodnej odpowiedź rozróżnia brak przegięcia, jedno przegięcie i dwa; sama równość f''=0 nie wystarcza. `advancedCalculus.test.ts` stosuje osobne wzory dla wartości i znaków oraz sprawdza każdy wariant w PL/EN.
 
 ## MT-EDU-007 P1 — dokładne granice i asymptoty
 

@@ -52,7 +52,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | D01 | Pochodna potęg po uproszczeniu | pokryte | `derivative-formula` |
 | D02 | Iloczyn i iloraz | częściowo | `derivative-formula`, `derivative-rational-point`; iloraz tylko w punkcie |
 | D03 | Łańcuch i funkcje elementarne | częściowo | `derivative-formula`, `analysis-log-exp-derivative`; wielomiany, ln(u), ln|u|, e^u i prosty iloczyn, bez trygonometrii |
-| D04 | L’Hospital | częściowo | `analysis-lhospital`; kontrolowane 0/0 jedno- i dwukrokowe dla wielomianów i e^u, bez wszystkich postaci nieoznaczonych |
+| D04 | L’Hospital | częściowo | `analysis-lhospital`, `analysis-lhospital-infinity`; kontrolowane 0/0 i ∞/∞ jedno- i dwukrokowe dla wielomianów, ln i e^u, bez wszystkich postaci nieoznaczonych |
 | D05 | Monotoniczność i ekstrema lokalne | częściowo | `derivative-monotonicity`, `derivative-extrema`; kontrolowane wielomiany |
 | D06 | Brak pochodnej w punkcie krytycznym | brak | — |
 | D07 | Wypukłość i przegięcia | częściowo | `analysis-concavity`; znak drugiej pochodnej, zero bez przegięcia i dwa przegięcia w kontrolowanych wielomianach |

@@ -135,11 +135,11 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(`MT-EDU-006A: **${added006a.length}** nowych instancji; łącznie **${all.length-added006b.length-added007.length}**.`);
   expect(added006b).toHaveLength(720);
   expect(doc).toContain(`MT-EDU-006B: **${added006b.length}** nowych instancji; łącznie **${all.length-added007.length}**.`);
-  expect(added007).toHaveLength(1128);
+  expect(added007).toHaveLength(1224);
   expect(doc).toContain(`MT-EDU-007 P0: **384** nowych instancji; łącznie **7749**.`);
   expect(doc).toContain(`MT-EDU-007 P1: **384** nowych instancji; łącznie **8133**.`);
-  expect(doc).toContain(`MT-EDU-007 P2: **264** nowych instancji; łącznie **8397**.`);
-  expect(doc).toContain(`MT-EDU-007 P3 (częściowo): **${added007.length - 1032}** nowych instancji; łącznie **${all.length}**.`);
+  expect(doc).toContain(`MT-EDU-007 P2: **360** nowych instancji; łącznie **8493**.`);
+  expect(doc).toContain(`MT-EDU-007 P3 (częściowo): **${added007.length - 1128}** nowych instancji; łącznie **${all.length}**.`);
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
   const addedTemplates = allTemplates.filter(
     (template) =>

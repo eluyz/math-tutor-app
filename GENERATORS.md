@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **93 rodzin**, **8493 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 15 rodzin P0–P3 MT-EDU-007. Po 79 rodzin wspiera advanced, a 74 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **94 rodzin**, **8589 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 16 rodzin P0–P3 MT-EDU-007. Po 80 rodzin wspiera advanced, a 75 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **79**, L5: **74**.
+Łącznie rodziny L4: **80**, L5: **75**.
 
 ## Pierwotne rodziny
 
@@ -266,19 +266,20 @@ MT-EDU-007 P1: **384** nowych instancji; łącznie **8133**. Pięć rodzin i 16 
 
 ## MT-EDU-007 P2 — reguła de l’Hospitala i druga pochodna
 
-MT-EDU-007 P2: **264** nowych instancji; łącznie **8397**. Trzy rodziny, 11 par rodzina/poziom × 24 różne pytania. Wyniki pozostają wymierne: e^0 jest dokładnie 1, a logarytm w punkcie ma argument 1 lub wartość bezwzględną 1. Nie przybliżamy funkcji wykładniczej w ocenianiu odpowiedzi.
+MT-EDU-007 P2: **360** nowych instancji; łącznie **8493**. Cztery rodziny, 15 par rodzina/poziom × 24 różne pytania. Wyniki pozostają wymierne: e^0 jest dokładnie 1, a logarytm w punkcie ma argument 1 lub wartość bezwzględną 1. Nie przybliżamy funkcji wykładniczej w ocenianiu odpowiedzi.
 
 | Rodzina | Poziomy | Rzeczywisty zakres |
 | --- | --- | --- |
 | analysis-lhospital | medium, hard, advanced, expert | Rzeczywiste 0/0, jedna lub dwie aplikacje dla wielomianów i e^u; jawna kontrola różniczkowalności, pochodnej mianownika i granicy ilorazu |
+| analysis-lhospital-infinity | medium, hard, advanced, expert | Rzeczywiste ±∞/∞: ilorazy wielomianów jedno- i dwukrokowe, ln(1+mx)/ln x oraz ln(1+mx)/ln(1+x^k), k=2 lub 3; kontrolowana dziedzina i niezerowa pochodna mianownika |
 | analysis-log-exp-derivative | medium, hard, advanced, expert | ln(1+u), e^u, ln|u| po ujemnej stronie oraz iloczyn e^u(1+v); reguła łańcuchowa i pochodna w punkcie |
 | analysis-concavity | hard, advanced, expert | Zmiana znaku f'' dla sześcianu, brak przegięcia przy zerze podwójnym czwartej potęgi, dwa rzeczywiste przegięcia w mieszanym wielomianie czwartego stopnia |
 
-`advancedCalculus.test.ts` wyznacza niezależnie wyniki dla wszystkich 264 wariantów PL/EN, liczy pochodne i znaki f'' dokładną arytmetyką oraz odróżnia zera bez zmiany znaku. Sprawdza poprawne, błędne i nieprawidłowe formularze.
+`advancedCalculus.test.ts` wyznacza niezależnie wyniki dla wszystkich 360 wariantów PL/EN, liczy pochodne i znaki f'' dokładną arytmetyką oraz odróżnia zera bez zmiany znaku. Sprawdza poprawne, błędne i nieprawidłowe formularze.
 
 ## MT-EDU-007 P3 — częściowe badanie funkcji
 
-MT-EDU-007 P3 (częściowo): **96** nowych instancji; łącznie **8493**. Dwie rodziny, cztery pary rodzina/poziom po 24 różne pytania. Pełne lekcje przedstawiają dziedzinę, miejsca zerowe, symetrię, granice i asymptoty, znaki f' i f'', ekstrema oraz wypukłość; formularz ocenia jeden logiczny wynik zamiast wielkiej listy własności. Expert dodaje porównanie punktów krytycznych i końców ograniczonego domkniętego przedziału.
+MT-EDU-007 P3 (częściowo): **96** nowych instancji; łącznie **8589**. Dwie rodziny, cztery pary rodzina/poziom po 24 różne pytania. Pełne lekcje przedstawiają dziedzinę, miejsca zerowe, symetrię, granice i asymptoty, znaki f' i f'', ekstrema oraz wypukłość; formularz ocenia jeden logiczny wynik zamiast wielkiej listy własności. Expert dodaje porównanie punktów krytycznych i końców ograniczonego domkniętego przedziału.
 
 | Rodzina | Poziomy | Rzeczywisty zakres |
 | --- | --- | --- |

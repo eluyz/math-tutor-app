@@ -9,6 +9,7 @@ const parameter = (v: number) => r(v < 11 ? v - 11 : v - 10);
 const family = (id: string, category: "function-limits" | "derivatives", pl: string, en: string, levels: UniversityFamily["supportedDifficulties"], create: UniversityFamily["create"]): UniversityFamily => ({ id, category, titles: { pl, en }, supportedDifficulties: levels, create });
 export const advancedCalculusFamilies: readonly UniversityFamily[] = [
   family("analysis-lhospital", "function-limits", "Reguła de l’Hospitala", "L’Hôpital’s rule", ["medium", "hard", "advanced", "expert"], (v, level) => ({ kind: "analysis-lhospital", mode: level === "medium" ? "polynomial-one" : level === "hard" ? "polynomial-two" : level === "advanced" ? "exponential-one" : "exponential-two", at: r(v - 11, 2), coefficient: parameter(v) })),
+  family("analysis-lhospital-infinity", "function-limits", "Reguła de l’Hospitala przy nieskończoności", "L’Hôpital’s rule at infinity", ["medium", "hard", "advanced", "expert"], (v, level) => ({ kind: "analysis-lhospital-infinity", mode: level === "medium" ? "linear" : level === "hard" ? "quadratic" : level === "advanced" ? "log-linear" : "log-power", coefficient: level === "advanced" || level === "expert" ? r(v+1) : parameter(v), shift: r(v%5-2), power: v%2+2 })),
   family("analysis-log-exp-derivative", "derivatives", "Pochodne logarytmu i funkcji wykładniczej", "Logarithmic and exponential derivatives", ["medium", "hard", "advanced", "expert"], (v, level) => ({ kind: "analysis-log-exp-derivative", mode: level === "medium" ? "log" : level === "hard" ? "exp" : level === "advanced" ? "log-abs" : "product", at: r(v - 11, 2), coefficient: parameter(v), shift: r(v % 3 + 1) })),
   family("analysis-concavity", "derivatives", "Druga pochodna i przegięcia", "Second derivative and inflection points", ["hard", "advanced", "expert"], (v, level) => ({ kind: "analysis-concavity", mode: level === "hard" ? "cubic" : level === "advanced" ? "quartic" : "mixed", at: r(v - 11, 2), coefficient: parameter(v), cubic: r(v % 3 + 1), shift: r(v % 5 - 2) })),
 ];
@@ -18,6 +19,29 @@ export function presentAdvancedCalculus(p: AdvancedCalculusProblem, locale: Loca
   const lesson = teaching(locale), { t } = lesson;
   const work = (action: string, reason: string) => lesson.work(`${t("Wyprowadzamy: ", "Derivation: ")}${action}`, reason);
   const offset = (at: Rational) => `(x−(${f(at)}))`;
+  if (p.kind === "analysis-lhospital-infinity") {
+    const m=p.coefficient, b=p.shift;
+    let expr:string, answer:Rational;
+    if(p.mode==="linear"){
+      expr=`((${f(m)})x+(${f(b)}))/x`; answer=m;
+      work(`x→+∞: N→${m.numerator>0n?"+∞":"−∞"}, D→+∞; N'=${f(m)}, D'=1`,t("To iloraz nieskończoności. Funkcje są różniczkowalne dla dużych x, D'≠0 i iloraz pochodnych ma granicę.","This is an infinity quotient. Both functions are differentiable for large x, D'≠0, and the derivative quotient has a limit."));
+      work(`lim N'/D'=${f(answer)}`,t("Jedno poprawne użycie reguły daje dokładną granicę.","One valid application yields the exact limit."));
+    }else if(p.mode==="quadratic"){
+      expr=`((${f(m)})x²+(${f(b)})x)/(x²+1)`; answer=m;
+      work(`x→+∞: N→${m.numerator>0n?"+∞":"−∞"}, D→+∞; N'=2(${f(m)})x+(${f(b)}), D'=2x`,t("Iloraz ma postać nieskończoność przez nieskończoność; dla x>0 pochodna mianownika nie zeruje się.","The ratio has infinity-over-infinity form; for x>0 the denominator derivative is nonzero."));
+      work(`x→+∞: N'→${m.numerator>0n?"+∞":"−∞"}, D'→+∞; N''=2(${f(m)}), D''=2`,t("Pierwszy iloraz pochodnych nadal ma postać ∞/∞. Ponownie sprawdzamy warunki: D''=2≠0.","The first derivative quotient still has ∞/∞ form. Verify the conditions again: D''=2≠0."));
+      work(`lim N''/D''=${f(answer)}`,t("Drugie zastosowanie daje dokładny współczynnik wiodący.","The second application gives the exact leading coefficient."));
+    }else if(p.mode==="log-linear"){
+      expr=`ln(1+(${f(m)})x)/ln x`; answer=r(1);
+      work(`x>1: 1+(${f(m)})x>0; N→+∞, D→+∞; N'=${f(m)}/(1+(${f(m)})x), D'=1/x`,t("Dodatni współczynnik zapewnia dziedzinę. Oba logarytmy rosną bez ograniczeń; D'≠0 dla x>1.","A positive coefficient ensures the domain. Both logarithms diverge; D'≠0 for x>1."));
+      work(`N'/D'=(${f(m)})x/(1+(${f(m)})x)→1`,t("Po podzieleniu licznika i mianownika przez x otrzymujemy dokładną granicę 1.","Dividing numerator and denominator by x gives the exact limit 1."));
+    }else{
+      const k=p.power;expr=`ln(1+(${f(m)})x)/ln(1+x^${k})`;answer=div(r(1),r(k));
+      work(`x>1: N→+∞, D→+∞; N'=${f(m)}/(1+(${f(m)})x), D'=${k}x^${k-1}/(1+x^${k})`,t("Oba argumenty logarytmów są dodatnie; pochodna mianownika nie zeruje się dla x>1.","Both logarithm arguments are positive; the denominator derivative is nonzero for x>1."));
+      work(`N'/D'=(${f(m)})(1+x^${k})/(${k}x^${k-1}(1+(${f(m)})x))→${f(answer)}`,t("Najwyższe potęgi x^k mają współczynniki m i km, więc dokładna granica wynosi 1/k.","The highest x^k terms have coefficients m and km, so the exact limit is 1/k."));
+    }
+    return lesson.finish(t(`Oblicz granicę ${expr} przy x→+∞, sprawdzając warunki reguły de l’Hospitala.`, `Find the limit of ${expr} as x→+∞, checking the conditions for L’Hôpital’s rule.`),{kind:"scalar",value:answer},t("Potwierdź rzeczywistą postać ∞/∞ i dziedzinę.","Confirm a genuine ∞/∞ form and the domain."),t("Sprawdź niezerową pochodną mianownika i granicę ilorazu pochodnych.","Check the denominator derivative is nonzero and that the derivative quotient has a limit."));
+  }
   if (p.kind === "analysis-lhospital") {
     const m = p.coefficient, h = offset(p.at);
     let expr: string, answer: Rational;

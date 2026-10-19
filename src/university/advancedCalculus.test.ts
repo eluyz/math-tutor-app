@@ -8,6 +8,23 @@ import { cmp } from "./functions-audit";
 import { polishLearningText } from "../../e2e/helpers/localization";
 
 function expected(problem: ReturnType<typeof makeUniversityTask>["university"], spec: AnswerSpec) {
+  if (problem.kind === "analysis-lhospital-infinity") {
+    const value = problem.mode === "log-linear" ? r(1) : problem.mode === "log-power" ? d(r(1),r(problem.power)) : problem.coefficient;
+    expect(spec.kind).toBe("scalar");
+    if (spec.kind === "scalar") expect(eq(spec.value,value)).toBe(true);
+    expect(problem.coefficient.numerator).not.toBe(0n);
+    if (problem.mode === "log-linear" || problem.mode === "log-power") {
+      expect(problem.coefficient.numerator).toBeGreaterThan(0n);
+      // Independent logarithmic growth: ln(1+mx)~ln x and
+      // ln(1+x^k)~k ln x for positive m and integer k>0.
+      expect(problem.power).toBeGreaterThan(1);
+    } else {
+      const x=r(3);
+      expect(eq(problem.mode==="linear"?problem.coefficient:d(m(r(2),problem.coefficient),r(2)),value)).toBe(true);
+      expect((problem.mode==="linear"?r(1):m(r(2),x)).numerator).toBeGreaterThan(0n);
+    }
+    return;
+  }
   if (problem.kind === "analysis-lhospital") {
     const value = problem.mode === "exponential-two" ? d(m(problem.coefficient, problem.coefficient), r(2)) : problem.coefficient;
     expect(spec.kind).toBe("scalar");
@@ -99,6 +116,6 @@ describe("MT-EDU-007 P2 exact calculus", () => {
       }
       expect(unique.size,`${family.id}/${level}`).toBe(24);
     }
-    expect(count).toBe(264);
+    expect(count).toBe(360);
   },30_000);
 });

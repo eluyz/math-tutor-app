@@ -119,8 +119,8 @@ Pięć rodzin P0 uczy warunków dziedziny logarytmów, praw potęg, kontrolowany
 
 ## MT-EDU-007 P2 — pochodne i przegięcia
 
-Trzy nowe rodziny, 264 instancje, pokazują kiedy wolno użyć reguły de l’Hospitala, jak różniczkować ln|u| i e^u oraz dlaczego f''=0 nie wystarcza do wskazania przegięcia. W zadaniach rozróżnia się jeden lub dwa punkty przegięcia albo ich brak. Wyniki są dokładnymi ułamkami lub kontrolowanym wyborem, a rozwiązania zawierają znaki f'' na przedziałach. Łącznie po P0–P2 katalog miał 91 rodzin / 8397 instancji. Częściowy P3 opisano niżej.
+Cztery nowe rodziny, 360 instancji, pokazują kiedy wolno użyć reguły de l’Hospitala dla 0/0 i ∞/∞, jak różniczkować ln|u| i e^u oraz dlaczego f''=0 nie wystarcza do wskazania przegięcia. W zadaniach rozróżnia się jeden lub dwa punkty przegięcia albo ich brak. Wyniki są dokładnymi ułamkami lub kontrolowanym wyborem, a rozwiązania zawierają znaki f'' na przedziałach. Łącznie po P0–P2 katalog miał 92 rodziny / 8493 instancje. Częściowy P3 opisano niżej.
 
 ## MT-EDU-007 P3 — kontrolowane badanie funkcji (częściowe)
 
-Dwie rodziny pokazują spójne badanie przesuniętego wielomianu i prostej funkcji wymiernej. Każde rozwiązanie obejmuje dziedzinę, zera, symetrię, granice, asymptoty, tabelę znaków pochodnych, lokalne ekstrema oraz wypukłość i przegięcia. Uczeń wpisuje stacjonarne punkty na Advanced albo globalne max/min na zamkniętym przedziale na Expert. To 96 wariantów; łącznie 93 rodziny / 8493 instancje. Nie ma jeszcze ogólnych funkcji, stycznych do |x| ani rysowanego szkicu.
+Dwie rodziny pokazują spójne badanie przesuniętego wielomianu i prostej funkcji wymiernej. Każde rozwiązanie obejmuje dziedzinę, zera, symetrię, granice, asymptoty, tabelę znaków pochodnych, lokalne ekstrema oraz wypukłość i przegięcia. Uczeń wpisuje stacjonarne punkty na Advanced albo globalne max/min na zamkniętym przedziale na Expert. To 96 wariantów; łącznie 94 rodziny / 8589 instancji. Nie ma jeszcze ogólnych funkcji, stycznych do |x| ani rysowanego szkicu.
