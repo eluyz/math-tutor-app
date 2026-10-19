@@ -2,13 +2,14 @@ import type { TypedExercise, CategoryId } from "../exercises";
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import type { GeneratedTask } from "../generators";
-import type { UniversityProblem } from "./schema";
+import type { UniversityProblem, LinearAlgebraProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
+import { inverseFamilies, presentInverse } from "./inverses";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -18,9 +19,13 @@ export const universityFamilies = [
   ...functionLimitFamilies,
   ...derivativeFamilies,
   ...determinantFamilies,
+  ...inverseFamilies,
 ];
+const isLinear = (problem: UniversityProblem): problem is LinearAlgebraProblem => problem.kind.startsWith("linear-");
 const present = (problem: UniversityProblem, locale: Locale) =>
-  problem.kind === "determinant"
+  isLinear(problem)
+    ? presentInverse(problem, locale)
+    : problem.kind === "determinant"
     ? presentDeterminant(problem, locale)
     : problem.kind === "system"
       ? presentSystem(problem, locale)

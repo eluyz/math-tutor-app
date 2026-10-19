@@ -152,13 +152,23 @@ export type DeterminantProblem = Readonly<{
   reductions?: readonly DeterminantRowOperation[];
   dependentRows?: readonly [number, number];
 }>;
+export type LinearAlgebraProblem = Readonly<{
+  kind: "linear-inverse" | "linear-application";
+  matrix: readonly (readonly Rational[])[];
+  rhs?: readonly (readonly Rational[])[];
+  method?: "inverse" | "ax" | "xa" | "rank" | "classification" | "gauss";
+  rankA?: number;
+  rankAugmented?: number;
+  variables?: number;
+}>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
   | SequenceProblem
   | FunctionLimitProblem
   | DerivativeProblem
-  | DeterminantProblem;
+  | DeterminantProblem
+  | LinearAlgebraProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export type UniversityFamily = Readonly<{
