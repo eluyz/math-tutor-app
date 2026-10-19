@@ -100,6 +100,7 @@ function checkWorking(
     // verify each displayed cofactor sign and contribution with Gaussian.
     const visit = (matrix: Square) => {
       if (matrix.length < 4) return;
+      const shownTerms: Rational[] = [];
       for (let i = 0; i < matrix.length; i++)
         for (let j = 0; j < matrix.length; j++) {
           const cell = matrix[i][j];
@@ -114,8 +115,11 @@ function checkWorking(
           expect(whole).toContain(
             `C${i + 1}${j + 1}: ${(i + j) % 2 ? "−" : "+"}(${f(cell)})·(${f(normal(gaussian(sub)))}) = ${f(contribution)}`,
           );
+          shownTerms.push(contribution);
           visit(sub);
         }
+      expect(shownTerms.length).toBeGreaterThan(0);
+      expect(eq(shownTerms.reduce(a,q(0)),gaussian(matrix))).toBe(true);
     };
     visit(p.matrix);
     expect(whole).toContain("3×3");

@@ -255,7 +255,9 @@ describe("rzeczywiste zaawansowane i eksperckie zadania", () => {
     for (const { id: category } of [...categories, ...studyCategories].filter((c) => historicalTemplates.some((t) => t.category === c.id)))
       for (const level of higherDifficulties) {
         expect(availableDifficulties(category)).toContain(level);
-        const pool = taskPool(category, level);
+        const pool = taskPool(category, level).filter((task) =>
+          historicalTemplates.some((template) => template.id === task.templateId),
+        );
         expect(pool.length).toBeGreaterThanOrEqual(24);
         for (const task of pool) {
           expect(supportsDifficulty(task.templateId, level)).toBe(true);
@@ -273,7 +275,9 @@ describe("rzeczywiste zaawansowane i eksperckie zadania", () => {
     expect(count).toBe(1392);
     expect(descriptors).toHaveLength(29);
     const legacy = [...categories, ...studyCategories].filter((c) => historicalTemplates.some((t) => t.category === c.id)).flatMap(({ id }) =>
-      legacyDifficulties.flatMap((d) => taskPool(id, d)),
+      legacyDifficulties.flatMap((d) => taskPool(id, d).filter((task) =>
+        historicalTemplates.some((template) => template.id === task.templateId),
+      )),
     );
     expect(legacy.filter((t) => !t.supplemental)).toHaveLength(2092);
     expect(legacy.filter((t) => t.supplemental)).toHaveLength(17);

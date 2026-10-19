@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 63 parametryczne rodziny w 13 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji i pochodne. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 67 parametrycznych rodzin w 13 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji i pochodne. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
 
@@ -46,7 +46,7 @@ To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system 
 
 Domyślnie **Czyść brudnopis przy nowym zadaniu** jest zaznaczone: każde nowe uruchomienie zadania (również powtórzona treść), zmiana rodziny/kategorii/poziomu i nowa sesja czyści obie treści i historię. Odznacz checkbox, aby zachować notatki także między sesjami. **Wyczyść** zawsze czyści oba tryby i można to cofnąć. **Powiększ** otwiera obszar z przyciskiem **Zamknij**, obsługą Escape i klawiatury; zmiana rozmiaru zachowuje wektory. Notatki i preferencja istnieją tylko w pamięci bieżącej karty, do odświeżenia strony.
 
-**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 63 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
+**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 67 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
 
 W sesji podgląd przed pierwszą ważną oceną zapisuje osobny rezultat **Rozwiązanie obejrzane przed pierwszą ważną oceną**. Późniejsze przepisanie wyniku nie podwyższa liczby samodzielnych poprawnych odpowiedzi. Podgląd po ważnej poprawnej/błędnej próbie zachowuje jej ocenę. Cztery kategorie podsumowania sumują się do 10. Do minimum 7 ocen i dotychczasowych progów sugestii wchodzą wyłącznie samodzielne poprawne/błędne próby; obejrzenie rozwiązania nie jest błędem ucznia.
 
@@ -108,7 +108,7 @@ Dane istnieją tylko w danej przeglądarce i na tym urządzeniu, bez kont, synch
 
 Testy Chromium obejmują PL/EN i 375/768/1280 px, rzeczywiste wpisywanie, Backspace, Undo/Redo, zwijanie bez remountu i błędy storage. Fizyczny iPhone/iPad Safari nadal wymaga testu ręcznego przed merge; automatyczne stuby ograniczeń storage i emulacja dotyku go nie zastępują. MT-004A jest na main od PR #15 (9499955); CI i Deploy Pages dla tego commita zakończyły się sukcesem. MT-EDU-004 zostało następnie scalone i opublikowane w PR #17; nowe zmiany wymagają osobnej recenzji.
 
-## MT-EDU-004 — P0–P3 (implementacja do niezależnego przeglądu)
+## MT-EDU-004 — P0–P3 (scalone i opublikowane w PR #17)
 
 Zachowano 3501 wcześniejszych instancji i dodano **16 rodzin**, **1728 nowych wariantów** w 72 wspieranych parach rodzina/poziom, po 24 warianty. W opublikowanym MT-EDU-004 łącznie: **51 rodzin**, **5229 instancji**, 11 kategorii. Advanced i Expert wspierają po 43 rodziny łącznie z historycznymi. Pełna mapa poziomów i niezależnego audytu jest w [GENERATORS.md](GENERATORS.md).
 
@@ -125,7 +125,7 @@ Granice ciągów rozróżniają skończoną liczbę, +∞, −∞ i brak granicy
 
 Nowe zadania mają pełne polecenia, wskazówki i uzasadnione rozwiązania PL/EN. Korzystają z dotychczasowych sesji 10 zadań, pierwszej samodzielnej oceny i lokalnej historii. Język nie zmienia zadania, odpowiedzi, notatek, wyników ani odsłoniętych kroków. Rozwijanie i powiększanie brudnopisu zachowuje ten sam edytor i Undo/Redo.
 
-**MT-EDU-004 zostało scalone i opublikowane w PR #17**, commit `afcb24886e80ddf06b6cee95a274c5237ef4e752`. P4/P5 były poza tym historycznym PR; ich implementację dodaje MT-EDU-005 poniżej. Całki i funkcje dwóch zmiennych pozostają przyszłym zakresem. Nie dodano parsera swobodnych wyrażeń, przybliżonych odpowiedzi ani wykresów. Wszystko działa lokalnie, bez nowych zależności, backendu i zewnętrznych tłumaczeń. Automatyczne testy Chromium PL/EN obejmują 375/768/1280 px; fizycznego Safari nie testowano. Przed scaleniem wymagane są CI dla HEAD, niezależna recenzja Work i decyzja użytkownika.
+**MT-EDU-004 zostało scalone i opublikowane w PR #17**, commit `afcb24886e80ddf06b6cee95a274c5237ef4e752`. P4/P5 były poza tym historycznym PR; ich implementację dodało MT-EDU-005 poniżej. Całki i funkcje dwóch zmiennych pozostają przyszłym zakresem. Nie dodano parsera swobodnych wyrażeń, przybliżonych odpowiedzi ani wykresów. Wszystko działa lokalnie, bez nowych zależności, backendu i zewnętrznych tłumaczeń. Automatyczne testy Chromium PL/EN obejmują 375/768/1280 px; fizycznego Safari nie testowano. Każdy nowy PR wymaga własnego CI, niezależnej recenzji Work i decyzji użytkownika.
 
 ### Systems, functions and sequence limits in English
 
@@ -144,3 +144,15 @@ Wszystkie nowe warianty mają niezależny dokładny audyt wyników, etapów i PL
 ### Function limits and derivatives in English
 
 Choose **English → University mathematics → Limits of functions / Derivatives**. Function limits distinguish a finite rational value, +∞, −∞ and nonexistence. Factor cancellation and conjugates preserve the original domain; f(a) need not equal the limit. Derivatives use labelled exact coefficients, m/b for tangents, structured sets for strict derivative inequalities, and q*/P(q*) for constrained profit. Output is continuous and real-valued. All hints and reasoning are authored in English, and switching languages preserves answers, revealed steps, scratchpad and session. Integrals and multivariable calculus are future work.
+
+## MT-EDU-006A — wyznaczniki 4×4 i 5×5
+
+Bieżący katalog zawiera **67 rodzin** i **6645 instancji**. MT-EDU-006A dodaje 4 autorskie rodziny i 264 warianty: Laplace 4×4 z zerami (72), redukcja wierszowa 4×4 (48), Laplace 5×5→4×4→3×3 (48) oraz własności wyznacznika i zależność wierszy (96). Każda z 11 wspieranych par rodzina/poziom ma 24 różne pytania. Po 59 rodzin wspiera Advanced i Expert. Dotychczasowe 6381 instancji, odpowiedzi i pełne rozwiązania PL/EN są sprawdzane wobec archiwum opublikowanego `main`.
+
+Wybierz **Matematyka na studia → Wyznaczniki**. Macierz 4×4 lub 5×5 jest czytelną tabelą; odpowiedź to jedna dokładna liczba lub ułamek. Kolejne kroki pokazują wybrany wiersz lub kolumnę, numerowany minor, znak `(-1)^(i+j)`, rachunek 3×3 metodą Sarrusa **tylko dla minora 3×3**, a przy redukcji każdą operację, zmianę znaku lub czynnika i iloczyn przekątnej. Można rozwinąć po innym wierszu/kolumnie; wynik jest ten sam. Zmiana języka nie losuje nowej macierzy ani nie kasuje odpowiedzi, kroków lub brudnopisu.
+
+Mapa [64 kompetencji z indeksu Issue #20](UWM_COVERAGE.md) rozróżnia pełne i częściowe pokrycie oraz luki. Jest wstępna: prywatnych 43 PDF-ów nie udostępniono w repozytorium i nie twierdzimy, że porównaliśmy oryginalne pytania. Macierze odwrotne, Cramer 4 zmiennych, pełna rzędowość/Gauss, log/exp, całki i dwie zmienne pozostają przyszłymi etapami z [ROADMAP.md](ROADMAP.md). Nie dodano backendu ani nowych zależności. Automatyczne testy interfejsu używają Chromium; fizyczny iPhone/iPad Safari wymaga osobnego testu ręcznego.
+
+### English
+
+Choose **University mathematics → Determinants** for authored 4×4/5×5 tasks. The answer is one exact scalar. The solution exposes Laplace cofactors and minors or each determinant-preserving/sign-changing row operation, followed by the final exact value. The 64-topic coverage map documents which university topics remain partial or absent; it does not reproduce private course PDFs.

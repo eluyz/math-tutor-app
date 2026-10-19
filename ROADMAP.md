@@ -48,3 +48,7 @@ P0: 3 rodziny / 336 wariantów granic funkcji — punkt i strony, skracanie 0/0,
 Razem 12 nowych rodzin, 1152 instancji w 48 wspieranych parach po 24. Cały katalog: 63 rodziny / 6381 instancji / 13 kategorii, po 55 rodzin L4/L5. Zachowano wszystkie 5229 wcześniejszych lekcji PL/EN i ich kanoniczną tożsamość. PR #19 został scalony w `69452a655178ed073050bdf1b7dfe9e64dd15ebe`; ten stan jest punktem wyjścia dla MT-EDU-006A. Aplikacja nie ma backendu, nowych zależności ani dowolnego parsera symbolicznego.
 
 Wykresy SVG pozostają opcjonalną pomocą na przyszłość; nie dodano ciężkich bibliotek. Ręczna kontrola fizycznego Safari pozostaje osobnym zadaniem przed scaleniem. Gotowość do recenzji nie oznacza zgody na merge lub publikację. Nie rozpoczęto MT-004B/004C ani nowej adaptacji.
+
+### MT-EDU-006A — implementacja do recenzji
+
+P0: [mapa 64 kompetencji](UWM_COVERAGE.md) na podstawie indeksu Issue #20, bez dostępu do prywatnych 43 PDF-ów. P1: cztery autorskie rodziny wyznaczników 4×4/5×5, 11 par rodzina/poziom i 264 różne zadania. Katalog po tej zmianie obejmuje 67 rodzin, 6645 instancji i 13 kategorii; 59 rodzin wspiera każdy z poziomów Advanced i Expert. Dokładny audyt porównuje Laplace'a z niezależną eliminacją i zachowuje pełne 6381 instancji opublikowanego MT-EDU-005. P2: następne luki rozdzielono na MT-EDU-006B, 007, 008, 009 i MT-EXAM-001 powyżej. Pełny zakres prywatnych arkuszy, fizyczny Safari oraz pozostałe tematy nie są deklarowane jako ukończone.

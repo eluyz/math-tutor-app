@@ -1,4 +1,5 @@
 import { isUniversityTask } from "../university/catalog";
+import { determinantFamilies } from "../university/determinants";
 import { readFileSync } from "node:fs";
 import { isLegacyDifficulty } from "../difficulty";
 import { it, expect } from "vitest";
@@ -104,22 +105,26 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(
     `Instancje: **${initial.length}** (historyczne **${historical}**, uzupełnienia **${additions}**, L4/L5 **${higher}**).`,
   );
+  const determinantIds = new Set(determinantFamilies.map((family) => family.id));
   const calculus = (category: string) =>
     ["function-limits", "derivatives"].includes(category);
   const added004 = all.filter(
-    (t) => isUniversityTask(t) && !calculus(t.category),
+    (t) => isUniversityTask(t) && !calculus(t.category) && !determinantIds.has(t.templateId),
   );
   const added005 = all.filter((t) => calculus(t.category));
   expect(doc).toContain(
     `MT-EDU-004: **${added004.length}** nowych instancji; łącznie **${initial.length + added004.length}**.`,
   );
   expect(doc).toContain(
-    `MT-EDU-005: **${added005.length}** nowych instancji; łącznie **${all.length}**.`,
+    `MT-EDU-005: **${added005.length}** nowych instancji; łącznie **${initial.length + added004.length + added005.length}**.`,
   );
+  const added006a = all.filter((task) => determinantIds.has(task.templateId));
+  expect(added006a).toHaveLength(264);
+  expect(doc).toContain(`MT-EDU-006A: **${added006a.length}** nowych instancji; łącznie **${all.length}**.`);
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
   const addedTemplates = allTemplates.filter(
     (template) =>
-      !calculus(template.category) &&
+      !calculus(template.category) && !determinantIds.has(template.id) &&
       !initial.some((task) => task.templateId === template.id),
   );
   expect(doc).toContain(
