@@ -193,6 +193,8 @@ export const familyEnglish: Record<string, readonly [string, string, string]> =
     ],
   };
 const fieldLabels: Record<string, string> = {
+  "q*": "q*", "P(q*)": "P(q*)", "x⁵": "x⁵",
+  m:"m", c:"c", "x₀":"x₀", "y₀":"y₀", "x₁":"x₁", "y₁":"y₁", "x₂":"x₂", "y₂":"y₂",
   x: "x", y: "y", z: "z", a: "a", b: "b", "xᵥ": "xᵥ", "yᵥ": "yᵥ", "x²": "x²", "x³": "x³", "x⁴": "x⁴", "1": "1",
   "Współczynnik przy x²": "Coefficient of x²",
   "Współczynnik przy x": "Coefficient of x",

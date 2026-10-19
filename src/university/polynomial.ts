@@ -15,6 +15,11 @@ export type PolynomialFormula =
   | { kind: "polynomial"; coefficients: Polynomial }
   | { kind: "composition"; outer: Polynomial; inner: Polynomial }
   | { kind: "difference"; left: PolynomialFormula; right: PolynomialFormula }
+  | {
+      kind: "sum" | "product";
+      left: PolynomialFormula;
+      right: PolynomialFormula;
+    }
   | { kind: "vertex"; a: Rational; h: Rational; k: Rational };
 export const zero = (v: Rational) => v.numerator === 0n;
 export function trim(p: Polynomial): Rational[] {
@@ -110,7 +115,7 @@ export function formulaText(p: PolynomialFormula): string {
     return `(${f(p.a)})·(x − (${f(p.h)}))² + (${f(p.k)})`;
   if (p.kind === "composition")
     return polynomialText(p.outer, `(${polynomialText(p.inner)})`);
-  return `(${formulaText(p.left)}) − (${formulaText(p.right)})`;
+  return `(${formulaText(p.left)}) ${p.kind === "sum" ? "+" : p.kind === "product" ? "·" : "−"} (${formulaText(p.right)})`;
 }
 export function expandFormula(
   p: PolynomialFormula,
@@ -134,10 +139,16 @@ export function expandFormula(
     );
   if (p.kind === "composition")
     return polynomialComposition(p.outer, p.inner, trace);
+  if (p.kind === "product")
+    return polynomialProduct(
+      expandFormula(p.left, trace),
+      expandFormula(p.right, trace),
+      trace,
+    );
   return polynomialSum(
     expandFormula(p.left, trace),
     expandFormula(p.right, trace),
-    true,
+    p.kind === "difference",
     trace,
   );
 }

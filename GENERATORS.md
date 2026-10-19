@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **54 rodzin**, **5565 instancji**. `allTemplates` i `taskPool` obejmują zachowane 35 historycznych rodzin oraz 16 nowych z P1–P3. Po 43 rodziny wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **62 rodzin**, **6309 instancji**. `allTemplates` i `taskPool` obejmują zachowane 35 historycznych rodzin oraz 16 nowych z P1–P3. Po 54 rodziny wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 ## Pierwotne rodziny
 
@@ -126,7 +126,7 @@ Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapow
 
 MT-EDU-004: **1728** nowych instancji; łącznie **5229**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
 
-Nowe rodziny: **16**. Pary rodzina/poziom: **72**. Łącznie rodziny L4: **46**, L5: **46**.
+Nowe rodziny: **16**. Pary rodzina/poziom: **72**. Łącznie rodziny L4: **54**, L5: **54**.
 
 ### P1: układy równań — 504 instancje
 
@@ -169,7 +169,7 @@ P4–P6 pozostają przyszłym zakresem ROADMAP. Powyższy katalog obejmuje wył�
 
 ## MT-EDU-005 — P0: granice funkcji
 
-MT-EDU-005: **336** nowych instancji; łącznie **5565**.
+MT-EDU-005: **1080** nowych instancji; łącznie **6309**.
 
 | Rodzina | Poziomy | Umiejętność |
 | --- | --- | --- |
@@ -177,4 +177,19 @@ MT-EDU-005: **336** nowych instancji; łącznie **5565**.
 | limit-infinity | easy, medium, hard, advanced, expert | Stopnie i znaki przy obu kierunkach nieskończoności, redukcja dominujących składników przed porównaniem |
 | limit-conjugate | medium, hard, advanced, expert | Sprzężenie liniowego i kwadratowego pierwiastka; odjęcie wyrazu liniowego; dwa pierwiastki z redukcją drugiego rzędu |
 
-14 par po 24 odrębne warianty. Pierwiastki mają dodatni podpierwiastkowy w otoczeniu punktu dzięki dodatniemu wyrazowi stałemu s². Granice drugiego rzędu wynikają z dokładnych tożsamości różnicy kwadratów. Audyt używa niezależnego rozwinięcia dwumianowego wokół punktu, a nie produkcyjnego dzielenia syntetycznego; sprawdza rachunki pośrednie i oba języki. Pochodne P1 są w toku, nie są jeszcze dostępne.
+14 par po 24 odrębne warianty. Pierwiastki mają dodatni podpierwiastkowy w otoczeniu punktu dzięki dodatniemu wyrazowi stałemu s². Granice drugiego rzędu wynikają z dokładnych tożsamości różnicy kwadratów. Audyt używa niezależnego rozwinięcia dwumianowego wokół punktu, a nie produkcyjnego dzielenia syntetycznego; sprawdza rachunki pośrednie i oba języki. P0 obejmuje 336 instancji. P1 jest opisany poniżej.
+
+### P1 — pochodne: 744 instancje
+
+| Rodzina | Poziomy | Umiejętność |
+| --- | --- | --- |
+| derivative-formula | easy, medium, hard, advanced, expert | Stałe i potęgowa; suma; iloczyn; łańcuch; różnica złożenia i iloczynu |
+| derivative-point | easy, medium, hard, advanced, expert | Te same reguły i dokładne podstawienie do pochodnej |
+| derivative-rational-point | medium, hard, advanced, expert | Dziedzina i reguła ilorazu; iloczyn/łańcuch w liczniku, niezerowy mianownik |
+| derivative-tangent | medium, hard, advanced, expert | f(a), f′(a), y=mx+b; weryfikacja obu warunków stycznej |
+| derivative-stationary | hard, advanced, expert | Kwadratowa, złożenie, sześcienna z dwoma ekstremami albo stacjonarnym punktem bez ekstremum |
+| derivative-monotonicity | hard, advanced, expert | Dokładne zbiory f′>0 i f′<0; otwarte końce i podwójne zero pochodnej |
+| derivative-economics | medium, hard, advanced, expert | Koszt/przychód krańcowy; zysk, iloczyn ceny i produkcji; złożony koszt i różnica pochodnych |
+| derivative-profit-maximum | hard, advanced, expert | Maksimum wklęsłego zysku na 0≤q≤Q; wnętrze, zero i górny limit produkcji |
+
+31 par po 24 warianty. Współczynniki podaje się od najwyższej opisanej potęgi do stałej (pole 1); zera są wymagane. Styczna ma pola m,b, maksimum q*,P(q*). q jest ciągłą wielkością rzeczywistą; pochodne krańcowe mają jednostkę pieniężną na jednostkę produkcji i nie są dokładnym przyrostem dla dodatkowej całej jednostki. Audyt niezależnie rozwija wielomiany przez splot i dwumian, kontroluje każdy pokazany wzór pochodnej oraz rachunek, znak w każdej komórce między zerami, warunki stycznej i certyfikat wklęsłości z uwzględnieniem końców przedziału.

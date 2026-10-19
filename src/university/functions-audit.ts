@@ -74,6 +74,10 @@ export function referenceExpand(p: PolynomialFormula): Polynomial {
         referenceExpand(p.right),
         true,
       );
+    case "sum":
+      return referenceSum(referenceExpand(p.left), referenceExpand(p.right));
+    case "product":
+      return convolution(referenceExpand(p.left), referenceExpand(p.right));
     case "vertex":
       return [a(m(p.a, m(p.h, p.h)), p.k), neg(m(q(2), m(p.a, p.h))), p.a];
   }

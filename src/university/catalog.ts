@@ -7,6 +7,7 @@ import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
+import { derivativeFamilies, presentDerivative } from "./derivatives";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -14,6 +15,7 @@ export const universityFamilies = [
   ...functionFamilies,
   ...sequenceFamilies,
   ...functionLimitFamilies,
+  ...derivativeFamilies,
 ];
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "system"
@@ -24,7 +26,11 @@ const present = (problem: UniversityProblem, locale: Locale) =>
       ? presentSequence(problem, locale)
       : problem.kind === "limit-point" || problem.kind === "limit-infinity" || problem.kind === "limit-conjugate"
         ? presentFunctionLimit(problem, locale)
-        : presentFunction(problem, locale);
+        : problem.kind === "derivative" ||
+            problem.kind === "derivative-analysis" ||
+            problem.kind === "derivative-economics" || problem.kind === "derivative-rational" || problem.kind === "derivative-maximum"
+          ? presentDerivative(problem, locale)
+          : presentFunction(problem, locale);
 export const universityTemplates = universityFamilies.map((family) => ({
   id: family.id,
   category: family.category,

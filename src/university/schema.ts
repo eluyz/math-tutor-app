@@ -105,11 +105,44 @@ export type FunctionLimitProblem =
       expression: RationalExpression;
       direction: "positive" | "negative";
     }>;
+export type DerivativeProblem =
+  | Readonly<{
+      kind: "derivative";
+      formula: PolynomialFormula;
+      target: "formula" | "point" | "tangent";
+      at: Rational;
+    }>
+  | Readonly<{
+      kind: "derivative-analysis";
+      formula: PolynomialFormula;
+      target: "stationary" | "positive" | "negative";
+    }>
+  | Readonly<{
+      kind: "derivative-economics";
+      cost: PolynomialFormula;
+      revenue: PolynomialFormula;
+      target: "cost" | "revenue" | "profit";
+      at: Rational;
+    }>
+  | Readonly<{
+      kind: "derivative-rational";
+      numerator: PolynomialFormula;
+      denominator: Polynomial;
+      at: Rational;
+    }>
+  | Readonly<{
+      kind: "derivative-maximum";
+      profit: PolynomialFormula;
+      cost?: PolynomialFormula;
+      revenue?: PolynomialFormula;
+      cap: Rational;
+    }>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
   | SequenceProblem
-  | FunctionLimitProblem;
+  | FunctionLimitProblem
+  | DerivativeProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export type UniversityFamily = Readonly<{

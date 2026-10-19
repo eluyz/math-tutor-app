@@ -7,6 +7,9 @@ import {
   directValue,
   referenceRoots,
   selectedSetContains,
+  convolution,
+  referenceSum,
+  canonical,
 } from "../../src/university/functions-audit";
 import { fractionText } from "./systems";
 
@@ -19,9 +22,9 @@ export const shownFraction = (text: string): Rational => {
 export function shownPolynomial(text: string): Rational[] {
   const coefficients: Rational[] = [q(0)];
   if (text.trim() === "0") return coefficients;
-  for (const token of text.matchAll(/\(([^()]+)\)(?:·[xn]([²³⁴]?))?/g)) {
-    const power = /·[xn]/.test(token[0])
-      ? token[2] === "⁴"
+  for (const token of text.matchAll(/\(([^()]+)\)(?:·[xnq]([²³⁴⁵⁶]?))?/g)) {
+    const power = /·[xnq]/.test(token[0])
+      ? token[2] === "⁶" ? 6 : token[2] === "⁵" ? 5 : token[2] === "⁴"
         ? 4
         : token[2] === "³"
           ? 3
@@ -33,6 +36,27 @@ export function shownPolynomial(text: string): Rational[] {
     coefficients[power] = a(coefficients[power], shownFraction(token[1]));
   }
   return coefficients;
+}
+/** Test-only parser of the app's controlled polynomial notation. No evaluation
+ * of user strings or production solver; every product uses reference convolution. */
+export function shownFormula(text: string): Rational[] {
+  const tokens=text.replaceAll("−","-").match(/\d+(?:\/\d+)?|[xqn()+\-·]|[²³⁴⁵⁶]/g)??[];
+  if(tokens.join("")!==text.replaceAll("−","-").replace(/\s/g,"")) throw new Error(`Unsupported displayed polynomial: ${text}`);
+  let cursor=0;
+  const tidy=(p:readonly Rational[])=>{const out=p.map(canonical);while(out.length>1 && out.at(-1)!.numerator===0n)out.pop();return out;};
+  function atom():Rational[] {
+    const token=tokens[cursor++];
+    if(token==="-") return atom().map(c=>canonical(m(q(-1),c)));
+    if(token==="+") return atom();
+    if(token==="("){const p=sum();if(tokens[cursor++]!==")")throw new Error("Missing closing parenthesis");return p;}
+    if(/[xqn]/.test(token??""))return [q(0),q(1)];
+    if(/^\d/.test(token??""))return [shownFraction(token)];
+    throw new Error(`Unexpected displayed token: ${token}`);
+  }
+  function power():Rational[]{let p=atom();const n="²³⁴⁵⁶".indexOf(tokens[cursor]??"?");if(n>=0){cursor++;const base=p;for(let i=1;i<n+2;i++)p=tidy(convolution(p,base));}return p;}
+  function product():Rational[]{let p=power();while(tokens[cursor]==="·"){cursor++;p=tidy(convolution(p,power()));}return p;}
+  function sum():Rational[]{let p=product();while(["+","-"].includes(tokens[cursor])){const subtract=tokens[cursor++]==="-";p=tidy(referenceSum(p,product(),subtract));}return p;}
+  const result=sum();if(cursor!==tokens.length)throw new Error("Trailing polynomial tokens");return result;
 }
 async function fillList(page: Page, values: readonly Rational[]) {
   const fields = page.locator("form .coefficient-field input");
