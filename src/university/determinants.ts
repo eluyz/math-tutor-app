@@ -186,11 +186,18 @@ function laplaceFour(v: number, level: Difficulty): DeterminantProblem {
     ...(count >= 3 ? [r(v % 3 ? -1 : 2)] : [z()]),
     z(),
   ];
+  // Keep all other rows dense so Expert cannot bypass its three cofactors
+  // by choosing a still sparser row/column.
   const matrix: Square = [
     first,
-    ...baseFour(v)
-      .slice(1)
-      .map((row, i) => [r(((v + i) % 5) - 2), ...row.slice(1)]),
+    [
+      r((v % 4) + 1),
+      r((v % 3) + 1, v % 4 === 0 ? 2 : 1),
+      r((v % 5) - 2 || -3),
+      r(-1),
+    ],
+    [r(v % 2 ? -2 : 2), r((v % 3) + 1), r(v % 2 ? -2 : 2), r((v % 5) - 2 || 3)],
+    [r((v % 6) + 1), r((v % 7) - 3 || -2), r((v % 4) + 1), r((v % 5) + 1)],
   ];
   return { kind: "determinant", method: "laplace-four", matrix };
 }
@@ -209,7 +216,7 @@ function laplaceFive(v: number, level: Difficulty): DeterminantProblem {
     return {
       kind: "determinant",
       method: "laplace-five",
-      matrix: five.map((row) => row.map((_, j) => five[j][five.indexOf(row)])),
+      matrix: five.map((_, i) => five.map((row) => row[i])),
     };
   // Vary a harmless entry outside the selected 4×4 minor for distinct examples.
   return {

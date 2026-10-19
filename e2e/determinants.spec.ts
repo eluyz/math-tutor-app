@@ -9,10 +9,13 @@ import { expectOnlyProgressStorage } from "./helpers/progress";
 type Fraction = ReturnType<typeof q>;
 function normalized(value: Fraction): Fraction {
   let x = value.numerator < 0n ? -value.numerator : value.numerator,
-    y = value.denominator;
+    y = value.denominator < 0n ? -value.denominator : value.denominator;
   while (y) [x, y] = [y, x % y];
   const factor = x || 1n;
-  return q(value.numerator / factor, value.denominator / factor);
+  return q(
+    (value.denominator < 0n ? -value.numerator : value.numerator) / factor,
+    (value.denominator < 0n ? -value.denominator : value.denominator) / factor,
+  );
 }
 const shown = (value: Fraction) => {
   const v = normalized(value);

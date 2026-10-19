@@ -17,12 +17,15 @@ import type {
 import { polishLearningText } from "../../e2e/helpers/localization";
 const normal = (value: Rational): Rational => {
   let x = value.numerator < 0n ? -value.numerator : value.numerator;
-  let y = value.denominator;
+  const positiveDenominator =
+    value.denominator < 0n ? -value.denominator : value.denominator;
+  let y = positiveDenominator;
   while (y) [x, y] = [y, x % y];
   const factor = x || 1n;
   return {
-    numerator: value.numerator / factor,
-    denominator: value.denominator / factor,
+    numerator:
+      (value.denominator < 0n ? -value.numerator : value.numerator) / factor,
+    denominator: positiveDenominator / factor,
   };
 };
 
@@ -119,7 +122,7 @@ function checkWorking(
           visit(sub);
         }
       expect(shownTerms.length).toBeGreaterThan(0);
-      expect(eq(shownTerms.reduce(a,q(0)),gaussian(matrix))).toBe(true);
+      expect(eq(shownTerms.reduce(a, q(0)), gaussian(matrix))).toBe(true);
     };
     visit(p.matrix);
     expect(whole).toContain("3×3");
@@ -140,6 +143,25 @@ describe("MT-EDU-006A exact determinant audit", () => {
           expect(validDeterminantMatrix(p.matrix)).toBe(
             p.method === "laplace-five" ? 5 : 4,
           );
+          if (p.method === "laplace-four") {
+            const terms = level === "hard" ? 1 : level === "advanced" ? 2 : 3;
+            expect(
+              p.matrix[0].filter((cell) => cell.numerator !== 0n),
+            ).toHaveLength(terms);
+            expect(
+              p.matrix
+                .slice(1)
+                .every((row) => row.every((cell) => cell.numerator !== 0n)),
+            ).toBe(true);
+            expect(
+              p.matrix[0]
+                .map(
+                  (_, j) =>
+                    p.matrix.filter((row) => row[j].numerator !== 0n).length,
+                )
+                .every((count) => count >= terms),
+            ).toBe(true);
+          }
           if (p.method === "row-operations")
             expect(
               p.matrix.every(
@@ -160,6 +182,19 @@ describe("MT-EDU-006A exact determinant audit", () => {
             expect(eq(spec.value, gaussian(p.matrix))).toBe(true);
             expect(localized.solution).toBeDefined();
             const steps = localized.solution!;
+            if (p.method === "laplace-four") {
+              expect(steps[0].action).toMatch(
+                locale === "pl" ? /4×4: wiersz 1/ : /4×4: row 1/,
+              );
+              expect(
+                steps.filter(
+                  (step) =>
+                    step.kind === "working" && /^C\d\d:/.test(step.action),
+                ),
+              ).toHaveLength(
+                level === "hard" ? 1 : level === "advanced" ? 2 : 3,
+              );
+            }
             expect(steps.length).toBeGreaterThanOrEqual(3);
             expect(steps.at(-1)?.kind).toBe("answer");
             for (const step of steps) {
