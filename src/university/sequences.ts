@@ -44,7 +44,10 @@ export const sameLimit = (a: LimitValue, b: LimitValue) =>
   a.kind === b.kind &&
   (a.kind !== "finite" ||
     (b.kind === "finite" && equalRational(a.value, b.value)));
-function rationalProblem(v: number, level: Difficulty): SequenceProblem {
+export function rationalProblem(
+  v: number,
+  level: Difficulty,
+): Extract<SequenceProblem, { kind: "sequence-rational" }> {
   const i = difficulties.indexOf(level),
     A = r(v - 11 || 1, i > 1 ? 2 + (v % 3) : 1),
     B = r((v % 5) - 2),
@@ -209,13 +212,16 @@ export const sequenceFamilies: readonly UniversityFamily[] = [
     create: conjugateProblem,
   },
 ];
-export function rationalExpressionText(expression: RationalExpression): string {
+export function rationalExpressionText(
+  expression: RationalExpression,
+  variable = "n",
+): string {
   if (expression.kind === "ratio")
     return expression.denominator.length === 1 &&
       equalRational(expression.denominator[0], r(1))
-      ? polynomialText(expression.numerator, "n")
-      : `(${polynomialText(expression.numerator, "n")})/(${polynomialText(expression.denominator, "n")})`;
-  return `(${rationalExpressionText(expression.left)}) ${expression.kind === "difference" ? "−" : "·"} (${rationalExpressionText(expression.right)})`;
+      ? polynomialText(expression.numerator, variable)
+      : `(${polynomialText(expression.numerator, variable)})/(${polynomialText(expression.denominator, variable)})`;
+  return `(${rationalExpressionText(expression.left, variable)}) ${expression.kind === "difference" ? "−" : "·"} (${rationalExpressionText(expression.right, variable)})`;
 }
 export function collectRatio(
   expression: RationalExpression,

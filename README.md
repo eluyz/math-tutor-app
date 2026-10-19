@@ -110,7 +110,7 @@ Testy Chromium obejmują PL/EN i 375/768/1280 px, rzeczywiste wpisywanie, Backsp
 
 ## MT-EDU-004 — P0–P3 (implementacja do niezależnego przeglądu)
 
-Zachowano 3501 wcześniejszych instancji i dodano **16 rodzin**, **1728 nowych wariantów** w 72 wspieranych parach rodzina/poziom, po 24 warianty. Łącznie: **51 rodzin**, **5229 instancji**, 11 kategorii. Advanced i Expert wspierają po 43 rodziny łącznie z historycznymi. Pełna mapa poziomów i niezależnego audytu jest w [GENERATORS.md](GENERATORS.md).
+Zachowano 3501 wcześniejszych instancji i dodano **16 rodzin**, **1728 nowych wariantów** w 72 wspieranych parach rodzina/poziom, po 24 warianty. Łącznie: **54 rodzin**, **5565 instancji**, 11 kategorii. Advanced i Expert wspierają po 43 rodziny łącznie z historycznymi. Pełna mapa poziomów i niezależnego audytu jest w [GENERATORS.md](GENERATORS.md).
 
 | Checkpoint | Rzeczywisty zakres | Nowe rodziny / warianty |
 | --- | --- | --- |

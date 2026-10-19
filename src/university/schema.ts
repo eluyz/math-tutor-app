@@ -82,10 +82,36 @@ export type SequenceProblem =
       b: Rational;
       k: Rational;
     }>;
+export type FunctionLimitProblem =
+  | Readonly<{
+      kind: "limit-conjugate";
+      at: Rational;
+      s: Rational;
+      k: Rational;
+      b: Rational;
+      c: Rational;
+      mode: "linear" | "quadratic" | "second-order" | "two-roots";
+    }>
+  | Readonly<{
+      kind: "limit-point";
+      numerator: PolynomialFormula;
+      denominator: Polynomial;
+      at: Rational;
+      side: "both" | "left" | "right";
+      definedAt?: Rational;
+    }>
+  | Readonly<{
+      kind: "limit-infinity";
+      expression: RationalExpression;
+      direction: "positive" | "negative";
+    }>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
-  | SequenceProblem;
+  | SequenceProblem
+  | FunctionLimitProblem;
+export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
+  p.kind.startsWith("function-");
 export type UniversityFamily = Readonly<{
   id: string;
   category: CategoryId;

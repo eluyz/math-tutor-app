@@ -2,6 +2,8 @@
 import type { Rational } from "../rational";
 import type { Polynomial, PolynomialFormula } from "./polynomial";
 import { q, a, m, s, d, neg, eq } from "./audit";
+import type { RationalExpression } from "./schema";
+import type { LimitValue } from "../answers";
 export function canonical(x: Rational): Rational {
   const abs = (v: bigint) => (v < 0n ? -v : v);
   let n = abs(x.numerator),
@@ -126,4 +128,87 @@ export function selectedSetContains(key: string, x: Rational): boolean {
         cmp(x, fraction(upper)) < 0 ||
         (uc && eq(x, fraction(upper)))),
   );
+}
+
+export function referenceRatio(p: RationalExpression): {
+  n: Polynomial;
+  d: Polynomial;
+} {
+  if (p.kind === "ratio") return { n: p.numerator, d: p.denominator };
+  const l = referenceRatio(p.left),
+    r = referenceRatio(p.right);
+  return {
+    n:
+      p.kind === "product"
+        ? convolution(l.n, r.n)
+        : referenceSum(convolution(l.n, r.d), convolution(r.n, l.d), true),
+    d: convolution(l.d, r.d),
+  };
+}
+export function referencePolynomialLimit(
+  top: Polynomial,
+  bottom: Polynomial,
+): LimitValue {
+  const nonzero = (p: Polynomial) =>
+    p
+      .map((v, i) => ({ v, i }))
+      .filter((t) => t.v.numerator !== 0n)
+      .at(-1);
+  const n = nonzero(top),
+    den = nonzero(bottom);
+  if (!den) throw new Error("Reference zero denominator");
+  if (!n || n.i < den.i) return { kind: "finite", value: q(0) };
+  const quotient = canonical(d(n.v, den.v));
+  return n.i === den.i
+    ? { kind: "finite", value: quotient }
+    : {
+        kind:
+          quotient.numerator > 0n ? "positive-infinity" : "negative-infinity",
+      };
+}
+
+/** Binomial expansion at a: coefficient of h^j in P(a+h). No synthetic division. */
+export function referenceShift(p: Polynomial, at: Rational): Polynomial {
+  const choose = (n: number, k: number) => {
+    let value = 1n;
+    for (let j = 1; j <= k; j++)
+      value = (value * BigInt(n + 1 - j)) / BigInt(j);
+    return value;
+  };
+  const power = (n: number) =>
+    Array.from({ length: n }).reduce<Rational>(
+      (v) => canonical(m(v, at)),
+      q(1),
+    );
+  return p.map((_, j) =>
+    p
+      .slice(j)
+      .reduce(
+        (sum, c, index) =>
+          canonical(a(sum, m(c, m(q(choose(index + j, j)), power(index))))),
+        q(0),
+      ),
+  );
+}
+export function referencePointLimit(
+  top: Polynomial,
+  bottom: Polynomial,
+  at: Rational,
+  side: "both" | "left" | "right",
+): LimitValue {
+  const first = (p: Polynomial) =>
+    referenceShift(p, at)
+      .map((v, i) => ({ v, i }))
+      .find((t) => t.v.numerator !== 0n);
+  const n = first(top),
+    den = first(bottom);
+  if (!den) throw new Error("Reference zero denominator");
+  if (!n || n.i > den.i) return { kind: "finite", value: q(0) };
+  const quotient = canonical(d(n.v, den.v));
+  if (n.i === den.i) return { kind: "finite", value: quotient };
+  const odd = (den.i - n.i) % 2 !== 0;
+  if (side === "both" && odd) return { kind: "does-not-exist" };
+  const sign =
+    (quotient.numerator > 0n ? 1 : -1) * (side === "left" && odd ? -1 : 1);
+  return { kind: sign > 0 ? "positive-infinity" : "negative-infinity" };
 }

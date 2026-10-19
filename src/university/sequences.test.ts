@@ -7,14 +7,14 @@ import {
 } from "./sequences";
 import { makeUniversityTask, localizeUniversity } from "./catalog";
 import { q, a, s, m, d, neg, eq, auditCalculation } from "./audit";
-import { canonical, cmp, convolution, referenceSum } from "./functions-audit";
-import type { Polynomial } from "./polynomial";
+import {
+  canonical,
+  cmp,
+  referenceRatio,
+  referencePolynomialLimit,
+} from "./functions-audit";
 import type { Rational } from "../rational";
-import type {
-  RationalExpression,
-  GeometricTerm,
-  SequenceProblem,
-} from "./schema";
+import type { GeometricTerm, SequenceProblem } from "./schema";
 import {
   assessAnswer,
   emptyAnswer,
@@ -26,42 +26,6 @@ import { polishLearningText } from "../../e2e/helpers/localization";
 
 // Reference uses coefficient convolution and positive ORIGINAL bases, not the
 // production polynomial collector, squared-base map, or limit implementation.
-export function referenceRatio(p: RationalExpression): {
-  n: Polynomial;
-  d: Polynomial;
-} {
-  if (p.kind === "ratio") return { n: p.numerator, d: p.denominator };
-  const l = referenceRatio(p.left),
-    r = referenceRatio(p.right);
-  return {
-    n:
-      p.kind === "product"
-        ? convolution(l.n, r.n)
-        : referenceSum(convolution(l.n, r.d), convolution(r.n, l.d), true),
-    d: convolution(l.d, r.d),
-  };
-}
-export function referencePolynomialLimit(
-  top: Polynomial,
-  bottom: Polynomial,
-): LimitValue {
-  const nonzero = (p: Polynomial) =>
-    p
-      .map((v, i) => ({ v, i }))
-      .filter((t) => t.v.numerator !== 0n)
-      .at(-1);
-  const n = nonzero(top),
-    den = nonzero(bottom);
-  if (!den) throw new Error("Reference zero denominator");
-  if (!n || n.i < den.i) return { kind: "finite", value: q(0) };
-  const quotient = canonical(d(n.v, den.v));
-  return n.i === den.i
-    ? { kind: "finite", value: quotient }
-    : {
-        kind:
-          quotient.numerator > 0n ? "positive-infinity" : "negative-infinity",
-      };
-}
 const absolute = (x: Rational) => (x.numerator < 0n ? neg(x) : x);
 function leading(terms: readonly GeometricTerm[], odd: boolean) {
   const bases: Rational[] = [];

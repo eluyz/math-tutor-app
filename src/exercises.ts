@@ -14,7 +14,8 @@ export type CategoryId =
   | "determinants"
   | "systems"
   | "functions"
-  | "sequence-limits";
+  | "sequence-limits"
+  | "function-limits";
 
 export type ErrorRule = {
   errorCode: string;

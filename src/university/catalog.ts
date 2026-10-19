@@ -6,12 +6,14 @@ import type { UniversityProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { sequenceFamilies, presentSequence } from "./sequences";
+import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
   ...systemFamilies,
   ...functionFamilies,
   ...sequenceFamilies,
+  ...functionLimitFamilies,
 ];
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "system"
@@ -20,7 +22,9 @@ const present = (problem: UniversityProblem, locale: Locale) =>
         problem.kind === "sequence-geometric" ||
         problem.kind === "sequence-conjugate"
       ? presentSequence(problem, locale)
-      : presentFunction(problem, locale);
+      : problem.kind === "limit-point" || problem.kind === "limit-infinity" || problem.kind === "limit-conjugate"
+        ? presentFunctionLimit(problem, locale)
+        : presentFunction(problem, locale);
 export const universityTemplates = universityFamilies.map((family) => ({
   id: family.id,
   category: family.category,

@@ -248,6 +248,7 @@ const en: UiCopy = {
         systems: "Systems of equations",
         functions: "Functions",
         "sequence-limits": "Limits of sequences",
+        "function-limits": "Limits of functions",
       } as Record<string, string>
     )[c.id],
   })),

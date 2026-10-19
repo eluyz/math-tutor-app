@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **51 rodzin**, **5229 instancji**. `allTemplates` i `taskPool` obejmują zachowane 35 historycznych rodzin oraz 16 nowych z P1–P3. Po 43 rodziny wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **54 rodzin**, **5565 instancji**. `allTemplates` i `taskPool` obejmują zachowane 35 historycznych rodzin oraz 16 nowych z P1–P3. Po 43 rodziny wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 ## Pierwotne rodziny
 
@@ -126,7 +126,7 @@ Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapow
 
 MT-EDU-004: **1728** nowych instancji; łącznie **5229**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
 
-Nowe rodziny: **16**. Pary rodzina/poziom: **72**. Łącznie rodziny L4: **43**, L5: **43**.
+Nowe rodziny: **16**. Pary rodzina/poziom: **72**. Łącznie rodziny L4: **46**, L5: **46**.
 
 ### P1: układy równań — 504 instancje
 
@@ -166,3 +166,15 @@ Każda z 37 par ma 24 warianty. Przedziały są normalizowanymi zbiorami z wymie
 14 par × 24 warianty. Typ `limit` rozróżnia dokładną liczbę, +∞, −∞ i brak granicy. Nieprawidłowy zapis liczby jest błędem formatu, a nie błędną oceną matematyczną. Ciągi geometryczne są analizowane symbolicznie po n=2k+p i połączeniu równych podstaw. Oscylacja ani postać ∞−∞ nie jest automatycznie wynikiem nieskończonym. Audyt używa niezależnego splotu wielomianów, osobnego grupowania dodatnich modułów i dokładnych tożsamości sprzężenia; nie zgaduje granic z kilku wyrazów.
 
 P4–P6 pozostają przyszłym zakresem ROADMAP. Powyższy katalog obejmuje wyłącznie P1–P3; P0 zmienia brudnopis bez dodawania instancji.
+
+## MT-EDU-005 — P0: granice funkcji
+
+MT-EDU-005: **336** nowych instancji; łącznie **5565**.
+
+| Rodzina | Poziomy | Umiejętność |
+| --- | --- | --- |
+| limit-point | easy, medium, hard, advanced, expert | Ciągłość; 0/0 i skracanie w przebitym otoczeniu; krotności i znaki jednostronne; redukcja różnicy i złożeń; f(a) a granica |
+| limit-infinity | easy, medium, hard, advanced, expert | Stopnie i znaki przy obu kierunkach nieskończoności, redukcja dominujących składników przed porównaniem |
+| limit-conjugate | medium, hard, advanced, expert | Sprzężenie liniowego i kwadratowego pierwiastka; odjęcie wyrazu liniowego; dwa pierwiastki z redukcją drugiego rzędu |
+
+14 par po 24 odrębne warianty. Pierwiastki mają dodatni podpierwiastkowy w otoczeniu punktu dzięki dodatniemu wyrazowi stałemu s². Granice drugiego rzędu wynikają z dokładnych tożsamości różnicy kwadratów. Audyt używa niezależnego rozwinięcia dwumianowego wokół punktu, a nie produkcyjnego dzielenia syntetycznego; sprawdza rachunki pośrednie i oba języki. Pochodne P1 są w toku, nie są jeszcze dostępne.
