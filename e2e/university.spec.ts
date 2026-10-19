@@ -154,6 +154,31 @@ for (const width of [375, 768, 1280])
               "feedback invalid",
             );
             await fillSystem(page);
+            const run = await page
+              .locator(".question")
+              .getAttribute("data-exercise-run");
+            const values = await page
+              .locator("form .coefficient-field input")
+              .evaluateAll((nodes) =>
+                nodes.map((node) => (node as HTMLInputElement).value),
+              );
+            for (const language of [
+              en ? "Polski" : "English",
+              en ? "English" : "Polski",
+            ]) {
+              await page
+                .getByRole("button", { name: language, exact: true })
+                .click();
+              await expect(page.locator(".question")).toHaveAttribute(
+                "data-exercise-run",
+                run!,
+              );
+              await expect(page.locator("#answer")).toHaveValue("system-one");
+              for (let field = 0; field < values.length; field++)
+                await expect(
+                  page.locator(`#system-value-${field}`),
+                ).toHaveValue(values[field]);
+            }
           }
           await page
             .getByRole("button", {

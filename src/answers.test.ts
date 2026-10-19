@@ -62,7 +62,7 @@ describe("jawnie typowane odpowiedzi", () => {
     expect(assessAnswer({ ...spec, values: [r(2), r(2)], unordered: true }, { kind: "list", values: ["2", "3"] }).kind).toBe("incorrect");
   });
   it("odrzuca niekompletne, źle ukształtowane i nieprawidłowe macierze", () => {
-    const spec = cases[2].spec;
+    const spec = cases.find(({spec}) => spec.kind === "matrix")!.spec;
     for (const input of [
       { kind: "matrix", values: [["1", ""], ["0", "3"]] },
       { kind: "matrix", values: [["1", "2"]] },
@@ -70,8 +70,8 @@ describe("jawnie typowane odpowiedzi", () => {
       { kind: "matrix", values: [["1/0", "2"], ["0", "3"]] },
       { kind: "matrix", values: [["eval(2)", "2"], ["0", "3"]] },
     ] as AnswerInput[]) expect(assessAnswer(spec, input).kind).toBe("invalid");
-    expect(assessAnswer(cases[1].spec, { kind: "list", values: ["-2"] }).kind).toBe("invalid");
-    expect(assessAnswer(cases[3].spec, { kind: "choice", value: "injected" }).kind).toBe("invalid");
+    expect(assessAnswer(cases.find(({spec}) => spec.kind === "list")!.spec, { kind: "list", values: ["-2"] }).kind).toBe("invalid");
+    expect(assessAnswer(cases.find(({spec}) => spec.kind === "choice")!.spec, { kind: "choice", value: "injected" }).kind).toBe("invalid");
   });
   it.each(cases)("$spec.kind: sesja liczy tylko pierwszą ważną ocenę", ({ spec, right, wrong }) => {
     const exercise: TypedExercise = { ...exercises[0], answer: spec, startingHint: "Wskazówka" };
