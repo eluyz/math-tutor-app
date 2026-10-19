@@ -6,6 +6,7 @@ import { gaussFamilies } from "../university/gauss";
 import { cramerFourFamilies } from "../university/cramerFour";
 import { elementaryAnalysisFamilies } from "../university/elementaryAnalysis";
 import { asymptoteFamilies } from "../university/analysisLimitsAsymptotes";
+import { advancedCalculusFamilies } from "../university/advancedCalculus";
 import { readFileSync } from "node:fs";
 import { isLegacyDifficulty } from "../difficulty";
 import { it, expect } from "vitest";
@@ -113,7 +114,7 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   );
   const determinantIds = new Set(determinantFamilies.map((family) => family.id));
   const linearIds = new Set([...inverseFamilies,...rankFamilies,...gaussFamilies,...cramerFourFamilies].map((family) => family.id));
-  const analysisIds = new Set([...elementaryAnalysisFamilies, ...asymptoteFamilies].map((family) => family.id));
+  const analysisIds = new Set([...elementaryAnalysisFamilies, ...asymptoteFamilies, ...advancedCalculusFamilies].map((family) => family.id));
   const calculus = (category: string) =>
     ["function-limits", "derivatives"].includes(category);
   const added004 = all.filter(
@@ -133,9 +134,10 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(`MT-EDU-006A: **${added006a.length}** nowych instancji; łącznie **${all.length-added006b.length-added007.length}**.`);
   expect(added006b).toHaveLength(720);
   expect(doc).toContain(`MT-EDU-006B: **${added006b.length}** nowych instancji; łącznie **${all.length-added007.length}**.`);
-  expect(added007).toHaveLength(768);
+  expect(added007).toHaveLength(1032);
   expect(doc).toContain(`MT-EDU-007 P0: **384** nowych instancji; łącznie **7749**.`);
-  expect(doc).toContain(`MT-EDU-007 P1: **${added007.length - 384}** nowych instancji; łącznie **${all.length}**.`);
+  expect(doc).toContain(`MT-EDU-007 P1: **384** nowych instancji; łącznie **8133**.`);
+  expect(doc).toContain(`MT-EDU-007 P2: **${added007.length - 768}** nowych instancji; łącznie **${all.length}**.`);
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
   const addedTemplates = allTemplates.filter(
     (template) =>

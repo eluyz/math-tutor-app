@@ -116,3 +116,7 @@ Warianty są dostępne tylko na zadeklarowanych poziomach. P0–P2 dodają 9 rod
 ## MT-EDU-007 P0–P1 — funkcje elementarne i asymptoty
 
 Pięć rodzin P0 uczy warunków dziedziny logarytmów, praw potęg, kontrolowanych równań i nierówności oraz modułu. Pięć rodzin P1 dodaje granice Eulera i asymptoty pionowe, poziome oraz ukośne. Użytkownik widzi dwa kierunki nieskończoności i granice jednostronne; dziura jest odróżniana od bieguna. Wartości e^q pozostają symboliczne, a odpowiedzi są kontrolowanymi wyborami lub dokładnymi ułamkami. Łącznie P0–P1 to 10 rodzin / 768 instancji, katalog 88 rodzin / 8133 instancji. P2 i badanie całościowe P3 nie są jeszcze dostępne.
+
+## MT-EDU-007 P2 — pochodne i przegięcia
+
+Trzy nowe rodziny, 264 instancje, pokazują kiedy wolno użyć reguły de l’Hospitala, jak różniczkować ln|u| i e^u oraz dlaczego f''=0 nie wystarcza do wskazania przegięcia. W zadaniach rozróżnia się jeden lub dwa punkty przegięcia albo ich brak. Wyniki są dokładnymi ułamkami lub kontrolowanym wyborem, a rozwiązania zawierają znaki f'' na przedziałach. Łącznie po P0–P2 katalog ma 91 rodzin / 8397 instancji. Pełne badanie funkcji P3 jest poza bieżącym ukończonym zakresem.

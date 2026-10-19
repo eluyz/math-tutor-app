@@ -1,5 +1,9 @@
 # Architektura
 
+## MT-EDU-007 P2 — kontrolowane przypadki pochodnych
+
+`advancedCalculus.ts` parametryzuje tylko dokładnie rozwiązywalne postaci. Reguła de l’Hospitala jest stosowana do jawnego 0/0 z istniejącymi pochodnymi i niezerowym mianownikiem pochodnej poza punktem; przy ponownym 0/0 warunki są sprawdzane drugi raz. Pochodne ln/e^u są liczone w punktach, gdzie logarytm jest dopuszczalny, a wynik wymierny. Dla drugiej pochodnej odpowiedź rozróżnia brak przegięcia, jedno przegięcie i dwa; sama równość f''=0 nie wystarcza. `advancedCalculus.test.ts` stosuje osobne wzory dla wartości i znaków oraz sprawdza każdy wariant w PL/EN.
+
 ## MT-EDU-007 P1 — dokładne granice i asymptoty
 
 `analysisLimitsAsymptotes.ts` rozdziela parametry zadania od prezentacji PL/EN. Granice Eulera przechodzą przez dokładną tożsamość 1+t i `ln(1+t)/t→1`; odpowiedź e^q jest kontrolowanym wyborem kanonicznego wymiernego wykładnika, bez przybliżenia liczby e ani parsera wyrażeń. Asymptoty mają osobne odpowiedzi dla +∞ i −∞ albo dla granic jednostronnych. Współczynniki prostych i redukcje wymierne używają `Rational`, a brak asymptoty ma jawny wybór. `analysisLimitsAsymptotes.test.ts` wylicza niezależnie wszystkie 384 przypadki.

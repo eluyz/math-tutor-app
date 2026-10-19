@@ -171,6 +171,10 @@ export type AsymptoteProblem =
   | Readonly<{ kind: "analysis-asymptote-vertical"; mode: "simple" | "hole" | "double" | "cancellation"; at: Rational; coefficient: Rational }>
   | Readonly<{ kind: "analysis-asymptote-horizontal"; mode: "rational" | "radical" | "linear"; a: Rational; b: Rational; c: Rational }>
   | Readonly<{ kind: "analysis-asymptote-oblique"; mode: "rational" | "radical" | "quadratic"; a: Rational; b: Rational; c: Rational; at: Rational }>;
+export type AdvancedCalculusProblem =
+  | Readonly<{ kind: "analysis-lhospital"; mode: "polynomial-one" | "polynomial-two" | "exponential-one" | "exponential-two"; at: Rational; coefficient: Rational }>
+  | Readonly<{ kind: "analysis-log-exp-derivative"; mode: "log" | "exp" | "log-abs" | "product"; at: Rational; coefficient: Rational; shift: Rational }>
+  | Readonly<{ kind: "analysis-concavity"; mode: "cubic" | "quartic" | "mixed"; at: Rational; coefficient: Rational; cubic: Rational; shift: Rational }>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
@@ -180,7 +184,8 @@ export type UniversityProblem =
   | DeterminantProblem
   | LinearAlgebraProblem
   | ElementaryAnalysisProblem
-  | AsymptoteProblem;
+  | AsymptoteProblem
+  | AdvancedCalculusProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>
