@@ -93,10 +93,16 @@ Historyczny PR #17 obejmował wyłącznie P0–P3 i został scalony oraz opublik
 
 ## MT-EDU-005 — dwa działy rachunku różniczkowego
 
-P0 dodaje 3 rodziny granic funkcji: punkt/jednostronne, nieskończoność i sprzężenia. P1 dodaje 9 rodzin pochodnych: wzór, wartość w punkcie, iloraz w punkcie, styczna, punkty stacjonarne, klasyfikacja ekstremów, monotoniczność, wielkości krańcowe i maksimum zysku. Razem 1152 nowych wariantów, 63 rodziny i 6381 instancji w całej aplikacji. Wszystkie 5229 starych lekcji pozostają identyczne. Rodziny mają uczciwie ograniczone poziomy i po 24 odrębne warianty każdej wspieranej pary.
+P0 dodaje 3 rodziny granic funkcji: punkt/jednostronne, nieskończoność i sprzężenia. P1 dodaje 9 rodzin pochodnych: wzór, wartość w punkcie, iloraz w punkcie, styczna, punkty stacjonarne, klasyfikacja ekstremów, monotoniczność, wielkości krańcowe i maksimum zysku. Ten scalony etap dodał 1152 warianty i osiągnął 63 rodziny oraz 6381 instancji. Wszystkie 5229 wcześniejszych lekcji pozostały identyczne. Rodziny mają uczciwie ograniczone poziomy i po 24 odrębne warianty każdej wspieranej pary.
 
 Osoba wracająca do nauki otrzymuje wskazówkę pierwszego działania oraz uzasadnienie każdego etapu. 0/0 jest postacią nieoznaczoną, nie wynikiem; funkcja nie otrzymuje wartości w usuniętej dziurze przez samo skracanie. Nierówne granice jednostronne dają brak granicy obustronnej. Pierwiastki analizujemy w dodatnim otoczeniu punktu, a nieskończoność przez stopnie, parzystość i znaki. Nie zastępujemy dowodu próbkami numerycznymi.
 
 Wzór pochodnej ma nazwane pola wszystkich współczynników, ze stałą oznaczoną 1. Styczna wymaga m,b, punkt stacjonarny wszystkich uporządkowanych współrzędnych, a zbiory znaków pochodnej kontrolowanego wyboru. Zerowa pochodna bez zmiany znaku nie jest nazywana ekstremum. Zadania krańcowe podają jednostki i różnicę między chwilowym tempem a dokładnym przyrostem. Maksimum zysku uwzględnia 0≤q≤Q dla ciągłej rzeczywistej produkcji, końce przedziału i możliwość straty.
 
 Pełne PL/EN, sesje, pierwsza ważna samodzielna ocena, pominięcia i podglądy, historia oraz składany brudnopis korzystają z tych samych mechanizmów co dotąd. Nie ma backendu, telemetrii, kont, nowych zależności ani parsera dowolnych napisów matematycznych. Całki, wiele zmiennych i egzamin próbny są poza MT-EDU-005.
+
+## MT-EDU-006A — wyznaczniki na studia ekonomiczne
+
+Cztery nowe rodziny uczą wyboru wygodnego wiersza/kolumny Laplace'a, poprawnych znaków dopełnień, rozwinięcia 5→4→3 i reguł operacji wierszowych. Zadania z proporcjonalnymi wierszami wyjaśniają zero bez niepotrzebnego rachunku. W rodzinie operacji wierszowych macierz wejściowa jest zwykle gęsta; ekspert wymaga zarówno odwrócenia zamiany, jak i skali. Wszystkie odpowiedzi są pojedynczym dokładnym skalarem. Każdy etap zawiera autorskie uzasadnienie PL/EN, a dotychczasowe sesje, postępy i brudnopis działają bez migracji.
+
+W [UWM_COVERAGE.md](UWM_COVERAGE.md) 64 kody służą jedynie do wstępnego porównania tematów z generatorami. Brak prywatnych oryginałów ogranicza wnioski o faktycznych arkuszach. Math Tutor pozostaje ogólną aplikacją edukacyjną. M09–M11 obejmują kontrolowane struktury, a nie wszystkie możliwe 4×4/5×5; pełna algebra macierzy, całki i wielowymiarowa analiza są odłożone zgodnie z roadmapą. Nie publikujemy materiałów uczelni ani danych użytkownika.

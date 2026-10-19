@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **63 rodzin**, **6381 instancji**. `allTemplates` i `taskPool` obejmują zachowane 51 rodzin po MT-EDU-004 oraz 12 nowych z MT-EDU-005. Po 55 rodzin wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004 i MT-EDU-005. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **67 rodzin**, **6645 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005 oraz 4 nowe rodziny wyznaczników MT-EDU-006A. Po 59 rodzin wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **55**, L5: **55**.
+Łącznie rodziny L4: **59**, L5: **59**.
 
 ## Pierwotne rodziny
 
@@ -197,4 +197,19 @@ MT-EDU-005: **1152** nowych instancji; łącznie **6381**.
 
 34 par po 24 warianty. Współczynniki podaje się od najwyższej opisanej potęgi do stałej (pole 1); zera są wymagane. Styczna ma pola m,b, maksimum q*,P(q*). q jest ciągłą wielkością rzeczywistą; pochodne krańcowe mają jednostkę pieniężną na jednostkę produkcji i nie są dokładnym przyrostem dla dodatkowej całej jednostki. Audyt niezależnie rozwija wielomiany przez splot i dwumian, kontroluje każdy pokazany wzór pochodnej oraz rachunek, znak w każdej komórce między zerami, warunki stycznej i certyfikat wklęsłości z uwzględnieniem końców przedziału.
 
-Niezmienność wszystkich 5229 poprzednich instancji, ich poziomów, ID, contentKey i pełnych lekcji PL/EN kontroluje fixture z opublikowanego main afcb248 w history-regression.test.ts. Nie wolno aktualizować jego skrótów po zmianie nowego generatora. Nowy cały katalog: 63 rodziny, 6381 instancji, 13 kategorii; 48 nowych par ×24=1152.
+Niezmienność wszystkich 5229 poprzednich instancji, ich poziomów, ID, contentKey i pełnych lekcji PL/EN kontroluje fixture z opublikowanego main afcb248 w history-regression.test.ts. Nie wolno aktualizować jego skrótów po zmianie nowego generatora. Po MT-EDU-005 katalog miał 63 rodziny, 6381 instancji, 13 kategorii; 48 nowych par ×24=1152.
+
+## MT-EDU-006A — wyznaczniki 4×4 i 5×5
+
+MT-EDU-006A: **264** nowych instancji; łącznie **6645**. Nowe rodziny: **4**. Pary rodzina/poziom: **11**. Każda para ma 24 różne macierze i dokładny wynik; język nie mnoży wariantów. Wszystkie 6381 instancji wcześniejszego `main` pozostają bez zmiany.
+
+| Rodzina | Poziomy | Rachunek i zakres |
+| --- | --- | --- |
+| determinant-laplace-four | hard, advanced, expert | 4×4 z zerami: odpowiednio jeden, dwa, trzy niezerowe elementy w wybranym wierszu; jawne znaki i minory 3×3 |
+| determinant-row-operations | advanced, expert | Gęstsza 4×4: odwracanie kilku dodawań wierszy i zamiany; Expert także skala; redukcja do trójkątnej i poprawka czynnika |
+| determinant-laplace-five | advanced, expert | Rzadka 5×5: wiersz lub kolumna z jednym niezerowym elementem, potem minor 4×4 i obliczenie 3×3 |
+| determinant-properties | medium, hard, advanced, expert | Proporcjonalne wiersze i det=0; dodanie wielokrotności; zamiana; Expert także skala jednego wiersza |
+
+Trzy 4×4 rodziny mają 72+48+96=216 wariantów, 5×5 ma 48. Macierze zawierają małe liczby całkowite i niektóre dokładne ułamki; odpowiedź jest skalarna, bez 16 lub 25 pól. Poziomy nie są sztucznie uzupełniane: easy jest niedostępny we wszystkich czterech, medium tylko w rodzinie własności. `SquareDeterminantMatrix` nie podnosi limitu starych formularzy do 3×3. Wyznacznik liczymy przez Laplace'a dla 4×4/5×5; Sarrus jest używany tylko dla minora 3×3. Redukcja uwzględnia znak po zamianie, czynnik skali i niezmienność przy dodaniu wielokrotności innego wiersza.
+
+`determinants.test.ts` niezależnie oblicza każde 264 pytania metodą dokładnej eliminacji BigInt i kontroluje pokazane minory, znaki, czynniki, wszystkie typowane rachunki, poprawne/błędne/nieważne odpowiedzi oraz tekst PL/EN. Testuje także macierze jednostkowe, trójkątne, zależne, skalowane, zamienione i odrzucenie niewłaściwego wymiaru. `determinant-regression.test.ts` porównuje SHA-256 pełnego zadania i rozwiązania dla wszystkich dawnych 6381 wariantów w obu językach z archiwum scalonego `main` 69452a6. Playwright sprawdza sześć kombinacji języka i szerokości 375/768/1280, kroki, brudnopis, Undo, sesję i lokalną historię. Ręczny test fizycznego Safari pozostaje do wykonania.

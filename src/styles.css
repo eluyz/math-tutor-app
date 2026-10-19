@@ -656,6 +656,10 @@ footer p {
 .given-matrix th, .matrix-grid th { font-size: 11px; font-weight: 500; }
 .given-matrix td, .given-matrix th, .matrix-grid td, .matrix-grid th { padding: 5px; text-align: center; }
 .given-matrix td { border: 1px solid #c9d4c9; }
+.determinant-scroll { max-width: 100%; overflow-x: auto; margin: 8px 0 16px; }
+.determinant-display { border-collapse: collapse; width: max-content; max-width: 100%; border-inline: 2px solid #204a38; }
+.determinant-display caption { text-align: left; font-weight: 700; margin-bottom: 5px; }
+.determinant-display td { min-width: 2.6rem; padding: 6px 8px; text-align: center; font-variant-numeric: tabular-nums; }
 .given-matrix th:first-child, .matrix-grid th:first-child { width: 34px; }
 .matrix-grid input, .coefficient-field input, .answer-row select, .structured-answer select { width: 100%; min-width: 0; min-height: 44px; padding: 6px; border: 1px solid #8b9f90; background: white; font: inherit; }
 .answer-row select { flex: 1; }
