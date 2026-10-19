@@ -122,9 +122,13 @@ Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapow
 
 `locales/catalog.ts` wybiera prezentację PL/EN dla tego samego modelu. `locales/lessons-en.ts` zawiera autorskie parametryczne polecenia, wskazówki i opisy starych kroków; `locales/math.ts` oba katalogi komunikatów nowego silnika. Dawne polskie fabryki pozostają źródłem zgodnych treści PL. Język nie wpływa na generator, parametry, `id`, `contentKey`, wartości ani rachunki. `locales/lessons.test.ts` audytuje oba języki dla wszystkich instancji, zgodność rachunków i wyników, pełność kluczy i brak polskich komunikatów w EN. Zmiana metod starego rozwiązania wymaga jednoczesnego przeglądu odpowiadającej mu angielskiej sceny; test kontroluje również zgodność liczby etapów.
 
-## MT-EDU-004 — P1: układy równań
+## MT-EDU-004 — katalog P1–P3
 
 MT-EDU-004: **1728** nowych instancji; łącznie **5229**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
+
+Nowe rodziny: **16**. Pary rodzina/poziom: **72**. Łącznie rodziny L4: **43**, L5: **43**.
+
+### P1: układy równań — 504 instancje
 
 | Rodzina | Poziomy | Umiejętność |
 | --- | --- | --- |
@@ -160,3 +164,5 @@ Każda z 37 par ma 24 warianty. Przedziały są normalizowanymi zbiorami z wymie
 | sequence-conjugate | medium, hard, advanced, expert | Sprzężenie, √(n²)=n dla n≥1; L4 n(√(n²+b)−n), L5 usunięcie również składnika liniowego i drugi rząd |
 
 14 par × 24 warianty. Typ `limit` rozróżnia dokładną liczbę, +∞, −∞ i brak granicy. Nieprawidłowy zapis liczby jest błędem formatu, a nie błędną oceną matematyczną. Ciągi geometryczne są analizowane symbolicznie po n=2k+p i połączeniu równych podstaw. Oscylacja ani postać ∞−∞ nie jest automatycznie wynikiem nieskończonym. Audyt używa niezależnego splotu wielomianów, osobnego grupowania dodatnich modułów i dokładnych tożsamości sprzężenia; nie zgaduje granic z kilku wyrazów.
+
+P4–P6 pozostają przyszłym zakresem ROADMAP. Powyższy katalog obejmuje wyłącznie P1–P3; P0 zmienia brudnopis bez dodawania instancji.

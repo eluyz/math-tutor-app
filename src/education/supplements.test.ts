@@ -94,4 +94,10 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   );
   expect(doc).toContain(`MT-EDU-004: **${all.length - initial.length}** nowych instancji; łącznie **${all.length}**.`);
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
+  const addedTemplates = allTemplates.filter((template) => !initial.some((task) => task.templateId === template.id));
+  expect(doc).toContain(`Nowe rodziny: **${addedTemplates.length}**. Pary rodzina/poziom: **${addedTemplates.reduce((sum, template) => sum + template.supportedDifficulties.length, 0)}**.`);
+  expect(doc).toContain(`Łącznie rodziny L4: **${allTemplates.filter((t) => t.supportedDifficulties.includes("advanced")).length}**, L5: **${allTemplates.filter((t) => t.supportedDifficulties.includes("expert")).length}**.`);
+  const readme = readFileSync(new URL("../../README.md", import.meta.url), "utf8");
+  expect(readme).toContain(`**${allTemplates.length} rodzin**`);
+  expect(readme).toContain(`**${all.length} instancji**`);
 });

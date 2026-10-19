@@ -38,3 +38,13 @@ Zapisuj jedynie zdarzenie ukończenia sesji i kanoniczne ID rodziny/poziomu oraz
 Testy prywatności dopuszczają tylko `math-tutor.progress.v1` po ukończeniu sesji, bez innych kluczy localStorage, sessionStorage lub zewnętrznych żądań. Testuj zapis dokładnie raz, powrót do wyniku, usunięcie i reload, eksport niezależny od filtrów, procent z jawnym mianownikiem, PL/EN i powrót do nauki bez resetu.
 
 Brudnopis ma być domyślnie zwinięty pomiędzy treścią a odpowiedzią. Nie używaj conditional mount ani klucza zależnego od zwinięcia/widoku/języka. Sprawdzaj realne wpisywanie, Backspace, Ctrl/Cmd+Z, Redo, zaznaczenie i tożsamość textarea, rysunki, auto-clear ON/OFF oraz schowanie modala bez osieroconej blokady przewijania. Tylko nowe zadanie z auto-clear ON odcina historię.
+
+## Modele i audyty MT-EDU-004 P0–P3
+
+Rozszerzając istniejące rodziny uniwersyteckie, używaj `university/schema.ts`, właściwego prezentera i rejestru `university/catalog.ts`. Zachowuj jawne poziomy, 24 rzeczywiste warianty i autorskie parametryczne teksty PL/EN. Nie importuj testowych `audit.ts` / `functions-audit.ts` do produkcji. Oczekiwane wyniki testów mają wynikać z niezależnego algorytmu.
+
+Układ oznaczony wymaga wszystkich niewiadomych także po klasyfikacji. Testuj D=0, elementy główne równe zero, rząd i podstawienie do każdego równania. Przy granicach odróżniaj dokładną liczbę, oba znaki nieskończoności i brak granicy; oscylacji nie weryfikuj kilkoma przybliżeniami. Dziedziny sprawdzaj we wszystkich komórkach stałego znaku i końcach. Swobodnego porównania tekstów symbolicznych, `eval` i zaokrągleń nie zastępują testowane typy odpowiedzi.
+
+Utrzymuj rzeczywiste liczby rodzin, wspieranych par i instancji w GENERATORS/README. Audyt zachowuje 3501 poprzednich zadań oraz sprawdza globalne ID, treści nowych wariantów, rachunki i zgodność PL/EN. Testuj nowe formularze jako correct/incorrect/invalid, z pierwszą oceną w sesji i zmianą języka. W E2E wyliczaj wynik z publicznego polecenia zamiast ukrytego stanu. W testach tabelarycznych wybieraj przypadki po rodzaju odpowiedzi, nie po indeksie zmieniającym znaczenie po dodaniu typu.
+
+PR #17 obejmuje P0–P3. P4–P6 wymagają przyszłych, osobnych prac zgodnych z ROADMAP i nie powinny trafiać do tego zakresu.
