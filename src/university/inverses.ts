@@ -38,7 +38,7 @@ export const inverseFamilies:readonly UniversityFamily[]=[
     return {kind:"linear-application",matrix:a,rhs:product(a,x),method:"ax"};
   }),
 ];
-export function presentInverse(p:LinearAlgebraProblem,locale:Locale) {
+export function presentInverse(p:Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}>,locale:Locale) {
   const lesson=teaching(locale), {t}=lesson;
   const a=p.matrix, n=a.length;
   if(p.kind==="linear-application") {

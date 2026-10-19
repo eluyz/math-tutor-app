@@ -65,3 +65,32 @@ export function parameterization(result: ReturnType<typeof classifySystem>, vari
     return `${name} = ${rows[i][n].numerator}/${rows[i][n].denominator}${terms.map(term=>` − (${term.coefficient.numerator}/${term.coefficient.denominator})${term.name}`).join("")}`;
   });
 }
+/** Forward Gaussian elimination with a separate exact backward substitution. */
+export function gaussianElimination(a: ExactMatrix, b: readonly Rational[]): Reduction {
+  const {rows,columns}=checkMatrix(a);
+  if(b.length!==rows || columns>4) throw new Error("Invalid system dimensions");
+  const matrix=a.map((row,i)=>[...row,b[i]]), steps:RowStep[]=[], pivots:number[]=[];
+  let lead=0;
+  for(let col=0;col<columns && lead<rows;col++){
+    const pivot=matrix.findIndex((row,i)=>i>=lead && !zero(row[col]));
+    if(pivot<0)continue;
+    if(pivot!==lead){[matrix[pivot],matrix[lead]]=[matrix[lead],matrix[pivot]];steps.push({action:`R${lead+1} ↔ R${pivot+1}`,matrix:matrix.map(row=>[...row])});}
+    for(let i=lead+1;i<rows;i++)if(!zero(matrix[i][col])){
+      const factor=div(matrix[i][col],matrix[lead][col]);
+      matrix[i]=matrix[i].map((v,j)=>sub(v,mul(factor,matrix[lead][j])));
+      steps.push({action:`R${i+1} ← R${i+1} − (${factor.numerator}/${factor.denominator})R${lead+1}`,matrix:matrix.map(row=>[...row])});
+    }
+    pivots.push(col);lead++;
+  }
+  return {matrix,pivots,steps};
+}
+export function backSubstitute(reduction:Reduction, variables:number):readonly Rational[] {
+  if(reduction.pivots.length!==variables || reduction.matrix.length<variables) throw new Error("Not a unique square solution");
+  const x=Array.from({length:variables},()=>r(0));
+  for(let i=variables-1;i>=0;i--){
+    const col=reduction.pivots[i], row=reduction.matrix[i];
+    const remaining=row.slice(col+1,variables).reduce((sum,c,j)=>add(sum,mul(c,x[col+1+j])),r(0));
+    x[col]=div(sub(row[variables],remaining),row[col]);
+  }
+  return x;
+}

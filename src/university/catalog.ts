@@ -11,6 +11,7 @@ import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
 import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
+import { gaussFamilies, presentGauss } from "./gauss";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -22,6 +23,7 @@ export const universityFamilies = [
   ...determinantFamilies,
   ...inverseFamilies,
   ...rankFamilies,
+  ...gaussFamilies,
 ];
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";
@@ -30,6 +32,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentInverse(problem, locale)
     : isRank(problem)
     ? presentRank(problem, locale)
+    : problem.kind === "linear-system"
+    ? presentGauss(problem, locale)
     : problem.kind === "determinant"
     ? presentDeterminant(problem, locale)
     : problem.kind === "system"
