@@ -39,7 +39,7 @@ describe("P0 exact inverses and AX=B",()=>{
           if(p.kind==="linear-inverse"){
             if(p.method==="classification" || !oracle){
               expect(lesson.answer.kind).toBe("choice");
-              if(lesson.answer.kind==="choice") expect(lesson.answer.value).toBe(oracle?"yes":"no");
+              if(lesson.answer.kind==="choice") expect(lesson.answer.value).toBe(oracle?"inverse-yes":"inverse-no");
             }else{
               expect(lesson.answer.kind).toBe("matrix");
               if(lesson.answer.kind==="matrix"){
@@ -51,7 +51,7 @@ describe("P0 exact inverses and AX=B",()=>{
           }else{
             expect(oracle).not.toBeNull();
             expect(lesson.answer.kind).toBe("matrix");
-            if(lesson.answer.kind==="matrix") expect(same(independentProduct(p.matrix,lesson.answer.values),p.rhs!)).toBe(true);
+            if(lesson.answer.kind==="matrix") expect(same(p.method==="xa"?independentProduct(lesson.answer.values,p.matrix):independentProduct(p.matrix,lesson.answer.values),p.rhs)).toBe(true);
           }
           expect(assessAnswer(lesson.answer,emptyAnswer(lesson.answer)).kind).toBe("invalid");
           if(lesson.answer.kind==="matrix"){
@@ -61,7 +61,7 @@ describe("P0 exact inverses and AX=B",()=>{
             expect(assessAnswer(lesson.answer,wrong).kind).toBe("incorrect");
           }else if(lesson.answer.kind==="choice"){
             expect(assessAnswer(lesson.answer,{kind:"choice",value:lesson.answer.value}).kind).toBe("correct");
-            expect(assessAnswer(lesson.answer,{kind:"choice",value:lesson.answer.value==="yes"?"no":"yes"}).kind).toBe("incorrect");
+            expect(assessAnswer(lesson.answer,{kind:"choice",value:lesson.answer.value==="inverse-yes"?"inverse-no":"inverse-yes"}).kind).toBe("incorrect");
           }
         }
       }

@@ -36,6 +36,12 @@ async function matrixAnswer(page: Page): Promise<Expected> {
     return { kind: "matrix", values: a.map((row) => row.map((value) => mul(value, k.value))) };
   }
   if (id === "matrix-transpose") return { kind: "matrix", values: a[0].map((_, j) => a.map((row) => row[j])) };
+  if (id === "inverse-two") {
+    const det = sub(mul(a[0][0], a[1][1]), mul(a[0][1], a[1][0]));
+    expect(det.numerator).not.toBe(0n);
+    const numerator = [[a[1][1], mul(r(-1), a[0][1])], [mul(r(-1), a[1][0]), a[0][0]]];
+    return { kind: "matrix", values: numerator.map((row) => row.map((value) => r(value.numerator * det.denominator, value.denominator * det.numerator))) };
+  }
   const b = await readMatrix(page, "B");
   if (id === "matrix-product") return { kind: "matrix", values: product(a, b) };
   return { kind: "matrix", values: a.map((row, i) => row.map((value, j) => id === "matrix-add" ? add(value, b[i][j]) : sub(value, b[i][j]))) };

@@ -8,8 +8,8 @@ import { backSubstitute, classifySystem, gaussianElimination, parameterization, 
 const compact=(a:ExactMatrix)=>`[${a.map(row=>`[${row.map(f).join(", ")}]`).join("; ")}]`;
 const dot=(a:readonly Rational[],x:readonly Rational[])=>a.reduce((sum,c,j)=>add(sum,mul(c,x[j])),r(0));
 const options=(locale:Locale)=>[
-  {value:"system-one",label:locale==="pl"?"Jedno rozwiązanie":"One solution"},
-  {value:"system-none",label:locale==="pl"?"Brak rozwiązań":"No solution"},
+  {value:"system-one",label:locale==="pl"?"Jedno rozwiązanie":"Exactly one solution"},
+  {value:"system-none",label:locale==="pl"?"Brak rozwiązań":"No solutions"},
   {value:"system-many",label:locale==="pl"?"Nieskończenie wiele rozwiązań":"Infinitely many solutions"},
 ];
 function create(v:number,d:Difficulty,method:"gauss"|"classification"):Extract<LinearAlgebraProblem,{kind:"linear-system"}>{
@@ -38,10 +38,19 @@ export function presentGauss(p:Extract<LinearAlgebraProblem,{kind:"linear-system
   lesson.work(`[A|b] = ${compact(augmented)}`,t("Tworzymy macierz rozszerzoną; każde równanie obejmuje prawą stronę.","Form the augmented matrix; each equation includes the right-hand side."));
   for(const step of forward.steps)lesson.work(`${step.action}: ${compact(step.matrix)}`,t("Ta operacja zachowuje zbiór rozwiązań i eliminuje współczynnik pod niezerowym pivotem.","This operation preserves the solution set and eliminates the coefficient below a nonzero pivot."));
   lesson.work(`rank(A) = ${result.rankA}; rank([A|b]) = ${result.rankAugmented}; n = ${n}`,result.kind==="system-none"?t("Po eliminacji pojawia się wiersz [0 … 0 | c] z c≠0; to równanie 0=c.","Elimination yields a row [0 … 0 | c] with c≠0; it states 0=c."):result.kind==="system-many"?t("Rzędy są równe, lecz mniejsze od n; zmienne bez pivotów są swobodne.","Ranks agree but are below n; nonpivot variables are free."):t("Rzędy są równe n, więc każdy z n pivotów określa jedną niewiadomą.","The ranks equal n, so every one of the n pivots determines a variable."));
+  if(result.kind==="system-none"){
+    const contradiction=forward.matrix.find(row=>row.slice(0,n).every(value=>value.numerator===0n)&&row[n].numerator!==0n);
+    if(!contradiction)throw new Error("Inconsistent system lacks a concrete contradiction row");
+    lesson.work(`${compact([contradiction])}: 0 = ${f(contradiction[n])}`,t("To konkretne równanie jest fałszywe dla każdej wartości niewiadomych; układ jest sprzeczny.","This concrete equation is false for every assignment; the system is inconsistent."));
+  }
   let answer:AnswerSpec;
   if(result.kind==="system-one"){
     const values=backSubstitute(forward,n);
-    for(let i=n-1;i>=0;i--) lesson.work(`${names[i]} = ${f(values[i])}`,t("Podstawiamy już wyznaczone niewiadome do równania schodkowego i dzielimy tylko przez niezerowy pivot.","Substitute the values already found into the echelon equation and divide only by a nonzero pivot."));
+    for(let i=n-1;i>=0;i--){
+      const row=forward.matrix[i];
+      const equation=row.slice(i,n).map((coefficient,j)=>`(${f(coefficient)})·${names[i+j]}`).join(" + ");
+      lesson.work(t(`Podstawienie wsteczne w R${i+1}: ${equation} = ${f(row[n])} ⇒ ${names[i]} = ${f(values[i])}`,`Back substitution in R${i+1}: ${equation} = ${f(row[n])} ⇒ ${names[i]} = ${f(values[i])}`),t("Podstawiamy już wyznaczone niewiadome do równania schodkowego i dzielimy tylko przez niezerowy pivot.","Substitute the values already found into the echelon equation and divide only by a nonzero pivot."));
+    }
     for(let i=0;i<n;i++) lesson.work(`${p.matrix[i].map((c,j)=>`(${f(c)})·(${f(values[j])})`).join(" + ")} = ${f(dot(p.matrix[i],values))} = ${f(p.rhs[i])}`,t("Sprawdzenie przez podstawienie do oryginalnego równania, nie tylko do zredukowanej macierzy.","Verify by substitution into the original equation, not just the reduced matrix."));
     answer=p.method==="gauss"?{kind:"system",classification:"system-one",variables:names,values}:{kind:"choice",value:"system-one",options:options(locale)};
   }else{

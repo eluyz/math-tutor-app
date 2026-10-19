@@ -8,7 +8,28 @@ const parse = (text: string) => {
   return p.value;
 };
 export const fractionText = (v: Rational) => `${v.numerator}/${v.denominator}`;
+const subsets = (n: number, k: number): number[][] => k === 0 ? [[]] : Array.from({ length: n }, (_, i) => subsets(n - i - 1, k - 1).map(rest => [i, ...rest.map(j => j + i + 1)])).flat();
+function referenceRank(matrix: Rational[][]): number {
+  for (let size = Math.min(matrix.length, matrix[0].length); size >= 1; size--)
+    for (const rows of subsets(matrix.length, size))
+      for (const columns of subsets(matrix[0].length, size))
+        if (laplace(rows.map(i => columns.map(j => matrix[i][j]))).numerator !== 0n) return size;
+  return 0;
+}
 export async function readSystem(page: Page) {
+  const augmentedTable = page.locator(".linear-algebra-matrices .given-matrix");
+  if (await augmentedTable.count()) {
+    const matrix = await Promise.all((await augmentedTable.first().locator("tbody tr").all()).map(async row =>
+      (await row.locator("td").allTextContents()).map(parse)));
+    const n = matrix[0].length - 1;
+    const coefficients = matrix.map(row => row.slice(0, n));
+    const rhs = matrix.map(row => row[n]);
+    const rankA = referenceRank(coefficients), rankAugmented = referenceRank(matrix);
+    const classification = rankA < rankAugmented ? "system-none" : rankA === n ? "system-one" : "system-many";
+    const determinant = classification === "system-one" ? laplace(coefficients) : null;
+    return { classification, values: determinant ? Array.from({ length: n }, (_, column) =>
+      d(laplace(coefficients.map((row, i) => row.map((v, j) => j === column ? rhs[i] : v))), determinant)) : [] };
+  }
   const text = await page.locator(".question").innerText();
   const rows = text.split("\n").filter((line) => line.includes(" = "));
   const coefficients = rows.map((row) =>
@@ -58,12 +79,12 @@ export async function readSystem(page: Page) {
 }
 export async function fillSystem(page: Page) {
   const answer = await readSystem(page);
-  if (!answer.values.length) throw new Error("A unique system was expected");
   const classification = await page
     .locator("#answer")
     .evaluate((e) => e.tagName === "SELECT");
-  if (classification) await page.locator("#answer").selectOption("system-one");
-  for (let i = 0; i < answer.values.length; i++)
+  if (classification) await page.locator("#answer").selectOption(answer.classification);
+  const fields = classification ? await page.locator("[id^='system-value-']").count() : answer.values.length;
+  for (let i = 0; i < fields; i++)
     await page
       .locator(
         classification ? `#system-value-${i}` : i ? `#answer-${i}` : "#answer",

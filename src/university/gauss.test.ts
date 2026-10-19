@@ -3,6 +3,7 @@ import { difficulties } from "../difficulty";
 import { assessAnswer, emptyAnswer, formatRational } from "../answers";
 import { makeUniversityTask, localizeUniversity } from "./catalog";
 import { gaussFamilies } from "./gauss";
+import { auditShownParameters } from "./parameterization-audit";
 import { a,m,d,eq,laplace,auditCalculation,q } from "./audit";
 import type { ExactMatrix } from "./linearAlgebraMath";
 const subsets=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>subsets(n-i-1,k-1).map(rest=>[i,...rest.map(j=>j+i+1)])).flat();
@@ -52,7 +53,7 @@ describe("P2 exact Gaussian elimination",()=>{
             expect(assessAnswer(lesson.answer,{kind:"choice",value:kind}).kind).toBe("correct");
             expect(assessAnswer(lesson.answer,{kind:"choice",value:kind==="system-one"?"system-none":"system-one"}).kind).toBe("incorrect");
             if(kind==="system-none")expect(lesson.explanation).toContain("rank([A|b])");
-            if(kind==="system-many")expect(lesson.explanation).toContain("t1");
+            if(kind==="system-many")auditShownParameters(p.matrix,p.rhs,lesson.solution!);
           }
         }
       }

@@ -3,6 +3,7 @@ import { difficulties } from "../difficulty";
 import { assessAnswer, emptyAnswer } from "../answers";
 import { makeUniversityTask, localizeUniversity } from "./catalog";
 import { rankFamilies } from "./ranks";
+import { auditShownParameters } from "./parameterization-audit";
 import { a,m,eq,laplace,auditCalculation,q } from "./audit";
 import type { ExactMatrix } from "./linearAlgebraMath";
 const subsets=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>subsets(n-i-1,k-1).map(rest=>[i,...rest.map(j=>j+i+1)])).flat();
@@ -49,6 +50,7 @@ describe("P1 ranks and Kronecker–Capelli",()=>{
             expect(assessAnswer(lesson.answer,{kind:"choice",value:expected}).kind).toBe("correct");
             expect(assessAnswer(lesson.answer,{kind:"choice",value:expected==="system-one"?"system-none":"system-one"}).kind).toBe("incorrect");
           }
+          if(p.kind==="linear-capelli" && expected==="system-many")auditShownParameters(p.matrix,p.rhs,lesson.solution!);
           expect(assessAnswer(lesson.answer,emptyAnswer(lesson.answer)).kind).toBe("invalid");
           if(p.kind==="linear-capelli" && expected==="system-one"){
             // Independent Cramer/Laplace solution agrees with every original equation.

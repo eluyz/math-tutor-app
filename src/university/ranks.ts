@@ -7,8 +7,8 @@ import { teaching } from "./teaching";
 import { classifySystem, parameterization, rank, reduceRows, type ExactMatrix } from "./linearAlgebraMath";
 const compact=(a:ExactMatrix)=>`[${a.map(row=>`[${row.map(f).join(", ")}]`).join("; ")}]`;
 const options=(locale:Locale)=>[
-  {value:"system-one",label:locale==="pl"?"Jedno rozwiązanie":"One solution"},
-  {value:"system-none",label:locale==="pl"?"Brak rozwiązań":"No solution"},
+  {value:"system-one",label:locale==="pl"?"Jedno rozwiązanie":"Exactly one solution"},
+  {value:"system-none",label:locale==="pl"?"Brak rozwiązań":"No solutions"},
   {value:"system-many",label:locale==="pl"?"Nieskończenie wiele rozwiązań":"Infinitely many solutions"},
 ];
 const choice=(value:string,locale:Locale):AnswerSpec=>({kind:"choice",value,options:options(locale)});
@@ -34,10 +34,14 @@ function capelli(v:number,level:Difficulty):Extract<LinearAlgebraProblem,{kind:"
   const x=Array.from({length:n},(_,j)=>r((v+j)%5-2));
   const rhs=matrix.map(row=>row.reduce((sum,c,j)=>add(sum,mul(c,x[j])),r(0)));
   if(mode===1) rhs[v%2?0:2]=add(rhs[v%2?0:2],r(1));
+  if(level==="advanced"){
+    matrix[1]=matrix[1].map(value=>mul(value,r(1,2)));
+    rhs[1]=mul(rhs[1],r(1,2));
+  }
   return {kind:"linear-capelli",matrix,rhs};
 }
 export const rankFamilies:readonly UniversityFamily[]=[
-  {id:"matrix-rank",category:"matrices",titles:{pl:"Rząd macierzy",en:"Matrix rank"},supportedDifficulties:["medium","hard","advanced"],create:(v,d)=>({kind:"linear-rank",matrix:rows(v,d==="medium"?2:3,d==="advanced"?4:3)})},
+  {id:"matrix-rank",category:"matrices",titles:{pl:"Rząd macierzy",en:"Matrix rank"},supportedDifficulties:["medium","hard","advanced"],create:(v,d)=>{const matrix=rows(v,d==="medium"?2:3,d==="advanced"?4:3);return {kind:"linear-rank",matrix:d==="medium"?matrix:matrix.map((row,i)=>i===0?row.map(value=>mul(value,r(1,2))):row)};}},
   {id:"capelli-given-ranks",category:"systems",titles:{pl:"Twierdzenie Kroneckera–Capellego z rang",en:"Kronecker–Capelli from ranks"},supportedDifficulties:["easy"],create:(v)=>{
     const n=2+(Math.floor(v/3)%4), equations=n+Math.floor(v/12), mode=v%3;
     const rankA=mode===0?n:mode===1?n-1:Math.max(0,n-2),rankAugmented=mode===1?rankA+1:rankA;

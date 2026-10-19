@@ -23,6 +23,8 @@ import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
 import { DeterminantDisplay } from "./DeterminantDisplay";
 import { isUniversityTask } from "./university/catalog";
+import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
+import { isLinearAlgebraProblem } from "./university/schema";
 import {
   advanceSession,
   createSession,
@@ -517,6 +519,9 @@ export default function App() {
                   </div>
                   {isUniversityTask(active) && active.university.kind === "determinant" && (
                     <DeterminantDisplay matrix={active.university.matrix} locale={locale} />
+                  )}
+                  {isUniversityTask(active) && isLinearAlgebraProblem(active.university) && (
+                    <LinearAlgebraDisplay problem={active.university} />
                   )}
                   {"matrices" in active && active.matrices && (
                     <div className="given-matrices">

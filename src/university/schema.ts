@@ -154,11 +154,12 @@ export type DeterminantProblem = Readonly<{
 }>;
 export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-inverse"; matrix: readonly (readonly Rational[])[]; method: "inverse" | "classification" }>
-  | Readonly<{ kind: "linear-application"; matrix: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; method: "ax" }>
+  | Readonly<{ kind: "linear-application"; matrix: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; method: "ax" | "xa" }>
   | Readonly<{ kind: "linear-rank"; matrix: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-capelli"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
-  | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" }>;
+  | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" }>
+  | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
@@ -169,6 +170,8 @@ export type UniversityProblem =
   | LinearAlgebraProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
+export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>
+  p.kind.startsWith("linear-");
 export type UniversityFamily = Readonly<{
   id: string;
   category: CategoryId;
