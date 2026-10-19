@@ -152,15 +152,12 @@ export type DeterminantProblem = Readonly<{
   reductions?: readonly DeterminantRowOperation[];
   dependentRows?: readonly [number, number];
 }>;
-export type LinearAlgebraProblem = Readonly<{
-  kind: "linear-inverse" | "linear-application";
-  matrix: readonly (readonly Rational[])[];
-  rhs?: readonly (readonly Rational[])[];
-  method?: "inverse" | "ax" | "xa" | "rank" | "classification" | "gauss";
-  rankA?: number;
-  rankAugmented?: number;
-  variables?: number;
-}>;
+export type LinearAlgebraProblem =
+  | Readonly<{ kind: "linear-inverse"; matrix: readonly (readonly Rational[])[]; method: "inverse" | "classification" }>
+  | Readonly<{ kind: "linear-application"; matrix: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; method: "ax" }>
+  | Readonly<{ kind: "linear-rank"; matrix: readonly (readonly Rational[])[] }>
+  | Readonly<{ kind: "linear-capelli"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
+  | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
