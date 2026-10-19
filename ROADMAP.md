@@ -13,9 +13,13 @@
 | MT-EDU-003 | Pięć poziomów i PL/EN — scalone i opublikowane | 29 rodzin L4/L5, pełna angielska nauka, niezmienna tożsamość i stan przy zmianie języka |
 | MT-004A | Moje postępy i składany brudnopis — scalone i opublikowane w PR #15 | Lokalna historia do 200 ukończeń, dashboard PL/EN, jawne mianowniki, filtry, eksport JSON i potwierdzone kasowanie; zwinięty brudnopis bez utraty Undo/Redo |
 | MT-EDU-004 P0–P3 | Scalone i opublikowane w PR #17 | Kolejność brudnopisu; układy, funkcje i granice ciągów: 16 nowych rodzin, 1728 wariantów, pełne PL/EN |
-| MT-EDU-005 P0 | Granice funkcji — zaimplementowane, do niezależnej recenzji | Punkt i nieskończoność, 0/0, faktoryzacja, granice jednostronne, f(a) a granica |
-| MT-EDU-005 P1 | Pochodne — zaimplementowane, do niezależnej recenzji | Dokładne współczynniki, suma/iloczyn/złożenie, styczna, monotoniczność, ekstrema i wielkości krańcowe |
-| Przyszły osobny projekt | Całki i dwie zmienne — poza MT-EDU-005 | Rodzina pierwotnych z +C, całki oznaczone; wartości, dziedziny, pochodne cząstkowe i gradient |
+| MT-EDU-005 P0/P1 | Scalone w PR #19 | Granice funkcji i pochodne: 12 rodzin, 1152 wariantów; łącznie 63 rodziny i 6381 wariantów |
+| MT-EDU-006A | Bieżący zakres Issue #20 | Wstępna [mapa 64 kompetencji](UWM_COVERAGE.md); autorskie Laplace 4×4/5×5, operacje wierszowe i własności wyznaczników |
+| MT-EDU-006B | Przyszły etap | Odwrotności i równania macierzowe (M05, M12–M14), Cramer dla czterech niewiadomych, rzędy/Capelli i Gauss z bezpieczną parametryzacją (U03–U08) |
+| MT-EDU-007 | Przyszły etap | Log/exp/moduł, granice Eulera, asymptoty, L’Hospital, pełne badanie funkcji, druga pochodna |
+| MT-EDU-008 | Przyszły etap | Całki I01–I08: bezpośrednie, trygonometryczne, podstawienie, części, powracające, oznaczone, pola, długości łuków |
+| MT-EDU-009 | Przyszły etap | Dwie zmienne W01–W03: pochodne cząstkowe, ekstrema, granice i ciągłość |
+| MT-EXAM-001 | Przyszły etap po domknięciu mapy | Tryb sprawdzianu, dobór umiejętności i powtórki |
 | MT-004B / MT-004C | Możliwe kolejne etapy — poza tym PR | Dobrowolna powtórka słabszych tematów, bezpieczny import lub dalsze funkcje po osobnej decyzji |
 | MT-005 | Pilotaż | Testy użyteczności z dorosłymi uczącymi się, poprawki treści i dostępności |
 
@@ -37,10 +41,10 @@ P0–P3 obejmują 16 nowych rodzin i 1728 nowych instancji, po 24 warianty dla 7
 
 PR #17 został scalony i opublikowany, squash `afcb24886e80ddf06b6cee95a274c5237ef4e752`. Dawne dodatkowe P4/P5 są realizowane jako osobny MT-EDU-005. P6 pozostaje osobnym przyszłym projektem: wymaga jawnego +C, dokładnego F(górna)−F(dolna), precyzyjnej dziedziny dwóch zmiennych i uporządkowanego gradientu. Całek, funkcji wielu zmiennych ani egzaminu próbnego nie dodajemy w MT-EDU-005.
 
-### MT-EDU-005 — implementacja P0/P1 do recenzji
+### MT-EDU-005 — opublikowane w PR #19
 
 P0: 3 rodziny / 336 wariantów granic funkcji — punkt i strony, skracanie 0/0, dziedzina i f(a), sprzężenia pierwszego/drugiego rzędu, oba kierunki nieskończoności. P1: 9 rodzin / 816 wariantów — potęgowa, suma, iloczyn, łańcuch, iloraz w punkcie, styczna, znaki/monotoniczność, punkty stacjonarne z ekstremami i bez, wielkości krańcowe oraz maksimum zysku w ograniczonym przedziale produkcji.
 
-Razem 12 nowych rodzin, 1152 instancji w 48 wspieranych parach po 24. Cały katalog: 63 rodziny / 6381 instancji / 13 kategorii, po 55 rodzin L4/L5. Zachowano wszystkie 5229 opublikowanych lekcji PL/EN i ich kanoniczną tożsamość; niezależny audyt kontroluje wyniki i etapy. Zakres ma pełne PL/EN, testy sesji/progress, brudnopisu i responsywności, bez backendu, nowych zależności czy dowolnych odpowiedzi symbolicznych. Ostateczne testy, CI dla dokładnego HEAD oraz recenzja Work pozostają warunkiem zatwierdzenia PR. Implementacja nie oznacza merge ani publikacji.
+Razem 12 nowych rodzin, 1152 instancji w 48 wspieranych parach po 24. Cały katalog: 63 rodziny / 6381 instancji / 13 kategorii, po 55 rodzin L4/L5. Zachowano wszystkie 5229 wcześniejszych lekcji PL/EN i ich kanoniczną tożsamość. PR #19 został scalony w `69452a655178ed073050bdf1b7dfe9e64dd15ebe`; ten stan jest punktem wyjścia dla MT-EDU-006A. Aplikacja nie ma backendu, nowych zależności ani dowolnego parsera symbolicznego.
 
 Wykresy SVG pozostają opcjonalną pomocą na przyszłość; nie dodano ciężkich bibliotek. Ręczna kontrola fizycznego Safari pozostaje osobnym zadaniem przed scaleniem. Gotowość do recenzji nie oznacza zgody na merge lub publikację. Nie rozpoczęto MT-004B/004C ani nowej adaptacji.
