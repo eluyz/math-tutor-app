@@ -1,6 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **62 rodzin**, **6309 instancji**. `allTemplates` i `taskPool` obejmują zachowane 35 historycznych rodzin oraz 16 nowych z P1–P3. Po 54 rodziny wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **63 rodzin**, **6381 instancji**. `allTemplates` i `taskPool` obejmują zachowane 51 rodzin po MT-EDU-004 oraz 12 nowych z MT-EDU-005. Po 55 rodzin wspierają advanced i expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele MT-EDU-004 i MT-EDU-005. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+
+Łącznie rodziny L4: **55**, L5: **55**.
 
 ## Pierwotne rodziny
 
@@ -59,7 +61,7 @@ Cztery nowe rodziny powtórkowe dodano do istniejących kategorii algebry/równa
 
 Nową rodzinę edukacyjną dodaj do odpowiedniego modułu `education/`, wybierz precyzyjny typ odpowiedzi, zdefiniuj skończony zakres wariantu i własne wyjaśnienia krokowe. Dodaj niezależny rachunek w audycie oraz test UI, jeśli zmienia się sposób odpowiedzi. Nie zwiększaj liczby niezależnych parametrów pól macierzy. Stare skalarne rodziny można nadal rozszerzać przez `Template`, ale każda zmiana wymaga odpowiedniego niezależnego audytu.
 
-Bez `eval`, zaokrąglania, dowolnego parsera symbolicznego, Viète'a, macierzy odwrotnej, Cramera i analizy matematycznej w obecnym zakresie. Trwała historia to MT-004. Przy przyszłym tłumaczeniu teksty rodzin należy przenieść do katalogów językowych.
+Historyczny zakres MT-EDU-001 nie obejmował Viète'a, macierzy odwrotnej, Cramera ani analizy matematycznej. Późniejsze sekcje opisują wdrożone Cramera i analizę; MT-004A dodało historię, a MT-EDU-003 pełne katalogi PL/EN. Nadal nie używamy `eval`, zaokrągleń ani dowolnego parsera odpowiedzi symbolicznych.
 
 ## MT-EDU-003 — pięć poziomów i dwie wersje językowe
 
@@ -126,7 +128,7 @@ Nie dodano nowych nazw rodzin: dotychczasowe rodziny uzyskały jawne wieloetapow
 
 MT-EDU-004: **1728** nowych instancji; łącznie **5229**. Rdzeń MT-EDU-003 zachowuje wszystkie 3501 instancji i niezmienione treści/wyniki. Każda deklarowana kombinacja poniżej ma 24 odrębne warianty.
 
-Nowe rodziny: **16**. Pary rodzina/poziom: **72**. Łącznie rodziny L4: **54**, L5: **54**.
+Nowe rodziny: **16**. Pary rodzina/poziom: **72**. W opublikowanym MT-EDU-004 było łącznie 43 rodzin L4 i 43 L5.
 
 ### P1: układy równań — 504 instancje
 
@@ -165,11 +167,11 @@ Każda z 37 par ma 24 warianty. Przedziały są normalizowanymi zbiorami z wymie
 
 14 par × 24 warianty. Typ `limit` rozróżnia dokładną liczbę, +∞, −∞ i brak granicy. Nieprawidłowy zapis liczby jest błędem formatu, a nie błędną oceną matematyczną. Ciągi geometryczne są analizowane symbolicznie po n=2k+p i połączeniu równych podstaw. Oscylacja ani postać ∞−∞ nie jest automatycznie wynikiem nieskończonym. Audyt używa niezależnego splotu wielomianów, osobnego grupowania dodatnich modułów i dokładnych tożsamości sprzężenia; nie zgaduje granic z kilku wyrazów.
 
-P4–P6 pozostają przyszłym zakresem ROADMAP. Powyższy katalog obejmuje wyłącznie P1–P3; P0 zmienia brudnopis bez dodawania instancji.
+MT-EDU-004 zostało scalone i opublikowane w PR #17. Powyższy historyczny katalog obejmuje P1–P3; P0 zmieniło brudnopis bez dodawania instancji. Dawne P4/P5 realizuje MT-EDU-005 poniżej; P6 pozostaje przyszłym zakresem ROADMAP.
 
-## MT-EDU-005 — P0: granice funkcji
+## MT-EDU-005 — P0/P1: granice funkcji i pochodne
 
-MT-EDU-005: **1080** nowych instancji; łącznie **6309**.
+MT-EDU-005: **1152** nowych instancji; łącznie **6381**.
 
 | Rodzina | Poziomy | Umiejętność |
 | --- | --- | --- |
@@ -179,7 +181,7 @@ MT-EDU-005: **1080** nowych instancji; łącznie **6309**.
 
 14 par po 24 odrębne warianty. Pierwiastki mają dodatni podpierwiastkowy w otoczeniu punktu dzięki dodatniemu wyrazowi stałemu s². Granice drugiego rzędu wynikają z dokładnych tożsamości różnicy kwadratów. Audyt używa niezależnego rozwinięcia dwumianowego wokół punktu, a nie produkcyjnego dzielenia syntetycznego; sprawdza rachunki pośrednie i oba języki. P0 obejmuje 336 instancji. P1 jest opisany poniżej.
 
-### P1 — pochodne: 744 instancje
+### P1 — pochodne: 816 instancji
 
 | Rodzina | Poziomy | Umiejętność |
 | --- | --- | --- |
@@ -188,8 +190,11 @@ MT-EDU-005: **1080** nowych instancji; łącznie **6309**.
 | derivative-rational-point | medium, hard, advanced, expert | Dziedzina i reguła ilorazu; iloczyn/łańcuch w liczniku, niezerowy mianownik |
 | derivative-tangent | medium, hard, advanced, expert | f(a), f′(a), y=mx+b; weryfikacja obu warunków stycznej |
 | derivative-stationary | hard, advanced, expert | Kwadratowa, złożenie, sześcienna z dwoma ekstremami albo stacjonarnym punktem bez ekstremum |
+| derivative-extrema | hard, advanced, expert | Klasyfikacja minimum/maksimum i punktu stacjonarnego bez ekstremum; kolejność rosnących x |
 | derivative-monotonicity | hard, advanced, expert | Dokładne zbiory f′>0 i f′<0; otwarte końce i podwójne zero pochodnej |
 | derivative-economics | medium, hard, advanced, expert | Koszt/przychód krańcowy; zysk, iloczyn ceny i produkcji; złożony koszt i różnica pochodnych |
 | derivative-profit-maximum | hard, advanced, expert | Maksimum wklęsłego zysku na 0≤q≤Q; wnętrze, zero i górny limit produkcji |
 
-31 par po 24 warianty. Współczynniki podaje się od najwyższej opisanej potęgi do stałej (pole 1); zera są wymagane. Styczna ma pola m,b, maksimum q*,P(q*). q jest ciągłą wielkością rzeczywistą; pochodne krańcowe mają jednostkę pieniężną na jednostkę produkcji i nie są dokładnym przyrostem dla dodatkowej całej jednostki. Audyt niezależnie rozwija wielomiany przez splot i dwumian, kontroluje każdy pokazany wzór pochodnej oraz rachunek, znak w każdej komórce między zerami, warunki stycznej i certyfikat wklęsłości z uwzględnieniem końców przedziału.
+34 par po 24 warianty. Współczynniki podaje się od najwyższej opisanej potęgi do stałej (pole 1); zera są wymagane. Styczna ma pola m,b, maksimum q*,P(q*). q jest ciągłą wielkością rzeczywistą; pochodne krańcowe mają jednostkę pieniężną na jednostkę produkcji i nie są dokładnym przyrostem dla dodatkowej całej jednostki. Audyt niezależnie rozwija wielomiany przez splot i dwumian, kontroluje każdy pokazany wzór pochodnej oraz rachunek, znak w każdej komórce między zerami, warunki stycznej i certyfikat wklęsłości z uwzględnieniem końców przedziału.
+
+Niezmienność wszystkich 5229 poprzednich instancji, ich poziomów, ID, contentKey i pełnych lekcji PL/EN kontroluje fixture z opublikowanego main afcb248 w history-regression.test.ts. Nie wolno aktualizować jego skrótów po zmianie nowego generatora. Nowy cały katalog: 63 rodziny, 6381 instancji, 13 kategorii; 48 nowych par ×24=1152.

@@ -62,14 +62,20 @@ function formula(v: number, level: Difficulty): PolynomialFormula {
   const i = difficulties.indexOf(level),
     left = [r(v - 11, i ? 2 : 1), r((v % 5) - 2), r(v % 2 ? -1 : 2)],
     right = [r((v % 7) - 3), r(1, 2), r(1)];
-  if (i === 0) return poly(v % 4 === 0 ? left.slice(0, 1) : v % 4 === 1 ? left.slice(0, 2) : left);
+  if (i === 0)
+    return poly(
+      v % 4 === 0 ? left.slice(0, 1) : v % 4 === 1 ? left.slice(0, 2) : left,
+    );
   if (i === 1)
     return { kind: "sum", left: poly(left), right: poly(right.slice(0, 2)) };
   if (i === 2) return { kind: "product", left: poly(left), right: poly(right) };
   const composed: PolynomialFormula = {
     kind: "composition",
-    outer: i === 3 ? [r(0), r(0), r(0), r(1)] : [r(v % 3), r((v % 5) - 2), r(0), r(3, 2)],
-    inner: i === 3 ? [r(v - 11), r(1 + v % 3, 2)] : right,
+    outer:
+      i === 3
+        ? [r(0), r(0), r(0), r(1)]
+        : [r(v % 3), r((v % 5) - 2), r(0), r(3, 2)],
+    inner: i === 3 ? [r(v - 11), r(1 + (v % 3), 2)] : right,
   };
   if (i === 3) return composed;
   return {
@@ -98,7 +104,12 @@ function analysisFormula(v: number, level: Difficulty): PolynomialFormula {
       outer: expandFormula(base),
       inner: [r((v % 4) - 2), r(v % 2 ? -2 : 3, 2)],
     };
-  if (v % 4 === 0) return { kind: "composition", outer: [r(v - 11), r(0), r(0), lead], inner: [negative(at), r(1)] };
+  if (v % 4 === 0)
+    return {
+      kind: "composition",
+      outer: [r(v - 11), r(0), r(0), lead],
+      inner: [negative(at), r(1)],
+    };
   const other = add(at, r(1 + (v % 3), 2)),
     slope = polynomialProduct(
       [negative(at), r(1)],
@@ -111,13 +122,11 @@ function analysisFormula(v: number, level: Difficulty): PolynomialFormula {
 function economy(v: number, level: Difficulty): DerivativeProblem {
   const i = difficulties.indexOf(level),
     at = r(v + 1, 2),
-    costCoefficients = [
-      r(v + 3),
-      r(2),
-      r(1, 2),
-      ...(i > 2 ? [r(1, 6)] : []),
-    ],
-    cost: PolynomialFormula = i > 2 ? { kind: "composition", outer: costCoefficients, inner: [r(1), r(1)] } : poly(costCoefficients);
+    costCoefficients = [r(v + 3), r(2), r(1, 2), ...(i > 2 ? [r(1, 6)] : [])],
+    cost: PolynomialFormula =
+      i > 2
+        ? { kind: "composition", outer: costCoefficients, inner: [r(1), r(1)] }
+        : poly(costCoefficients);
   const price = [r(10 + (v + 1) ** 2), r(-1), ...(i === 4 ? [r(-1, 2)] : [])];
   const revenue: PolynomialFormula =
     i === 1
@@ -127,7 +136,7 @@ function economy(v: number, level: Difficulty): DerivativeProblem {
     kind: "derivative-economics",
     cost,
     revenue,
-    target: i === 1 ? v % 2 ? "cost" : "revenue" : "profit",
+    target: i === 1 ? (v % 2 ? "cost" : "revenue") : "profit",
     at,
   };
 }
@@ -137,25 +146,60 @@ const analysisLevels = difficulties.filter((l) =>
   nonEasy = difficulties.filter((l) => l !== "easy");
 export const derivativeFamilies: readonly UniversityFamily[] = [
   {
-    id: "derivative-rational-point", category: "derivatives",
-    titles: { pl: "Pochodna ilorazu w punkcie", en: "Quotient derivative at a point" },
+    id: "derivative-rational-point",
+    category: "derivatives",
+    titles: {
+      pl: "Pochodna ilorazu w punkcie",
+      en: "Quotient derivative at a point",
+    },
     supportedDifficulties: nonEasy,
     create: (v, l) => {
-      const at = r(v - 11, 2), root = [negative(at), r(1)];
-      return { kind: "derivative-rational", numerator: formula(v, l), at,
-        denominator: l === "medium" ? [sub(r(1), at), r(1)] : polynomialSum(polynomialProduct(root, root), [r(1)], false) };
+      const at = r(v - 11, 2),
+        root = [negative(at), r(1)];
+      return {
+        kind: "derivative-rational",
+        numerator: formula(v, l),
+        at,
+        denominator:
+          l === "medium"
+            ? [sub(r(1), at), r(1)]
+            : polynomialSum(polynomialProduct(root, root), [r(1)], false),
+      };
     },
   },
   {
-    id: "derivative-profit-maximum", category: "derivatives",
-    titles: { pl: "Maksymalny zysk z ograniczeniem produkcji", en: "Maximum profit with an output constraint" },
+    id: "derivative-profit-maximum",
+    category: "derivatives",
+    titles: {
+      pl: "Maksymalny zysk z ograniczeniem produkcji",
+      en: "Maximum profit with an output constraint",
+    },
     supportedDifficulties: analysisLevels,
     create: (v, l) => {
-      const A = r(1 + v % 3, 2), at = r(v - 8, 2), slope = mul(mul(r(2), A), at), price = r(50 + v),
-        revenue: PolynomialFormula = l === "expert" ? { kind: "product", left: poly([r(0), r(1)]), right: poly([price, r(-1, 4)]) } : poly([r(0), price, r(-1, 4)]),
+      const A = r(1 + (v % 3), 2),
+        at = r(v - 8, 2),
+        slope = mul(mul(r(2), A), at),
+        price = r(50 + v),
+        revenue: PolynomialFormula =
+          l === "expert"
+            ? {
+                kind: "product",
+                left: poly([r(0), r(1)]),
+                right: poly([price, r(-1, 4)]),
+              }
+            : poly([r(0), price, r(-1, 4)]),
         cost = poly([r(v + 10), sub(price, slope), sub(A, r(1, 4))]),
-        profit: PolynomialFormula = l === "hard" ? poly([r(-v - 10), slope, negative(A)]) : { kind: "difference", left: revenue, right: cost };
-      return { kind: "derivative-maximum", profit, cost: l === "hard" ? undefined : cost, revenue: l === "hard" ? undefined : revenue, cap: r(3 + v % 5) };
+        profit: PolynomialFormula =
+          l === "hard"
+            ? poly([r(-v - 10), slope, negative(A)])
+            : { kind: "difference", left: revenue, right: cost };
+      return {
+        kind: "derivative-maximum",
+        profit,
+        cost: l === "hard" ? undefined : cost,
+        revenue: l === "hard" ? undefined : revenue,
+        cap: r(3 + (v % 5)),
+      };
     },
   },
   {
@@ -212,6 +256,20 @@ export const derivativeFamilies: readonly UniversityFamily[] = [
     }),
   },
   {
+    id: "derivative-extrema",
+    category: "derivatives",
+    titles: {
+      pl: "Klasyfikacja punktów stacjonarnych",
+      en: "Classifying stationary points",
+    },
+    supportedDifficulties: analysisLevels,
+    create: (v, l) => ({
+      kind: "derivative-analysis",
+      target: "classification",
+      formula: analysisFormula(v, l),
+    }),
+  },
+  {
     id: "derivative-monotonicity",
     category: "derivatives",
     titles: {
@@ -258,8 +316,13 @@ function differentiate(
     return result;
   }
   if (p.kind === "composition") {
-    lesson.work(`F(x) = ${polynomialText(p.outer)}; g(x) = ${polynomialText(p.inner)}; ${name}(x) = F(g(x))`,
-      t("Oddzielamy funkcję zewnętrzną F od wewnętrznej g. Różniczkujemy je osobno, a potem stosujemy regułę łańcuchową.", "Separate the outer function F from the inner function g. Differentiate them separately, then apply the chain rule."));
+    lesson.work(
+      `F(x) = ${polynomialText(p.outer)}; g(x) = ${polynomialText(p.inner)}; ${name}(x) = F(g(x))`,
+      t(
+        "Oddzielamy funkcję zewnętrzną F od wewnętrznej g. Różniczkujemy je osobno, a potem stosujemy regułę łańcuchową.",
+        "Separate the outer function F from the inner function g. Differentiate them separately, then apply the chain rule.",
+      ),
+    );
     const outer = differentiate(poly(p.outer), lesson, "F"),
       inner = differentiate(poly(p.inner), lesson, "g"),
       composed = polynomialComposition(outer, p.inner, trace);
@@ -274,8 +337,13 @@ function differentiate(
     );
     return result;
   }
-  lesson.work(`u(x) = ${formulaText(p.left)}; v(x) = ${formulaText(p.right)}`,
-    t("Najpierw rozpoznajemy dwie funkcje składowe i działanie, które je łączy.", "First identify the two component functions and the operation connecting them."));
+  lesson.work(
+    `u(x) = ${formulaText(p.left)}; v(x) = ${formulaText(p.right)}`,
+    t(
+      "Najpierw rozpoznajemy dwie funkcje składowe i działanie, które je łączy.",
+      "First identify the two component functions and the operation connecting them.",
+    ),
+  );
   const left = differentiate(p.left, lesson, "u"),
     right = differentiate(p.right, lesson, "v");
   if (p.kind === "product") {
@@ -339,52 +407,135 @@ export function presentDerivative(p: DerivativeProblem, locale: Locale) {
   const lesson = teaching(locale),
     { t } = lesson;
   if (p.kind === "derivative-rational") {
-    const trace: Calculation[] = [], top = expandFormula(p.numerator, trace), bottom = p.denominator,
+    const trace: Calculation[] = [],
+      top = expandFormula(p.numerator, trace),
+      bottom = p.denominator,
       denominator = polynomialValue(bottom, p.at, trace);
-    if (zero(denominator)) throw new Error("Derivative point is outside the domain");
-    lesson.work(`D(${f(p.at)}) = ${f(denominator)} ≠ 0`,
-      t("Przed różniczkowaniem sprawdzamy dziedzinę. Iloraz jest różniczkowalny w otoczeniu punktu tylko wtedy, gdy mianownik w nim nie znika.",
-        "Check the domain before differentiating. The quotient is differentiable near the point only if its denominator is nonzero there."), ...trace.splice(0));
-    const dn = differentiate(p.numerator, lesson, "N"), dd = differentiate(poly(bottom), lesson, "D"),
-      nAt = polynomialValue(top, p.at, trace), dnAt = polynomialValue(dn, p.at, trace), ddAt = polynomialValue(dd, p.at, trace),
-      left = calculate("product", dnAt, denominator), right = calculate("product", nAt, ddAt),
-      numerator = calculate("difference", left.result, right.result), square = calculate("product", denominator, denominator),
+    if (zero(denominator))
+      throw new Error("Derivative point is outside the domain");
+    lesson.work(
+      `D(${f(p.at)}) = ${f(denominator)} ≠ 0`,
+      t(
+        "Przed różniczkowaniem sprawdzamy dziedzinę. Iloraz jest różniczkowalny w otoczeniu punktu tylko wtedy, gdy mianownik w nim nie znika.",
+        "Check the domain before differentiating. The quotient is differentiable near the point only if its denominator is nonzero there.",
+      ),
+      ...trace.splice(0),
+    );
+    const dn = differentiate(p.numerator, lesson, "N"),
+      dd = differentiate(poly(bottom), lesson, "D"),
+      nAt = polynomialValue(top, p.at, trace),
+      dnAt = polynomialValue(dn, p.at, trace),
+      ddAt = polynomialValue(dd, p.at, trace),
+      left = calculate("product", dnAt, denominator),
+      right = calculate("product", nAt, ddAt),
+      numerator = calculate("difference", left.result, right.result),
+      square = calculate("product", denominator, denominator),
       quotient = calculate("quotient", numerator.result, square.result);
-    lesson.work(`N(a)=${f(nAt)}; N′(a)=${f(dnAt)}; D(a)=${f(denominator)}; D′(a)=${f(ddAt)}`,
-      t("Podstawiamy argument do obu funkcji i obu pochodnych. Zachowujemy kolejność N′D−ND′; sama różnica pochodnych nie jest regułą ilorazu.",
-        "Evaluate both functions and both derivatives. Keep the order N′D−ND′; subtracting derivatives alone is not the quotient rule."), ...trace);
-    lesson.work(`f′(a) = (N′(a)D(a) − N(a)D′(a))/D(a)² = ${f(quotient.result)}`,
-      t("Reguła ilorazu ma kwadrat mianownika. Wyliczamy dokładny licznik i dodatni kwadrat niezerowego mianownika, a dopiero potem dzielimy.",
-        "The quotient rule squares the denominator. Calculate the exact numerator and the positive square of the nonzero denominator before dividing."), left, right, numerator, square, quotient);
-    return lesson.finish(`${t("Oblicz pochodną w punkcie", "Evaluate the derivative at the point")}: f′(${f(p.at)}).\nf(x) = (${formulaText(p.numerator)})/(${polynomialText(bottom)})`,
+    lesson.work(
+      `N(a)=${f(nAt)}; N′(a)=${f(dnAt)}; D(a)=${f(denominator)}; D′(a)=${f(ddAt)}`,
+      t(
+        "Podstawiamy argument do obu funkcji i obu pochodnych. Zachowujemy kolejność N′D−ND′; sama różnica pochodnych nie jest regułą ilorazu.",
+        "Evaluate both functions and both derivatives. Keep the order N′D−ND′; subtracting derivatives alone is not the quotient rule.",
+      ),
+      ...trace,
+    );
+    lesson.work(
+      `f′(a) = (N′(a)D(a) − N(a)D′(a))/D(a)² = ${f(quotient.result)}`,
+      t(
+        "Reguła ilorazu ma kwadrat mianownika. Wyliczamy dokładny licznik i dodatni kwadrat niezerowego mianownika, a dopiero potem dzielimy.",
+        "The quotient rule squares the denominator. Calculate the exact numerator and the positive square of the nonzero denominator before dividing.",
+      ),
+      left,
+      right,
+      numerator,
+      square,
+      quotient,
+    );
+    return lesson.finish(
+      `${t("Oblicz pochodną w punkcie", "Evaluate the derivative at the point")}: f′(${f(p.at)}).\nf(x) = (${formulaText(p.numerator)})/(${polynomialText(bottom)})`,
       { kind: "scalar", value: quotient.result },
-      t("Sprawdź mianownik w podanym punkcie. Następnie zastosuj regułę ilorazu.", "Check the denominator at the given point, then apply the quotient rule."),
-      t("Licznik pochodnej to N′D−ND′, a mianownik D². Nie odwracaj kolejności odejmowania.", "The derivative numerator is N′D−ND′ and its denominator is D². Keep the subtraction order."));
+      t(
+        "Sprawdź mianownik w podanym punkcie. Następnie zastosuj regułę ilorazu.",
+        "Check the denominator at the given point, then apply the quotient rule.",
+      ),
+      t(
+        "Licznik pochodnej to N′D−ND′, a mianownik D². Nie odwracaj kolejności odejmowania.",
+        "The derivative numerator is N′D−ND′ and its denominator is D². Keep the subtraction order.",
+      ),
+    );
   }
   if (p.kind === "derivative-maximum") {
-    const trace: Calculation[] = [], coefficients = expandFormula(p.profit, trace), [constant, linear, leading] = coefficients;
-    if (coefficients.length !== 3 || leading.numerator >= 0n || p.cap.numerator <= 0n) throw new Error("A concave quadratic and positive output cap are required");
-    lesson.work(`P(q) = ${polynomialText(coefficients, "q")}; 0≤q≤${f(p.cap)}`,
-      t("Zysk to przychód pomniejszony o koszt. Dopuszczamy ciągłą, rzeczywistą wielkość produkcji q w podanym przedziale; jednostki zysku są pieniężne.",
-        "Profit is revenue minus cost. Output q is a continuous real quantity in the given interval; profit is measured in currency units."), ...trace.splice(0));
-    const derivative = derivativeCoefficients(coefficients, trace), twoA = calculate("product", r(2), leading),
+    const trace: Calculation[] = [],
+      coefficients = expandFormula(p.profit, trace),
+      [constant, linear, leading] = coefficients;
+    if (
+      coefficients.length !== 3 ||
+      leading.numerator >= 0n ||
+      p.cap.numerator <= 0n
+    )
+      throw new Error(
+        "A concave quadratic and positive output cap are required",
+      );
+    lesson.work(
+      `P(q) = ${polynomialText(coefficients, "q")}; 0≤q≤${f(p.cap)}`,
+      t(
+        "Zysk to przychód pomniejszony o koszt. Dopuszczamy ciągłą, rzeczywistą wielkość produkcji q w podanym przedziale; jednostki zysku są pieniężne.",
+        "Profit is revenue minus cost. Output q is a continuous real quantity in the given interval; profit is measured in currency units.",
+      ),
+      ...trace.splice(0),
+    );
+    const derivative = derivativeCoefficients(coefficients, trace),
+      twoA = calculate("product", r(2), leading),
       critical = calculate("quotient", negative(linear), twoA.result),
-      optimum = compare(critical.result, r(0)) < 0 ? r(0) : compare(critical.result, p.cap) > 0 ? p.cap : critical.result;
-    lesson.work(`P′(q) = ${polynomialText(derivative, "q")}; P′(q)=0 ⇒ q₀=${f(critical.result)}`,
-      t("Stosujemy regułę potęgową i rozwiązujemy liniowe równanie pochodnej. Punkt stacjonarny jest tylko kandydatem: musimy sprawdzić ograniczenie produkcji.",
-        "Apply the power rule and solve the linear derivative equation. A stationary point is only a candidate: the output constraint still matters."), ...trace.splice(0), twoA, critical);
-    lesson.work(`P″(q) = ${f(twoA.result)} < 0; q* = ${f(optimum)}`,
-      t("Ujemna druga pochodna oznacza ścisłą wklęsłość. P′ jest dodatnia przed q₀ i ujemna po nim. Jeśli q₀ leży poza przedziałem, zysk jest monotoniczny na całym przedziale, więc maksimum jest na właściwym końcu.",
-        "The negative second derivative gives strict concavity. P′ is positive before q₀ and negative after it. If q₀ lies outside the interval, profit is monotone throughout the interval and the appropriate endpoint maximizes it."));
-    const height = polynomialValue(coefficients, optimum, trace), check = polynomialValue(derivative, optimum, trace);
-    lesson.work(`P(${f(optimum)}) = ${f(height)}; P′(${f(optimum)}) = ${f(check)}`,
-      t("Podstawiamy dopuszczalne q* do pierwotnego zysku. Pochodna na końcu ograniczonego przedziału nie musi być zerowa. Ujemne maksimum oznacza najmniejszą stratę przy tych założeniach.",
-        "Evaluate the original profit at the feasible q*. At an interval endpoint the derivative need not be zero. A negative maximum means the smallest loss under these assumptions."), ...trace);
-    const data = p.cost && p.revenue ? `C(q) = ${formulaText(p.cost).replaceAll("x", "q")}\nR(q) = ${formulaText(p.revenue).replaceAll("x", "q")}; P=R−C` : `P(q) = ${polynomialText([constant, linear, leading], "q")}`;
-    return lesson.finish(`${t("Znajdź produkcję q* maksymalizującą zysk i wartość P(q*). Produkcja jest rzeczywista", "Find the output q* maximizing profit and the value P(q*). Output is real-valued")}; 0≤q≤${f(p.cap)}.\n${data}`,
+      optimum =
+        compare(critical.result, r(0)) < 0
+          ? r(0)
+          : compare(critical.result, p.cap) > 0
+            ? p.cap
+            : critical.result;
+    lesson.work(
+      `P′(q) = ${polynomialText(derivative, "q")}; P′(q)=0 ⇒ q₀=${f(critical.result)}`,
+      t(
+        "Stosujemy regułę potęgową i rozwiązujemy liniowe równanie pochodnej. Punkt stacjonarny jest tylko kandydatem: musimy sprawdzić ograniczenie produkcji.",
+        "Apply the power rule and solve the linear derivative equation. A stationary point is only a candidate: the output constraint still matters.",
+      ),
+      ...trace.splice(0),
+      twoA,
+      critical,
+    );
+    lesson.work(
+      `P″(q) = ${f(twoA.result)} < 0; q* = ${f(optimum)}`,
+      t(
+        "Ujemna druga pochodna oznacza ścisłą wklęsłość. P′ jest dodatnia przed q₀ i ujemna po nim. Jeśli q₀ leży poza przedziałem, zysk jest monotoniczny na całym przedziale, więc maksimum jest na właściwym końcu.",
+        "The negative second derivative gives strict concavity. P′ is positive before q₀ and negative after it. If q₀ lies outside the interval, profit is monotone throughout the interval and the appropriate endpoint maximizes it.",
+      ),
+    );
+    const height = polynomialValue(coefficients, optimum, trace),
+      check = polynomialValue(derivative, optimum, trace);
+    lesson.work(
+      `P(${f(optimum)}) = ${f(height)}; P′(${f(optimum)}) = ${f(check)}`,
+      t(
+        "Podstawiamy dopuszczalne q* do pierwotnego zysku. Pochodna na końcu ograniczonego przedziału nie musi być zerowa. Ujemne maksimum oznacza najmniejszą stratę przy tych założeniach.",
+        "Evaluate the original profit at the feasible q*. At an interval endpoint the derivative need not be zero. A negative maximum means the smallest loss under these assumptions.",
+      ),
+      ...trace,
+    );
+    const data =
+      p.cost && p.revenue
+        ? `C(q) = ${formulaText(p.cost).replaceAll("x", "q")}\nR(q) = ${formulaText(p.revenue).replaceAll("x", "q")}; P=R−C`
+        : `P(q) = ${polynomialText([constant, linear, leading], "q")}`;
+    return lesson.finish(
+      `${t("Znajdź produkcję q* maksymalizującą zysk i wartość P(q*). Produkcja jest rzeczywista", "Find the output q* maximizing profit and the value P(q*). Output is real-valued")}; 0≤q≤${f(p.cap)}.\n${data}`,
       { kind: "list", labels: ["q*", "P(q*)"], values: [optimum, height] },
-      t("Wyznacz funkcję zysku i jej pochodną. Uwzględnij oba końce dopuszczalnego przedziału.", "Find profit and its derivative. Include both endpoints of the feasible interval."),
-      t("Ujemny współczynnik przy q² daje wklęsłość. Sprawdź położenie punktu stacjonarnego względem ograniczeń.", "A negative q² coefficient gives concavity. Check where the stationary point lies relative to the constraints."));
+      t(
+        "Wyznacz funkcję zysku i jej pochodną. Uwzględnij oba końce dopuszczalnego przedziału.",
+        "Find profit and its derivative. Include both endpoints of the feasible interval.",
+      ),
+      t(
+        "Ujemny współczynnik przy q² daje wklęsłość. Sprawdź położenie punktu stacjonarnego względem ograniczeń.",
+        "A negative q² coefficient gives concavity. Check where the stationary point lies relative to the constraints.",
+      ),
+    );
   }
   if (p.kind === "derivative-economics") {
     const target: PolynomialFormula =
@@ -431,7 +582,9 @@ export function presentDerivative(p: DerivativeProblem, locale: Locale) {
   if (p.kind === "derivative-analysis") {
     const roots = polynomialRoots(derivative).sort(compare),
       second = derivativeCoefficients(derivative, trace),
-      positive = positivePolynomialSet(p.target === "negative" ? derivative.map(negative) : derivative);
+      positive = positivePolynomialSet(
+        p.target === "negative" ? derivative.map(negative) : derivative,
+      );
     if (derivative.length === 3) {
       const [c, b, a] = derivative,
         b2 = calculate("product", b, b),
@@ -470,16 +623,24 @@ export function presentDerivative(p: DerivativeProblem, locale: Locale) {
       ),
       ...trace.splice(0),
     );
-    const coordinates: Rational[] = [];
+    const coordinates: Rational[] = [],
+      classifications: string[] = [];
     for (const root of roots) {
       const y = polynomialValue(coefficients, root, trace),
         curvature = polynomialValue(second, root, trace);
       coordinates.push(root, y);
+      classifications.push(
+        zero(curvature) ? "none" : curvature.numerator > 0n ? "min" : "max",
+      );
       lesson.work(
         `(${f(root)}; ${f(y)}): f″(${f(root)}) = ${f(curvature)} ⇒ ${t(zero(curvature) ? "punkt stacjonarny bez ekstremum" : curvature.numerator > 0n ? "minimum lokalne" : "maksimum lokalne", zero(curvature) ? "stationary point without an extremum" : curvature.numerator > 0n ? "local minimum" : "local maximum")}`,
         t(
-          zero(curvature) ? "Samo f′=0 nie wystarcza. Tutaj pochodna jest niezerową stałą razy (x−x₀)²: po obu stronach ma ten sam znak, więc funkcja przechodzi przez punkt bez ekstremum." : "Obliczamy wysokość punktu w oryginalnej funkcji. Przy f′=0 dodatnia druga pochodna daje minimum, a ujemna maksimum.",
-          zero(curvature) ? "The equation f′=0 alone is insufficient. Here the derivative is a nonzero constant times (x−x₀)²: its sign is the same on both sides, so the point is not an extremum." : "Evaluate the original function for its height. At f′=0, a positive second derivative gives a minimum and a negative one a maximum.",
+          zero(curvature)
+            ? "Samo f′=0 nie wystarcza. Tutaj pochodna jest niezerową stałą razy (x−x₀)²: po obu stronach ma ten sam znak, więc funkcja przechodzi przez punkt bez ekstremum."
+            : "Obliczamy wysokość punktu w oryginalnej funkcji. Przy f′=0 dodatnia druga pochodna daje minimum, a ujemna maksimum.",
+          zero(curvature)
+            ? "The equation f′=0 alone is insufficient. Here the derivative is a nonzero constant times (x−x₀)²: its sign is the same on both sides, so the point is not an extremum."
+            : "Evaluate the original function for its height. At f′=0, a positive second derivative gives a minimum and a negative one a maximum.",
         ),
         ...trace.splice(0),
       );
@@ -492,18 +653,54 @@ export function presentDerivative(p: DerivativeProblem, locale: Locale) {
       ),
     );
     const answer: AnswerSpec =
-      p.target !== "stationary"
-        ? setAnswer(positive, roots[0])
-        : {
-            kind: "list",
-            values: coordinates,
-            labels: roots.flatMap((_, i) => [
-              `x${roots.length === 1 ? "₀" : i === 0 ? "₁" : "₂"}`,
-              `y${roots.length === 1 ? "₀" : i === 0 ? "₁" : "₂"}`,
-            ]),
-          };
+      p.target === "classification"
+        ? {
+            kind: "choice",
+            value: `ext:${classifications.join("-")}`,
+            options: [
+              {
+                value: "ext:min",
+                label: t("Jedno minimum lokalne", "One local minimum"),
+              },
+              {
+                value: "ext:max",
+                label: t("Jedno maksimum lokalne", "One local maximum"),
+              },
+              {
+                value: "ext:min-max",
+                label: t(
+                  "Minimum, potem maksimum (rosnąco według x)",
+                  "Minimum, then maximum (in increasing x order)",
+                ),
+              },
+              {
+                value: "ext:max-min",
+                label: t(
+                  "Maksimum, potem minimum (rosnąco według x)",
+                  "Maximum, then minimum (in increasing x order)",
+                ),
+              },
+              {
+                value: "ext:none",
+                label: t(
+                  "Jeden punkt stacjonarny bez ekstremum",
+                  "One stationary point without an extremum",
+                ),
+              },
+            ],
+          }
+        : p.target !== "stationary"
+          ? setAnswer(positive, roots[0])
+          : {
+              kind: "list",
+              values: coordinates,
+              labels: roots.flatMap((_, i) => [
+                `x${roots.length === 1 ? "₀" : i === 0 ? "₁" : "₂"}`,
+                `y${roots.length === 1 ? "₀" : i === 0 ? "₁" : "₂"}`,
+              ]),
+            };
     return lesson.finish(
-      `${p.target === "stationary" ? t("Znajdź współrzędne wszystkich punktów stacjonarnych; uporządkuj je według rosnącego x", "Find all stationary-point coordinates, ordered by increasing x") : t(`Wyznacz zbiór argumentów, dla których f′(x)${p.target === "negative" ? "<" : ">"}0`, `Find the set where f′(x)${p.target === "negative" ? "<" : ">"}0`)}.\nf(x) = ${formulaText(p.formula)}`,
+      `${p.target === "classification" ? t("Sklasyfikuj wszystkie punkty stacjonarne; podaj typy w kolejności rosnącego x", "Classify all stationary points in increasing x order") : p.target === "stationary" ? t("Znajdź współrzędne wszystkich punktów stacjonarnych; uporządkuj je według rosnącego x", "Find all stationary-point coordinates, ordered by increasing x") : t(`Wyznacz zbiór argumentów, dla których f′(x)${p.target === "negative" ? "<" : ">"}0`, `Find the set where f′(x)${p.target === "negative" ? "<" : ">"}0`)}.\nf(x) = ${formulaText(p.formula)}`,
       answer,
       t(
         "Oblicz pochodną i jej wszystkie miejsca zerowe.",

@@ -146,29 +146,73 @@ for (const width of [375, 768, 1280])
             .click();
         }
         expect(directions.size).toBe(2);
-        for (const [index, level] of (en ? ["Medium", "Hard", "Advanced", "Expert"] : ["Średni", "Trudny", "Zaawansowany", "Ekspert"]).entries()) {
-          await page.getByRole("button", {name:level,exact:true}).click();
-          await page.getByRole("button", {name: en ? /Limits with square roots/ : /Granice z pierwiastkami/}).click();
-          const text=await page.locator(".question").innerText();
-          const radicands=[...text.matchAll(/√\(\(([^()]+)\) \+ \(([^()]+)\)·h \+ \(([^()]+)\)·h²\)/g)];
-          const [squared,k,b]=radicands[0].slice(1).map(shownFraction);
+        for (const [index, level] of (en
+          ? ["Medium", "Hard", "Advanced", "Expert"]
+          : ["Średni", "Trudny", "Zaawansowany", "Ekspert"]
+        ).entries()) {
+          await page.getByRole("button", { name: level, exact: true }).click();
+          await page
+            .getByRole("button", {
+              name: en ? /Limits with square roots/ : /Granice z pierwiastkami/,
+            })
+            .click();
+          const text = await page.locator(".question").innerText();
+          const radicands = [
+            ...text.matchAll(
+              /√\(\(([^()]+)\) \+ \(([^()]+)\)·h \+ \(([^()]+)\)·h²\)/g,
+            ),
+          ];
+          const [squared, k, b] = radicands[0].slice(1).map(shownFraction);
           // s is a small positive integer; exact integer search, never sqrt(float).
-          let root=1n;
-          while(root*root*squared.denominator < squared.numerator) root++;
-          expect(root*root*squared.denominator).toBe(squared.numerator);
-          const twice=q(2n*root), tangent=d(k,twice);
-          const expected=index===3 ? d(s(b,shownFraction(radicands[1][3])),twice) : index===2 ? d(s(b,m(tangent,tangent)),twice) : tangent;
+          let root = 1n;
+          while (root * root * squared.denominator < squared.numerator) root++;
+          expect(root * root * squared.denominator).toBe(squared.numerator);
+          const twice = q(2n * root),
+            tangent = d(k, twice);
+          const expected =
+            index === 3
+              ? d(s(b, shownFraction(radicands[1][3])), twice)
+              : index === 2
+                ? d(s(b, m(tangent, tangent)), twice)
+                : tangent;
           await page.locator("#answer").selectOption("finite");
           await page.locator("#limit-value").fill("1/0");
-          await page.getByRole("button", {name:en?"Check":"Sprawdź",exact:true}).click();
-          await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+          await page
+            .getByRole("button", {
+              name: en ? "Check" : "Sprawdź",
+              exact: true,
+            })
+            .click();
+          await expect(page.locator(".feedback")).toHaveClass(
+            "feedback invalid",
+          );
           await page.locator("#limit-value").fill(fractionText(expected));
-          await page.getByRole("button", {name:en?"Check":"Sprawdź",exact:true}).click();
-          await expect(page.locator(".feedback")).toHaveClass("feedback correct");
-          await page.getByRole("button", {name:en?"Show solution":"Pokaż rozwiązanie",exact:true}).click();
-          await page.getByRole("button", {name:en?"Show all steps":"Pokaż wszystkie kroki",exact:true}).click();
+          await page
+            .getByRole("button", {
+              name: en ? "Check" : "Sprawdź",
+              exact: true,
+            })
+            .click();
+          await expect(page.locator(".feedback")).toHaveClass(
+            "feedback correct",
+          );
+          await page
+            .getByRole("button", {
+              name: en ? "Show solution" : "Pokaż rozwiązanie",
+              exact: true,
+            })
+            .click();
+          await page
+            .getByRole("button", {
+              name: en ? "Show all steps" : "Pokaż wszystkie kroki",
+              exact: true,
+            })
+            .click();
           await expect(page.locator(".solution-final")).toBeVisible();
-          if(en) expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
+          if (en)
+            expect(await page.locator("main").innerText()).not.toMatch(
+              polishLearningText,
+            );
         }
         expect(errors).toEqual([]);
         expect(

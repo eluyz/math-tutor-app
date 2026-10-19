@@ -1,5 +1,9 @@
 import { test, expect } from "@playwright/test";
-import { shownFraction, shownPolynomial, shownFormula } from "./helpers/functions";
+import {
+  shownFraction,
+  shownPolynomial,
+  shownFormula,
+} from "./helpers/functions";
 import { fractionText } from "./helpers/systems";
 import {
   convolution,
@@ -44,9 +48,28 @@ for (const width of [375, 768, 1280])
             en ? "Easy" : "Łatwy",
             en ? /Derivative: formula/ : /Pochodna: wzór/,
           ],
-          ["formula", en ? "Advanced" : "Zaawansowany", en ? /Derivative: formula/ : /Pochodna: wzór/],
-          ["rational", en ? "Medium" : "Średni", en ? /Quotient derivative/ : /Pochodna ilorazu/],
-          ["maximum", en ? "Expert" : "Ekspert", en ? /Maximum profit with/ : /Maksymalny zysk z/],
+          [
+            "formula",
+            en ? "Advanced" : "Zaawansowany",
+            en ? /Derivative: formula/ : /Pochodna: wzór/,
+          ],
+          [
+            "rational",
+            en ? "Medium" : "Średni",
+            en ? /Quotient derivative/ : /Pochodna ilorazu/,
+          ],
+          [
+            "maximum",
+            en ? "Expert" : "Ekspert",
+            en ? /Maximum profit with/ : /Maksymalny zysk z/,
+          ],
+          [
+            "classification",
+            en ? "Expert" : "Ekspert",
+            en
+              ? /Classifying stationary points/
+              : /Klasyfikacja punktów stacjonarnych/,
+          ],
           [
             "point",
             en ? "Hard" : "Trudny",
@@ -67,7 +90,9 @@ for (const width of [375, 768, 1280])
           [
             "positive",
             en ? "Expert" : "Ekspert",
-            en ? /Derivative sign and monotonicity/ : /Znak pochodnej i monotoniczność/,
+            en
+              ? /Derivative sign and monotonicity/
+              : /Znak pochodnej i monotoniczność/,
           ],
           [
             "economics",
@@ -93,14 +118,37 @@ for (const width of [375, 768, 1280])
           let scalar: ReturnType<typeof q> | null = null,
             values: ReturnType<typeof q>[] | null = null,
             choice: string | null = null;
-          if(target === "rational") {
-            const ratio=lines[1].match(/^f\(x\) = \((.*)\)\/\((.*)\)$/)!,
-              n=shownFormula(ratio[1]), denominator=shownFormula(ratio[2]), at=shownFraction(lines[0].match(/f′\(([^()]+)\)/)![1]), dv=directValue(denominator,at);
-            scalar=d(s(m(referenceShift(n,at)[1]??q(0),dv),m(directValue(n,at),referenceShift(denominator,at)[1]??q(0))),m(dv,dv));
-          } else if(target === "maximum") {
-            const cost=shownFormula(lines[1].replace("C(q) = ","")), revenue=shownFormula(lines[2].split("; ")[0].replace("R(q) = ","")), profit=referenceSum(revenue,cost,true),
-              cap=shownFraction(lines[0].match(/0≤q≤([^.]*)/)![1]), critical=d(s(q(0),profit[1]),m(q(2),profit[2])), optimum=cmp(critical,q(0))<0?q(0):cmp(critical,cap)>0?cap:critical;
-            values=[optimum,directValue(profit,optimum)];
+          if (target === "rational") {
+            const ratio = lines[1].match(/^f\(x\) = \((.*)\)\/\((.*)\)$/)!,
+              n = shownFormula(ratio[1]),
+              denominator = shownFormula(ratio[2]),
+              at = shownFraction(lines[0].match(/f′\(([^()]+)\)/)![1]),
+              dv = directValue(denominator, at);
+            scalar = d(
+              s(
+                m(referenceShift(n, at)[1] ?? q(0), dv),
+                m(
+                  directValue(n, at),
+                  referenceShift(denominator, at)[1] ?? q(0),
+                ),
+              ),
+              m(dv, dv),
+            );
+          } else if (target === "maximum") {
+            const cost = shownFormula(lines[1].replace("C(q) = ", "")),
+              revenue = shownFormula(
+                lines[2].split("; ")[0].replace("R(q) = ", ""),
+              ),
+              profit = referenceSum(revenue, cost, true),
+              cap = shownFraction(lines[0].match(/0≤q≤([^.]*)/)![1]),
+              critical = d(s(q(0), profit[1]), m(q(2), profit[2])),
+              optimum =
+                cmp(critical, q(0)) < 0
+                  ? q(0)
+                  : cmp(critical, cap) > 0
+                    ? cap
+                    : critical;
+            values = [optimum, directValue(profit, optimum)];
           } else if (target === "economics") {
             const cost = shownFormula(lines[1].replace("C(q) = ", "")),
               revenue = shownFormula(
@@ -129,7 +177,7 @@ for (const width of [375, 768, 1280])
                   target === "point"
                     ? shownFraction(lines[0].match(/f′\(([^()]+)\)/)![1])
                     : shownFraction(lines[0].split("a=")[1].replace(/\.$/, "")),
-                slope = referenceShift(original, at)[1]??q(0);
+                slope = referenceShift(original, at)[1] ?? q(0);
               if (target === "point") scalar = slope;
               else values = [slope, s(directValue(original, at), m(slope, at))];
             } else {
@@ -139,12 +187,24 @@ for (const width of [375, 768, 1280])
                 roots = referenceRoots(derivative).sort(cmp);
               if (target === "stationary")
                 values = roots.flatMap((x) => [x, directValue(original, x)]);
+              else if (target === "classification")
+                choice = `ext:${roots
+                  .map((root) => {
+                    const sign = cmp(
+                      referenceShift(original, root)[2] ?? q(0),
+                      q(0),
+                    );
+                    return sign > 0 ? "min" : sign < 0 ? "max" : "none";
+                  })
+                  .join("-")}`;
               else {
                 const points = [
                     ...roots,
                     s(roots[0], q(1)),
                     a(roots.at(-1)!, q(1)),
-                    ...(roots.length > 1 ? [d(a(roots[0], roots[1]), q(2))] : []),
+                    ...(roots.length > 1
+                      ? [d(a(roots[0], roots[1]), q(2))]
+                      : []),
                   ],
                   options = await page
                     .locator("#answer option")
@@ -157,7 +217,11 @@ for (const width of [375, 768, 1280])
                     points.every(
                       (x) =>
                         selectedSetContains(key, x) ===
-                        (text.includes("f′(x)<0") ? cmp(referenceShift(original, x)[1]??q(0), q(0)) < 0 : cmp(referenceShift(original, x)[1]??q(0), q(0)) > 0),
+                        (text.includes("f′(x)<0")
+                          ? cmp(referenceShift(original, x)[1] ?? q(0), q(0)) <
+                            0
+                          : cmp(referenceShift(original, x)[1] ?? q(0), q(0)) >
+                            0),
                     ),
                   );
                 expect(candidates).toHaveLength(1);
@@ -165,14 +229,31 @@ for (const width of [375, 768, 1280])
               }
             }
           }
-          if (values && !values.length) values=[q(0)];
-          if(values) for(const field of await page.locator("form .coefficient-field input").all()) await field.fill("99999999");
-          else if(scalar) await page.locator("#answer").fill("99999999");
-          else {const options=await page.locator("#answer option").evaluateAll(nodes=>nodes.map(n=>(n as HTMLOptionElement).value).filter(Boolean));await page.locator("#answer").selectOption(options.find(v=>v!==choice)!);}
+          if (values && !values.length) values = [q(0)];
+          if (values)
+            for (const field of await page
+              .locator("form .coefficient-field input")
+              .all())
+              await field.fill("99999999");
+          else if (scalar) await page.locator("#answer").fill("99999999");
+          else {
+            const options = await page
+              .locator("#answer option")
+              .evaluateAll((nodes) =>
+                nodes
+                  .map((n) => (n as HTMLOptionElement).value)
+                  .filter(Boolean),
+              );
+            await page
+              .locator("#answer")
+              .selectOption(options.find((v) => v !== choice)!);
+          }
           await check.click();
-          await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+          await expect(page.locator(".feedback")).toHaveClass(
+            "feedback incorrect",
+          );
           if (values) {
-            if(!values.length) values=[q(0)];
+            if (!values.length) values = [q(0)];
             const fields = page.locator("form .coefficient-field input");
             await expect(fields).toHaveCount(values.length);
             for (let i = 0; i < values.length; i++)

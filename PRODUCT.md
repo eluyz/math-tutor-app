@@ -77,7 +77,7 @@ Układ zadania to: treść i dane → niewielki pasek brudnopisu → odpowiedź 
 
 Import, synchronizacja urządzeń, utrwalanie niedokończonych sesji lub notatek, adaptacyjna powtórka i nowe działy są poza tym PR. Ręczna kontrola fizycznego Safari, zielone CI, recenzja Work i zgoda użytkownika pozostają bramkami przed merge.
 
-## MT-EDU-004 — P0–P3: układy, funkcje i granice ciągów
+## MT-EDU-004 — P0–P3: układy, funkcje i granice ciągów (scalone i opublikowane w PR #17)
 
 Zakres dodaje 16 rodzin i 1728 wariantów, zachowując 3501 wcześniejszych instancji. Łącznie jest 51 rodzin w 11 kategoriach. Każda nowa deklarowana para rodzina/poziom ma 24 różne treści z pełną prezentacją PL/EN. Dostępne poziomy są jawne: klasyfikacja układów i monotoniczność liniowej pozostają na 1–3, Cramer 3×3 zaczyna od hard, pozostałe rodziny wspierają pięć poziomów oprócz złożeń zaczynających od medium.
 
@@ -89,4 +89,14 @@ Granice ciągów wynikają z dokładnych potęg, współczynników, sprzężenia
 
 P0 ustawia Powiększ/Expand przed Schowaj/Hide w DOM, Tab i układzie. Brudnopis pozostaje domyślnie zwinięty. Zachowuje edytor, zaznaczenie, treści, rysunki, historię, auto-clear, pełny ekran, fokus i scroll. Scoring, podgląd przed oceną oraz lokalne postępy pozostają zgodne z wcześniejszym produktem. Nie dodano backendu, telemetrii ani usług tłumaczeniowych.
 
-P4–P6 (granice funkcji, pochodne, całki i dwie zmienne) pozostają przyszłymi etapami. PR #17 obejmuje wyłącznie P0–P3 i nie oznacza zatwierdzenia Work, merge lub publikacji. Fizyczny Safari wymaga osobnego testu ręcznego.
+Historyczny PR #17 obejmował wyłącznie P0–P3 i został scalony oraz opublikowany. Granice funkcji i pochodne rozwija odrębne MT-EDU-005; całki i dwie zmienne pozostają przyszłe. Każda nowa zmiana nadal wymaga własnego CI, recenzji i zgody na merge/publikację. Fizyczny Safari wymaga osobnego testu ręcznego.
+
+## MT-EDU-005 — dwa działy rachunku różniczkowego
+
+P0 dodaje 3 rodziny granic funkcji: punkt/jednostronne, nieskończoność i sprzężenia. P1 dodaje 9 rodzin pochodnych: wzór, wartość w punkcie, iloraz w punkcie, styczna, punkty stacjonarne, klasyfikacja ekstremów, monotoniczność, wielkości krańcowe i maksimum zysku. Razem 1152 nowych wariantów, 63 rodziny i 6381 instancji w całej aplikacji. Wszystkie 5229 starych lekcji pozostają identyczne. Rodziny mają uczciwie ograniczone poziomy i po 24 odrębne warianty każdej wspieranej pary.
+
+Osoba wracająca do nauki otrzymuje wskazówkę pierwszego działania oraz uzasadnienie każdego etapu. 0/0 jest postacią nieoznaczoną, nie wynikiem; funkcja nie otrzymuje wartości w usuniętej dziurze przez samo skracanie. Nierówne granice jednostronne dają brak granicy obustronnej. Pierwiastki analizujemy w dodatnim otoczeniu punktu, a nieskończoność przez stopnie, parzystość i znaki. Nie zastępujemy dowodu próbkami numerycznymi.
+
+Wzór pochodnej ma nazwane pola wszystkich współczynników, ze stałą oznaczoną 1. Styczna wymaga m,b, punkt stacjonarny wszystkich uporządkowanych współrzędnych, a zbiory znaków pochodnej kontrolowanego wyboru. Zerowa pochodna bez zmiany znaku nie jest nazywana ekstremum. Zadania krańcowe podają jednostki i różnicę między chwilowym tempem a dokładnym przyrostem. Maksimum zysku uwzględnia 0≤q≤Q dla ciągłej rzeczywistej produkcji, końce przedziału i możliwość straty.
+
+Pełne PL/EN, sesje, pierwsza ważna samodzielna ocena, pominięcia i podglądy, historia oraz składany brudnopis korzystają z tych samych mechanizmów co dotąd. Nie ma backendu, telemetrii, kont, nowych zależności ani parsera dowolnych napisów matematycznych. Całki, wiele zmiennych i egzamin próbny są poza MT-EDU-005.

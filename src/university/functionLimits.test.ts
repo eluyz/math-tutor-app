@@ -8,6 +8,7 @@ import {
   referenceRatio,
   referenceShift,
   canonical,
+  convolution,
 } from "./functions-audit";
 import { q, m, d, s, a, eq, auditCalculation } from "./audit";
 import { sameLimit } from "./sequences";
@@ -33,19 +34,50 @@ describe("MT-EDU-005 P0: niezależny audyt granic funkcji", () => {
             const top = referenceExpand(p.numerator);
             expected = referencePointLimit(top, p.denominator, p.at, p.side);
             // Values assigned at a never participate in either limit calculation.
-            if (p.definedAt !== undefined && level === "medium" && expected.kind === "finite")
+            if (
+              p.definedAt !== undefined &&
+              level === "medium" &&
+              expected.kind === "finite"
+            )
               expect(eq(expected.value, p.definedAt!)).toBe(false);
             const shifted = referenceShift(top, p.at);
             expect(shifted.length).toBeGreaterThan(0);
+            for (const original of [top, p.denominator]) {
+              const factor = removeAt(original, p.at);
+              if (Number.isFinite(factor.order)) {
+                const shifted = referenceShift(original, p.at),
+                  first = shifted.findIndex((c) => c.numerator !== 0n);
+                expect(factor.order).toBe(first);
+                let reconstructed = factor.residual;
+                for (let j = 0; j < factor.order; j++)
+                  reconstructed = convolution(reconstructed, [
+                    s(q(0), p.at),
+                    q(1),
+                  ]);
+                for (
+                  let j = 0;
+                  j < Math.max(original.length, reconstructed.length);
+                  j++
+                )
+                  expect(
+                    eq(original[j] ?? q(0), reconstructed[j] ?? q(0)),
+                  ).toBe(true);
+              }
+            }
           } else if (p.kind === "limit-conjugate") {
             // Difference-of-squares identities, using independent raw fractions.
             const t = d(p.k, m(q(2), p.s)),
-              remainder = p.mode === "two-roots" ? s(p.b, p.c) : s(p.b, m(t, t)),
-              value = p.mode === "second-order" || p.mode === "two-roots" ? d(remainder, m(q(2), p.s)) : t;
+              remainder =
+                p.mode === "two-roots" ? s(p.b, p.c) : s(p.b, m(t, t)),
+              value =
+                p.mode === "second-order" || p.mode === "two-roots"
+                  ? d(remainder, m(q(2), p.s))
+                  : t;
             expect(p.s.numerator).toBeGreaterThan(0n);
             expect(eq(m(m(q(2), p.s), t), p.k)).toBe(true);
-            expect(eq(a(m(t,t), s(p.b,m(t,t))), p.b)).toBe(true);
-            if (p.mode === "two-roots") expect(eq(a(remainder,p.c),p.b)).toBe(true);
+            expect(eq(a(m(t, t), s(p.b, m(t, t))), p.b)).toBe(true);
+            if (p.mode === "two-roots")
+              expect(eq(a(remainder, p.c), p.b)).toBe(true);
             expected = { kind: "finite", value: canonical(value) };
           } else if (p.kind === "limit-infinity") {
             const ratio = referenceRatio(p.expression),
@@ -69,8 +101,21 @@ describe("MT-EDU-005 P0: niezależny audyt granic funkcji", () => {
               }).kind,
             ).toBe("correct");
             expect(assessAnswer(spec, emptyAnswer(spec)).kind).toBe("invalid");
-            expect(assessAnswer(spec, { kind: "limit", classification: "finite", value: "1/0" }).kind).toBe("invalid");
-            if (expected.kind === "finite") expect(assessAnswer(spec, { kind: "limit", classification: "finite", value: f(a(expected.value, q(1))) }).kind).toBe("incorrect");
+            expect(
+              assessAnswer(spec, {
+                kind: "limit",
+                classification: "finite",
+                value: "1/0",
+              }).kind,
+            ).toBe("invalid");
+            if (expected.kind === "finite")
+              expect(
+                assessAnswer(spec, {
+                  kind: "limit",
+                  classification: "finite",
+                  value: f(a(expected.value, q(1))),
+                }).kind,
+              ).toBe("incorrect");
             for (const classification of limitKinds)
               if (classification !== expected.kind)
                 expect(
@@ -82,7 +127,10 @@ describe("MT-EDU-005 P0: niezależny audyt granic funkcji", () => {
                 ).toBe("incorrect");
             expect(localized.id).toBe(task.id);
             expect(localized.contentKey).toBe(task.contentKey);
-            expect(localized.solution!.at(-1)).toMatchObject({ kind: "answer", answer: spec });
+            expect(localized.solution!.at(-1)).toMatchObject({
+              kind: "answer",
+              answer: spec,
+            });
             expect(localized.university).toBe(p);
             for (const step of localized.solution!)
               if (step.kind === "working")

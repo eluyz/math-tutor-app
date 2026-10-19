@@ -223,6 +223,11 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
           (
             {
               two: "Two distinct real roots",
+              "ext:min": "One local minimum",
+              "ext:max": "One local maximum",
+              "ext:min-max": "Minimum, then maximum (in increasing x order)",
+              "ext:max-min": "Maximum, then minimum (in increasing x order)",
+              "ext:none": "One stationary point without an extremum",
               double: "One repeated root",
               none: "No real roots",
               "system-one": "Exactly one solution",

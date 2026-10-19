@@ -18,7 +18,16 @@ it("każda wspierana rodzina × poziom ma minimum dziesięć odmiennych treści 
   expect(new Set(all.map((t) => t.id)).size).toBe(all.length);
   expect(all.filter((t) => !isUniversityTask(t))).toHaveLength(3501);
   const added = all.filter(isUniversityTask);
-  expect(new Set(added.map((t) => t.contentKey)).size, added.filter((t, i) => added.findIndex(other => other.contentKey === t.contentKey) !== i).map(t=>t.id).join(", ")).toBe(added.length);
+  expect(
+    new Set(added.map((t) => t.contentKey)).size,
+    added
+      .filter(
+        (t, i) =>
+          added.findIndex((other) => other.contentKey === t.contentKey) !== i,
+      )
+      .map((t) => t.id)
+      .join(", "),
+  ).toBe(added.length);
   for (const template of allTemplates)
     for (const level of difficulties) {
       const pool = taskPool(template.category, level).filter(
@@ -77,32 +86,55 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
     (t) => isLegacyDifficulty(t.difficulty) && !t.supplemental,
   ).length;
   const additions = initial.filter((t) => t.supplemental).length;
-  const higher = initial.filter((t) => !isLegacyDifficulty(t.difficulty)).length;
-  const advanced = allTemplates.filter((t) => initial.some((task) => task.templateId === t.id)).filter((t) =>
-    t.supportedDifficulties.includes("advanced"),
+  const higher = initial.filter(
+    (t) => !isLegacyDifficulty(t.difficulty),
   ).length;
-  const expert = allTemplates.filter((t) => initial.some((task) => task.templateId === t.id)).filter((t) =>
-    t.supportedDifficulties.includes("expert"),
-  ).length;
+  const advanced = allTemplates
+    .filter((t) => initial.some((task) => task.templateId === t.id))
+    .filter((t) => t.supportedDifficulties.includes("advanced")).length;
+  const expert = allTemplates
+    .filter((t) => initial.some((task) => task.templateId === t.id))
+    .filter((t) => t.supportedDifficulties.includes("expert")).length;
   const doc = readFileSync(
     new URL("../../GENERATORS.md", import.meta.url),
     "utf8",
   );
-  for (const template of allTemplates) expect(doc).toContain(`| ${template.id} |`);
+  for (const template of allTemplates)
+    expect(doc).toContain(`| ${template.id} |`);
   expect(doc).toContain(
     `Instancje: **${initial.length}** (historyczne **${historical}**, uzupełnienia **${additions}**, L4/L5 **${higher}**).`,
   );
-  const calculus = (category: string) => ["function-limits", "derivatives"].includes(category);
-  const added004 = all.filter(t => isUniversityTask(t) && !calculus(t.category));
-  const added005 = all.filter(t => calculus(t.category));
-  expect(doc).toContain(`MT-EDU-004: **${added004.length}** nowych instancji; łącznie **${initial.length + added004.length}**.`);
-  expect(doc).toContain(`MT-EDU-005: **${added005.length}** nowych instancji; łącznie **${all.length}**.`);
+  const calculus = (category: string) =>
+    ["function-limits", "derivatives"].includes(category);
+  const added004 = all.filter(
+    (t) => isUniversityTask(t) && !calculus(t.category),
+  );
+  const added005 = all.filter((t) => calculus(t.category));
+  expect(doc).toContain(
+    `MT-EDU-004: **${added004.length}** nowych instancji; łącznie **${initial.length + added004.length}**.`,
+  );
+  expect(doc).toContain(
+    `MT-EDU-005: **${added005.length}** nowych instancji; łącznie **${all.length}**.`,
+  );
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
-  const addedTemplates = allTemplates.filter((template) => !calculus(template.category) && !initial.some((task) => task.templateId === template.id));
-  expect(doc).toContain(`Bieżący katalog UI i sesji: **${allTemplates.length} rodzin**, **${all.length} instancji**.`);
-  expect(doc).toContain(`Nowe rodziny: **${addedTemplates.length}**. Pary rodzina/poziom: **${addedTemplates.reduce((sum, template) => sum + template.supportedDifficulties.length, 0)}**.`);
-  expect(doc).toContain(`Łącznie rodziny L4: **${allTemplates.filter((t) => t.supportedDifficulties.includes("advanced")).length}**, L5: **${allTemplates.filter((t) => t.supportedDifficulties.includes("expert")).length}**.`);
-  const readme = readFileSync(new URL("../../README.md", import.meta.url), "utf8");
+  const addedTemplates = allTemplates.filter(
+    (template) =>
+      !calculus(template.category) &&
+      !initial.some((task) => task.templateId === template.id),
+  );
+  expect(doc).toContain(
+    `Bieżący katalog UI i sesji: **${allTemplates.length} rodzin**, **${all.length} instancji**.`,
+  );
+  expect(doc).toContain(
+    `Nowe rodziny: **${addedTemplates.length}**. Pary rodzina/poziom: **${addedTemplates.reduce((sum, template) => sum + template.supportedDifficulties.length, 0)}**.`,
+  );
+  expect(doc).toContain(
+    `Łącznie rodziny L4: **${allTemplates.filter((t) => t.supportedDifficulties.includes("advanced")).length}**, L5: **${allTemplates.filter((t) => t.supportedDifficulties.includes("expert")).length}**.`,
+  );
+  const readme = readFileSync(
+    new URL("../../README.md", import.meta.url),
+    "utf8",
+  );
   expect(readme).toContain(`**${allTemplates.length} rodzin**`);
   expect(readme).toContain(`**${all.length} instancji**`);
 });

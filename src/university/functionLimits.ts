@@ -124,13 +124,31 @@ export const functionLimitFamilies: readonly UniversityFamily[] = [
   {
     id: "limit-conjugate",
     category: "function-limits",
-    titles: { pl: "Granice z pierwiastkami i sprzężeniem", en: "Limits with square roots and conjugates" },
-    supportedDifficulties: difficulties.filter(l => l !== "easy"),
+    titles: {
+      pl: "Granice z pierwiastkami i sprzężeniem",
+      en: "Limits with square roots and conjugates",
+    },
+    supportedDifficulties: difficulties.filter((l) => l !== "easy"),
     create: (v, l) => ({
-      kind: "limit-conjugate", at: r(v - 11, 2 + v % 3),
-      s: r(1 + v % 4), k: r(v - 11 || 1, 2),
-      b: l === "medium" ? r(0) : l === "hard" ? r((v % 2 ? -1 : 1) * (1 + v % 5), 3) : r(v % 5 - 2, 3), c: r(v % 5 + 1, 2),
-      mode: l === "medium" ? "linear" : l === "hard" ? "quadratic" : l === "advanced" ? "second-order" : "two-roots",
+      kind: "limit-conjugate",
+      at: r(v - 11, 2 + (v % 3)),
+      s: r(1 + (v % 4)),
+      k: r(v - 11 || 1, 2),
+      b:
+        l === "medium"
+          ? r(0)
+          : l === "hard"
+            ? r((v % 2 ? -1 : 1) * (1 + (v % 5)), 3)
+            : r((v % 5) - 2, 3),
+      c: r((v % 5) + 1, 2),
+      mode:
+        l === "medium"
+          ? "linear"
+          : l === "hard"
+            ? "quadratic"
+            : l === "advanced"
+              ? "second-order"
+              : "two-roots",
     }),
   },
   {
@@ -211,51 +229,107 @@ export function presentFunctionLimit(p: FunctionLimitProblem, locale: Locale) {
   const lesson = teaching(locale),
     { t } = lesson;
   if (p.kind === "limit-conjugate") {
-    if (p.s.numerator <= 0n) throw new Error("Positive square-root value required");
+    if (p.s.numerator <= 0n)
+      throw new Error("Positive square-root value required");
     const squared = calculate("product", p.s, p.s),
       twice = calculate("product", r(2), p.s),
       tangent = calculate("quotient", p.k, twice.result),
-      radical = (b: Rational) => `√((${f(squared.result)}) + (${f(p.k)})·h + (${f(b)})·h²)`,
+      radical = (b: Rational) =>
+        `√((${f(squared.result)}) + (${f(p.k)})·h + (${f(b)})·h²)`,
       root = radical(p.b),
       higher = p.mode === "second-order" || p.mode === "two-roots";
-    lesson.work(`h = x − (${f(p.at)}), h→0; ${t("wyraz stały pod pierwiastkiem", "constant radicand term")} = ${f(squared.result)} > 0`,
-      t("Oba kierunki są dozwolone: ciągły wielomian pod pierwiastkiem jest dodatni w pewnym otoczeniu h=0, bo w zerze wynosi s²>0. W ilorazie h≠0; 0/0 nie jest odpowiedzią.",
-        "Both directions are allowed: the continuous radicand is positive in some neighbourhood of h=0 because its value there is s²>0. In the ratio h≠0; 0/0 is not an answer."), squared);
+    lesson.work(
+      `h = x − (${f(p.at)}), h→0; ${t("wyraz stały pod pierwiastkiem", "constant radicand term")} = ${f(squared.result)} > 0`,
+      t(
+        "Oba kierunki są dozwolone: ciągły wielomian pod pierwiastkiem jest dodatni w pewnym otoczeniu h=0, bo w zerze wynosi s²>0. W ilorazie h≠0; 0/0 nie jest odpowiedzią.",
+        "Both directions are allowed: the continuous radicand is positive in some neighbourhood of h=0 because its value there is s²>0. In the ratio h≠0; 0/0 is not an answer.",
+      ),
+      squared,
+    );
     let expression: string, value: Rational;
     if (p.mode === "two-roots") {
-      const diff = calculate("difference", p.b, p.c), quotient = calculate("quotient", diff.result, twice.result);
+      const diff = calculate("difference", p.b, p.c),
+        quotient = calculate("quotient", diff.result, twice.result);
       expression = `(${root} − ${radical(p.c)})/h²`;
       value = quotient.result;
-      lesson.work(`(${root} − ${radical(p.c)})/h² = (${f(diff.result)})/(${root} + ${radical(p.c)})`,
-        t("Mnożymy przez sumę pierwiastków. Stałe i wyrazy liniowe znikają w różnicy kwadratów; zostaje (b−c)h². Skracamy h² wyłącznie dla h≠0.",
-          "Multiply by the sum of the roots. Constant and linear terms cancel in the difference of squares, leaving (b−c)h². Cancel h² only for h≠0."), diff);
-      lesson.work(`lim = (${f(diff.result)})/(${f(twice.result)}) = ${f(value)}`,
-        t("Każdy pierwiastek dąży do dodatniego s. Ich suma ma niezerową granicę 2s, więc możemy podstawić h=0 po skróceniu.",
-          "Each root tends to positive s. Their sum has nonzero limit 2s, so substitution is valid after cancellation."), twice, quotient);
+      lesson.work(
+        `(${root} − ${radical(p.c)})/h² = (${f(diff.result)})/(${root} + ${radical(p.c)})`,
+        t(
+          "Mnożymy przez sumę pierwiastków. Stałe i wyrazy liniowe znikają w różnicy kwadratów; zostaje (b−c)h². Skracamy h² wyłącznie dla h≠0.",
+          "Multiply by the sum of the roots. Constant and linear terms cancel in the difference of squares, leaving (b−c)h². Cancel h² only for h≠0.",
+        ),
+        diff,
+      );
+      lesson.work(
+        `lim = (${f(diff.result)})/(${f(twice.result)}) = ${f(value)}`,
+        t(
+          "Każdy pierwiastek dąży do dodatniego s. Ich suma ma niezerową granicę 2s, więc możemy podstawić h=0 po skróceniu.",
+          "Each root tends to positive s. Their sum has nonzero limit 2s, so substitution is valid after cancellation.",
+        ),
+        twice,
+        quotient,
+      );
     } else if (p.mode === "second-order") {
-      const square = calculate("product", tangent.result, tangent.result), correction = calculate("difference", p.b, square.result), quotient = calculate("quotient", correction.result, twice.result);
+      const square = calculate("product", tangent.result, tangent.result),
+        correction = calculate("difference", p.b, square.result),
+        quotient = calculate("quotient", correction.result, twice.result);
       expression = `(${root} − (${f(p.s)}) − (${f(tangent.result)})·h)/h²`;
       value = quotient.result;
-      lesson.work(`t = (${f(p.k)})/(2·(${f(p.s)})) = ${f(tangent.result)}; (${root})² − ((${f(p.s)}) + t·h)² = (${f(correction.result)})·h²`,
-        t("Sprzężenie dotyczy całego s+t·h. Wybór t=k/(2s) usuwa wyraz liniowy, bo 2s·t=k; resztą jest (b−t²)h².",
-          "Conjugate the entire s+t·h. Choosing t=k/(2s) cancels the linear term since 2s·t=k; the remainder is (b−t²)h²."), twice, tangent, square, correction);
-      lesson.work(`(${expression}) = (${f(correction.result)})/(${root} + (${f(p.s)}) + (${f(tangent.result)})·h) → ${f(value)}`,
-        t("Skracamy h² w przebitym otoczeniu. Sprzężenie dąży do 2s>0, więc w wystarczająco małym otoczeniu nie jest zerowe.",
-          "Cancel h² in a punctured neighbourhood. The conjugate tends to 2s>0, so it is nonzero in a sufficiently small neighbourhood."), quotient);
+      lesson.work(
+        `t = (${f(p.k)})/(2·(${f(p.s)})) = ${f(tangent.result)}; (${root})² − ((${f(p.s)}) + t·h)² = (${f(correction.result)})·h²`,
+        t(
+          "Sprzężenie dotyczy całego s+t·h. Wybór t=k/(2s) usuwa wyraz liniowy, bo 2s·t=k; resztą jest (b−t²)h².",
+          "Conjugate the entire s+t·h. Choosing t=k/(2s) cancels the linear term since 2s·t=k; the remainder is (b−t²)h².",
+        ),
+        twice,
+        tangent,
+        square,
+        correction,
+      );
+      lesson.work(
+        `(${expression}) = (${f(correction.result)})/(${root} + (${f(p.s)}) + (${f(tangent.result)})·h) → ${f(value)}`,
+        t(
+          "Skracamy h² w przebitym otoczeniu. Sprzężenie dąży do 2s>0, więc w wystarczająco małym otoczeniu nie jest zerowe.",
+          "Cancel h² in a punctured neighbourhood. The conjugate tends to 2s>0, so it is nonzero in a sufficiently small neighbourhood.",
+        ),
+        quotient,
+      );
     } else {
       expression = `(${root} − (${f(p.s)}))/h`;
       value = tangent.result;
-      lesson.work(`${expression} = ((${f(p.k)}) + (${f(p.b)})·h)/(${root} + (${f(p.s)}))`,
-        t("Mnożymy przez sprzężenie i stosujemy różnicę kwadratów. Stałe s² znikają; skracamy h dla h≠0. Suma pierwiastka i s jest dodatnia.",
-          "Multiply by the conjugate and use the difference of squares. The constants s² cancel; cancel h for h≠0. The root plus s is positive."));
-      lesson.work(`lim = (${f(p.k)})/(${f(twice.result)}) = ${f(value)}`,
-        t("Po skróceniu używamy ciągłości. Składnik b·h dąży do zera, a mianownik do s+s=2s, nie do zera.",
-          "After cancellation use continuity. The term b·h tends to zero, while the denominator tends to s+s=2s, not zero."), twice, tangent);
+      lesson.work(
+        `${expression} = ((${f(p.k)}) + (${f(p.b)})·h)/(${root} + (${f(p.s)}))`,
+        t(
+          "Mnożymy przez sprzężenie i stosujemy różnicę kwadratów. Stałe s² znikają; skracamy h dla h≠0. Suma pierwiastka i s jest dodatnia.",
+          "Multiply by the conjugate and use the difference of squares. The constants s² cancel; cancel h for h≠0. The root plus s is positive.",
+        ),
+      );
+      lesson.work(
+        `lim = (${f(p.k)})/(${f(twice.result)}) = ${f(value)}`,
+        t(
+          "Po skróceniu używamy ciągłości. Składnik b·h dąży do zera, a mianownik do s+s=2s, nie do zera.",
+          "After cancellation use continuity. The term b·h tends to zero, while the denominator tends to s+s=2s, not zero.",
+        ),
+        twice,
+        tangent,
+      );
     }
-    return lesson.finish(`${t("Wyznacz granicę", "Find the limit")}: x→(${f(p.at)}).\nh = x − (${f(p.at)}); f(x) = ${expression} (h≠0)`, { kind: "limit", value: { kind: "finite", value } },
-      t(higher ? "Sprawdź, które składniki znikną po pomnożeniu przez sprzężenie całej różnicy." : "Pomnóż licznik i mianownik przez sumę pierwiastka i odejmowanej liczby.",
-        higher ? "Check which terms cancel when conjugating the entire difference." : "Multiply numerator and denominator by the root plus the subtracted number."),
-      t("Skracaj tylko dla h≠0. Następnie sprawdź, czy graniczny mianownik jest niezerowy.", "Cancel only for h≠0, then check that the limiting denominator is nonzero."));
+    return lesson.finish(
+      `${t("Wyznacz granicę", "Find the limit")}: x→(${f(p.at)}).\nh = x − (${f(p.at)}); f(x) = ${expression} (h≠0)`,
+      { kind: "limit", value: { kind: "finite", value } },
+      t(
+        higher
+          ? "Sprawdź, które składniki znikną po pomnożeniu przez sprzężenie całej różnicy."
+          : "Pomnóż licznik i mianownik przez sumę pierwiastka i odejmowanej liczby.",
+        higher
+          ? "Check which terms cancel when conjugating the entire difference."
+          : "Multiply numerator and denominator by the root plus the subtracted number.",
+      ),
+      t(
+        "Skracaj tylko dla h≠0. Następnie sprawdź, czy graniczny mianownik jest niezerowy.",
+        "Cancel only for h≠0, then check that the limiting denominator is nonzero.",
+      ),
+    );
   }
   if (p.kind === "limit-infinity") {
     const trace: Calculation[] = [],
@@ -374,9 +448,13 @@ export function presentFunctionLimit(p: FunctionLimitProblem, locale: Locale) {
       ),
     );
   else if (zero(dAt))
-    lesson.work(`f(${f(p.at)}) ${t("nie jest określona", "has no defined value")}`,
-      t("Oryginalny mianownik w tym punkcie jest zerowy. Nie przypisujemy funkcji wartości przez skracanie; granica zależy od wartości w przebitym otoczeniu.",
-        "The original denominator is zero at this point. Cancellation does not assign a function value there; the limit depends on values in a punctured neighbourhood."));
+    lesson.work(
+      `f(${f(p.at)}) ${t("nie jest określona", "has no defined value")}`,
+      t(
+        "Oryginalny mianownik w tym punkcie jest zerowy. Nie przypisujemy funkcji wartości przez skracanie; granica zależy od wartości w przebitym otoczeniu.",
+        "The original denominator is zero at this point. Cancellation does not assign a function value there; the limit depends on values in a punctured neighbourhood.",
+      ),
+    );
   const side = p.side === "left" ? "⁻" : p.side === "right" ? "⁺" : "";
   return lesson.finish(
     `${t("Wyznacz granicę", "Find the limit")}: x→(${f(p.at)})${side}.\nf(x) = (${formulaText(p.numerator)})/(${polynomialText(p.denominator)})${p.definedAt !== undefined ? ` ${t("dla", "for")} x≠${f(p.at)}; f(${f(p.at)}) = ${f(p.definedAt)}` : ""}`,

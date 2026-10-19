@@ -24,11 +24,15 @@ const present = (problem: UniversityProblem, locale: Locale) =>
         problem.kind === "sequence-geometric" ||
         problem.kind === "sequence-conjugate"
       ? presentSequence(problem, locale)
-      : problem.kind === "limit-point" || problem.kind === "limit-infinity" || problem.kind === "limit-conjugate"
+      : problem.kind === "limit-point" ||
+          problem.kind === "limit-infinity" ||
+          problem.kind === "limit-conjugate"
         ? presentFunctionLimit(problem, locale)
         : problem.kind === "derivative" ||
             problem.kind === "derivative-analysis" ||
-            problem.kind === "derivative-economics" || problem.kind === "derivative-rational" || problem.kind === "derivative-maximum"
+            problem.kind === "derivative-economics" ||
+            problem.kind === "derivative-rational" ||
+            problem.kind === "derivative-maximum"
           ? presentDerivative(problem, locale)
           : presentFunction(problem, locale);
 export const universityTemplates = universityFamilies.map((family) => ({

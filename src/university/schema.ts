@@ -115,7 +115,7 @@ export type DerivativeProblem =
   | Readonly<{
       kind: "derivative-analysis";
       formula: PolynomialFormula;
-      target: "stationary" | "positive" | "negative";
+      target: "stationary" | "classification" | "positive" | "negative";
     }>
   | Readonly<{
       kind: "derivative-economics";
