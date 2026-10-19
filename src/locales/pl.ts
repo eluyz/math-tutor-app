@@ -18,6 +18,8 @@ export const studyCategories: { id: CategoryId; label: string }[] = [
   { id: "systems", label: "Układy równań" },
   { id: "functions", label: "Funkcje" },
   { id: "sequence-limits", label: "Granice ciągów" },
+  { id: "function-limits", label: "Granice funkcji" },
+  { id: "derivatives", label: "Pochodne" },
   { id: "quadratics", label: "Wzory i równania kwadratowe" },
   { id: "matrices", label: "Macierze" },
   { id: "determinants", label: "Wyznaczniki" },

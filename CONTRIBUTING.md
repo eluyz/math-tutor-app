@@ -47,4 +47,12 @@ Układ oznaczony wymaga wszystkich niewiadomych także po klasyfikacji. Testuj D
 
 Utrzymuj rzeczywiste liczby rodzin, wspieranych par i instancji w GENERATORS/README. Audyt zachowuje 3501 poprzednich zadań oraz sprawdza globalne ID, treści nowych wariantów, rachunki i zgodność PL/EN. Testuj nowe formularze jako correct/incorrect/invalid, z pierwszą oceną w sesji i zmianą języka. W E2E wyliczaj wynik z publicznego polecenia zamiast ukrytego stanu. W testach tabelarycznych wybieraj przypadki po rodzaju odpowiedzi, nie po indeksie zmieniającym znaczenie po dodaniu typu.
 
-PR #17 obejmuje P0–P3. P4–P6 wymagają przyszłych, osobnych prac zgodnych z ROADMAP i nie powinny trafiać do tego zakresu.
+PR #17 obejmował P0–P3 i został scalony oraz opublikowany. MT-EDU-005 realizuje granice funkcji i pochodne w osobnym PR; całki i dwie zmienne pozostają poza nim.
+
+## MT-EDU-005 — reguły audytu
+
+Zachowaj wszystkie 5229 opublikowanych lekcji z afcb248. Fixture `src/university/fixtures/mtedu004-baseline.json` pochodzi z archiwum tego commita: SHA-256 JSON pełnych task+solution dla PL/EN, z BigInt zamienionym na napisy, zadania sortowane po ID. Test porównuje każdy skrót i wsparcie poziomów. Nie regeneruj fixture z nowej gałęzi, aby ukryć regresję; zamierzona zmiana starej lekcji wymaga osobnego uzasadnienia i przeglądu.
+
+Granice punktowe audytuj niezależnym rozwinięciem P(a+h), z krotnościami i znakami obu stron. Sprzężenia wymagają dokładnego sprawdzenia tożsamości i dodatniego otoczenia. Pochodne rozwijaj osobnym splotem/algorytmem współczynników, sprawdzaj wszystkie pokazane wzory pośrednie i Calculation. Dla ekstremum nie wystarcza f′=0; dla maksimum ekonomicznego sprawdź dziedzinę i końce przedziału. Nie używaj próbek float jako dowodu. Pomocniki parsujące kontrolowane polecenia E2E są wyłącznie testowe, nie są walidatorem swobodnej odpowiedzi użytkownika.
+
+Uruchamiaj nowe audyty, testy wyczerpania pul, sesji/postępów, pełne Vitest/build/Playwright. Nowe kategorie testuj w PL/EN na 375/768/1280 px z invalid/incorrect/correct, zmianą języka, krokami, rysunkiem i natywnym Undo/Redo, zapisem oraz odczytem historii. Faktyczny stan fizycznego Safari zawsze zgłaszaj osobno; emulacja Chromium nie jest testem iPhone/iPad.

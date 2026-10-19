@@ -193,6 +193,8 @@ export const familyEnglish: Record<string, readonly [string, string, string]> =
     ],
   };
 const fieldLabels: Record<string, string> = {
+  "q*": "q*", "P(q*)": "P(q*)", "x⁵": "x⁵",
+  m:"m", c:"c", "x₀":"x₀", "y₀":"y₀", "x₁":"x₁", "y₁":"y₁", "x₂":"x₂", "y₂":"y₂",
   x: "x", y: "y", z: "z", a: "a", b: "b", "xᵥ": "xᵥ", "yᵥ": "yᵥ", "x²": "x²", "x³": "x³", "x⁴": "x⁴", "1": "1",
   "Współczynnik przy x²": "Coefficient of x²",
   "Współczynnik przy x": "Coefficient of x",
@@ -221,6 +223,11 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
           (
             {
               two: "Two distinct real roots",
+              "ext:min": "One local minimum",
+              "ext:max": "One local maximum",
+              "ext:min-max": "Minimum, then maximum (in increasing x order)",
+              "ext:max-min": "Maximum, then minimum (in increasing x order)",
+              "ext:none": "One stationary point without an extremum",
               double: "One repeated root",
               none: "No real roots",
               "system-one": "Exactly one solution",

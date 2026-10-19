@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 51 parametrycznych rodzin w 11 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje i granice ciągów. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera 63 parametryczne rodziny w 13 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji i pochodne. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
 
@@ -46,7 +46,7 @@ To prosty wskaźnik jednej sesji, nie diagnoza umiejętności ani pełny system 
 
 Domyślnie **Czyść brudnopis przy nowym zadaniu** jest zaznaczone: każde nowe uruchomienie zadania (również powtórzona treść), zmiana rodziny/kategorii/poziomu i nowa sesja czyści obie treści i historię. Odznacz checkbox, aby zachować notatki także między sesjami. **Wyczyść** zawsze czyści oba tryby i można to cofnąć. **Powiększ** otwiera obszar z przyciskiem **Zamknij**, obsługą Escape i klawiatury; zmiana rozmiaru zachowuje wektory. Notatki i preferencja istnieją tylko w pamięci bieżącej karty, do odświeżenia strony.
 
-**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 51 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
+**Pokaż rozwiązanie** odsłania pierwszy uzasadniony krok dla każdej z 63 rodzin. Dalej użyj **Następny krok** albo **Pokaż wszystkie kroki**. Ostatni etap zawiera pełny wynik, w tym macierz lub klasyfikację i wartości pierwiastków. Panel nie wymusza przejścia dalej. Nowy przykład zawsze zeruje kroki i formularz, niezależnie od ustawienia brudnopisu.
 
 W sesji podgląd przed pierwszą ważną oceną zapisuje osobny rezultat **Rozwiązanie obejrzane przed pierwszą ważną oceną**. Późniejsze przepisanie wyniku nie podwyższa liczby samodzielnych poprawnych odpowiedzi. Podgląd po ważnej poprawnej/błędnej próbie zachowuje jej ocenę. Cztery kategorie podsumowania sumują się do 10. Do minimum 7 ocen i dotychczasowych progów sugestii wchodzą wyłącznie samodzielne poprawne/błędne próby; obejrzenie rozwiązania nie jest błędem ucznia.
 
@@ -106,11 +106,11 @@ Zapis używa jednego klucza `math-tutor.progress.v1`, schematu `version: 1` i ma
 
 Dane istnieją tylko w danej przeglądarce i na tym urządzeniu, bez kont, synchronizacji, cookies śledzących, backendu ani telemetrii. Wyczyszczenie danych Safari lub innej przeglądarki może usunąć historię bez możliwości odzyskania; eksport jest ręczną kopią. Notatki, aktywne zadanie, niedokończona sesja i język nie są utrwalane.
 
-Testy Chromium obejmują PL/EN i 375/768/1280 px, rzeczywiste wpisywanie, Backspace, Undo/Redo, zwijanie bez remountu i błędy storage. Fizyczny iPhone/iPad Safari nadal wymaga testu ręcznego przed merge; automatyczne stuby ograniczeń storage i emulacja dotyku go nie zastępują. MT-004A jest na main od PR #15 (9499955); CI i Deploy Pages dla tego commita zakończyły się sukcesem. MT-EDU-004 pozostaje osobnym PR do przeglądu, bez merge ani deploy.
+Testy Chromium obejmują PL/EN i 375/768/1280 px, rzeczywiste wpisywanie, Backspace, Undo/Redo, zwijanie bez remountu i błędy storage. Fizyczny iPhone/iPad Safari nadal wymaga testu ręcznego przed merge; automatyczne stuby ograniczeń storage i emulacja dotyku go nie zastępują. MT-004A jest na main od PR #15 (9499955); CI i Deploy Pages dla tego commita zakończyły się sukcesem. MT-EDU-004 zostało następnie scalone i opublikowane w PR #17; nowe zmiany wymagają osobnej recenzji.
 
 ## MT-EDU-004 — P0–P3 (implementacja do niezależnego przeglądu)
 
-Zachowano 3501 wcześniejszych instancji i dodano **16 rodzin**, **1728 nowych wariantów** w 72 wspieranych parach rodzina/poziom, po 24 warianty. Łącznie: **51 rodzin**, **5229 instancji**, 11 kategorii. Advanced i Expert wspierają po 43 rodziny łącznie z historycznymi. Pełna mapa poziomów i niezależnego audytu jest w [GENERATORS.md](GENERATORS.md).
+Zachowano 3501 wcześniejszych instancji i dodano **16 rodzin**, **1728 nowych wariantów** w 72 wspieranych parach rodzina/poziom, po 24 warianty. W opublikowanym MT-EDU-004 łącznie: **51 rodzin**, **5229 instancji**, 11 kategorii. Advanced i Expert wspierają po 43 rodziny łącznie z historycznymi. Pełna mapa poziomów i niezależnego audytu jest w [GENERATORS.md](GENERATORS.md).
 
 | Checkpoint | Rzeczywisty zakres | Nowe rodziny / warianty |
 | --- | --- | --- |
@@ -125,8 +125,22 @@ Granice ciągów rozróżniają skończoną liczbę, +∞, −∞ i brak granicy
 
 Nowe zadania mają pełne polecenia, wskazówki i uzasadnione rozwiązania PL/EN. Korzystają z dotychczasowych sesji 10 zadań, pierwszej samodzielnej oceny i lokalnej historii. Język nie zmienia zadania, odpowiedzi, notatek, wyników ani odsłoniętych kroków. Rozwijanie i powiększanie brudnopisu zachowuje ten sam edytor i Undo/Redo.
 
-**P4–P6 są przyszłym zakresem:** granice funkcji, pochodne, całki i funkcje dwóch zmiennych nie są częścią PR #17. Nie dodano ich przycisków, parsera swobodnych wyrażeń, przybliżonych odpowiedzi ani wykresów. Wszystko działa lokalnie, bez nowych zależności, backendu i zewnętrznych tłumaczeń. Automatyczne testy Chromium PL/EN obejmują 375/768/1280 px; fizycznego Safari nie testowano. Przed scaleniem wymagane są CI dla HEAD, niezależna recenzja Work i decyzja użytkownika.
+**MT-EDU-004 zostało scalone i opublikowane w PR #17**, commit `afcb24886e80ddf06b6cee95a274c5237ef4e752`. P4/P5 były poza tym historycznym PR; ich implementację dodaje MT-EDU-005 poniżej. Całki i funkcje dwóch zmiennych pozostają przyszłym zakresem. Nie dodano parsera swobodnych wyrażeń, przybliżonych odpowiedzi ani wykresów. Wszystko działa lokalnie, bez nowych zależności, backendu i zewnętrznych tłumaczeń. Automatyczne testy Chromium PL/EN obejmują 375/768/1280 px; fizycznego Safari nie testowano. Przed scaleniem wymagane są CI dla HEAD, niezależna recenzja Work i decyzja użytkownika.
 
 ### Systems, functions and sequence limits in English
 
-Choose **English**, then **University mathematics**. Systems require every unknown for a unique solution; singular systems use an explicit classification. Functions include domains, zeros, linear reconstruction, quadratic vertices/ranges and compositions. Sequence limits distinguish finite values, both signs of infinity and nonexistence. Every supported new family/level has 24 variants, authored hints and step-by-step reasoning. Changing language preserves your work. Function limits, derivatives, integrals and two-variable calculus remain future stages.
+Choose **English**, then **University mathematics**. Systems require every unknown for a unique solution; singular systems use an explicit classification. Functions include domains, zeros, linear reconstruction, quadratic vertices/ranges and compositions. Sequence limits distinguish finite values, both signs of infinity and nonexistence. Every supported new family/level has 24 variants, authored hints and step-by-step reasoning. Changing language preserves your work. MT-EDU-005 adds function limits and derivatives below. Integrals and two-variable calculus remain future stages.
+
+## MT-EDU-005 — granice funkcji i pochodne (PL/EN)
+
+**63 rodzin**, **6381 instancji** w 13 kategoriach. Zachowano wszystkie 5229 instancji opublikowanego MT-EDU-004, w tym treści, ID, odpowiedzi, wskazówki i pełne rozwiązania obu języków. Nowe 12 rodzin ma 48 wspieranych par rodzina/poziom po 24 odrębne warianty: 336 granic funkcji i 816 wariantów pochodnych. Szczegółowa mapa poziomów jest w GENERATORS.md; po 55 rodzin całego katalogu wspierają advanced i expert.
+
+**Granice funkcji** dotyczą x zbliżającego się do punktu z jednej lub obu stron albo do +∞/−∞. To oddzielny dział od granic ciągów n→+∞. Rozwiązanie sprawdza dziedzinę, 0/0, skracanie wyłącznie dla x≠a, krotności i znaki, sprzężenie oraz ciągłość po przekształceniu. Wartość f(a) może być inna niż granica lub nie istnieć. Wybierz rodzaj granicy, a dla skończonej wpisz dokładną liczbę lub ułamek. 0/0 nie jest wynikiem.
+
+**Pochodne** uczą reguły potęgowej, sumy, iloczynu, łańcuchowej i ilorazu w punkcie, wartości pochodnej, stycznej, znaków i punktów stacjonarnych. Pola wzoru pochodnej są współczynnikami od najwyższej opisanej potęgi do stałej (pole **1**); wpisz również zera. Styczna wymaga m i b w y=mx+b. Zbiór f′>0 lub f′<0 wybiera się ze strukturalnych, dokładnych opcji; pytanie dotyczy ostrej nierówności pochodnej, więc jej zera są wykluczone. Samo f′=0 nie dowodzi ekstremum. Ekonomia obejmuje koszt/przychód/zysk krańcowy oraz maksymalizację wklęsłego zysku dla rzeczywistej produkcji 0≤q≤Q, także na końcach przedziału. Wielkość krańcowa nie jest dokładnym przyrostem dla całej dodatkowej jednostki.
+
+Wszystkie nowe warianty mają niezależny dokładny audyt wyników, etapów i PL/EN. Test regresji porównuje skróty pełnych dawnych lekcji z archiwum powyższego main. Sesje, rekomendacje, lokalne postępy i brudnopis zachowują wcześniejsze zasady; zmiana języka nie kasuje pracy. Brak nowych zależności, usług i backendu. Całki, funkcje wielu zmiennych, dowolne odpowiedzi symboliczne i wykresy nie należą do tej zmiany. PR wymaga CI dla HEAD i niezależnej recenzji Work; nie oznacza zgody na merge/deploy. Fizycznego Safari nie testowano.
+
+### Function limits and derivatives in English
+
+Choose **English → University mathematics → Limits of functions / Derivatives**. Function limits distinguish a finite rational value, +∞, −∞ and nonexistence. Factor cancellation and conjugates preserve the original domain; f(a) need not equal the limit. Derivatives use labelled exact coefficients, m/b for tangents, structured sets for strict derivative inequalities, and q*/P(q*) for constrained profit. Output is continuous and real-valued. All hints and reasoning are authored in English, and switching languages preserves answers, revealed steps, scratchpad and session. Integrals and multivariable calculus are future work.
