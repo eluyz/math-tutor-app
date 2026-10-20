@@ -1,0 +1,25 @@
+# MT-AUTO-001: bramka recenzji po zakończeniu CI
+
+Workflow [`PR Review CI Completion`](../.github/workflows/review-ci-completed.yml) reaguje na zakończenie workflow `CI` dla PR. Działa z domyślnej gałęzi `main`, używa wyłącznie wbudowanego `GITHUB_TOKEN` i kodu pobranego z `main`. Nie pobiera ani nie wykonuje kodu z gałęzi PR. Potrzebuje `contents: read` do checkout i wyszukania PR dla commita, `actions: read` do ponownego sprawdzenia przebiegu oraz `pull-requests: write` do własnego komentarza. Nie używa sekretów, PAT, formalnego GitHub APPROVE, merge ani deploy.
+
+Bot publikuje najwyżej jeden własny komentarz dla pary PR + pełny HEAD SHA. Znacznik ma postać `<!-- math-tutor-ci-gate:v1 pr=NUMER sha=SHA -->`. Ponowny przebieg CI dla tego samego SHA aktualizuje komentarz, a opóźnione zdarzenie starszej próby jest ignorowane. Komentarz rozdziela `CI`, `CODE_REVIEW`, `PHYSICAL_SAFARI` i `OWNER_APPROVAL`. `CI_SUCCESS` opisuje wyłącznie testy GitHub. `PHYSICAL_SAFARI` pozostaje `NOT_VERIFIED`, a `OWNER_APPROVAL` — `REQUIRED`.
+
+Rozpoznawane są tylko komentarze Work oznaczone dokładnym znacznikiem `math-tutor-work-review:v1` dla tego samego PR i SHA, opublikowane z konta właściciela repozytorium. Tak obecnie publikowane są recenzje w tym repozytorium; GitHub nie poświadcza, czy wpis z konta właściciela napisał Work, więc agregator **nie wystawia formalnej aprobaty**. Inne konta, stary SHA, brak rozpoznanego statusu lub niejednoznaczny raport dają stan `CI_SUCCESS_AWAITING_INDEPENDENT_REVIEW`. `NEEDS_FIXES` blokuje bramkę niezależnie od CI. `PASS`/`READY_FOR_USER_APPROVAL` wraz z zielonym CI dają `CODE_REVIEW_PASS_AND_CI_GREEN`. `WAITING_FOR_CI` daje `CODE_REVIEW_AUDIT_COMPLETE_CI_GREEN` tylko przy osobnym, jednoznacznym potwierdzeniu braku blokujących błędów; raport Work pozostaje opisany jako `WAITING_FOR_CI`, bez przypisywania mu nowej decyzji.
+
+## Konfiguracja zadań ChatGPT Work
+
+1. **Recenzent**: zachowaj wyzwalacze `PR opened` i `PR synchronize`. Warunek: `eluyz/math-tutor-app`, otwarty PR do `main`; audytuj dokładny HEAD SHA, kod, matematykę, PL/EN, regresje i CI. Oznacz komentarz `<!-- math-tutor-work-review:v1 pr=NUMER sha=SHA -->` i opublikuj jednoznaczny status (`NEEDS_FIXES`, `PASS`, `READY_FOR_USER_APPROVAL` albo `WAITING_FOR_CI`). Jeśli raport `WAITING_FOR_CI` kończy audyt kodu bez blokad, dodaj osobną linię `<!-- math-tutor-work-audit:v1 blockers=none -->`. Nie dodawaj jej przy nieukończonym audycie lub znanym defekcie.
+2. **Finalizator**, wyłącznie jeśli konto Work oferuje wyzwalacz **nowy komentarz PR**: ogranicz go do komentarzy w `eluyz/math-tutor-app` od `github-actions[bot]` (GitHub user ID `41898282`) z dokładnym znacznikiem `math-tutor-ci-gate:v1`. Przed publikacją sprawdź przez GitHub API, że PR jest nadal otwarty, baza to `main`, repozytorium HEAD jest to samo, SHA w znaczniku równa się bieżącemu `PR.head.sha`, a powiązany workflow `CI` faktycznie zakończył się podanym wynikiem. Odczytaj własny istniejący raport recenzji dla tego SHA. Opublikuj brakujący końcowy stan lub instrukcje naprawy; nie powtarzaj pełnego audytu bez nowych commitów, nie uznawaj `CI_SUCCESS` za `CODE_REVIEW_PASS` i nigdy nie ogłaszaj READY przy błędzie blokującym. Nie traktuj kolejnych komentarzy finalizatora jako nowego sygnału, aby uniknąć pętli.
+3. Jeśli trigger komentarza PR nie jest dostępny, pozostaw samodzielną bramkę GitHub. Opcjonalny harmonogram Work może okresowo sprawdzać otwarte PR z raportem `WAITING_FOR_CI`, lecz musi weryfikować aktualny HEAD i zakończony przebieg CI przed zmianą własnego statusu. Harmonogram nie jest skonfigurowany w tym PR.
+
+Samo pojawienie się komentarza bota **nie dowodzi**, że Work uruchomił finalizator. Dostępność wyzwalacza Work: **NOT_CONFIRMED**. Nie mamy tutaj dostępu do konfiguracji event-trigger tego konta i nie należy przedstawiać instrukcji jako dokonanej zmiany w Work.
+
+## Kontrolowany test po osobnej zgodzie na merge
+
+GitHub uruchamia `workflow_run` tylko wtedy, gdy plik workflow znajduje się na gałęzi domyślnej. Dlatego PR z MT-AUTO-001 może przetestować logikę w izolowanych fixture/mockach i własne CI, ale **nie może potwierdzić działania wyzwalacza produkcyjnego**. Po zatwierdzonym scaleniu do `main` utwórz nowy mały testowy PR (nie PR #25), odczekaj na ukończenie jego `CI` i sprawdź:
+
+1. Jedyny komentarz `math-tutor-ci-gate:v1` odpowiada numerowi PR, aktualnemu HEAD SHA i rzeczywistej konkluzji/linkowi run; ponowna próba CI aktualizuje go bez duplikatu.
+2. Zakończenie `CI` po zmianie HEAD nie oznacza starszego SHA jako gotowego; push na `main` i PR z forka nie otrzymują bramki.
+3. Jeśli skonfigurowano wyzwalacz komentarza w Work, sprawdź w historii jego zadań, czy uruchomił się **od komentarza bota**, a następnie czy opublikował decyzję dla dokładnego SHA. Jeśli nie, oznacz tryb `NOT_CONFIRMED` i użyj samodzielnej bramki lub monitorowania harmonogramem.
+
+Zielona bramka i recenzja nie zastępują osobnej zgody właściciela na merge ani fizycznego testu Safari. Testowego PR nie wolno scalać lub wdrażać automatycznie.

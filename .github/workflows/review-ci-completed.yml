@@ -1,0 +1,40 @@
+name: PR Review CI Completion
+
+on:
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+
+permissions:
+  contents: read
+  actions: read
+  pull-requests: write
+
+# Serialize deliveries for the same commit, including reruns, before looking for a gate comment.
+concurrency:
+  group: review-ci-gate-${{ github.event.workflow_run.head_sha }}
+  cancel-in-progress: false
+
+jobs:
+  notify:
+    if: >-
+      github.event.workflow_run.event == 'pull_request' &&
+      github.event.workflow_run.status == 'completed'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out trusted default-branch code only
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          persist-credentials: false
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+
+      - name: Update CI gate comment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node .github/scripts/review-ci-gate.mjs

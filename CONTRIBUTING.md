@@ -68,3 +68,7 @@ Fixture `mtedu005-baseline.json` powstał z archiwum scalonego `main` 69452a6. N
 Nowe macierze i układy sprawdzaj niezależnie: odwrotność przez dopełnienia i oba iloczyny jednostkowe; rząd przez minory, a nie drugi przebieg tej samej redukcji; układy przez rzędy, wyznaczniki i podstawienie do każdego oryginalnego równania. Zwracaj uwagę na zerowe pivoty, zamiany wierszy, dokładność ułamków i bezpieczne oznaczenie parametrów. Przed zmianą starych rodzin porównaj archiwum 6645 opublikowanych lekcji `mtedu006a-baseline.json`; nie regeneruj fixture z gałęzi roboczej. Przypadki `AX=B` i `XA=B` wymagają osobnych dowodów kolejności mnożenia.
 
 Dla Cramera 4×4 sprawdzaj D i wszystkie cztery Dⱼ inną metodą niż produkcyjny Laplace (obecny audyt używa wzoru Leibniza). Przy D=0 sprawdź rzędy i nie twórz ilorazów; przy D≠0 podstaw wszystkie cztery wyniki do oryginalnych równań. Pokazaną parametryzację testuj dla zera i wektorów bazowych parametrów, co w dokładnym modelu afinicznym sprawdza całą rodzinę.
+
+## Recenzja po zakończeniu CI
+
+Dla PR do `main` poczekaj na ukończenie workflow `CI` dla dokładnego HEAD SHA. Po wdrożeniu MT-AUTO-001 na gałąź domyślną komentarz `math-tutor-ci-gate:v1` będzie raportował wynik CI i istniejący dowód recenzji Work dla tego samego SHA. Zielone CI nie jest zgodą na merge: wymagane pozostają niezależna recenzja, ewentualny test fizycznego Safari i decyzja właściciela. Zobacz [instrukcję automatyzacji](docs/WORK_REVIEW_AUTOMATION.md).
