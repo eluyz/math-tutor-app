@@ -68,6 +68,8 @@ Automatyczny audyt zachowuje **647 różnych treści** pierwotnych 15 rodzin ora
 
 ## CI i GitHub Pages
 
+MT-AUTO-001 dodaje [powiadomienie po zakończeniu CI](docs/WORK_REVIEW_AUTOMATION.md): osobny workflow dla PR zapisuje w jednym komentarzu historyczny wynik konkretnej próby CI dla SHA, bez deklarowania bieżącej gotowości. Recenzja Work, aktualny status CI, fizyczny test Safari i decyzja właściciela wymagają osobnego sprawdzenia. Workflow zacznie reagować na `workflow_run` dopiero po osobno zatwierdzonym scaleniu na domyślną gałąź. Wyzwalacz komentarza PR w ChatGPT Work pozostaje niepotwierdzony; konfiguracja i plan kontrolowanego testu są w dokumencie. Powiadomienie nie uruchamia merge ani publikacji.
+
 Workflow [CI](.github/workflows/ci.yml) działa przy Pull Requestach do `main` oraz po push na `main`. Instaluje zależności przez `npm ci`, uruchamia Vitest, buduje aplikację i wykonuje testy Playwright w Chromium. Tylko udany przebieg CI po push na `main` zapisuje `dist/` jako artefakt `site-dist`. Osobny workflow [Deploy Pages](.github/workflows/pages.yml) pobiera ten konkretny artefakt i publikuje go po zakończeniu CI z sukcesem. PR nie uruchamia publikacji.
 
 W tym repozytorium Pages używa źródła GitHub Actions. Po scaleniu zmian do `main` sprawdź przebiegi **CI** i **Deploy Pages** w zakładce Actions, a następnie stronę pod adresem `https://eluyz.github.io/math-tutor-app/`. Samo otwarcie PR nie aktualizuje strony. W nowym forku właściciel musi ustawić **Settings → Pages → Build and deployment → Source: GitHub Actions**; w razie ograniczeń także dopuścić użyte akcje i wdrożenia z `main` do środowiska `github-pages`.
