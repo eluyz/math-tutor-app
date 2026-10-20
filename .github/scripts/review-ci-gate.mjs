@@ -111,8 +111,26 @@ export async function processCompletion(event, api, expectedRepository) {
   const matches = pulls.filter((pull) => validPull(pull, repository, run.head_sha, run.head_branch));
   if (matches.length !== 1) return "ignored: no unique open same-repository main PR at run SHA";
   const pull = matches[0];
-  const marker = gateMarker(pull.number, run.head_sha);
+  // Read each moving source twice. Work can revise a review during the HEAD
+  // check, while CI can start a rerun during comment pagination. GitHub does
+  // not provide an atomic transaction across these resources; the two passes
+  // narrow the interval and reject changes observed before writing.
+  await api.listComments(pull.number);
+  const latestRun = await api.getRun(run.id);
+  if (latestRun?.status !== "completed" || latestRun.run_attempt !== run.run_attempt ||
+      latestRun.conclusion !== run.conclusion || latestRun.head_sha !== run.head_sha)
+    return "ignored: CI run changed before comment";
+  if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
+    return "ignored: PR head changed before comment";
   const comments = await api.listComments(pull.number);
+  const finalRun = await api.getRun(run.id);
+  if (finalRun?.status !== "completed" || finalRun.run_attempt !== run.run_attempt ||
+      finalRun.conclusion !== run.conclusion || finalRun.head_sha !== run.head_sha)
+    return "ignored: CI run changed before comment";
+  if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
+    return "ignored: PR head changed before comment";
+
+  const marker = gateMarker(pull.number, run.head_sha);
   const own = comments.filter((comment) => isOwnGate(comment, marker));
   if (own.length > 1) throw new Error("Multiple owned CI gate comments need manual deduplication");
   if (own.length) {
@@ -122,15 +140,6 @@ export async function processCompletion(event, api, expectedRepository) {
       return "ignored: newer CI run already reported";
   }
   const body = renderGate(repository, pull, run, reviewFor(comments, repository, pull.number, run.head_sha));
-
-  // Recheck both moving facts immediately before writing. A rerun or PR push
-  // started while comments were being read must not receive the old success.
-  const latestRun = await api.getRun(run.id);
-  if (latestRun?.status !== "completed" || latestRun.run_attempt !== run.run_attempt ||
-      latestRun.conclusion !== run.conclusion || latestRun.head_sha !== run.head_sha)
-    return "ignored: CI run changed before comment";
-  if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
-    return "ignored: PR head changed before comment";
   if (own.length && own[0].body === body) return "unchanged";
   if (own.length) await api.updateComment(own[0].id, body);
   else await api.createComment(pull.number, body);

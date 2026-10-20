@@ -21,7 +21,7 @@ function fixture() {
     getRun: vi.fn(async () => state.run),
     associatedPulls: vi.fn(async () => state.associated),
     getPull: vi.fn(async (number) => number === state.pull.number ? state.pull : null),
-    listComments: vi.fn(async () => [...state.comments]),
+    listComments: vi.fn(async () => structuredClone(state.comments)),
     createComment: vi.fn(async (_, body) => state.comments.push({ id: 99, user: { id: 41898282 }, body })),
     updateComment: vi.fn(async (id, body) => { state.comments.find((c) => c.id === id).body = body; }),
   };
@@ -129,6 +129,51 @@ describe("MT-AUTO-001 CI completion gate", () => {
       .mockImplementationOnce(async () => ({ ...h.state.run, status: "in_progress", run_attempt: 2 }));
     expect(await h.process()).toBe("ignored: CI run changed before comment");
     expect(h.api.createComment).not.toHaveBeenCalled();
+  });
+
+  it("does not publish a stale success if a rerun begins during comment pagination", async () => {
+    const f = fixture();
+    f.api.listComments.mockImplementation(async () => {
+      const snapshot = structuredClone(f.state.comments);
+      f.state.run = { ...f.state.run, run_attempt: 2, status: "in_progress", conclusion: null };
+      return snapshot;
+    });
+    expect(await f.process()).toBe("ignored: CI run changed before comment");
+    expect(f.api.createComment).not.toHaveBeenCalled();
+  });
+
+  it("rejects a rerun or a new PR HEAD appearing during either comment read", async () => {
+    const f = fixture();
+    f.api.listComments.mockImplementationOnce(async () => structuredClone(f.state.comments))
+      .mockImplementationOnce(async () => {
+        const snapshot = structuredClone(f.state.comments);
+        f.state.run = { ...f.state.run, run_attempt: 2, status: "in_progress", conclusion: null };
+        return snapshot;
+      });
+    expect(await f.process()).toBe("ignored: CI run changed before comment");
+    expect(f.api.createComment).not.toHaveBeenCalled();
+
+    const g = fixture();
+    g.api.listComments.mockImplementationOnce(async () => {
+      g.state.pull = { ...g.state.pull, head: { ...g.state.pull.head, sha: "b".repeat(40) } };
+      return structuredClone(g.state.comments);
+    });
+    expect(await g.process()).toBe("ignored: PR head changed before comment");
+    expect(g.api.createComment).not.toHaveBeenCalled();
+  });
+
+  it("uses a Work report updated from PASS to NEEDS_FIXES during the final pull check", async () => {
+    const f = fixture();
+    f.state.comments.push(workComment("PASS"));
+    f.api.getPull.mockImplementationOnce(async () => f.state.pull)
+      .mockImplementationOnce(async () => {
+        f.state.comments[0] = workComment("NEEDS_FIXES");
+        return f.state.pull;
+      });
+    expect(await f.process()).toBe("created");
+    expect(f.state.comments[1].body).toContain("CODE_REVIEW: **NEEDS_FIXES**");
+    expect(f.state.comments[1].body).toContain("Gate: **BLOCKED_BY_REVIEW**");
+    expect(f.state.comments[1].body).not.toContain("CODE_REVIEW_PASS_AND_CI_GREEN");
   });
 
   it("blocks on trusted same-SHA NEEDS_FIXES regardless of CI", async () => {
