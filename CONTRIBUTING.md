@@ -71,4 +71,4 @@ Dla Cramera 4×4 sprawdzaj D i wszystkie cztery Dⱼ inną metodą niż produkcy
 
 ## Recenzja po zakończeniu CI
 
-Dla PR do `main` poczekaj na ukończenie workflow `CI` dla dokładnego HEAD SHA. Po wdrożeniu MT-AUTO-001 na gałąź domyślną komentarz `math-tutor-ci-gate:v1` będzie raportował wynik CI i istniejący dowód recenzji Work dla tego samego SHA. Zielone CI nie jest zgodą na merge: wymagane pozostają niezależna recenzja, ewentualny test fizycznego Safari i decyzja właściciela. Zobacz [instrukcję automatyzacji](docs/WORK_REVIEW_AUTOMATION.md).
+Dla PR do `main` poczekaj na ukończenie najnowszej próby workflow `CI` dla dokładnego HEAD SHA. Po wdrożeniu MT-AUTO-001 na gałąź domyślną komentarz `math-tutor-ci-gate:v1` będzie raportował historyczny wynik konkretnej próby, bez potwierdzania aktualnego statusu CI ani oceny Work. Przed decyzją sprawdź najnowsze CI i niezależną recenzję; wymagane pozostają ewentualny test fizycznego Safari i zgoda właściciela. Zobacz [instrukcję automatyzacji](docs/WORK_REVIEW_AUTOMATION.md).

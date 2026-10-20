@@ -35,17 +35,18 @@ function workComment(status, { author = 7, noBlockers = false, commentSha = sha 
 }
 
 describe("MT-AUTO-001 CI completion gate", () => {
-  it("publishes only the finished CI result, separating review, Safari and owner approval", async () => {
+  it("publishes only a historical CI attempt, separating review, Safari and owner approval", async () => {
     const f = fixture();
     expect(await f.process()).toBe("created");
     const body = f.state.comments[0].body;
     expect(body).toContain(`<!-- math-tutor-ci-gate:v1 pr=27 sha=${sha} -->`);
-    expect(body).toContain("CI: **CI_SUCCESS**");
-    expect(body).toContain("CODE_REVIEW: **NOT_CONFIRMED**");
-    expect(body).toContain("CI_SUCCESS_AWAITING_INDEPENDENT_REVIEW");
+    expect(body).toContain("CI_RUN_RESULT: **SUCCESS**");
+    expect(body).toContain("CURRENT_CI: **NOT_VERIFIED**");
+    expect(body).toContain("CODE_REVIEW: **NOT_ASSESSED_BY_THIS_WORKFLOW**");
+    expect(body).toContain("CURRENT_READINESS: **NOT_ASSESSED**");
     expect(body).toContain("PHYSICAL_SAFARI: **NOT_VERIFIED**");
     expect(body).toContain("OWNER_APPROVAL: **REQUIRED**");
-    expect(body).not.toContain("CODE_REVIEW_PASS_AND_CI_GREEN");
+    expect(body).not.toMatch(/CODE_REVIEW_PASS_AND_CI_GREEN|CI_SUCCESS|Gate:|CODE_REVIEW: \*\*PASS\*\*/);
     expect(await f.process()).toBe("unchanged");
     expect(f.state.comments).toHaveLength(1);
     expect(f.api.createComment).toHaveBeenCalledTimes(1);
@@ -53,14 +54,14 @@ describe("MT-AUTO-001 CI completion gate", () => {
   });
 
   it.each([
-    ["failure", "CI_FAILED"], ["cancelled", "CI_CANCELLED"],
-    ["timed_out", "CI_TIMED_OUT"], ["neutral", "CI_NEUTRAL"],
+    ["failure", "FAILURE"], ["cancelled", "CANCELLED"],
+    ["timed_out", "TIMED_OUT"], ["neutral", "NEUTRAL"],
   ])("reports %s without claiming a green gate", async (conclusion, status) => {
     const f = fixture();
     f.state.run.conclusion = conclusion;
     f.event.workflow_run.conclusion = conclusion;
     expect(await f.process()).toBe("created");
-    expect(f.state.comments[0].body).toContain(`CI: **${status}**`);
+    expect(f.state.comments[0].body).toContain(`CI_RUN_RESULT: **${status}**`);
     expect(f.state.comments[0].body).not.toContain("CODE_REVIEW_PASS_AND_CI_GREEN");
   });
 
@@ -95,11 +96,11 @@ describe("MT-AUTO-001 CI completion gate", () => {
     expect(await f.process()).toBe("created");
     f.state.run = { ...f.state.run, run_attempt: 2, conclusion: "failure" };
     expect(await f.process()).toBe("ignored: stale or incomplete run");
-    expect(f.state.comments[0].body).toContain("CI_SUCCESS");
+    expect(f.state.comments[0].body).toContain("CI_RUN_RESULT: **SUCCESS**");
     f.event.workflow_run = { ...f.event.workflow_run, run_attempt: 2, conclusion: "failure" };
     expect(await f.process()).toBe("updated");
     expect(f.state.comments).toHaveLength(1);
-    expect(f.state.comments[0].body).toContain("CI: **CI_FAILED**");
+    expect(f.state.comments[0].body).toContain("CI_RUN_RESULT: **FAILURE**");
     expect(f.state.comments[0].body).toContain("attempt 2");
     expect(f.api.createComment).toHaveBeenCalledTimes(1);
     expect(f.api.updateComment).toHaveBeenCalledTimes(1);
@@ -109,7 +110,7 @@ describe("MT-AUTO-001 CI completion gate", () => {
     const f = fixture();
     f.state.comments.push({
       id: 99, user: { id: 41898282 },
-      body: `<!-- math-tutor-ci-gate:v1 pr=27 sha=${sha} -->\n- CI: **CI_SUCCESS** — [run 200, attempt 1](https://github.com/eluyz/math-tutor-app/actions/runs/200).`,
+      body: `<!-- math-tutor-ci-gate:v1 pr=27 sha=${sha} -->\n- CI_RUN_RESULT: **SUCCESS** — [run 200, attempt 1](https://github.com/eluyz/math-tutor-app/actions/runs/200).`,
     });
     expect(await f.process()).toBe("ignored: newer CI run already reported");
     expect(f.api.updateComment).not.toHaveBeenCalled();
@@ -125,88 +126,116 @@ describe("MT-AUTO-001 CI completion gate", () => {
     expect(await g.process()).toBe("ignored: PR head changed before comment");
     expect(g.api.createComment).not.toHaveBeenCalled();
     const h = fixture();
-    h.api.getRun.mockImplementationOnce(async () => h.state.run)
-      .mockImplementationOnce(async () => ({ ...h.state.run, status: "in_progress", run_attempt: 2 }));
-    expect(await h.process()).toBe("ignored: CI run changed before comment");
+    h.api.listComments.mockImplementation(async () => {
+      h.state.pull = { ...h.state.pull, head: { ...h.state.pull.head, sha: "b".repeat(40) } };
+      return structuredClone(h.state.comments);
+    });
+    expect(await h.process()).toBe("ignored: PR head changed before comment");
     expect(h.api.createComment).not.toHaveBeenCalled();
   });
 
-  it("does not publish a stale success if a rerun begins during comment pagination", async () => {
+  it.each([false, true])("treats a rerun during comment pagination as historical on %s path", async (existing) => {
     const f = fixture();
+    f.state.comments.push(workComment("PASS"));
+    if (existing) f.state.comments.push({
+      id: 99, user: { id: 41898282 },
+      body: `<!-- math-tutor-ci-gate:v1 pr=27 sha=${sha} -->\nold notice`,
+    });
+    f.api.getRun.mockImplementation(async () => structuredClone(f.state.run));
     f.api.listComments.mockImplementation(async () => {
       const snapshot = structuredClone(f.state.comments);
       f.state.run = { ...f.state.run, run_attempt: 2, status: "in_progress", conclusion: null };
       return snapshot;
     });
-    expect(await f.process()).toBe("ignored: CI run changed before comment");
-    expect(f.api.createComment).not.toHaveBeenCalled();
+    expect(await f.process()).toBe(existing ? "updated" : "created");
+    expect(f.api.listComments).toHaveBeenCalledTimes(1);
+    expect(f.state.comments.at(-1).body).toContain("CURRENT_CI: **NOT_VERIFIED**");
+    expect(f.state.comments.at(-1).body).not.toMatch(/CI_SUCCESS|CODE_REVIEW_PASS_AND_CI_GREEN|Gate:/);
+    expect(f.state.comments).toHaveLength(2);
+    expect(f.api.createComment).toHaveBeenCalledTimes(existing ? 0 : 1);
+    expect(f.api.updateComment).toHaveBeenCalledTimes(existing ? 1 : 0);
   });
 
-  it("rejects a rerun or a new PR HEAD appearing during either comment read", async () => {
-    const f = fixture();
-    f.api.listComments.mockImplementationOnce(async () => structuredClone(f.state.comments))
-      .mockImplementationOnce(async () => {
-        const snapshot = structuredClone(f.state.comments);
-        f.state.run = { ...f.state.run, run_attempt: 2, status: "in_progress", conclusion: null };
-        return snapshot;
-      });
-    expect(await f.process()).toBe("ignored: CI run changed before comment");
-    expect(f.api.createComment).not.toHaveBeenCalled();
-
-    const g = fixture();
-    g.api.listComments.mockImplementationOnce(async () => {
-      g.state.pull = { ...g.state.pull, head: { ...g.state.pull.head, sha: "b".repeat(40) } };
-      return structuredClone(g.state.comments);
-    });
-    expect(await g.process()).toBe("ignored: PR head changed before comment");
-    expect(g.api.createComment).not.toHaveBeenCalled();
-  });
-
-  it("uses a Work report updated from PASS to NEEDS_FIXES during the final pull check", async () => {
+  it.each([
+    [false, "comments"], [true, "comments"],
+    [false, "final HEAD"], [true, "final HEAD"],
+  ])("does not infer Work approval when PASS changes during %s / %s", async (existing, during) => {
     const f = fixture();
     f.state.comments.push(workComment("PASS"));
-    f.api.getPull.mockImplementationOnce(async () => f.state.pull)
-      .mockImplementationOnce(async () => f.state.pull)
+    if (existing) f.state.comments.push({
+      id: 99, user: { id: 41898282 },
+      body: `<!-- math-tutor-ci-gate:v1 pr=27 sha=${sha} -->\nold notice`,
+    });
+    f.api.listComments.mockImplementation(async () => {
+      const snapshot = structuredClone(f.state.comments);
+      if (during === "comments") f.state.comments[0] = workComment("NEEDS_FIXES");
+      return snapshot;
+    });
+    f.api.getPull.mockImplementationOnce(async () => structuredClone(f.state.pull))
       .mockImplementationOnce(async () => {
-        f.state.comments[0] = workComment("NEEDS_FIXES");
-        return f.state.pull;
+        if (during === "final HEAD") f.state.comments[0] = workComment("NEEDS_FIXES");
+        return structuredClone(f.state.pull);
       });
-    expect(await f.process()).toBe("created");
-    expect(f.api.getPull).toHaveBeenCalledTimes(3);
-    expect(f.api.listComments).toHaveBeenCalledTimes(3);
-    expect(f.state.comments[1].body).toContain("CODE_REVIEW: **NEEDS_FIXES**");
-    expect(f.state.comments[1].body).toContain("Gate: **BLOCKED_BY_REVIEW**");
-    expect(f.state.comments[1].body).not.toContain("CODE_REVIEW_PASS_AND_CI_GREEN");
+    expect(await f.process()).toBe(existing ? "updated" : "created");
+    expect(f.state.comments.at(-1).body).toContain("CODE_REVIEW: **NOT_ASSESSED_BY_THIS_WORKFLOW**");
+    expect(f.state.comments.at(-1).body).not.toMatch(/CODE_REVIEW: \*\*PASS\*\*|CODE_REVIEW_PASS_AND_CI_GREEN|Gate:/);
   });
 
-  it("blocks on trusted same-SHA NEEDS_FIXES regardless of CI", async () => {
+  it.each(["getRun", "first getPull", "listComments", "final getPull"])(
+    "keeps a rerun starting during %s historical, not current", async (during) => {
+      const f = fixture();
+      f.state.comments.push(workComment("PASS"));
+      const rerun = () => { f.state.run = { ...f.state.run, run_attempt: 2, status: "in_progress", conclusion: null }; };
+      f.api.getRun.mockImplementation(async () => {
+        const snapshot = structuredClone(f.state.run);
+        if (during === "getRun") rerun();
+        return snapshot;
+      });
+      let pullReads = 0;
+      f.api.getPull.mockImplementation(async () => {
+        const snapshot = structuredClone(f.state.pull);
+        if (++pullReads === (during === "first getPull" ? 1 : 2) && during.includes("getPull")) rerun();
+        return snapshot;
+      });
+      f.api.listComments.mockImplementation(async () => {
+        const snapshot = structuredClone(f.state.comments);
+        if (during === "listComments") rerun();
+        return snapshot;
+      });
+      expect(await f.process()).toBe("created");
+      expect(f.state.comments.at(-1).body).toContain("CI_RUN_RESULT: **SUCCESS**");
+      expect(f.state.comments.at(-1).body).toContain("CURRENT_CI: **NOT_VERIFIED**");
+      expect(f.state.comments.at(-1).body).not.toMatch(/CI_SUCCESS|CODE_REVIEW_PASS_AND_CI_GREEN|Gate:/);
+    },
+  );
+
+  it.each([false, true])("does not publish after a HEAD change during comments on %s path", async (existing) => {
     const f = fixture();
-    f.state.comments.push(workComment("NEEDS_FIXES"));
-    expect(await f.process()).toBe("created");
-    expect(f.state.comments[1].body).toContain("CODE_REVIEW: **NEEDS_FIXES**");
-    expect(f.state.comments[1].body).toContain("Gate: **BLOCKED_BY_REVIEW**");
+    if (existing) f.state.comments.push({
+      id: 99, user: { id: 41898282 },
+      body: `<!-- math-tutor-ci-gate:v1 pr=27 sha=${sha} -->\nold notice`,
+    });
+    f.api.listComments.mockImplementation(async () => {
+      const snapshot = structuredClone(f.state.comments);
+      f.state.pull = { ...f.state.pull, head: { ...f.state.pull.head, sha: "b".repeat(40) } };
+      return snapshot;
+    });
+    expect(await f.process()).toBe("ignored: PR head changed before comment");
+    expect(f.api.createComment).not.toHaveBeenCalled();
+    expect(f.api.updateComment).not.toHaveBeenCalled();
   });
 
-  it("recognizes a trusted same-SHA PASS, and confirmed audit completion without inventing Work PASS", async () => {
-    const f = fixture(); f.state.comments.push(workComment("PASS"));
-    expect(await f.process()).toBe("created");
-    expect(f.state.comments[1].body).toContain("Gate: **CODE_REVIEW_PASS_AND_CI_GREEN**");
-    const g = fixture(); g.state.comments.push(workComment("WAITING_FOR_CI", { noBlockers: true }));
-    expect(await g.process()).toBe("created");
-    expect(g.state.comments[1].body).toContain("CODE_REVIEW: **WAITING_FOR_CI**");
-    expect(g.state.comments[1].body).toContain("Gate: **CODE_REVIEW_AUDIT_COMPLETE_CI_GREEN**");
-    expect(g.state.comments[1].body).not.toContain("CODE_REVIEW: **PASS**");
-  });
-
-  it("does not trust another author, stale SHA or an inconclusive WAITING_FOR_CI review", async () => {
+  it("does not trust another author, stale SHA or any Work status as a current gate", async () => {
     for (const comment of [
       workComment("PASS", { author: 8 }),
       workComment("PASS", { commentSha: "b".repeat(40) }),
-      workComment("WAITING_FOR_CI"),
+      workComment("WAITING_FOR_CI", { noBlockers: true }),
+      workComment("NEEDS_FIXES"),
     ]) {
       const f = fixture(); f.state.comments.push(comment);
       expect(await f.process()).toBe("created");
-      expect(f.state.comments[1].body).toContain("Gate: **CI_SUCCESS_AWAITING_INDEPENDENT_REVIEW**");
+      expect(f.state.comments[1].body).toContain("CURRENT_READINESS: **NOT_ASSESSED**");
+      expect(f.state.comments[1].body).toContain("CODE_REVIEW: **NOT_ASSESSED_BY_THIS_WORKFLOW**");
     }
   });
 

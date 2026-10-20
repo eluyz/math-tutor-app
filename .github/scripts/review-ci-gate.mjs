@@ -3,70 +3,26 @@ import { pathToFileURL } from "node:url";
 
 const shaPattern = /^[a-f0-9]{40}$/;
 const botId = 41898282; // github-actions[bot], not a user-supplied login string.
-const reviewStatuses = new Set(["NEEDS_FIXES", "PASS", "READY_FOR_USER_APPROVAL", "WAITING_FOR_CI"]);
 
 const gateMarker = (number, sha) => `<!-- math-tutor-ci-gate:v1 pr=${number} sha=${sha} -->`;
-const reviewMarker = (number, sha) => `<!-- math-tutor-work-review:v1 pr=${number} sha=${sha} -->`;
 const isOwnGate = (comment, marker) =>
   comment.user?.id === botId && typeof comment.body === "string" &&
   comment.body.startsWith(`${marker}\n`);
 
-function reviewFor(comments, repository, number, sha) {
-  const marker = reviewMarker(number, sha);
-  const eligible = comments.flatMap((comment) => {
-    // Work currently posts through the repository owner's account. A marker from
-    // another account (including another bot) is not review evidence.
-    if (comment.user?.id !== repository.owner?.id || typeof comment.body !== "string" ||
-        !comment.body.startsWith(`${marker}\n`)) return [];
-    const firstLine = comment.body.slice(marker.length).trimStart().split(/\r?\n/, 1)[0];
-    const status = /^## (NEEDS_FIXES|PASS|READY_FOR_USER_APPROVAL|WAITING_FOR_CI)(?:\s|$)/.exec(firstLine)?.[1];
-    if (!reviewStatuses.has(status)) return [];
-    const lines = comment.body.split(/\r?\n/).map((line) => line.trim());
-    const noBlockers = lines.includes("<!-- math-tutor-work-audit:v1 blockers=none -->") ||
-      lines.includes("Nie potwierdziłem innych błędów blokujących w aktualnym zakresie zmian.") ||
-      lines.includes("No blocking defects remain in the current change.");
-    return [{ status, noBlockers, id: comment.id, updated: comment.updated_at ?? comment.created_at ?? "" }];
-  });
-  if (eligible.some((review) => review.status === "NEEDS_FIXES"))
-    return eligible.find((review) => review.status === "NEEDS_FIXES");
-  return eligible.sort((a, b) => b.updated.localeCompare(a.updated))[0] ?? null;
-}
-
-function ciStatus(conclusion) {
-  if (conclusion === "success") return "CI_SUCCESS";
-  if (conclusion === "failure") return "CI_FAILED";
-  if (conclusion === "cancelled") return "CI_CANCELLED";
-  const other = new Set(["timed_out", "action_required", "neutral", "skipped", "stale", "startup_failure"]);
-  return other.has(conclusion) ? `CI_${conclusion.toUpperCase()}` : "CI_UNKNOWN";
-}
-
-function gateStatus(ci, review) {
-  if (review?.status === "NEEDS_FIXES") return "BLOCKED_BY_REVIEW";
-  if (ci !== "CI_SUCCESS") return ci;
-  if (review?.status === "PASS" || review?.status === "READY_FOR_USER_APPROVAL")
-    return "CODE_REVIEW_PASS_AND_CI_GREEN";
-  if (review?.status === "WAITING_FOR_CI" && review.noBlockers)
-    return "CODE_REVIEW_AUDIT_COMPLETE_CI_GREEN";
-  return "CI_SUCCESS_AWAITING_INDEPENDENT_REVIEW";
-}
-
-function renderGate(repository, pull, run, review) {
+function renderNotice(repository, pull, run) {
   const sha = run.head_sha;
-  const ci = ciStatus(run.conclusion);
-  const reviewState = review?.status ?? "NOT_CONFIRMED";
-  const gate = gateStatus(ci, review);
   const runUrl = `https://github.com/${repository.full_name}/actions/runs/${run.id}`;
-  const reviewUrl = review ? `https://github.com/${repository.full_name}/pull/${pull.number}#issuecomment-${review.id}` : null;
   return `${gateMarker(pull.number, sha)}
-**CI completion gate for PR #${pull.number}, HEAD \`${sha}\`**
+**Powiadomienie o zakończonej próbie CI dla PR #${pull.number}, commit \`${sha}\`**
 
-- CI: **${ci}** — [run ${run.id}, attempt ${run.run_attempt}](${runUrl}).
-- CODE_REVIEW: **${reviewState}**${reviewUrl ? ` — [same-SHA Work report](${reviewUrl})` : " (no trusted same-SHA Work report)"}.
+- CI_RUN_RESULT: **${run.conclusion.toUpperCase()}** — [run ${run.id}, attempt ${run.run_attempt}](${runUrl}) zakończył się z takim wynikiem w chwili odczytu. To historyczny wynik tej próby; późniejszy rerun mógł zmienić bieżący stan CI.
+- CURRENT_CI: **NOT_VERIFIED** — sprawdź najnowszą próbę w GitHub Actions.
+- CODE_REVIEW: **NOT_ASSESSED_BY_THIS_WORKFLOW** — sprawdź niezależny raport Work dla tego commita.
 - PHYSICAL_SAFARI: **NOT_VERIFIED**.
 - OWNER_APPROVAL: **REQUIRED**.
-- Gate: **${gate}**.
+- CURRENT_READINESS: **NOT_ASSESSED**.
 
-This automated comment reports GitHub CI and existing review evidence. It is not a ChatGPT Work decision or a formal approval; it does not authorize merge or deployment.`;
+To automatyczne powiadomienie nie ocenia bieżącej gotowości, nie zastępuje decyzji ChatGPT Work ani nie upoważnia do scalenia lub wdrożenia.`;
 }
 
 function validRepository(repository, expectedName) {
@@ -95,13 +51,15 @@ export async function processCompletion(event, api, expectedRepository) {
   if (delivered.head_repository?.id !== undefined && delivered.head_repository.id !== repository.id)
     return "ignored: fork run";
 
-  // The authoritative run may already be on a newer attempt. Never publish an
-  // old success from a delayed workflow_run delivery during or after a rerun.
+  // The event and API must identify the same completed attempt. A subsequent
+  // rerun can start during any later await, so the notice reports only this
+  // attempt's observed historical result, never current readiness.
   const run = await api.getRun(delivered.id);
   if (run?.id !== delivered.id || run.name !== "CI" || run.event !== "pull_request" ||
       run.status !== "completed" || run.run_attempt !== delivered.run_attempt ||
       run.head_sha !== delivered.head_sha || run.head_branch !== delivered.head_branch ||
-      typeof run.conclusion !== "string") return "ignored: stale or incomplete run";
+      run.conclusion !== delivered.conclusion || typeof run.conclusion !== "string")
+    return "ignored: stale or incomplete run";
 
   const candidates = Array.isArray(delivered.pull_requests) && delivered.pull_requests.length
     ? delivered.pull_requests : await api.associatedPulls(run.head_sha);
@@ -111,28 +69,12 @@ export async function processCompletion(event, api, expectedRepository) {
   const matches = pulls.filter((pull) => validPull(pull, repository, run.head_sha, run.head_branch));
   if (matches.length !== 1) return "ignored: no unique open same-repository main PR at run SHA";
   const pull = matches[0];
-  // Read each moving source twice. Work can revise a review during the HEAD
-  // check, while CI can start a rerun during comment pagination. GitHub does
-  // not provide an atomic transaction across these resources; the two passes
-  // narrow the interval and reject changes observed before writing.
-  await api.listComments(pull.number);
-  const latestRun = await api.getRun(run.id);
-  if (latestRun?.status !== "completed" || latestRun.run_attempt !== run.run_attempt ||
-      latestRun.conclusion !== run.conclusion || latestRun.head_sha !== run.head_sha)
-    return "ignored: CI run changed before comment";
-  if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
-    return "ignored: PR head changed before comment";
-  await api.listComments(pull.number);
-  const finalRun = await api.getRun(run.id);
-  if (finalRun?.status !== "completed" || finalRun.run_attempt !== run.run_attempt ||
-      finalRun.conclusion !== run.conclusion || finalRun.head_sha !== run.head_sha)
-    return "ignored: CI run changed before comment";
-  if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
-    return "ignored: PR head changed before comment";
-
-  // This is the final awaited read before the write. A Work edit during the
-  // last HEAD check is reflected here; there is no atomic GitHub transaction.
+  // Comments are read only to find our own notice. Work can edit its report
+  // during this read without changing our message. A CI rerun can likewise
+  // start at any time without falsifying the recorded result of this attempt.
   const comments = await api.listComments(pull.number);
+  if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
+    return "ignored: PR head changed before comment";
   const marker = gateMarker(pull.number, run.head_sha);
   const own = comments.filter((comment) => isOwnGate(comment, marker));
   if (own.length > 1) throw new Error("Multiple owned CI gate comments need manual deduplication");
@@ -142,7 +84,7 @@ export async function processCompletion(event, api, expectedRepository) {
         (Number(previous[1]) === run.id && Number(previous[2]) > run.run_attempt)))
       return "ignored: newer CI run already reported";
   }
-  const body = renderGate(repository, pull, run, reviewFor(comments, repository, pull.number, run.head_sha));
+  const body = renderNotice(repository, pull, run);
   if (own.length && own[0].body === body) return "unchanged";
   if (own.length) await api.updateComment(own[0].id, body);
   else await api.createComment(pull.number, body);
