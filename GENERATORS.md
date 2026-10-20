@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **78 rodzin**, **7365 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A oraz 11 rodzin MT-EDU-006B. Po 68 rodzin wspiera advanced, a 65 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **94 rodzin**, **8589 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 16 rodzin P0–P3 MT-EDU-007. Po 80 rodzin wspiera advanced, a 75 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **68**, L5: **65**.
+Łącznie rodziny L4: **80**, L5: **75**.
 
 ## Pierwotne rodziny
 
@@ -235,3 +235,55 @@ MT-EDU-006B: **720** nowych instancji; łącznie **7365**. Jedenaście rodzin, 3
 `linearAlgebraMath.ts` przechowuje wyłącznie dokładne `Rational`/BigInt, waliduje wymiary, wykonuje Gaussa–Jordana albo eliminację z osobnym podstawieniem wstecznym. Macierz 4×4 jest tylko danymi i tabelą: nie zmienia limitu starego formularza macierzy 3×3. Przy jednym rozwiązaniu formularz `system` wymaga wszystkich niewiadomych; zadanie klasyfikacyjne i przypadek osobliwy używają kontrolowanego `choice`, bez swobodnej oceny wzorów parametrycznych. Pierwsza nieważna odpowiedź nie zużywa samodzielnej próby sesji.
 
 `inverses.test.ts` sprawdza obie strony AA⁻¹=I metodą niezależnych dopełnień; `ranks.test.ts` liczy wszystkie rzędy przez minory; `gauss.test.ts` stosuje Laplace'a/Cramera i podstawia wszystkie niewiadome do oryginalnych równań. Testy przechodzą przez każdą instancję PL/EN i poprawne, błędne oraz nieważne formularze. `linear-algebra-regression.test.ts` porównuje pełne hash'e wszystkich 6645 poprzednich zadań i lekcji, a Playwright bada widoki 375/768/1280 px. Własny solver produkcyjny nie jest źródłem oczekiwań audytu. P3 dodaje `cramer-four` i `inverse-right-applications`. `cramerFour.test.ts` porównuje każdy wyznacznik 4×4 z niezależnym wzorem Leibniza, sprawdza D=0 bez dzielenia, wszystkie podstawienia i pełne lekcje PL/EN. Układ dwóch równań macierzowych pozostaje przyszły; nie deklarujemy pokrycia prywatnych arkuszy ani fizycznego Safari.
+
+## MT-EDU-007 P0 — logarytmy, potęgi i moduł
+
+MT-EDU-007 P0: **384** nowych instancji; łącznie **7749**. Pięć rodzin, 16 uczciwych par rodzina/poziom po 24 odrębne treści każda. Wartości są wymierne dokładnie; nie stosujemy parsera wyrażeń ani przybliżeń logarytmów.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| analysis-log-domain | easy, medium, hard | Dodatniość argumentu; znak ilorazu i wyłączenie bieguna; pierwiastek nad logarytmem w mianowniku z wyłączeniem log_a(1)=0 |
+| analysis-power-law | easy, medium, hard | log_a(a^k)=k, a^(log_a u)=u przy u>0, suma obu praw z dokładnym ułamkiem |
+| analysis-elementary-equation | easy, medium, hard | Równanie wykładnicze, logarytmiczne z dziedziną i suma dwóch logarytmów wymagająca odrzucenia niedozwolonego pierwiastka |
+| analysis-log-inequality | medium, hard | Log_a(x-p)>k oraz ≤k; obie strony podstawy 1, w tym odwrócenie znaku dla 0<a<1 |
+| analysis-absolute | easy, medium, hard, advanced, expert | Dwa rozwiązania \|x−p\|=r; dziedzina pierwiastka z modułem; przedział ostry; suma dwóch modułów ≤ lub ≥ progu z trzema obszarami |
+
+Odpowiedzi używają istniejących typów `scalar`, `roots` i kontrolowanego wyboru kanonicznego zbioru (`setKey`). Dziedziny i zbiory rozwiązań zachowują otwarte/domknięte końce. `elementaryAnalysis.test.ts` sprawdza wszystkie 384 warianty w PL/EN niezależnymi warunkami algebraicznymi i punktami brzegowymi, `correct/incorrect/invalid` oraz unikalność treści. `function-analysis-regression.test.ts` porównuje 7365 pełnych lekcji PL/EN z opublikowanym `main` 793315c. P1 jest opisany niżej; P2 jest opisany niżej; P3 jest częściowo opisany niżej; brakujące scenariusze pozostają przyszłe.
+
+## MT-EDU-007 P1 — granice Eulera i asymptoty
+
+MT-EDU-007 P1: **384** nowych instancji; łącznie **8133**. Pięć rodzin i 16 par rodzina/poziom × 24 unikalne pytania. Zachowano wszystkie 7365 lekcji sprzed MT-EDU-007. Nie przybliżamy liczby e: odpowiedź e^q ma kontrolowany identyfikator i dokładny wykładnik wymierny.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| analysis-euler-sequence | medium, hard, advanced, expert | Ciąg (1+a/n)^n, skalowany wykładnik, iloraz dwóch liniowych ciągów i przesunięty wykładnik; także e^0=1 |
+| analysis-euler-function | medium, hard, advanced, expert | Analogiczna granica funkcji przy x→0; uzasadnienie przez logarytm dodatniej podstawy |
+| analysis-asymptote-vertical | medium, hard, advanced | Biegun prosty, biegun podwójny, skrócenie i dziura; osobne znaki granic jednostronnych |
+| analysis-asymptote-horizontal | medium, hard, advanced | Iloraz liniowych wielomianów, pierwiastek z x²+1 z rozróżnieniem ±∞, brak asymptoty przy prostej o niezerowym nachyleniu |
+| analysis-asymptote-oblique | advanced, expert | Dzielenie wielomianów, sprzężenie √(x²+1), asymptota ukośna/pozioma w różnych kierunkach oraz brak prostej dla funkcji kwadratowej |
+
+`analysisLimitsAsymptotes.test.ts` niezależnie wyprowadza wykładniki, znaki granic oraz proste asymptotyczne dla każdego wariantu PL/EN, sprawdza format i wynik odpowiedzi. Wszystkie proste zapisuje jako dokładne współczynniki wymierne. Test katalogu wymusza globalnie różne treści między rodzinami i poziomami.
+
+## MT-EDU-007 P2 — reguła de l’Hospitala i druga pochodna
+
+MT-EDU-007 P2: **360** nowych instancji; łącznie **8493**. Cztery rodziny, 15 par rodzina/poziom × 24 różne pytania. Wyniki pozostają wymierne: e^0 jest dokładnie 1, a logarytm w punkcie ma argument 1 lub wartość bezwzględną 1. Nie przybliżamy funkcji wykładniczej w ocenianiu odpowiedzi.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| analysis-lhospital | medium, hard, advanced, expert | Rzeczywiste 0/0, jedna lub dwie aplikacje dla wielomianów i e^u; jawna kontrola różniczkowalności, pochodnej mianownika i granicy ilorazu |
+| analysis-lhospital-infinity | medium, hard, advanced, expert | Rzeczywiste ±∞/∞: ilorazy wielomianów jedno- i dwukrokowe, ln(1+mx)/ln x oraz ln(1+mx)/ln(1+x^k), k=2 lub 3; kontrolowana dziedzina i niezerowa pochodna mianownika |
+| analysis-log-exp-derivative | medium, hard, advanced, expert | ln(1+u), e^u, ln|u| po ujemnej stronie oraz iloczyn e^u(1+v); reguła łańcuchowa i pochodna w punkcie |
+| analysis-concavity | hard, advanced, expert | Zmiana znaku f'' dla sześcianu, brak przegięcia przy zerze podwójnym czwartej potęgi, dwa rzeczywiste przegięcia w mieszanym wielomianie czwartego stopnia |
+
+`advancedCalculus.test.ts` wyznacza niezależnie wyniki dla wszystkich 360 wariantów PL/EN, liczy pochodne i znaki f'' dokładną arytmetyką oraz odróżnia zera bez zmiany znaku. Sprawdza poprawne, błędne i nieprawidłowe formularze.
+
+## MT-EDU-007 P3 — częściowe badanie funkcji
+
+MT-EDU-007 P3 (częściowo): **96** nowych instancji; łącznie **8589**. Dwie rodziny, cztery pary rodzina/poziom po 24 różne pytania. Pełne lekcje przedstawiają dziedzinę, miejsca zerowe, symetrię, granice i asymptoty, znaki f' i f'', ekstrema oraz wypukłość; formularz ocenia jeden logiczny wynik zamiast wielkiej listy własności. Expert dodaje porównanie punktów krytycznych i końców ograniczonego domkniętego przedziału.
+
+| Rodzina | Poziomy | Rzeczywisty zakres |
+| --- | --- | --- |
+| analysis-study-polynomial | advanced, expert | Przesunięty wielomian m(t³−3t): trzy dokładne zera (w tym ±√3 symbolicznie), dwie stacjonarne wartości, przegięcie, globalne max/min na [a−3/2,a+3/2] |
+| analysis-study-rational | advanced, expert | m(t+1/t): wykluczony biegun, asymptota pionowa i ukośna, brak rzeczywistych zer, dwa stacjonarne punkty, brak przegięcia w biegunie, globalne max/min na [a+1/2,a+2] |
+
+`functionStudy.test.ts` niezależnie podstawia punkty kandydatów, bada znaki obu pochodnych i granice asymptotyczne dla wszystkich 96 wariantów PL/EN. P3 pozostaje **częściowy**: nie ma niesmooth stycznych dla |x|, ogólnych funkcji wymiernych ani renderowanego wykresu. Tabele znaków są zapisane w krokach, a nie przedstawiane jako narysowany wykres.

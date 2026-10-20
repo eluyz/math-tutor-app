@@ -30,6 +30,8 @@ function correct(spec: AnswerSpec): AnswerInput {
       return { kind: "list", values: spec.values.map(f) };
     case "choice":
       return { kind: "choice", value: spec.value };
+    case "roots":
+      return { kind: "roots", classification: spec.values.length === 2 ? "two" : spec.values.length === 1 ? "double" : "none", values: spec.values.map(f) };
     case "limit":
       return {
         kind: "limit",

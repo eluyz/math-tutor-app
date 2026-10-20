@@ -112,3 +112,15 @@ W [UWM_COVERAGE.md](UWM_COVERAGE.md) 64 kody służą jedynie do wstępnego por�
 Uczeń może ćwiczyć macierze odwrotne 2×2/3×3 i sprawdzić, kiedy odwrotność nie istnieje. W równaniach macierzowych ćwiczy poprawną kolejność mnożenia `AX=B → X=A⁻¹B`. Rząd 2×3, 3×3 i 3×4 jest pokazywany przez rzeczywiste operacje wierszowe. Kronecker–Capelli zestawia `rank(A)`, `rank([A|b])` i liczbę niewiadomych. Gauss 3×3/4×4 obejmuje jedno rozwiązanie, sprzeczność i nieskończenie wiele rozwiązań; zadania klasyfikacyjne pokazują parametry, ale formularz ocenia tylko klasę, ponieważ równoważne wzory symboliczne nie są parsowane.
 
 Warianty są dostępne tylko na zadeklarowanych poziomach. P0–P2 dodają 9 rodzin i 624 warianty, a opcjonalne częściowe P3 dalsze 2 rodziny i 96 wariantów; katalog liczy 78 rodzin i 7365 instancji, z zachowaniem 6645 poprzednich. Nauka, wskazówki i uzasadnienia działają po polsku i angielsku; sesje, lokalna historia i brudnopis zachowują dotychczasową semantykę. Cramer 4 niewiadome i `XA=B` są wdrożone; układ dwóch równań macierzowych pozostaje przyszły. Materiały nie są oficjalnymi arkuszami UWM; nie mieliśmy dostępu do 43 prywatnych PDF-ów.
+
+## MT-EDU-007 P0–P1 — funkcje elementarne i asymptoty
+
+Pięć rodzin P0 uczy warunków dziedziny logarytmów, praw potęg, kontrolowanych równań i nierówności oraz modułu. Pięć rodzin P1 dodaje granice Eulera i asymptoty pionowe, poziome oraz ukośne. Użytkownik widzi dwa kierunki nieskończoności i granice jednostronne; dziura jest odróżniana od bieguna. Wartości e^q pozostają symboliczne, a odpowiedzi są kontrolowanymi wyborami lub dokładnymi ułamkami. Łącznie P0–P1 to 10 rodzin / 768 instancji; kolejne etapy opisano niżej.
+
+## MT-EDU-007 P2 — pochodne i przegięcia
+
+Cztery nowe rodziny, 360 instancji, pokazują kiedy wolno użyć reguły de l’Hospitala dla 0/0 i ∞/∞, jak różniczkować ln|u| i e^u oraz dlaczego f''=0 nie wystarcza do wskazania przegięcia. W zadaniach rozróżnia się jeden lub dwa punkty przegięcia albo ich brak. Wyniki są dokładnymi ułamkami lub kontrolowanym wyborem, a rozwiązania zawierają znaki f'' na przedziałach. Łącznie po P0–P2 katalog miał 92 rodziny / 8493 instancje. Częściowy P3 opisano niżej.
+
+## MT-EDU-007 P3 — kontrolowane badanie funkcji (częściowe)
+
+Dwie rodziny pokazują spójne badanie przesuniętego wielomianu i prostej funkcji wymiernej. Każde rozwiązanie obejmuje dziedzinę, zera, symetrię, granice, asymptoty, tabelę znaków pochodnych, lokalne ekstrema oraz wypukłość i przegięcia. Uczeń wpisuje stacjonarne punkty na Advanced albo globalne max/min na zamkniętym przedziale na Expert. To 96 wariantów; łącznie 94 rodziny / 8589 instancji. Nie ma jeszcze ogólnych funkcji, stycznych do |x| ani rysowanego szkicu.

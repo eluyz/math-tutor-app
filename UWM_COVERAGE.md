@@ -2,7 +2,7 @@
 
 To **wstępna mapa tematów**, oparta na indeksie M01–W03 z [Issue #20](https://github.com/eluyz/math-tutor-app/issues/20) i na faktycznych generatorach w repozytorium. Nie mieliśmy dostępu do 43 prywatnych PDF-ów (221 stron), oryginalnych poleceń ani kluczy odpowiedzi. `Pokryte` oznacza opanowanie typu zadania opisanego w Issue, **nie** potwierdzenie zgodności z każdym arkuszem. `Częściowo` oznacza węższy przypadek; `teoria` to temat, którego nie da się uczciwie utożsamić z samym ćwiczeniem rachunkowym. Zgodność z konkretnymi podpunktami i formą zaliczenia pozostaje **do weryfikacji** na podstawie prywatnych źródeł. Nie określamy kolejności wejściówek.
 
-ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. MT-EDU-006A / PR #21 na main pokryło kontrolowane M08–M11. MT-EDU-006B dodaje M12–M14 i U05–U08 w granicach opisanych poniżej; Pełne M05 pozostaje przyszłe; U03 obejmuje teraz kontrolowane układy 4×4. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
+ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generatora. MT-EDU-006A / PR #21 na main pokryło kontrolowane M08–M11. MT-EDU-006B dodaje M12–M14 i U05–U08 w granicach opisanych poniżej; pełne M05 pozostaje przyszłe; U03 obejmuje teraz kontrolowane układy 4×4. MT-EDU-007 P0 dodaje wybrane F02–F04/F07, P1 kontrolowane C05/G04/G06/G07, P2 D03/D04/D07, a częściowe P3 D08/D09. Pozostałe grupy planuje [ROADMAP.md](ROADMAP.md). Zadania są autorskie i użyteczne także poza UWM.
 
 | Kod | Umiejętność z indeksu | Status | Rodziny Math Tutor / granica pokrycia |
 | --- | --- | --- | --- |
@@ -32,32 +32,32 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | C02 | Pierwiastek w ilorazie | częściowo | `sequence-conjugate`; tylko wybrane postaci |
 | C03 | Różnica pierwiastków | pokryte | `sequence-conjugate` |
 | C04 | Granice ciągów wykładniczych | częściowo | `sequence-geometric`; bez ogólnych wykładniczych |
-| C05 | Postać Eulera 1^∞ | brak | — |
+| C05 | Postać Eulera 1^∞ | częściowo | `analysis-euler-sequence`; wybrane dodatnie podstawy 1+t i wymierne wykładniki, bez ogólnej teorii |
 | C06 | Pojęcia ciągu, monotoniczność, ograniczoność | teoria | —; zadania z granic nie uczą całej teorii |
 | F01 | Dziedzina: pierwiastek i ułamek | pokryte | `function-domain` |
-| F02 | Dziedzina logarytmu | brak | — |
-| F03 | Moduł w dziedzinie | brak | — |
-| F04 | Kilka warunków dziedziny | częściowo | `function-domain`; pierwiastki i mianowniki, bez log/modułu |
+| F02 | Dziedzina logarytmu | częściowo | `analysis-log-domain`; dodatni argument liniowy i ilorazowy, dodatkowy warunek pierwiastka/mianownika; nie dowolne złożenia |
+| F03 | Moduł w dziedzinie | częściowo | `analysis-absolute`; pierwiastek z \|x−p\|−r, kontrolowane brzegi, bez ogólnych złożeń |
+| F04 | Kilka warunków dziedziny | częściowo | `function-domain`, `analysis-log-domain`; przecięcia dla pierwiastka, ilorazu i logarytmu w kontrolowanych postaciach |
 | F05 | Własności z wykresu | brak | —; brak wykresów do odczytu |
 | F06 | Parzystość, złożenie i odwrotność | częściowo | `function-composition`; bez parzystości/odwrotności |
-| F07 | Prawa exp/log, równania i nierówności | brak | — |
+| F07 | Prawa exp/log, równania i nierówności | częściowo | `analysis-power-law`, `analysis-elementary-equation`, `analysis-log-inequality`; wybrane dokładne tożsamości i równania, bez ogólnych złożeń |
 | G01 | Granica przez podstawienie | pokryte | `limit-point` |
 | G02 | 0/0 przez skrócenie | pokryte | `limit-point` |
 | G03 | Granice jednostronne i brak granicy | pokryte | `limit-point` |
-| G04 | ±∞: stopnie i pierwiastki | częściowo | `limit-infinity`; pierwiastki tylko w `limit-conjugate` przy punkcie |
+| G04 | ±∞: stopnie i pierwiastki | częściowo | `limit-infinity`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`; kontrolowane pierwiastki √(x²+1), nie ogólna klasa |
 | G05 | Sprzężenie | pokryte | `limit-conjugate` |
-| G06 | Granica potęgowa funkcji | brak | —; nie ma postaci Eulera |
-| G07 | Asymptoty | brak | — |
+| G06 | Granica potęgowa funkcji | częściowo | `analysis-euler-function`; kontrolowane postaci Eulera przy x→0 |
+| G07 | Asymptoty | częściowo | `analysis-asymptote-vertical`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`; także dziury i dwie strony nieskończoności, bez badania dowolnej funkcji |
 | G08 | Ciągłość i granica Heinego | częściowo | `limit-point`; f(a) kontra granica, bez twierdzenia Heinego |
 | D01 | Pochodna potęg po uproszczeniu | pokryte | `derivative-formula` |
 | D02 | Iloczyn i iloraz | częściowo | `derivative-formula`, `derivative-rational-point`; iloraz tylko w punkcie |
-| D03 | Łańcuch i funkcje elementarne | częściowo | `derivative-formula`; wielomiany, bez log/exp/trygonometrii |
-| D04 | L’Hospital | brak | — |
+| D03 | Łańcuch i funkcje elementarne | częściowo | `derivative-formula`, `analysis-log-exp-derivative`; wielomiany, ln(u), ln|u|, e^u i prosty iloczyn, bez trygonometrii |
+| D04 | L’Hospital | częściowo | `analysis-lhospital`, `analysis-lhospital-infinity`; kontrolowane 0/0 i ∞/∞ jedno- i dwukrokowe dla wielomianów, ln i e^u, bez wszystkich postaci nieoznaczonych |
 | D05 | Monotoniczność i ekstrema lokalne | częściowo | `derivative-monotonicity`, `derivative-extrema`; kontrolowane wielomiany |
 | D06 | Brak pochodnej w punkcie krytycznym | brak | — |
-| D07 | Wypukłość i przegięcia | brak | — |
-| D08 | Pełne badanie funkcji | brak | — |
-| D09 | Szkic z tabeli | brak | — |
+| D07 | Wypukłość i przegięcia | częściowo | `analysis-concavity`; znak drugiej pochodnej, zero bez przegięcia i dwa przegięcia w kontrolowanych wielomianach |
+| D08 | Pełne badanie funkcji | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; dwie kontrolowane postacie, bez ogólnych funkcji |
+| D09 | Szkic z tabeli | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; przedziały znaków i zachowanie w rozwiązaniu, bez narysowanego wykresu |
 | D10 | Ekstrema globalne | częściowo | `derivative-profit-maximum`; ograniczony model kwadratowy |
 | I01 | Całka bezpośrednia po uproszczeniu | brak | — |
 | I02 | Całka trygonometryczna i tablicowa | brak | — |

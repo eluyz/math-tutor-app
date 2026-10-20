@@ -1,5 +1,23 @@
 # Architektura
 
+Build Vite 8 dzieli kod React/React DOM i logikę Math Tutor na osobne pliki przez `codeSplitting.groups`. Usuwa to ostrzeżenie o pojedynczym pliku ponad 500 kB bez zmiany ładowania interfejsu i bez dodatkowych zależności.
+
+## MT-EDU-007 P3 — częściowe, zintegrowane badanie
+
+`functionStudy.ts` ma dwa jawnie ograniczone modele: wielomian m(t³−3t) i funkcję wymierną m(t+1/t), gdzie t=x−a. Prezentacja pokazuje dziedzinę, dokładne zera, granice, asymptoty, znaki f' i f'', ekstrema i przegięcia. Formularz Advanced ocenia cztery współrzędne stacjonarnych punktów; Expert dwie globalne wartości na podanym zamkniętym przedziale, z jawnym porównaniem końców. `functionStudy.test.ts` niezależnie wylicza wartości i znaki wszystkich 96 wariantów PL/EN. P3 nie obejmuje innych postaci ani renderowanego szkicu.
+
+## MT-EDU-007 P2 — kontrolowane przypadki pochodnych
+
+`advancedCalculus.ts` parametryzuje tylko dokładnie rozwiązywalne postaci. Reguła de l’Hospitala jest stosowana do jawnego 0/0 lub ±∞/∞ z istniejącymi pochodnymi i niezerowym mianownikiem pochodnej poza punktem; przy ponownym 0/0 warunki są sprawdzane drugi raz. Przypadki w nieskończoności uwzględniają wielomiany i logarytmy o kontrolowanej dziedzinie. Pochodne ln/e^u są liczone w punktach, gdzie logarytm jest dopuszczalny, a wynik wymierny. Dla drugiej pochodnej odpowiedź rozróżnia brak przegięcia, jedno przegięcie i dwa; sama równość f''=0 nie wystarcza. `advancedCalculus.test.ts` stosuje osobne wzory dla wartości i znaków oraz sprawdza każdy wariant w PL/EN.
+
+## MT-EDU-007 P1 — dokładne granice i asymptoty
+
+`analysisLimitsAsymptotes.ts` rozdziela parametry zadania od prezentacji PL/EN. Granice Eulera przechodzą przez dokładną tożsamość 1+t i `ln(1+t)/t→1`; odpowiedź e^q jest kontrolowanym wyborem kanonicznego wymiernego wykładnika, bez przybliżenia liczby e ani parsera wyrażeń. Asymptoty mają osobne odpowiedzi dla +∞ i −∞ albo dla granic jednostronnych. Współczynniki prostych i redukcje wymierne używają `Rational`, a brak asymptoty ma jawny wybór. `analysisLimitsAsymptotes.test.ts` wylicza niezależnie wszystkie 384 przypadki.
+
+## MT-EDU-007 P0 — dokładne funkcje elementarne
+
+`src/university/elementaryAnalysis.ts` opisuje autorskie parametryczne zadania log/exp/moduł i buduje prezentacje PL/EN poza React. `ElementaryAnalysisProblem` przechowuje typowany model, a `realSets.ts` normalizuje dokładne zbiory przedziałów i daje kontrolowane opcje odpowiedzi. Nie obliczamy logarytmu zmiennoprzecinkowo: korzystamy z jawnych tożsamości odwrotności funkcji i dokładnej arytmetyki `Rational`/BigInt. `elementaryAnalysis.test.ts` przelicza każdy wariant niezależnymi warunkami dziedziny, znaków i punktów brzegowych. Archiwum 7365 wcześniejszych lekcji PL/EN ma osobny test skrótów z opublikowanego `main`.
+
 ## MT-EDU-002A — niezależne cykle życia
 
 `src/scratchpad/model.ts` jest czystym reduktorem notatek: tekst i uporządkowane wektorowe ślady w stabilnej przestrzeni 1000×600, ograniczone migawki historii (80), wspólne odwracalne clear, atomowe pióro i gumka. Gumka sprawdza przecięcia całego przesuniętego segmentu ze śladami. Automatyczny reset według monotonnie rosnącego numeru uruchomienia usuwa także historię; nie porównuje treści ani identyfikatora wylosowanego wariantu. Opcja auto-clear domyślnie ON pozostaje w pamięci komponentu także po zakończeniu sesji. Przy OFF zachowujemy notatki i historię między uruchomieniami.

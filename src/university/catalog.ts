@@ -2,7 +2,7 @@ import type { TypedExercise, CategoryId } from "../exercises";
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import type { GeneratedTask } from "../generators";
-import type { UniversityProblem, LinearAlgebraProblem } from "./schema";
+import type { UniversityProblem, LinearAlgebraProblem, ElementaryAnalysisProblem, AsymptoteProblem, AdvancedCalculusProblem, FunctionStudyProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { sequenceFamilies, presentSequence } from "./sequences";
@@ -13,6 +13,10 @@ import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
+import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./elementaryAnalysis";
+import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
+import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
+import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -26,11 +30,27 @@ export const universityFamilies = [
   ...rankFamilies,
   ...gaussFamilies,
   ...cramerFourFamilies,
+  ...elementaryAnalysisFamilies,
+  ...asymptoteFamilies,
+  ...advancedCalculusFamilies,
+  ...functionStudyFamilies,
 ];
+const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
+const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
+const isAdvancedCalculus = (problem: UniversityProblem): problem is AdvancedCalculusProblem => problem.kind === "analysis-lhospital" || problem.kind === "analysis-lhospital-infinity" || problem.kind === "analysis-log-exp-derivative" || problem.kind === "analysis-concavity";
+const isFunctionStudy = (problem: UniversityProblem): problem is FunctionStudyProblem => problem.kind === "analysis-study-polynomial" || problem.kind === "analysis-study-rational";
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";
 const present = (problem: UniversityProblem, locale: Locale) =>
-  isInverse(problem)
+  isFunctionStudy(problem)
+    ? presentFunctionStudy(problem, locale)
+    : isAdvancedCalculus(problem)
+    ? presentAdvancedCalculus(problem, locale)
+    : isAsymptote(problem)
+    ? presentAsymptote(problem, locale)
+    : isElementaryAnalysis(problem)
+    ? presentElementaryAnalysis(problem, locale)
+    : isInverse(problem)
     ? presentInverse(problem, locale)
     : isRank(problem)
     ? presentRank(problem, locale)

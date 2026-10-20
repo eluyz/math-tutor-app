@@ -236,7 +236,15 @@ for (const width of [375, 768, 1280])
               })
               .click();
           else if (i < 6) {
-            await fillLimit(page, { kind: "does-not-exist" });
+            const answer = page.locator("#answer");
+            if (await answer.evaluate((element) => element.tagName === "INPUT"))
+              await answer.fill("2");
+            else if (await answer.locator('option[value="does-not-exist"]').count())
+              await fillLimit(page, { kind: "does-not-exist" });
+            else {
+              const value = await answer.locator("option").nth(1).getAttribute("value");
+              await answer.selectOption(value!);
+            }
             await page
               .getByRole("button", {
                 name: en ? "Check" : "Sprawdź",

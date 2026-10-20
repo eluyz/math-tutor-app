@@ -160,6 +160,28 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>;
+export type ElementaryAnalysisProblem =
+  | Readonly<{ kind: "analysis-log-domain"; mode: "linear" | "ratio" | "radical"; p: Rational; base: Rational }>
+  | Readonly<{ kind: "analysis-power-law"; mode: "log-power" | "power-log" | "combined"; base: Rational; exponent: number; argument: Rational }>
+  | Readonly<{ kind: "analysis-elementary-equation"; mode: "exponential" | "logarithmic" | "log-product"; base: Rational; p: Rational; multiplier: Rational; shift: Rational; exponent: number }>
+  | Readonly<{ kind: "analysis-log-inequality"; p: Rational; base: Rational; exponent: number; relation: "greater" | "at-most" }>
+  | Readonly<{ kind: "analysis-absolute"; mode: "equation" | "domain" | "inside" | "sum-inside" | "sum-outside"; p: Rational; q: Rational; radius: Rational }>;
+export type AsymptoteProblem =
+  | Readonly<{ kind: "analysis-euler"; variable: "sequence" | "function"; mode: "basic" | "scaled" | "ratio" | "offset"; a: Rational; b: Rational; c: Rational }>
+  | Readonly<{ kind: "analysis-asymptote-vertical"; mode: "simple" | "hole" | "double" | "cancellation"; at: Rational; coefficient: Rational }>
+  | Readonly<{ kind: "analysis-asymptote-horizontal"; mode: "rational" | "radical" | "linear"; a: Rational; b: Rational; c: Rational }>
+  | Readonly<{ kind: "analysis-asymptote-oblique"; mode: "rational" | "radical" | "quadratic"; a: Rational; b: Rational; c: Rational; at: Rational }>;
+export type AdvancedCalculusProblem =
+  | Readonly<{ kind: "analysis-lhospital"; mode: "polynomial-one" | "polynomial-two" | "exponential-one" | "exponential-two"; at: Rational; coefficient: Rational }>
+  | Readonly<{ kind: "analysis-lhospital-infinity"; mode: "linear" | "quadratic" | "log-linear" | "log-power"; coefficient: Rational; shift: Rational; power: number }>
+  | Readonly<{ kind: "analysis-log-exp-derivative"; mode: "log" | "exp" | "log-abs" | "product"; at: Rational; coefficient: Rational; shift: Rational }>
+  | Readonly<{ kind: "analysis-concavity"; mode: "cubic" | "quartic" | "mixed"; at: Rational; coefficient: Rational; cubic: Rational; shift: Rational }>;
+export type FunctionStudyProblem = Readonly<{
+  kind: "analysis-study-polynomial" | "analysis-study-rational";
+  at: Rational;
+  coefficient: Rational;
+  target: "stationary" | "global";
+}>;
 export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
@@ -167,7 +189,11 @@ export type UniversityProblem =
   | FunctionLimitProblem
   | DerivativeProblem
   | DeterminantProblem
-  | LinearAlgebraProblem;
+  | LinearAlgebraProblem
+  | ElementaryAnalysisProblem
+  | AsymptoteProblem
+  | AdvancedCalculusProblem
+  | FunctionStudyProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>
