@@ -124,6 +124,11 @@ describe("MT-AUTO-001 CI completion gate", () => {
       .mockImplementationOnce(async () => ({ ...g.state.pull, head: { ...g.state.pull.head, sha: "b".repeat(40) } }));
     expect(await g.process()).toBe("ignored: PR head changed before comment");
     expect(g.api.createComment).not.toHaveBeenCalled();
+    const h = fixture();
+    h.api.getRun.mockImplementationOnce(async () => h.state.run)
+      .mockImplementationOnce(async () => ({ ...h.state.run, status: "in_progress", run_attempt: 2 }));
+    expect(await h.process()).toBe("ignored: CI run changed before comment");
+    expect(h.api.createComment).not.toHaveBeenCalled();
   });
 
   it("blocks on trusted same-SHA NEEDS_FIXES regardless of CI", async () => {

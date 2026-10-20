@@ -123,8 +123,12 @@ export async function processCompletion(event, api, expectedRepository) {
   }
   const body = renderGate(repository, pull, run, reviewFor(comments, repository, pull.number, run.head_sha));
 
-  // Recheck HEAD immediately before writing; an intervening PR push must not
-  // receive a gate declaring an older commit ready.
+  // Recheck both moving facts immediately before writing. A rerun or PR push
+  // started while comments were being read must not receive the old success.
+  const latestRun = await api.getRun(run.id);
+  if (latestRun?.status !== "completed" || latestRun.run_attempt !== run.run_attempt ||
+      latestRun.conclusion !== run.conclusion || latestRun.head_sha !== run.head_sha)
+    return "ignored: CI run changed before comment";
   if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
     return "ignored: PR head changed before comment";
   if (own.length && own[0].body === body) return "unchanged";
