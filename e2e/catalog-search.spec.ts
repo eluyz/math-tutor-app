@@ -54,6 +54,8 @@ for (const viewport of [
         expect(await list.evaluate((element) => element.scrollHeight > element.clientHeight)).toBe(true);
       }
       expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+      await page.locator(".exercise-list-items button:not([disabled]):not(.selected)").first().click();
+      await expect(page.locator(".search-level-notice")).toHaveCount(0);
     });
   }
 }

@@ -562,9 +562,10 @@ export default function App() {
                       : `${a.availableLevels}: ${template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}`
                   }
                   className={`exercise-item ${active?.templateId === template.id ? "selected" : ""}`}
-                  onClick={() =>
-                    newExercise(selectedCategory, difficulty, template.id)
-                  }
+                  onClick={() => {
+                    setSearchLevelChange(null);
+                    newExercise(selectedCategory, difficulty, template.id);
+                  }}
                   aria-current={
                     active?.templateId === template.id ? "step" : undefined
                   }
