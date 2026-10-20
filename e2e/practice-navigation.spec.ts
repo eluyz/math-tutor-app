@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { taskPool } from "../src/generators";
 
 async function expectExercise(page: Page, templateId: string, difficulty: string, title: string) {
   await expect(page.locator(".question")).toHaveAttribute("data-template-id", templateId);
@@ -158,6 +159,7 @@ for (const { name, viewport } of [
     });
 
     test("sesja miesza rodziny, blokuje ręczne zmiany i kończy się po dziesięciu zadaniach", async ({ page }) => {
+      const algebraFamilies = new Set(taskPool("algebra", "easy").map(task => task.templateId));
       await page.getByRole("button", { name: "Podstawy algebry", exact: true }).click();
       await page.getByRole("button", { name: /Mnożenie przez nawias/ }).click();
       await page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)" }).click();
@@ -170,7 +172,7 @@ for (const { name, viewport } of [
       for (let number = 1; number <= 10; number++) {
         await expect(page.locator(".session-progress")).toHaveText(`Sesja: zadanie ${number} z 10`);
         await expect(page.locator(".panel-top")).toContainText(`SESJA ${number} / 10`);
-        await expect(page.locator(".question")).toHaveAttribute("data-template-id", /^algebra-/);
+        expect(algebraFamilies.has((await page.locator(".question").getAttribute("data-template-id"))!)).toBe(true);
         await expect(page.locator(".question")).toHaveAttribute("data-difficulty", "easy");
         const question = await page.locator(".question").innerText();
         expect(seen.has(question)).toBe(false);

@@ -88,7 +88,7 @@ test("poziom trudności i kategoria tworzą nowe zadanie bez starej informacji z
   await page.getByLabel("Twoja odpowiedź").fill("9999");
   await page.getByRole("button", { name: "Sprawdź", exact: true }).click();
   await expect(page.locator(".feedback")).toContainText("Nieustalona przyczyna");
-  await page.getByRole("button", { name: "Trudny" }).click();
+  await page.getByRole("button", { name: "Trudny", exact: true }).click();
   await expect(page.locator(".feedback")).toHaveCount(0);
   await expect(page.locator(".panel-top")).toContainText("TRUDNY");
   await page.getByRole("button", { name: "Równania liniowe", exact: true }).click();
@@ -108,7 +108,7 @@ test("telefon: kategorie, poziom i formularz działają z klawiatury", async ({ 
   await expect(page.locator(".feedback")).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
   await page.getByRole("button", { name: "Równania liniowe", exact: true }).click();
-  await page.getByRole("button", { name: "Trudny" }).click();
+  await page.getByRole("button", { name: "Trudny", exact: true }).click();
   await page.getByRole("button", { name: /Równanie z ułamkiem/ }).click();
   await expect(page.locator(".question")).toContainText("x/");
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
