@@ -166,11 +166,14 @@ describe("MT-AUTO-001 CI completion gate", () => {
     const f = fixture();
     f.state.comments.push(workComment("PASS"));
     f.api.getPull.mockImplementationOnce(async () => f.state.pull)
+      .mockImplementationOnce(async () => f.state.pull)
       .mockImplementationOnce(async () => {
         f.state.comments[0] = workComment("NEEDS_FIXES");
         return f.state.pull;
       });
     expect(await f.process()).toBe("created");
+    expect(f.api.getPull).toHaveBeenCalledTimes(3);
+    expect(f.api.listComments).toHaveBeenCalledTimes(3);
     expect(f.state.comments[1].body).toContain("CODE_REVIEW: **NEEDS_FIXES**");
     expect(f.state.comments[1].body).toContain("Gate: **BLOCKED_BY_REVIEW**");
     expect(f.state.comments[1].body).not.toContain("CODE_REVIEW_PASS_AND_CI_GREEN");

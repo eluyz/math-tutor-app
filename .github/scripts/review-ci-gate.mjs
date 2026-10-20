@@ -122,7 +122,7 @@ export async function processCompletion(event, api, expectedRepository) {
     return "ignored: CI run changed before comment";
   if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
     return "ignored: PR head changed before comment";
-  const comments = await api.listComments(pull.number);
+  await api.listComments(pull.number);
   const finalRun = await api.getRun(run.id);
   if (finalRun?.status !== "completed" || finalRun.run_attempt !== run.run_attempt ||
       finalRun.conclusion !== run.conclusion || finalRun.head_sha !== run.head_sha)
@@ -130,6 +130,9 @@ export async function processCompletion(event, api, expectedRepository) {
   if (!validPull(await api.getPull(pull.number), repository, run.head_sha, run.head_branch))
     return "ignored: PR head changed before comment";
 
+  // This is the final awaited read before the write. A Work edit during the
+  // last HEAD check is reflected here; there is no atomic GitHub transaction.
+  const comments = await api.listComments(pull.number);
   const marker = gateMarker(pull.number, run.head_sha);
   const own = comments.filter((comment) => isOwnGate(comment, marker));
   if (own.length > 1) throw new Error("Multiple owned CI gate comments need manual deduplication");
