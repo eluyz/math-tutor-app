@@ -102,7 +102,8 @@ test("telefon: kategorie, poziom i formularz działają z klawiatury", async ({ 
   await page.goto("/");
   await expect(page.getByRole("group", { name: "Kategorie ćwiczeń" }).getByRole("button")).toHaveCount(5);
   await page.getByRole("button", { name: "Liczby dodatnie i ujemne", exact: true }).click();
-  await page.getByRole("button", { name: "Średni" }).click();
+  await page.getByRole("group", { name: "Poziom trudności" })
+    .getByRole("button", { name: "Średni", exact: true }).click();
   await page.getByLabel("Twoja odpowiedź").fill("0");
   await page.getByLabel("Twoja odpowiedź").press("Enter");
   await expect(page.locator(".feedback")).toBeVisible();

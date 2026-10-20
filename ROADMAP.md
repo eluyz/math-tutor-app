@@ -17,7 +17,8 @@
 | MT-EDU-006A | Scalone na main w PR #21 | Wstępna [mapa 64 kompetencji](UWM_COVERAGE.md); autorskie Laplace 4×4/5×5, operacje wierszowe i własności wyznaczników |
 | MT-EDU-006B P0–P2 | Implementacja Issue #22 do recenzji | Odwrotności 2×2/3×3, AX=B, rząd macierzy, Capelli oraz Gauss 3×3/4×4: 9 rodzin, 624 instancje |
 | MT-EDU-006B P3 | Częściowo wykonany zakres opcjonalny | Cramer 4×4 i XA=B wdrożone; układ dwóch równań macierzowych odłożony |
-| MT-EDU-007 | W realizacji: P0–P2 ukończone, P3 częściowo | 16 rodzin / 1224 warianty: P0–P2 oraz kontrolowane badanie wielomianu i funkcji wymiernej; nonsmooth styczne, ogólne funkcje i wykresy pozostają przyszłe |
+| MT-EDU-007 | Scalone na main w PR #25; P0–P2 ukończone, P3 częściowo | 16 rodzin / 1224 warianty: P0–P2 oraz kontrolowane badanie wielomianu i funkcji wymiernej; nonsmooth styczne, ogólne funkcje i wykresy pozostają przyszłe |
+| MT-UX-001 | Implementacja do recenzji | Wyszukiwanie 94 rodzin PL/EN w całym katalogu, jawny dobór kategorii i poziomu oraz krótsza lista mobilna; bez zmian w 8589 zadaniach |
 | MT-EDU-008 | Przyszły etap | Całki I01–I08: bezpośrednie, trygonometryczne, podstawienie, części, powracające, oznaczone, pola, długości łuków |
 | MT-EDU-009 | Przyszły etap | Dwie zmienne W01–W03: pochodne cząstkowe, ekstrema, granice i ciągłość |
 | MT-EXAM-001 | Przyszły etap po domknięciu mapy | Tryb sprawdzianu, dobór umiejętności i powtórki |
@@ -27,6 +28,8 @@
 MathLive i Compute Engine mogą zostać ocenione w późniejszych etapach, gdy pojawi się potrzeba wprowadzania i analizy wyrażeń. Nie są wymagane do MT-003A.
 
 MT-003B.1 jest pierwszym ograniczonym etapem adaptacji, nie pełnym systemem doboru rodzin. Nie zmienia samoczynnie poziomu ani kategorii. Aktywna sesja istnieje tylko w pamięci karty; trwałe metadane ukończeń dodaje MT-004A.
+
+MT-UX-001 jest zmianą nawigacji nad katalogiem z aktualnego `main` po PR #25. MT-EDU-007 zostało scalone, lecz jego P3 nadal obejmuje tylko dwie kontrolowane rodziny; nie deklarujemy pełnego badania dowolnej funkcji. Wyszukiwanie nie zmienia treści, ID ani liczby 8589 wariantów. Przed scaleniem MT-UX-001 wymagane są własne testy, CI, recenzja Work i zgoda właściciela.
 
 MT-EDU-001 rozszerza treści i typy odpowiedzi, zachowując granice MT-003A.1/MT-003B.1. Nie obejmuje jeszcze Viète'a, macierzy odwrotnej, Cramera, granic, pochodnych ani całek. Zatwierdzenie pakietu wymaga zielonego CI i przeglądu; implementacja lokalna nie oznacza publikacji.
 

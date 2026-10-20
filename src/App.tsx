@@ -38,6 +38,7 @@ import { SessionSummaryPanel } from "./SessionSummaryPanel";
 import { completedSession } from "./progress/model";
 import { useProgress } from "./progress/useProgress";
 import { ProgressDashboard } from "./progress/ProgressDashboard";
+import { categoryTitle, searchCatalog, selectCatalogFamily } from "./catalogSearch";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
@@ -56,6 +57,9 @@ export default function App() {
   );
   const [selectedCategory, setSelectedCategory] = useState<CategoryId>("order");
   const [difficulty, setDifficulty] = useState<Difficulty>("easy");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchLevelChange, setSearchLevelChange] = useState<{ from: Difficulty; to: Difficulty } | null>(null);
+  const searchFocusRequested = useRef(false);
   const [session, setSession] = useState<SessionState | null>(null);
   const sessionRef = useRef<SessionState | null>(null);
   const sessionNumber =
@@ -94,6 +98,7 @@ export default function App() {
   const visibleTemplates = allTemplates.filter(
     (template) => template.category === selectedCategory,
   );
+  const searchResults = useMemo(() => searchCatalog(searchQuery), [searchQuery]);
   const studying = studyCategories.some(
     (category) => category.id === selectedCategory,
   );
@@ -103,7 +108,10 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (active) document.getElementById("answer")?.focus();
+    if (active) {
+      document.getElementById(searchFocusRequested.current ? "exercise-title" : "answer")?.focus();
+      searchFocusRequested.current = false;
+    }
   }, [source]);
 
   useEffect(() => {
@@ -175,6 +183,7 @@ export default function App() {
   }
 
   function newPracticeExample(level = difficulty) {
+    setSearchLevelChange(null);
     newExercise(
       selectedCategory,
       level,
@@ -183,9 +192,22 @@ export default function App() {
     );
   }
 
+  function openSearchResult(template: (typeof allTemplates)[number]) {
+    if (sessionRef.current && !sessionRef.current.completed) return;
+    const selection = selectCatalogFamily(template, difficulty);
+    searchFocusRequested.current = true;
+    setSelectedCategory(selection.category);
+    setDifficulty(selection.difficulty);
+    setSearchLevelChange(selection.changedDifficulty
+      ? { from: difficulty, to: selection.difficulty } : null);
+    setSearchQuery("");
+    newExercise(selection.category, selection.difficulty, selection.templateId);
+  }
+
   function startSession(level = difficulty) {
     if (sessionRef.current && !sessionRef.current.completed) return;
     if (!availableDifficulties(selectedCategory).includes(level)) return;
+    setSearchLevelChange(null);
     setUnavailable(null);
     generator.current = createGenerator();
     const next = generator.current.next(selectedCategory, level);
@@ -355,12 +377,66 @@ export default function App() {
             </div>
             <p>{a.chooseDescription}</p>
           </div>
+          <div className="catalog-search" role="search" aria-label={a.searchLabel}>
+            <label htmlFor="catalog-search-input">{a.searchLabel}</label>
+            <div className="catalog-search-controls">
+              <input
+                id="catalog-search-input"
+                type="search"
+                value={searchQuery}
+                placeholder={a.searchPlaceholder}
+                disabled={sessionNumber > 0}
+                aria-controls="catalog-search-results"
+                aria-describedby={sessionNumber > 0 ? "catalog-search-locked" : undefined}
+                onChange={(event) => setSearchQuery(event.target.value)}
+              />
+              {searchQuery && (
+                <button type="button" disabled={sessionNumber > 0}
+                  onClick={() => {
+                    setSearchQuery("");
+                    document.getElementById("catalog-search-input")?.focus();
+                  }}>
+                  {a.searchClear}
+                </button>
+              )}
+            </div>
+            {sessionNumber > 0 && <p id="catalog-search-locked" className="input-help">{a.searchLocked}</p>}
+            <div id="catalog-search-results">
+              {searchQuery.trim() && (
+                <>
+                  <p className="catalog-search-count" role="status">
+                    {searchResults.length ? a.searchCount(searchResults.length) : a.searchEmpty}
+                  </p>
+                  {searchResults.length > 0 && (
+                    <ul className="catalog-search-list" aria-label={a.searchResults}>
+                      {searchResults.map((template) => (
+                        <li key={template.id}>
+                          <button type="button" disabled={sessionNumber > 0}
+                            onClick={() => openSearchResult(template)}
+                            aria-label={a.searchOpen(
+                              familyTitle(template, locale),
+                              categoryTitle(template.category, locale),
+                              template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", "),
+                            )}>
+                            <strong>{familyTitle(template, locale)}</strong>
+                            <span>{categoryTitle(template.category, locale)}</span>
+                            <small>{a.availableLevels}: {template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}</small>
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </>
+              )}
+            </div>
+          </div>
           <div className="study-groups" role="group" aria-label={a.groups}>
             <button
               type="button"
               disabled={sessionNumber > 0}
               aria-pressed={!studying}
               onClick={() => {
+                setSearchLevelChange(null);
                 setSelectedCategory("order");
                 newExercise("order");
               }}
@@ -372,6 +448,7 @@ export default function App() {
               disabled={sessionNumber > 0}
               aria-pressed={studying}
               onClick={() => {
+                setSearchLevelChange(null);
                 setSelectedCategory("quadratics");
                 newExercise("quadratics");
               }}
@@ -393,6 +470,7 @@ export default function App() {
                 aria-pressed={selectedCategory === category.id}
                 disabled={sessionNumber > 0}
                 onClick={() => {
+                  setSearchLevelChange(null);
                   setSelectedCategory(category.id);
                   newExercise(category.id);
                 }}
@@ -418,6 +496,7 @@ export default function App() {
                   }
                   aria-pressed={difficulty === level}
                   onClick={() => {
+                    setSearchLevelChange(null);
                     setDifficulty(level);
                     newPracticeExample(level);
                   }}
@@ -442,6 +521,14 @@ export default function App() {
               {a.progress(sessionNumber)}
             </p>
           )}
+          {searchLevelChange && sessionNumber === 0 && (
+            <p className="search-level-notice" role="status">
+              {a.searchLevelChanged(
+                difficultyLabels[searchLevelChange.from],
+                difficultyLabels[searchLevelChange.to],
+              )}
+            </p>
+          )}
           {repeated && active && (
             <p className="session-progress">{a.repeated}</p>
           )}
@@ -454,7 +541,13 @@ export default function App() {
             </div>
           )}
           <div className="exercise-layout">
-            <div className="exercise-list" aria-label={a.familiesLabel}>
+            <div className="exercise-list">
+              <div className="exercise-list-heading">
+                <h3 id="category-families-title">{a.categoryFamilies(
+                  categoryTitle(selectedCategory, locale), visibleTemplates.length,
+                )}</h3>
+              </div>
+              <div className="exercise-list-items" role="region" aria-labelledby="category-families-title" tabIndex={0}>
               {visibleTemplates.map((template, index) => (
                 <button
                   type="button"
@@ -482,9 +575,7 @@ export default function App() {
                   <span className="exercise-text">
                     <strong>{familyTitle(template, locale)}</strong>
                     <small>
-                      {template.supportedDifficulties.includes(difficulty)
-                        ? a.drawVariant
-                        : `${a.available}: ${template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}`}
+                      {a.availableLevels}: {template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}
                     </small>
                   </span>
                   <span className="exercise-state" aria-label={ui.open}>
@@ -492,6 +583,7 @@ export default function App() {
                   </span>
                 </button>
               ))}
+              </div>
             </div>
             <div className="exercise-panel">
               {active ? (
@@ -505,7 +597,7 @@ export default function App() {
                     </span>
                     <span>✳</span>
                   </div>
-                  <h3>{active.title}</h3>
+                  <h3 id="exercise-title" tabIndex={-1}>{active.title}</h3>
                   <p className="panel-intro">{a.intro}</p>
                   <div
                     className={`question${"university" in active ? " university-question" : ""}`}
