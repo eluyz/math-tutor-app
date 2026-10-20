@@ -70,6 +70,36 @@ function expected(problem: ReturnType<typeof makeUniversityTask>["university"], 
 }
 
 describe("MT-EDU-007 P1 exact symbolic limits and asymptotes", () => {
+  it("explains identically unit Euler bases without dividing by zero in either language", () => {
+    for (const family of ["analysis-euler-sequence", "analysis-euler-function"])
+      for (const variant of [0, 6, 12, 18]) {
+        const task = makeUniversityTask(family, variant, "expert");
+        expect(task.university.kind).toBe("analysis-euler");
+        if (task.university.kind !== "analysis-euler") throw new Error("Unexpected task");
+        expect(eq(task.university.a, task.university.c)).toBe(true);
+        for (const locale of ["pl", "en"] as const) {
+          const lesson = localizeUniversity(task, locale);
+          expect(lesson.answer).toEqual({ kind: "scalar", value: r(1) });
+          expect(assessAnswer(lesson.answer, "1").kind).toBe("correct");
+          expect(assessAnswer(lesson.answer, "2").kind).toBe("incorrect");
+          expect(assessAnswer(lesson.answer, "1/0").kind).toBe("invalid");
+          const explanation = [lesson.hint, lesson.nextHint, lesson.explanation, ...lesson.solution!.map(step => `${step.action} ${step.reason}`)].join("\n");
+          expect(explanation).toContain("t=0");
+          expect(explanation).toContain("ln L=0");
+          expect(explanation).not.toContain("ln(1+t)/t");
+          expect(explanation).toContain(locale === "pl" ? "podstaw" : "base");
+        }
+      }
+    for (const family of ["analysis-euler-sequence", "analysis-euler-function"]) {
+      const task = makeUniversityTask(family, 1, "expert");
+      expect(task.university.kind).toBe("analysis-euler");
+      if (task.university.kind !== "analysis-euler") throw new Error("Unexpected task");
+      expect(eq(task.university.a, task.university.c)).toBe(false);
+      for (const locale of ["pl", "en"] as const)
+        expect(localizeUniversity(task, locale).explanation).toContain("ln(1+t)/t");
+    }
+  });
+
   it("independently audits every variant, locale, domain and typed answer", () => {
     let total = 0, symbolic = 0, eZero = 0;
     for (const family of asymptoteFamilies) for (const level of family.supportedDifficulties) {
