@@ -17,6 +17,27 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
       {ui.check} <span aria-hidden="true">→</span>
     </button>
   );
+  if (spec.kind === "primitive") {
+    const input = typeof value !== "string" && value.kind === "primitive"
+      ? value : { coefficients: spec.terms.map(() => ""), hasConstant: false };
+    return <div className="structured-answer">
+      <fieldset aria-describedby="answer-help">
+        <legend>{c.primitive.title}</legend>
+        <p>{c.primitive.instruction}</p>
+        {spec.terms.map((term, i) => <div className="coefficient-field" key={i}>
+          <label htmlFor={i === 0 ? "answer" : `answer-${i}`}>{c.primitive.coefficient} {term.basis}</label>
+          <input id={i === 0 ? "answer" : `answer-${i}`} type="text" inputMode="text" autoComplete="off"
+            value={input.coefficients[i] ?? ""}
+            onChange={(event) => onChange({ kind: "primitive", hasConstant: input.hasConstant,
+              coefficients: spec.terms.map((_, j) => j === i ? event.target.value : (input.coefficients[j] ?? "")) })} />
+        </div>)}
+        <label className="primitive-constant"><input type="checkbox" checked={input.hasConstant}
+          onChange={(event) => onChange({ kind: "primitive", coefficients: input.coefficients, hasConstant: event.target.checked })} />
+          {c.primitive.constant}</label>
+      </fieldset>
+      {check}
+    </div>;
+  }
   if (spec.kind === "system") {
     const input =
       typeof value !== "string" && value.kind === "system"

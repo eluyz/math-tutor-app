@@ -60,6 +60,28 @@ for (const viewport of [
   }
 }
 
+for (const width of [375, 768]) for (const en of [false, true])
+  test(`MT-EDU-008 search integration ${width}px ${en ? "EN" : "PL"}: opens an integral family`, async ({ page }) => {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    if (en) await page.getByRole("button", { name: "English", exact: true }).click();
+    const search = page.getByRole("searchbox", {
+      name: en ? "Search exercise families" : "Szukaj rodziny zadań",
+    });
+    await search.fill(en ? "calkowanie przez czesci" : "integration by parts");
+    const result = page.locator(".catalog-search-list button");
+    await expect(result).toHaveCount(1);
+    await expect(result).toContainText(en ? "Integration by parts" : "Całkowanie przez części");
+    await expect(result).toContainText(en ? "Integrals" : "Całki");
+    await result.click();
+    await expect(page.locator(".question")).toHaveAttribute("data-template-id", "integral-parts");
+    await expect(page.locator(".question")).toHaveAttribute("data-difficulty", "hard");
+    await expect(page.locator(".category-picker button.active")).toHaveText(en ? "Integrals" : "Całki");
+    await expect(page.locator(".search-level-notice")).toContainText(en ? "Selected Hard instead" : "Wybrano poziom Trudny");
+    await expect(page.locator(".exercise-panel #exercise-title")).toBeFocused();
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+  });
+
 test("MT-UX-001: search cannot change an active session and does not overwrite completed history", async ({ page }) => {
   await page.goto("/");
   const search = page.getByRole("searchbox", { name: "Szukaj rodziny zadań" });

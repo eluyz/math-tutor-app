@@ -8,6 +8,7 @@ export const limitText = (value: LimitValue): string => value.kind === "finite" 
   : value.kind === "positive-infinity" ? "+∞" : value.kind === "negative-infinity" ? "−∞" : "∄ lim";
 
 export type AnswerSpec =
+  | { kind: "primitive"; terms: readonly { basis: string; coefficient: Rational }[] }
   | { kind: "system"; classification: "system-one" | "system-none" | "system-many"; variables: readonly string[]; values: readonly Rational[] }
   | { kind: "limit"; value: LimitValue }
   | { kind: "roots"; values: readonly Rational[]; context?: "zeros" }
@@ -16,6 +17,7 @@ export type AnswerSpec =
   | { kind: "matrix"; values: Matrix }
   | { kind: "choice"; value: string; options: readonly { value: string; label: string }[] };
 export type AnswerInput = string
+  | { kind: "primitive"; coefficients: readonly string[]; hasConstant: boolean }
   | { kind: "system"; classification: string; values: readonly string[] }
   | { kind: "limit"; classification: string; value: string }
   | { kind: "roots"; classification: string; values: readonly string[] }
@@ -23,7 +25,7 @@ export type AnswerInput = string
   | { kind: "matrix"; values: readonly (readonly string[])[] }
   | { kind: "choice"; value: string };
 type ParseReason = Extract<ParsedAnswer, { kind: "invalid" }>["reason"];
-export type AnswerAssessment = { kind: "correct" | "incorrect" }
+export type AnswerAssessment = { kind: "correct" } | { kind: "incorrect"; reason?: "missing-constant" }
   | { kind: "invalid"; reason: ParseReason | "structure" | "choice" };
 
 export function formatRational(value: Rational): string {
@@ -31,6 +33,7 @@ export function formatRational(value: Rational): string {
 }
 
 export function emptyAnswer(spec: AnswerSpec): AnswerInput {
+  if (spec.kind === "primitive") return { kind: "primitive", coefficients: spec.terms.map(() => ""), hasConstant: false };
   if (spec.kind === "system") return { kind: "system", classification: "", values: [] };
   if (spec.kind === "limit") return { kind: "limit", classification: "", value: "" };
   if (spec.kind === "roots") return { kind: "roots", classification: "", values: [] };
@@ -42,6 +45,7 @@ export function emptyAnswer(spec: AnswerSpec): AnswerInput {
 
 export function describeInput(input: AnswerInput, spec?: AnswerSpec): string {
   if (typeof input === "string") return input;
+  if (input.kind === "primitive") return input.coefficients.map((value, i) => `${value}·${spec?.kind === "primitive" ? spec.terms[i]?.basis : "?"}`).join(" + ") + (input.hasConstant ? " + C" : "");
   if (input.kind === "system") return input.classification === "system-one" ? input.values.join("; ") : input.classification === "system-none" ? "∅" : input.classification === "system-many" ? "∞" : "";
   if (input.kind === "limit") return input.classification === "finite" ? input.value : input.classification === "positive-infinity" ? "+∞" : input.classification === "negative-infinity" ? "−∞" : input.classification === "does-not-exist" ? "∄ lim" : "";
   if (input.kind === "choice") return spec?.kind === "choice" ? spec.options.find((option) => option.value === input.value)?.label ?? "" : input.value;
@@ -51,6 +55,14 @@ export function describeInput(input: AnswerInput, spec?: AnswerSpec): string {
 
 export function assessAnswer(spec: AnswerSpec, input: AnswerInput): AnswerAssessment {
   const invalid = (reason: "structure" | "choice"): AnswerAssessment => ({ kind: "invalid", reason });
+  if (spec.kind === "primitive") {
+    if (typeof input === "string" || input.kind !== "primitive" || input.coefficients.length !== spec.terms.length) return invalid("structure");
+    const parsed = input.coefficients.map(parseAnswer);
+    const failed = parsed.find((value) => value.kind === "invalid");
+    if (failed?.kind === "invalid") return failed;
+    if (!parsed.every((value, i) => value.kind === "valid" && equalRational(value.value, spec.terms[i].coefficient))) return { kind: "incorrect" };
+    return input.hasConstant ? { kind: "correct" } : { kind: "incorrect", reason: "missing-constant" };
+  }
   if (spec.kind === "system") {
     if (typeof input === "string" || input.kind !== "system" || !["system-one", "system-none", "system-many"].includes(input.classification)) return invalid("choice");
     const count = input.classification === "system-one" ? spec.variables.length : 0;

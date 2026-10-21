@@ -59,12 +59,12 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | D08 | Pełne badanie funkcji | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; dwie kontrolowane postacie, bez ogólnych funkcji |
 | D09 | Szkic z tabeli | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; przedziały znaków i zachowanie w rozwiązaniu, bez narysowanego wykresu |
 | D10 | Ekstrema globalne | częściowo | `derivative-profit-maximum`; ograniczony model kwadratowy |
-| I01 | Całka bezpośrednia po uproszczeniu | brak | — |
-| I02 | Całka trygonometryczna i tablicowa | brak | — |
-| I03 | Podstawienie | brak | — |
-| I04 | Całkowanie przez części | brak | — |
-| I05 | Całka powracająca | brak | — |
-| I06 | Całka oznaczona | brak | — |
+| I01 | Całka bezpośrednia po uproszczeniu | częściowo | `integral-direct`; wielomiany i sumy do stopnia 3, bez ogólnych przekształceń algebraicznych przed całkowaniem |
+| I02 | Całka trygonometryczna i tablicowa | częściowo | `integral-table`; sin(ax+b), cos(ax+b), e^(ax+b), 1/(ax+b) z dziedziną, bez pełnej tablicy |
+| I03 | Podstawienie | częściowo | `integral-substitution`; liniowe i kwadratowe u o kontrolowanej pochodnej oraz dodatkowy składnik liniowy |
+| I04 | Całkowanie przez części | częściowo | `integral-parts`; x^m e^(ax), m=1–3, bez ogólnych iloczynów |
+| I05 | Całka powracająca | częściowo | `integral-recurring`; e^(ax)(p sin bx+q cos bx), b>0, bez innych rodzin powracających |
+| I06 | Całka oznaczona | częściowo | `integral-definite`; wielomiany i dokładne granice wymierne, bez niewłaściwych całek |
 | I07 | Pole między krzywymi | brak | — |
 | I08 | Długość łuku | brak | — |
 | W01 | Pochodne cząstkowe I/II | brak | — |

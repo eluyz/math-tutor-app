@@ -4,6 +4,7 @@ import type { Difficulty } from "../difficulty";
 import type { CategoryId } from "../exercises";
 import type { Locale } from "../locales/types";
 import type { Polynomial, PolynomialFormula } from "./polynomial";
+import type { IntegralProblem } from "./integrals";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -193,7 +194,8 @@ export type UniversityProblem =
   | ElementaryAnalysisProblem
   | AsymptoteProblem
   | AdvancedCalculusProblem
-  | FunctionStudyProblem;
+  | FunctionStudyProblem
+  | IntegralProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>

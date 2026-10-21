@@ -16,7 +16,8 @@ export type CategoryId =
   | "functions"
   | "sequence-limits"
   | "function-limits"
-  | "derivatives";
+  | "derivatives"
+  | "integrals";
 
 export type ErrorRule = {
   errorCode: string;
@@ -60,6 +61,7 @@ export function getAnswerSpec(exercise: AnyExercise): AnswerSpec {
 export type Hypothesis = Omit<ErrorRule, "wrongAnswer">;
 export type Diagnosis =
   | { kind: "hypotheses"; candidates: Hypothesis[]; ambiguous: boolean }
+  | { kind: "known"; errorCode: "MISSING_INTEGRATION_CONSTANT"; category: CategoryId; explanation: string; hint: string }
   | {
       kind: "undetermined";
       errorCode: "UNDETERMINED";
@@ -80,6 +82,7 @@ export type StepResult = {
 };
 
 export type FeedbackCopy = {
+  missingConstant: string;
   empty: string;
   invalidNumber: string;
   divisionByZero: string;
@@ -153,6 +156,13 @@ export function checkAnswer(
     return {
       kind: "correct",
       message: `${feedback.correctPrefix} ${exercise.explanation}`,
+    };
+  }
+  if (parsed.kind === "incorrect" && parsed.reason === "missing-constant") {
+    return {
+      kind: "incorrect", message: feedback.incorrectPrefix,
+      diagnosis: { kind: "known", errorCode: "MISSING_INTEGRATION_CONSTANT", category: exercise.category,
+        explanation: feedback.missingConstant, hint: feedback.missingConstant },
     };
   }
   return {

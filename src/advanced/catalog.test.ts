@@ -86,6 +86,7 @@ function laplace(a: Matrix): Rational {
     .reduce(add, r(0));
 }
 function input(spec: AnswerSpec): AnswerInput {
+  if (spec.kind === "primitive") return { kind: "primitive", coefficients: spec.terms.map((term) => f(term.coefficient)), hasConstant: true };
   if (spec.kind === "limit") return {kind:"limit",classification:spec.value.kind,value:spec.value.kind === "finite"?f(spec.value.value):""};
   if (spec.kind === "system") return {kind:"system",classification:spec.classification,values:spec.values.map(f)};
   if (spec.kind === "scalar") return f(spec.value);
