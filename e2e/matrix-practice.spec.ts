@@ -29,7 +29,7 @@ for (const width of [375,1280]) for (const en of [false,true]) {
     await expect(page.locator(".feedback")).toBeVisible();
     await button(en?"Show solution":"Pokaż rozwiązanie").click();
     await button(en?"Show all steps":"Pokaż wszystkie kroki").click();
-    await expect(page.locator(".solution-panel")).toContainText(en?"dimensions":"wymiar");
+    await expect(page.locator(".solution-panel")).toContainText("dim(A)");
     expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
     expect(errors).toEqual([]);
   });
