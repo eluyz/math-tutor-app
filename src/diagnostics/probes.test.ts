@@ -40,8 +40,8 @@ describe("MT-DIAG-001 exact intermediate probes", () => {
   });
 
   it("computes Laplace minors for 4x4 and 5x5, not the full determinant", () => {
-    for (const family of ["determinant-laplace-four", "determinant-laplace-five"]) {
-      const task = select("determinants", "hard", family);
+    for (const [family, level] of [["determinant-laplace-four", "hard"], ["determinant-laplace-five", "advanced"]] as const) {
+      const task = select("determinants", level, family);
       const probe = probeFor(task);
       expect(probe?.code).toBe("LAPLACE_MINOR");
       expect(probe?.question.pl).toContain("minor");
