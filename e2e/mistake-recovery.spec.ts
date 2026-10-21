@@ -64,7 +64,7 @@ for (const width of [375, 768, 1280]) for (const en of [false, true])
     await expect(analysis.getByText(en ? "This specific entered step is incorrect" : "W tym konkretnym wpisanym kroku wystąpił błąd", { exact: false })).toBeVisible();
     await stepInput.fill(formatRational(task!.step!.answer));
     await analysis.getByRole("button", { name: en ? "Check step" : "Sprawdź krok" }).click();
-    await expect(analysis.getByText(en ? "This step is correct" : "Ten krok jest poprawny", { exact: false })).toBeVisible();
+    await expect(analysis.locator(".mistake-step [role=status] strong")).toHaveText(en ? "This step is correct." : "Ten krok jest poprawny.");
     const storedBefore = await page.evaluate(() => Object.entries(localStorage).sort(([a], [b]) => a.localeCompare(b)));
     await analysis.getByRole("button", { name: en ? "Practice similar problems" : "Przećwicz podobne zadania" }).click();
     await expect(analysis.locator(".mistake-recovery-active")).toBeVisible();
