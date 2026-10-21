@@ -1,4 +1,4 @@
-import { rational as r, addRational as add, multiplyRational as mul, type Rational } from "../rational";
+import { rational as r } from "../rational";
 import { formatRational as f } from "../answers";
 import { addMatrices, subtractMatrices, scaleMatrix, multiplyMatrices, transposeMatrix,
   matrixShape, type Matrix } from "../matrices";
