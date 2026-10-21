@@ -34,7 +34,7 @@ const shape = (rows:number,columns:number):Shape=>({rows,columns});
 const switchSize = (x:number)=>x===2?3:2;
 const dimOptions = (locale:Locale) =>
   [{value:"not-possible",label:locale==="pl"?"Nie można wykonać":"Not possible"},
-   ...[2,3].flatMap(i=>[2,3].map(j=>({value:`${i}x${j}`,label:`${i} × ${j}`}))];
+   ...[2,3].flatMap(i=>[2,3].map(j=>({value:`${i}x${j}`,label:`${i} × ${j}`})))];
 
 function tree(p:Practice): Node {
   const A=input("A"), B=input("B"), C=input("C");
