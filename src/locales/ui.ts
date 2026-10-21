@@ -36,7 +36,20 @@ const pl = {
     learnSteps: "UCZ SIĘ KROK PO KROKU",
     chooseTopic: "Wybierz temat",
     chooseDescription:
-      "Wybierz dział i rodzinę ćwiczeń. Po pomyłce możesz skorzystać ze wskazówek i spróbować ponownie.",
+      "Wyszukaj rodzinę w całym katalogu albo wybierz dział i temat. Po pomyłce możesz skorzystać ze wskazówek i spróbować ponownie.",
+    searchLabel: "Szukaj rodziny zadań",
+    searchPlaceholder: "Wpisz nazwę rodziny lub kategorii",
+    searchClear: "Wyczyść wyszukiwanie",
+    searchResults: "Wyniki wyszukiwania rodzin zadań",
+    searchCount: (count: number) => `Znaleziono rodzin: ${count}`,
+    searchEmpty: "Brak pasujących rodzin. Spróbuj innej nazwy.",
+    searchLocked: "Wyszukiwanie jest dostępne po zakończeniu sesji 10 zadań.",
+    searchOpen: (family: string, category: string, levels: string) =>
+      `Wybierz z wyszukiwarki: ${family}, ${category}. Dostępne poziomy: ${levels}`,
+    searchLevelChanged: (from: string, to: string) =>
+      `Poziom ${from} nie jest dostępny w tej rodzinie. Wybrano poziom ${to}.`,
+    categoryFamilies: (category: string, count: number) =>
+      `${category} — rodziny zadań (${count})`,
     groups: "Działy nauki",
     basic: "Powtórka podstaw",
     study: "Matematyka na studia",
@@ -75,7 +88,7 @@ const pl = {
     ready: "Gotowy na",
     firstStep: "pierwszy krok?",
     emptyDescription:
-      "Wybierz temat z listy po lewej, aby rozpocząć krótkie ćwiczenie.",
+      "Wyszukaj rodzinę lub wybierz temat z listy, aby rozpocząć krótkie ćwiczenie.",
     startFirst: "Zacznij od pierwszego zadania",
     footer: "Matematyka jest dla każdego.",
     language: "Język aplikacji",
@@ -273,7 +286,20 @@ const en: UiCopy = {
     learnSteps: "LEARN STEP BY STEP",
     chooseTopic: "Choose a topic",
     chooseDescription:
-      "Choose a subject and exercise family. After a mistake, use the hints and try again.",
+      "Search the full catalog or choose a subject and exercise family. After a mistake, use the hints and try again.",
+    searchLabel: "Search exercise families",
+    searchPlaceholder: "Enter a family or category name",
+    searchClear: "Clear search",
+    searchResults: "Exercise family search results",
+    searchCount: (count: number) => `Families found: ${count}`,
+    searchEmpty: "No matching families. Try another name.",
+    searchLocked: "Search is available after the 10-exercise session ends.",
+    searchOpen: (family: string, category: string, levels: string) =>
+      `Choose from search: ${family}, ${category}. Available levels: ${levels}`,
+    searchLevelChanged: (from: string, to: string) =>
+      `${from} is not available for this family. Selected ${to} instead.`,
+    categoryFamilies: (category: string, count: number) =>
+      `${category} — exercise families (${count})`,
     groups: "Study sections",
     basic: "Review the basics",
     study: "University mathematics",
@@ -310,7 +336,7 @@ const en: UiCopy = {
     emptyEyebrow: "YOUR SPACE TO LEARN",
     ready: "Ready for",
     firstStep: "the first step?",
-    emptyDescription: "Choose a topic from the list to start a short exercise.",
+    emptyDescription: "Search for a family or choose a topic from the list to start a short exercise.",
     startFirst: "Start with the first exercise",
     footer: "Mathematics is for everyone.",
     language: "Application language",
