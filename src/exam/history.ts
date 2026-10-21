@@ -1,7 +1,7 @@
 import { difficulties, type Difficulty } from "../difficulty";
 import { allTemplates } from "../generators";
 import type { CategoryId } from "../exercises";
-import { examTotals, type ExamState } from "./model";
+import { examTotals, examLevels, type ExamState } from "./model";
 
 export const EXAM_HISTORY_KEY = "math-tutor.exam-history.v1";
 export const EXAM_HISTORY_VERSION = 1;
@@ -9,6 +9,8 @@ export const MAX_EXAM_REPORTS = 50;
 const MAX_STORAGE_LENGTH = 100_000;
 export type ExamReport = Readonly<{
   id: string; completedAt: string; categories: readonly CategoryId[]; difficulty: Difficulty;
+  /** Optional in v1: new mixed-level exams; older saved reports remain valid. */
+  levels?: readonly Difficulty[];
   total: number; correct: number; incorrect: number; invalid: number; skipped: number;
   elapsedMs: number; minutes: 0 | 15 | 30; timedOut: boolean;
 }>;
@@ -28,6 +30,9 @@ function validateReport(value: unknown): ExamReport | null {
     new Set(value.categories).size !== value.categories.length ||
     value.categories.some((category) => !categories.has(category)) ||
     !difficulties.includes(value.difficulty as Difficulty) ||
+    (value.levels !== undefined && (!Array.isArray(value.levels) || !value.levels.length ||
+      new Set(value.levels).size !== value.levels.length ||
+      value.levels.some((level: unknown) => !difficulties.includes(level as Difficulty)))) ||
     ![5, 10, 20].includes(value.total as number) ||
     ![0, 15, 30].includes(value.minutes as number) ||
     typeof value.timedOut !== "boolean" ||
@@ -38,6 +43,7 @@ function validateReport(value: unknown): ExamReport | null {
       (value.skipped as number) !== value.total) return null;
   return { id: value.id as string, completedAt: value.completedAt as string,
     categories: [...value.categories] as CategoryId[], difficulty: value.difficulty as Difficulty,
+    ...(Array.isArray(value.levels) ? { levels: [...value.levels] as Difficulty[] } : {}),
     total: value.total as number, correct: value.correct as number,
     incorrect: value.incorrect as number, invalid: value.invalid as number,
     skipped: value.skipped as number, elapsedMs: value.elapsedMs as number,
@@ -70,6 +76,7 @@ export function reportForExam(state: ExamState): ExamReport | null {
   const { correct, incorrect, invalid, skipped, total } = examTotals(state.entries);
   return { id: state.id, completedAt: new Date(state.submittedAt).toISOString(),
     categories: [...state.config.categories], difficulty: state.config.difficulty,
+    ...(state.config.difficulties ? { levels: [...examLevels(state.config)] } : {}),
     correct, incorrect, invalid, skipped, total,
     elapsedMs: Math.max(0, state.submittedAt - state.startedAt),
     minutes: state.config.minutes, timedOut: state.timedOut };

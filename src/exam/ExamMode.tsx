@@ -7,8 +7,9 @@ import { MatrixDisplay } from "../MatrixDisplay";
 import { describeInput } from "../answers";
 import { getAnswerSpec, type CategoryId } from "../exercises";
 import { difficultyConfig } from "../difficulty";
-import { taskPool, type GeneratedTask } from "../generators";
-import { categoryTitle } from "../catalogSearch";
+import { allTemplates, taskPool, type Difficulty, type GeneratedTask } from "../generators";
+import { categoryTitle, normalizeCatalogQuery } from "../catalogSearch";
+import { familyTitle } from "../locales/catalog";
 import { localizeTask } from "../locales/catalog";
 import { useLocale } from "../locales/LocaleProvider";
 import { Scratchpad } from "../scratchpad/Scratchpad";
@@ -18,7 +19,7 @@ import { isLinearAlgebraProblem } from "../university/schema";
 import { examCopy } from "./copy";
 import { clearExamHistory, loadExamHistory, reportForExam,
   saveExamReport } from "./history";
-import { editExamAnswer, examCapacity, examConfigError, examTotals, isBlankAnswer,
+import { editExamAnswer, examCapacity, examConfigError, examLevels, examTotals, isBlankAnswer,
   moveExam, startExam, submitExam, type ExamConfig, type ExamCount, type ExamMinutes,
   type ExamState } from "./model";
 import "./exam.css";
@@ -55,12 +56,19 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
     .filter((category) => taskPool(category.id, "easy").length ||
       difficultyConfig.some(({ id }) => taskPool(category.id, id).length));
   const [config, setConfig] = useState<ExamConfig>({ categories: ["order"], difficulty: "easy", count: 5, minutes: 0 });
+  const [familyQuery, setFamilyQuery] = useState("");
   const [exam, setExam] = useState<ExamState | null>(null);
   const examRef = useRef<ExamState | null>(null);
   const [now, setNow] = useState(Date.now());
   const [confirmSubmit, setConfirmSubmit] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [history, setHistory] = useState(() => loadExamHistory(storage));
+  const selectedLevels = examLevels(config);
+  const familiesAvailable = allTemplates.filter((family) => config.categories.includes(family.category) &&
+    selectedLevels.some((level) => family.supportedDifficulties.includes(level)));
+  const filteredFamilies = familiesAvailable.filter((family) =>
+    normalizeCatalogQuery([familyTitle(family, "pl"), familyTitle(family, "en")].join(" "))
+      .includes(normalizeCatalogQuery(familyQuery)));
   const error = useMemo(() => examConfigError(config), [config]);
   const capacity = useMemo(() => config.categories.length ? examCapacity(config) : 0, [config]);
   const active = exam !== null && exam.submittedAt === null;
@@ -120,7 +128,9 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
   function selectCategory(category: CategoryId, checked: boolean) {
     setConfig((current) => ({ ...current, categories: checked
       ? [...current.categories, category]
-      : current.categories.filter((item) => item !== category) }));
+      : current.categories.filter((item) => item !== category),
+      families: checked ? current.families : current.families?.filter((id) =>
+        allTemplates.some((item) => item.id === id && item.category !== category)) }));
   }
   const totals = exam?.entries ? examTotals(exam.entries) : null;
   const outcomeText = { correct: c.correct, incorrect: c.incorrect,
@@ -137,15 +147,50 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
             <input type="checkbox" checked={config.categories.includes(category.id)}
               onChange={(event) => selectCategory(category.id, event.target.checked)} />
             {category.label}
-            <small>{taskPool(category.id, config.difficulty).length}</small>
+            <small>{new Set(selectedLevels.flatMap((level) => taskPool(category.id, level).map((task) => task.contentKey))).size}</small>
           </label>)}
         </fieldset>
-        <fieldset className="exam-options"><legend>{c.level}</legend>
-          {difficultyConfig.map(({ id }) => <label key={id}><input type="radio" name="exam-level"
-            checked={config.difficulty === id}
-            onChange={() => setConfig((current) => ({ ...current, difficulty: id }))} />
-            {difficultyLabels[id]}</label>)}
+        <fieldset className="exam-levels"><legend>{c.level}</legend>
+          <label className="exam-mixed-option"><input type="checkbox" checked={config.difficulties !== undefined}
+            onChange={(event) => setConfig((current) => ({ ...current,
+              difficulties: event.target.checked ? [current.difficulty] : undefined,
+              families: undefined }))} />{c.mixLevels}</label>
+          <div className="exam-options">
+            {difficultyConfig.map(({ id }) => <label key={id}><input
+              type={config.difficulties === undefined ? "radio" : "checkbox"} name={config.difficulties === undefined ? "exam-level" : undefined}
+              checked={selectedLevels.includes(id)}
+              onChange={(event) => setConfig((current) => ({ ...current,
+                difficulty: current.difficulties === undefined ? id : current.difficulty,
+                difficulties: current.difficulties === undefined ? undefined :
+                  event.target.checked ? [...current.difficulties, id] :
+                    current.difficulties.filter((level) => level !== id),
+                families: undefined }))} />
+              {difficultyLabels[id]}</label>)}
+          </div>
         </fieldset>
+        <details className="exam-family-selector">
+          <summary>{c.families} ({config.families?.length ?? c.allFamilies})</summary>
+          <p className="input-help">{c.familyHelp}</p>
+          <label htmlFor="exam-family-search">{c.searchFamily}</label>
+          <input id="exam-family-search" type="search" value={familyQuery}
+            onChange={(event) => setFamilyQuery(event.target.value)} />
+          <div className="exam-family-actions">
+            <button type="button" onClick={() => setConfig((current) => ({ ...current, families: undefined }))}>{c.allFamilies}</button>
+            <button type="button" onClick={() => setConfig((current) => ({ ...current,
+              families: [...new Set([...(current.families ?? []), ...filteredFamilies.map((family) => family.id)])] }))}>{c.addVisible}</button>
+          </div>
+          <div className="exam-family-list">
+            {filteredFamilies.map((family) => <label key={family.id}>
+              <input type="checkbox" checked={config.families?.includes(family.id) ?? false}
+                onChange={(event) => setConfig((current) => ({ ...current,
+                  families: event.target.checked ?
+                    [...(current.families ?? []), family.id] :
+                    current.families?.filter((id) => id !== family.id) }))} />
+              {familyTitle(family, locale)}
+            </label>)}
+          </div>
+          <p className="input-help">{c.selectedFamilyHint(config.families?.length ?? 0)}</p>
+        </details>
         <fieldset className="exam-options"><legend>{c.count}</legend>
           {([5, 10, 20] as const).map((count: ExamCount) => <label key={count}>
             <input type="radio" name="exam-count" checked={config.count === count}
@@ -171,7 +216,7 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
           <ul>{[...history.history.reports].reverse().map((report) => <li key={report.id}>
             <time dateTime={report.completedAt}>{new Intl.DateTimeFormat(locale, { dateStyle: "medium", timeStyle: "short" }).format(new Date(report.completedAt))}</time>
             <span>{report.categories.map((category) => categoryTitle(category, locale)).join(", ")}</span>
-            <span>{difficultyLabels[report.difficulty]} · {c.score(report.correct, report.total,
+            <span>{report.levels?.map((level) => difficultyLabels[level]).join(", ") ?? difficultyLabels[report.difficulty]} · {c.score(report.correct, report.total,
               Math.round(100 * report.correct / report.total))}</span>
             <small>{report.timedOut ? c.timedOut : c.elapsed(timeText(Math.floor(report.elapsedMs / 1000)))}</small>
           </li>)}</ul>

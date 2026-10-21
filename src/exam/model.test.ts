@@ -149,3 +149,41 @@ describe("MT-EXAM-001 local history", () => {
     expect(loadExamHistory(() => { throw Error("blocked"); }).issue).toBe("unavailable");
   });
 });
+
+
+describe("MT-EXAM-002 exact family and level selection", () => {
+  it("restricts an exam to precisely chosen Cramer and Laplace families at different levels", () => {
+    const chosen: ExamConfig = { categories: ["systems", "determinants"], difficulty: "hard",
+      difficulties: ["hard", "advanced"], families: ["system-cramer-three", "determinant-laplace-four"],
+      count: 10, minutes: 15 };
+    expect(examConfigError(chosen)).toBeNull();
+    const actual = selectExamTasks(chosen, 121);
+    expect(actual).toHaveLength(10);
+    expect(new Set(actual.map((task) => task.contentKey)).size).toBe(10);
+    expect(actual.every((task) => chosen.families!.includes(task.templateId))).toBe(true);
+    expect(actual.every((task) => chosen.difficulties!.includes(task.difficulty))).toBe(true);
+    expect(new Set(actual.map((task) => task.templateId))).toEqual(new Set(chosen.families));
+    expect(actual.map((task) => task.id)).toEqual(selectExamTasks(chosen, 121).map((task) => task.id));
+    expect(examCapacity(chosen)).toBeGreaterThanOrEqual(chosen.count);
+  });
+  it("rejects stale/unknown family, empty levels, duplicate levels and a family outside selected categories", () => {
+    const base: ExamConfig = { categories: ["determinants"], difficulty: "hard", count: 5, minutes: 0 };
+    expect(examConfigError({ ...base, families: ["system-cramer-three"] })).toBe("unavailable");
+    expect(examConfigError({ ...base, families: ["unknown-family"] })).toBe("unavailable");
+    expect(examConfigError({ ...base, families: ["determinant-laplace-four", "determinant-laplace-four"] })).toBe("unavailable");
+    expect(examConfigError({ ...base, difficulties: [] })).toBe("unavailable");
+    expect(examConfigError({ ...base, difficulties: ["hard", "hard"] })).toBe("unavailable");
+    expect(examConfigError({ ...base, difficulties: ["easy"], families: ["determinant-laplace-four"] })).toBe("unavailable");
+    expect(() => selectExamTasks({ ...base, families: ["unknown-family"] }, 123)).toThrow();
+  });
+  it("keeps old 2026 exam config and history compatible while recording mixed levels accurately", () => {
+    const config: ExamConfig = { categories: ["order"], difficulty: "easy", count: 5, minutes: 0 };
+    const legacy = startExam(config, 17, 100, "old-exam");
+    expect(legacy.tasks.every((task) => task.difficulty === "easy")).toBe(true);
+    const mixed = { ...config, difficulties: ["easy", "medium"] as const };
+    const report = reportForExam(submitExam(startExam(mixed, 17, 100, "new-exam"), 200))!;
+    expect(report.levels).toEqual(["easy", "medium"]);
+    expect(decodeExamHistory(JSON.stringify(appendExamReport(emptyExamHistory(), report))).issue).toBeNull();
+    expect(decodeExamHistory(JSON.stringify(appendExamReport(emptyExamHistory(), report))).history.reports[0].levels).toEqual(["easy", "medium"]);
+  });
+});
