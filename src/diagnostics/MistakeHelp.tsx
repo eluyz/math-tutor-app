@@ -13,6 +13,7 @@ import { isUniversityTask } from "../university/catalog";
 import { isLinearAlgebraProblem } from "../university/schema";
 import { mistakeCopy } from "./copy";
 import { assessRepairAttempt, inspectMistake, inspectSubmittedStep, pickRepairTasks } from "./model";
+import { checkProbe, probeFor } from "./probes";
 import "./mistake.css";
 
 function RecoveryQuestion({ task }: { task: GeneratedTask }) {
@@ -45,7 +46,10 @@ export function MistakeHelp({ task, answer }: { task: GeneratedTask; answer: Ans
   const [correctCount, setCorrectCount] = useState(0);
   const [repairFinished, setRepairFinished] = useState(false);
   const [repairUnavailable, setRepairUnavailable] = useState(false);
-  const step = checkedStep === null ? null : inspectSubmittedStep(task, checkedStep, copy.feedback);
+  const probe = probeFor(task);
+  const step = checkedStep === null ? null : task.step
+    ? inspectSubmittedStep(task, checkedStep, copy.feedback)
+    : probe ? { kind: checkProbe(probe, checkedStep), message: probe.help[locale] } : null;
   const selected = repairTasks[repairIndex];
   const current = selected ? localizeTask(selected, locale) : null;
   if (!insight) return null;
@@ -115,11 +119,11 @@ export function MistakeHelp({ task, answer }: { task: GeneratedTask; answer: Ans
         <p>{insight.explanation}</p>
         <p><strong>{c.rule}:</strong> {task.hint}</p>
       </>}
-      {task.step && <div className="mistake-step">
+      {(task.step || probe) && <div className="mistake-step">
         <h5>{c.optionalStep}</h5>
         <p>{c.stepInfo}</p>
         <form onSubmit={(event) => { event.preventDefault(); setCheckedStep(stepInput); }}>
-          <label htmlFor={`diag-step-${task.id}`}>{task.step.question}</label>
+          <label htmlFor={`diag-step-${task.id}`}>{task.step?.question ?? probe?.question[locale]}</label>
           <div className="mistake-step-actions">
             <input id={`diag-step-${task.id}`} type="text" inputMode="decimal" value={stepInput}
               onChange={(event) => { setStepInput(event.target.value); setCheckedStep(null); }} />
@@ -129,7 +133,7 @@ export function MistakeHelp({ task, answer }: { task: GeneratedTask; answer: Ans
         {step && <div role="status">
           <strong>{step.kind === "incorrect" ? c.stepIncorrect : step.kind === "correct" ? c.stepCorrect : c.stepInvalid}</strong>
           <p>{step.message}</p>
-          {step.kind === "incorrect" && <p>{c.stepAnswer}: {formatRational(task.step.answer)}</p>}
+          {step.kind === "incorrect" && <p>{c.stepAnswer}: {formatRational(task.step?.answer ?? probe!.answer)}</p>}
         </div>}
       </div>}
       <div className="mistake-recovery">
