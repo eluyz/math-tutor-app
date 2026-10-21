@@ -14,6 +14,7 @@ import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
 import { matrixPairFamilies, presentMatrixPair } from "./matrixPair";
+import { matrixPracticeFamilies, presentMatrixPractice } from "./matrixPractice";
 import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./elementaryAnalysis";
 import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
@@ -33,6 +34,7 @@ export const universityFamilies = [
   ...gaussFamilies,
   ...cramerFourFamilies,
   ...matrixPairFamilies,
+  ...matrixPracticeFamilies,
   ...elementaryAnalysisFamilies,
   ...asymptoteFamilies,
   ...advancedCalculusFamilies,
@@ -56,6 +58,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "linear-matrix-practice"
+    ? presentMatrixPractice(problem, locale)
     : problem.kind === "linear-matrix-pair"
     ? presentMatrixPair(problem, locale)
     : isInverse(problem)
@@ -138,7 +142,7 @@ export function makeUniversityTask(
     difficulty,
     parameters: { variant },
     university,
-    contentKey: `university:${presentation.question}${university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ""}`,
+    contentKey: `university:${presentation.question}${university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ""}`,
     startingHint: presentation.hint,
     errorRules: [],
   };
