@@ -39,6 +39,7 @@ import { completedSession } from "./progress/model";
 import { useProgress } from "./progress/useProgress";
 import { ProgressDashboard } from "./progress/ProgressDashboard";
 import { categoryTitle, searchCatalog, selectCatalogFamily } from "./catalogSearch";
+import { EntrancePrep } from "./uwm/EntrancePrep";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
@@ -430,6 +431,14 @@ export default function App() {
               )}
             </div>
           </div>
+          <EntrancePrep
+            locale={locale}
+            disabled={sessionNumber > 0}
+            onSelect={(templateId) => {
+              const template = allTemplates.find((item) => item.id === templateId);
+              if (template) openSearchResult(template);
+            }}
+          />
           <div className="study-groups" role="group" aria-label={a.groups}>
             <button
               type="button"
