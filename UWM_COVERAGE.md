@@ -8,8 +8,8 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | --- | --- | --- | --- |
 | M01 | Skalar, dodawanie, odejmowanie | pokryte | `matrix-scale`, `matrix-add`, `matrix-subtract` |
 | M02 | Transpozycja | pokryte | `matrix-transpose` |
-| M03 | Mnożenie i wykonalność | częściowo | `matrix-product`, `matrix-dimensions`; bez ogólnego testu wykonalności |
-| M04 | Działania złożone i potęgi | częściowo | `matrix-product`, `matrix-add`; bez dowolnych potęg |
+| M03 | Mnożenie i wykonalność | częściowo | `matrix-product`, `matrix-dimensions`, `matrix-compatibility`, `matrix-chained-dimensions`; wykonalność dodawania, AB/BA i łańcuchów, wymiary wyników do 3×3, bez ogólnej dowolnej macierzy |
+| M04 | Działania złożone i potęgi | częściowo | `matrix-product`, `matrix-add`, `matrix-powers`, `matrix-composite-operations`; A²/A³ (2×2/3×3), nawiasy, transpozycja i skalowanie ułamkiem; bez potęg ujemnych i dowolnych wymiarów |
 | M05 | Równanie macierzowe i układ dwóch macierzy | częściowo | `inverse-applications`, `inverse-right-applications`, `matrix-coupled-equations`; AX=B, XA=B oraz układ dwóch równań z dwiema macierzami niewiadomymi 2×2 (kontrolowane współczynniki), bez ogólnych większych układów |
 | M06 | Wyznacznik 2×2 | pokryte | `determinant-two` |
 | M07 | Wyznacznik 3×3 | pokryte | `determinant-sarrus` |
