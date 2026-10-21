@@ -68,7 +68,7 @@ export function EntrancePrep({ locale, disabled, onSelect }: {
           <h3 id="uwm-prep-title">{t.title}</h3>
           <p>{t.intro}</p>
         </div>
-        <a href={`${import.meta.env.BASE_URL}uwm-wejsciowka.html`} target="_blank" rel="noopener noreferrer">
+        <a href="uwm-wejsciowka.html" target="_blank" rel="noopener noreferrer">
           {t.guide} ↗
         </a>
       </div>
