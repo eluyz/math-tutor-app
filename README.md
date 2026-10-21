@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **103 rodziny** i **9237 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **107 rodzin** i **9621 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
 
@@ -32,7 +32,7 @@ Build zapisuje statyczne pliki w `dist/`. `base` Vite jest ustawione na `/math-t
 
 Wybierz kategorię, poziom (łatwy, średni, trudny, zaawansowany, ekspert) i rodzinę. **Nowy przykład** oraz dostępny po poprawnej odpowiedzi **Następny przykład** losują kolejną treść z tej samej rodziny na bieżącym poziomie. Zmiana poziomu również zachowuje rodzinę; inny rodzaj zadania wybierzesz na liście rodzin lub przez zmianę kategorii. Każda zmiana przykładu czyści odpowiedź, ocenę, wskazówki i pytanie pomocnicze. Jeśli nic jeszcze nie wybrano, **Nowy przykład** rozpoczyna ćwiczenie w bieżącej kategorii.
 
-**Szukaj rodziny zadań / Search exercise families** przeszukuje wszystkie 103 rodziny niezależnie od wybranej kategorii. Możesz wpisać polską lub angielską nazwę rodziny bądź kategorii; wyszukiwanie ignoruje wielkość liter i polskie znaki. Wynik pokazuje kategorię i dostępne poziomy. Wybór przenosi do właściwego działu i zachowuje obecny poziom, jeżeli rodzina go obsługuje; w przeciwnym razie wybiera najbliższy dostępny poziom i wyjaśnia zmianę. W trakcie sesji 10 zadań wyszukiwanie jest zablokowane. Lista rodzin w wybranej kategorii ma własny obszar przewijania, dzięki czemu pole odpowiedzi pozostaje bliżej na telefonie. Wyszukiwanie nie zmienia historii ukończonych sesji.
+**Szukaj rodziny zadań / Search exercise families** przeszukuje wszystkie 107 rodzin niezależnie od wybranej kategorii. Możesz wpisać polską lub angielską nazwę rodziny bądź kategorii; wyszukiwanie ignoruje wielkość liter i polskie znaki. Wynik pokazuje kategorię i dostępne poziomy. Wybór przenosi do właściwego działu i zachowuje obecny poziom, jeżeli rodzina go obsługuje; w przeciwnym razie wybiera najbliższy dostępny poziom i wyjaśnia zmianę. W trakcie sesji 10 zadań wyszukiwanie jest zablokowane. Lista rodzin w wybranej kategorii ma własny obszar przewijania, dzięki czemu pole odpowiedzi pozostaje bliżej na telefonie. Wyszukiwanie nie zmienia historii ukończonych sesji.
 
 **Rozpocznij sesję (10 zadań)** uruchamia serię mieszającą rodziny w wybranym temacie i na wybranym poziomie; **Następne zadanie** przechodzi dalej także wtedy, gdy chcesz pominąć bieżący wariant. Licznik pokazuje numer zadania, a po dziesiątym pojawia się komunikat o zakończeniu. Przełączenie rodziny, poziomu lub kategorii podczas sesji jest zablokowane. Losowanie nie powtarza identycznej treści, dopóki pula wybranego zakresu się nie wyczerpie; po wyczerpaniu pojawia się komunikat o wznowieniu puli.
 
@@ -203,3 +203,7 @@ Wybrane rodziny mają autorskie pytanie o krok pośredni; dodatkowe dokładnie o
 ### Sprawdzian z wybranych rodzin (MT-EXAM-002)
 
 W trybie **Sprawdzian / Exam** możesz ograniczyć zakres do konkretnych rodzin (np. Sarrus 3×3, Cramer 3×3, Laplace 4×4) oraz zaznaczyć kilka poziomów trudności jednocześnie. Bez ograniczenia do rodzin zachowane jest dotychczasowe zachowanie. Losowanie równoważy kategorie i pary rodzina/poziom oraz wyklucza duplikaty treści. Zbyt wąski albo nieprawidłowy zakres blokuje start, bez cichej zmiany poziomu. Historia pozostaje lokalna: zapisuje faktycznie wybrane poziomy, nie zapisuje odpowiedzi. Wersje PL/EN i limit 5/10/20 zadań pozostają bez zmian. Nie jest to oficjalny arkusz UWM.
+
+### Rozszerzony trening macierzy (MT-EDU-010)
+
+W dziale **Macierze** są cztery nowe rodziny: **potęgi A²/A³**, **działania złożone z nawiasami i transpozycją**, **wykonalność A+B/AB/BA** oraz **analiza wymiarów łańcuchów AB+C, A(B+C), A(BC)**. Wybierz rodzinę w wyszukiwarce i obsługiwany poziom. Każda rodzina ma 24 warianty na wspierany poziom i rozwiązania krok po kroku PL/EN. Działania obliczeniowe mają odpowiedź macierzową, a zgodność wymiarów — wybór wymiaru albo „Nie można wykonać”. Nie dodano nowego trybu sprawdzianów ani mechanizmu zbierania danych. Zadania mają kontrolowane wymiary maksymalnie 3×3.
