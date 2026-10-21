@@ -302,7 +302,6 @@ export default function App() {
             <small>{a.tagline}</small>
           </span>
         </a>
-        <span className="topbar-note">{a.free}</span>
         <LanguagePicker />
       </header>
 
