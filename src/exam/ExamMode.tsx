@@ -65,7 +65,8 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
   const [history, setHistory] = useState(() => loadExamHistory(storage));
   const selectedLevels = examLevels(config);
   const familiesAvailable = allTemplates.filter((family) => config.categories.includes(family.category) &&
-    selectedLevels.some((level) => family.supportedDifficulties.includes(level)));
+    (selectedLevels.some((level) => family.supportedDifficulties.includes(level)) ||
+      (config.families?.includes(family.id) ?? false)));
   const filteredFamilies = familiesAvailable.filter((family) =>
     normalizeCatalogQuery([familyTitle(family, "pl"), familyTitle(family, "en")].join(" "))
       .includes(normalizeCatalogQuery(familyQuery)));
@@ -153,8 +154,7 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
         <fieldset className="exam-levels"><legend>{c.level}</legend>
           <label className="exam-mixed-option"><input type="checkbox" checked={config.difficulties !== undefined}
             onChange={(event) => setConfig((current) => ({ ...current,
-              difficulties: event.target.checked ? [current.difficulty] : undefined,
-              families: undefined }))} />{c.mixLevels}</label>
+              difficulties: event.target.checked ? [current.difficulty] : undefined }))} />{c.mixLevels}</label>
           <div className="exam-options">
             {difficultyConfig.map(({ id }) => <label key={id}><input
               type={config.difficulties === undefined ? "radio" : "checkbox"} name={config.difficulties === undefined ? "exam-level" : undefined}
@@ -163,8 +163,7 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
                 difficulty: current.difficulties === undefined ? id : current.difficulty,
                 difficulties: current.difficulties === undefined ? undefined :
                   event.target.checked ? [...current.difficulties, id] :
-                    current.difficulties.filter((level) => level !== id),
-                families: undefined }))} />
+                    current.difficulties.filter((level) => level !== id) }))} />
               {difficultyLabels[id]}</label>)}
           </div>
         </fieldset>
@@ -187,6 +186,8 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
                     [...(current.families ?? []), family.id] :
                     current.families?.filter((id) => id !== family.id) }))} />
               {familyTitle(family, locale)}
+              {!selectedLevels.some((level) => family.supportedDifficulties.includes(level)) &&
+                <small>{c.familyNotAtLevel}</small>}
             </label>)}
           </div>
           <p className="input-help">{c.selectedFamilyHint(config.families?.length ?? 0)}</p>
