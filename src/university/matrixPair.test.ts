@@ -12,7 +12,7 @@ describe("MT-EDU-008 two matrix equations", () => {
   it("solves a manually calculated exact 2×2 fixture independently", () => {
     const first=[[r(5),r(2)],[r(3),r(2)]], second=[[r(-1),r(4)],[r(-5),r(-2)]];
     const problem={kind:"linear-matrix-pair" as const,coefficients:[r(1),r(1),r(1),r(-1)] as const,first,second};
-    const expected=[2,3,-1,0,3,-1,4,2].map(r);
+    const expected=[2,3,-1,0,3,-1,4,2].map((value)=>r(value));
     for(const locale of ["pl","en"] as const){
       const s=presentMatrixPair(problem,locale);
       expect(s.answer.kind).toBe("list");
