@@ -22,8 +22,9 @@ type Gesture = {
   erased: Set<number>;
   erasing: boolean;
 };
-export function Scratchpad({ run, active }: { run: number; active: boolean }) {
+export function Scratchpad({ run, active, idPrefix = "" }: { run: number; active: boolean; idPrefix?: string }) {
   const { copy } = useLocale();
+  const fieldId = (name: string) => `${idPrefix}${name}`;
   const s = copy.scratchpad;
   const [state, dispatch] = useReducer(
     scratchpadReducer,
@@ -265,7 +266,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
             ref={toggleButton}
             type="button"
             aria-expanded={open}
-            aria-controls="scratchpad-content"
+            aria-controls={fieldId("scratchpad-content")}
             onClick={() => {
               cancelGesture();
               if (open) {
@@ -297,10 +298,10 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
             {s.close}
           </button>
         </div>
-        <div id="scratchpad-content" hidden={!open}>
+        <div id={fieldId("scratchpad-content")} hidden={!open}>
         {controls}
         <div hidden={state.mode !== "draw"}>
-          <p className="input-help" id="drawing-help">
+          <p className="input-help" id={fieldId("drawing-help")}>
             {s.help}
           </p>
           <svg
@@ -308,7 +309,7 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
             className="scratchpad-drawing"
             viewBox="0 0 1000 600"
             aria-label={s.drawing}
-            aria-describedby="drawing-help"
+            aria-describedby={fieldId("drawing-help")}
             role="img"
             onPointerDown={(event) => {
               if (!event.isPrimary || event.button !== 0 || gesture.current)
@@ -380,11 +381,11 @@ export function Scratchpad({ run, active }: { run: number; active: boolean }) {
               </button>
             ))}
           </div>
-          <label htmlFor="scratchpad-text">{s.notes}</label>
+          <label htmlFor={fieldId("scratchpad-text")}>{s.notes}</label>
           <textarea
             key={editorGeneration}
             ref={textarea}
-            id="scratchpad-text"
+            id={fieldId("scratchpad-text")}
             rows={7}
             spellCheck={false}
             onSelect={(event) => {

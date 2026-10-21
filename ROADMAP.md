@@ -19,10 +19,10 @@
 | MT-EDU-006B P3 | Częściowo wykonany zakres opcjonalny | Cramer 4×4 i XA=B wdrożone; układ dwóch równań macierzowych odłożony |
 | MT-EDU-007 | Scalone na main w PR #25; P0–P2 ukończone, P3 częściowo | 16 rodzin / 1224 warianty: P0–P2 oraz kontrolowane badanie wielomianu i funkcji wymiernej; nonsmooth styczne, ogólne funkcje i wykresy pozostają przyszłe |
 | MT-UX-001 | Scalone na main w PR #29 | Wyszukiwanie rodzin PL/EN w całym katalogu, jawny dobór kategorii i poziomu oraz krótsza lista mobilna; bez zmian w 8589 wcześniejszych zadaniach |
-| MT-EDU-008 P0–P2 | Implementacja do recenzji | Całki I01–I06: 6 rodzin / 432 warianty; wielomiany, wybrane tablicowe, podstawienie, części, powracające i oznaczone, ograniczony dokładny formularz funkcji pierwotnej |
+| MT-EDU-008 P0–P2 | Scalone na main w PR #30 | Całki I01–I06: 6 rodzin / 432 warianty; wielomiany, wybrane tablicowe, podstawienie, części, powracające i oznaczone, ograniczony dokładny formularz funkcji pierwotnej |
 | MT-EDU-008 P3 | Przyszły etap | I07 pola między krzywymi i I08 długość łuku wymagają osobnych, w pełni zweryfikowanych generatorów |
 | MT-EDU-009 | Przyszły etap | Dwie zmienne W01–W03: pochodne cząstkowe, ekstrema, granice i ciągłość |
-| MT-EXAM-001 | Przyszły etap po domknięciu mapy | Tryb sprawdzianu, dobór umiejętności i powtórki |
+| MT-EXAM-001 | Implementacja Issue #31 do recenzji | Oddzielny sprawdzian 5/10/20 zadań z wybranych kategorii i poziomu, czasem, samodzielną punktacją, przeglądem po oddaniu i lokalną historią; bez diagnozy MT-DIAG-001 |
 | MT-004B / MT-004C | Możliwe kolejne etapy — poza tym PR | Dobrowolna powtórka słabszych tematów, bezpieczny import lub dalsze funkcje po osobnej decyzji |
 | MT-005 | Pilotaż | Testy użyteczności z dorosłymi uczącymi się, poprawki treści i dostępności |
 
@@ -30,7 +30,7 @@ MathLive i Compute Engine mogą zostać ocenione w późniejszych etapach, gdy p
 
 MT-003B.1 jest pierwszym ograniczonym etapem adaptacji, nie pełnym systemem doboru rodzin. Nie zmienia samoczynnie poziomu ani kategorii. Aktywna sesja istnieje tylko w pamięci karty; trwałe metadane ukończeń dodaje MT-004A.
 
-MT-UX-001 zostało scalone na `main` w PR #29. MT-EDU-007 zostało scalone, lecz jego P3 nadal obejmuje tylko dwie kontrolowane rodziny; nie deklarujemy pełnego badania dowolnej funkcji. Wyszukiwanie nie zmieniło treści ani ID wcześniejszych 8589 wariantów i obejmuje również rodziny całek dodawane przez MT-EDU-008. Nowy PR #30 wymaga własnych testów, CI, recenzji Work i zgody właściciela przed scaleniem.
+MT-UX-001 zostało scalone na `main` w PR #29, a MT-EDU-008 w PR #30. Wyszukiwanie obejmuje wszystkie 100 rodzin i 9021 wariantów; żaden dawny wariant nie został zmieniony. MT-EDU-007 P3 nadal obejmuje tylko dwie kontrolowane rodziny. MT-EXAM-001 używa istniejących pul bez nowych zadań matematycznych. Późniejsza diagnostyka MT-DIAG-001 pozostaje osobnym etapem.
 
 MT-EDU-001 rozszerza treści i typy odpowiedzi, zachowując granice MT-003A.1/MT-003B.1. Nie obejmuje jeszcze Viète'a, macierzy odwrotnej, Cramera, granic, pochodnych ani całek. Zatwierdzenie pakietu wymaga zielonego CI i przeglądu; implementacja lokalna nie oznacza publikacji.
 

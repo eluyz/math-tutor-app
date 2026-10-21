@@ -39,13 +39,16 @@ import { completedSession } from "./progress/model";
 import { useProgress } from "./progress/useProgress";
 import { ProgressDashboard } from "./progress/ProgressDashboard";
 import { categoryTitle, searchCatalog, selectCatalogFamily } from "./catalogSearch";
+import { ExamMode } from "./exam/ExamMode";
+import { examCopy } from "./exam/copy";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
   const { categories, studyCategories, feedback, ui, answerHints } = copy;
   const a = copy.app;
   const progress = useProgress();
-  const [view, setView] = useState<"learn" | "progress">("learn");
+  const [view, setView] = useState<"learn" | "progress" | "exam">("learn");
+  const [examLocked, setExamLocked] = useState(false);
   const sessionId = useRef<string | null>(null);
   const previousView = useRef(view);
   const generator = useRef<ReturnType<typeof createGenerator> | null>(null);
@@ -121,7 +124,7 @@ export default function App() {
   useEffect(() => {
     if (previousView.current !== view)
       document
-        .getElementById(view === "progress" ? "progress-title" : "practice-title")
+        .getElementById(view === "progress" ? "progress-title" : view === "exam" ? "exam-title" : "practice-title")
         ?.focus();
     previousView.current = view;
   }, [view]);
@@ -277,7 +280,8 @@ export default function App() {
           href="/math-tutor-app/"
           onClick={(event) => {
             event.preventDefault();
-            if (view === "progress") {
+            if (examLocked) return;
+            if (view === "progress" || view === "exam") {
               setView("learn");
               return;
             }
@@ -304,12 +308,14 @@ export default function App() {
       </header>
 
       <nav className="view-navigation" aria-label={copy.progress.navigation}>
-        <button type="button" aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
+        <button type="button" disabled={examLocked} aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
           {copy.progress.learn}
         </button>
-        <button type="button" aria-current={view === "progress" ? "page" : undefined} onClick={() => setView("progress")}>
+        <button type="button" disabled={examLocked} aria-current={view === "progress" ? "page" : undefined} onClick={() => setView("progress")}>
           {copy.progress.title}
         </button>
+        <button type="button" disabled={sessionNumber > 0} aria-current={view === "exam" ? "page" : undefined}
+          onClick={() => setView("exam")}>{examCopy[locale].navigation}</button>
       </nav>
       {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
 
@@ -826,6 +832,7 @@ export default function App() {
           onDelete={progress.clear}
           onLearn={() => setView("learn")}
         />
+        {view === "exam" && <ExamMode onLockedChange={setExamLocked} />}
       </main>
       <footer>
         <span>

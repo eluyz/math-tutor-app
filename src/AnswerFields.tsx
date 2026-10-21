@@ -6,13 +6,16 @@ type Props = {
   value: AnswerInput;
   onChange: (value: AnswerInput) => void;
   fractionInput?: boolean;
+  showSubmit?: boolean;
+  idPrefix?: string;
 };
 
-export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
+export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit = true, idPrefix = "" }: Props) {
   const { copy } = useLocale();
+  const fieldId = (name: string) => `${idPrefix}${name}`;
   const ui = copy.ui,
     c = copy.answers;
-  const check = (
+  const check = showSubmit && (
     <button type="submit" className="check-button">
       {ui.check} <span aria-hidden="true">→</span>
     </button>
@@ -21,12 +24,12 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
     const input = typeof value !== "string" && value.kind === "primitive"
       ? value : { coefficients: spec.terms.map(() => ""), hasConstant: false };
     return <div className="structured-answer">
-      <fieldset aria-describedby="answer-help">
+      <fieldset aria-describedby={fieldId("answer-help")}>
         <legend>{c.primitive.title}</legend>
         <p>{c.primitive.instruction}</p>
         {spec.terms.map((term, i) => <div className="coefficient-field" key={i}>
-          <label htmlFor={i === 0 ? "answer" : `answer-${i}`}>{c.primitive.coefficient} {term.basis}</label>
-          <input id={i === 0 ? "answer" : `answer-${i}`} type="text" inputMode="text" autoComplete="off"
+          <label htmlFor={fieldId(i === 0 ? "answer" : `answer-${i}`)}>{c.primitive.coefficient} {term.basis}</label>
+          <input id={fieldId(i === 0 ? "answer" : `answer-${i}`)} type="text" inputMode="text" autoComplete="off"
             value={input.coefficients[i] ?? ""}
             onChange={(event) => onChange({ kind: "primitive", hasConstant: input.hasConstant,
               coefficients: spec.terms.map((_, j) => j === i ? event.target.value : (input.coefficients[j] ?? "")) })} />
@@ -45,11 +48,11 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
         : { classification: "", values: [] };
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby="answer-help">
+        <fieldset aria-describedby={fieldId("answer-help")}>
           <legend>{ui.answer}</legend>
-          <label htmlFor="answer">{c.system.classification}</label>
+          <label htmlFor={fieldId("answer")}>{c.system.classification}</label>
           <select
-            id="answer"
+            id={fieldId("answer")}
             value={input.classification}
             onChange={(event) =>
               onChange({
@@ -74,9 +77,9 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
           {input.classification === "system-one" &&
             spec.variables.map((variable, i) => (
               <div className="coefficient-field" key={variable}>
-                <label htmlFor={`system-value-${i}`}>{variable}</label>
+                <label htmlFor={fieldId(`system-value-${i}`)}>{variable}</label>
                 <input
-                  id={`system-value-${i}`}
+                  id={fieldId(`system-value-${i}`)}
                   type="text"
                   inputMode="text"
                   autoComplete="off"
@@ -105,11 +108,11 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
         : { classification: "", value: "" };
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby="answer-help">
+        <fieldset aria-describedby={fieldId("answer-help")}>
           <legend>{ui.answer}</legend>
-          <label htmlFor="answer">{c.limit.classification}</label>
+          <label htmlFor={fieldId("answer")}>{c.limit.classification}</label>
           <select
-            id="answer"
+            id={fieldId("answer")}
             value={input.classification}
             onChange={(event) =>
               onChange({
@@ -128,9 +131,9 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
           </select>
           {input.classification === "finite" && (
             <div className="coefficient-field">
-              <label htmlFor="limit-value">{c.limit.value}</label>
+              <label htmlFor={fieldId("limit-value")}>{c.limit.value}</label>
               <input
-                id="limit-value"
+                id={fieldId("limit-value")}
                 type="text"
                 inputMode="text"
                 autoComplete="off"
@@ -158,13 +161,13 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
         : { classification: "", values: [] as string[] };
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby="answer-help">
+        <fieldset aria-describedby={fieldId("answer-help")}>
           <legend>{ui.answer}</legend>
-          <label htmlFor="answer">
+          <label htmlFor={fieldId("answer")}>
             {spec.context === "zeros" ? c.zeros.count : c.roots}
           </label>
           <select
-            id="answer"
+            id={fieldId("answer")}
             value={input.classification}
             onChange={(event) => {
               const classification = event.target.value;
@@ -189,9 +192,9 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
           {input.values.length > 0 && <p>{labels.order}</p>}
           {input.values.map((entry, i) => (
             <div className="coefficient-field" key={i}>
-              <label htmlFor={`root-${i}`}>{labels.root(i + 1)}</label>
+              <label htmlFor={fieldId(`root-${i}`)}>{labels.root(i + 1)}</label>
               <input
-                id={`root-${i}`}
+                id={fieldId(`root-${i}`)}
                 type="text"
                 autoComplete="off"
                 value={entry}
@@ -215,14 +218,14 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   if (spec.kind === "scalar")
     return (
       <>
-        <label htmlFor="answer">{ui.answer}</label>
+        <label htmlFor={fieldId("answer")}>{ui.answer}</label>
         <div className="answer-row">
           <input
-            id="answer"
+            id={fieldId("answer")}
             type="text"
             inputMode={fractionInput ? "text" : "decimal"}
             autoComplete="off"
-            aria-describedby="answer-help"
+            aria-describedby={fieldId("answer-help")}
             value={typeof value === "string" ? value : ""}
             onChange={(event) => onChange(event.target.value)}
             placeholder={ui.answerPlaceholder}
@@ -234,11 +237,11 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   if (spec.kind === "choice")
     return (
       <>
-        <label htmlFor="answer">{ui.answer}</label>
+        <label htmlFor={fieldId("answer")}>{ui.answer}</label>
         <div className="answer-row">
           <select
-            id="answer"
-            aria-describedby="answer-help"
+            id={fieldId("answer")}
+            aria-describedby={fieldId("answer-help")}
             value={
               typeof value !== "string" && value.kind === "choice"
                 ? value.value
@@ -267,16 +270,16 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
     );
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby="answer-help">
+        <fieldset aria-describedby={fieldId("answer-help")}>
           <legend>{ui.answer}</legend>
           {spec.unordered && <p>{c.order}</p>}
           {values.map((entry, index) => (
             <div className="coefficient-field" key={index}>
-              <label htmlFor={index === 0 ? "answer" : `answer-${index}`}>
+              <label htmlFor={fieldId(index === 0 ? "answer" : `answer-${index}`)}>
                 {spec.labels[index]}
               </label>
               <input
-                id={index === 0 ? "answer" : `answer-${index}`}
+                id={fieldId(index === 0 ? "answer" : `answer-${index}`)}
                 type="text"
                 inputMode="text"
                 autoComplete="off"
@@ -306,7 +309,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
   );
   return (
     <div className="structured-answer">
-      <fieldset aria-describedby="answer-help">
+      <fieldset aria-describedby={fieldId("answer-help")}>
         <legend>{ui.answer}</legend>
         <table className="matrix-grid">
           <caption>
@@ -331,7 +334,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput }: Props) {
                 {row.map((entry, j) => (
                   <td key={j}>
                     <input
-                      id={i === 0 && j === 0 ? "answer" : `answer-${i}-${j}`}
+                      id={fieldId(i === 0 && j === 0 ? "answer" : `answer-${i}-${j}`)}
                       aria-label={c.rowColumn(i + 1, j + 1)}
                       type="text"
                       inputMode="text"

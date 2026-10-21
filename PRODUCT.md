@@ -124,3 +124,11 @@ Cztery nowe rodziny, 360 instancji, pokazują kiedy wolno użyć reguły de l’
 ## MT-EDU-007 P3 — kontrolowane badanie funkcji (częściowe)
 
 Dwie rodziny pokazują spójne badanie przesuniętego wielomianu i prostej funkcji wymiernej. Każde rozwiązanie obejmuje dziedzinę, zera, symetrię, granice, asymptoty, tabelę znaków pochodnych, lokalne ekstrema oraz wypukłość i przegięcia. Uczeń wpisuje stacjonarne punkty na Advanced albo globalne max/min na zamkniętym przedziale na Expert. To 96 wariantów; łącznie 94 rodziny / 8589 instancji. Nie ma jeszcze ogólnych funkcji, stycznych do |x| ani rysowanego szkicu.
+
+## MT-EXAM-001 — samodzielny sprawdzian
+
+Oddzielny ekran pozwala złożyć sprawdzian z jednej lub kilku kategorii na jednym jawnie wybranym poziomie. Dostępne są 5, 10 lub 20 różnych zadań oraz praca bez limitu albo przez 15/30 minut. Dobór rozkłada zadania możliwie równomiernie między kategoriami i rodzinami. W trybie nauki nadal pozostają swobodne ćwiczenia i dziesięciozadaniowa sesja; oba tryby korzystają z tego samego niezmienionego katalogu 100 rodzin i 9021 wariantów po MT-EDU-008.
+
+Podczas sprawdzianu uczeń może przechodzić między zadaniami, wracać i poprawiać odpowiedzi. Nie widzi ocen, podpowiedzi, poprawnego wyniku ani rozwiązania. Czas jest liczony od Start do rzeczywistego terminu; po nim próba jest oddawana automatycznie. Ręczne oddanie ostrzega o pustych odpowiedziach. Po oddaniu wynik odróżnia poprawne, matematycznie błędne, nieprawidłowo zapisane i pominięte zadania. Każda poprawna odpowiedź daje jeden punkt; pozostałe dają zero. Przegląd pokazuje własny zapis i poprawny wynik, a kroki rozwiązania można odsłonić dodatkowo bez zmiany punktacji.
+
+Wersjonowana lokalna historia obejmuje najwyżej 50 ukończonych sprawdzianów i nie miesza się z historią sesji nauki. Zapisuje wyłącznie metadane zakresu, czasu i wyniku; nie zapisuje odpowiedzi ani brudnopisu. Niedokończona próba znika po odświeżeniu, o czym ekran uprzedza. Wynik nie jest oficjalną oceną UWM ani pełną diagnozą pomyłek. Szczegółowa diagnostyka MT-DIAG-001 i wybór pojedynczych rodzin są osobnymi przyszłymi etapami.
