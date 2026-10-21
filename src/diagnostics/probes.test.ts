@@ -54,3 +54,61 @@ describe("MT-DIAG-001 exact intermediate probes", () => {
     expect(probeFor(task)).toBeNull();
   });
 });
+
+
+// Independent literal fixtures: expected results were calculated manually,
+// never copied from probeFor(). All values exercise the exact rational parser.
+describe("MT-DIAG-001 independently worked probe fixtures", () => {
+  const rat = (n: number, d = 1) => rational(n, d);
+  const setMatrices = (family: string, first: ReturnType<typeof rat>[][], second?: ReturnType<typeof rat>[][]) => {
+    const base = select(family === "matrix-product" ? "matrices" : "determinants", "easy", family);
+    return { ...base, matrices: [{ label: "A", values: first }, ...(second ? [{ label: "B", values: second }] : [])] };
+  };
+  const university = (family: string, level: "easy" | "hard" | "advanced",
+    matrix: ReturnType<typeof rat>[][]) => {
+    const source = select(family.includes("cramer") ? "systems" : "determinants", level, family);
+    if (!isUniversityTask(source)) throw new Error("University fixture expected");
+    return { ...source,
+      university: source.university.kind === "system"
+        ? { ...source.university, coefficients: matrix }
+        : source.university.kind === "determinant"
+          ? { ...source.university, matrix } : source.university,
+    };
+  };
+  const cases = [
+    { task: setMatrices("determinant-two", [[rat(-2), rat(3)], [rat(4), rat(5, 2)]]), expected: "-5", code: "DETERMINANT_MAIN_DIAGONAL" },
+    { task: setMatrices("determinant-two", [[rat(0), rat(-1)], [rat(3), rat(4)]]), expected: "0", code: "DETERMINANT_MAIN_DIAGONAL" },
+    { task: setMatrices("determinant-sarrus", [[rat(-2), rat(1), rat(0)],
+        [rat(3), rat(-1), rat(4)], [rat(1), rat(1), rat(2)]]), expected: "4", code: "SARRUS_FIRST_POSITIVE_PRODUCT" },
+    { task: setMatrices("matrix-product", [[rat(-2), rat(1, 2)], [rat(3), rat(4)]],
+        [[rat(1), rat(4)], [rat(6), rat(-1)]]), expected: "1", code: "MATRIX_PRODUCT_FIRST_CELL" },
+    { task: university("system-cramer-two", "easy",
+        [[rat(-2), rat(3)], [rat(4), rat(1)]]), expected: "-14", code: "CRAMER_MAIN_DETERMINANT" },
+    { task: university("system-cramer-three", "hard",
+        [[rat(1), rat(2), rat(0)], [rat(0), rat(-1), rat(3)], [rat(2), rat(0), rat(1)]]),
+      expected: "11", code: "CRAMER_MAIN_DETERMINANT" },
+    { task: university("determinant-laplace-four", "hard",
+        [[rat(1), rat(2), rat(0), rat(0)], [rat(0), rat(1), rat(2), rat(0)],
+          [rat(0), rat(0), rat(1), rat(3)], [rat(0), rat(4), rat(0), rat(1)]]),
+      expected: "25", code: "LAPLACE_MINOR" },
+    { task: university("determinant-laplace-five", "advanced",
+        [[rat(2), rat(0), rat(0), rat(0), rat(0)],
+          [rat(0), rat(1), rat(2), rat(0), rat(0)],
+          [rat(0), rat(0), rat(-1), rat(3), rat(0)],
+          [rat(0), rat(0), rat(0), rat(2), rat(4)],
+          [rat(0), rat(5), rat(0), rat(0), rat(1)]]),
+      expected: "-122", code: "LAPLACE_MINOR" },
+  ];
+  for (const { task, expected, code } of cases) {
+    it(`independently checks ${code} = ${expected}`, () => {
+      const probe = probeFor(task);
+      expect(probe?.code).toBe(code);
+      expect(probe?.question.pl.length).toBeGreaterThan(8);
+      expect(probe?.question.en.length).toBeGreaterThan(8);
+      expect(formatRational(probe!.answer).replace(/−/g, "-")).toBe(expected);
+      expect(checkProbe(probe!, expected)).toBe("correct");
+      expect(checkProbe(probe!, "999999")).toBe("incorrect");
+      expect(checkProbe(probe!, "1/0")).toBe("invalid");
+    });
+  }
+});
