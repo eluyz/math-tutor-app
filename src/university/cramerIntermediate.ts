@@ -55,7 +55,7 @@ export function presentCramerMinors(p:CramerMinors,locale:Locale){
     for(let j=0;j<n;j++){
       const submatrix=minor(m,0,j),cofactor=exactDeterminant(submatrix);
       const term=calculate("product",r(j%2?-1:1),m[0][j],cofactor);
-      lesson.work(`${label}: minor M₁${j+1} = ${show(submatrix)}; znak ${j%2?"−":"+"}; składnik = ${f(term.result)}`,
+      lesson.work(`${label}: minor M₁${j+1} = ${show(submatrix)}; ${t("znak", "sign")} ${j%2?"−":"+"}; ${t("składnik", "term")} = ${f(term.result)}`,
         t(n===3?"Rozwijamy wzdłuż pierwszego wiersza; każdy minor jest wyznacznikiem 2×2.":
           "Rozwijamy wzdłuż pierwszego wiersza; każdy minor jest wyznacznikiem 3×3.",
           n===3?"Expand along the first row; each minor is a 2×2 determinant.":
