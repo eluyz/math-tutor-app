@@ -302,9 +302,7 @@ export default function App() {
             <small>{a.tagline}</small>
           </span>
         </a>
-        <span className="topbar-note">
-          {a.adults} <span aria-hidden="true">✳</span> {a.free}
-        </span>
+        <span className="topbar-note">{a.free}</span>
         <LanguagePicker />
       </header>
 
