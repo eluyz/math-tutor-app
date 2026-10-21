@@ -63,8 +63,10 @@ function audit(p: IntegralProblem, spec: AnswerSpec) {
 describe("MT-EDU-008 exact integral audit", () => {
   it("keeps 8589 old instances and adds only declared integral levels", () => {
     const oldCategories = uiCopy.pl.studyCategories.filter((category) => category.id !== "integrals");
+    const newFamilies = new Set(["matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five"]);
     const old = [...uiCopy.pl.categories, ...oldCategories].reduce((sum, category) =>
-      sum + difficulties.reduce((count, level) => count + taskPool(category.id, level).length, 0), 0);
+      sum + difficulties.reduce((count, level) => count + taskPool(category.id, level)
+        .filter(task => !newFamilies.has(task.templateId)).length, 0), 0);
     expect(old).toBe(8589);
     expect(difficulties.reduce((sum, level) => sum + universityPool("integrals", level).length, 0)).toBe(432);
     expect(integralFamilies).toHaveLength(6);
