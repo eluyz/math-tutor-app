@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **103 rodzin**, **9237 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 84 rodziny wspierają advanced, a 78 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **107 rodzin**, **9621 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 91 rodzin wspiera advanced, a 85 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **87**, L5: **81**.
+Łącznie rodziny L4: **91**, L5: **85**.
 
 ## Pierwotne rodziny
 
@@ -316,3 +316,16 @@ MT-EDU-009: **216** nowych instancji; łącznie **9237**. Nowe rodziny: **3**. P
 | determinant-dense-five | advanced, expert | Pełny Laplace dla 5×5 bez zer, minory 4×4/3×3 |
 
 Wcześniejsze rodziny, poziomy i zadania pozostają bez zmian.
+
+## MT-EDU-010 — zadania z macierzy bez nowych trybów sprawdzianów
+
+MT-EDU-010: **384** nowe instancje; łącznie **9621**. Nowe rodziny: **4**. Pary rodzina/poziom: **16**. Każda wspierana para ma 24 warianty.
+
+| Rodzina | Poziomy | Zakres |
+| --- | --- | --- |
+| matrix-powers | medium, hard, advanced, expert | Mnożenie macierzy A²/A³, 2×2 i 3×3; nie potęgowanie elementów |
+| matrix-composite-operations | hard, advanced, expert | AB−C, (A+B)C, A(B−C), (AB)ᵀ−C oraz skalowanie ułamkiem |
+| matrix-compatibility | easy, medium, hard, advanced, expert | Wykonalność A+B, AB, BA i rozmiary wyników lub poprawne „nie można” |
+| matrix-chained-dimensions | medium, hard, advanced, expert | Wykonalność AB+C, A(B+C), A(BC) z analizą krokową |
+
+Nowe rodziny mają dokładne rozwiązania PL/EN i niezależny audyt. Wymiary obejmują macierze o bokach 2 i 3. Bez potęg ujemnych, dowolnych wymiarów ani pełnej algebry symbolicznej. Wcześniejsze 9237 instancji pozostaje niezmienione.
