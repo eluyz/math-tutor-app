@@ -113,15 +113,16 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(
     `Instancje: **${initial.length}** (historyczne **${historical}**, uzupełnienia **${additions}**, L4/L5 **${higher}**).`,
   );
-  const determinantIds = new Set(determinantFamilies.map((family) => family.id));
+  const newIds = new Set(["matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five"]);
+  const determinantIds = new Set(determinantFamilies.filter(family => !newIds.has(family.id)).map(family => family.id));
   const linearIds = new Set([...inverseFamilies,...rankFamilies,...gaussFamilies,...cramerFourFamilies].map((family) => family.id));
   const analysisIds = new Set([...elementaryAnalysisFamilies, ...asymptoteFamilies, ...advancedCalculusFamilies, ...functionStudyFamilies].map((family) => family.id));
   const integralTasks = all.filter((task) => task.category === "integrals");
-  const beforeIntegrals = all.filter((task) => task.category !== "integrals");
+  const beforeIntegrals = all.filter((task) => task.category !== "integrals" && !newIds.has(task.templateId));
   const calculus = (category: string) =>
     ["function-limits", "derivatives"].includes(category);
   const added004 = all.filter(
-    (t) => isUniversityTask(t) && t.category !== "integrals" && !calculus(t.category) && !determinantIds.has(t.templateId) && !linearIds.has(t.templateId) && !analysisIds.has(t.templateId),
+    (t) => isUniversityTask(t) && !newIds.has(t.templateId) && t.category !== "integrals" && !calculus(t.category) && !determinantIds.has(t.templateId) && !linearIds.has(t.templateId) && !analysisIds.has(t.templateId),
   );
   const added005 = all.filter((t) => calculus(t.category) && !analysisIds.has(t.templateId));
   expect(doc).toContain(
@@ -143,11 +144,13 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(`MT-EDU-007 P2: **360** nowych instancji; łącznie **8493**.`);
   expect(doc).toContain(`MT-EDU-007 P3 (częściowo): **${added007.length - 1128}** nowych instancji; łącznie **${beforeIntegrals.length}**.`);
   expect(integralTasks).toHaveLength(432);
-  expect(doc).toContain(`MT-EDU-008 P0–P2: **${integralTasks.length}** nowych instancji; łącznie **${all.length}**.`);
+  expect(all.filter(task => newIds.has(task.templateId))).toHaveLength(216);
+  expect(doc).toContain(`MT-EDU-008 P0–P2: **${integralTasks.length}** nowych instancji; łącznie **9021**.`);
+  expect(doc).toContain("MT-EDU-009: **216** nowych instancji; łącznie **9237**.");
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
   const addedTemplates = allTemplates.filter(
     (template) =>
-      template.category !== "integrals" && !calculus(template.category) && !determinantIds.has(template.id) && !linearIds.has(template.id) && !analysisIds.has(template.id) &&
+      !newIds.has(template.id) && template.category !== "integrals" && !calculus(template.category) && !determinantIds.has(template.id) && !linearIds.has(template.id) && !analysisIds.has(template.id) &&
       !initial.some((task) => task.templateId === template.id),
   );
   expect(doc).toContain(

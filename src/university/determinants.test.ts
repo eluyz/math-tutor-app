@@ -143,7 +143,7 @@ describe("MT-EDU-006A exact determinant audit", () => {
           expect(validDeterminantMatrix(p.matrix)).toBe(
             p.method === "laplace-five" ? 5 : 4,
           );
-          if (p.method === "laplace-four") {
+          if (p.method === "laplace-four" && !p.dense) {
             const terms = level === "hard" ? 1 : level === "advanced" ? 2 : 3;
             expect(
               p.matrix[0].filter((cell) => cell.numerator !== 0n),
@@ -182,7 +182,7 @@ describe("MT-EDU-006A exact determinant audit", () => {
             expect(eq(spec.value, gaussian(p.matrix))).toBe(true);
             expect(localized.solution).toBeDefined();
             const steps = localized.solution!;
-            if (p.method === "laplace-four") {
+            if (p.method === "laplace-four" && !p.dense) {
               expect(steps[0].action).toMatch(
                 locale === "pl" ? /4×4: wiersz 1/ : /4×4: row 1/,
               );
