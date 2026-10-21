@@ -7,7 +7,7 @@ import { MatrixDisplay } from "../MatrixDisplay";
 import { describeInput } from "../answers";
 import { getAnswerSpec, type CategoryId } from "../exercises";
 import { difficultyConfig } from "../difficulty";
-import { allTemplates, taskPool, type Difficulty, type GeneratedTask } from "../generators";
+import { allTemplates, taskPool, type GeneratedTask } from "../generators";
 import { categoryTitle, normalizeCatalogQuery } from "../catalogSearch";
 import { familyTitle } from "../locales/catalog";
 import { localizeTask } from "../locales/catalog";
