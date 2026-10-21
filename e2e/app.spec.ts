@@ -129,3 +129,17 @@ test("desktop: odpowiedzi nie są wysyłane do zewnętrznych serwerów", async (
   expect(external).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
 });
+
+for (const width of [375, 1280]) test(`Header has no FREE badge in PL/EN (${width}px)`, async ({ page }) => {
+  await page.setViewportSize({ width, height: 850 });
+  await page.goto("/");
+  const header = page.locator(".topbar");
+  await expect(header).toBeVisible();
+  await expect(header.locator(".topbar-note")).toHaveCount(0);
+  await expect(header).not.toContainText("ZA DARMO");
+  await page.getByRole("button", { name: "English", exact: true }).click();
+  await expect(header.locator(".topbar-note")).toHaveCount(0);
+  await expect(header).not.toContainText("FREE");
+  await expect(header.getByRole("link", { name: /Math Tutor/ })).toBeVisible();
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+});
