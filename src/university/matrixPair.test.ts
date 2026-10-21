@@ -4,7 +4,7 @@ import { getAnswerSpec } from "../exercises";
 import { taskPool } from "../generators";
 import { addRational as add, equalRational as equal, multiplyRational as mul,
   rational as r, type Rational } from "../rational";
-import { makeUniversityTask, localizeUniversity } from "./catalog";
+import { makeUniversityTask, localizeUniversity, isUniversityTask } from "./catalog";
 import { createMatrixPair, presentMatrixPair } from "./matrixPair";
 
 const dot = (a:Rational,x:Rational,b:Rational,y:Rational) => add(mul(a,x),mul(b,y));
@@ -31,8 +31,8 @@ describe("MT-EDU-008 two matrix equations", () => {
       expect(tasks).toHaveLength(24);
       expect(new Set(tasks.map(t=>t.contentKey)).size).toBe(24);
       for(const task of tasks){
-        expect("university" in task).toBe(true);
-        if(!("university" in task) || task.university.kind!=="linear-matrix-pair")continue;
+        expect(isUniversityTask(task)).toBe(true);
+        if(!isUniversityTask(task) || task.university.kind!=="linear-matrix-pair")continue;
         const p=task.university, [a,b,c,d]=p.coefficients;
         const spec=getAnswerSpec(task);
         expect(spec.kind).toBe("list");

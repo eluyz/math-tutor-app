@@ -4,7 +4,7 @@ import { getAnswerSpec } from "../exercises";
 import { taskPool } from "../generators";
 import { addRational as add, multiplyRational as mul, rational as r,
   equalRational as equal, type Rational } from "../rational";
-import { localizeUniversity } from "./catalog";
+import { localizeUniversity, isUniversityTask } from "./catalog";
 
 /** Independent full Leibniz permutation expansion, not the production Laplace implementation. */
 function leibniz(a: readonly (readonly Rational[])[]): Rational {
@@ -36,7 +36,7 @@ describe("MT-EDU-008 dense determinants, independent oracle",()=>{
     expect(tasks).toHaveLength(24);
     expect(new Set(tasks.map(t=>t.contentKey)).size).toBe(24);
     for(const task of tasks){
-      if(!("university" in task)||task.university.kind!=="determinant")throw Error("det expected");
+      if(!isUniversityTask(task)||task.university.kind!=="determinant")throw Error("det expected");
       const p=task.university, spec=getAnswerSpec(task);
       expect(p.matrix).toHaveLength(n);
       expect(p.dense).toBe(true);
