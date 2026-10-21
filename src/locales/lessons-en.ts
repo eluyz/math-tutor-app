@@ -236,6 +236,7 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
               "system-one": "Exactly one solution",
               "system-none": "No solutions",
               "system-many": "Infinitely many solutions",
+              "not-possible": "Not possible",
               "inverse-yes": "An inverse exists",
               "inverse-no": "No inverse",
               "function-increasing": "Strictly increasing",
