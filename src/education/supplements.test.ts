@@ -166,6 +166,6 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
     new URL("../../README.md", import.meta.url),
     "utf8",
   );
-  expect(readme).toContain(`**${allTemplates.length} rodzin**`);
+  expect(readme).toContain(`**${allTemplates.length} rodziny**`);
   expect(readme).toContain(`**${all.length} instancji**`);
 });
