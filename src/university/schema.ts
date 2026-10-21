@@ -152,6 +152,8 @@ export type DeterminantProblem = Readonly<{
   /** Operations reduce the displayed matrix to an upper triangular matrix. */
   reductions?: readonly DeterminantRowOperation[];
   dependentRows?: readonly [number, number];
+  /** A dense matrix should not suggest a shortcut using zeros. */
+  dense?: boolean;
 }>;
 export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-inverse"; matrix: readonly (readonly Rational[])[]; method: "inverse" | "classification" }>
@@ -160,7 +162,9 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-capelli"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" }>
-  | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>;
+  | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
+  | Readonly<{ kind: "linear-matrix-pair"; coefficients: readonly [Rational, Rational, Rational, Rational];
+      first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>;
 export type ElementaryAnalysisProblem =
   | Readonly<{ kind: "analysis-log-domain"; mode: "linear" | "ratio" | "radical"; p: Rational; base: Rational }>
   | Readonly<{ kind: "analysis-power-law"; mode: "log-power" | "power-log" | "combined"; base: Rational; exponent: number; argument: Rational }>

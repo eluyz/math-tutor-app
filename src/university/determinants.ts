@@ -262,6 +262,20 @@ function properties(v: number, level: Difficulty): DeterminantProblem {
     forward.push({ kind: "scale", row: 0, factor: r(v % 2 ? -2 : 3) });
   return transformed(base, forward, "properties");
 }
+function denseDeterminant(v: number, level: Difficulty, n: 4 | 5): DeterminantProblem {
+  // No zero entries: practice complete Laplace signs/minors with small exact integers.
+  // The variant index affects one diagonal entry directly, so 24 variants stay distinct.
+  const shift = level === "hard" ? 0 : level === "advanced" ? 3 : 6;
+  const matrix: Square = Array.from({ length: n }, (_, i) =>
+    Array.from({ length: n }, (_, j) => {
+      if (i === 0 && j === 0) return r(v + 1);
+      const value = ((v * 3 + i * 11 + j * 13 + i * j * 5 + shift) % 7) - 3;
+      return r(value === 0 ? (i + j) % 2 ? -1 : 2 : value);
+    }));
+  return { kind: "determinant", method: n === 4 ? "laplace-four" : "laplace-five",
+    matrix, dense: true };
+}
+
 export const determinantFamilies: readonly UniversityFamily[] = [
   {
     id: "determinant-laplace-four",
@@ -292,6 +306,20 @@ export const determinantFamilies: readonly UniversityFamily[] = [
     },
     supportedDifficulties: ["advanced", "expert"],
     create: laplaceFive,
+  },
+  {
+    id: "determinant-dense-four",
+    category: "determinants",
+    titles: { pl: "Wyznacznik 4×4 bez zer", en: "Dense 4×4 determinant" },
+    supportedDifficulties: ["hard", "advanced", "expert"],
+    create: (v, level) => denseDeterminant(v, level, 4),
+  },
+  {
+    id: "determinant-dense-five",
+    category: "determinants",
+    titles: { pl: "Wyznacznik 5×5 bez zer", en: "Dense 5×5 determinant" },
+    supportedDifficulties: ["advanced", "expert"],
+    create: (v, level) => denseDeterminant(v, level, 5),
   },
   {
     id: "determinant-properties",
@@ -454,7 +482,7 @@ export function presentDeterminant(p: DeterminantProblem, locale: Locale) {
     (p.method !== "laplace-five" && n !== 4)
   )
     throw new Error("Determinant family has wrong size");
-  const question = `${t("Oblicz dokładnie det(A) dla macierzy A poniżej.", "Calculate the exact det(A) for matrix A below.")} ${p.method === "laplace-five" ? t("Rozwiń 5×5 do minorów 4×4 i 3×3.", "Expand 5×5 into 4×4 and 3×3 minors.") : p.method === "laplace-four" ? t("Wykorzystaj zera i rozwinięcie Laplace'a.", "Use the zeros and Laplace expansion.") : t("Użyj odpowiednich własności wyznacznika i operacji wierszowych.", "Use determinant properties and row operations.")}`;
+  const question = `${t("Oblicz dokładnie det(A) dla macierzy A poniżej.", "Calculate the exact det(A) for matrix A below.")} ${p.method === "laplace-five" ? t("Rozwiń 5×5 do minorów 4×4 i 3×3.", "Expand 5×5 into 4×4 and 3×3 minors.") : p.method === "laplace-four" ? (p.dense ? t("Wybierz wiersz lub kolumnę i rozwiń metodą Laplace'a (bez zer).", "Choose a row or column for full Laplace expansion (no zeros).") : t("Wykorzystaj zera i rozwinięcie Laplace'a.", "Use the zeros and Laplace expansion.")) : t("Użyj odpowiednich własności wyznacznika i operacji wierszowych.", "Use determinant properties and row operations.")}`;
   let value: Rational;
   if (p.dependentRows) {
     const [source, target] = p.dependentRows;

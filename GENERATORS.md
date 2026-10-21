@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **100 rodzin**, **9021 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 84 rodziny wspierają advanced, a 78 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **103 rodzin**, **9237 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 84 rodziny wspierają advanced, a 78 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **84**, L5: **78**.
+Łącznie rodziny L4: **87**, L5: **81**.
 
 ## Pierwotne rodziny
 
@@ -304,3 +304,15 @@ MT-EDU-008 P0–P2: **432** nowych instancji; łącznie **9021**. Sześć autors
 Całki nieoznaczone mają ograniczony formularz: uczeń wpisuje **dokładny współczynnik przy każdej wskazanej funkcji bazowej**, także zero, oraz zaznacza `+C`. Nie ma pola na swobodne wyrażenie; dowolny składnik stały jest pominięty przy porównaniu, bo funkcje pierwotne różniące się stałą są równoważne. Jest to świadome ograniczenie walidacji symbolicznej. Błędny współczynnik daje ogólną informację bez wymyślonej diagnozy; poprawne współczynniki bez `+C` dają jednoznaczną wskazówkę. Całka oznaczona używa dokładnego pola liczbowego bez `+C`.
 
 `integrals.test.ts` audytuje wszystkie 432 warianty niezależnymi równaniami pochodnej: regułą potęgową, łańcuchową, iloczynu i liniowym układem współczynników sin/cos; całki oznaczone liczy osobno jako sumę dokładnych momentów na granicach. Sprawdza poziomy, unikalność, PL/EN, poprawne/błędne/nieprawidłowe odpowiedzi i brak `+C`. Rozwiązania krok po kroku pokazują metodę, przekształcenia, sprawdzenie pochodnej i ostateczną odpowiedź.
+
+## MT-EDU-009 — uzupełnienie luk macierzowych i gęstych wyznaczników
+
+MT-EDU-009: **216** nowych instancji; łącznie **9237**. Nowe rodziny: **3**. Pary rodzina/poziom: **9**.
+
+| Rodzina | Poziomy | Zakres |
+| --- | --- | --- |
+| matrix-coupled-equations | medium, hard, advanced, expert | Dwa równania aX+bY=A oraz cX+dY=B, niewiadome 2×2, osiem dokładnych pól odpowiedzi |
+| determinant-dense-four | hard, advanced, expert | Pełny Laplace dla 4×4 bez zer, znaki i minory |
+| determinant-dense-five | advanced, expert | Pełny Laplace dla 5×5 bez zer, minory 4×4/3×3 |
+
+Wcześniejsze rodziny, poziomy i zadania pozostają bez zmian.
