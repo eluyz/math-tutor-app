@@ -68,7 +68,7 @@ Opcjonalne P3 częściowo wykonano: Cramer czterech niewiadomych (`D,D1…D4`) i
 
 - P0: analiza błędnej odpowiedzi na żądanie w ćwiczeniu i po oddaniu sprawdzianu, bez fałszywej pewności diagnozy. Wspierane są dotychczasowe wzorce wyniku oraz pewny brak `+C`.
 - P1 (pierwsza wersja): dobrowolne sprawdzanie istniejących pytań o krok pośredni i trzy inne zadania z tej samej rodziny/poziomu, odseparowane od wyniku sprawdzianu.
-- P1 (do rozbudowy): osobne, niezależnie audytowane pytania o kroki Sarrusa, Laplace’a, Cramera, mnożenia macierzy i algebry; obecna funkcja **nie** analizuje dowolnych kroków ani rysunku z brudnopisu.
+- P1 (wybrane sondy): zaimplementowano weryfikację pojedynczych kroków det 2×2, Sarrusa 3×3, pierwszej komórki AB, głównego D w Cramerze 2×2/3×3 i minora Laplace’a 4×4/5×5. Dalsze sondy rachunków algebry i macierzy pozostają do rozbudowy; obecna funkcja **nie** analizuje dowolnych kroków ani rysunku z brudnopisu.
 - P2 (odłożone): lokalna statystyka potwierdzonych typów pomyłek i powtórki według kompetencji; brak danych oznacza brak wniosku.
 
 Wdrożenie wymaga CI, niezależnej recenzji i osobnej zgody właściciela; PR nie jest automatycznie scalany. Nie powstaje osobny panel UWM.
