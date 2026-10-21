@@ -89,7 +89,7 @@ Granice ciągów wynikają z dokładnych potęg, współczynników, sprzężenia
 
 P0 ustawia Powiększ/Expand przed Schowaj/Hide w DOM, Tab i układzie. Brudnopis pozostaje domyślnie zwinięty. Zachowuje edytor, zaznaczenie, treści, rysunki, historię, auto-clear, pełny ekran, fokus i scroll. Scoring, podgląd przed oceną oraz lokalne postępy pozostają zgodne z wcześniejszym produktem. Nie dodano backendu, telemetrii ani usług tłumaczeniowych.
 
-Historyczny PR #17 obejmował wyłącznie P0–P3 i został scalony oraz opublikowany. Granice funkcji i pochodne rozwija odrębne MT-EDU-005; całki i dwie zmienne pozostają przyszłe. Każda nowa zmiana nadal wymaga własnego CI, recenzji i zgody na merge/publikację. Fizyczny Safari wymaga osobnego testu ręcznego.
+Historyczny PR #17 obejmował wyłącznie P0–P3 i został scalony oraz opublikowany. Granice funkcji i pochodne rozwija odrębne MT-EDU-005; całki I01–I06 dodaje późniejszy MT-EDU-008, a dwie zmienne pozostają przyszłe. Każda nowa zmiana nadal wymaga własnego CI, recenzji i zgody na merge/publikację. Fizyczny Safari wymaga osobnego testu ręcznego.
 
 ## MT-EDU-005 — dwa działy rachunku różniczkowego
 

@@ -17,6 +17,7 @@ import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./element
 import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
+import { integralFamilies, presentIntegral } from "./integrals";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -34,6 +35,7 @@ export const universityFamilies = [
   ...asymptoteFamilies,
   ...advancedCalculusFamilies,
   ...functionStudyFamilies,
+  ...integralFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -42,7 +44,9 @@ const isFunctionStudy = (problem: UniversityProblem): problem is FunctionStudyPr
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";
 const present = (problem: UniversityProblem, locale: Locale) =>
-  isFunctionStudy(problem)
+  problem.kind === "integral"
+    ? presentIntegral(problem, locale)
+    : isFunctionStudy(problem)
     ? presentFunctionStudy(problem, locale)
     : isAdvancedCalculus(problem)
     ? presentAdvancedCalculus(problem, locale)

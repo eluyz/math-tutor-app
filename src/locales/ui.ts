@@ -94,6 +94,7 @@ const pl = {
     language: "Język aplikacji",
   },
   answers: {
+    primitive: { title: "Funkcja pierwotna", instruction: "Podaj współczynniki przy podanych składnikach (wpisz 0, gdy składnik znika).", coefficient: "Współczynnik przy", constant: "Dodaj stałą całkowania +C" },
     system: {
       classification: "Rodzaj układu",
       "system-one": "Dokładnie jedno rozwiązanie",
@@ -190,6 +191,7 @@ const en: UiCopy = {
     step: "Check the first step",
   },
   feedback: {
+    missingConstant: "The antiderivative coefficients are correct, but the integration constant +C is missing.",
     empty: "Enter an answer before checking.",
     invalidNumber: "Enter one number or a fraction in the form a/b.",
     divisionByZero: "The denominator cannot be zero.",
@@ -227,6 +229,7 @@ const en: UiCopy = {
     practice: "Keep practising",
   },
   answerHints: {
+    primitive: "Enter exact coefficients for the displayed antiderivative terms, including zeros, and select +C. Antiderivatives differing by any constant are equivalent.",
     system:
       "Choose the classification. For exactly one solution, enter every variable in its labelled field.",
     limit:
@@ -263,6 +266,7 @@ const en: UiCopy = {
         "sequence-limits": "Limits of sequences",
         "function-limits": "Limits of functions",
         derivatives: "Derivatives",
+        integrals: "Integrals",
       } as Record<string, string>
     )[c.id],
   })),
@@ -342,6 +346,7 @@ const en: UiCopy = {
     language: "Application language",
   },
   answers: {
+    primitive: { title: "Antiderivative", instruction: "Enter each displayed term's coefficient (use 0 if a term vanishes).", coefficient: "Coefficient of", constant: "Include integration constant +C" },
     system: {
       classification: "Type of system",
       "system-one": "Exactly one solution",

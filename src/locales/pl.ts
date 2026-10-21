@@ -20,12 +20,14 @@ export const studyCategories: { id: CategoryId; label: string }[] = [
   { id: "sequence-limits", label: "Granice ciągów" },
   { id: "function-limits", label: "Granice funkcji" },
   { id: "derivatives", label: "Pochodne" },
+  { id: "integrals", label: "Całki" },
   { id: "quadratics", label: "Wzory i równania kwadratowe" },
   { id: "matrices", label: "Macierze" },
   { id: "determinants", label: "Wyznaczniki" },
 ];
 
 export const answerHints = {
+  primitive: "Wpisz dokładne współczynniki wskazanych składników funkcji pierwotnej, także zera, i zaznacz +C. Funkcje różniące się dowolną stałą są równoważne.",
   system: "Wybierz klasyfikację. Przy dokładnie jednym rozwiązaniu wpisz wszystkie niewiadome w opisanych polach.",
   limit: "Rozróżnij liczbę, +∞, −∞ i brak granicy. Dla skończonej granicy wpisz dokładną liczbę lub ułamek a/b.",
   scalar: "Możesz wpisać liczbę, ułamek a/b lub równoważną wartość dziesiętną.",
@@ -72,6 +74,7 @@ export const sessionCopy = {
 } as const;
 
 export const feedback: FeedbackCopy = {
+  missingConstant: "Współczynniki funkcji pierwotnej są poprawne, ale brakuje stałej całkowania +C.",
   empty: "Wpisz odpowiedź przed sprawdzeniem.",
   invalidNumber: "Wpisz jedną liczbę lub ułamek w formacie a/b.",
   divisionByZero: "Mianownik nie może być zerem.",

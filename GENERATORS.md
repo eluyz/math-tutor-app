@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **94 rodzin**, **8589 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B oraz 16 rodzin P0–P3 MT-EDU-007. Po 80 rodzin wspiera advanced, a 75 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **100 rodzin**, **9021 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 84 rodziny wspierają advanced, a 78 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **80**, L5: **75**.
+Łącznie rodziny L4: **84**, L5: **78**.
 
 ## Pierwotne rodziny
 
@@ -287,3 +287,20 @@ MT-EDU-007 P3 (częściowo): **96** nowych instancji; łącznie **8589**. Dwie r
 | analysis-study-rational | advanced, expert | m(t+1/t): wykluczony biegun, asymptota pionowa i ukośna, brak rzeczywistych zer, dwa stacjonarne punkty, brak przegięcia w biegunie, globalne max/min na [a+1/2,a+2] |
 
 `functionStudy.test.ts` niezależnie podstawia punkty kandydatów, bada znaki obu pochodnych i granice asymptotyczne dla wszystkich 96 wariantów PL/EN. P3 pozostaje **częściowy**: nie ma niesmooth stycznych dla |x|, ogólnych funkcji wymiernych ani renderowanego wykresu. Tabele znaków są zapisane w krokach, a nie przedstawiane jako narysowany wykres.
+
+## MT-EDU-008 P0–P2 — całki
+
+MT-EDU-008 P0–P2: **432** nowych instancji; łącznie **9021**. Sześć autorskich rodzin, 18 obsługiwanych par rodzina/poziom, każda po 24 różne pytania. Zachowano wszystkie 8589 wcześniejszych instancji i ich identyfikatory. P3 (pola między krzywymi, długość łuku) pozostaje przyszłym etapem.
+
+| Rodzina | Poziomy | Umiejętność i granice |
+| --- | --- | --- |
+| integral-direct | easy, medium, hard | Całkowanie stałych, sum i wielomianów do stopnia 3 dokładną regułą potęgową |
+| integral-table | medium, hard | Kontrolowane sin(ax+b), cos(ax+b), e^(ax+b) oraz 1/(ax+b); ostatni przypadek wymaga x≠−b/a i ln|ax+b| |
+| integral-substitution | medium, hard, advanced | Potęga liniowego argumentu; x(ax²+b)^n; na advanced dodatkowy składnik liniowy |
+| integral-parts | hard, advanced, expert | x^m e^(ax), m=1,2,3; powtarzanie przez części aż do zaniku wielomianu |
+| integral-recurring | advanced, expert | e^(ax)(p sin bx+q cos bx), b>0; układ dwóch całek powracających z niezerowym a²+b² |
+| integral-definite | easy, medium, hard, advanced, expert | Wielomiany na rosnących granicach całkowitych lub wymiernych; dokładne F(b)−F(a) |
+
+Całki nieoznaczone mają ograniczony formularz: uczeń wpisuje **dokładny współczynnik przy każdej wskazanej funkcji bazowej**, także zero, oraz zaznacza `+C`. Nie ma pola na swobodne wyrażenie; dowolny składnik stały jest pominięty przy porównaniu, bo funkcje pierwotne różniące się stałą są równoważne. Jest to świadome ograniczenie walidacji symbolicznej. Błędny współczynnik daje ogólną informację bez wymyślonej diagnozy; poprawne współczynniki bez `+C` dają jednoznaczną wskazówkę. Całka oznaczona używa dokładnego pola liczbowego bez `+C`.
+
+`integrals.test.ts` audytuje wszystkie 432 warianty niezależnymi równaniami pochodnej: regułą potęgową, łańcuchową, iloczynu i liniowym układem współczynników sin/cos; całki oznaczone liczy osobno jako sumę dokładnych momentów na granicach. Sprawdza poziomy, unikalność, PL/EN, poprawne/błędne/nieprawidłowe odpowiedzi i brak `+C`. Rozwiązania krok po kroku pokazują metodę, przekształcenia, sprawdzenie pochodnej i ostateczną odpowiedź.

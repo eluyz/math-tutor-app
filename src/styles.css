@@ -764,6 +764,8 @@ footer p {
 .structured-answer fieldset { min-width: 0; margin: 0 0 12px; padding: 10px; border: 1px solid #c9d4c9; }
 .structured-answer legend { font-weight: 700; }
 .coefficient-field { margin: 10px 0; }
+.primitive-constant { display: flex; align-items: center; gap: 10px; min-height: 44px; cursor: pointer; }
+.primitive-constant input { width: 20px; height: 20px; flex: none; }
 .starting-hint { font-size: 14px; line-height: 1.6; }
 .feedback p { white-space: pre-line; overflow-wrap: anywhere; }
 

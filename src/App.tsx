@@ -717,10 +717,11 @@ export default function App() {
                           {hintExpanded && (
                             <p className="learning-hint">
                               <strong>{a.nextHint}</strong>{" "}
-                              {result.diagnosis.kind === "hypotheses" &&
-                              !result.diagnosis.ambiguous
-                                ? result.diagnosis.candidates[0].hint
-                                : active.nextHint}
+                              {result.diagnosis.kind === "known"
+                                ? result.diagnosis.hint
+                                : result.diagnosis.kind === "hypotheses" && !result.diagnosis.ambiguous
+                                  ? result.diagnosis.candidates[0].hint
+                                  : active.nextHint}
                             </p>
                           )}
                           {stepVisible && active.step && (

@@ -14,6 +14,8 @@ function FinalAnswer({ answer }: { answer: AnswerSpec }) {
       ? copy.answers.zeros
       : c;
   switch (answer.kind) {
+    case "primitive":
+      return <p className="solution-answer">{answer.terms.map((term) => `${f(term.coefficient)}·${term.basis}`).join(" + ")} + C</p>;
     case "system":
       return (
         <>
