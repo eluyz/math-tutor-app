@@ -13,6 +13,7 @@ import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
+import { matrixPairFamilies, presentMatrixPair } from "./matrixPair";
 import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./elementaryAnalysis";
 import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
@@ -31,6 +32,7 @@ export const universityFamilies = [
   ...rankFamilies,
   ...gaussFamilies,
   ...cramerFourFamilies,
+  ...matrixPairFamilies,
   ...elementaryAnalysisFamilies,
   ...asymptoteFamilies,
   ...advancedCalculusFamilies,
@@ -54,6 +56,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "linear-matrix-pair"
+    ? presentMatrixPair(problem, locale)
     : isInverse(problem)
     ? presentInverse(problem, locale)
     : isRank(problem)
