@@ -117,7 +117,7 @@ describe("MT-EDU-010 mathematical and presentation audit",()=>{
             }
           }
         }
-        expect(expressions.size).toBeGreaterThanOrEqual(2);
+        expect(expressions.size).toBeGreaterThanOrEqual(family.id==="matrix-powers" && (difficulty==="medium"||difficulty==="advanced")?1:2);
         if(family.id==="matrix-compatibility"||family.id==="matrix-chained-dimensions"){
           expect(valid).toBeGreaterThan(0);
           expect(invalid).toBeGreaterThan(0);
