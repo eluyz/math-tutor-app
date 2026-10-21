@@ -1,5 +1,8 @@
 # Plan rozwoju
 
+MT-UWM-001 (przygotowane do recenzji): panel PL/EN z bezpośrednim wyborem istniejących generatorów do powtórki wyznaczników 2×2–5×5, macierzy odwrotnych, AX=B/XA=B oraz Cramera. Dodatkowo autorska karta metod z ukrytymi rozwiązaniami i ręcznie oceniana próbna wejściówka za 7 punktów. Nie jest to oficjalny arkusz UWM ani nowy generator zadań. MT-EXAM-002 może później dodać dobór konkretnych rodzin i zautomatyzowaną punktację 7 pkt po scaleniu MT-EXAM-001. Diagnostyka ręcznych kroków pozostaje zakresem MT-DIAG-001.
+
+
 | Etap | Cel | Przykładowy rezultat |
 | --- | --- | --- |
 | MT-001 | Fundament i działający prototyp — ukończony | React, TypeScript, Vite, trzy ćwiczenia, testy, dokumentacja |
