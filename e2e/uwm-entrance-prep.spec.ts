@@ -25,7 +25,7 @@ test("MT-UWM-001 method sheet and quiz is a static local page", async ({ page })
   await page.goto("/");
   const link = page.locator(".uwm-prep a");
   await expect(link).toHaveAttribute("href", /uwm-wejsciowka\.html$/);
-  await page.goto("/uwm-wejsciowka.html");
+  await page.goto("uwm-wejsciowka.html");
   await expect(page.getByRole("heading", { name: /Przygotowanie do wejściówki/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: /próbna wejściówka.*7 punktów/i })).toBeVisible();
   await expect(page.getByText(/det\(A\)=−25/)).not.toBeVisible();
