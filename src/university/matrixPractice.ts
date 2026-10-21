@@ -155,7 +155,7 @@ export function presentMatrixPractice(p:Practice,locale:Locale){
     if(!exponent)throw Error("Bad power expression");
     const s=matrixShape(A);
     if(s.rows!==s.columns)throw Error("Matrix powers require square matrices");
-    lesson.work(`A: ${dims(s)}`,t("Potęgować można tylko macierz kwadratową; zachowujemy kolejność mnożenia.",
+    lesson.work(`dim(A) = ${dims(s)}`,t("Potęgować można tylko macierz kwadratową; zachowujemy kolejność mnożenia.",
       "A matrix power requires a square matrix; retain multiplication order."));
     let result:Matrix=A;
     for(let power=2;power<=exponent;power++){
@@ -222,7 +222,7 @@ export function presentMatrixPractice(p:Practice,locale:Locale){
         "Only then perform the remaining operations, checking the order and transposition."));
   }
   const decision=shapeSteps(p);
-  for(const m of p.matrices)lesson.work(`${m.label}: ${dims(matrixShape(m.values))}`,
+  for(const m of p.matrices)lesson.work(`dim(${m.label}) = ${dims(matrixShape(m.values))}`,
     t("Wymiar to liczba wierszy razy liczba kolumn, w tej kolejności.",
       "Dimensions are rows times columns, in that order."));
   for(const step of decision.steps)lesson.work(
@@ -232,10 +232,10 @@ export function presentMatrixPractice(p:Practice,locale:Locale){
         "Addition requires identical dimensions on both sides.")
       :t("Mnożenie wymaga tylu samo kolumn po lewej, ile wierszy po prawej.",
         "Multiplication requires left columns to equal right rows."));
-  if(!decision.result)lesson.work(`${p.expression}: ∄`,
+  if(!decision.result)lesson.work(`dim(${p.expression}) = ∄`,
     t("Co najmniej jeden krok jest niewykonalny; późniejsze działania nie naprawiają wcześniejszej niezgodności.",
       "At least one step is impossible; later operations cannot fix an earlier dimension mismatch."));
-  else lesson.work(`${p.expression}: ${dims(decision.result)}`,
+  else lesson.work(`dim(${p.expression}) = ${dims(decision.result)}`,
     t("Wynik ma wymiary ostatniego poprawnie wykonanego działania.",
       "The result has the dimensions of the final valid operation."));
   const expected=decision.result?`${decision.result.rows}x${decision.result.columns}`:"not-possible";
