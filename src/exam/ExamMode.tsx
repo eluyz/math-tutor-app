@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { AnswerFields } from "../AnswerFields";
+import { MistakeHelp } from "../diagnostics/MistakeHelp";
 import { DeterminantDisplay } from "../DeterminantDisplay";
 import { LinearAlgebraDisplay } from "../LinearAlgebraDisplay";
 import { MatrixDisplay } from "../MatrixDisplay";
@@ -242,6 +243,7 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
           <p><strong>{c.ownAnswer}:</strong> {own}</p>
           <p><strong>{outcomeText[entry.outcome]}</strong></p>
           <div><strong>{c.correctAnswer}:</strong> <FinalAnswer answer={answer} /></div>
+          {entry.outcome === "incorrect" && <MistakeHelp key={item.id} task={item} answer={entry.answer} />}
           <SolutionPanel key={item.id} task={item} inSession={false} onReveal={() => {}} />
         </li>;
       })}</ol>

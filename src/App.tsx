@@ -1,5 +1,6 @@
 import { difficultyConfig } from "./difficulty";
 import { SolutionPanel } from "./solutions/SolutionPanel";
+import { MistakeHelp } from "./diagnostics/MistakeHelp";
 import { Scratchpad } from "./scratchpad/Scratchpad";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
@@ -301,9 +302,7 @@ export default function App() {
             <small>{a.tagline}</small>
           </span>
         </a>
-        <span className="topbar-note">
-          {a.adults} <span aria-hidden="true">✳</span> {a.free}
-        </span>
+        <span className="topbar-note">{a.free}</span>
         <LanguagePicker />
       </header>
 
@@ -765,6 +764,9 @@ export default function App() {
                         </>
                       )}
                     </div>
+                  )}
+                  {result?.kind === "incorrect" && checkedInput !== null && (
+                    <MistakeHelp key={`${active.id}-${run}`} task={active} answer={checkedInput} />
                   )}
                   <SolutionPanel
                     key={run}

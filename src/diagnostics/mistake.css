@@ -1,0 +1,20 @@
+.mistake-help { margin-top: 1rem; border: 1px solid var(--border, #cbd5e1); border-radius: 12px; padding: 0.9rem; }
+.mistake-help button { cursor: pointer; }
+.mistake-help > button { font-weight: 700; }
+.mistake-details { margin-top: 0.75rem; display: grid; gap: 0.75rem; }
+.mistake-details h4, .mistake-details h5, .mistake-details p { margin: 0; }
+.mistake-details ul { margin: 0; padding-inline-start: 1.5rem; }
+.mistake-details li { margin: 0.35rem 0; }
+.mistake-step, .mistake-recovery-active { display: grid; gap: 0.75rem; padding: 0.85rem; border: 1px solid var(--border, #cbd5e1); border-radius: 10px; min-width: 0; }
+.mistake-step form { display: grid; gap: 0.5rem; }
+.mistake-step-actions { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.mistake-step-actions input { min-width: 0; flex: 1 1 120px; max-width: 100%; }
+.mistake-recovery { display: grid; gap: 0.5rem; }
+.mistake-recovery-active .structured-answer { max-width: 100%; }
+.mistake-recovery-active fieldset { min-width: 0; }
+.mistake-recovery-active .question { max-width: 100%; overflow-wrap: anywhere; }
+.mistake-privacy { font-size: 0.9rem; opacity: 0.78; }
+@media (max-width: 430px) {
+  .mistake-help { padding: 0.65rem; }
+  .mistake-step-actions input, .mistake-step-actions button { width: 100%; }
+}

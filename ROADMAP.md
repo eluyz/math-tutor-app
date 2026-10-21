@@ -63,3 +63,12 @@ P0: [mapa 64 kompetencji](UWM_COVERAGE.md) na podstawie indeksu Issue #20, bez d
 P0: `inverse-two`, `inverse-three`, `inverse-existence`, `inverse-applications` — 13 par ×24 = 312 instancji. P1: `matrix-rank`, `capelli-given-ranks`, `capelli-matrices` — 6 par ×24 = 144. P2: `gauss-unique`, `gauss-classification` — 7 par ×24 = 168. Łącznie 9 rodzin i 648 nowych instancji; cały katalog 76 rodzin, 7293 instancje w 13 kategoriach. Audyt dawnych 6645 pełnych lekcji PL/EN bazuje na opublikowanym main po PR #21. Nie zmieniono schematu postępów ani brudnopisu.
 
 Opcjonalne P3 częściowo wykonano: Cramer czterech niewiadomych (`D,D1…D4`) i `XA=B` mają 2 rodziny / 96 wariantów. Cały katalog obejmuje 78 rodzin / 7365 instancji, 68 rodzin L4 i 65 L5. Układ dwóch równań macierzowych pozostaje przyszły. M03/M04 wymagają osobnej oceny pełniejszej wykonalności mnożenia i potęg. M09–M11 nadal dotyczą kontrolowanych struktur wyznaczników. M12–M14 i U05–U08 mają opisany rzeczywisty, ograniczony zasięg w mapie UWM. 43 prywatnych PDF-ów nie udostępniono, a fizycznego Safari nie przetestowano w chmurze.
+
+## MT-DIAG-001 — etap realizowany oddzielnym PR
+
+- P0: analiza błędnej odpowiedzi na żądanie w ćwiczeniu i po oddaniu sprawdzianu, bez fałszywej pewności diagnozy. Wspierane są dotychczasowe wzorce wyniku oraz pewny brak `+C`.
+- P1 (pierwsza wersja): dobrowolne sprawdzanie istniejących pytań o krok pośredni i trzy inne zadania z tej samej rodziny/poziomu, odseparowane od wyniku sprawdzianu.
+- P1 (wybrane sondy): zaimplementowano weryfikację pojedynczych kroków det 2×2, Sarrusa 3×3, pierwszej komórki AB, głównego D w Cramerze 2×2/3×3 i minora Laplace’a 4×4/5×5. Dalsze sondy rachunków algebry i macierzy pozostają do rozbudowy; obecna funkcja **nie** analizuje dowolnych kroków ani rysunku z brudnopisu.
+- P2 (odłożone): lokalna statystyka potwierdzonych typów pomyłek i powtórki według kompetencji; brak danych oznacza brak wniosku.
+
+Wdrożenie wymaga CI, niezależnej recenzji i osobnej zgody właściciela; PR nie jest automatycznie scalany. Nie powstaje osobny panel UWM.
