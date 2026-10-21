@@ -4,6 +4,11 @@ import type { LinearAlgebraProblem } from "./university/schema";
 /** Read-only matrices are independent of the legacy 1–3 cell answer-grid limit. */
 export function LinearAlgebraDisplay({ problem }: { problem: LinearAlgebraProblem }) {
   if (problem.kind === "linear-rank-given") return null;
+  if (problem.kind === "linear-matrix-practice") return (
+    <div className="given-matrices linear-algebra-matrices">
+      {problem.matrices.map(m => <MatrixDisplay key={m.label} label={m.label} values={m.values} />)}
+    </div>
+  );
   if (problem.kind === "linear-matrix-pair") return (
     <div className="given-matrices linear-algebra-matrices">
       <MatrixDisplay label="A" values={problem.first} />

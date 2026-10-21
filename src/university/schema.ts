@@ -164,7 +164,12 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-matrix-pair"; coefficients: readonly [Rational, Rational, Rational, Rational];
-      first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>;
+      first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>
+  | Readonly<{ kind: "linear-matrix-practice";
+      mode: "power" | "composite" | "compatibility" | "chain";
+      expression: "A²" | "A³" | "AB−C" | "(A+B)C" | "A(B−C)" | "(AB)ᵀ−C" | "(AB)ᵀ−(3/2)C" |
+        "A+B" | "AB" | "BA" | "AB+C" | "A(B+C)" | "A(BC)";
+      matrices: readonly { label: string; values: Matrix }[] }>;
 export type ElementaryAnalysisProblem =
   | Readonly<{ kind: "analysis-log-domain"; mode: "linear" | "ratio" | "radical"; p: Rational; base: Rational }>
   | Readonly<{ kind: "analysis-power-law"; mode: "log-power" | "power-log" | "combined"; base: Rational; exponent: number; argument: Rational }>
