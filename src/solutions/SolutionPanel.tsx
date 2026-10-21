@@ -6,7 +6,7 @@ import { MatrixDisplay } from "../MatrixDisplay";
 import { solutionFor, calculationText } from "./model";
 import "./solutions.css";
 
-function FinalAnswer({ answer }: { answer: AnswerSpec }) {
+export function FinalAnswer({ answer }: { answer: AnswerSpec }) {
   const { copy } = useLocale();
   const c = copy.solution;
   const roots =
