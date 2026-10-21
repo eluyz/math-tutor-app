@@ -21,8 +21,8 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | M13 | Równanie z odwrotnością | częściowo | `inverse-applications`, `inverse-right-applications`; AX=B → A⁻¹B i XA=B → BA⁻¹, tylko 2×2/3×3 |
 | M14 | Rząd macierzy | częściowo | `matrix-rank`, `capelli-matrices`; 2×3, 3×3, 3×4 z eliminacją, bez dowolnej 4×4 |
 | U01 | Rozpoznanie układu Cramera | częściowo | `system-cramer-two`, `system-cramer-three`; warunek D≠0 wyjaśniony, brak osobnej klasyfikacji |
-| U02 | Cramer 3 niewiadome | pokryte | `system-cramer-three` |
-| U03 | Cramer 4 niewiadome | częściowo | `cramer-four`; dokładne D,D1–D4 i klasyfikacja D=0 w kontrolowanych układach 4×4 |
+| U02 | Cramer 3 niewiadome | pokryte | `system-cramer-three`, `cramer-determinants-three`; pełne rozwiązanie i osobna kontrola D,D1–D3 |
+| U03 | Cramer 4 niewiadome | częściowo | `cramer-four`, `cramer-determinants-four`; dokładne D,D1–D4, osobne wpisywanie wyznaczników i klasyfikacja D=0 w kontrolowanych układach 4×4 |
 | U04 | Łańcuch równości / jedna niewiadoma | częściowo | `system-substitution`; bez dedykowanego łańcucha |
 | U05 | Liczba rozwiązań z podanych rzędów | pokryte | `capelli-given-ranks`; poprawne relacje r(A), r([A|b]), n |
 | U06 | Klasyfikacja przez obliczenie rzędów | częściowo | `capelli-matrices`, `gauss-classification`; jawne 3×3/3×4/4×4, kontrolowane struktury |
