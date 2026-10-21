@@ -1,5 +1,10 @@
 # Math Tutor
 
+## Przygotowanie do wejściówki UWM (MT-UWM-001)
+
+Na ekranie ćwiczeń dostępny jest dwujęzyczny panel **Przygotowanie do wejściówki UWM**: skróty do wyznaczników 2×2–5×5, macierzy odwrotnych, równań AX=B/XA=B i układów Cramera. Kliknięcie wybiera istniejący generator oraz obsługiwany poziom; w aktywnej sesji 10 zadań skróty są zablokowane. Osobna [autorska karta metod i próbna wejściówka za 7 pkt](public/uwm-wejsciowka.html) zawiera zadania i klucz ukryty do rozwinięcia. Na GitHub Pages będzie pod ścieżką `/math-tutor-app/uwm-wejsciowka.html`. Nie są to oficjalne materiały UWM; aplikacja nie ocenia tego przykładowego arkusza automatycznie ani nie analizuje odręcznego rozwiązania. Układy dwóch równań macierzowych są nadal poza zakresem.
+
+
 Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **100 rodzin** i **9021 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
 
 ## Uruchomienie
