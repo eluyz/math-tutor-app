@@ -7,6 +7,10 @@ export type ExamMinutes = 0 | 15 | 30;
 export type ExamConfig = Readonly<{
   categories: readonly CategoryId[];
   difficulty: Difficulty;
+  /** Optional multi-level selection. Omitted means the legacy single difficulty. */
+  difficulties?: readonly Difficulty[];
+  /** Optional exact family whitelist. Omitted/empty means all families in the categories. */
+  families?: readonly string[];
   count: ExamCount;
   minutes: ExamMinutes;
 }>;
@@ -25,16 +29,32 @@ export type ExamState = Readonly<{
   entries: readonly ExamEntry[] | null;
 }>;
 
+export const examLevels = (config: ExamConfig): readonly Difficulty[] =>
+  config.difficulties === undefined ? [config.difficulty] : config.difficulties;
+
+export function examCandidates(config: ExamConfig, category: CategoryId): GeneratedTask[] {
+  const chosen = new Set(config.families ?? []);
+  return examLevels(config).flatMap((level) => taskPool(category, level))
+    .filter((task) => !chosen.size || chosen.has(task.templateId));
+}
+
 export function examCapacity(config: ExamConfig): number {
   return new Set(config.categories.flatMap((category) =>
-    taskPool(category, config.difficulty).map((task) => task.contentKey))).size;
+    examCandidates(config, category).map((task) => task.contentKey))).size;
 }
 
 export function examConfigError(config: ExamConfig): "categories" | "unavailable" | "capacity" | null {
   if (!config.categories.length || new Set(config.categories).size !== config.categories.length ||
       config.categories.some((category) => !allTemplates.some((family) => family.category === category))) return "categories";
+  const levels = examLevels(config);
+  if (!levels.length || new Set(levels).size !== levels.length ||
+      levels.some((level) => !["easy", "medium", "hard", "advanced", "expert"].includes(level))) return "unavailable";
+  if (config.families?.length && (new Set(config.families).size !== config.families.length ||
+      config.families.some((id) => !allTemplates.some((family) =>
+        family.id === id && config.categories.includes(family.category) &&
+        levels.some((level) => family.supportedDifficulties.includes(level)))))) return "unavailable";
   if (![5, 10, 20].includes(config.count) || ![0, 15, 30].includes(config.minutes)) return "capacity";
-  if (config.categories.some((category) => !taskPool(category, config.difficulty).length)) return "unavailable";
+  if (config.categories.some((category) => !examCandidates(config, category).length)) return "unavailable";
   return examCapacity(config) < config.count ? "capacity" : null;
 }
 
@@ -54,10 +74,12 @@ export function selectExamTasks(config: ExamConfig, seed: number): GeneratedTask
   const categories = shuffle(config.categories, random);
   const pools = new Map(categories.map((category) => {
     const families = new Map<string, { tasks: GeneratedTask[]; used: number }>();
-    for (const task of shuffle(taskPool(category, config.difficulty), random)) {
-      const bucket = families.get(task.templateId) ?? { tasks: [], used: 0 };
+    for (const task of shuffle(examCandidates(config, category), random)) {
+      // Rotate both families and levels, rather than concentrating one level first.
+      const key = `${task.templateId}:${task.difficulty}`;
+      const bucket = families.get(key) ?? { tasks: [], used: 0 };
       bucket.tasks.push(task);
-      families.set(task.templateId, bucket);
+      families.set(key, bucket);
     }
     return [category, families] as const;
   }));

@@ -199,3 +199,7 @@ Wybrane rodziny mają autorskie pytanie o krok pośredni; dodatkowe dokładnie o
 - **Układ dwóch równań macierzowych:** nowa rodzina `matrix-coupled-equations` z niezależnymi 2×2 macierzami X i Y; osiem dokładnych pól odpowiedzi, eliminacja z kontrolą D≠0 i podstawieniem do obu równań. Poziomy Średni/Trudny/Zaawansowany/Ekspert.
 - **Wyznaczniki 4×4 i 5×5 bez zer:** `determinant-dense-four` i `determinant-dense-five`; pełne rozwinięcie Laplace'a, poprawne znaki/minory, dokładne odpowiedzi i warianty ze zróżnicowanymi wartościami. Nie nadpisują wcześniejszych rodzin z zerami i operacjami wierszowymi.
 - Nowe pytania PL/EN, szczegółowe rozwiązania, niezależne testy z dokładnymi liczbami wymiernymi. Nadal nie jest to replika prywatnych materiałów UWM ani dowód pokrycia wszystkich rodzajów zadań. Nie zmieniamy punktacji ani historii.
+
+### Sprawdzian z wybranych rodzin (MT-EXAM-002)
+
+W trybie **Sprawdzian / Exam** możesz ograniczyć zakres do konkretnych rodzin (np. Sarrus 3×3, Cramer 3×3, Laplace 4×4) oraz zaznaczyć kilka poziomów trudności jednocześnie. Bez ograniczenia do rodzin zachowane jest dotychczasowe zachowanie. Losowanie równoważy kategorie i pary rodzina/poziom oraz wyklucza duplikaty treści. Zbyt wąski albo nieprawidłowy zakres blokuje start, bez cichej zmiany poziomu. Historia pozostaje lokalna: zapisuje faktycznie wybrane poziomy, nie zapisuje odpowiedzi. Wersje PL/EN i limit 5/10/20 zadań pozostają bez zmian. Nie jest to oficjalny arkusz UWM.

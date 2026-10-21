@@ -155,3 +155,41 @@ test("MT-EXAM-001: returning to learning preserves exercise and search without t
   expect(await page.evaluate((key) => localStorage.getItem(key), HISTORY_KEY)).toBeNull();
   expect(await page.evaluate((key) => localStorage.getItem(key), EXAM_HISTORY_KEY)).not.toBeNull();
 });
+
+
+for (const width of [375, 1280]) for (const en of [false, true]) {
+  test(`MT-EXAM-002: chosen Cramer family survives level changes and mixed exam ${width} ${en ? "EN" : "PL"}`, async ({page}) => {
+    await page.setViewportSize({width,height:860});
+    await page.goto("/");
+    if(en) await page.getByRole("button",{name:"English",exact:true}).click();
+    await page.getByRole("button",{name:en?"Exam":"Sprawdzian",exact:true}).click();
+    await page.locator(".exam-categories").getByRole("checkbox",{name:en?/Order of operations/:/Kolejność działań/}).uncheck();
+    await page.locator(".exam-categories").getByRole("checkbox",{name:en?/Systems of equations/:/Układy równań/}).check();
+    await page.getByRole("radio",{name:en?"Hard":"Trudny",exact:true}).check();
+    await page.locator(".exam-family-selector summary").click();
+    const choice=page.locator(".exam-family-list label").filter({hasText:en?"Cramer's rule — 3×3":"Reguła Cramera — 3×3"});
+    await choice.locator("input[type=checkbox]").check();
+    await expect(choice.locator("input[type=checkbox]")).toBeChecked();
+    await page.getByRole("radio",{name:en?"Medium":"Średni",exact:true}).check();
+    await expect(choice.locator("input[type=checkbox]")).toBeChecked();
+    await expect(page.getByRole("button",{name:en?"Start exam":"Rozpocznij sprawdzian"})).toBeDisabled();
+    await page.getByRole("radio",{name:en?"Hard":"Trudny",exact:true}).check();
+    await expect(choice.locator("input[type=checkbox]")).toBeChecked();
+    await page.getByRole("checkbox",{name:en?"Mix multiple difficulty levels":"Połącz kilka poziomów"}).check();
+    await expect(choice.locator("input[type=checkbox]")).toBeChecked();
+    await page.getByRole("checkbox",{name:en?"Advanced":"Zaawansowany",exact:true}).check();
+    await page.getByRole("button",{name:en?"Start exam":"Rozpocznij sprawdzian"}).click();
+    await expect(page.locator(".exam-work .question")).toHaveAttribute("data-template-id","system-cramer-three");
+    for(let i=0;i<5;i++){
+      await expect(page.locator(".exam-work .question")).toHaveAttribute("data-template-id","system-cramer-three");
+      const level=await page.locator(".exam-work .question").getAttribute("data-difficulty");
+      expect(["hard","advanced"]).toContain(level);
+      if(i<4) await page.getByRole("button",{name:en?"Next question":"Następne zadanie"}).click();
+    }
+    await page.getByRole("button",{name:en?"Submit exam":"Oddaj sprawdzian"}).click();
+    await page.getByRole("button",{name:en?"Confirm submission":"Potwierdź oddanie"}).click();
+    const raw=await page.evaluate((key)=>localStorage.getItem(key),EXAM_HISTORY_KEY);
+    expect(JSON.parse(raw!).reports[0].levels).toEqual(["hard","advanced"]);
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
+  });
+}
