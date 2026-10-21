@@ -1,5 +1,6 @@
 import { difficultyConfig } from "./difficulty";
 import { SolutionPanel } from "./solutions/SolutionPanel";
+import { MistakeHelp } from "./diagnostics/MistakeHelp";
 import { Scratchpad } from "./scratchpad/Scratchpad";
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import {
@@ -765,6 +766,9 @@ export default function App() {
                         </>
                       )}
                     </div>
+                  )}
+                  {result?.kind === "incorrect" && checkedInput !== null && (
+                    <MistakeHelp key={`${active.id}-${run}`} task={active} answer={checkedInput} />
                   )}
                   <SolutionPanel
                     key={run}
