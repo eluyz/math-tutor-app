@@ -1,6 +1,5 @@
 import {describe,it,expect} from "vitest";
 import {assessAnswer,emptyAnswer,formatRational as format} from "../answers";
-import {rational as r} from "../rational";
 import {taskPool} from "../generators";
 import {makeUniversityTask,localizeUniversity} from "./catalog";
 import {gaussParameterFamilies} from "./gaussParameters";
