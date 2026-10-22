@@ -70,6 +70,9 @@ export type RationalExpression =
     }>;
 export type GeometricTerm = Readonly<{ coefficient: Rational; base: Rational }>;
 export type SequenceProblem =
+  | Readonly<{kind:"sequence-radical-ratio";a:Rational;b:Rational;c:Rational;linear:Rational;e:Rational;offset:Rational;remainder:Rational;lowerLinear:Rational}>
+  | Readonly<{kind:"sequence-exponential-ratio";numerator:readonly GeometricTerm[];denominator:readonly GeometricTerm[]}>
+  | Readonly<{kind:"sequence-euler-product";factors:readonly {a:Rational;b:Rational;c:Rational;d:Rational}[]}>
   | Readonly<{ kind: "sequence-rational"; expression: RationalExpression }>
   | Readonly<{
       kind: "sequence-geometric";

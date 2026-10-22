@@ -6,6 +6,7 @@ import type { UniversityProblem, LinearAlgebraProblem, ElementaryAnalysisProblem
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { sequenceFamilies, presentSequence } from "./sequences";
+import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
@@ -31,6 +32,7 @@ export const universityFamilies = [
   ...systemFamilies,
   ...functionFamilies,
   ...sequenceFamilies,
+  ...sequenceExtensionFamilies,
   ...functionLimitFamilies,
   ...derivativeFamilies,
   ...determinantFamilies,
@@ -92,7 +94,11 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentDeterminant(problem, locale)
     : problem.kind === "system"
       ? presentSystem(problem, locale)
-      : problem.kind === "sequence-rational" ||
+      : problem.kind === "sequence-radical-ratio" ||
+          problem.kind === "sequence-exponential-ratio" ||
+          problem.kind === "sequence-euler-product"
+        ? presentSequenceExtension(problem,locale)
+        : problem.kind === "sequence-rational" ||
           problem.kind === "sequence-geometric" ||
           problem.kind === "sequence-conjugate"
         ? presentSequence(problem, locale)
