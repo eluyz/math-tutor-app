@@ -13,6 +13,8 @@ import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
+import { chainFamilies, presentChain } from "./chainEqualities";
+import { rectangularFamilies, presentRectangular } from "./rectangularSystems";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
 import { cramerIntermediateFamilies, presentCramerMinors } from "./cramerIntermediate";
 import { matrixPairFamilies, presentMatrixPair } from "./matrixPair";
@@ -36,6 +38,8 @@ export const universityFamilies = [
   ...rankFamilies,
   ...gaussFamilies,
   ...gaussParameterFamilies,
+  ...chainFamilies,
+  ...rectangularFamilies,
   ...cramerFourFamilies,
   ...cramerIntermediateFamilies,
   ...matrixPairFamilies,
@@ -74,6 +78,10 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentInverse(problem, locale)
     : isRank(problem)
     ? presentRank(problem, locale)
+    : problem.kind === "linear-chain-five"
+    ? presentChain(problem, locale)
+    : problem.kind === "linear-rectangular"
+    ? presentRectangular(problem, locale)
     : problem.kind === "linear-system"
     ? problem.method === "parameters" ? presentGaussParameters(problem, locale) : presentGauss(problem, locale)
     : problem.kind === "linear-cramer-minors"

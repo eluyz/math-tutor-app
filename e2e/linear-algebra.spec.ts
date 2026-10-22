@@ -1,7 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { a,m,d,eq,laplace,q } from "../src/university/audit";
 import { shownFraction } from "./helpers/functions";
-import { fractionText, parametricCoefficients } from "./helpers/systems";
+import { fractionText, parametricCoefficients, readChain } from "./helpers/systems";
 import { polishLearningText } from "./helpers/localization";
 import type { Rational } from "../src/rational";
 const combinations=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>combinations(n-i-1,k-1).map(rest=>[i,...rest.map(j=>j+i+1)])).flat();
@@ -296,6 +296,61 @@ for(const width of [375,1280])for(const en of [false,true])
       await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
       await expect(page.locator(".solution-panel")).toContainText("RREF");
     }
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
+    expect(errors).toEqual([]);
+  });
+
+
+/** MT-EDU-014 P1: cover chain and rectangular families on mobile and desktop, PL and EN. */
+for(const width of [375,1280])for(const en of [false,true])
+  test("MT-EDU-014 P1 "+width+"px "+(en?"EN":"PL")+": chains and rectangular systems",async({page})=>{
+    test.setTimeout(120_000);
+    const errors:string[]=[];page.on("pageerror",err=>errors.push(err.message));
+    await page.setViewportSize({width,height:900});await page.goto("/");
+    if(en)await button(page,"English").click();
+    await button(page,en?"University mathematics":"Matematyka na studia").click();
+    await button(page,en?"Systems of equations":"Układy równań").click();
+
+    await button(page,en?"Medium":"Średni").click();
+    await page.getByRole("button",{name:en?/Chain of five equalities/:/Łańcuch pięciu równości/}).click();
+    await expect(page.locator(".question")).toHaveAttribute("data-template-id","system-chain-five");
+    const solved=readChain(await page.locator(".question").innerText());
+    await button(page,en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+    await page.locator("#answer").fill("999999");
+    await button(page,en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+    await page.locator("#answer").fill(fractionText(solved.answer));
+    await button(page,en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+    await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+    await expect(page.locator(".solution-panel")).toContainText("E6=");
+
+    for(const [level,id,title] of [
+      [en?"Medium":"Średni","system-rectangular-3x2",en?/Rectangular system: 3 equations/:/Układ prostokątny 3 równania/],
+      [en?"Advanced":"Zaawansowany","system-rectangular-4x3",en?/Rectangular system: 4 equations/:/Układ prostokątny 4 równania/],
+    ] as const) {
+      await button(page,level).click();
+      await page.getByRole("button",{name:title}).click();
+      await expect(page.locator(".question")).toHaveAttribute("data-template-id",id);
+      const matrix=await shownMatrix(page),unknowns=matrix[0].length-1;
+      expect(matrix.length).toBe(unknowns+1);
+      const rankA=rank(matrix.map(row=>row.slice(0,unknowns))),rankAug=rank(matrix);
+      const classification=rankAug>rankA?"system-none":rankA===unknowns?"system-one":"system-many";
+      await button(page,en?"Check":"Sprawdź").click();
+      await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+      await page.locator("#answer").selectOption(classification==="system-one"?"system-none":"system-one");
+      await button(page,en?"Check":"Sprawdź").click();
+      await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+      await page.locator("#answer").selectOption(classification);
+      await button(page,en?"Check":"Sprawdź").click();
+      await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+      await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+      await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+      await expect(page.locator(".solution-panel")).toContainText("rank(A)");
+    }
+    if(en)expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
     expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
     expect(errors).toEqual([]);
   });

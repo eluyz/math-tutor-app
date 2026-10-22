@@ -156,6 +156,8 @@ export type DeterminantProblem = Readonly<{
   dense?: boolean;
 }>;
 export type LinearAlgebraProblem =
+  | Readonly<{ kind: "linear-chain-five"; expressions: readonly { a:Rational; b:Rational; c:Rational; denominator:Rational }[]; target:"x"|"y" }>
+  | Readonly<{ kind: "linear-rectangular"; matrix: readonly (readonly Rational[])[]; rhs:readonly Rational[] }>
   | Readonly<{ kind: "linear-inverse"; matrix: readonly (readonly Rational[])[]; method: "inverse" | "classification" }>
   | Readonly<{ kind: "linear-application"; matrix: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; method: "ax" | "xa" }>
   | Readonly<{ kind: "linear-matrix-equation"; mode: "ax-shift"; left: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; shift: Rational }>

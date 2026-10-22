@@ -23,9 +23,9 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | U01 | Rozpoznanie układu Cramera | częściowo | `system-cramer-two`, `system-cramer-three`; warunek D≠0 wyjaśniony, brak osobnej klasyfikacji |
 | U02 | Cramer 3 niewiadome | pokryte | `system-cramer-three`, `cramer-determinants-three`; pełne rozwiązanie i osobna kontrola D,D1–D3 |
 | U03 | Cramer 4 niewiadome | częściowo | `cramer-four`, `cramer-determinants-four`; dokładne D,D1–D4, osobne wpisywanie wyznaczników i klasyfikacja D=0 w kontrolowanych układach 4×4 |
-| U04 | Łańcuch równości / jedna niewiadoma | częściowo | `system-substitution`; bez dedykowanego łańcucha |
+| U04 | Łańcuch równości / jedna niewiadoma | częściowo | `system-substitution`, `system-chain-five`; nowy generator pięciu znaków równości pomiędzy sześcioma wyrażeniami z dwiema niewiadomymi, pytaniem o samo x lub y, wyjaśnieniem i kontrolą wszystkich równości. Bez dowolnych nieliniowych łańcuchów |
 | U05 | Liczba rozwiązań z podanych rzędów | pokryte | `capelli-given-ranks`; poprawne relacje r(A), r([A|b]), n |
-| U06 | Klasyfikacja przez obliczenie rzędów | częściowo | `capelli-matrices`, `gauss-classification`; jawne 3×3/3×4/4×4, kontrolowane struktury |
+| U06 | Klasyfikacja przez obliczenie rzędów | częściowo | `capelli-matrices`, `gauss-classification`, `system-rectangular-3x2`, `system-rectangular-4x3`; klasyfikacja układów 3 równań / 2 niewiadomych i 4 / 3 na podstawie obliczanych rang (jedno, brak, wiele). Bez pełnej dowolności wymiarów |
 | U07 | Gauss: jedno rozwiązanie | częściowo | `gauss-unique`; 3×3/4×4, zamiana wierszy i podstawienie wsteczne w kontrolowanych układach |
 | U08 | Gauss: parametry i sprzeczność | częściowo | `gauss-classification`, `capelli-matrices`, `gauss-parameters-one`, `gauss-parameters-two`; poza klasyfikacją dodano pełną ocenę stałych i współczynników t1/t2 w rozwiązaniach 3×3/4×4 z 1–2 zmiennymi swobodnymi; nadal brak dowolnych układów prostokątnych i dowolnego symbolicznego zapisu |
 | C01 | Granica wielomianu i ilorazu | pokryte | `sequence-rational` |
