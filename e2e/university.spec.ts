@@ -5,6 +5,14 @@ import { HISTORY_KEY } from "../src/progress/model";
 import { parseAnswer } from "../src/rational";
 import { laplace, m } from "../src/university/audit";
 
+test("normalizes large exact fractions into accepted input strings", () => {
+  const scale = 2n ** 400n;
+  const normalized = fractionText({ numerator: -7n * scale, denominator: scale });
+  expect(normalized).toBe("-7/1");
+  expect(parseAnswer(normalized).kind).toBe("valid");
+  expect(normalized.length).toBeLessThanOrEqual(100);
+});
+
 /** Sessions mix all systems families; newer Cramer drills require D and Dᵢ rather than xᵢ. */
 async function fillAnySystem(page: Page) {
   const template = await page.locator(".question").getAttribute("data-template-id");

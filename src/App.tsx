@@ -226,26 +226,13 @@ export default function App() {
   function submitAnswer(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (!active) return;
-    // Read list answers from the submitted form, not an earlier React render.
-    // Rapid changes across several controlled fields can otherwise submit stale
-    // state even though every value is visible in the inputs.
-    const spec = getAnswerSpec(active);
-    const submitted: AnswerInput = spec.kind === "list"
-      ? {
-          kind: "list",
-          values: spec.values.map((_, index) =>
-            event.currentTarget.querySelector<HTMLInputElement>(
-              index === 0 ? "#answer" : `#answer-${index}`,
-            )?.value ?? ""),
-        }
-      : answer;
-    const nextResult = checkAnswer(active, submitted, feedback);
+    const nextResult = checkAnswer(active, answer, feedback);
     if (sessionRef.current) {
       updateSession(
         recordFirstAttempt(sessionRef.current, active.id, nextResult.kind),
       );
     }
-    setCheckedInput(submitted);
+    setCheckedInput(answer);
     setHintExpanded(false);
     setStepVisible(false);
     setStepAnswer("");

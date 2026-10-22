@@ -1,5 +1,5 @@
 import type { Page } from "@playwright/test";
-import { parseAnswer, type Rational } from "../../src/rational";
+import { parseAnswer, rational, type Rational } from "../../src/rational";
 import { a, m, s, d, q, laplace } from "../../src/university/audit";
 const parse = (text: string) => {
   const p = parseAnswer(text.trim());
@@ -7,7 +7,11 @@ const parse = (text: string) => {
     throw new Error(`Invalid displayed fraction: ${text}`);
   return p.value;
 };
-export const fractionText = (v: Rational) => `${v.numerator}/${v.denominator}`;
+/** Reduce exact fractions before entering the app's max-100-character answer fields. */
+export const fractionText = (v: Rational) => {
+  const reduced = rational(v.numerator, v.denominator);
+  return `${reduced.numerator}/${reduced.denominator}`;
+};
 const subsets = (n: number, k: number): number[][] => k === 0 ? [[]] : Array.from({ length: n }, (_, i) => subsets(n - i - 1, k - 1).map(rest => [i, ...rest.map(j => j + i + 1)])).flat();
 function referenceRank(matrix: Rational[][]): number {
   for (let size = Math.min(matrix.length, matrix[0].length); size >= 1; size--)
