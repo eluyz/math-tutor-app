@@ -32,7 +32,7 @@ const tuples:readonly (readonly [number,number,number])[]=[
 ];
 function create(v:number,level:Difficulty):Problem{
   const x=r(v-11,level==="medium"?1:level==="hard"?2:level==="advanced"?3:4);
-  const y=r((v%9)-4,level==="medium"?1:level==="hard"?1:level==="advanced"?2:3);
+  const y=r((v%9)-4,level==="medium"?1:level==="hard"?2:level==="advanced"?3:4);
   const shared=r((v%7)-3,level==="expert"?2:1);
   const expressions=tuples.map(([a,b,d])=>({
     a:r(a),b:r(b),denominator:r(d),
@@ -57,7 +57,7 @@ export function presentChain(p:Problem,locale:Locale){
   lesson.work(`(${f(u.a)})x + (${f(u.b)})y = ${f(u.rhs)}; (${f(v.a)})x + (${f(v.b)})y = ${f(v.rhs)}`,
     t("Równamy pierwsze wyrażenie z drugim i trzecim; usuwamy mianowniki po obu stronach.",
       "Set the first expression equal to the second and third; clear denominators on both sides."));
-  lesson.work(`D=(${f(u.a)})(${f(v.b)})−(${f(u.b)})(${f(v.a)})=${f(determinant)} ≠ 0`,
+  lesson.work(`det(A)=(${f(u.a)})(${f(v.b)})−(${f(u.b)})(${f(v.a)})=${f(determinant)} ≠ 0`,
     t("Wyznacznik macierzy współczynników jest niezerowy, więc rozwiązanie jest jednoznaczne.",
       "The coefficient determinant is nonzero, so the solution is unique."));
   lesson.work(`x=${f(x)}; y=${f(y)}`,

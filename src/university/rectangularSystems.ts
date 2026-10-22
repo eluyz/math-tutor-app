@@ -34,7 +34,7 @@ function create(v:number,level:Difficulty,variables:2|3):Problem {
   if(kind===1)rhs[rows.length-1]=add(rhs[rows.length-1],r(1));
   // Nonzero row scalings and swaps preserve ranks and the solution set.
   const scaled=rows.map((row,i)=>{
-    const factor=r((i+v)%2?-2:3,level==="expert"?2:1);
+    const factor=level==="hard"?r((i+v)%2?-3:2,2):r((i+v)%2?-2:3,level==="expert"?2:1);
     return {row:row.map(c=>mul(c,factor)),rhs:mul(rhs[i],factor)};
   });
   if(v%2===1)[scaled[0],scaled[scaled.length-1]]=[scaled[scaled.length-1],scaled[0]];
@@ -73,7 +73,7 @@ export function presentRectangular(p:Problem,locale:Locale) {
   if(classified.kind==="system-none"){
     const bad=classified.reduction.matrix.find(row=>row.slice(0,n).every(c=>c.numerator===0n)&&row[n].numerator!==0n);
     if(!bad)throw Error("Missing contradiction row");
-    lesson.work(`0 = ${f(bad[n])}`,
+    lesson.work(t(`Sprzeczność: 0 = ${f(bad[n])}`,`Contradiction: 0 = ${f(bad[n])}`),
       t("Fałszywa równość świadczy o sprzeczności; sam brak macierzy odwrotnej jej nie dowodzi.",
         "A false equality proves inconsistency; the absence of an inverse does not."));
   }else if(classified.kind==="system-many"){
@@ -84,7 +84,7 @@ export function presentRectangular(p:Problem,locale:Locale) {
     for(const [i,row] of p.matrix.entries())
       if(!equalRational(dot(row,classified.values),p.rhs[i]))
         throw Error(`Rectangular Ax=b mismatch in row ${i}`);
-    lesson.work(names.map((name,j)=>`${name}=${f(classified.values[j])}`).join("; "),
+    lesson.work(t("Rozwiązanie: ","Solution: ")+names.map((name,j)=>`${name}=${f(classified.values[j])}`).join("; "),
       t("Każda niewiadoma ma pivot. Podstawiamy rozwiązanie do wszystkich równań, również dodatkowych.",
         "Every variable has a pivot. Substitute into all equations, including the extra rows."));
   }
