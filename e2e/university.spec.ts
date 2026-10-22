@@ -31,7 +31,7 @@ async function fillAnySystem(page: Page) {
     await expect(field).toHaveValue(expectedFields[i]);
   }
   const fields = page.locator("form .coefficient-field input");
-  await expect.poll(() => fields.allInputValues(), {
+  await expect.poll(() => fields.evaluateAll(nodes => nodes.map(node => (node as HTMLInputElement).value)), {
     message: "All Cramer determinant fields must retain the entered values",
   }).toEqual(expectedFields);
   return { classification:"system-one", values };
