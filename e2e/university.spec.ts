@@ -270,14 +270,9 @@ for (const width of [375, 768, 1280])
                 .click();
             }
             const templateId = await page.locator(".question").getAttribute("data-template-id");
-            const assessment = await page.locator(".feedback").getAttribute("class");
-            if (assessment !== "feedback correct") {
-              const values = await page.locator("form input[type=text]").evaluateAll(nodes =>
-                nodes.map(node => ({ id: node.id, value: (node as HTMLInputElement).value }))
-              );
-              const feedbackText = await page.locator(".feedback").innerText();
-              throw new Error(`Session task ${i}, template=${templateId} should be correct; observed=${assessment}; inputs=${JSON.stringify(values)}; feedback=${feedbackText.slice(0,300)}`);
-            }
+            await expect(page.locator(".feedback"),
+              `Session task ${i}, template=${templateId} should be assessed correctly`
+            ).toHaveClass("feedback correct");
           } else if (i === 8)
             await page
               .getByRole("button", {
