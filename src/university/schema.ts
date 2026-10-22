@@ -160,7 +160,8 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-application"; matrix: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; method: "ax" | "xa" }>
   | Readonly<{ kind: "linear-matrix-equation"; mode: "ax-shift"; left: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; shift: Rational }>
   | Readonly<{ kind: "linear-matrix-equation"; mode: "axb"; left: readonly (readonly Rational[])[]; right: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[] }>
-  | Readonly<{ kind: "linear-matrix-equation"; mode: "inverse-plus" | "bx-shift"; left: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; shift: Rational }>
+  | Readonly<{ kind: "linear-matrix-equation"; mode: "inverse-plus"; left: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; shift: Rational }>
+  | Readonly<{ kind: "linear-matrix-equation"; mode: "bx-shift"; left: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; shift: Rational }>
   | Readonly<{ kind: "linear-rank"; matrix: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-capelli"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
