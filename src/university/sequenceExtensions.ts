@@ -119,7 +119,7 @@ function eulerAnswer(q:Rational):AnswerSpec {
   const candidates=[q,add(q,r(1)),sub(q,r(1)),mul(q,r(-1)),r(0)];
   const options=[...new Map(candidates.map(x=>{
     const value=`exp:${key(x)}`;
-    return [value,{value,label:x.numerator===0n?"1":`e^(${f(x)})`}];
+    return [value,{value,label:x.numerator===0n?"1":`e^(${f(x)})`}] as const;
   })).values()];
   return {kind:"choice",value:`exp:${key(q)}`,options};
 }
