@@ -20,10 +20,10 @@
 | MT-EDU-007 | Scalone na main w PR #25; P0–P2 ukończone, P3 częściowo | 16 rodzin / 1224 warianty: P0–P2 oraz kontrolowane badanie wielomianu i funkcji wymiernej; nonsmooth styczne, ogólne funkcje i wykresy pozostają przyszłe |
 | MT-UX-001 | Scalone na main w PR #29 | Wyszukiwanie rodzin PL/EN w całym katalogu, jawny dobór kategorii i poziomu oraz krótsza lista mobilna; bez zmian w 8589 wcześniejszych zadaniach |
 | MT-EDU-008 P0–P2 | Scalone na main w PR #30 | Całki I01–I06: 6 rodzin / 432 warianty; wielomiany, wybrane tablicowe, podstawienie, części, powracające i oznaczone, ograniczony dokładny formularz funkcji pierwotnej |
-| MT-EDU-008 P3 | Przyszły etap | I07 pola między krzywymi i I08 długość łuku wymagają osobnych, w pełni zweryfikowanych generatorów |
+| MT-EDU-008 P3 | Przeniesione do planu MT-EDU-017 | I07 pola między krzywymi i I08 długość łuku wymagają osobnych, w pełni zweryfikowanych generatorów; nie są jeszcze wdrożone |
 | MT-EDU-009 | Scalone w PR #37 | 3 rodziny / 216 wariantów: dwa równania macierzowe 2×2 i gęste wyznaczniki 4×4 oraz 5×5 |
 | MT-EDU-010 | Scalone i opublikowane w PR #39 | 4 rodziny / 384 warianty: potęgi A²/A³, działania złożone, zgodność wymiarów A+B/AB/BA oraz łańcuchy |
-| MT-EDU-011 | Przyszłe, bez priorytetu | Dwie zmienne W01–W03: pochodne cząstkowe, ekstrema, granice i ciągłość |
+| MT-EDU-011 | Zakres przeniesiony do MT-EDU-018 | Dwie zmienne W01–W03: pochodne cząstkowe, gradient, ekstrema, granice i ciągłość; bez ukończonych generatorów |
 | MT-EDU-012 | Scalone na `main` w PR #40 (22.10.2026) | Dwie rodziny / 120 wariantów: samodzielne obliczanie D,D1…D4 Cramera w 3×3 i 4×4, oceniane osobno; bez nowych sprawdzianów |
 | MT-EDU-013 | Plan P0 — bieżące macierze/wyznaczniki UWM | Nietypowe równania macierzowe z arkusza (AX=4X+B, AXB=C, (A+4X)⁻¹=B, 3X+A=BX), rozszerzone działania i łańcuchy równości; tylko poprawne odwracalne przypadki tam, gdzie konieczne |
 | MT-EDU-014 | Plan P1 — układy liniowe UWM | Gauss z pełną parametryzacją i klasyfikacją, zadania z rzędem macierzy i rangą rozszerzoną, Cramer 3×3/4×4 w bardziej różnorodnych strukturach |
