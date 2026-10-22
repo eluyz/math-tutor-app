@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **118 rodzin** i **10389 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **121 rodzin** i **10677 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -228,3 +228,7 @@ W **Układach równań** dostępne są zadania z 1 lub 2 zmiennymi swobodnymi: �
 ### Łańcuchy równości i prostokątne układy (MT-EDU-014 P1)
 
 Dodano 192 warianty w trzech rodzinach. W dziale **Układy równań** można rozwiązać łańcuch pięciu równości (sześciu wyrażeń) z x,y, obliczając tylko wskazaną niewiadomą, oraz sklasyfikować układy 3 równań / 2 niewiadome i 4 / 3 jako mające jedno, zero lub nieskończenie wiele rozwiązań. Każdy przykład zawiera dokładny rachunek i kroki PL/EN; nowy pakiet nie zastępuje P0 rozwiązującego pełną parametryzację Gaussa w wybranych układach kwadratowych.
+
+### MT-EDU-015A — granice ciągów
+
+W **Granicach ciągów** dodano 288 zadań z ilorazów pierwiastków, porównywania szybkości wzrostu dodatnich podstaw wykładniczych oraz przesuniętych granic Eulera i ich iloczynów. W zadaniach z pierwiastkami uczysz się poprawnie wyłączać n²; przy potęgach łączyć identyczne podstawy przed porównaniem; w zadaniach Eulera przechodzić do logarytmu. Odpowiedzi wymierne wpisujesz w polu granicy, a niewymierne e^(q) wskazujesz dokładnie, bez przybliżenia dziesiętnego.

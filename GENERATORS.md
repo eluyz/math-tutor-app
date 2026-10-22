@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **118 rodzin**, **10389 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 101 rodzin wspiera advanced, a 95 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **121 rodzin**, **10677 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 104 rodziny wspierają advanced, a 98 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **101**, L5: **95**.
 
@@ -384,3 +384,15 @@ Zamiast oceniać jedynie „nieskończenie wiele rozwiązań”, formularz wymag
 | system-rectangular-4x3 | advanced, expert | 4 równania / 3 niewiadome; obliczenie RREF i rzędu macierzy rozszerzonej, kontrolowane przypadki wszystkich trzech klas |
 
 Zadania mają dokładne ułamki Rational, PL/EN i objaśnienia z operacjami Gaussa. Łańcuch wymaga wpisania pojedynczego wyniku; pozostałe trzy równości są weryfikowane przez podstawienie. Prostokątne układy wymagają **klasyfikacji**, a w krokach zawierają wyprowadzone wartości dla przypadku jednoznacznego, parametryzację dla nieskończenie wielu rozwiązań lub jawny wiersz sprzeczności. Nie twierdzimy, że aplikacja ocenia pełną parametryzację prostokątnych układów.
+
+## MT-EDU-015A — granice ciągów (P0)
+
+Trzy nowe rodziny, 4 poziomy medium–expert, po 24 odrębne przykłady na każdą parę: **288 wariantów**. Po zmianie: **121 rodzin i 10677 instancji**, w tym 104 rodziny advanced i 98 expert.
+
+| Rodzina | Poziomy | Wynik ucznia |
+| --- | --- | --- |
+| sequence-radical-ratio | medium, hard, advanced, expert | Iloraz dwóch wyrażeń z pierwiastkami kwadratowymi i wyrazami liniowymi, możliwość kasowania wiodącego n |
+| sequence-exponential-ratio | medium, hard, advanced, expert | Dokładna granica ilorazu sum potęg dodatnich podstaw; równe podstawy łączymy przed wyborem dominanty, także ±∞ |
+| sequence-euler-product | medium, hard, advanced, expert | Granice potęg (1+a/(n+b))^(cn+d), także iloczyn dwóch takich potęg, symboliczne e^(q), bez przybliżania e |
+
+Każdy generator jest autorski, z gwarantowanymi dziedzinami i dokładnymi rachunkami Rational. Specyfikacja odpowiedzi to istniejący `limit` albo — dla granic e^(q), które nie są wymierne — kontrolowany wybór symboliczny. Dodatkowe testy pokrywają PL/EN, przypadki skróceń i granice niewłaściwe. Program nie obsługuje wszystkich nieoznaczonych postaci symbolicznych.

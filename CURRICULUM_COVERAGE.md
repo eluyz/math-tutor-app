@@ -29,10 +29,10 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | U07 | Gauss: jedno rozwiązanie | częściowo | `gauss-unique`; 3×3/4×4, zamiana wierszy i podstawienie wsteczne w kontrolowanych układach |
 | U08 | Gauss: parametry i sprzeczność | częściowo | `gauss-classification`, `capelli-matrices`, `gauss-parameters-one`, `gauss-parameters-two`; poza klasyfikacją dodano pełną ocenę stałych i współczynników t1/t2 w rozwiązaniach 3×3/4×4 z 1–2 zmiennymi swobodnymi; nadal brak dowolnych układów prostokątnych i dowolnego symbolicznego zapisu |
 | C01 | Granica wielomianu i ilorazu | pokryte | `sequence-rational` |
-| C02 | Pierwiastek w ilorazie | częściowo | `sequence-conjugate`; tylko wybrane postaci |
+| C02 | Pierwiastek w ilorazie | częściowo | `sequence-conjugate`, `sequence-radical-ratio`; także ilorazy pierwiastków z kwadratami i możliwością skrócenia wyrazów wiodących, bez wszystkich ogólnych radykałów |
 | C03 | Różnica pierwiastków | pokryte | `sequence-conjugate` |
-| C04 | Granice ciągów wykładniczych | częściowo | `sequence-geometric`; bez ogólnych wykładniczych |
-| C05 | Postać Eulera 1^∞ | częściowo | `analysis-euler-sequence`; wybrane dodatnie podstawy 1+t i wymierne wykładniki, bez ogólnej teorii |
+| C04 | Granice ciągów wykładniczych | częściowo | `sequence-geometric`, `sequence-exponential-ratio`; dodatnie różne podstawy, dominacja, równe podstawy i skracanie współczynników; nadal brak dowolnych ciągów wykładniczych |
+| C05 | Postać Eulera 1^∞ | częściowo | `analysis-euler-sequence`, `sequence-euler-product`; przesunięte czynniki (1+a/(n+b))^(cn+d), w tym iloczyny, bez ogólnej teorii |
 | C06 | Pojęcia ciągu, monotoniczność, ograniczoność | teoria | —; zadania z granic nie uczą całej teorii |
 | F01 | Dziedzina: pierwiastek i ułamek | pokryte | `function-domain` |
 | F02 | Dziedzina logarytmu | częściowo | `analysis-log-domain`; dodatni argument liniowy i ilorazowy, dodatkowy warunek pierwiastka/mianownika; nie dowolne złożenia |

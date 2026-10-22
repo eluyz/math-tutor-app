@@ -63,7 +63,7 @@ function audit(p: IntegralProblem, spec: AnswerSpec) {
 describe("MT-EDU-008 exact integral audit", () => {
   it("keeps 8589 old instances and adds only declared integral levels", () => {
     const oldCategories = uiCopy.pl.studyCategories.filter((category) => category.id !== "integrals");
-    const newFamilies = new Set(["matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five", "matrix-powers", "matrix-composite-operations", "matrix-compatibility", "matrix-chained-dimensions", "cramer-determinants-three", "cramer-determinants-four", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift", "gauss-parameters-one", "gauss-parameters-two", "system-chain-five", "system-rectangular-3x2", "system-rectangular-4x3"]);
+    const newFamilies = new Set(["sequence-radical-ratio", "sequence-exponential-ratio", "sequence-euler-product", "matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five", "matrix-powers", "matrix-composite-operations", "matrix-compatibility", "matrix-chained-dimensions", "cramer-determinants-three", "cramer-determinants-four", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift", "gauss-parameters-one", "gauss-parameters-two", "system-chain-five", "system-rectangular-3x2", "system-rectangular-4x3"]);
     const old = [...uiCopy.pl.categories, ...oldCategories].reduce((sum, category) =>
       sum + difficulties.reduce((count, level) => count + taskPool(category.id, level)
         .filter(task => !newFamilies.has(task.templateId)).length, 0), 0);
