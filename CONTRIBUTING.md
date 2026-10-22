@@ -61,7 +61,7 @@ Uruchamiaj nowe audyty, testy wyczerpania pul, sesji/postępów, pełne Vitest/b
 
 Nie rozszerzaj globalnego `matrixShape` ani siatki odpowiedzi na 4×4/5×5 przy dodawaniu wyznaczników. Oddzielny `SquareDeterminantMatrix` ma jedną odpowiedź skalarną. Każda zmiana rozwinięcia Laplace'a wymaga sprawdzenia znaku `(-1)^(i+j)`, poprawnego usunięcia wiersza i kolumny oraz dokładnego wyniku niezależną eliminacją. Sarrus jest dozwolony tylko dla 3×3. W operacjach wierszowych zamiana odwraca znak, skala mnoży det, dodanie wielokrotności innego wiersza go zachowuje. Nie przepisuj wyników generatora do jego audytu.
 
-Fixture `mtedu005-baseline.json` powstał z archiwum scalonego `main` 69452a6. Nie aktualizuj go z gałęzi roboczej dla pozornego zaliczenia regresji; świadoma zmiana dawnej lekcji wymaga osobnego uzasadnienia. Mapa [UWM_COVERAGE.md](UWM_COVERAGE.md) opisuje tematy na podstawie publicznego indeksu Issue #20, bez prywatnych PDF-ów. Przy zmianie zakresu zmieniaj status tylko wtedy, gdy istnieje rzeczywista rodzina generatora i matematyczny audyt. Oryginalne arkusze i dane studentów nie trafiają do repozytorium.
+Fixture `mtedu005-baseline.json` powstał z archiwum scalonego `main` 69452a6. Nie aktualizuj go z gałęzi roboczej dla pozornego zaliczenia regresji; świadoma zmiana dawnej lekcji wymaga osobnego uzasadnienia. Mapa [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md) opisuje tematy na podstawie publicznego indeksu Issue #20, bez prywatnych PDF-ów. Przy zmianie zakresu zmieniaj status tylko wtedy, gdy istnieje rzeczywista rodzina generatora i matematyczny audyt. Oryginalne arkusze i dane studentów nie trafiają do repozytorium.
 
 ## MT-EDU-006B — zmiany solvera
 
