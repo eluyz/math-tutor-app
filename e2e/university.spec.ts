@@ -5,6 +5,22 @@ import { HISTORY_KEY } from "../src/progress/model";
 import { parseAnswer } from "../src/rational";
 import { laplace, m } from "../src/university/audit";
 
+test("normalizes large exact fractions into accepted input strings", () => {
+  const scale = 2n ** 400n;
+  const normalized = fractionText({ numerator: -7n * scale, denominator: scale });
+  expect(normalized).toBe("-7/1");
+  expect(parseAnswer(normalized).kind).toBe("valid");
+  expect(normalized.length).toBeLessThanOrEqual(100);
+  // Exact oversized input observed in an actual failed Chromium session:
+  const reproduced = fractionText({
+    numerator: -503532985986662646037363290021781884115833008947200n,
+    denominator: -149861007734125787511120026792196989320188395520n,
+  });
+  expect(reproduced).toBe("3360/1");
+  expect(parseAnswer(reproduced).kind).toBe("valid");
+  expect(fractionText({ numerator: 0n, denominator: -(2n ** 300n) })).toBe("0/1");
+});
+
 /** Sessions mix all systems families; newer Cramer drills require D and Dᵢ rather than xᵢ. */
 async function fillAnySystem(page: Page) {
   const template = await page.locator(".question").getAttribute("data-template-id");
@@ -270,9 +286,9 @@ for (const width of [375, 768, 1280])
                 .click();
             }
             const templateId = await page.locator(".question").getAttribute("data-template-id");
-            expect(await page.locator(".feedback").getAttribute("class"),
+            await expect(page.locator(".feedback"),
               `Session task ${i}, template=${templateId} should be assessed correctly`
-            ).toBe("feedback correct");
+            ).toHaveClass("feedback correct");
           } else if (i === 8)
             await page
               .getByRole("button", {
