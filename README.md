@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **111 rodzin** i **9909 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **113 rodzin** i **10077 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -216,3 +216,7 @@ Dwie rodziny w **Układach równań**: **Cramer 3×3 — D i D₁–D₃** oraz 
 ### Nowe równania macierzowe (MT-EDU-013 P0)
 
 W katalogu **Macierze** dodano dwie rodziny: **AX = 4X + B** i **AXB = C** dla macierzy 2×2. Zadania zawierają łącznie 168 wariantów, są dostępne w PL/EN na jawnie określonych poziomach i wymagają wpisania pełnej macierzy X. Rozwiązanie krok po kroku objaśnia odejmowanie 4I oraz poprawną kolejność mnożenia przez odwrotności. Pozostałe trudniejsze równania macierzowe należą do następnych etapów.
+
+### Równania macierzowe z odwrotnością i niewiadomą po obu stronach (MT-EDU-013 P1)
+
+W dziale **Macierze** są dodatkowo zadania **(A+4X)⁻¹=B** oraz **3X+A=BX** (2×2), z 168 nowymi wariantami na poziomach od średniego lub trudnego do eksperckiego. Aplikacja sprawdza cztery elementy X i pokazuje dokładne kroki, uzasadnia odwracalność odpowiedniej macierzy oraz kontroluje wynik przez podstawienie. Poziomy są dostępne w PL/EN. Inne rozmiary i dowolne kombinacje macierzowe pozostają poza zakresem.

@@ -12,9 +12,9 @@ const equal=(a:readonly (readonly ReturnType<typeof r>[])[],b:readonly (readonly
   a.length===b.length&&a.every((row,i)=>row.length===b[i].length&&row.every((v,j)=>eq(v,b[i][j])));
 
 describe("MT-EDU-013 P0 matrix equations",()=>{
-  it("generates 168 distinct 2×2 exercises",()=>{
+  it("generates 336 distinct 2×2 exercises",()=>{
     const total=advancedMatrixEquationFamilies.reduce((sum,family)=>sum+family.supportedDifficulties.length*24,0);
-    expect(total).toBe(168);
+    expect(total).toBe(336);
   });
   for(const family of advancedMatrixEquationFamilies)for(const level of family.supportedDifficulties){
     it(`${family.id}/${level}: all exact variants and both locales`,()=>{
@@ -34,10 +34,22 @@ describe("MT-EDU-013 P0 matrix equations",()=>{
           expect(equal(lhs,rhs)).toBe(true);
           const shifted=p.left.map((row,i)=>row.map((value,j)=>i===j?add(value,mul(r(-1),p.shift)):value));
           expect(laplace(shifted).numerator).not.toBe(0n);
-        }else{
+        }else if(p.mode==="axb"){
           expect(laplace(p.left).numerator).not.toBe(0n);
           expect(laplace(p.right).numerator).not.toBe(0n);
           expect(equal(dot(dot(p.left,x),p.right),p.rhs)).toBe(true);
+        }else if(p.mode==="inverse-plus"){
+          expect(laplace(p.rhs).numerator).not.toBe(0n);
+          // Verify the actual inverse relation, not merely a rearranged expression.
+          const original=p.left.map((row,i)=>row.map((v,j)=>add(v,mul(p.shift,x[i][j]))));
+          const identity=[[r(1),r(0)],[r(0),r(1)]];
+          expect(equal(dot(original,p.rhs),identity)).toBe(true);
+          expect(equal(dot(p.rhs,original),identity)).toBe(true);
+        }else{
+          const shifted=p.rhs.map((row,i)=>row.map((v,j)=>i===j?add(v,mul(r(-1),p.shift)):v));
+          expect(laplace(shifted).numerator).not.toBe(0n);
+          const lhs=x.map((row,i)=>row.map((v,j)=>add(mul(p.shift,v),p.left[i][j])));
+          expect(equal(lhs,dot(p.rhs,x))).toBe(true);
         }
         for(const locale of ["pl","en"] as const){
           const t=localizeUniversity(task,locale);

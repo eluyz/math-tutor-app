@@ -200,3 +200,59 @@ for(const en of [false,true])test(`MT-EDU-006B ${en?"EN":"PL"}: all rank classif
   expect(seen).toEqual(new Set(["system-one","system-none","system-many"]));
   expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
 });
+
+
+/** MT-EDU-013 P1: verify both newly added equation forms against visible matrix data. */
+for (const width of [375, 1280]) for (const en of [false, true])
+  test(`MT-EDU-013 P1 ${width}px ${en ? "EN" : "PL"}: inverse-plus and BX-shift`, async ({ page }) => {
+    test.setTimeout(100_000);
+    const errors: string[] = [];
+    page.on("pageerror", e => errors.push(e.message));
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    if (en) await button(page, "English").click();
+    await button(page, en ? "University mathematics" : "Matematyka na studia").click();
+    await button(page, en ? "Matrices" : "Macierze").click();
+
+    // (A+4X)⁻¹=B  =>  X=(B⁻¹−A)/4
+    await button(page, en ? "Hard" : "Trudny").click();
+    await page.getByRole("button", { name: en
+      ? /Matrix equation \(A \+ 4X\)⁻¹ = B/
+      : /Równanie macierzowe \(A \+ 4X\)⁻¹ = B/ }).click();
+    await expect(page.locator(".question")).toHaveAttribute("data-template-id", "matrix-inverse-plus");
+    let A = await shownMatrix(page), B = await shownMatrix(page, 1);
+    const inverseB = inverse(B);
+    const firstAnswer = inverseB.map((row, i) => row.map((value, j) =>
+      d(a(value, m(q(-1), A[i][j])), q(4))));
+    await button(page, en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+    await fillMatrix(page, firstAnswer);
+    await button(page, en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(page, en ? "Show solution" : "Pokaż rozwiązanie").click();
+    await button(page, en ? "Show all steps" : "Pokaż wszystkie kroki").click();
+    await expect(page.locator(".solution-panel")).toContainText("B⁻¹");
+
+    // 3X+A=BX  =>  X=(B−3I)⁻¹A
+    await button(page, en ? "Medium" : "Średni").click();
+    await page.getByRole("button", { name: en
+      ? /Matrix equation 3X \+ A = BX/
+      : /Równanie macierzowe 3X \+ A = BX/ }).click();
+    await expect(page.locator(".question")).toHaveAttribute("data-template-id", "matrix-bx-shift");
+    A = await shownMatrix(page); B = await shownMatrix(page, 1);
+    const shifted = B.map((row, i) => row.map((value, j) => i === j ? a(value, q(-3)) : value));
+    const secondAnswer = multiply(inverse(shifted), A);
+    await fillMatrix(page, secondAnswer);
+    await page.locator("#answer").fill("999999");
+    await button(page, en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+    await page.locator("#answer").fill(fractionText(secondAnswer[0][0]));
+    await button(page, en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(page, en ? "Show solution" : "Pokaż rozwiązanie").click();
+    await button(page, en ? "Show all steps" : "Pokaż wszystkie kroki").click();
+    await expect(page.locator(".solution-panel")).toContainText("B−3I");
+    if (en) expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+    expect(errors).toEqual([]);
+  });

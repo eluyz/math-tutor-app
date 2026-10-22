@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **111 rodzin**, **9909 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 93 rodziny wspierają advanced, a 87 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **113 rodzin**, **10077 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 93 rodziny wspierają advanced, a 87 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **95**, L5: **89**.
+Łącznie rodziny L4: **97**, L5: **91**.
 
 ## Pierwotne rodziny
 
@@ -352,3 +352,12 @@ Ocena wszystkich wyznaczników osobno w czterech albo pięciu polach. Invertowal
 | matrix-axb | hard, advanced, expert | Lewa i prawa odwrotność, kolejność iloczynu A⁻¹CB⁻¹ |
 
 MT-EDU-013 P0: **168** nowych instancji; łącznie **9909**. Nowe rodziny: **2**. Pary rodzina/poziom: **7**. Pozostałe typy równań z MT-EDU-013 są w dalszym zakresie; ten pakiet nie zamyka całego działu.
+
+## MT-EDU-013 P1 — dalsze dwa równania macierzowe 2×2
+
+P1 dodaje **168** nowych wariantów (7 par rodzina/poziom po 24), łącznie **10077 instancji** w **113 rodzinach**. Rodzina `matrix-inverse-plus` rozwiązuje (A+4X)⁻¹=B, wymagając odwracalności B i poprawnego przekształcenia X=(B⁻¹−A)/4. Rodzina `matrix-bx-shift` rozwiązuje 3X+A=BX przez (B−3I)X=A. Wszystkie przykłady są odwracalne z konstrukcji, liczone dokładnie (Rational), z podstawieniem kontrolnym i objaśnieniami PL/EN. Wciąż nie jest to pełne pokrycie wszystkich rozmiarów macierzy i nietypowych przekształceń.
+
+| Rodzina | Poziomy | Zakres |
+| --- | --- | --- |
+| matrix-inverse-plus | hard, advanced, expert | (A+4X)⁻¹=B, odwrotność B, X=(B⁻¹−A)/4 |
+| matrix-bx-shift | medium, hard, advanced, expert | 3X+A=BX, odwrotność (B−3I), kontrola przez podstawienie |
