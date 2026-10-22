@@ -17,5 +17,5 @@ it("the 64-topic coverage map has one valid, evidenced row per Issue #20 code", 
     for (const match of fields[4].matchAll(/`([a-z][a-z0-9-]+)`/g))
       expect(ids.has(match[1]),`${fields[1]} refers to unknown ${match[1]}`).toBe(true);
   }
-  expect(doc).toContain("Nie mieliśmy dostępu do 43 prywatnych PDF-ów");
+  expect(doc).toContain("Pełne pokrycie wymaga weryfikacji każdego typu zadania, rozwiązania i testu.");
 });
