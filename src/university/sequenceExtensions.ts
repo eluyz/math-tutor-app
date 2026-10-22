@@ -24,14 +24,14 @@ function createRoot(v:number,level:Difficulty):Root {
   const remainder=r(1+(v+2)%6,level==="expert"?3:1);
   const mode=v%4;
   const linear=mode===0?mul(r(-1),a):mode===1?sub(r(-1),a):mode===2?r(1):r(-1);
-  const lowerLinear=r(level==="medium"?0:level==="hard"?v%2:level==="advanced"?1:2);
+  const lowerLinear=r(level==="medium"?0:level==="hard"?1:level==="advanced"?2:3,level==="advanced"?2:1);
   return {kind:"sequence-radical-ratio",
     a,b,c,linear,e,offset,remainder,lowerLinear};
 }
 function createExponential(v:number,level:Difficulty):Exponential {
   const bases=[r(3,2),r(2),r(5,2),r(3),r(4),r(5)];
   const dominant=bases[Math.floor(v/4)],lower=div(dominant,r(2));
-  const factor=level==="expert"?2:1;
+  const factor=level==="medium"?1:level==="hard"?2:level==="advanced"?3:4;
   const leading=r(v%5-2||1,factor),small=r(1+v%4,factor);
   const numerator:Term[]=v%4===0
     ?[{coefficient:leading,base:lower},{coefficient:small,base:div(lower,r(2))}]
@@ -48,7 +48,7 @@ function createExponential(v:number,level:Difficulty):Exponential {
 }
 function createEuler(v:number,level:Difficulty):Euler {
   const first={
-    a:r(v%7-3||1,level==="expert"?2:1),
+    a:r(v%7-3||1,level==="hard"||level==="expert"?2:1),
     b:r(3+(v%4)), // n+b>=4 and a>=-3; positive for every n>=1
     c:r((v+1)%5-2||1,level==="advanced"||level==="expert"?2:1),
     d:r(v%3-1),
