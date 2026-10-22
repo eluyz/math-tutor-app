@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **109 rodzin**, **9741 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 93 rodziny wspierają advanced, a 87 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **111 rodzin**, **9909 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 93 rodziny wspierają advanced, a 87 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **93**, L5: **87**.
+Łącznie rodziny L4: **95**, L5: **89**.
 
 ## Pierwotne rodziny
 
@@ -340,3 +340,15 @@ MT-EDU-012: **120** nowych instancji; łącznie **9741**. Nowe rodziny: **2**. P
 | cramer-determinants-four | advanced, expert | D,D1–D4 układów 4×4, Laplace z minorami 3×3 |
 
 Ocena wszystkich wyznaczników osobno w czterech albo pięciu polach. Invertowalna macierz trójkątna bazowa, odwracalne operacje na wierszach, dokładne Rational/BigInt, weryfikacja formułą Leibniza i podstawieniem xᵢ=Dᵢ/D. Przypadki osobliwe pozostają w istniejącym `cramer-four`, bez zmian wcześniejszych 9621 zadań i bez deklaracji zgodności z konkretnymi arkuszami.
+
+
+## MT-EDU-013 P0 — dwie rodziny równań macierzowych 2×2 (PR #43)
+
+168 autorskich wariantów 2×2: 96 z AX=4X+B (medium, hard, advanced, expert) i 72 z AXB=C (hard, advanced, expert). Dla pierwszej rodziny X=(A−4I)⁻¹B; dla drugiej X=A⁻¹CB⁻¹. Odwracalność skonstruowana, nie zakładana bez uzasadnienia, wyniki dokładne (Rational), weryfikowane przez podstawienie. Obie rodziny mają dokładne kroki Gaussa–Jordana, polskie i angielskie wskazówki oraz odpowiedź macierzową.
+
+| Rodzina | Poziomy | Zakres |
+| --- | --- | --- |
+| matrix-ax-shift | medium, hard, advanced, expert | (A−4I)X=B, odejmowanie od przekątnej, odwrotność |
+| matrix-axb | hard, advanced, expert | Lewa i prawa odwrotność, kolejność iloczynu A⁻¹CB⁻¹ |
+
+MT-EDU-013 P0: **168** nowych instancji; łącznie **9909**. Nowe rodziny: **2**. Pary rodzina/poziom: **7**. Pozostałe typy równań z MT-EDU-013 są w dalszym zakresie; ten pakiet nie zamyka całego działu.

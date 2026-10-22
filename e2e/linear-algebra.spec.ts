@@ -73,6 +73,52 @@ for(const width of [375,768,1280])for(const en of [false,true])test(`MT-EDU-006B
 });
 
 const multiply=(A:Rational[][],B:Rational[][])=>A.map(row=>B[0].map((_,j)=>row.map((c,k)=>m(c,B[k][j])).reduce(a,q(0))));
+
+/** Exercise both new equation forms in the browser; use the displayed data as an independent oracle. */
+for (const width of [375,1280]) for (const en of [false,true])
+  test(`MT-EDU-013 P0 ${width}px ${en?"EN":"PL"}: AX=4X+B and AXB=C`,async({page})=>{
+    test.setTimeout(90_000);
+    const errors:string[]=[];
+    page.on("pageerror",e=>errors.push(e.message));
+    await page.setViewportSize({width,height:900});
+    await page.goto("/");
+    if(en)await button(page,"English").click();
+    await button(page,en?"University mathematics":"Matematyka na studia").click();
+    await button(page,en?"Matrices":"Macierze").click();
+    await button(page,en?"Medium":"Średni").click();
+    await page.getByRole("button",{name:en?/Matrix equation AX = 4X \+ B/:/Równanie macierzowe AX = 4X \+ B/}).click();
+    await expect(page.locator(".question")).toHaveAttribute("data-template-id","matrix-ax-shift");
+    let A=await shownMatrix(page),B=await shownMatrix(page,1);
+    expect(A).toHaveLength(2);expect(B).toHaveLength(2);
+    const shifted=A.map((row,i)=>row.map((value,j)=>i===j?a(value,q(-4)):value));
+    const X=multiply(inverse(shifted),B);
+    await button(page,en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+    await fillMatrix(page,X);
+    await page.locator("#answer").fill("999999");
+    await button(page,en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+    await page.locator("#answer").fill(fractionText(X[0][0]));
+    await button(page,en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+    await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+    await expect(page.locator(".solution-panel")).toContainText("A−4I");
+    await button(page,en?"Hard":"Trudny").click();
+    await page.getByRole("button",{name:en?/Matrix equation AXB = C/:/Równanie macierzowe AXB = C/}).click();
+    await expect(page.locator(".question")).toHaveAttribute("data-template-id","matrix-axb");
+    A=await shownMatrix(page); B=await shownMatrix(page,1);
+    const C=await shownMatrix(page,2);
+    await fillMatrix(page,multiply(multiply(inverse(A),C),inverse(B)));
+    await button(page,en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+    await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+    await expect(page.locator(".solution-panel")).toContainText("A⁻¹CB⁻¹");
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
+    expect(errors).toEqual([]);
+  });
+
 for(const width of [375,768,1280])for(const en of [false,true])test(`MT-EDU-006B P3 ${width}px ${en?"EN":"PL"}: XA=B and four-variable Cramer`,async({page})=>{
   test.setTimeout(60_000);
   await page.setViewportSize({width,height:900});await page.goto("/");

@@ -9,6 +9,13 @@ export function LinearAlgebraDisplay({ problem }: { problem: LinearAlgebraProble
       {problem.matrices.map(m => <MatrixDisplay key={m.label} label={m.label} values={m.values} />)}
     </div>
   );
+  if (problem.kind === "linear-matrix-equation") return (
+    <div className="given-matrices linear-algebra-matrices">
+      <MatrixDisplay label="A" values={problem.left} />
+      {problem.mode === "axb" && <MatrixDisplay label="B" values={problem.right} />}
+      <MatrixDisplay label={problem.mode === "ax-shift" ? "B" : "C"} values={problem.rhs} />
+    </div>
+  );
   if (problem.kind === "linear-matrix-pair") return (
     <div className="given-matrices linear-algebra-matrices">
       <MatrixDisplay label="A" values={problem.first} />
