@@ -4,8 +4,7 @@ import { makeUniversityTask, localizeUniversity } from "./catalog";
 import { chainFamilies } from "./chainEqualities";
 import { rectangularFamilies } from "./rectangularSystems";
 import { formatRational as f, assessAnswer, emptyAnswer } from "../answers";
-import { a, s, m, d, eq, q, laplace } from "./audit";
-import type { Rational } from "../rational";
+import { a, s, m, d, eq, laplace } from "./audit";
 import type { ExactMatrix } from "./linearAlgebraMath";
 
 const comb=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>comb(n-i-1,k-1).map(rest=>[i,...rest.map(j=>i+j+1)])).flat();
