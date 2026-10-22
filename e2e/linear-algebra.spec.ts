@@ -1,7 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { a,m,d,eq,laplace,q } from "../src/university/audit";
 import { shownFraction } from "./helpers/functions";
-import { fractionText } from "./helpers/systems";
+import { fractionText, parametricCoefficients } from "./helpers/systems";
 import { polishLearningText } from "./helpers/localization";
 import type { Rational } from "../src/rational";
 const combinations=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>combinations(n-i-1,k-1).map(rest=>[i,...rest.map(j=>j+i+1)])).flat();
@@ -254,5 +254,48 @@ for (const width of [375, 1280]) for (const en of [false, true])
     await expect(page.locator(".solution-panel")).toContainText("B−3I");
     if (en) expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
     expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+    expect(errors).toEqual([]);
+  });
+
+
+for(const width of [375,1280])for(const en of [false,true])
+  test(`MT-EDU-014 P0 ${width}px ${en?"EN":"PL"}: full one/two-parameter Gauss answers`,async({page})=>{
+    test.setTimeout(120_000);
+    const errors:string[]=[];page.on("pageerror",err=>errors.push(err.message));
+    await page.setViewportSize({width,height:950});await page.goto("/");
+    if(en)await button(page,"English").click();
+    await button(page,en?"University mathematics":"Matematyka na studia").click();
+    await button(page,en?"Systems of equations":"Układy równań").click();
+    for(const freeCount of [1,2]){
+      await button(page,freeCount===1?(en?"Hard":"Trudny"):(en?"Advanced":"Zaawansowany")).click();
+      await page.getByRole("button",{name:freeCount===1
+        ?en?/Gauss: full solution with one parameter t1/:/Gauss: pełne rozwiązanie z parametrem t1/
+        :en?/Gauss: full solution with parameters t1 and t2/:/Gauss: pełne rozwiązanie z parametrami t1 i t2/}).click();
+      await expect(page.locator(".question")).toHaveAttribute("data-template-id",
+        freeCount===1?"gauss-parameters-one":"gauss-parameters-two");
+      const augmented=await shownMatrix(page);
+      const solution=parametricCoefficients(augmented);
+      expect(solution.free).toHaveLength(freeCount);
+      const labels=await page.locator(".coefficient-field label").allTextContents();
+      expect(labels).toHaveLength(augmented.length*(freeCount+1));
+      expect(labels.join(" ")).toContain("t1");
+      if(freeCount===2)expect(labels.join(" ")).toContain("t2");
+      await button(page,en?"Check":"Sprawdź").click();
+      await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+      for(let i=0;i<solution.values.length;i++)
+        await page.locator(i===0?"#answer":`#answer-${i}`).fill(fractionText(solution.values[i]));
+      await button(page,en?"Check":"Sprawdź").click();
+      await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+      await page.locator("#answer").fill("987654");
+      await button(page,en?"Check":"Sprawdź").click();
+      await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+      await page.locator("#answer").fill(fractionText(solution.values[0]));
+      await button(page,en?"Check":"Sprawdź").click();
+      await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+      await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+      await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+      await expect(page.locator(".solution-panel")).toContainText("RREF");
+    }
+    expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
     expect(errors).toEqual([]);
   });

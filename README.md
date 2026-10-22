@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **113 rodzin** i **10077 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **115 rodzin** i **10197 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -220,3 +220,7 @@ W katalogu **Macierze** dodano dwie rodziny: **AX = 4X + B** i **AXB = C** dla m
 ### Równania macierzowe z odwrotnością i niewiadomą po obu stronach (MT-EDU-013 P1)
 
 W dziale **Macierze** są dodatkowo zadania **(A+4X)⁻¹=B** oraz **3X+A=BX** (2×2), z 168 nowymi wariantami na poziomach od średniego lub trudnego do eksperckiego. Aplikacja sprawdza cztery elementy X i pokazuje dokładne kroki, uzasadnia odwracalność odpowiedniej macierzy oraz kontroluje wynik przez podstawienie. Poziomy są dostępne w PL/EN. Inne rozmiary i dowolne kombinacje macierzowe pozostają poza zakresem.
+
+### Gauss — kompletna odpowiedź parametryczna (MT-EDU-014 P0)
+
+W **Układach równań** dostępne są zadania z 1 lub 2 zmiennymi swobodnymi: łącznie 120 wariantów 3×3/4×4. Wypełniasz oddzielnie część stałą i każdy współczynnik t1/t2 we wzorach x=c+at1+bt2 itd. W każdej treści wprost wskazano, które zmienne swobodne są równe t1 i t2. Oceniamy całe rozwiązanie, a nie wyłącznie jego liczbę rozwiązań. Postać z innym wyborem parametrów nie jest oceniana; stosuj podaną konwencję. Pozostałe przypadki rozbudowanych układów w MT-EDU-014 są w dalszych planach.

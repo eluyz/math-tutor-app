@@ -27,7 +27,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | U05 | Liczba rozwiązań z podanych rzędów | pokryte | `capelli-given-ranks`; poprawne relacje r(A), r([A|b]), n |
 | U06 | Klasyfikacja przez obliczenie rzędów | częściowo | `capelli-matrices`, `gauss-classification`; jawne 3×3/3×4/4×4, kontrolowane struktury |
 | U07 | Gauss: jedno rozwiązanie | częściowo | `gauss-unique`; 3×3/4×4, zamiana wierszy i podstawienie wsteczne w kontrolowanych układach |
-| U08 | Gauss: parametry i sprzeczność | częściowo | `gauss-classification`, `capelli-matrices`; konkretne wiersze sprzeczne i demonstracja parametrów, formularz ocenia wyłącznie klasę |
+| U08 | Gauss: parametry i sprzeczność | częściowo | `gauss-classification`, `capelli-matrices`, `gauss-parameters-one`, `gauss-parameters-two`; poza klasyfikacją dodano pełną ocenę stałych i współczynników t1/t2 w rozwiązaniach 3×3/4×4 z 1–2 zmiennymi swobodnymi; nadal brak dowolnych układów prostokątnych i dowolnego symbolicznego zapisu |
 | C01 | Granica wielomianu i ilorazu | pokryte | `sequence-rational` |
 | C02 | Pierwiastek w ilorazie | częściowo | `sequence-conjugate`; tylko wybrane postaci |
 | C03 | Różnica pierwiastków | pokryte | `sequence-conjugate` |

@@ -1,4 +1,4 @@
-import type { Page } from "@playwright/test";
+import { expect, type Page } from "@playwright/test";
 import { parseAnswer, rational, type Rational } from "../../src/rational";
 import { a, m, s, d, q, laplace } from "../../src/university/audit";
 const parse = (text: string) => {
@@ -95,4 +95,55 @@ export async function fillSystem(page: Page) {
       )
       .fill(fractionText(answer.values[i]));
   return answer;
+}
+
+
+/** Independent exact RREF oracle for the fixed canonical t1/t2 answer convention.
+ * Normalization after every row operation prevents enormous unreduced fractions. */
+export function parametricCoefficients(augmented: Rational[][]) {
+  const n=augmented[0].length-1;
+  const rows=augmented.map(row=>row.map(v=>rational(v.numerator,v.denominator)));
+  const pivots:number[]=[];
+  const normalize=(v:Rational)=>rational(v.numerator,v.denominator);
+  let lead=0;
+  for(let col=0;col<n && lead<rows.length;col++){
+    const pivotRow=rows.findIndex((row,i)=>i>=lead && row[col].numerator!==0n);
+    if(pivotRow<0)continue;
+    [rows[lead],rows[pivotRow]]=[rows[pivotRow],rows[lead]];
+    const pivot=rows[lead][col];
+    rows[lead]=rows[lead].map(v=>normalize(d(v,pivot)));
+    for(let i=0;i<rows.length;i++)if(i!==lead&&rows[i][col].numerator!==0n){
+      const factor=rows[i][col];
+      rows[i]=rows[i].map((v,j)=>normalize(s(v,m(factor,rows[lead][j]))));
+    }
+    pivots.push(col);lead++;
+  }
+  if(rows.some(row=>row.slice(0,n).every(v=>v.numerator===0n)&&row[n].numerator!==0n))
+    throw Error("Parametric system is inconsistent");
+  const free=Array.from({length:n},(_,j)=>j).filter(j=>!pivots.includes(j));
+  if(free.length<1||free.length>2)throw Error("Expected 1-2 free variables");
+  const coefficients=Array.from({length:n},(_,j)=>{
+    const freeIndex=free.indexOf(j);
+    if(freeIndex>=0)return [q(0),...free.map((_,k)=>q(k===freeIndex?1:0))];
+    const row=pivots.indexOf(j);
+    return [rows[row][n],...free.map(col=>normalize(m(q(-1),rows[row][col])))];
+  });
+  return {values:coefficients.flat(),free};
+}
+export async function fillParametricSystem(page:Page) {
+  const table=page.locator(".linear-algebra-matrices .given-matrix").first();
+  const rows=await Promise.all((await table.locator("tbody tr").all()).map(async row=>
+    (await row.locator("td").allTextContents()).map(parse)));
+  const expected=parametricCoefficients(rows).values.map(fractionText);
+  for(let i=0;i<expected.length;i++){
+    const field=page.locator(i===0?"#answer":`#answer-${i}`);
+    await field.fill(expected[i]);
+    await field.blur();
+    await expect(field).toHaveValue(expected[i]);
+  }
+  const fields=page.locator("form .coefficient-field input");
+  await expect.poll(()=>fields.evaluateAll(nodes=>nodes.map(node=>(node as HTMLInputElement).value)),{
+    message:"All parametric coefficients must survive controlled React updates",
+  }).toEqual(expected);
+  return {classification:"system-many",values:[]};
 }
