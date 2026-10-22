@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **109 rodzin** i **9741 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **111 rodzin** i **9909 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -211,3 +211,8 @@ W dziale **Macierze** są cztery nowe rodziny: **potęgi A²/A³**, **działania
 ### Wyznaczniki pośrednie Cramera (MT-EDU-012)
 
 Dwie rodziny w **Układach równań**: **Cramer 3×3 — D i D₁–D₃** oraz **Cramer 4×4 — D i D₁–D₄**. Samodzielne wpisywanie każdego wyznacznika, a w rozwiązaniu wymiana wskazanej kolumny A na b, minory i znaki Laplace’a. 24 warianty dla każdego obsługiwanego poziomu: 3×3 na trudnym/zaawansowanym/eksperckim, 4×4 na zaawansowanym/eksperckim. Razem 120 wariantów. Układy są nieosobliwe (D≠0); klasyfikacja D=0 pozostaje w istniejących zadaniach. Nie dodano nowego trybu sprawdzianów.
+
+
+### Nowe równania macierzowe (MT-EDU-013 P0)
+
+W katalogu **Macierze** dodano dwie rodziny: **AX = 4X + B** i **AXB = C** dla macierzy 2×2. Zadania zawierają łącznie 168 wariantów, są dostępne w PL/EN na jawnie określonych poziomach i wymagają wpisania pełnej macierzy X. Rozwiązanie krok po kroku objaśnia odejmowanie 4I oraz poprawną kolejność mnożenia przez odwrotności. Pozostałe trudniejsze równania macierzowe należą do następnych etapów.

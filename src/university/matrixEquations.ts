@@ -19,7 +19,7 @@ const plus=(a:ExactMatrix,b:ExactMatrix)=>a.map((row,i)=>row.map((v,j)=>add(v,b[
 /** Constructible 2×2 matrices with nonzero determinant for every variant. */
 function nonsingular(v:number,level:Difficulty):ExactMatrix {
   const upper:ExactMatrix=[
-    [r(level==="expert"?3:2),r(v-11,level==="expert"?2:1)],
+    [r(level==="medium"?1:level==="hard"?2:level==="advanced"?3:4),r(v-11,level==="expert"?2:1)],
     [r(0),r(v%2?-2:3)],
   ];
   const multiple=r((v%3)+1);
