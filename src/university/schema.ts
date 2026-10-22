@@ -163,6 +163,7 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
+  | Readonly<{ kind: "linear-cramer-minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-matrix-pair"; coefficients: readonly [Rational, Rational, Rational, Rational];
       first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-matrix-practice";

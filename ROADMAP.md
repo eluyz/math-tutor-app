@@ -22,8 +22,9 @@
 | MT-EDU-008 P0–P2 | Scalone na main w PR #30 | Całki I01–I06: 6 rodzin / 432 warianty; wielomiany, wybrane tablicowe, podstawienie, części, powracające i oznaczone, ograniczony dokładny formularz funkcji pierwotnej |
 | MT-EDU-008 P3 | Przyszły etap | I07 pola między krzywymi i I08 długość łuku wymagają osobnych, w pełni zweryfikowanych generatorów |
 | MT-EDU-009 | Scalone w PR #37 | 3 rodziny / 216 wariantów: dwa równania macierzowe 2×2 i gęste wyznaczniki 4×4 oraz 5×5 |
-| MT-EDU-010 | Realizowane — przed recenzją i merge | 4 rodziny / 384 warianty: potęgi A²/A³, działania złożone, zgodność wymiarów A+B/AB/BA oraz łańcuchy |
+| MT-EDU-010 | Scalone i opublikowane w PR #39 | 4 rodziny / 384 warianty: potęgi A²/A³, działania złożone, zgodność wymiarów A+B/AB/BA oraz łańcuchy |
 | MT-EDU-011 | Przyszłe, bez priorytetu | Dwie zmienne W01–W03: pochodne cząstkowe, ekstrema, granice i ciągłość |
+| MT-EDU-012 | W trakcie — PR do recenzji | Dwie rodziny / 120 wariantów: obliczanie D,D1… Cramera w 3×3 i 4×4 z oceną rachunków pośrednich; bez nowych sprawdzianów |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
@@ -34,7 +35,7 @@ MathLive i Compute Engine mogą zostać ocenione w późniejszych etapach, gdy p
 
 MT-003B.1 jest pierwszym ograniczonym etapem adaptacji, nie pełnym systemem doboru rodzin. Nie zmienia samoczynnie poziomu ani kategorii. Aktywna sesja istnieje tylko w pamięci karty; trwałe metadane ukończeń dodaje MT-004A.
 
-MT-UX-001 scalono w PR #29, MT-EDU-008 w PR #30, a MT-EDU-009 w PR #37. Po zrealizowaniu MT-EDU-010 katalog będzie zawierał **107 rodzin i 9621 wariantów**. Stare zadania zachowują treść i tożsamość. MT-EDU-007 P3 nadal obejmuje dwie kontrolowane rodziny. Diagnostykę MT-DIAG-001 wdrożono w PR #35. Sprawdziany MT-EXAM-001/002 działają po PR #36, ale **wstrzymujemy rozwój nowych funkcji sprawdzianów**: priorytet to zwiększenie pokrycia matematyki, różnorodność zadań i nauka krokowa.
+MT-UX-001 scalono w PR #29, MT-EDU-008 w PR #30, a MT-EDU-009 w PR #37. MT-EDU-010 jest opublikowany po PR #39 i katalog liczy **107 rodzin oraz 9621 wariantów**. MT-EDU-012 zwiększy katalog do **109 rodzin i 9741 wariantów**, jeśli przejdzie CI, Work i osobną zgodę na merge. Stare zadania zachowują treść i tożsamość. MT-EDU-007 P3 nadal obejmuje dwie kontrolowane rodziny. Diagnostykę MT-DIAG-001 wdrożono w PR #35. Sprawdziany MT-EXAM-001/002 działają po PR #36, ale **wstrzymujemy rozwój nowych funkcji sprawdzianów**: priorytet to zwiększenie pokrycia matematyki, różnorodność zadań i nauka krokowa.
 
 MT-EDU-001 rozszerza treści i typy odpowiedzi, zachowując granice MT-003A.1/MT-003B.1. Nie obejmuje jeszcze Viète'a, macierzy odwrotnej, Cramera, granic, pochodnych ani całek. Zatwierdzenie pakietu wymaga zielonego CI i przeglądu; implementacja lokalna nie oznacza publikacji.
 

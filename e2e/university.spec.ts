@@ -2,6 +2,29 @@ import { test, expect, type Page } from "@playwright/test";
 import { fillSystem, readSystem, fractionText } from "./helpers/systems";
 import { polishLearningText } from "./helpers/localization";
 import { HISTORY_KEY } from "../src/progress/model";
+import { parseAnswer } from "../src/rational";
+import { laplace, m } from "../src/university/audit";
+
+/** Sessions mix all systems families; newer Cramer drills require D and Dᵢ rather than xᵢ. */
+async function fillAnySystem(page: Page) {
+  const template = await page.locator(".question").getAttribute("data-template-id");
+  if (!template?.startsWith("cramer-determinants-")) return fillSystem(page);
+  const { values } = await readSystem(page);
+  const rows = await page.locator(".linear-algebra-matrices .given-matrix").first().locator("tbody tr").all();
+  const augmented = await Promise.all(rows.map(async row =>
+    Promise.all((await row.locator("td").allTextContents()).map(text => {
+      const parsed = parseAnswer(text.trim());
+      if (parsed.kind !== "valid") throw Error("Invalid augmented matrix cell");
+      return parsed.value;
+    }))
+  ));
+  const n = augmented.length;
+  if (values.length !== n) throw Error("Cramer task without unique solution");
+  const D = laplace(augmented.map(row => row.slice(0,n)));
+  await page.locator("#answer").fill(fractionText(D));
+  for (let i=0;i<n;i++) await page.locator(`#answer-${i+1}`).fill(fractionText(m(values[i],D)));
+  return { classification:"system-one", values };
+}
 
 for (const width of [375, 768, 1280])
   test.describe(`University ${width}px`, () => {
@@ -53,7 +76,7 @@ for (const width of [375, 768, 1280])
         await systems(page);
         for (const [level, family] of [
           [en ? "Easy" : "Łatwy", /2×2.*substitution|2×2.*podstawianie/],
-          [en ? "Hard" : "Trudny", /Cramer.*3×3/],
+          [en ? "Hard" : "Trudny", en ? /Cramer\x27s rule — 3×3/ : /Reguła Cramera — 3×3/],
           [
             en ? "Advanced" : "Zaawansowany",
             /2×2.*elimination|2×2.*eliminacja/,
@@ -213,7 +236,7 @@ for (const width of [375, 768, 1280])
           .click();
         for (let i = 0; i < 10; i++) {
           if (i < 8) {
-            await fillSystem(page);
+            await fillAnySystem(page);
             if (i === 1) {
               if (await page.locator("#answer").evaluate((element) => element.tagName === "SELECT")) {
                 const selected = await page.locator("#answer").inputValue();
@@ -227,7 +250,7 @@ for (const width of [375, 768, 1280])
               })
               .click();
             if (i === 1) {
-              await fillSystem(page);
+              await fillAnySystem(page);
               await page
                 .getByRole("button", {
                   name: en ? "Check" : "Sprawdź",
@@ -235,6 +258,10 @@ for (const width of [375, 768, 1280])
                 })
                 .click();
             }
+            const templateId = await page.locator(".question").getAttribute("data-template-id");
+            expect(await page.locator(".feedback").getAttribute("class"),
+              `Session task ${i}, template=${templateId} should be assessed correctly`
+            ).toBe("feedback correct");
           } else if (i === 8)
             await page
               .getByRole("button", {

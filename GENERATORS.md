@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **107 rodzin**, **9621 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 91 rodzin wspiera advanced, a 85 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **109 rodzin**, **9741 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 93 rodziny wspierają advanced, a 87 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **91**, L5: **85**.
+Łącznie rodziny L4: **93**, L5: **87**.
 
 ## Pierwotne rodziny
 
@@ -329,3 +329,14 @@ MT-EDU-010: **384** nowe instancje; łącznie **9621**. Nowe rodziny: **4**. Par
 | matrix-chained-dimensions | medium, hard, advanced, expert | Wykonalność AB+C, A(B+C), A(BC) z analizą krokową |
 
 Nowe rodziny mają dokładne rozwiązania PL/EN i niezależny audyt. Wymiary obejmują macierze o bokach 2 i 3. Bez potęg ujemnych, dowolnych wymiarów ani pełnej algebry symbolicznej. Wcześniejsze 9237 instancji pozostaje niezmienione.
+
+## MT-EDU-012 — wyznaczniki pośrednie Cramera
+
+MT-EDU-012: **120** nowych instancji; łącznie **9741**. Nowe rodziny: **2**. Pary rodzina/poziom: **5**, po 24 warianty.
+
+| Rodzina | Poziomy | Zakres |
+| --- | --- | --- |
+| cramer-determinants-three | hard, advanced, expert | D,D1–D3 układów 3×3, wymiana kolumn i Laplace z minorami 2×2 |
+| cramer-determinants-four | advanced, expert | D,D1–D4 układów 4×4, Laplace z minorami 3×3 |
+
+Ocena wszystkich wyznaczników osobno w czterech albo pięciu polach. Invertowalna macierz trójkątna bazowa, odwracalne operacje na wierszach, dokładne Rational/BigInt, weryfikacja formułą Leibniza i podstawieniem xᵢ=Dᵢ/D. Przypadki osobliwe pozostają w istniejącym `cramer-four`, bez zmian wcześniejszych 9621 zadań i bez deklaracji pokrycia prywatnych arkuszy UWM.

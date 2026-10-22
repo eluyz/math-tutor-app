@@ -193,6 +193,7 @@ export const familyEnglish: Record<string, readonly [string, string, string]> =
     ],
   };
 const fieldLabels: Record<string, string> = {
+  D: "D", D1: "D1", D2: "D2", D3: "D3", D4: "D4",
   "X[1,1]": "X[1,1]", "X[1,2]": "X[1,2]", "X[2,1]": "X[2,1]", "X[2,2]": "X[2,2]",
   "Y[1,1]": "Y[1,1]", "Y[1,2]": "Y[1,2]", "Y[2,1]": "Y[2,1]", "Y[2,2]": "Y[2,2]",
   "max f": "max f", "min f": "min f",
