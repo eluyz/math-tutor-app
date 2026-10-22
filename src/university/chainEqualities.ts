@@ -60,7 +60,7 @@ export function presentChain(p:Problem,locale:Locale){
   lesson.work(`det(A)=(${f(u.a)})(${f(v.b)})−(${f(u.b)})(${f(v.a)})=${f(determinant)} ≠ 0`,
     t("Wyznacznik macierzy współczynników jest niezerowy, więc rozwiązanie jest jednoznaczne.",
       "The coefficient determinant is nonzero, so the solution is unique."));
-  lesson.work(`x=${f(x)}; y=${f(y)}`,
+  lesson.work(t(`Wyniki: x=${f(x)}; y=${f(y)}`,`Results: x=${f(x)}; y=${f(y)}`),
     t("Obliczamy oba wyniki dokładnie metodą Cramera; pytanie może dotyczyć tylko jednej niewiadomej.",
       "Use exact Cramer's rule for both values; the question may request only one unknown."));
   const values=p.expressions.map(e=>evaluate(e,x,y));
