@@ -8,7 +8,7 @@ import type {LimitValue} from "../src/answers";
 
 const btn=(page:Page,name:string)=>page.getByRole("button",{name,exact:true});
 async function checkLimit(page:Page,answer:LimitValue){
- await btn(page,await page.getByRole("button",{name:/^(Check|Sprawdź)$/}).innerText()).click();
+ await page.getByRole("button",{name:/^(Check|Sprawdź)$/}).click();
  await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
  await page.locator("#answer").selectOption(answer.kind);
  if(answer.kind==="finite")await page.locator("#limit-value").fill(fractionText(answer.value));
@@ -52,7 +52,7 @@ function eulerExponent(text:string):Rational {
 }
 for(const width of [375,1280])for(const en of [false,true])
  test(`MT-EDU-015A ${width}px ${en?"EN":"PL"}: radicals, exponentials, Euler`,async({page})=>{
-  test.setTimeout(150_000);
+  test.setTimeout(90_000);
   const errors:string[]=[];page.on("pageerror",e=>errors.push(e.message));
   await page.setViewportSize({width,height:950});await page.goto("/");
   if(en)await btn(page,"English").click();
