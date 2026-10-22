@@ -6,7 +6,7 @@ import { formatRational as f } from "../answers";
 import type { Locale } from "../locales/types";
 import type { Difficulty } from "../difficulty";
 import type { LinearAlgebraProblem, UniversityFamily } from "./schema";
-import { inverse, product, type ExactMatrix } from "./linearAlgebraMath";
+import { identity, inverse, product, type ExactMatrix } from "./linearAlgebraMath";
 import { teaching } from "./teaching";
 
 type Equation = Extract<LinearAlgebraProblem,{kind:"linear-matrix-equation"}>;
@@ -15,6 +15,7 @@ const same=(a:ExactMatrix,b:ExactMatrix)=>a.length===b.length &&
   a.every((row,i)=>row.length===b[i].length&&row.every((value,j)=>equal(value,b[i][j])));
 const scale=(k:Rational,a:ExactMatrix)=>a.map(row=>row.map(v=>mul(k,v)));
 const plus=(a:ExactMatrix,b:ExactMatrix)=>a.map((row,i)=>row.map((v,j)=>add(v,b[i][j])));
+const minus=(a:ExactMatrix,b:ExactMatrix)=>a.map((row,i)=>row.map((v,j)=>sub(v,b[i][j])));
 
 /** Constructible 2×2 matrices with nonzero determinant for every variant. */
 function nonsingular(v:number,level:Difficulty):ExactMatrix {
@@ -39,6 +40,17 @@ function create(v:number,level:Difficulty,mode:Equation["mode"]):Equation {
     const a=p.map((row,i)=>row.map((value,j)=>i===j?add(value,shift):value));
     return {kind:"linear-matrix-equation",mode,left:a,rhs:product(p,x),shift};
   }
+  if(mode==="inverse-plus"){
+    // B is invertible by construction, so X=(B⁻¹−A)/4 exists uniquely.
+    const b=p,inv=inverse(b).value;
+    if(!inv)throw Error("Noninvertible constructed B");
+    return {kind:"linear-matrix-equation",mode,left:minus(inv,scale(r(4),x)),rhs:b,shift:r(4)};
+  }
+  if(mode==="bx-shift"){
+    // B−3I=P and det(P)≠0, so (B−3I)X=A has a unique solution.
+    const b=plus(p,scale(r(3),identity(2)));
+    return {kind:"linear-matrix-equation",mode,left:product(p,x),rhs:b,shift:r(3)};
+  }
   const b=nonsingular((v+7)%24,level);
   return {kind:"linear-matrix-equation",mode,left:p,right:b,rhs:product(product(p,x),b)};
 }
@@ -51,6 +63,14 @@ export const advancedMatrixEquationFamilies: readonly UniversityFamily[]=[
    titles:{pl:"Równanie macierzowe AXB = C",en:"Matrix equation AXB = C"},
    supportedDifficulties:["hard","advanced","expert"],
    create:(v,level)=>create(v,level,"axb")},
+  {id:"matrix-inverse-plus",category:"matrices",
+   titles:{pl:"Równanie macierzowe (A + 4X)⁻¹ = B",en:"Matrix equation (A + 4X)⁻¹ = B"},
+   supportedDifficulties:["hard","advanced","expert"],
+   create:(v,level)=>create(v,level,"inverse-plus")},
+  {id:"matrix-bx-shift",category:"matrices",
+   titles:{pl:"Równanie macierzowe 3X + A = BX",en:"Matrix equation 3X + A = BX"},
+   supportedDifficulties:["medium","hard","advanced","expert"],
+   create:(v,level)=>create(v,level,"bx-shift")},
 ];
 export function presentAdvancedMatrixEquation(p:Equation,locale:Locale){
   const lesson=teaching(locale),{t}=lesson;
@@ -86,6 +106,65 @@ export function presentAdvancedMatrixEquation(p:Equation,locale:Locale){
         "Factor X on the left: (A−4I)X=B."),
       t("Najpierw odejmij 4I, następnie policz odwrotność i pomnóż przez B.",
         "Subtract 4I first, then invert the matrix and multiply by B."));
+  }
+  if(p.mode==="inverse-plus"){
+    const bInverse=inverse(second);
+    if(!bInverse.value)throw Error("B must be invertible");
+    lesson.work(`(A+${f(p.shift)}X)⁻¹=B ⇒ A+${f(p.shift)}X=B⁻¹ ⇒ X=(B⁻¹−A)/${f(p.shift)}`,
+      t("Odwracamy obie strony, a następnie odejmujemy A i dzielimy przez skalar. Nie odwracamy elementów macierzy pojedynczo.",
+        "Invert both sides, then subtract A and divide by the scalar. Do not invert matrix entries one by one."));
+    for(const step of bInverse.reduction.steps)lesson.work(`B: ${step.action}: ${compact(step.matrix)}`,
+      t("Wyznaczamy B⁻¹ przez operacje Gaussa–Jordana.","Find B⁻¹ by Gauss–Jordan row operations."));
+    const difference=minus(bInverse.value,first);
+    const x=scale(r(1,4),difference);
+    lesson.work(`B⁻¹=${compact(bInverse.value)}; B⁻¹−A=${compact(difference)}; X=${compact(x)}`,
+      t("Odejmujemy odpowiednie elementy, następnie dzielimy każdy element przez 4.",
+        "Subtract corresponding entries, then divide each entry by four."));
+    const original=plus(first,scale(p.shift,x));
+    if(!same(product(original,second),identity(2))||!same(product(second,original),identity(2)))
+      throw Error("Failed inverse matrix equation substitution");
+    lesson.work(`(A+${f(p.shift)}X)B=B(A+${f(p.shift)}X)=I`,
+      t("Sprawdzamy oba iloczyny z B, by potwierdzić relację odwrotności.",
+        "Verify both products with B to confirm the inverse relation."));
+    return lesson.finish(
+      t(`Rozwiąż (A + ${f(p.shift)}X)⁻¹ = B dla A=${compact(first)}, B=${compact(second)}. Podaj X.`,
+        `Solve (A + ${f(p.shift)}X)⁻¹ = B for A=${compact(first)}, B=${compact(second)}. Enter X.`),
+      {kind:"matrix",values:x},
+      t("Najpierw odwróć B: A+4X=B⁻¹.",
+        "First invert B: A+4X=B⁻¹."),
+      t("Oblicz X=(B⁻¹−A)/4 i sprawdź, czy (A+4X)B=I.",
+        "Compute X=(B⁻¹−A)/4 and check (A+4X)B=I."));
+  }
+  if(p.mode==="bx-shift"){
+    const reduced=minus(second,scale(p.shift,identity(2)));
+    lesson.work(`${f(p.shift)}X+A=BX ⇒ (B−${f(p.shift)}I)X=A`,
+      t("Wyłączamy X przez odjęcie wielokrotności macierzy jednostkowej od B.",
+        "Factor X by subtracting a multiple of the identity matrix from B."));
+    lesson.work(`B−${f(p.shift)}I=${compact(reduced)}`,
+      t("Odejmujemy 3 tylko od elementów przekątnej B.",
+        "Subtract three only from the diagonal of B."));
+    const inv=inverse(reduced);
+    if(!inv.value)throw Error("B−3I must be invertible");
+    for(const step of inv.reduction.steps)lesson.work(`B−3I: ${step.action}: ${compact(step.matrix)}`,
+      t("Wyznaczamy dokładną macierz odwrotną metodą Gaussa–Jordana.",
+        "Find the exact inverse using Gauss–Jordan elimination."));
+    const x=product(inv.value,first);
+    lesson.work(`(B−${f(p.shift)}I)⁻¹=${compact(inv.value)}; X=${compact(x)}`,
+      t("Mnożymy odwrotność przez A z lewej strony.",
+        "Multiply A by the inverse on the left."));
+    if(!same(plus(scale(p.shift,x),first),product(second,x)))
+      throw Error("Failed BX matrix equation substitution");
+    lesson.work(`${f(p.shift)}X+A=BX=${compact(product(second,x))}`,
+      t("Podstawiamy X do obu stron początkowego równania.",
+        "Substitute X into both sides of the original equation."));
+    return lesson.finish(
+      t(`Rozwiąż ${f(p.shift)}X + A = BX dla A=${compact(first)}, B=${compact(second)}. Podaj X.`,
+        `Solve ${f(p.shift)}X + A = BX for A=${compact(first)}, B=${compact(second)}. Enter X.`),
+      {kind:"matrix",values:x},
+      t("Przekształć równanie do (B−3I)X=A.",
+        "Rewrite the equation as (B−3I)X=A."),
+      t("Policz odwrotność B−3I i pomnóż ją przez A z lewej strony.",
+        "Invert B−3I and multiply A on the left."));
   }
   const b=p.right;
   const ia=inverse(first),ib=inverse(b);

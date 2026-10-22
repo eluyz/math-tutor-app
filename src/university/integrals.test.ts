@@ -63,7 +63,7 @@ function audit(p: IntegralProblem, spec: AnswerSpec) {
 describe("MT-EDU-008 exact integral audit", () => {
   it("keeps 8589 old instances and adds only declared integral levels", () => {
     const oldCategories = uiCopy.pl.studyCategories.filter((category) => category.id !== "integrals");
-    const newFamilies = new Set(["matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five", "matrix-powers", "matrix-composite-operations", "matrix-compatibility", "matrix-chained-dimensions", "cramer-determinants-three", "cramer-determinants-four", "matrix-ax-shift", "matrix-axb"]);
+    const newFamilies = new Set(["matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five", "matrix-powers", "matrix-composite-operations", "matrix-compatibility", "matrix-chained-dimensions", "cramer-determinants-three", "cramer-determinants-four", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift"]);
     const old = [...uiCopy.pl.categories, ...oldCategories].reduce((sum, category) =>
       sum + difficulties.reduce((count, level) => count + taskPool(category.id, level)
         .filter(task => !newFamilies.has(task.templateId)).length, 0), 0);

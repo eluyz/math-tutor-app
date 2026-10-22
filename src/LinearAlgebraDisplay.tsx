@@ -13,7 +13,7 @@ export function LinearAlgebraDisplay({ problem }: { problem: LinearAlgebraProble
     <div className="given-matrices linear-algebra-matrices">
       <MatrixDisplay label="A" values={problem.left} />
       {problem.mode === "axb" && <MatrixDisplay label="B" values={problem.right} />}
-      <MatrixDisplay label={problem.mode === "ax-shift" ? "B" : "C"} values={problem.rhs} />
+      <MatrixDisplay label={problem.mode === "axb" ? "C" : "B"} values={problem.rhs} />
     </div>
   );
   if (problem.kind === "linear-matrix-pair") return (
