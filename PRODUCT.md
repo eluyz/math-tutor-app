@@ -40,7 +40,7 @@ Siedem rodzin macierzowych uczy wymiaru, indeksów od 1, dodawania, odejmowania,
 
 Przed odpowiedzią dostępna jest wskazówka „Jak zacząć”; po błędzie stopniowe podpowiedzi, po poprawnej odpowiedzi pełne kroki. Formularz nie podaje z góry liczby pierwiastków: użytkownik sam wybiera przypadek, a następnie wpisuje wartości, bez znaczenia kolejności. Niekompletny lub niepoprawnie zapisany formularz jest nieważną próbą. Te same wyniki correct/incorrect/invalid sterują dotychczasowymi statystykami i sugestią poziomu sesji.
 
-To samodzielnie opracowane materiały do nauki, nie oficjalny kurs UWM ani ocena umiejętności. Nowe rodziny bez uzasadnionej reguły pokazują neutralną nieustaloną przyczynę. Zachowano tryb swobodny w jednej rodzinie, sesje i reset formularzy. Nie ma backendu, trwałego zapisu, nowych zależności, zaokrąglania wyników ani swobodnego parsera wyrażeń. Viète, macierz odwrotna, Cramer i analiza matematyczna pozostają poza tym pakietem.
+To samodzielnie opracowane materiały do nauki matematyki, niezależne od konkretnej instytucji, a nie formalna ocena umiejętności. Nowe rodziny bez uzasadnionej reguły pokazują neutralną nieustaloną przyczynę. Zachowano tryb swobodny w jednej rodzinie, sesje i reset formularzy. Nie ma backendu, trwałego zapisu, nowych zależności, zaokrąglania wyników ani swobodnego parsera wyrażeń. Viète, macierz odwrotna, Cramer i analiza matematyczna pozostają poza tym pakietem.
 
 ## MT-EDU-002A — brudnopis i dostępne rozwiązania
 
@@ -105,13 +105,13 @@ Pełne PL/EN, sesje, pierwsza ważna samodzielna ocena, pominięcia i podglądy,
 
 Cztery nowe rodziny uczą wyboru wygodnego wiersza/kolumny Laplace'a, poprawnych znaków dopełnień, rozwinięcia 5→4→3 i reguł operacji wierszowych. Zadania z proporcjonalnymi wierszami wyjaśniają zero bez niepotrzebnego rachunku. W rodzinie operacji wierszowych macierz wejściowa jest zwykle gęsta; ekspert wymaga zarówno odwrócenia zamiany, jak i skali. Wszystkie odpowiedzi są pojedynczym dokładnym skalarem. Każdy etap zawiera autorskie uzasadnienie PL/EN, a dotychczasowe sesje, postępy i brudnopis działają bez migracji.
 
-W [UWM_COVERAGE.md](UWM_COVERAGE.md) 64 kody służą jedynie do wstępnego porównania tematów z generatorami. Brak prywatnych oryginałów ogranicza wnioski o faktycznych arkuszach. Math Tutor pozostaje ogólną aplikacją edukacyjną. M09–M11 obejmują kontrolowane struktury, a nie wszystkie możliwe 4×4/5×5; pełna algebra macierzy, całki i wielowymiarowa analiza są odłożone zgodnie z roadmapą. Nie publikujemy materiałów uczelni ani danych użytkownika.
+W [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md) 64 kody służą jedynie do wstępnego porównania tematów z generatorami. Brak prywatnych oryginałów ogranicza wnioski o faktycznych arkuszach. Math Tutor pozostaje ogólną aplikacją edukacyjną. M09–M11 obejmują kontrolowane struktury, a nie wszystkie możliwe 4×4/5×5; pełna algebra macierzy, całki i wielowymiarowa analiza są odłożone zgodnie z roadmapą. Nie publikujemy materiałów uczelni ani danych użytkownika.
 
 ## MT-EDU-006B — uczelniana algebra liniowa
 
 Uczeń może ćwiczyć macierze odwrotne 2×2/3×3 i sprawdzić, kiedy odwrotność nie istnieje. W równaniach macierzowych ćwiczy poprawną kolejność mnożenia `AX=B → X=A⁻¹B`. Rząd 2×3, 3×3 i 3×4 jest pokazywany przez rzeczywiste operacje wierszowe. Kronecker–Capelli zestawia `rank(A)`, `rank([A|b])` i liczbę niewiadomych. Gauss 3×3/4×4 obejmuje jedno rozwiązanie, sprzeczność i nieskończenie wiele rozwiązań; zadania klasyfikacyjne pokazują parametry, ale formularz ocenia tylko klasę, ponieważ równoważne wzory symboliczne nie są parsowane.
 
-Warianty są dostępne tylko na zadeklarowanych poziomach. P0–P2 dodają 9 rodzin i 624 warianty, a opcjonalne częściowe P3 dalsze 2 rodziny i 96 wariantów; katalog liczy 78 rodzin i 7365 instancji, z zachowaniem 6645 poprzednich. Nauka, wskazówki i uzasadnienia działają po polsku i angielsku; sesje, lokalna historia i brudnopis zachowują dotychczasową semantykę. Cramer 4 niewiadome i `XA=B` są wdrożone; układ dwóch równań macierzowych pozostaje przyszły. Materiały nie są oficjalnymi arkuszami UWM; nie mieliśmy dostępu do 43 prywatnych PDF-ów.
+Warianty są dostępne tylko na zadeklarowanych poziomach. P0–P2 dodają 9 rodzin i 624 warianty, a opcjonalne częściowe P3 dalsze 2 rodziny i 96 wariantów; katalog liczy 78 rodzin i 7365 instancji, z zachowaniem 6645 poprzednich. Nauka, wskazówki i uzasadnienia działają po polsku i angielsku; sesje, lokalna historia i brudnopis zachowują dotychczasową semantykę. Cramer 4 niewiadome i `XA=B` są wdrożone; układ dwóch równań macierzowych pozostaje przyszły. Materiały nie są oficjalnymi arkuszami konkretnej uczelni; nie mieliśmy dostępu do 43 prywatnych PDF-ów.
 
 ## MT-EDU-007 P0–P1 — funkcje elementarne i asymptoty
 
@@ -131,7 +131,7 @@ Oddzielny ekran pozwala złożyć sprawdzian z jednej lub kilku kategorii na jed
 
 Podczas sprawdzianu uczeń może przechodzić między zadaniami, wracać i poprawiać odpowiedzi. Nie widzi ocen, podpowiedzi, poprawnego wyniku ani rozwiązania. Czas jest liczony od Start do rzeczywistego terminu; po nim próba jest oddawana automatycznie. Ręczne oddanie ostrzega o pustych odpowiedziach. Po oddaniu wynik odróżnia poprawne, matematycznie błędne, nieprawidłowo zapisane i pominięte zadania. Każda poprawna odpowiedź daje jeden punkt; pozostałe dają zero. Przegląd pokazuje własny zapis i poprawny wynik, a kroki rozwiązania można odsłonić dodatkowo bez zmiany punktacji.
 
-Wersjonowana lokalna historia obejmuje najwyżej 50 ukończonych sprawdzianów i nie miesza się z historią sesji nauki. Zapisuje wyłącznie metadane zakresu, czasu i wyniku; nie zapisuje odpowiedzi ani brudnopisu. Niedokończona próba znika po odświeżeniu, o czym ekran uprzedza. Wynik nie jest oficjalną oceną UWM ani pełną diagnozą pomyłek. Szczegółowa diagnostyka MT-DIAG-001 i wybór pojedynczych rodzin są osobnymi przyszłymi etapami.
+Wersjonowana lokalna historia obejmuje najwyżej 50 ukończonych sprawdzianów i nie miesza się z historią sesji nauki. Zapisuje wyłącznie metadane zakresu, czasu i wyniku; nie zapisuje odpowiedzi ani brudnopisu. Niedokończona próba znika po odświeżeniu, o czym ekran uprzedza. Wynik nie jest oficjalną oceną konkretnej uczelni ani pełną diagnozą pomyłek. Szczegółowa diagnostyka MT-DIAG-001 i wybór pojedynczych rodzin są osobnymi przyszłymi etapami.
 
 ## MT-DIAG-001 — świadoma, ograniczona analiza błędów
 

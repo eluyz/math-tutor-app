@@ -460,7 +460,6 @@ export default function App() {
               {a.study}
             </button>
           </div>
-          {studying && <p className="input-help">{a.disclaimer}</p>}
           <div
             className="category-picker"
             role="group"

@@ -51,8 +51,6 @@ const pl = {
     groups: "Działy nauki",
     basic: "Powtórka podstaw",
     study: "Matematyka na studia",
-    disclaimer:
-      "Autorskie materiały do samodzielnej nauki. Nie są oficjalnymi materiałami UWM.",
     categoryLabel: "Kategorie ćwiczeń",
     difficultyLabel: "Poziom trudności",
     startSession: "Rozpocznij sesję (10 zadań)",
@@ -303,8 +301,6 @@ const en: UiCopy = {
     groups: "Study sections",
     basic: "Review the basics",
     study: "University mathematics",
-    disclaimer:
-      "Original materials for independent study. These are not official UWM materials.",
     categoryLabel: "Exercise categories",
     difficultyLabel: "Difficulty level",
     startSession: "Start a session (10 exercises)",

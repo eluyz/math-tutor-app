@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **109 rodzin** i **9741 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie; nie są oficjalnymi materiałami ani pełnym programem UWM.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **109 rodzin** i **9741 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -157,7 +157,7 @@ Po MT-EDU-006A katalog zawierał **67 rodzin** i **6645 instancji**. Ten etap do
 
 Wybierz **Matematyka na studia → Wyznaczniki**. Macierz 4×4 lub 5×5 jest czytelną tabelą; odpowiedź to jedna dokładna liczba lub ułamek. Kolejne kroki pokazują wybrany wiersz lub kolumnę, numerowany minor, znak `(-1)^(i+j)`, rachunek 3×3 metodą Sarrusa **tylko dla minora 3×3**, a przy redukcji każdą operację, zmianę znaku lub czynnika i iloczyn przekątnej. Można rozwinąć po innym wierszu/kolumnie; wynik jest ten sam. Zmiana języka nie losuje nowej macierzy ani nie kasuje odpowiedzi, kroków lub brudnopisu.
 
-Mapa [64 kompetencji z indeksu Issue #20](UWM_COVERAGE.md) rozróżnia pełne i częściowe pokrycie oraz luki. Jest wstępna: prywatnych 43 PDF-ów nie udostępniono w repozytorium i nie twierdzimy, że porównaliśmy oryginalne pytania. Po MT-EDU-006A wdrożono macierze odwrotne, Cramera dla 4 zmiennych i eliminację Gaussa w MT-EDU-006B, a wybrane zagadnienia log/exp w MT-EDU-007. Pola między krzywymi, długość łuku i funkcje dwóch zmiennych pozostają w [ROADMAP.md](ROADMAP.md). Nie dodano backendu ani nowych zależności. Automatyczne testy interfejsu używają Chromium; fizyczny iPhone/iPad Safari wymaga osobnego testu ręcznego.
+Mapa [64 kompetencji z indeksu Issue #20](CURRICULUM_COVERAGE.md) rozróżnia pełne i częściowe pokrycie oraz luki. Jest wstępna: prywatnych 43 PDF-ów nie udostępniono w repozytorium i nie twierdzimy, że porównaliśmy oryginalne pytania. Po MT-EDU-006A wdrożono macierze odwrotne, Cramera dla 4 zmiennych i eliminację Gaussa w MT-EDU-006B, a wybrane zagadnienia log/exp w MT-EDU-007. Pola między krzywymi, długość łuku i funkcje dwóch zmiennych pozostają w [ROADMAP.md](ROADMAP.md). Nie dodano backendu ani nowych zależności. Automatyczne testy interfejsu używają Chromium; fizyczny iPhone/iPad Safari wymaga osobnego testu ręcznego.
 
 ### English
 
@@ -167,7 +167,7 @@ Choose **University mathematics → Determinants** for authored 4×4/5×5 tasks.
 
 Jedenaście autorskich rodzin dodało **720 instancji** do zachowanych 6645: po MT-EDU-006B katalog miał **78 rodzin** i **7365 instancji** w 13 kategoriach. Macierz odwrotną 2×2/3×3 obliczamy dokładnie metodą Gaussa–Jordana; osobny wybór rozpoznaje macierze osobliwe. Równanie `AX=B` wymaga właściwej kolejności `X=A⁻¹B` i sprawdzenia przez mnożenie. Rząd macierzy prostokątnych i kwadratowych wynika z konkretnych operacji wierszowych. Układy 3×3/4×4 mają eliminację i podstawienie wsteczne, a osobne zadania klasyfikacyjne pokazują sprzeczność albo parametry swobodne bez oceniania dowolnego tekstu symbolicznego. Wszystkie odpowiedzi używają dokładnych ułamków.
 
-Każda wspierana para rodzina/poziom ma 24 odrębne zadania i autorskie rozwiązania PL/EN. Testy niezależnie porównują odwrotności z dopełnieniami, rzędy z minorami i rozwiązania z podstawieniem oraz wyznacznikami. Zrzut z opublikowanego `main` po PR #21 chroni wszystkie 6645 wcześniejszych lekcji PL/EN. Szczegóły zakresu i ograniczeń są w [GENERATORS.md](GENERATORS.md) oraz [UWM_COVERAGE.md](UWM_COVERAGE.md). Opcjonalne P3 dodało regułę Cramera dla czterech niewiadomych i równanie `XA=B`; układ dwóch równań macierzowych pozostaje do dalszego etapu. Test fizycznego Safari nie został wykonany w chmurze.
+Każda wspierana para rodzina/poziom ma 24 odrębne zadania i autorskie rozwiązania PL/EN. Testy niezależnie porównują odwrotności z dopełnieniami, rzędy z minorami i rozwiązania z podstawieniem oraz wyznacznikami. Zrzut z opublikowanego `main` po PR #21 chroni wszystkie 6645 wcześniejszych lekcji PL/EN. Szczegóły zakresu i ograniczeń są w [GENERATORS.md](GENERATORS.md) oraz [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md). Opcjonalne P3 dodało regułę Cramera dla czterech niewiadomych i równanie `XA=B`; układ dwóch równań macierzowych pozostaje do dalszego etapu. Test fizycznego Safari nie został wykonany w chmurze.
 
 ## MT-EDU-008 — całki (P0–P2)
 
@@ -181,7 +181,7 @@ The indefinite-integral form asks for exact coefficients of displayed antideriva
 
 Otwórz **Sprawdzian / Exam** w nawigacji. Wybierz jedną lub więcej kategorii, jeden dostępny poziom, 5/10/20 zadań i brak limitu albo 15/30 minut. Aplikacja sprawdza dostępność puli i losuje różne treści, rozkładając je między wybrane kategorie oraz rodziny. Nie zmienia poziomu bez decyzji użytkownika. W trakcie sprawdzianu można wracać do zadań i poprawiać odpowiedzi; zapisują się w pamięci karty przy wpisywaniu. Podpowiedzi, oceny i rozwiązania nie są wtedy dostępne. Brudnopis można używać bez podglądu wyniku. **Odświeżenie strony resetuje niedokończony sprawdzian.**
 
-Po ręcznym potwierdzeniu oddania lub po upływie czasu widzisz wynik: 1 punkt za całe poprawne zadanie, 0 za błędne, nieprawidłowo zapisane lub pominięte. Te przypadki są liczone osobno. Przegląd pokazuje własną odpowiedź, prawidłowy wynik i opcjonalnie odsłaniane kroki rozwiązania. Późniejsze otwarcie kroków nie zmienia wyniku. To sprawdzian ćwiczeniowy Math Tutor, bez ocen szkolnych i bez deklaracji zgodności z oficjalną punktacją UWM.
+Po ręcznym potwierdzeniu oddania lub po upływie czasu widzisz wynik: 1 punkt za całe poprawne zadanie, 0 za błędne, nieprawidłowo zapisane lub pominięte. Te przypadki są liczone osobno. Przegląd pokazuje własną odpowiedź, prawidłowy wynik i opcjonalnie odsłaniane kroki rozwiązania. Późniejsze otwarcie kroków nie zmienia wyniku. To sprawdzian ćwiczeniowy Math Tutor, bez ocen szkolnych i bez deklaracji zgodności z zasadami oceniania konkretnej instytucji.
 
 Metadane maksymalnie 50 ukończonych sprawdzianów są zapisane lokalnie pod osobnym wersjonowanym kluczem. Historia sesji nauki pozostaje oddzielna; odpowiedzi i notatki ze sprawdzianu nie są przechowywane po odświeżeniu. Historię sprawdzianów można usunąć po potwierdzeniu. Przy niedostępnym lub nieznanym zapisie aplikacja nie nadpisuje istniejących danych. Brak backendu, kont i telemetrii. Diagnostyka MT-DIAG-001, wybór pojedynczych rodzin i fizyczny test Safari pozostają poza tym PR.
 
@@ -198,11 +198,11 @@ Wybrane rodziny mają autorskie pytanie o krok pośredni; dodatkowe dokładnie o
 
 - **Układ dwóch równań macierzowych:** nowa rodzina `matrix-coupled-equations` z niezależnymi 2×2 macierzami X i Y; osiem dokładnych pól odpowiedzi, eliminacja z kontrolą D≠0 i podstawieniem do obu równań. Poziomy Średni/Trudny/Zaawansowany/Ekspert.
 - **Wyznaczniki 4×4 i 5×5 bez zer:** `determinant-dense-four` i `determinant-dense-five`; pełne rozwinięcie Laplace'a, poprawne znaki/minory, dokładne odpowiedzi i warianty ze zróżnicowanymi wartościami. Nie nadpisują wcześniejszych rodzin z zerami i operacjami wierszowymi.
-- Nowe pytania PL/EN, szczegółowe rozwiązania, niezależne testy z dokładnymi liczbami wymiernymi. Nadal nie jest to replika prywatnych materiałów UWM ani dowód pokrycia wszystkich rodzajów zadań. Nie zmieniamy punktacji ani historii.
+- Nowe pytania PL/EN, szczegółowe rozwiązania, niezależne testy z dokładnymi liczbami wymiernymi. Nie są to repliki materiałów zewnętrznych ani dowód pokrycia wszystkich rodzajów zadań. Nie zmieniamy punktacji ani historii.
 
 ### Sprawdzian z wybranych rodzin (MT-EXAM-002)
 
-W trybie **Sprawdzian / Exam** możesz ograniczyć zakres do konkretnych rodzin (np. Sarrus 3×3, Cramer 3×3, Laplace 4×4) oraz zaznaczyć kilka poziomów trudności jednocześnie. Bez ograniczenia do rodzin zachowane jest dotychczasowe zachowanie. Losowanie równoważy kategorie i pary rodzina/poziom oraz wyklucza duplikaty treści. Zbyt wąski albo nieprawidłowy zakres blokuje start, bez cichej zmiany poziomu. Historia pozostaje lokalna: zapisuje faktycznie wybrane poziomy, nie zapisuje odpowiedzi. Wersje PL/EN i limit 5/10/20 zadań pozostają bez zmian. Nie jest to oficjalny arkusz UWM.
+W trybie **Sprawdzian / Exam** możesz ograniczyć zakres do konkretnych rodzin (np. Sarrus 3×3, Cramer 3×3, Laplace 4×4) oraz zaznaczyć kilka poziomów trudności jednocześnie. Bez ograniczenia do rodzin zachowane jest dotychczasowe zachowanie. Losowanie równoważy kategorie i pary rodzina/poziom oraz wyklucza duplikaty treści. Zbyt wąski albo nieprawidłowy zakres blokuje start, bez cichej zmiany poziomu. Historia pozostaje lokalna: zapisuje faktycznie wybrane poziomy, nie zapisuje odpowiedzi. Wersje PL/EN i limit 5/10/20 zadań pozostają bez zmian. Nie jest to oficjalny arkusz żadnej instytucji.
 
 ### Rozszerzony trening macierzy (MT-EDU-010)
 

@@ -21,8 +21,19 @@ async function fillAnySystem(page: Page) {
   const n = augmented.length;
   if (values.length !== n) throw Error("Cramer task without unique solution");
   const D = laplace(augmented.map(row => row.slice(0,n)));
-  await page.locator("#answer").fill(fractionText(D));
-  for (let i=0;i<n;i++) await page.locator(`#answer-${i+1}`).fill(fractionText(m(values[i],D)));
+  const expectedFields = [fractionText(D), ...values.map(value => fractionText(m(value,D)))];
+  // Commit each React-controlled field before filling the next one.
+  // A rapid sequence of synthetic fills must not overwrite a previous answer.
+  for (let i = 0; i < expectedFields.length; i++) {
+    const field = page.locator(i === 0 ? "#answer" : `#answer-${i}`);
+    await field.fill(expectedFields[i]);
+    await field.blur();
+    await expect(field).toHaveValue(expectedFields[i]);
+  }
+  const fields = page.locator("form .coefficient-field input");
+  await expect.poll(() => fields.evaluateAll(nodes => nodes.map(node => (node as HTMLInputElement).value)), {
+    message: "All Cramer determinant fields must retain the entered values",
+  }).toEqual(expectedFields);
   return { classification:"system-one", values };
 }
 
