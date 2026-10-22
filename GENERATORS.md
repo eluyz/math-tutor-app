@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **115 rodzin**, **10197 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. Po 99 rodzin wspiera advanced, a 93 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **118 rodzin**, **10389 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 101 rodzin wspiera advanced, a 95 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **99**, L5: **93**.
+Łącznie rodziny L4: **101**, L5: **95**.
 
 ## Pierwotne rodziny
 
@@ -372,3 +372,15 @@ Dwie autorskie rodziny, **120 instancji** w pięciu parach rodzina/poziom (po 24
 | gauss-parameters-two | advanced, expert | Układ 4×4 o rzędzie n−2; pełna postać z t1 i t2 |
 
 Zamiast oceniać jedynie „nieskończenie wiele rozwiązań”, formularz wymaga **osobno stałej i każdego współczynnika parametrów** dla każdej zmiennej, w ustalonej konwencji: pierwsza swobodna zmienna od lewej to t1, druga to t2. Odpowiedź przyjmuje dokładne ułamki i ocenia całą rodzinę, nie tylko jeden wektor szczególny. Macierze budowane z niezależnych wierszy oraz kombinacji liniowych gwarantują spójność i wymaganą liczbę stopni swobody; operacje Gaussa i kontrola każdego współczynnika w oryginalnym Ax=b są dokładne. PL/EN. Inne parametryzacje równoważne po zmianie podstawy nie są oceniane; wymagamy jawnie podanej normalizacji zmiennych swobodnych.
+
+## MT-EDU-014 P1 — łańcuchy równości i układy prostokątne
+
+**3 rodziny i 192 nowe warianty** (8 par rodzina/poziom × 24). Katalog po P1: **118 rodzin / 10389 instancji**, w tym **101 rodzin na poziomie advanced** i **95 na expert**.
+
+| Rodzina | Poziomy | Cel |
+| --- | --- | --- |
+| system-chain-five | medium, hard, advanced, expert | Pięć równych wyrażeń wymiernych w x,y; dwa niezależne równania; żądana jest tylko wskazana niewiadoma x lub y |
+| system-rectangular-3x2 | medium, hard | 3 równania / 2 niewiadome; przypadki dokładnie jednego, żadnego i nieskończenie wielu rozwiązań, uzasadnione rzędem |
+| system-rectangular-4x3 | advanced, expert | 4 równania / 3 niewiadome; obliczenie RREF i rzędu macierzy rozszerzonej, kontrolowane przypadki wszystkich trzech klas |
+
+Zadania mają dokładne ułamki Rational, PL/EN i objaśnienia z operacjami Gaussa. Łańcuch wymaga wpisania pojedynczego wyniku; pozostałe trzy równości są weryfikowane przez podstawienie. Prostokątne układy wymagają **klasyfikacji**, a w krokach zawierają wyprowadzone wartości dla przypadku jednoznacznego, parametryzację dla nieskończenie wielu rozwiązań lub jawny wiersz sprzeczności. Nie twierdzimy, że aplikacja ocenia pełną parametryzację prostokątnych układów.

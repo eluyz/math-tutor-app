@@ -26,7 +26,7 @@
 | MT-EDU-011 | Zakres przeniesiony do MT-EDU-018 | Dwie zmienne W01–W03: pochodne cząstkowe, gradient, ekstrema, granice i ciągłość; bez ukończonych generatorów |
 | MT-EDU-012 | Scalone na `main` w PR #40 (22.10.2026) | Dwie rodziny / 120 wariantów: samodzielne obliczanie D,D1…D4 Cramera w 3×3 i 4×4, oceniane osobno; bez nowych sprawdzianów |
 | MT-EDU-013 | P0 i P1 opublikowane (#43, #44), w zakresie 2×2 | Cztery autorskie rodziny równań 2×2: AX=4X+B, AXB=C, (A+4X)⁻¹=B i 3X+A=BX (336 wariantów). Nadal brak ogólnych większych rozmiarów i dodatkowych typów przekształceń |
-| MT-EDU-014 | P0 w PR — rozwiązania parametryczne metodą Gaussa | Dwie rodziny z jedną albo dwiema zmiennymi swobodnymi; pełna ocena wszystkich współczynników, nie tylko klasyfikacji. Pozostają zróżnicowane układy prostokątne, łańcuch równości, bardziej złożone rzędy i Cramer |
+| MT-EDU-014 | P0 opublikowane (#45), P1 w osobnym PR | P0: pełna ocena stałych i współczynników parametryzacji Gaussa. P1: łańcuch pięciu równości dla x/y oraz układy prostokątne 3×2 i 4×3 klasyfikowane przez rzędy (192 warianty). Pozostają układy o dowolnych rozmiarach, pełne wpisywanie odpowiedzi parametrycznych w układach prostokątnych i bardziej złożony Cramer |
 | MT-EDU-015 | Plan P2 — ciągi i funkcje podstawowe | Poszerzenie granic z pierwiastkami/potęgami/Eulerem; dziedziny z funkcją tg i łączonymi warunkami; parzystość, odwrotność i interpretacja prostych wykresów |
 | MT-EDU-016 | Plan P3 — granice i pochodna jednej zmiennej | Szersze asymptoty i granice jednostronne, pochodne trygonometryczne/złożone i ilorazy symboliczne, punkty bez pochodnej, pełne badanie funkcji i szkice |
 | MT-EDU-017 | Plan P4 — całki i zastosowania | Uzupełnienie tablicowych/podstawienia/przez części; oznaczone z exp/ln/trig; pola między krzywymi z podziałem przedziału (I07) i długość łuku (I08) |
@@ -46,7 +46,7 @@
 | Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |
 | 1. Macierze i wyznaczniki | Działania, potęgi A²/A³, transpozycja, wyznaczniki 2×2–5×5, odwrotność 2×2/3×3, rząd, AX=B, XA=B i kontrolowany układ równań macierzowych; w PR P1 także (A+4X)⁻¹=B i 3X+A=BX dla 2×2 | Po zatwierdzeniu P1: dalsze rozmiary i kombinacje równań; inne strategie wyznaczników |
-| 2. Układy równań | Cramer 2×2/3×3/4×4, osobno D i D_i (PR #40), Gauss, Kronecker–Capelli, klasyfikacja liczby rozwiązań | Pełne wpisywanie rozwiązania parametrycznego, łańcuch pięciu równości, zróżnicowane układy prostokątne i trudniejsze przypadki |
+| 2. Układy równań | Cramer 2×2/3×3/4×4, D i D_i, Gauss i klasyfikacja; P0 pełna parametryzacja wybranych 3×3/4×4; P1 pięć równych wyrażeń i klasyfikacja prostokątnych 3×2/4×3 | Dalsze prostokątne rozmiary, wyprowadzanie parametrów w tych układach przez ucznia, trudniejsze przypadki rang i Cramera |
 | 3. Granice ciągów | Ilorazy wielomianów, różnica pierwiastków/sprzężenie, geometryczne, wybrane formy Eulera | Większa różnorodność pierwiastków i funkcji wykładniczych, porównywanie wzrostu, rozpoznanie monotoniczności/ograniczoności |
 | 4. Funkcje: podstawy | Dziedzina pierwiastka/ilorazu/logarytmu, moduł, złożenie, wybrane równania i nierówności exp/log | Odczytywanie własności z wykresu, parzystość, odwrotność, dziedzina tg, pełniejsze przecięcia warunków |
 | 5. Granice funkcji | Granice w punkcie i jednostronne, 0/0, sprzężenie, w nieskończoności, wybrane asymptoty, Euler | Rozszerzenie klas zadań, szersze granice i asymptoty, ciągłość jako osobny typ sprawdzenia |

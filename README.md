@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **115 rodzin** i **10197 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **118 rodzin** i **10389 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -224,3 +224,7 @@ W dziale **Macierze** są dodatkowo zadania **(A+4X)⁻¹=B** oraz **3X+A=BX** (
 ### Gauss — kompletna odpowiedź parametryczna (MT-EDU-014 P0)
 
 W **Układach równań** dostępne są zadania z 1 lub 2 zmiennymi swobodnymi: łącznie 120 wariantów 3×3/4×4. Wypełniasz oddzielnie część stałą i każdy współczynnik t1/t2 we wzorach x=c+at1+bt2 itd. W każdej treści wprost wskazano, które zmienne swobodne są równe t1 i t2. Oceniamy całe rozwiązanie, a nie wyłącznie jego liczbę rozwiązań. Postać z innym wyborem parametrów nie jest oceniana; stosuj podaną konwencję. Pozostałe przypadki rozbudowanych układów w MT-EDU-014 są w dalszych planach.
+
+### Łańcuchy równości i prostokątne układy (MT-EDU-014 P1)
+
+Dodano 192 warianty w trzech rodzinach. W dziale **Układy równań** można rozwiązać łańcuch pięciu równych wyrażeń z x,y, obliczając tylko wskazaną niewiadomą, oraz sklasyfikować układy 3 równań / 2 niewiadome i 4 / 3 jako mające jedno, zero lub nieskończenie wiele rozwiązań. Każdy przykład zawiera dokładny rachunek i kroki PL/EN; nowy pakiet nie zastępuje P0 rozwiązującego pełną parametryzację Gaussa w wybranych układach kwadratowych.
