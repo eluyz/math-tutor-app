@@ -1,7 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { a,m,d,eq,laplace,q } from "../src/university/audit";
 import { shownFraction } from "./helpers/functions";
-import { fractionText, parametricCoefficients, readChain, readSystem } from "./helpers/systems";
+import { fractionText, parametricCoefficients, readChain } from "./helpers/systems";
 import { polishLearningText } from "./helpers/localization";
 import type { Rational } from "../src/rational";
 const combinations=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>combinations(n-i-1,k-1).map(rest=>[i,...rest.map(j=>j+i+1)])).flat();
