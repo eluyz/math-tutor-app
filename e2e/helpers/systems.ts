@@ -30,7 +30,7 @@ export async function readSystem(page: Page) {
     const rhs = matrix.map(row => row[n]);
     const rankA = referenceRank(coefficients), rankAugmented = referenceRank(matrix);
     const classification = rankA < rankAugmented ? "system-none" : rankA === n ? "system-one" : "system-many";
-    const determinant = classification === "system-one" ? laplace(coefficients) : null;
+    const determinant = classification === "system-one" && coefficients.length === n ? laplace(coefficients) : null;
     return { classification, values: determinant ? Array.from({ length: n }, (_, column) =>
       d(laplace(coefficients.map((row, i) => row.map((v, j) => j === column ? rhs[i] : v))), determinant)) : [] };
   }
@@ -146,4 +146,28 @@ export async function fillParametricSystem(page:Page) {
     message:"All parametric coefficients must survive controlled React updates",
   }).toEqual(expected);
   return {classification:"system-many",values:[]};
+}
+
+
+/** Solve a displayed 5-expression equality chain independently of production solver. */
+export function readChain(question:string) {
+  const entries=[...question.matchAll(/\(\(([^()]+)\)·x \+ \(([^()]+)\)·y \+ \(([^()]+)\)\)\/\(([^()]+)\)/g)]
+    .map(match=>({a:parse(match[1]),b:parse(match[2]),c:parse(match[3]),den:parse(match[4])}));
+  if(entries.length!==5)throw Error("Expected exactly five rendered equal expressions");
+  const first=entries[0];
+  const difference=(right:typeof first)=>({
+    a:s(d(first.a,first.den),d(right.a,right.den)),
+    b:s(d(first.b,first.den),d(right.b,right.den)),
+    rhs:s(d(right.c,right.den),d(first.c,first.den)),
+  });
+  const u=difference(entries[1]),v=difference(entries[2]);
+  const determinant=s(m(u.a,v.b),m(u.b,v.a));
+  if(determinant.numerator===0n)throw Error("Ambiguous equality chain");
+  const x=d(s(m(u.rhs,v.b),m(u.b,v.rhs)),determinant);
+  const y=d(s(m(u.a,v.rhs),m(u.rhs,v.a)),determinant);
+  const values=entries.map(e=>d(a(a(m(e.a,x),m(e.b,y)),e.c),e.den));
+  if(values.some(z=>z.numerator*values[0].denominator!==values[0].numerator*z.denominator))
+    throw Error("Unverified remaining chain equalities");
+  const target=/^(?:Oblicz|Find) x\b/.test(question)?"x":"y";
+  return {x,y,target,answer:target==="x"?x:y};
 }

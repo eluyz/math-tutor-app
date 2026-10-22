@@ -8,7 +8,6 @@ import { a, s, m, d, eq, q, laplace } from "./audit";
 import type { Rational } from "../rational";
 import type { ExactMatrix } from "./linearAlgebraMath";
 
-const sum=(v:readonly Rational[])=>v.reduce(a,q(0));
 const comb=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>comb(n-i-1,k-1).map(rest=>[i,...rest.map(j=>i+j+1)])).flat();
 function independentRank(A:ExactMatrix):number{
   for(let k=Math.min(A.length,A[0].length);k>=1;k--)
