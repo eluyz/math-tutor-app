@@ -227,4 +227,4 @@ W **Układach równań** dostępne są zadania z 1 lub 2 zmiennymi swobodnymi: �
 
 ### Łańcuchy równości i prostokątne układy (MT-EDU-014 P1)
 
-Dodano 192 warianty w trzech rodzinach. W dziale **Układy równań** można rozwiązać łańcuch pięciu równych wyrażeń z x,y, obliczając tylko wskazaną niewiadomą, oraz sklasyfikować układy 3 równań / 2 niewiadome i 4 / 3 jako mające jedno, zero lub nieskończenie wiele rozwiązań. Każdy przykład zawiera dokładny rachunek i kroki PL/EN; nowy pakiet nie zastępuje P0 rozwiązującego pełną parametryzację Gaussa w wybranych układach kwadratowych.
+Dodano 192 warianty w trzech rodzinach. W dziale **Układy równań** można rozwiązać łańcuch pięciu równości (sześciu wyrażeń) z x,y, obliczając tylko wskazaną niewiadomą, oraz sklasyfikować układy 3 równań / 2 niewiadome i 4 / 3 jako mające jedno, zero lub nieskończenie wiele rozwiązań. Każdy przykład zawiera dokładny rachunek i kroki PL/EN; nowy pakiet nie zastępuje P0 rozwiązującego pełną parametryzację Gaussa w wybranych układach kwadratowych.

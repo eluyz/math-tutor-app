@@ -27,7 +27,7 @@ describe("MT-EDU-014 P1 five-expression equality chains",()=>{
       const task=makeUniversityTask("system-chain-five",v,level),p=task.university;
       if(p.kind!=="linear-chain-five")throw Error("Incorrect kind");
       seen.add(task.contentKey);
-      expect(p.expressions).toHaveLength(5);
+      expect(p.expressions).toHaveLength(6);
       const e0=p.expressions[0],e1=p.expressions[1],e2=p.expressions[2];
       const first={
         a:s(d(e0.a,e0.denominator),d(e1.a,e1.denominator)),
@@ -49,8 +49,8 @@ describe("MT-EDU-014 P1 five-expression equality chains",()=>{
         expect(answer.kind).toBe("scalar");
         if(answer.kind!=="scalar")throw Error("Expected requested scalar");
         expect(eq(answer.value,p.target==="x"?x:y)).toBe(true);
-        expect(lesson.question.match(/·x/g)?.length).toBe(5);
-        expect(lesson.question.match(/·y/g)?.length).toBe(5);
+        expect(lesson.question.match(/·x/g)?.length).toBe(6);
+        expect(lesson.question.match(/·y/g)?.length).toBe(6);
         expect(lesson.solution!.length).toBeGreaterThan(4);
         expect(assessAnswer(answer,f(answer.value)).kind).toBe("correct");
         expect(assessAnswer(answer,"999999").kind).toBe("incorrect");

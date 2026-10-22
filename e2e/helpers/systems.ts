@@ -153,7 +153,7 @@ export async function fillParametricSystem(page:Page) {
 export function readChain(question:string) {
   const entries=[...question.matchAll(/\(\(([^()]+)\)·x \+ \(([^()]+)\)·y \+ \(([^()]+)\)\)\/\(([^()]+)\)/g)]
     .map(match=>({a:parse(match[1]),b:parse(match[2]),c:parse(match[3]),den:parse(match[4])}));
-  if(entries.length!==5)throw Error("Expected exactly five rendered equal expressions");
+  if(entries.length!==6)throw Error("Expected exactly six expressions with five equalities");
   const first=entries[0];
   const difference=(right:typeof first)=>({
     a:s(d(first.a,first.den),d(right.a,right.den)),

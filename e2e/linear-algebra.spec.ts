@@ -312,7 +312,7 @@ for(const width of [375,1280])for(const en of [false,true])
     await button(page,en?"Systems of equations":"Układy równań").click();
 
     await button(page,en?"Medium":"Średni").click();
-    await page.getByRole("button",{name:en?/Chain of five equal expressions/:/Łańcuch pięciu równych wyrażeń/}).click();
+    await page.getByRole("button",{name:en?/Chain of five equalities/:/Łańcuch pięciu równości/}).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id","system-chain-five");
     const solved=readChain(await page.locator(".question").innerText());
     await button(page,en?"Check":"Sprawdź").click();
@@ -325,7 +325,7 @@ for(const width of [375,1280])for(const en of [false,true])
     await expect(page.locator(".feedback")).toHaveClass("feedback correct");
     await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
     await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
-    await expect(page.locator(".solution-panel")).toContainText("E5=");
+    await expect(page.locator(".solution-panel")).toContainText("E6=");
 
     for(const [level,id,title] of [
       [en?"Medium":"Średni","system-rectangular-3x2",en?/Rectangular system: 3 equations/:/Układ prostokątny 3 równania/],

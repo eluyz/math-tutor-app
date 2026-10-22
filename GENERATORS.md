@@ -379,7 +379,7 @@ Zamiast oceniać jedynie „nieskończenie wiele rozwiązań”, formularz wymag
 
 | Rodzina | Poziomy | Cel |
 | --- | --- | --- |
-| system-chain-five | medium, hard, advanced, expert | Pięć równych wyrażeń wymiernych w x,y; dwa niezależne równania; żądana jest tylko wskazana niewiadoma x lub y |
+| system-chain-five | medium, hard, advanced, expert | Pięć znaków równości między sześcioma wyrażeniami wymiernymi w x,y; dwa niezależne równania; żądana jest tylko wskazana niewiadoma x lub y |
 | system-rectangular-3x2 | medium, hard | 3 równania / 2 niewiadome; przypadki dokładnie jednego, żadnego i nieskończenie wielu rozwiązań, uzasadnione rzędem |
 | system-rectangular-4x3 | advanced, expert | 4 równania / 3 niewiadome; obliczenie RREF i rzędu macierzy rozszerzonej, kontrolowane przypadki wszystkich trzech klas |
 
