@@ -49,7 +49,9 @@ describe("MT-EDU-015A 288 cases",()=>{
   it(`${family.id}/${level}: exact reference, 24 unique tasks, PL/EN`,()=>{
    const seen=new Set<string>(),kinds=new Set<string>();
    for(let v=0;v<24;v++){
-    const task=makeUniversityTask(family.id,v,level),answer=reference(task.university);
+    const task=makeUniversityTask(family.id,v,level);
+    if(task.university.kind!=="sequence-radical-ratio"&&task.university.kind!=="sequence-exponential-ratio"&&task.university.kind!=="sequence-euler-product")throw Error("Wrong generator family");
+    const answer=reference(task.university);
     seen.add(task.contentKey);
     for(const locale of ["pl","en"] as const){
      const local=localizeUniversity(task,locale);
