@@ -1,7 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
-import { a,m,d,s,eq,laplace,q } from "../src/university/audit";
+import { a,m,d,eq,laplace,q } from "../src/university/audit";
 import { shownFraction } from "./helpers/functions";
-import { fractionText } from "./helpers/systems";
+import { fractionText, parametricCoefficients } from "./helpers/systems";
 import { polishLearningText } from "./helpers/localization";
 import type { Rational } from "../src/rational";
 const combinations=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>combinations(n-i-1,k-1).map(rest=>[i,...rest.map(j=>j+i+1)])).flat();
@@ -257,35 +257,6 @@ for (const width of [375, 1280]) for (const en of [false, true])
     expect(errors).toEqual([]);
   });
 
-
-/** Independent exact Gauss–Jordan oracle from the augmented matrix displayed to the student. */
-function parametricCoefficients(augmented:Rational[][]) {
-  const n=augmented[0].length-1,rows=augmented.map(row=>[...row]),pivots:number[]=[];
-  const normal=(v:Rational)=>q(v.numerator,v.denominator); // normalized for input by fractionText
-  let lead=0;
-  for(let col=0;col<n&&lead<rows.length;col++) {
-    const row=rows.findIndex((values,i)=>i>=lead&&values[col].numerator!==0n);
-    if(row<0)continue;
-    [rows[lead],rows[row]]=[rows[row],rows[lead]];
-    const pivot=rows[lead][col];
-    rows[lead]=rows[lead].map(value=>d(value,pivot));
-    for(let i=0;i<rows.length;i++)if(i!==lead&&rows[i][col].numerator!==0n){
-      const factor=rows[i][col];
-      rows[i]=rows[i].map((value,j)=>s(value,m(factor,rows[lead][j])));
-    }
-    pivots.push(col);lead++;
-  }
-  const free=Array.from({length:n},(_,i)=>i).filter(i=>!pivots.includes(i));
-  if(rows.some(row=>row.slice(0,n).every(x=>x.numerator===0n)&&row[n].numerator!==0n))
-    throw Error("Unexpected inconsistent system");
-  const coefficients=Array.from({length:n},(_,j)=>{
-    const k=free.indexOf(j);
-    if(k>=0)return [q(0),...free.map((_,i)=>q(i===k?1:0))];
-    const row=pivots.indexOf(j);
-    return [rows[row][n],...free.map(col=>m(q(-1),rows[row][col]))];
-  });
-  return {values:coefficients.flat().map(normal),free};
-}
 
 for(const width of [375,1280])for(const en of [false,true])
   test(`MT-EDU-014 P0 ${width}px ${en?"EN":"PL"}: full one/two-parameter Gauss answers`,async({page})=>{

@@ -1,5 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
-import { fillSystem, readSystem, fractionText } from "./helpers/systems";
+import { fillSystem, readSystem, fractionText, fillParametricSystem } from "./helpers/systems";
 import { polishLearningText } from "./helpers/localization";
 import { HISTORY_KEY } from "../src/progress/model";
 import { parseAnswer } from "../src/rational";
@@ -24,6 +24,7 @@ test("normalizes large exact fractions into accepted input strings", () => {
 /** Sessions mix all systems families; newer Cramer drills require D and Dᵢ rather than xᵢ. */
 async function fillAnySystem(page: Page) {
   const template = await page.locator(".question").getAttribute("data-template-id");
+  if (template?.startsWith("gauss-parameters-")) return fillParametricSystem(page);
   if (!template?.startsWith("cramer-determinants-")) return fillSystem(page);
   const { values } = await readSystem(page);
   const rows = await page.locator(".linear-algebra-matrices .given-matrix").first().locator("tbody tr").all();
