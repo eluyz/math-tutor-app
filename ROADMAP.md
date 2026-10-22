@@ -14,7 +14,7 @@
 | MT-004A | Moje postępy i składany brudnopis — scalone i opublikowane w PR #15 | Lokalna historia do 200 ukończeń, dashboard PL/EN, jawne mianowniki, filtry, eksport JSON i potwierdzone kasowanie; zwinięty brudnopis bez utraty Undo/Redo |
 | MT-EDU-004 P0–P3 | Scalone i opublikowane w PR #17 | Kolejność brudnopisu; układy, funkcje i granice ciągów: 16 nowych rodzin, 1728 wariantów, pełne PL/EN |
 | MT-EDU-005 P0/P1 | Scalone w PR #19 | Granice funkcji i pochodne: 12 rodzin, 1152 wariantów; łącznie 63 rodziny i 6381 wariantów |
-| MT-EDU-006A | Scalone na main w PR #21 | Wstępna [mapa 64 kompetencji](UWM_COVERAGE.md); autorskie Laplace 4×4/5×5, operacje wierszowe i własności wyznaczników |
+| MT-EDU-006A | Scalone na main w PR #21 | Wstępna [mapa 64 kompetencji](CURRICULUM_COVERAGE.md); autorskie Laplace 4×4/5×5, operacje wierszowe i własności wyznaczników |
 | MT-EDU-006B P0–P2 | Implementacja Issue #22 do recenzji | Odwrotności 2×2/3×3, AX=B, rząd macierzy, Capelli oraz Gauss 3×3/4×4: 9 rodzin, 624 instancje |
 | MT-EDU-006B P3 | Wdrożone na `main` (uzupełnione przez PR #37) | Cramer 4×4 i XA=B oraz układ dwóch równań macierzowych dla X i Y w kontrolowanym wariancie 2×2 |
 | MT-EDU-007 | Scalone na main w PR #25; P0–P2 ukończone, P3 częściowo | 16 rodzin / 1224 warianty: P0–P2 oraz kontrolowane badanie wielomianu i funkcji wymiernej; nonsmooth styczne, ogólne funkcje i wykresy pozostają przyszłe |
@@ -25,8 +25,8 @@
 | MT-EDU-010 | Scalone i opublikowane w PR #39 | 4 rodziny / 384 warianty: potęgi A²/A³, działania złożone, zgodność wymiarów A+B/AB/BA oraz łańcuchy |
 | MT-EDU-011 | Zakres przeniesiony do MT-EDU-018 | Dwie zmienne W01–W03: pochodne cząstkowe, gradient, ekstrema, granice i ciągłość; bez ukończonych generatorów |
 | MT-EDU-012 | Scalone na `main` w PR #40 (22.10.2026) | Dwie rodziny / 120 wariantów: samodzielne obliczanie D,D1…D4 Cramera w 3×3 i 4×4, oceniane osobno; bez nowych sprawdzianów |
-| MT-EDU-013 | Plan P0 — bieżące macierze/wyznaczniki UWM | Nietypowe równania macierzowe z arkusza (AX=4X+B, AXB=C, (A+4X)⁻¹=B, 3X+A=BX), rozszerzone działania i łańcuchy równości; tylko poprawne odwracalne przypadki tam, gdzie konieczne |
-| MT-EDU-014 | Plan P1 — układy liniowe UWM | Gauss z pełną parametryzacją i klasyfikacją, zadania z rzędem macierzy i rangą rozszerzoną, Cramer 3×3/4×4 w bardziej różnorodnych strukturach |
+| MT-EDU-013 | Plan P0 — rozszerzone równania macierzowe | Nietypowe równania macierzowe z arkusza (AX=4X+B, AXB=C, (A+4X)⁻¹=B, 3X+A=BX), rozszerzone działania i łańcuchy równości; tylko poprawne odwracalne przypadki tam, gdzie konieczne |
+| MT-EDU-014 | Plan P1 — rozbudowane układy liniowe | Gauss z pełną parametryzacją i klasyfikacją, zadania z rzędem macierzy i rangą rozszerzoną, Cramer 3×3/4×4 w bardziej różnorodnych strukturach |
 | MT-EDU-015 | Plan P2 — ciągi i funkcje podstawowe | Poszerzenie granic z pierwiastkami/potęgami/Eulerem; dziedziny z funkcją tg i łączonymi warunkami; parzystość, odwrotność i interpretacja prostych wykresów |
 | MT-EDU-016 | Plan P3 — granice i pochodna jednej zmiennej | Szersze asymptoty i granice jednostronne, pochodne trygonometryczne/złożone i ilorazy symboliczne, punkty bez pochodnej, pełne badanie funkcji i szkice |
 | MT-EDU-017 | Plan P4 — całki i zastosowania | Uzupełnienie tablicowych/podstawienia/przez części; oznaczone z exp/ln/trig; pola między krzywymi z podziałem przedziału (I07) i długość łuku (I08) |
@@ -37,22 +37,25 @@
 | MT-004B / MT-004C | Możliwe kolejne etapy — poza tym PR | Dobrowolna powtórka słabszych tematów, bezpieczny import lub dalsze funkcje po osobnej decyzji |
 | MT-005 | Pilotaż | Testy użyteczności z dorosłymi uczącymi się, poprawki treści i dostępności |
 
-## Audyt UWM 2026Z — zakres semestru a aplikacja (22.10.2026)
+## Audyt pokrycia programu matematyki — 8 działów (22.10.2026)
 
-**Podstawa:** oficjalny sylabus matematyki UWM dla ekonomii niestacjonarnej 2026Z (37N1O-MAT), prywatny audyt 43 uczelnianych PDF-ów / 221 stron (wykłady, zadania, odpowiedzi) oraz bieżąca [mapa 64 kompetencji](UWM_COVERAGE.md) i generatory Math Tutor po PR #40. Dostępny audyt jest opracowaniem materiałów, nie importem oryginalnych PDF-ów do repozytorium. Mapowanie do uczelnianych poleceń jest **robocze**, a nie gwarancją pokrycia każdej wejściówki lub egzaminu. Nie kopiować prywatnych arkuszy, prezentacji ani kluczy do publicznego repozytorium; pisać własne równoważne zadania i niezależnie przeliczać odpowiedzi.
+**Zakres:** osiem działów matematyki: macierze i wyznaczniki, układy równań, granice ciągów, podstawy funkcji, granice funkcji, pochodne, całki oraz funkcje dwóch zmiennych. Punktem odniesienia jest pełna lista umiejętności i typów zadań potrzebnych na kursie matematyki. Zestawienie jest robocze: opisuje aktualną implementację, a nie gwarancję gotowości do dowolnego egzaminu. Generatory i objaśnienia muszą być autorskie; nie kopiujemy zewnętrznych arkuszy ani kluczy odpowiedzi.
 
 **Stan mapy 64 kompetencji:** 15 „pokryte”, 41 „częściowo”, 6 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Aktualny katalog: **109 rodzin / 9741 wariantów**.
 
-| Dział z materiałów UWM | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
+| Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |
 | 1. Macierze i wyznaczniki | Działania, potęgi A²/A³, transpozycja, wyznaczniki 2×2–5×5, odwrotność 2×2/3×3, rząd, AX=B, XA=B i kontrolowany układ równań macierzowych | Równania AX=4X+B, AXB=C, (A+4X)⁻¹=B, 3X+A=BX; dalsze rozmiary, kombinacje operacji i strategii wyznaczników |
 | 2. Układy równań | Cramer 2×2/3×3/4×4, osobno D i D_i (PR #40), Gauss, Kronecker–Capelli, klasyfikacja liczby rozwiązań | Pełne wpisywanie rozwiązania parametrycznego, łańcuch pięciu równości, zróżnicowane układy prostokątne i trudniejsze przypadki |
 | 3. Granice ciągów | Ilorazy wielomianów, różnica pierwiastków/sprzężenie, geometryczne, wybrane formy Eulera | Większa różnorodność pierwiastków i funkcji wykładniczych, porównywanie wzrostu, rozpoznanie monotoniczności/ograniczoności |
 | 4. Funkcje: podstawy | Dziedzina pierwiastka/ilorazu/logarytmu, moduł, złożenie, wybrane równania i nierówności exp/log | Odczytywanie własności z wykresu, parzystość, odwrotność, dziedzina tg, pełniejsze przecięcia warunków |
-| 5. Granice funkcji | Granice w punkcie i jednostronne, 0/0, sprzężenie, w nieskończoności, wybrane asymptoty, Euler | Rozszerzenie klas zadań z arkuszy, szersze granice i asymptoty, ciągłość jako osobny typ sprawdzenia |
+| 5. Granice funkcji | Granice w punkcie i jednostronne, 0/0, sprzężenie, w nieskończoności, wybrane asymptoty, Euler | Rozszerzenie klas zadań, szersze granice i asymptoty, ciągłość jako osobny typ sprawdzenia |
 | 6. Pochodna | Wzory, iloczyn/łańcuch, wybrane ilorazy w punkcie, ln/exp, L’Hospital, monotoniczność, ekstrema, wypukłość/przegięcia, kontrolowane badanie wielomianu/wymiernej | Pochodne trig i pełniejsze symboliczne ilorazy, brak pochodnej w punkcie, rysowanie/odczyt szkicu, pełne badanie i ekstrema globalne w innych klasach |
 | 7. Całki | Wielomian/tablicowe, kontrolowane podstawienie, części, powracające, oznaczone dla wielomianów | Szerzej exp/ln/trig i części wielokrotne; **brak generatorów pól między krzywymi i długości łuku** |
 | 8. Funkcje dwóch zmiennych | Brak dedykowanych rodzin W01–W03 | **Pochodne cząstkowe/mieszane, gradient, punkty stacjonarne, Hessian/ekstrema, podstawowe granice/ciągłość 2D** |
+
+### Cel: kompletne pokrycie programu — bez specjalnego trybu
+Każdy z ośmiu działów musi mieć wszystkie wymagane typy zadań w zwykłym katalogu, także zadania wieloetapowe. Sama obecność nazwy tematu, opisu teorii lub jednego łatwego wariantu nie oznacza pokrycia. Mapa kompetencji jest listą kontrolną: **każda pozycja ma osiągnąć status „pokryte”** albo otrzymać jawne uzasadnienie, dlaczego jest wyłącznie teoretyczna. Weryfikujemy podtypy, poziomy trudności, kompletność rozwiązania krok po kroku, równoważne warianty PL/EN, poprawność oceniania, brak duplikatów oraz niezależne testy. Ostatnim etapem jest przegląd braków po MT-EDU-018 i domknięcie wszystkich wykrytych luk, nawet jeżeli wymagają dodatkowych pakietów.
 
 ### Kolejność wdrażania: MT-EDU-013 → MT-EDU-018
 
@@ -63,7 +66,7 @@
 5. **P4 / MT-EDU-017 — ukończyć całki:** najpierw braki w metodach, potem dedykowane generatory I07 i I08 z niezależnie policzonymi polami/łukami.
 6. **P5 / MT-EDU-018 — funkcje dwóch zmiennych:** rozdzielić pochodne cząstkowe/mieszane od ekstremów, wyraźnie obsłużyć przypadek nierozstrzygający wyznacznika Hessianu.
 
-**Zasady wykonania każdego pakietu:** osobny mały PR, autorskie PL/EN, dostępne poziomy tylko tam, gdzie istnieją poprawne i faktycznie różne warianty; kroki obliczeń, poprawna interpretacja dziedziny/warunków i punktów brzegowych, niezależny test matematyczny, kontrola odpowiedzi błędnych oraz nieważnych, Vitest/Playwright/build, audyt Work i osobna zgoda właściciela przed Squash and merge. Aktualizować GENERATORS.md i UWM_COVERAGE.md po rzeczywistym wdrożeniu. Nie deklarować pełnego pokrycia uczelni, dopóki zadania nie zostały zestawione z oryginałami. **Wstrzymany rozwój MT-EXAM pozostaje wstrzymany**: priorytetem są zadania w zwykłym katalogu, nie nowy panel wejściówek.
+**Zasady wykonania każdego pakietu:** osobny mały PR, autorskie PL/EN, dostępne poziomy tylko tam, gdzie istnieją poprawne i faktycznie różne warianty; kroki obliczeń, poprawna interpretacja dziedziny/warunków i punktów brzegowych, niezależny test matematyczny, kontrola odpowiedzi błędnych oraz nieważnych, Vitest/Playwright/build, audyt Work i osobna zgoda właściciela przed Squash and merge. Aktualizować GENERATORS.md i CURRICULUM_COVERAGE.md po rzeczywistym wdrożeniu. Nie deklarować pełnego pokrycia programu, dopóki każda wymagana umiejętność nie ma działającego generatora i niezależnego testu, a zadania referencyjne nie zostały zweryfikowane. **Wstrzymany rozwój MT-EXAM pozostaje wstrzymany**: priorytetem są zadania w zwykłym katalogu, nie nowy panel wejściówek.
 
 MathLive i Compute Engine mogą zostać ocenione w późniejszych etapach, gdy pojawi się potrzeba wprowadzania i analizy wyrażeń. Nie są wymagane do MT-003A.
 
@@ -95,13 +98,13 @@ Wykresy SVG pozostają opcjonalną pomocą na przyszłość; nie dodano ciężki
 
 ### MT-EDU-006A — scalone na main w PR #21
 
-P0: [mapa 64 kompetencji](UWM_COVERAGE.md) na podstawie indeksu Issue #20, bez dostępu do prywatnych 43 PDF-ów. P1: cztery autorskie rodziny wyznaczników 4×4/5×5, 11 par rodzina/poziom i 264 różne zadania. Katalog po tej zmianie obejmuje 67 rodzin, 6645 instancji i 13 kategorii; 59 rodzin wspiera każdy z poziomów Advanced i Expert. Dokładny audyt porównuje Laplace'a z niezależną eliminacją i zachowuje pełne 6381 instancji opublikowanego MT-EDU-005. P2: następne luki rozdzielono na MT-EDU-006B, 007, 008, 009, 010 i 011 oraz istniejący MT-EXAM-001 powyżej. PR #21 został scalony na main; CI i Deploy Pages dla ea1cae4 zakończyły się sukcesem. Pełny zakres prywatnych arkuszy, fizyczny Safari oraz pozostałe tematy nie są deklarowane jako ukończone.
+P0: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) na podstawie indeksu Issue #20, bez dostępu do prywatnych 43 PDF-ów. P1: cztery autorskie rodziny wyznaczników 4×4/5×5, 11 par rodzina/poziom i 264 różne zadania. Katalog po tej zmianie obejmuje 67 rodzin, 6645 instancji i 13 kategorii; 59 rodzin wspiera każdy z poziomów Advanced i Expert. Dokładny audyt porównuje Laplace'a z niezależną eliminacją i zachowuje pełne 6381 instancji opublikowanego MT-EDU-005. P2: następne luki rozdzielono na MT-EDU-006B, 007, 008, 009, 010 i 011 oraz istniejący MT-EXAM-001 powyżej. PR #21 został scalony na main; CI i Deploy Pages dla ea1cae4 zakończyły się sukcesem. Pełny zakres prywatnych arkuszy, fizyczny Safari oraz pozostałe tematy nie są deklarowane jako ukończone.
 
 ### MT-EDU-006B — wykonane P0–P2, P3 odłożony
 
 P0: `inverse-two`, `inverse-three`, `inverse-existence`, `inverse-applications` — 13 par ×24 = 312 instancji. P1: `matrix-rank`, `capelli-given-ranks`, `capelli-matrices` — 6 par ×24 = 144. P2: `gauss-unique`, `gauss-classification` — 7 par ×24 = 168. Łącznie 9 rodzin i 648 nowych instancji; cały katalog 76 rodzin, 7293 instancje w 13 kategoriach. Audyt dawnych 6645 pełnych lekcji PL/EN bazuje na opublikowanym main po PR #21. Nie zmieniono schematu postępów ani brudnopisu.
 
-Opcjonalne P3 częściowo wykonano: Cramer czterech niewiadomych (`D,D1…D4`) i `XA=B` mają 2 rodziny / 96 wariantów. Cały katalog obejmuje 78 rodzin / 7365 instancji, 68 rodzin L4 i 65 L5. Układ dwóch równań macierzowych pozostaje przyszły. M03/M04 wymagają osobnej oceny pełniejszej wykonalności mnożenia i potęg. M09–M11 nadal dotyczą kontrolowanych struktur wyznaczników. M12–M14 i U05–U08 mają opisany rzeczywisty, ograniczony zasięg w mapie UWM. 43 prywatnych PDF-ów nie udostępniono, a fizycznego Safari nie przetestowano w chmurze.
+Opcjonalne P3 częściowo wykonano: Cramer czterech niewiadomych (`D,D1…D4`) i `XA=B` mają 2 rodziny / 96 wariantów. Cały katalog obejmuje 78 rodzin / 7365 instancji, 68 rodzin L4 i 65 L5. Układ dwóch równań macierzowych pozostaje przyszły. M03/M04 wymagają osobnej oceny pełniejszej wykonalności mnożenia i potęg. M09–M11 nadal dotyczą kontrolowanych struktur wyznaczników. M12–M14 i U05–U08 mają opisany rzeczywisty, ograniczony zasięg w mapie kompetencji. 43 prywatnych PDF-ów nie udostępniono, a fizycznego Safari nie przetestowano w chmurze.
 
 ## MT-DIAG-001 — etap realizowany oddzielnym PR
 
@@ -110,4 +113,4 @@ Opcjonalne P3 częściowo wykonano: Cramer czterech niewiadomych (`D,D1…D4`) i
 - P1 (wybrane sondy): zaimplementowano weryfikację pojedynczych kroków det 2×2, Sarrusa 3×3, pierwszej komórki AB, głównego D w Cramerze 2×2/3×3 i minora Laplace’a 4×4/5×5. Dalsze sondy rachunków algebry i macierzy pozostają do rozbudowy; obecna funkcja **nie** analizuje dowolnych kroków ani rysunku z brudnopisu.
 - P2 (odłożone): lokalna statystyka potwierdzonych typów pomyłek i powtórki według kompetencji; brak danych oznacza brak wniosku.
 
-Wdrożenie wymaga CI, niezależnej recenzji i osobnej zgody właściciela; PR nie jest automatycznie scalany. Nie powstaje osobny panel UWM.
+Wdrożenie wymaga CI, niezależnej recenzji i osobnej zgody właściciela; PR nie jest automatycznie scalany. Nie powstaje osobny panel dla konkretnej uczelni.

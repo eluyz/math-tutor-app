@@ -20,7 +20,7 @@ Pierwotny `Template` ma zakresy `parameterSets` i czyste `create(parameters)`. `
 
 ## MT-EDU-001 — 20 nowych rodzin
 
-Cztery nowe rodziny powtórkowe dodano do istniejących kategorii algebry/równań. Trzy nowe kategorie są w dziale „Matematyka na studia”. Każda rodzina ma trzy poziomy. Materiały są autorskie, nie stanowią oficjalnego programu UWM.
+Cztery nowe rodziny powtórkowe dodano do istniejących kategorii algebry/równań. Trzy nowe kategorie są w dziale „Matematyka na studia”. Każda rodzina ma trzy poziomy. Materiały są autorskie i niezależne od programu konkretnej uczelni.
 
 | Rodzina | Umiejętność i odpowiedź |
 | --- | --- |
@@ -339,4 +339,4 @@ MT-EDU-012: **120** nowych instancji; łącznie **9741**. Nowe rodziny: **2**. P
 | cramer-determinants-three | hard, advanced, expert | D,D1–D3 układów 3×3, wymiana kolumn i Laplace z minorami 2×2 |
 | cramer-determinants-four | advanced, expert | D,D1–D4 układów 4×4, Laplace z minorami 3×3 |
 
-Ocena wszystkich wyznaczników osobno w czterech albo pięciu polach. Invertowalna macierz trójkątna bazowa, odwracalne operacje na wierszach, dokładne Rational/BigInt, weryfikacja formułą Leibniza i podstawieniem xᵢ=Dᵢ/D. Przypadki osobliwe pozostają w istniejącym `cramer-four`, bez zmian wcześniejszych 9621 zadań i bez deklaracji pokrycia prywatnych arkuszy UWM.
+Ocena wszystkich wyznaczników osobno w czterech albo pięciu polach. Invertowalna macierz trójkątna bazowa, odwracalne operacje na wierszach, dokładne Rational/BigInt, weryfikacja formułą Leibniza i podstawieniem xᵢ=Dᵢ/D. Przypadki osobliwe pozostają w istniejącym `cramer-four`, bez zmian wcześniejszych 9621 zadań i bez deklaracji zgodności z konkretnymi arkuszami.
