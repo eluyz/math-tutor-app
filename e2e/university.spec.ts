@@ -258,6 +258,10 @@ for (const width of [375, 768, 1280])
                 })
                 .click();
             }
+            const templateId = await page.locator(".question").getAttribute("data-template-id");
+            expect(await page.locator(".feedback").getAttribute("class"),
+              `Session task ${i}, template=${templateId} should be assessed correctly`
+            ).toBe("feedback correct");
           } else if (i === 8)
             await page
               .getByRole("button", {
