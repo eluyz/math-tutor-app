@@ -10,7 +10,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | M02 | Transpozycja | pokryte | `matrix-transpose` |
 | M03 | Mnożenie i wykonalność | częściowo | `matrix-product`, `matrix-dimensions`, `matrix-compatibility`, `matrix-chained-dimensions`; wykonalność dodawania, AB/BA i łańcuchów, wymiary wyników do 3×3, bez ogólnej dowolnej macierzy |
 | M04 | Działania złożone i potęgi | częściowo | `matrix-product`, `matrix-add`, `matrix-powers`, `matrix-composite-operations`; A²/A³ (2×2/3×3), nawiasy, transpozycja i skalowanie ułamkiem; bez potęg ujemnych i dowolnych wymiarów |
-| M05 | Równanie macierzowe i układ dwóch macierzy | częściowo | `inverse-applications`, `inverse-right-applications`, `matrix-coupled-equations`; AX=B, XA=B oraz układ dwóch równań z dwiema macierzami niewiadomymi 2×2 (kontrolowane współczynniki), bez ogólnych większych układów |
+| M05 | Równanie macierzowe i układ dwóch macierzy | częściowo | `inverse-applications`, `inverse-right-applications`, `matrix-coupled-equations`, `matrix-ax-shift`, `matrix-axb`; AX=B, XA=B, dwa równania dla X i Y oraz AX=4X+B i AXB=C (nowe 2×2 z PR #43); nadal brak (A+4X)⁻¹=B, 3X+A=BX i ogólnych większych układów |
 | M06 | Wyznacznik 2×2 | pokryte | `determinant-two` |
 | M07 | Wyznacznik 3×3 | pokryte | `determinant-sarrus` |
 | M08 | Laplace 4×4 z zerami | pokryte | `determinant-laplace-four` |
@@ -18,7 +18,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | M10 | Wyznacznik 5×5 | częściowo | `determinant-laplace-five`, `determinant-dense-five`; rzadkie i gęste kontrolowane macierze, bez dowolnej swobodnej macierzy |
 | M11 | Własności i wyznacznik zerowy | częściowo | `determinant-properties`, `determinant-zero-row`; zależność wierszy, zamiana, skalar, dodanie wielokrotności |
 | M12 | Macierz odwrotna | częściowo | `inverse-two`, `inverse-three`, `inverse-existence`; 2×2/3×3, także osobliwe, bez ogólnej 4×4 |
-| M13 | Równanie z odwrotnością | częściowo | `inverse-applications`, `inverse-right-applications`; AX=B → A⁻¹B i XA=B → BA⁻¹, tylko 2×2/3×3 |
+| M13 | Równanie z odwrotnością | częściowo | `inverse-applications`, `inverse-right-applications`, `matrix-ax-shift`, `matrix-axb`; AX=B → A⁻¹B, XA=B → BA⁻¹ (2×2/3×3) oraz (A−4I)X=B, AXB=C (nowe 2×2 z PR #43); nie obejmuje ogólnych rozmiarów ani innych typów równań odwrotnych |
 | M14 | Rząd macierzy | częściowo | `matrix-rank`, `capelli-matrices`; 2×3, 3×3, 3×4 z eliminacją, bez dowolnej 4×4 |
 | U01 | Rozpoznanie układu Cramera | częściowo | `system-cramer-two`, `system-cramer-three`; warunek D≠0 wyjaśniony, brak osobnej klasyfikacji |
 | U02 | Cramer 3 niewiadome | pokryte | `system-cramer-three`, `cramer-determinants-three`; pełne rozwiązanie i osobna kontrola D,D1–D3 |
