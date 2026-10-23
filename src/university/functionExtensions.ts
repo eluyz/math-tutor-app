@@ -22,7 +22,7 @@ function parityProblem(v: number, level: Difficulty): FunctionExtensionProblem {
   const coefficients = v % 3 === 0
     ? [constant, r(0), b, r(0), ...(high ? [a] : [])]
     : v % 3 === 1
-      ? [r(0), b, r(0), a, ...(high ? [r(0), r(0), b] : [])]
+      ? [r(0), b, r(0), a, ...(high ? [r(0), b] : [])]
       : [constant, b, r(0), a, ...(high ? [r(0), b] : [])];
   return { kind: "function-parity", coefficients };
 }
