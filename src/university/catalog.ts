@@ -6,6 +6,7 @@ import type { UniversityProblem, LinearAlgebraProblem, ElementaryAnalysisProblem
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { functionExtensionFamilies, presentFunctionExtension } from "./functionExtensions";
+import { functionDomainExtraFamilies, presentFunctionDomainExtra } from "./functionDomainsExtra";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
@@ -34,6 +35,7 @@ export const universityFamilies = [
   ...systemFamilies,
   ...functionFamilies,
   ...functionExtensionFamilies,
+  ...functionDomainExtraFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
   ...functionLimitFamilies,
@@ -74,6 +76,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "function-tangent-domain" || problem.kind === "function-mixed-domain"
+    ? presentFunctionDomainExtra(problem, locale)
     : problem.kind === "function-parity" || problem.kind === "function-affine-inverse"
     ? presentFunctionExtension(problem, locale)
     : problem.kind === "linear-matrix-practice"

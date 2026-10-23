@@ -6,6 +6,7 @@ import type { Locale } from "../locales/types";
 import type { Polynomial, PolynomialFormula } from "./polynomial";
 import type { IntegralProblem } from "./integrals";
 import type { FunctionExtensionProblem } from "./functionExtensions";
+import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -207,6 +208,7 @@ export type UniversityProblem =
   | SystemProblem
   | FunctionProblem
   | FunctionExtensionProblem
+  | FunctionDomainExtraProblem
   | SequenceProblem
   | FunctionLimitProblem
   | DerivativeProblem

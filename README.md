@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **126 rodzin** i **10965 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **128 rodzin** i **11109 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -243,3 +243,7 @@ W **Granicach ciągów** dodano 288 zadań z ilorazów pierwiastków, porównywa
 ### MT-EDU-015B P1 — parzystość i funkcja odwrotna
 
 Dwie autorskie rodziny po 3 poziomy (łatwy, średni, trudny) i 24 warianty na parę: **144 zadania**. Dla parzystości porównujemy f(−x) z f(x) i −f(x), z uczciwie mieszanymi przypadkami parzystymi, nieparzystymi i pozostałymi na każdym poziomie. Dla odwrotnej rozwiązujemy f(y)=x dla kontrolowanych funkcji liniowych (w tym postaci z nawiasem i ilorazem), wpisując współczynniki m,n funkcji f⁻¹(x)=mx+n. Brak ogólnego parsera dowolnych odwrotności, odczyt z wykresu będzie osobnym pakietem. Rozwiązania i podpowiedzi PL/EN; zachowane istniejące ćwiczenia.
+
+### MT-EDU-015B P2A — okresowe i łączone dziedziny
+
+Dwie kolejne rodziny po 3 poziomy i 24 odrębne warianty na poziom (**144 warianty**). `function-tangent-domain` rozwiązuje zakaz argumentów π/2+kπ dla tangensa, także po przesunięciu o ułamek π, a w trudniejszych zadaniach dodatkowo wyklucza zero mianownika. `function-mixed-domain` wyznacza część wspólną ograniczeń pierwiastka i logarytmu, w tym pierwiastka logarytmu w mianowniku dla podstawy większej lub mniejszej od 1. Odpowiedzi są wyborem dokładnego zapisu zbioru (bez przybliżeń π), wyjaśnienia dostępne w PL/EN. Ta partia nie wprowadza jeszcze wykresów ani dowolnego parsera funkcji.
