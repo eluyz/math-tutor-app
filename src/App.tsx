@@ -23,6 +23,7 @@ import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
 import { DeterminantDisplay } from "./DeterminantDisplay";
+import { FunctionGraphDisplay } from "./FunctionGraphDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
 import { isLinearAlgebraProblem } from "./university/schema";
@@ -613,6 +614,9 @@ export default function App() {
                   >
                     {active.question}
                   </div>
+                  {isUniversityTask(active) && (active.university.kind === "function-graph-domain-range" || active.university.kind === "function-graph-zeros") && (
+                    <FunctionGraphDisplay problem={active.university} locale={locale} />
+                  )}
                   {isUniversityTask(active) && active.university.kind === "determinant" && (
                     <DeterminantDisplay matrix={active.university.matrix} locale={locale} />
                   )}

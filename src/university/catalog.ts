@@ -7,6 +7,7 @@ import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { functionExtensionFamilies, presentFunctionExtension } from "./functionExtensions";
 import { functionDomainExtraFamilies, presentFunctionDomainExtra } from "./functionDomainsExtra";
+import { functionGraphFamilies, presentFunctionGraph } from "./functionGraphs";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
@@ -36,6 +37,7 @@ export const universityFamilies = [
   ...functionFamilies,
   ...functionExtensionFamilies,
   ...functionDomainExtraFamilies,
+  ...functionGraphFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
   ...functionLimitFamilies,
@@ -76,6 +78,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "function-graph-domain-range" || problem.kind === "function-graph-zeros"
+    ? presentFunctionGraph(problem, locale)
     : problem.kind === "function-tangent-domain" || problem.kind === "function-mixed-domain"
     ? presentFunctionDomainExtra(problem, locale)
     : problem.kind === "function-parity" || problem.kind === "function-affine-inverse"

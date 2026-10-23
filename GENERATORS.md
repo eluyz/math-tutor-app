@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **128 rodzin**, **11109 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **130 rodzin**, **11253 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **107**, L5: **100**.
 
@@ -431,3 +431,12 @@ Każdy generator jest autorski, z gwarantowanymi dziedzinami i dokładnymi rachu
 | function-mixed-domain | easy, medium, hard | 72 | Dziedzina √(x−p)/log_a(x−b), √((x−p)(x−q))/log_a(x−b) i √((x−p)(x−q))/√(log_a(x−b)) |
 
 **2 rodziny / 6 par / 144 warianty**, katalog po P2A: **128 rodzin / 11109 instancji**. Wyniki dla π pozostają symboliczne, warunki 0<a<1 i a>1 obsługiwane bez przybliżeń, a warunki pierwiastka/logarytmu przecinają się dokładnie. Wykresy SVG oraz odczytywanie własności zostają w P2B.
+
+## MT-EDU-015B P2B-1 — odczytywanie wykresów
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| function-graph-domain-range | easy, medium, hard | 72 | Dziedzina lub zbiór wartości trójwierzchołkowej łamanej, końce otwarte i domknięte |
+| function-graph-zeros | easy, medium, hard | 72 | Dwa miejsca zerowe odcinków z dokładnymi współrzędnymi |
+
+Katalog po tym etapie: **130 rodzin / 11253 instancji**. Każda rodzina ma 24 warianty na poziom, rozwiązania PL/EN i kontrolowany SVG bez zewnętrznej biblioteki. F05 pozostaje częściowe (brak monotoniczności i symetrii z wykresu).

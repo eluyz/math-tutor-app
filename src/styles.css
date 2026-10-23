@@ -904,3 +904,12 @@ footer p {
 @media (max-width: 480px) { .language-full { display: none; } .language-short { display: inline; } .language-picker button { padding: 6px; font-size: 13px; } }
 .unavailable { padding: 14px; border: 1px solid #728577; margin: 15px 0; line-height: 1.6; }
 .unavailable button { min-height: 44px; padding: 8px 12px; }
+
+/* Accessible dependency-free responsive graph. */
+.function-graph { max-width: 100%; margin: 0 0 1.25rem; padding: .75rem; border: 1px solid #c5d4cb; border-radius: 12px; background: #fbfcfa; color: #284b3c; }
+.function-graph svg { width: 100%; height: auto; max-width: 520px; display: block; margin: 0 auto; }
+.function-graph figcaption { font-size: .83rem; line-height: 1.45; color: #435d51; }
+.function-graph-text { margin-top: .5rem; font-size: .9rem; overflow-wrap: anywhere; }
+.function-graph-text summary { cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
+.function-graph-text p { margin: .5rem 0 0; line-height: 1.55; }
+@media (max-width: 430px) { .function-graph { padding: .25rem; } .function-graph figcaption { padding: 0 .5rem; } }
