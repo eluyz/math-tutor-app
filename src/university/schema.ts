@@ -5,6 +5,7 @@ import type { CategoryId } from "../exercises";
 import type { Locale } from "../locales/types";
 import type { Polynomial, PolynomialFormula } from "./polynomial";
 import type { IntegralProblem } from "./integrals";
+import type { AreaArcProblem } from "./areaArc";
 import type { FunctionExtensionProblem } from "./functionExtensions";
 import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 import type { FunctionGraphProblem } from "./functionGraphs";
@@ -12,6 +13,7 @@ import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
 import type { ProductQuotientProblem } from "./productQuotient";
+import type { PartialGradientProblem } from "./partialGradient";
 import type { HessianProblem } from "./hessian";
 
 export type SystemProblem = Readonly<{
@@ -220,6 +222,7 @@ export type UniversityProblem =
   | NondifferentiabilityProblem
   | TrigDerivativeProblem
   | ProductQuotientProblem
+  | PartialGradientProblem
   | HessianProblem
   | SequenceProblem
   | FunctionLimitProblem
@@ -230,7 +233,8 @@ export type UniversityProblem =
   | AsymptoteProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
-  | IntegralProblem;
+  | IntegralProblem
+  | AreaArcProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isFunctionGraphProblem = (p: UniversityProblem): p is FunctionGraphProblem | GraphPropertyProblem =>

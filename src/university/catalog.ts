@@ -12,6 +12,7 @@ import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProp
 import { nondifferentiabilityFamilies, presentNondifferentiability } from "./nondifferentiability";
 import { trigDerivativeFamilies, presentTrigDerivative } from "./trigDerivatives";
 import { productQuotientFamilies, presentProductQuotient } from "./productQuotient";
+import { partialGradientFamilies, presentPartialGradient } from "./partialGradient";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
@@ -35,6 +36,7 @@ import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes"
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { integralFamilies, presentIntegral } from "./integrals";
+import { areaArcFamilies, presentAreaArc } from "./areaArc";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -47,6 +49,7 @@ export const universityFamilies = [
   ...nondifferentiabilityFamilies,
   ...trigDerivativeFamilies,
   ...productQuotientFamilies,
+  ...partialGradientFamilies,
   ...hessianFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
@@ -70,6 +73,7 @@ export const universityFamilies = [
   ...advancedCalculusFamilies,
   ...functionStudyFamilies,
   ...integralFamilies,
+  ...areaArcFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -80,6 +84,8 @@ const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraPro
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "integral"
     ? presentIntegral(problem, locale)
+    : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"
+    ? presentAreaArc(problem,locale)
     : isFunctionStudy(problem)
     ? presentFunctionStudy(problem, locale)
     : isAdvancedCalculus(problem)
@@ -89,7 +95,9 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
-    ? presentHessian(problem,locale)
+    ? presentHessian(problem, locale)
+    : problem.kind === "multivar-partial-point" || problem.kind === "multivar-gradient-point"
+    ? presentPartialGradient(problem,locale)
     : problem.kind === "derivative-product-point" || problem.kind === "derivative-quotient-point"
     ? presentProductQuotient(problem, locale)
     : problem.kind === "derivative-trig-chain" || problem.kind === "derivative-trig-special-point"

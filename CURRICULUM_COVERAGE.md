@@ -65,10 +65,10 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | I04 | Całkowanie przez części | częściowo | `integral-parts`; x^m e^(ax), m=1–3, bez ogólnych iloczynów |
 | I05 | Całka powracająca | częściowo | `integral-recurring`; e^(ax)(p sin bx+q cos bx), b>0, bez innych rodzin powracających |
 | I06 | Całka oznaczona | częściowo | `integral-definite`; wielomiany i dokładne granice wymierne, bez niewłaściwych całek |
-| I07 | Pole między krzywymi | brak | — |
-| I08 | Długość łuku | brak | — |
-| W01 | Pochodne cząstkowe I/II | brak | — |
-| W02 | Ekstrema 2D | częściowo | `multivar-stationary-point`, `multivar-hessian-classify`; unikatowe punkty stacjonarne funkcji kwadratowych i test Hessiana, w tym D=0; brak ogólnych funkcji i warunków brzegowych |
+| I07 | Pole między krzywymi | częściowo | `integral-area-between`; kontrolowana parabola i prosta, rozcięcie w przecięciach; nie obejmuje ogólnych par krzywych |
+| I08 | Długość łuku | częściowo | `integral-arc-length`; łuk krzywej potęgowej na zadanych granicach; inne klasy wymagają rozszerzenia |
+| W01 | Pochodne cząstkowe I/II | częściowo | `multivar-partial-point`, `multivar-gradient-point`; kontrolowane wielomiany kwadratowe, pochodne I/II i gradient, bez ogólnych funkcji 2D |
+| W02 | Ekstrema 2D | częściowo | `multivar-stationary-point`, `multivar-hessian-classify`; wybrane funkcje kwadratowe, punkt stacjonarny i test Hessiana (w tym D=0), bez ogólnych warunków brzegowych i funkcji 2D |
 | W03 | Granica i ciągłość 2D | teoria | —; wymaga ujęcia pojęciowego i zadań |
 
 Po dodaniu nowych rodzin należy aktualizować wyłącznie wiersze, których umiejętność rzeczywiście obejmują. Dokładne porównanie do 43 PDF-ów i ewentualnych zmian programu jest osobnym, prywatnym audytem; oryginalne materiały ani dane studentów nie trafiają do repozytorium.
