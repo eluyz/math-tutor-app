@@ -1,6 +1,6 @@
 import { test, expect, type Page } from "@playwright/test";
 import { shownFraction } from "./helpers/functions";
-import { rational as r, type Rational } from "../src/rational";
+import type { Rational } from "../src/rational";
 import { q, a, s, d } from "../src/university/audit";
 import { cmp, selectedSetContains } from "../src/university/functions-audit";
 import { formatRational as f } from "../src/answers";
