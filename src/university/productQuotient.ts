@@ -46,7 +46,7 @@ export const productQuotientFamilies:readonly UniversityFamily[]=[
     titles:{pl:"Pochodna iloczynu w punkcie",en:"Derivative of a product at a point"},
     supportedDifficulties:["easy","medium","hard"],create:product},
   {id:"derivative-quotient-point",category:"derivatives",
-    titles:{pl:"Pochodna ilorazu w punkcie",en:"Derivative of a quotient at a point"},
+    titles:{pl:"Pochodna ilorazu dwóch funkcji liniowych",en:"Derivative of a quotient of affine functions"},
     supportedDifficulties:["easy","medium","hard"],create:quotient},
 ];
 export function valueProduct(p:Extract<ProductQuotientProblem,{kind:"derivative-product-point"}>):Rational {
