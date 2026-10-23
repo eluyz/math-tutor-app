@@ -29,8 +29,8 @@
 | MT-EDU-014 | P0/P1/P2 scalone (#45/#46/#47) | P0: parametryzacje kwadratowe. P1: łańcuch pięciu równości i klasyfikacja 3×2/4×3 (192 warianty). P2: pełne rozwiązania parametryczne 3×2/4×3/2×3 (3 rodziny, 144 warianty). Pozostają dowolne rozmiary, dowolny zapis symboliczny i bardziej złożony Cramer |
 | MT-EDU-015 | P0 (#48), P1 (#50), P2A (#51) i przygotowanie P2B (#52) scalone; P2B-1 (#53) i P2B-2 (#54) scalone | MT-EDU-015A: granice ciągów (288 wariantów). MT-EDU-015B P1: parzystość i odwrotność (144). P2A: tg i złożone dziedziny (144). P2B: dostępne i testowane SVG oraz odczytywanie własności z wykresów; F04–F06 nadal częściowe |
 | MT-EDU-016 | P0 (#56) oraz P1A (#57) scalone; P1B (iloczyn i iloraz) scalone jako #58 | Pozostają szersze asymptoty, ogólne ilorazy symboliczne, pełniejsze badanie funkcji i szkice |
-| MT-EDU-017 | P4 A: 2 rodziny w PR przygotowanym do CI | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; dalsze formy całek wymagają kolejnych rozszerzeń |
-| MT-EDU-018 | Plan P5 — funkcje dwóch zmiennych | Pochodne cząstkowe 1./2. rzędu i mieszane, gradient, stacjonarność i klasyfikacja Hessianem, proste granice/ciągłość 2D jako moduł pojęciowo-rachunkowy |
+| MT-EDU-017 | P4 A wdrożono w #59 (141 rodzin / 12045 wariantów) | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; pozostałe formy całek do rozszerzenia |
+| MT-EDU-018 | P1 (pochodne cząstkowe i gradient) w PR #60; P2 (Hessian) w PR #61 | Dwie funkcje rodziny W01: pochodne I/II rzędu, mieszane i gradient; W02, W03 wymagają osobnego rozwoju |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
@@ -41,7 +41,7 @@
 
 **Zakres:** osiem działów matematyki: macierze i wyznaczniki, układy równań, granice ciągów, podstawy funkcji, granice funkcji, pochodne, całki oraz funkcje dwóch zmiennych. Punktem odniesienia jest pełna lista umiejętności i typów zadań potrzebnych na kursie matematyki. Zestawienie jest robocze: opisuje aktualną implementację, a nie gwarancję gotowości do dowolnego egzaminu. Generatory i objaśnienia muszą być autorskie; nie kopiujemy zewnętrznych arkuszy ani kluczy odpowiedzi.
 
-**Stan mapy 64 kompetencji:** 15 „pokryte”, 43 „częściowo”, 4 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Katalog bazowy po #58: **139 rodzin / 11901 wariantów**. PR MT-EDU-017 dodaje 144 warianty, docelowo 141 / 12045.
+**Stan mapy 64 kompetencji w pakiecie #59+#60:** 15 „pokryte”, 46 „częściowo”, 1 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Po #59: **141 rodzin / 12045 wariantów**. PR #60 dodaje 144 warianty — **143 / 12189**.
 
 | Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |

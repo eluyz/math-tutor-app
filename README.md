@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **141 rodzin** i **12045 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **143 rodziny** i **12189 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -271,3 +271,7 @@ Dodano **2 rodziny / 144 warianty** w 3 poziomach trudności: `derivative-trig-c
 ### MT-EDU-017 P4 — zastosowania całki
 
 Dodano 2 rodziny po 72 zadania: `integral-area-between` (całka z modułu różnicy paraboli i poziomej prostej, prawidłowy podział przy przecięciach) oraz `integral-arc-length` (długość rzeczywistej krzywej potęgowej z dokładną funkcją pierwotną). Trzy poziomy trudności; pełne PL/EN, wyprowadzenia i testy. Nie stanowi to pełnego pokrycia wszystkich typów pól i łuków. W izolowanym PR katalog liczy 141 rodzin i 12045 wariantów.
+
+### MT-EDU-018 P1 — pochodne cząstkowe i gradient
+
+Dodano dwie rodziny / 144 warianty: `multivar-partial-point` (pochodne cząstkowe I i II rzędu w punkcie) oraz `multivar-gradient-point` (dwuelementowy gradient). Wszystkie wyniki liczone na dokładnych ułamkach; szczegółowe rozwiązania i pytania PL/EN, automatyczne testy. Zakres W01 pozostaje częściowy (wybrane wielomiany kwadratowe). Łącznie z MT-EDU-017 po #59: 143 rodziny i 12189 wariantów.

@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **141 rodzin**, **12045 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **143 rodzin**, **12189 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **107**, L5: **100**.
 
@@ -486,3 +486,12 @@ P1B dodaje **144 warianty** bez dodatkowych bibliotek i parserów. Po połączen
 | integral-arc-length | easy, medium, hard | 72 | Długość krzywej y=(2k/3)(x−h)^(3/2)+c; kontrolowane końce i dokładne ułamki |
 
 Dwie rodziny, 144 instancje. Izolowany PR: 141 rodzin / 12045 instancji. I07/I08 pozostają częściowo pokryte poza kontrolowanymi rodzinami.
+
+## MT-EDU-018 P1 — funkcje dwóch zmiennych: pochodne i gradient
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| multivar-partial-point | easy, medium, hard | 72 | Pochodne cząstkowe I i II rzędu wielomianu kwadratowego w punkcie |
+| multivar-gradient-point | easy, medium, hard | 72 | Gradient funkcji 2D jako para wymiernych pochodnych w punkcie |
+
+P1 dodaje 144 instancje do katalogu po #59: **143 rodzin / 12189 wariantów**. Inne klasy funkcji dwóch zmiennych pozostają do wdrożenia.

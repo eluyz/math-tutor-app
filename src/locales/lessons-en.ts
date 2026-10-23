@@ -203,6 +203,7 @@ const fieldLabels: Record<string, string> = {
   "Współczynnik przy x²": "Coefficient of x²",
   "Współczynnik przy x": "Coefficient of x",
   "Wyraz wolny": "Constant term",
+  "∂f/∂x": "∂f/∂x", "∂f/∂y": "∂f/∂y",
   Współczynnik: "Coefficient",
   "Wykładnik x": "Exponent of x",
   "Liczba wierszy": "Number of rows",
