@@ -27,7 +27,7 @@
 | MT-EDU-012 | Scalone na `main` w PR #40 (22.10.2026) | Dwie rodziny / 120 wariantów: samodzielne obliczanie D,D1…D4 Cramera w 3×3 i 4×4, oceniane osobno; bez nowych sprawdzianów |
 | MT-EDU-013 | P0 i P1 opublikowane (#43, #44), w zakresie 2×2 | Cztery autorskie rodziny równań 2×2: AX=4X+B, AXB=C, (A+4X)⁻¹=B i 3X+A=BX (336 wariantów). Nadal brak ogólnych większych rozmiarów i dodatkowych typów przekształceń |
 | MT-EDU-014 | P0/P1/P2 scalone (#45/#46/#47) | P0: parametryzacje kwadratowe. P1: łańcuch pięciu równości i klasyfikacja 3×2/4×3 (192 warianty). P2: pełne rozwiązania parametryczne 3×2/4×3/2×3 (3 rodziny, 144 warianty). Pozostają dowolne rozmiary, dowolny zapis symboliczny i bardziej złożony Cramer |
-| MT-EDU-015 | P0 (PR do weryfikacji), dalsze pakiety planowane | MT-EDU-015A: ilorazy pierwiastków, wzrost potęg i iloczyny postaci Eulera (288 nowych wariantów); pozostają złożone funkcje, dziedziny, parzystość, odwrotność i wykresy |
+| MT-EDU-015 | P0 scalone w PR #48; P1 w osobnym PR do kontroli | MT-EDU-015A: granice ciągów (288 wariantów). MT-EDU-015B P1: parzystość i odwrotność liniowa (144 warianty). P2: dziedziny z tg i odczytywanie funkcji z wykresu; nadal niepełne F04–F06 |
 | MT-EDU-016 | Plan P3 — granice i pochodna jednej zmiennej | Szersze asymptoty i granice jednostronne, pochodne trygonometryczne/złożone i ilorazy symboliczne, punkty bez pochodnej, pełne badanie funkcji i szkice |
 | MT-EDU-017 | Plan P4 — całki i zastosowania | Uzupełnienie tablicowych/podstawienia/przez części; oznaczone z exp/ln/trig; pola między krzywymi z podziałem przedziału (I07) i długość łuku (I08) |
 | MT-EDU-018 | Plan P5 — funkcje dwóch zmiennych | Pochodne cząstkowe 1./2. rzędu i mieszane, gradient, stacjonarność i klasyfikacja Hessianem, proste granice/ciągłość 2D jako moduł pojęciowo-rachunkowy |
@@ -41,7 +41,7 @@
 
 **Zakres:** osiem działów matematyki: macierze i wyznaczniki, układy równań, granice ciągów, podstawy funkcji, granice funkcji, pochodne, całki oraz funkcje dwóch zmiennych. Punktem odniesienia jest pełna lista umiejętności i typów zadań potrzebnych na kursie matematyki. Zestawienie jest robocze: opisuje aktualną implementację, a nie gwarancję gotowości do dowolnego egzaminu. Generatory i objaśnienia muszą być autorskie; nie kopiujemy zewnętrznych arkuszy ani kluczy odpowiedzi.
 
-**Stan mapy 64 kompetencji:** 15 „pokryte”, 41 „częściowo”, 6 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Aktualny katalog: **109 rodzin / 9741 wariantów**.
+**Stan mapy 64 kompetencji:** 15 „pokryte”, 41 „częściowo”, 6 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Aktualny katalog w tym PR: **126 rodzin / 10965 wariantów**.
 
 | Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |

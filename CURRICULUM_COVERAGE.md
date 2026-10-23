@@ -39,7 +39,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | F03 | Moduł w dziedzinie | częściowo | `analysis-absolute`; pierwiastek z \|x−p\|−r, kontrolowane brzegi, bez ogólnych złożeń |
 | F04 | Kilka warunków dziedziny | częściowo | `function-domain`, `analysis-log-domain`; przecięcia dla pierwiastka, ilorazu i logarytmu w kontrolowanych postaciach |
 | F05 | Własności z wykresu | brak | —; brak wykresów do odczytu |
-| F06 | Parzystość, złożenie i odwrotność | częściowo | `function-composition`; bez parzystości/odwrotności |
+| F06 | Parzystość, złożenie i odwrotność | częściowo | `function-composition`, `function-parity`, `function-affine-inverse`; parzystość wielomianów i funkcja odwrotna do liniowej; bez odwrotności ogólnych i odczytu symetrii wykresów |
 | F07 | Prawa exp/log, równania i nierówności | częściowo | `analysis-power-law`, `analysis-elementary-equation`, `analysis-log-inequality`; wybrane dokładne tożsamości i równania, bez ogólnych złożeń |
 | G01 | Granica przez podstawienie | pokryte | `limit-point` |
 | G02 | 0/0 przez skrócenie | pokryte | `limit-point` |
