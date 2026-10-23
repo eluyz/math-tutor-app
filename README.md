@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **133 rodziny** i **11469 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **135 rodzin** i **11613 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -255,3 +255,7 @@ Dodano **2 rodziny / 144 warianty** na poziomach easy, medium i hard: `function-
 ### MT-EDU-015B P2B-2 — własności funkcji odczytywane z wykresu
 
 Trzy kolejne rodziny zadań (+216 wariantów): `function-graph-monotonicity` (rośnie, maleje lub jest stała na kolejnych odcinkach), `function-graph-extrema` (globalne maksimum i minimum osiągane w środkowym wierzchołku), `function-graph-symmetry` (parzysta, nieparzysta, żadna, z zachowaniem symetrii dziedziny). Poziomy easy/medium/hard, SVG PL/EN, rozwiązania krok po kroku, automatyczne testy matematyczne i przeglądarkowe. Grafy pozostają kontrolowanymi łamanymi trójwierzchołkowymi; nie jest to ogólny silnik wykresowania funkcji. Katalog po P2B-2: **133 rodziny / 11469 wariantów**.
+
+### MT-EDU-016 P0 — pochodne jednostronne i różniczkowalność (D06)
+
+**2 rodziny / 144 warianty** (poziomy easy/medium/hard, po 24 warianty na parę rodzina/poziom): `derivative-absolute-one-sided` — dokładne obliczanie lewej i prawej pochodnej funkcji `a|x−h|+b(x−h)+c` przy `a≠0`; `derivative-piecewise-point` — rozróżnianie funkcji ciągłej różniczkowalnej, ciągłej z załamaniem i funkcji nieciągłej ze skokiem na podstawie wartości/granic jednostronnych i współczynników kierunkowych gałęzi. Zadania PL/EN zawierają stopniowe wskazówki i pełne etapy rachunku. Zakres **nie obejmuje** jeszcze ogólnych funkcji odcinkami, stycznych pionowych ani wszystkich form nieróżniczkowalności. Katalog: **135 rodzin / 11613 wariantów**.
