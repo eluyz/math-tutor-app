@@ -1,5 +1,9 @@
 # Plan rozwoju
 
+> **Stan aktualny (23.10.2026):** PR #59, #60 i #61 scalone; `main` `fe1359e`; **145 rodzin / 12 333 warianty**, 14 kategorii, CI + Pages PASS. Mapa 64 kompetencji: **15 pokrytych, 47 częściowych, 0 brak, 2 teoretyczne**. Propozycja kolejnych etapów, bez rozpoczęcia implementacji: **[MT-EDU-019-PLAN.md](MT-EDU-019-PLAN.md)**.
+
+> Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
+
 | Etap | Cel | Przykładowy rezultat |
 | --- | --- | --- |
 | MT-001 | Fundament i działający prototyp — ukończony | React, TypeScript, Vite, trzy ćwiczenia, testy, dokumentacja |
@@ -15,49 +19,52 @@
 | MT-EDU-004 P0–P3 | Scalone i opublikowane w PR #17 | Kolejność brudnopisu; układy, funkcje i granice ciągów: 16 nowych rodzin, 1728 wariantów, pełne PL/EN |
 | MT-EDU-005 P0/P1 | Scalone w PR #19 | Granice funkcji i pochodne: 12 rodzin, 1152 wariantów; łącznie 63 rodziny i 6381 wariantów |
 | MT-EDU-006A | Scalone na main w PR #21 | Wstępna [mapa 64 kompetencji](CURRICULUM_COVERAGE.md); autorskie Laplace 4×4/5×5, operacje wierszowe i własności wyznaczników |
-| MT-EDU-006B P0–P2 | Implementacja Issue #22 do recenzji | Odwrotności 2×2/3×3, AX=B, rząd macierzy, Capelli oraz Gauss 3×3/4×4: 9 rodzin, 624 instancje |
+| MT-EDU-006B P0–P2 | Wdrożone na `main` — opis zakresu historycznego | Odwrotności 2×2/3×3, AX=B, rząd macierzy, Capelli oraz Gauss 3×3/4×4: 9 rodzin, 624 instancje |
 | MT-EDU-006B P3 | Wdrożone na `main` (uzupełnione przez PR #37) | Cramer 4×4 i XA=B oraz układ dwóch równań macierzowych dla X i Y w kontrolowanym wariancie 2×2 |
 | MT-EDU-007 | Scalone na main w PR #25; P0–P2 ukończone, P3 częściowo | 16 rodzin / 1224 warianty: P0–P2 oraz kontrolowane badanie wielomianu i funkcji wymiernej; nonsmooth styczne, ogólne funkcje i wykresy pozostają przyszłe |
 | MT-UX-001 | Scalone na main w PR #29 | Wyszukiwanie rodzin PL/EN w całym katalogu, jawny dobór kategorii i poziomu oraz krótsza lista mobilna; bez zmian w 8589 wcześniejszych zadaniach |
 | MT-EDU-008 P0–P2 | Scalone na main w PR #30 | Całki I01–I06: 6 rodzin / 432 warianty; wielomiany, wybrane tablicowe, podstawienie, części, powracające i oznaczone, ograniczony dokładny formularz funkcji pierwotnej |
-| MT-EDU-008 P3 | Przeniesione do planu MT-EDU-017 | I07 pola między krzywymi i I08 długość łuku wymagają osobnych, w pełni zweryfikowanych generatorów; nie są jeszcze wdrożone |
+| MT-EDU-008 P3 | Zrealizowane w MT-EDU-017 / PR #59 | I07 pole między parabolą i prostą oraz I08 długość wybranych łuków potęgowych, obie umiejętności nadal częściowe |
 | MT-EDU-009 | Scalone w PR #37 | 3 rodziny / 216 wariantów: dwa równania macierzowe 2×2 i gęste wyznaczniki 4×4 oraz 5×5 |
 | MT-EDU-010 | Scalone i opublikowane w PR #39 | 4 rodziny / 384 warianty: potęgi A²/A³, działania złożone, zgodność wymiarów A+B/AB/BA oraz łańcuchy |
-| MT-EDU-011 | Zakres przeniesiony do MT-EDU-018 | Dwie zmienne W01–W03: pochodne cząstkowe, gradient, ekstrema, granice i ciągłość; bez ukończonych generatorów |
+| MT-EDU-011 | Częściowo zrealizowane w MT-EDU-018 / #60 i #61 | W01 i W02 mają kontrolowane generatory pochodnych, gradientu, punktów stacjonarnych i Hessiana; W03 pozostaje teorią i przyszłym zakresem |
 | MT-EDU-012 | Scalone na `main` w PR #40 (22.10.2026) | Dwie rodziny / 120 wariantów: samodzielne obliczanie D,D1…D4 Cramera w 3×3 i 4×4, oceniane osobno; bez nowych sprawdzianów |
 | MT-EDU-013 | P0 i P1 opublikowane (#43, #44), w zakresie 2×2 | Cztery autorskie rodziny równań 2×2: AX=4X+B, AXB=C, (A+4X)⁻¹=B i 3X+A=BX (336 wariantów). Nadal brak ogólnych większych rozmiarów i dodatkowych typów przekształceń |
 | MT-EDU-014 | P0/P1/P2 scalone (#45/#46/#47) | P0: parametryzacje kwadratowe. P1: łańcuch pięciu równości i klasyfikacja 3×2/4×3 (192 warianty). P2: pełne rozwiązania parametryczne 3×2/4×3/2×3 (3 rodziny, 144 warianty). Pozostają dowolne rozmiary, dowolny zapis symboliczny i bardziej złożony Cramer |
 | MT-EDU-015 | P0 (#48), P1 (#50), P2A (#51) i przygotowanie P2B (#52) scalone; P2B-1 (#53) i P2B-2 (#54) scalone | MT-EDU-015A: granice ciągów (288 wariantów). MT-EDU-015B P1: parzystość i odwrotność (144). P2A: tg i złożone dziedziny (144). P2B: dostępne i testowane SVG oraz odczytywanie własności z wykresów; F04–F06 nadal częściowe |
 | MT-EDU-016 | P0 (#56) oraz P1A (#57) scalone; P1B (iloczyn i iloraz) scalone jako #58 | Pozostają szersze asymptoty, ogólne ilorazy symboliczne, pełniejsze badanie funkcji i szkice |
 | MT-EDU-017 | P4 A wdrożono w #59 (141 rodzin / 12045 wariantów) | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; pozostałe formy całek do rozszerzenia |
-| MT-EDU-018 | P1 (#60) wdrożone; P2 (#61) do osobnego zatwierdzenia po pełnym CI | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian (ograniczone przypadki); W03: zagadnienia teoretyczne nadal do opracowania |
+| MT-EDU-018 | P1 (#60) i P2 (#61) scalone i opublikowane | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian w kontrolowanych przypadkach; W03: do opracowania |
+| MT-EDU-019 | **Propozycja; tylko plan, bez generatorów i bez wdrożenia** | [Plan P0–P4, 47 częściowych kompetencji i pierwsze trzy proponowane PR](MT-EDU-019-PLAN.md). Nie rozpoczynać implementacji bez zatwierdzenia zakresu |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
 | MT-004B / MT-004C | Możliwe kolejne etapy — poza tym PR | Dobrowolna powtórka słabszych tematów, bezpieczny import lub dalsze funkcje po osobnej decyzji |
 | MT-005 | Pilotaż | Testy użyteczności z dorosłymi uczącymi się, poprawki treści i dostępności |
 
-## Audyt pokrycia programu matematyki — 8 działów (22.10.2026)
+## Audyt pokrycia programu matematyki — 8 działów (aktualizacja 23.10.2026)
 
 **Zakres:** osiem działów matematyki: macierze i wyznaczniki, układy równań, granice ciągów, podstawy funkcji, granice funkcji, pochodne, całki oraz funkcje dwóch zmiennych. Punktem odniesienia jest pełna lista umiejętności i typów zadań potrzebnych na kursie matematyki. Zestawienie jest robocze: opisuje aktualną implementację, a nie gwarancję gotowości do dowolnego egzaminu. Generatory i objaśnienia muszą być autorskie; nie kopiujemy zewnętrznych arkuszy ani kluczy odpowiedzi.
 
-**Stan mapy 64 kompetencji po wprowadzeniu PR #61:** 15 „pokryte”, 47 „częściowo”, 0 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Katalog po #60 na main: **143 rodziny / 12189 wariantów**. PR #61 dodaje 144 warianty; po jego scaleniu: **145 rodzin / 12333 warianty**.
+**Stan mapy 64 kompetencji na main po PR #61:** 15 „pokryte”, 47 „częściowo”, 0 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Obecny katalog: **145 rodzin / 12 333 warianty**. Priorytety dla 47 częściowych kompetencji w [MT-EDU-019-PLAN.md](MT-EDU-019-PLAN.md).
 
 | Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |
 | 1. Macierze i wyznaczniki | Działania, potęgi A²/A³, transpozycja, wyznaczniki 2×2–5×5, odwrotność 2×2/3×3, rząd, AX=B, XA=B i kontrolowany układ równań macierzowych; w PR P1 także (A+4X)⁻¹=B i 3X+A=BX dla 2×2 | Po zatwierdzeniu P1: dalsze rozmiary i kombinacje równań; inne strategie wyznaczników |
 | 2. Układy równań | Cramer 2×2/3×3/4×4, D i D_i, Gauss i klasyfikacja; P0 pełna parametryzacja wybranych 3×3/4×4; P1 łańcuch pięciu równości i klasyfikacja 3×2/4×3; P2 pełna parametryzacja 3×2/4×3/2×3 | Dalsze rozmiary i swobodny zapis symboliczny, trudniejsze przypadki rang i Cramera |
 | 3. Granice ciągów | Ilorazy wielomianów, różnica pierwiastków/sprzężenie, geometryczne, wybrane formy Eulera | Większa różnorodność pierwiastków i funkcji wykładniczych, porównywanie wzrostu, rozpoznanie monotoniczności/ograniczoności |
-| 4. Funkcje: podstawy | Dziedzina pierwiastka/ilorazu/logarytmu, moduł, złożenie, wybrane równania i nierówności exp/log | Odczytywanie własności z wykresu, parzystość, odwrotność, dziedzina tg, pełniejsze przecięcia warunków |
+| 4. Funkcje: podstawy | Dziedzina, moduł, wybrane równania exp/log; parzystość, odwrotność liniowej, dziedzina tg i odczyt kontrolowanych łamanych SVG | Szersze złożenia dziedziny, odwrotność nieliniowa, inne rodzaje wykresów i nierówności |
 | 5. Granice funkcji | Granice w punkcie i jednostronne, 0/0, sprzężenie, w nieskończoności, wybrane asymptoty, Euler | Rozszerzenie klas zadań, szersze granice i asymptoty, ciągłość jako osobny typ sprawdzenia |
-| 6. Pochodna | Wzory, iloczyn/łańcuch, wybrane ilorazy w punkcie, ln/exp, L’Hospital, monotoniczność, ekstrema, wypukłość/przegięcia, kontrolowane badanie wielomianu/wymiernej | Pochodne trig i pełniejsze symboliczne ilorazy, brak pochodnej w punkcie, rysowanie/odczyt szkicu, pełne badanie i ekstrema globalne w innych klasach |
-| 7. Całki | Wielomian/tablicowe, kontrolowane podstawienie, części, powracające, oznaczone dla wielomianów | Szerzej exp/ln/trig i części wielokrotne; **brak generatorów pól między krzywymi i długości łuku** |
-| 8. Funkcje dwóch zmiennych | Brak dedykowanych rodzin W01–W03 | **Pochodne cząstkowe/mieszane, gradient, punkty stacjonarne, Hessian/ekstrema, podstawowe granice/ciągłość 2D** |
+| 6. Pochodna | Wzory, iloczyn/łańcuch, iloraz w punkcie, trig, ln/exp, L’Hospital, monotoniczność, ekstrema, wypukłość, pochodne jednostronne i kontrolowane badanie funkcji | Bardziej ogólne klasy funkcji, wieloetapowe badanie i szkic, ekstrema globalne w innych klasach |
+| 7. Całki | Wielomiany/tablicowe, podstawienie, części, powracające i oznaczone; **I07 pola między kontrolowaną parabolą i prostą oraz I08 wybrane długości łuków** po #59 | Rozszerzyć całki niewłaściwe, inne metody/przypadki oraz ogólniejsze pola i łuki (8 kompetencji nadal częściowych) |
+| 8. Funkcje dwóch zmiennych | **W01** pochodne cząstkowe i gradient (#60), **W02** punkty stacjonarne i Hessian (#61), kontrolowane wielomiany kwadratowe | Inne klasy funkcji 2D, ekstrema z ograniczeniami, **W03** granice i ciągłość (teoria/do opracowania) |
 
 ### Cel: kompletne pokrycie programu — bez specjalnego trybu
 Każdy z ośmiu działów musi mieć wszystkie wymagane typy zadań w zwykłym katalogu, także zadania wieloetapowe. Sama obecność nazwy tematu, opisu teorii lub jednego łatwego wariantu nie oznacza pokrycia. Mapa kompetencji jest listą kontrolną: **każda pozycja ma osiągnąć status „pokryte”** albo otrzymać jawne uzasadnienie, dlaczego jest wyłącznie teoretyczna. Weryfikujemy podtypy, poziomy trudności, kompletność rozwiązania krok po kroku, równoważne warianty PL/EN, poprawność oceniania, brak duplikatów oraz niezależne testy. Ostatnim etapem jest przegląd braków po MT-EDU-018 i domknięcie wszystkich wykrytych luk, nawet jeżeli wymagają dodatkowych pakietów.
 
-### Kolejność wdrażania: MT-EDU-013 → MT-EDU-018
+### Zrealizowana kolejność wdrażania: MT-EDU-013 → MT-EDU-018
+
+> Poniższe P0–P5 to **historyczny plan**, już wdrożony w kontrolowanym zakresie. Nowa kolejność i kryteria akceptacji: **[MT-EDU-019](MT-EDU-019-PLAN.md)**.
 
 1. **P0 / MT-EDU-013 — natychmiastowy priorytet pod najbliższe wejściówki:** rozszerzyć równania macierzowe i operacje występujące w arkuszach; zachować obecne rodziny Cramera oraz wyznaczników bez regresji.
 2. **P1 / MT-EDU-014 — algebra liniowa:** P0/P1 scalone; P2 rozszerza pełną parametryzację Gaussa na 3×2/4×3/2×3. Dalsze luki: inne rozmiary, trudniejsze przypadki rang i Cramera, dowolny zapis symboliczny.
@@ -72,7 +79,7 @@ MathLive i Compute Engine mogą zostać ocenione w późniejszych etapach, gdy p
 
 MT-003B.1 jest pierwszym ograniczonym etapem adaptacji, nie pełnym systemem doboru rodzin. Nie zmienia samoczynnie poziomu ani kategorii. Aktywna sesja istnieje tylko w pamięci karty; trwałe metadane ukończeń dodaje MT-004A.
 
-MT-UX-001 scalono w PR #29, MT-EDU-008 w PR #30, a MT-EDU-009 w PR #37. MT-EDU-010 opublikowano po PR #39 (wtedy **107 rodzin i 9621 wariantów**). MT-EDU-012 przeszedł niezależny przegląd kodu i zielone CI dla HEAD `8714b456`, a następnie został scalony zatwierdzonym **Squash and merge PR #40**, commit `db99a35a2d21bb54e38bc4a813d6b979452584d3`. Aktualny katalog: **109 rodzin, 9741 wariantów**. Stare zadania zachowują treść i tożsamość. MT-EDU-007 P3 nadal obejmuje dwie kontrolowane rodziny. Diagnostykę MT-DIAG-001 wdrożono w PR #35. Sprawdziany MT-EXAM-001/002 działają po PR #36, ale **wstrzymujemy rozwój nowych funkcji sprawdzianów**: priorytet to zwiększenie pokrycia matematyki, różnorodność zadań i nauka krokowa.
+MT-UX-001 scalono w PR #29, MT-EDU-008 w PR #30, a MT-EDU-009 w PR #37. MT-EDU-010 opublikowano po PR #39 (wtedy **107 rodzin i 9621 wariantów**). MT-EDU-012 przeszedł niezależny przegląd kodu i zielone CI dla HEAD `8714b456`, a następnie został scalony zatwierdzonym **Squash and merge PR #40**, commit `db99a35a2d21bb54e38bc4a813d6b979452584d3`. Historyczny katalog bezpośrednio po PR #40: **109 rodzin, 9741 wariantów**. Stare zadania zachowują treść i tożsamość. MT-EDU-007 P3 nadal obejmuje dwie kontrolowane rodziny. Diagnostykę MT-DIAG-001 wdrożono w PR #35. Sprawdziany MT-EXAM-001/002 działają po PR #36, ale **wstrzymujemy rozwój nowych funkcji sprawdzianów**: priorytet to zwiększenie pokrycia matematyki, różnorodność zadań i nauka krokowa.
 
 MT-EDU-001 rozszerza treści i typy odpowiedzi, zachowując granice MT-003A.1/MT-003B.1. Nie obejmuje jeszcze Viète'a, macierzy odwrotnej, Cramera, granic, pochodnych ani całek. Zatwierdzenie pakietu wymaga zielonego CI i przeglądu; implementacja lokalna nie oznacza publikacji.
 
