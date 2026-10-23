@@ -30,7 +30,7 @@
 | MT-EDU-015 | P0 (#48), P1 (#50), P2A (#51) i przygotowanie P2B (#52) scalone; P2B-1 (#53) i P2B-2 (#54) scalone | MT-EDU-015A: granice ciągów (288 wariantów). MT-EDU-015B P1: parzystość i odwrotność (144). P2A: tg i złożone dziedziny (144). P2B: dostępne i testowane SVG oraz odczytywanie własności z wykresów; F04–F06 nadal częściowe |
 | MT-EDU-016 | P0 (#56) oraz P1A (#57) scalone; P1B (iloczyn i iloraz) scalone jako #58 | Pozostają szersze asymptoty, ogólne ilorazy symboliczne, pełniejsze badanie funkcji i szkice |
 | MT-EDU-017 | P4 A wdrożono w #59 (141 rodzin / 12045 wariantów) | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; pozostałe formy całek do rozszerzenia |
-| MT-EDU-018 | P1 (pochodne cząstkowe i gradient) w PR #60; P2 (Hessian) w PR #61 | Dwie funkcje rodziny W01: pochodne I/II rzędu, mieszane i gradient; W02, W03 wymagają osobnego rozwoju |
+| MT-EDU-018 | P1 (#60) wdrożone; P2 (#61) do osobnego zatwierdzenia po pełnym CI | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian (ograniczone przypadki); W03: zagadnienia teoretyczne nadal do opracowania |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
@@ -41,7 +41,7 @@
 
 **Zakres:** osiem działów matematyki: macierze i wyznaczniki, układy równań, granice ciągów, podstawy funkcji, granice funkcji, pochodne, całki oraz funkcje dwóch zmiennych. Punktem odniesienia jest pełna lista umiejętności i typów zadań potrzebnych na kursie matematyki. Zestawienie jest robocze: opisuje aktualną implementację, a nie gwarancję gotowości do dowolnego egzaminu. Generatory i objaśnienia muszą być autorskie; nie kopiujemy zewnętrznych arkuszy ani kluczy odpowiedzi.
 
-**Stan mapy 64 kompetencji w pakiecie #59+#60:** 15 „pokryte”, 46 „częściowo”, 1 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Po #59: **141 rodzin / 12045 wariantów**. PR #60 dodaje 144 warianty — **143 / 12189**.
+**Stan mapy 64 kompetencji po wprowadzeniu PR #61:** 15 „pokryte”, 47 „częściowo”, 0 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Katalog po #60 na main: **143 rodziny / 12189 wariantów**. PR #61 dodaje 144 warianty; po jego scaleniu: **145 rodzin / 12333 warianty**.
 
 | Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |

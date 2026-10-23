@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **143 rodziny** i **12189 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **145 rodzin** i **12333 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -275,3 +275,7 @@ Dodano 2 rodziny po 72 zadania: `integral-area-between` (całka z modułu różn
 ### MT-EDU-018 P1 — pochodne cząstkowe i gradient
 
 Dodano dwie rodziny / 144 warianty: `multivar-partial-point` (pochodne cząstkowe I i II rzędu w punkcie) oraz `multivar-gradient-point` (dwuelementowy gradient). Wszystkie wyniki liczone na dokładnych ułamkach; szczegółowe rozwiązania i pytania PL/EN, automatyczne testy. Zakres W01 pozostaje częściowy (wybrane wielomiany kwadratowe). Łącznie z MT-EDU-017 po #59: 143 rodziny i 12189 wariantów.
+
+### MT-EDU-018 P2 — punkty stacjonarne i Hessian
+
+Dodano dwie rodziny po 72 warianty: `multivar-stationary-point` (dokładne współrzędne punktu stacjonarnego z układu f_x=f_y=0) oraz `multivar-hessian-classify` (klasyfikacja krytycznego punktu testem Hessiana, także D=0 z wynikiem „test nierozstrzygający”). Trzy poziomy trudności, kroki PL/EN, kontrola poprawności ułamków i testy przeglądarkowe. Zakres W02 wciąż ogranicza się do kontrolowanych funkcji. Po dołączeniu P2 do #59 i #60: **145 rodzin / 12333 warianty**.

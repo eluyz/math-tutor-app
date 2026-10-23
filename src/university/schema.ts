@@ -14,6 +14,7 @@ import type { NondifferentiabilityProblem } from "./nondifferentiability";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
 import type { ProductQuotientProblem } from "./productQuotient";
 import type { PartialGradientProblem } from "./partialGradient";
+import type { HessianProblem } from "./hessian";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -222,6 +223,7 @@ export type UniversityProblem =
   | TrigDerivativeProblem
   | ProductQuotientProblem
   | PartialGradientProblem
+  | HessianProblem
   | SequenceProblem
   | FunctionLimitProblem
   | DerivativeProblem

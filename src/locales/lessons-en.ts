@@ -271,6 +271,8 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
               "derivative:1": "continuous but not differentiable (corner)",
               "derivative:2": "discontinuous (jump)",
               "derivative:3": "continuous but with a vertical tangent",
+              minimum: "local minimum", maximum: "local maximum",
+              saddle: "saddle point", inconclusive: "Hessian test is inconclusive",
             } as Record<string, string>
           )[o.value] ?? graphPropertyChoiceLabels[o.label] ?? o.label,
       })),
