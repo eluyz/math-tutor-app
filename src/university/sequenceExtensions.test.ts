@@ -64,12 +64,18 @@ describe("MT-EDU-015A 288 cases",()=>{
        expect(answer.numerator).toBe(0n);
        expect(eq(spec.value,q(1))).toBe(true);
        expect(assessAnswer(spec,"1").kind).toBe("correct");
+       expect(assessAnswer(spec,"2").kind).toBe("incorrect");
+       expect(assessAnswer(spec,"1/0").kind).toBe("invalid");
       }else{
        expect(spec.kind).toBe("choice");
        if(spec.kind!=="choice")throw Error("Expected symbolic exponent");
        const label=`exp:${answer.numerator}/${answer.denominator}`;
        expect(spec.value).toBe(label);
        expect(assessAnswer(spec,{kind:"choice",value:label}).kind).toBe("correct");
+       const other=spec.options.find(option=>option.value!==label);
+       expect(other, "a distractor must be available").toBeDefined();
+       expect(assessAnswer(spec,{kind:"choice",value:other!.value}).kind).toBe("incorrect");
+       expect(assessAnswer(spec,{kind:"choice",value:"exp:invalid"}).kind).toBe("invalid");
       }
      }else{
       expect(spec.kind).toBe("limit");
@@ -79,6 +85,16 @@ describe("MT-EDU-015A 288 cases",()=>{
       if(answer.kind==="finite"&&spec.value.kind==="finite")expect(eq(spec.value.value,answer.value)).toBe(true);
       expect(assessAnswer(spec,{kind:"limit",classification:answer.kind,value:answer.kind==="finite"?f(answer.value):""}).kind).toBe("correct");
       expect(assessAnswer(spec,emptyAnswer(spec)).kind).toBe("invalid");
+      if(answer.kind==="finite"){
+       expect(assessAnswer(spec,{kind:"limit",classification:"finite",value:f(a(answer.value,q(1)))}).kind).toBe("incorrect");
+       expect(assessAnswer(spec,{kind:"limit",classification:"finite",value:"1/0"}).kind).toBe("invalid");
+       expect(assessAnswer(spec,{kind:"limit",classification:"positive-infinity",value:""}).kind).toBe("incorrect");
+      }else{
+       const reversed=answer.kind==="positive-infinity"?"negative-infinity":"positive-infinity";
+       expect(assessAnswer(spec,{kind:"limit",classification:reversed,value:""}).kind).toBe("incorrect");
+       expect(assessAnswer(spec,{kind:"limit",classification:"finite",value:"0"}).kind).toBe("incorrect");
+      }
+      expect(assessAnswer(spec,{kind:"limit",classification:"unrecognized",value:""}).kind).toBe("invalid");
      }
     }
    }
