@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **126 rodzin**, **10965 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **128 rodzin**, **11109 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **107**, L5: **100**.
 
@@ -422,3 +422,12 @@ Każdy generator jest autorski, z gwarantowanymi dziedzinami i dokładnymi rachu
 | function-affine-inverse | easy, medium, hard | 72 | Zamiana x/y i wyznaczenie współczynników m,n f⁻¹(x)=mx+n w trzech postaciach liniowych |
 
 **2 rodziny / 6 par / 144 warianty**, katalog po P1: **126 rodzin / 10965 instancji**; poziomy advanced i expert nie zostały sztucznie dopisane. Odpowiedzi są oceniane dokładnie, a matematyczny test odwrotności sprawdza oba złożenia. Wykresy i bardziej złożone dziedziny pozostają dalszymi pracami MT-EDU-015B.
+
+## MT-EDU-015B P2A — dziedziny tangensa i składane warunki
+
+| Rodzina | Poziomy | Warianty | Ograniczenia |
+| --- | --- | ---: | --- |
+| function-tangent-domain | easy, medium, hard | 72 | Dziedzina tan(ax+bπ), wykluczenia okresowe k∈ℤ, w hard dodatkowy mianownik x−p |
+| function-mixed-domain | easy, medium, hard | 72 | Dziedzina √(x−p)/log_a(x−b), √((x−p)(x−q))/log_a(x−b) i √((x−p)(x−q))/√(log_a(x−b)) |
+
+**2 rodziny / 6 par / 144 warianty**, katalog po P2A: **128 rodzin / 11109 instancji**. Wyniki dla π pozostają symboliczne, warunki 0<a<1 i a>1 obsługiwane bez przybliżeń, a warunki pierwiastka/logarytmu przecinają się dokładnie. Wykresy SVG oraz odczytywanie własności zostają w P2B.
