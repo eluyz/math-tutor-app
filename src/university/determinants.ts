@@ -478,11 +478,10 @@ export function presentDeterminant(p: DeterminantProblem, locale: Locale) {
     lesson = teaching(locale),
     { t } = lesson;
   if (
-    (p.method === "laplace-five") !== (n === 5) ||
-    (p.method !== "laplace-five" && n !== 4)
+    (p.method === "laplace-five" || p.method === "staged-five") !== (n === 5)
   )
     throw new Error("Determinant family has wrong size");
-  const question = `${t("Oblicz dokładnie det(A) dla macierzy A poniżej.", "Calculate the exact det(A) for matrix A below.")} ${p.method === "laplace-five" ? t("Rozwiń 5×5 do minorów 4×4 i 3×3.", "Expand 5×5 into 4×4 and 3×3 minors.") : p.method === "laplace-four" ? (p.dense ? t("Wybierz wiersz lub kolumnę i rozwiń metodą Laplace'a (bez zer).", "Choose a row or column for full Laplace expansion (no zeros).") : t("Wykorzystaj zera i rozwinięcie Laplace'a.", "Use the zeros and Laplace expansion.")) : t("Użyj odpowiednich własności wyznacznika i operacji wierszowych.", "Use determinant properties and row operations.")}`;
+  const question = `${t("Oblicz dokładnie det(A) dla macierzy A poniżej.", "Calculate the exact det(A) for matrix A below.")} ${p.method === "staged-four" || p.method === "staged-five" ? t("Zastosuj kontrolowane operacje wierszowe, następnie oblicz iloczyn przekątnej i popraw znak.", "Use planned row operations, then multiply the diagonal and correct the sign.") : p.method === "laplace-five" ? t("Rozwiń 5×5 do minorów 4×4 i 3×3.", "Expand 5×5 into 4×4 and 3×3 minors.") : p.method === "laplace-four" ? (p.dense ? t("Wybierz wiersz lub kolumnę i rozwiń metodą Laplace'a (bez zer).", "Choose a row or column for full Laplace expansion (no zeros).") : t("Wykorzystaj zera i rozwinięcie Laplace'a.", "Use the zeros and Laplace expansion.")) : t("Użyj odpowiednich własności wyznacznika i operacji wierszowych.", "Use determinant properties and row operations.")}`;
   let value: Rational;
   if (p.dependentRows) {
     const [source, target] = p.dependentRows;

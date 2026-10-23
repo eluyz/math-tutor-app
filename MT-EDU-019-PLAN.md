@@ -44,3 +44,8 @@ Z 64 pozycji: **15 pokryte, 47 częściowo, 0 oznaczonych jako brak, 2 teoria**.
 Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść falami P1 → P4, dostosowując kolejność do kolejnych zajęć. Dla każdej fali najpierw krótka specyfikacja, potem 1–3 małe PR według rzeczywistych luk. **Nie deklarujemy na tym etapie całkowitej liczby nowych rodzin ani daty pełnego pokrycia 64 kompetencji** — zależy to od zakresu uczelni i niezależnych testów.
 
 **Decyzja wymagana od właściciela:** zatwierdzić lub zmienić kolejność P0–P4 oraz zakres P0A, P0B i P0C. Dopiero po tej decyzji tworzyć kod.
+
+## Status wdrożenia (po akceptacji planu)
+
+- P0A: opracowanie dwóch rodzin strategii wyznaczników 4×4/5×5 w izolowanym PR, 144 warianty Łatwy/Średni/Trudny. Bez scalania przed pełnym CI i recenzją.
+- P0B/P0C: dopiero po osobnej weryfikacji i decyzjach; specyfikacja pozostaje propozycją.

@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **145 rodzin** i **12333 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **147 rodzin** i **12477 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -279,3 +279,7 @@ Dodano dwie rodziny / 144 warianty: `multivar-partial-point` (pochodne cząstkow
 ### MT-EDU-018 P2 — punkty stacjonarne i Hessian
 
 Dodano dwie rodziny po 72 warianty: `multivar-stationary-point` (dokładne współrzędne punktu stacjonarnego z układu f_x=f_y=0) oraz `multivar-hessian-classify` (klasyfikacja krytycznego punktu testem Hessiana, także D=0 z wynikiem „test nierozstrzygający”). Trzy poziomy trudności, kroki PL/EN, kontrola poprawności ułamków i testy przeglądarkowe. Zakres W02 wciąż ogranicza się do kontrolowanych funkcji. Po dołączeniu P2 do #59 i #60: **145 rodzin / 12333 warianty**.
+
+### MT-EDU-019 P0A — strategie redukcji wyznaczników
+
+Dwie rodziny `determinant-strategy-four` i `determinant-strategy-five` (po 72 warianty, Łatwy/Średni/Trudny) uczą planowania operacji wierszowych i obliczania wyznacznika z uwzględnieniem zamiany wierszy. Pytania zawierają pełne rozwiązanie etapowe, matematyka opiera się na dokładnych ułamkach; zakres dotyczy kontrolowanych macierzy, a M09/M10 pozostają częściowo pokryte. Po P0A katalog w PR liczy 147 rodzin / 12477 wariantów. Nie dodano nowej biblioteki ani backendu.

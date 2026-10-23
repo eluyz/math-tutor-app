@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **145 rodzin**, **12333 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **147 rodzin**, **12477 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **107**, L5: **100**.
 
@@ -504,3 +504,12 @@ P1 dodaje 144 instancje do katalogu po #59: **143 rodzin / 12189 wariantów**. I
 | multivar-hessian-classify | easy, medium, hard | 72 | Test Hessiana: minimum, maksimum, punkt siodłowy i przypadek D=0, kiedy test nie rozstrzyga |
 
 P2 wnosi 144 zadania; razem z #59 oraz #60 katalog po scaleniu #61 będzie liczył **145 rodzin i 12333 warianty**. **Poziom Łatwy:** punkty stacjonarne mają całkowite współrzędne z przedziału [−2, 2], bez nadmiernie dużych współczynników liniowych. Poziom Średni: małe ułamki z mianownikiem 2; Trudny: ułamki z mianownikiem 3 i szerszy zakres współrzędnych. Przypadek D=0 nie oznacza automatycznie braku ekstremum; wygenerowany przykład z czwartą potęgą ma rzeczywiste minimum, którego sam test Hessiana nie potwierdza. Zakres W02 pozostaje częściowy.
+
+## MT-EDU-019 P0A — kontrolowana redukcja 4×4 i 5×5
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| determinant-strategy-four | easy, medium, hard | 72 | 4×4: odpowiednio 1, 2 lub 4 operacje; w trudnych również zamiana wierszy |
+| determinant-strategy-five | easy, medium, hard | 72 | 5×5: odpowiednio 1, 2 lub 4 operacje; korekta znaku po zamianie |
+
+Po dodaniu P0A: **147 rodzin i 12477 instancji**. Oryginalne 145 rodzin / 12333 warianty pozostają niezmienione. Macierze są budowane z górnotrójkątnych o małych dokładnych współczynnikach, a następnie transformowane operacjami `R_i += kR_j` i opcjonalnym swap; rozwiązanie jawnie odwraca każdą operację. M09/M10 wciąż pozostają częściowe dla dowolnych macierzy i strategii.
