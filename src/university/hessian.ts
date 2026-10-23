@@ -67,7 +67,7 @@ export function presentHessian(p:HessianProblem,locale:Locale){
   lesson.work("f_x=0; f_y=0; det=4ac−b²="+f(D)+" ≠ 0",
     t("Niezerowy wyznacznik oznacza dokładnie jedno rozwiązanie układu.",
       "A nonzero determinant gives exactly one solution."));
-  lesson.work("x="+f(x)+"; y="+f(y),
+  lesson.work(t("Współrzędne: ","Coordinates: ")+"x="+f(x)+"; y="+f(y),
     t("Rozwiąż układ Cramera bez zaokrąglania współczynników.",
       "Solve the 2×2 system by Cramer's rule without rounding."));
   return lesson.finish(t("Wyznacz punkt stacjonarny (x,y) funkcji","Find the stationary point (x,y) of")+
