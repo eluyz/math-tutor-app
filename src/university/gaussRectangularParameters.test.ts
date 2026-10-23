@@ -55,6 +55,25 @@ function sameMatrix(actual: Matrix, expected: Matrix) {
 }
 
 describe("MT-EDU-014 P2 rectangular full solutions", () => {
+  it("shows examples using exactly the declared free parameters for old and new Gauss families", () => {
+    const cases = [
+      ["gauss-parameters-one", "hard", "x=c+at1"],
+      ["gauss-parameters-two", "advanced", "x=c+at1+bt2"],
+      ["gauss-rectangular-3x2-parameters", "hard", "x=c+at1"],
+      ["gauss-rectangular-4x3-parameters", "advanced", "x=c+at1"],
+      ["gauss-rectangular-4x3-parameters", "expert", "x=c+at1+bt2"],
+      ["gauss-rectangular-2x3-parameters", "advanced", "x=c+at1"],
+      ["gauss-rectangular-2x3-parameters", "expert", "x=c+at1+bt2"],
+    ] as const;
+    for (const [family, level, example] of cases) {
+      const task = makeUniversityTask(family, 0, level);
+      for (const locale of ["pl", "en"] as const) {
+        const question = localizeUniversity(task, locale).question;
+        expect(question).toContain(`${locale === "pl" ? "np." : "e.g."} ${example}.`);
+        if (example === "x=c+at1") expect(question).not.toContain("x=c+at1+bt2");
+      }
+    }
+  });
   it("matches three hand-derived coefficient examples, including a free first column", () => {
     for (const [shape, level, variant, expected] of [
       ["3x2", "hard", 0, ["-12", "3", "0", "1"]],
