@@ -43,6 +43,10 @@ describe("MT-EDU-015B P2A: tangent and mixed domains",()=>{
       expect(p.shift.denominator).toBeGreaterThan(0n);
       const expected=sub(r(1,2),p.shift);
       expect(spec.options.find(x=>x.value===spec.value)?.label).toContain("π");
+      const wrongPeriod=spec.options.find(x=>x.value==="tan:period")?.label;
+      expect(wrongPeriod).toContain("2k");
+      expect(wrongPeriod).toContain("k∈ℤ");
+      expect(wrongPeriod).not.toContain("2k∈ℤ");
       // Structural check independent of answer picker: the forbidden tangent arguments
       // solve ax + shift*pi = pi/2 + k*pi for every integer k.
       for(let k=-3;k<=3;k++){
