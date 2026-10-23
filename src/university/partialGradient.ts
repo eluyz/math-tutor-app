@@ -5,11 +5,12 @@ import type {Locale} from "../locales/types";
 import type {UniversityFamily} from "./schema";
 import {teaching} from "./teaching";
 
-export type PartialGradientProblem=Readonly<{
+type PartialGradientProblemData=Readonly<{
  kind:"multivar-partial-point"|"multivar-gradient-point";
  a:Rational;b:Rational;c:Rational;d:Rational;e:Rational;constant:Rational;
  x:Rational;y:Rational; target:"x"|"y"|"xx"|"xy"|"yy";
 }>;
+export type PartialGradientProblem = PartialGradientProblemData & (Readonly<{kind:"multivar-partial-point"}> | Readonly<{kind:"multivar-gradient-point"}>);
 const index=(d:Difficulty)=>d==="easy"?0:d==="medium"?1:2;
 function create(v:number,d:Difficulty,kind:PartialGradientProblem["kind"]):PartialGradientProblem{
  const n=index(d),den=n===0?1:n===1?2:3;
