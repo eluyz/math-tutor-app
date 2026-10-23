@@ -1,7 +1,7 @@
 import { test, expect, type Page } from "@playwright/test";
 import { shownPolynomial, shownFraction } from "./helpers/functions";
 import { fractionText } from "./helpers/systems";
-import { q, a, s, m, d } from "../src/university/audit";
+import { q, s, d } from "../src/university/audit";
 import { polishLearningText } from "./helpers/localization";
 
 const btn = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
