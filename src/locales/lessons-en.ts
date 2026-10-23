@@ -266,6 +266,10 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
               "function-increasing": "Strictly increasing",
               "function-decreasing": "Strictly decreasing",
               "function-constant": "Constant",
+              "derivative:0": "continuous and differentiable",
+              "derivative:1": "continuous but not differentiable (corner)",
+              "derivative:2": "discontinuous (jump)",
+              "derivative:3": "continuous but with a vertical tangent",
             } as Record<string, string>
           )[o.value] ?? graphPropertyChoiceLabels[o.label] ?? o.label,
       })),

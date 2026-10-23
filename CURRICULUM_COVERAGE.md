@@ -39,7 +39,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | F03 | Moduł w dziedzinie | częściowo | `analysis-absolute`; pierwiastek z \|x−p\|−r, kontrolowane brzegi, bez ogólnych złożeń |
 | F04 | Kilka warunków dziedziny | częściowo | `function-domain`, `analysis-log-domain`, `function-tangent-domain`, `function-mixed-domain`; przecięcia warunków pierwiastka i logarytmu, wyłączenia okresowe tg(ax+bπ) w kontrolowanych postaciach; bez wszystkich możliwych połączeń |
 | F05 | Własności z wykresu | częściowo | `function-graph-domain-range`, `function-graph-zeros`, `function-graph-monotonicity`, `function-graph-extrema`, `function-graph-symmetry`: dziedzina, zbiór wartości, miejsca zerowe, monotoniczność odcinkowa, globalne ekstrema i symetria na kontrolowanych łamanych SVG. Wciąż bez odczytu dowolnych krzywych i wszystkich punktów nieciągłości |
-| F06 | Parzystość, złożenie i odwrotność | częściowo | `function-composition`, `function-parity`, `function-affine-inverse`; parzystość wielomianów i funkcja odwrotna do liniowej; bez odwrotności ogólnych i odczytu symetrii wykresów |
+| F06 | Parzystość, złożenie i odwrotność | częściowo | `function-composition`, `function-parity`, `function-affine-inverse`; parzystość wielomianów i funkcja odwrotna do liniowej; bez odwrotności ogólnych; odczyt symetrii wykresów uzupełnia `function-graph-symmetry` |
 | F07 | Prawa exp/log, równania i nierówności | częściowo | `analysis-power-law`, `analysis-elementary-equation`, `analysis-log-inequality`; wybrane dokładne tożsamości i równania, bez ogólnych złożeń |
 | G01 | Granica przez podstawienie | pokryte | `limit-point` |
 | G02 | 0/0 przez skrócenie | pokryte | `limit-point` |
@@ -54,7 +54,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | D03 | Łańcuch i funkcje elementarne | częściowo | `derivative-formula`, `analysis-log-exp-derivative`; wielomiany, ln(u), ln|u|, e^u i prosty iloczyn, bez trygonometrii |
 | D04 | L’Hospital | częściowo | `analysis-lhospital`, `analysis-lhospital-infinity`; kontrolowane 0/0 i ∞/∞ jedno- i dwukrokowe dla wielomianów, ln i e^u, bez wszystkich postaci nieoznaczonych |
 | D05 | Monotoniczność i ekstrema lokalne | częściowo | `derivative-monotonicity`, `derivative-extrema`; kontrolowane wielomiany |
-| D06 | Brak pochodnej w punkcie krytycznym | brak | — |
+| D06 | Brak pochodnej w punkcie krytycznym | częściowo | `derivative-absolute-one-sided`, `derivative-piecewise-point`: pochodne jednostronne funkcji z modułem, ciągłość i różniczkowalność prostych funkcji przedziałami, załamania i skok. Bez ogólnych wierzchołków, stycznych pionowych i szerszych klas funkcji |
 | D07 | Wypukłość i przegięcia | częściowo | `analysis-concavity`; znak drugiej pochodnej, zero bez przegięcia i dwa przegięcia w kontrolowanych wielomianach |
 | D08 | Pełne badanie funkcji | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; dwie kontrolowane postacie, bez ogólnych funkcji |
 | D09 | Szkic z tabeli | częściowo | `analysis-study-polynomial`, `analysis-study-rational`; przedziały znaków i zachowanie w rozwiązaniu, bez narysowanego wykresu |
