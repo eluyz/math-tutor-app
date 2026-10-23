@@ -110,7 +110,7 @@ export function presentTrigDerivative(p:TrigDerivativeProblem,locale:Locale) {
   const k=p.innerSlope,h=f(p.at),v=f(p.linearSlope),amp=f(p.coefficient);
   const u="("+k+")(x−("+h+"))+"+p.phase;
   const expr="("+amp+")"+name(p.mode,locale)+"("+u+") + ("+v+")(x−("+h+"))";
-  const factor=phaseFactor(p),ans=pointDerivative(p),chain=mul(p.coefficient,r(k*factor));
+  const factor=phaseFactor(p),ans=pointDerivative(p);
   lesson.work("u("+h+") = "+p.phase+"; u′(x) = "+k,
     t("W punkcie x=h wyrażenie x−h zeruje się, więc argument przyjmuje dokładnie podany kąt.",
       "At x=h, the term x−h vanishes, so the argument equals the stated special angle."));
