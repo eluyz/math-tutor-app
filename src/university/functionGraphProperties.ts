@@ -21,7 +21,7 @@ const levelIndex = (difficulty:Difficulty) => difficulty==="easy"?0:difficulty==
 const node=(x:number,y:number):GraphNode=>({x,y});
 
 function monotonicity(variant:number,difficulty:Difficulty):GraphPropertyProblem {
-  const level=levelIndex(difficulty),start=variant-11,step=2+(variant%3);
+  const level=levelIndex(difficulty),start=variant-11,step=2+((variant+level)%3);
   const patterns:readonly (readonly [number,number,number])[] =
     level===0?
     [[-2,3,-2],[3,-2,3]] :
@@ -43,7 +43,7 @@ function extrema(variant:number,difficulty:Difficulty):GraphPropertyProblem {
     leftClosed:level===0||variant%2===0,rightClosed:level===0||variant%3===0};
 }
 function symmetry(variant:number,difficulty:Difficulty):GraphPropertyProblem {
-  const level=levelIndex(difficulty),h=2+Math.floor(variant/6),size=1+(variant%4);
+  const level=levelIndex(difficulty),h=2+Math.floor(variant/6)+4*level,size=1+(variant%4);
   const mode=variant%3;
   const yLeft=mode===0?size:mode===1?-size:size;
   const yMid=mode===0?(size===4?0:4):mode===1?0:1;
