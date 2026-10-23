@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **135 rodzin** i **11613 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **137 rodzin** i **11757 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -259,3 +259,7 @@ Trzy kolejne rodziny zadań (+216 wariantów): `function-graph-monotonicity` (ro
 ### MT-EDU-016 P0 — pochodne jednostronne i różniczkowalność (D06)
 
 **2 rodziny / 144 warianty** (poziomy easy/medium/hard, po 24 warianty na parę rodzina/poziom): `derivative-absolute-one-sided` — dokładne obliczanie lewej i prawej pochodnej funkcji `a|x−h|+b(x−h)+c` przy `a≠0`; `derivative-piecewise-point` — rozróżnianie funkcji ciągłej różniczkowalnej, ciągłej z załamaniem i funkcji nieciągłej ze skokiem na podstawie wartości/granic jednostronnych i współczynników kierunkowych gałęzi. Zadania PL/EN zawierają stopniowe wskazówki i pełne etapy rachunku. Zakres **nie obejmuje** jeszcze ogólnych funkcji odcinkami, stycznych pionowych ani wszystkich form nieróżniczkowalności. Katalog: **135 rodzin / 11613 wariantów**.
+
+### MT-EDU-016 P1A — trygonometryczne pochodne z regułą łańcuchową
+
+Dodano **2 rodziny / 144 warianty** w 3 poziomach trudności: `derivative-trig-chain` — wybór poprawnego wzoru pochodnej `a·sin(kx+b)`, `a·cos(kx+b)` lub `a·tan(kx+b)`, uwzględniający pochodną argumentu, znak i dziedzinę tangensa; `derivative-trig-special-point` — dokładne wartości pochodnej w wybranym punkcie dla sin, cos, tg/tan o argumentach 0, π, π/2 lub 3π/2, z dodatkowym składnikiem liniowym na wyższych poziomach. Materiały PL/EN, autorskie rozwiązania krok po kroku, niezależne testy wszystkich generatorów. To **nie** zastępuje ogólnego parsera symbolicznego; domena D03 pozostaje częściowo pokryta. Po PR #57: **137 rodzin / 11757 wariantów**.
