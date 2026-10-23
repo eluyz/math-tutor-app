@@ -38,7 +38,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | F02 | Dziedzina logarytmu | częściowo | `analysis-log-domain`; dodatni argument liniowy i ilorazowy, dodatkowy warunek pierwiastka/mianownika; nie dowolne złożenia |
 | F03 | Moduł w dziedzinie | częściowo | `analysis-absolute`; pierwiastek z \|x−p\|−r, kontrolowane brzegi, bez ogólnych złożeń |
 | F04 | Kilka warunków dziedziny | częściowo | `function-domain`, `analysis-log-domain`, `function-tangent-domain`, `function-mixed-domain`; przecięcia warunków pierwiastka i logarytmu, wyłączenia okresowe tg(ax+bπ) w kontrolowanych postaciach; bez wszystkich możliwych połączeń |
-| F05 | Własności z wykresu | brak | —; brak wykresów do odczytu |
+| F05 | Własności z wykresu | częściowo | `function-graph-domain-range`, `function-graph-zeros`: dziedzina, zbiór wartości i miejsca zerowe na łamanych SVG, także otwarte końce; monotoniczność i symetrie wykresów nadal niepokryte |
 | F06 | Parzystość, złożenie i odwrotność | częściowo | `function-composition`, `function-parity`, `function-affine-inverse`; parzystość wielomianów i funkcja odwrotna do liniowej; bez odwrotności ogólnych i odczytu symetrii wykresów |
 | F07 | Prawa exp/log, równania i nierówności | częściowo | `analysis-power-law`, `analysis-elementary-equation`, `analysis-log-inequality`; wybrane dokładne tożsamości i równania, bez ogólnych złożeń |
 | G01 | Granica przez podstawienie | pokryte | `limit-point` |

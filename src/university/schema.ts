@@ -7,6 +7,7 @@ import type { Polynomial, PolynomialFormula } from "./polynomial";
 import type { IntegralProblem } from "./integrals";
 import type { FunctionExtensionProblem } from "./functionExtensions";
 import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
+import type { FunctionGraphProblem } from "./functionGraphs";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -209,6 +210,7 @@ export type UniversityProblem =
   | FunctionProblem
   | FunctionExtensionProblem
   | FunctionDomainExtraProblem
+  | FunctionGraphProblem
   | SequenceProblem
   | FunctionLimitProblem
   | DerivativeProblem

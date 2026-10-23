@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **128 rodzin** i **11109 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **130 rodzin** i **11253 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -247,3 +247,7 @@ Dwie autorskie rodziny po 3 poziomy (łatwy, średni, trudny) i 24 warianty na p
 ### MT-EDU-015B P2A — okresowe i łączone dziedziny
 
 Dwie kolejne rodziny po 3 poziomy i 24 odrębne warianty na poziom (**144 warianty**). `function-tangent-domain` rozwiązuje zakaz argumentów π/2+kπ dla tangensa, także po przesunięciu o ułamek π, a w trudniejszych zadaniach dodatkowo wyklucza zero mianownika. `function-mixed-domain` wyznacza część wspólną ograniczeń pierwiastka i logarytmu, w tym pierwiastka logarytmu w mianowniku dla podstawy większej lub mniejszej od 1. Odpowiedzi są wyborem dokładnego zapisu zbioru (bez przybliżeń π), wyjaśnienia dostępne w PL/EN. Ta partia nie wprowadza jeszcze wykresów ani dowolnego parsera funkcji.
+
+### MT-EDU-015B P2B-1 — wykresy funkcji (SVG)
+
+Dodano **2 rodziny / 144 warianty** na poziomach easy, medium i hard: `function-graph-domain-range` (przedziały dziedziny i zbioru wartości z prawidłowymi nawiasami) oraz `function-graph-zeros` (dwa miejsca zerowe odczytane z łamanej). Wykresy renderuje SVG bez dodatkowej biblioteki, z osiami, skalą, pustymi i pełnymi końcami oraz opisem tekstowym PL/EN. Zadania posiadają autorskie wskazówki, rozwiązania krok po kroku i kontrolowane dokładne odpowiedzi. Wykresowanie dowolnej funkcji, monotoniczność i symetrie pozostają poza zakresem tego etapu.
