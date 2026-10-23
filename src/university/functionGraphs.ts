@@ -8,12 +8,13 @@ import { teaching } from "./teaching";
 export type GraphNode = Readonly<{ x: number; y: number }>;
 /** A bounded, continuous piecewise-linear graph. All coordinates are exact integers. */
 export type FunctionGraphProblem = Readonly<{
-  kind: "function-graph-domain-range" | "function-graph-zeros";
   nodes: readonly [GraphNode, GraphNode, GraphNode];
   leftClosed: boolean;
   rightClosed: boolean;
-  target: "domain" | "range" | "zeros";
-}>;
+}> & (
+  | Readonly<{ kind: "function-graph-domain-range"; target: "domain" | "range" }>
+  | Readonly<{ kind: "function-graph-zeros"; target: "zeros" }>
+);
 
 function domainRange(v: number, difficulty: Difficulty): FunctionGraphProblem {
   const level = difficulty === "easy" ? 0 : difficulty === "medium" ? 1 : 2;
