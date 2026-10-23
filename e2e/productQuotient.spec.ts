@@ -9,7 +9,7 @@ import {polishLearningText} from "./helpers/localization";
 const button=(page:Page,text:string)=>page.getByRole("button",{name:text,exact:true});
 const families=[
  {id:"derivative-product-point",pl:/Pochodna iloczynu w punkcie/,en:/Derivative of a product at a point/},
- {id:"derivative-quotient-point",pl:/Pochodna ilorazu w punkcie/,en:/Derivative of a quotient at a point/},
+ {id:"derivative-quotient-point",pl:/Pochodna ilorazu dwóch funkcji liniowych/,en:/Derivative of a quotient of affine functions/},
 ] as const;
 for(const width of [375,1280])for(const en of [false,true])
 for(const [level,plLevel,enLevel] of [["easy","Łatwy","Easy"],["medium","Średni","Medium"],["hard","Trudny","Hard"]] as const)
