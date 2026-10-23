@@ -2,7 +2,7 @@ import { test, expect, type Page } from "@playwright/test";
 import { shownFraction } from "./helpers/functions";
 import type { Rational } from "../src/rational";
 import { q, a, s, d } from "../src/university/audit";
-import { cmp, selectedSetContains } from "../src/university/functions-audit";
+import { canonical, cmp, selectedSetContains } from "../src/university/functions-audit";
 import { formatRational as f } from "../src/answers";
 import { polishLearningText } from "./helpers/localization";
 
@@ -64,7 +64,7 @@ for (const width of [375, 1280])
         const tangentQuestion = await page.locator(".question").innerText();
         const tangentParts = tangentQuestion.match(/tan\(\((\d+)\)x \+ \(([^()]*)\)π\)/);
         if (!tangentParts) throw Error("Cannot parse the displayed tangent argument");
-        const origin = f(s(q(1, 2), shownFraction(tangentParts[2])));
+        const origin = f(canonical(s(q(1, 2), shownFraction(tangentParts[2]))));
         await expect(page.locator("#answer option[value='tan:correct']")).toContainText(
           "(" + origin + " + k)π)/" + tangentParts[1]);
         if (level === "hard") {
