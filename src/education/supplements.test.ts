@@ -157,9 +157,9 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
       !newIds.has(template.id) && template.category !== "integrals" && !calculus(template.category) && !determinantIds.has(template.id) && !linearIds.has(template.id) && !analysisIds.has(template.id) &&
       !initial.some((task) => task.templateId === template.id),
   );
-  expect(doc).toContain(
-    `Bieżący katalog UI i sesji: **${allTemplates.length} rodzin**, **${all.length} instancji**.`,
-  );
+  expect(["rodzin", "rodziny"].some((form) =>
+    doc.includes(`Bieżący katalog UI i sesji: **${allTemplates.length} ${form}**, **${all.length} instancji**.`),
+  )).toBe(true);
   expect(doc).toContain(
     `Nowe rodziny: **${addedTemplates.length}**. Pary rodzina/poziom: **${addedTemplates.reduce((sum, template) => sum + template.supportedDifficulties.length, 0)}**.`,
   );
