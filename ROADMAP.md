@@ -26,8 +26,8 @@
 | MT-EDU-011 | Zakres przeniesiony do MT-EDU-018 | Dwie zmienne W01–W03: pochodne cząstkowe, gradient, ekstrema, granice i ciągłość; bez ukończonych generatorów |
 | MT-EDU-012 | Scalone na `main` w PR #40 (22.10.2026) | Dwie rodziny / 120 wariantów: samodzielne obliczanie D,D1…D4 Cramera w 3×3 i 4×4, oceniane osobno; bez nowych sprawdzianów |
 | MT-EDU-013 | P0 i P1 opublikowane (#43, #44), w zakresie 2×2 | Cztery autorskie rodziny równań 2×2: AX=4X+B, AXB=C, (A+4X)⁻¹=B i 3X+A=BX (336 wariantów). Nadal brak ogólnych większych rozmiarów i dodatkowych typów przekształceń |
-| MT-EDU-014 | P0/P1 scalone (#45/#46); P2 do recenzji | P0: parametryzacje kwadratowe. P1: łańcuch pięciu równości i klasyfikacja 3×2/4×3 (192 warianty). P2: pełne rozwiązania parametryczne 3×2/4×3/2×3 (3 rodziny, 144 warianty). Pozostają dowolne rozmiary, dowolny zapis symboliczny i bardziej złożony Cramer |
-| MT-EDU-015 | Plan P2 — ciągi i funkcje podstawowe | Poszerzenie granic z pierwiastkami/potęgami/Eulerem; dziedziny z funkcją tg i łączonymi warunkami; parzystość, odwrotność i interpretacja prostych wykresów |
+| MT-EDU-014 | P0/P1/P2 scalone (#45/#46/#47) | P0: parametryzacje kwadratowe. P1: łańcuch pięciu równości i klasyfikacja 3×2/4×3 (192 warianty). P2: pełne rozwiązania parametryczne 3×2/4×3/2×3 (3 rodziny, 144 warianty). Pozostają dowolne rozmiary, dowolny zapis symboliczny i bardziej złożony Cramer |
+| MT-EDU-015 | P0 (PR do weryfikacji), dalsze pakiety planowane | MT-EDU-015A: ilorazy pierwiastków, wzrost potęg i iloczyny postaci Eulera (288 nowych wariantów); pozostają złożone funkcje, dziedziny, parzystość, odwrotność i wykresy |
 | MT-EDU-016 | Plan P3 — granice i pochodna jednej zmiennej | Szersze asymptoty i granice jednostronne, pochodne trygonometryczne/złożone i ilorazy symboliczne, punkty bez pochodnej, pełne badanie funkcji i szkice |
 | MT-EDU-017 | Plan P4 — całki i zastosowania | Uzupełnienie tablicowych/podstawienia/przez części; oznaczone z exp/ln/trig; pola między krzywymi z podziałem przedziału (I07) i długość łuku (I08) |
 | MT-EDU-018 | Plan P5 — funkcje dwóch zmiennych | Pochodne cząstkowe 1./2. rzędu i mieszane, gradient, stacjonarność i klasyfikacja Hessianem, proste granice/ciągłość 2D jako moduł pojęciowo-rachunkowy |
@@ -60,7 +60,7 @@ Każdy z ośmiu działów musi mieć wszystkie wymagane typy zadań w zwykłym k
 ### Kolejność wdrażania: MT-EDU-013 → MT-EDU-018
 
 1. **P0 / MT-EDU-013 — natychmiastowy priorytet pod najbliższe wejściówki:** rozszerzyć równania macierzowe i operacje występujące w arkuszach; zachować obecne rodziny Cramera oraz wyznaczników bez regresji.
-2. **P1 / MT-EDU-014 — algebra liniowa:** P0/P1 scalone; P2 do recenzji rozszerza pełną parametryzację Gaussa na 3×2/4×3/2×3. Dalsze luki: inne rozmiary, trudniejsze przypadki rang i Cramera, dowolny zapis symboliczny.
+2. **P1 / MT-EDU-014 — algebra liniowa:** P0/P1 scalone; P2 rozszerza pełną parametryzację Gaussa na 3×2/4×3/2×3. Dalsze luki: inne rozmiary, trudniejsze przypadki rang i Cramera, dowolny zapis symboliczny.
 3. **P2 / MT-EDU-015 — przygotowanie do kolejnych zajęć:** granice ciągów oraz funkcje, dziedziny, odwrotność, parzystość i odczyt wykresów. Wykresy tylko wtedy, gdy możliwe są testowane, dostępne SVG; nie dodawać ciężkiej biblioteki dla samego wyglądu.
 4. **P3 / MT-EDU-016 — granice i pochodne:** rozszerzyć rachunek bez wymogu dowolnego parsera symbolicznego; osobne zadania na pochodną i na całe badanie funkcji.
 5. **P4 / MT-EDU-017 — ukończyć całki:** najpierw braki w metodach, potem dedykowane generatory I07 i I08 z niezależnie policzonymi polami/łukami.

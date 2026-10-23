@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **121 rodzin** i **10533 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **124 rodziny** i **10821 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -235,3 +235,7 @@ Dodano 192 warianty w trzech rodzinach. W dziale **Układy równań** można roz
 Trzy nowe rodziny dodają **144 warianty**: 3×2 (Trudny/Zaawansowany), 4×3 i 2×3 (Zaawansowany/Ekspert), po 24 na każdą parę rodzina/poziom. Układy są zgodne: 3×2 ma jeden parametr, a 4×3 i 2×3 jeden na Zaawansowanym i dwa na Ekspercie. Wpisz część stałą i wszystkie współczynniki t1/t2 dla każdej niewiadomej, w tym zera i jedynki dla zmiennych swobodnych. Treść podaje obowiązującą konwencję parametrów od lewej. Odpowiedź obejmuje cały zbiór rozwiązań, nie tylko punkt szczególny. Ułamki są dokładne; rozwiązanie PL/EN pokazuje eliminację, rzędy, RREF oraz kontrolę części stałej i każdego parametru we wszystkich oryginalnych równaniach.
 
 In **Systems of equations**, the new **Gauss 3×2 / 4×3 / 2×3: full parametric solution** families ask for the constant and each parameter coefficient of every unknown. Use the explicitly stated free-variable convention and exact fractions; equivalent parameterizations using different parameters are outside this numeric coefficient form. No general symbolic parser is used. The earlier rectangular classification families remain available.
+
+### MT-EDU-015A — granice ciągów
+
+W **Granicach ciągów** dodano 288 zadań z ilorazów pierwiastków, porównywania szybkości wzrostu dodatnich podstaw wykładniczych oraz przesuniętych granic Eulera i ich iloczynów. W zadaniach z pierwiastkami uczysz się poprawnie wyłączać n²; przy potęgach łączyć identyczne podstawy przed porównaniem; w zadaniach Eulera przechodzić do logarytmu. Odpowiedzi wymierne wpisujesz w polu granicy, a niewymierne e^(q) wskazujesz dokładnie, bez przybliżenia dziesiętnego.

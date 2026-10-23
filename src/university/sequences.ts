@@ -322,7 +322,7 @@ const spectrumText = (terms: readonly GeometricTerm[]) =>
   terms.length
     ? terms.map((t) => `(${f(t.coefficient)})·(${f(t.base)})ᵏ`).join(" + ")
     : "0";
-export function presentSequence(p: SequenceProblem, locale: Locale) {
+export function presentSequence(p: Extract<SequenceProblem,{kind:"sequence-rational"|"sequence-geometric"|"sequence-conjugate"}>, locale: Locale) {
   const lesson = teaching(locale),
     { t } = lesson;
   const instruction = t(
