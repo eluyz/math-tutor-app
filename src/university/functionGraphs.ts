@@ -84,7 +84,7 @@ export function graphZeros(p: FunctionGraphProblem): readonly Rational[] {
   }
   return zeros;
 }
-export function graphPlainText(p: FunctionGraphProblem, locale: Locale): string {
+export function graphPlainText(p: Pick<FunctionGraphProblem,"nodes"|"leftClosed"|"rightClosed">, locale: Locale): string {
   const t = (pl:string,en:string) => locale === "pl" ? pl : en;
   const points = p.nodes.map(node => "(" + fmt(r(node.x)) + ", " + fmt(r(node.y)) + ")").join(" → ");
   return t("Wykres funkcji jest łamaną przez punkty", "The function graph is a polyline through points") + ": " + points + ". " +

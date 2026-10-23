@@ -8,6 +8,7 @@ import type { IntegralProblem } from "./integrals";
 import type { FunctionExtensionProblem } from "./functionExtensions";
 import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 import type { FunctionGraphProblem } from "./functionGraphs";
+import type { GraphPropertyProblem } from "./functionGraphProperties";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -211,6 +212,7 @@ export type UniversityProblem =
   | FunctionExtensionProblem
   | FunctionDomainExtraProblem
   | FunctionGraphProblem
+  | GraphPropertyProblem
   | SequenceProblem
   | FunctionLimitProblem
   | DerivativeProblem
@@ -223,6 +225,8 @@ export type UniversityProblem =
   | IntegralProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
+export const isFunctionGraphProblem = (p: UniversityProblem): p is FunctionGraphProblem | GraphPropertyProblem =>
+  p.kind.startsWith("function-graph-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>
   p.kind.startsWith("linear-");
 export type UniversityFamily = Readonly<{

@@ -208,6 +208,21 @@ const fieldLabels: Record<string, string> = {
   "Liczba wierszy": "Number of rows",
   "Liczba kolumn": "Number of columns",
 };
+const graphPropertyChoiceLabels: Record<string, string> = {
+  "parzysta": "even",
+  "nieparzysta": "odd",
+  "ani parzysta, ani nieparzysta": "neither even nor odd",
+  "funkcja jest stała": "the function is constant",
+  "rośnie, potem rośnie": "increases, then increases",
+  "rośnie, potem maleje": "increases, then decreases",
+  "rośnie, potem jest stała": "increases, then is constant",
+  "maleje, potem rośnie": "decreases, then increases",
+  "maleje, potem maleje": "decreases, then decreases",
+  "maleje, potem jest stała": "decreases, then is constant",
+  "jest stała, potem rośnie": "is constant, then increases",
+  "jest stała, potem maleje": "is constant, then decreases",
+  "jest stała, potem jest stała": "is constant, then is constant"
+};
 export function englishAnswer(spec: AnswerSpec): AnswerSpec {
   if (spec.kind === "list")
     return {
@@ -252,7 +267,7 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
               "function-decreasing": "Strictly decreasing",
               "function-constant": "Constant",
             } as Record<string, string>
-          )[o.value] ?? o.label,
+          )[o.value] ?? graphPropertyChoiceLabels[o.label] ?? o.label,
       })),
     };
   return spec;
