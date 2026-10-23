@@ -74,6 +74,7 @@ export function presentGaussParameters(problem:Linear,locale:Locale) {
   if(problem.method!=="parameters")throw Error("Not a parametric Gauss exercise");
   const lesson=teaching(locale),{t}=lesson;
   const n=problem.matrix[0].length;
+  const rectangular=problem.matrix.length!==n;
   const names=varNames.slice(0,n);
   const augmented=problem.matrix.map((row,i)=>[...row,problem.rhs[i]]);
   const result=classifySystem(problem.matrix,problem.rhs);
@@ -102,6 +103,13 @@ export function presentGaussParameters(problem:Linear,locale:Locale) {
     if(lhs[0].numerator!==problem.rhs[i].numerator||lhs[0].denominator!==problem.rhs[i].denominator
       ||lhs.slice(1).some(value=>value.numerator!==0n))
       throw Error("Parametric solution does not satisfy the original system");
+    if(rectangular)lesson.work(
+      `R${i+1}: `+lhs.map((_,k)=>
+        `${k===0?t("stała","constant"):`t${k}`}: `+
+        problem.matrix[i].map((value,j)=>`(${f(value)})·(${f(coefficients[j][k])})`).join(" + ")+
+        ` = ${f(k===0?problem.rhs[i]:zero)}`).join("; "),
+      t("Podstawiamy części stałe i oddzielnie współczynniki każdego parametru do tego oryginalnego równania.",
+        "Substitute the constants and each parameter's coefficients separately into this original equation."));
   }
   lesson.work(t("Sprawdzenie: wyrazy stałe spełniają Ax=b, a wszystkie współczynniki przy t spełniają Ax=0.",
     "Verification: constant terms satisfy Ax=b, and all parameter coefficients satisfy Ax=0."),
@@ -114,9 +122,10 @@ export function presentGaussParameters(problem:Linear,locale:Locale) {
   const values=coefficients.flat();
   const answer:AnswerSpec={kind:"list",labels,values};
   const freeText=result.freeColumns.map((col,i)=>`${names[col]}=t${i+1}`).join(", ");
+  const example=rectangular&&result.freeColumns.length===1?"x=c+at1":"x=c+at1+bt2";
   const prompt=t(
-    `Rozwiąż metodą Gaussa: [A|b]=${compact(augmented)}. Zmienne swobodne: ${freeText}. Wpisz dla każdej niewiadomej STAŁĄ oraz WSPÓŁCZYNNIKI przy t1${result.freeColumns.length===2?" i t2":""}, np. x=c+at1+bt2. Nie wpisuj całego wyrażenia do jednego pola.`,
-    `Solve by Gaussian elimination: [A|b]=${compact(augmented)}. Free variables: ${freeText}. For each unknown, enter the CONSTANT and the COEFFICIENTS of t1${result.freeColumns.length===2?" and t2":""}, e.g. x=c+at1+bt2. Do not enter an entire expression in one field.`);
+    `Rozwiąż metodą Gaussa: [A|b]=${compact(augmented)}. Zmienne swobodne: ${freeText}. Wpisz dla każdej niewiadomej STAŁĄ oraz WSPÓŁCZYNNIKI przy t1${result.freeColumns.length===2?" i t2":""}, np. ${example}. Nie wpisuj całego wyrażenia do jednego pola.`,
+    `Solve by Gaussian elimination: [A|b]=${compact(augmented)}. Free variables: ${freeText}. For each unknown, enter the CONSTANT and the COEFFICIENTS of t1${result.freeColumns.length===2?" and t2":""}, e.g. ${example}. Do not enter an entire expression in one field.`);
   return lesson.finish(prompt,answer,
     t(`Najpierw oblicz rzędy i wybierz zmienne swobodne: ${freeText}.`,
       `Find ranks and identify free variables: ${freeText}.`),

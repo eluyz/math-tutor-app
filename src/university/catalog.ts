@@ -14,6 +14,7 @@ import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
+import { gaussRectangularParameterFamilies } from "./gaussRectangularParameters";
 import { chainFamilies, presentChain } from "./chainEqualities";
 import { rectangularFamilies, presentRectangular } from "./rectangularSystems";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
@@ -40,6 +41,7 @@ export const universityFamilies = [
   ...rankFamilies,
   ...gaussFamilies,
   ...gaussParameterFamilies,
+  ...gaussRectangularParameterFamilies,
   ...chainFamilies,
   ...rectangularFamilies,
   ...cramerFourFamilies,
@@ -97,7 +99,7 @@ const present = (problem: UniversityProblem, locale: Locale) =>
       : problem.kind === "sequence-radical-ratio" ||
           problem.kind === "sequence-exponential-ratio" ||
           problem.kind === "sequence-euler-product"
-        ? presentSequenceExtension(problem,locale)
+        ? presentSequenceExtension(problem, locale)
         : problem.kind === "sequence-rational" ||
           problem.kind === "sequence-geometric" ||
           problem.kind === "sequence-conjugate"

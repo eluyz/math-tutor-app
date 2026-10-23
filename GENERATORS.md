@@ -1,8 +1,8 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **121 rodzin**, **10677 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 104 rodziny wspierają advanced, a 98 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **124 rodziny**, **10821 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **104**, L5: **98**.
+Łącznie rodziny L4: **107**, L5: **100**.
 
 ## Pierwotne rodziny
 
@@ -385,9 +385,26 @@ Zamiast oceniać jedynie „nieskończenie wiele rozwiązań”, formularz wymag
 
 Zadania mają dokładne ułamki Rational, PL/EN i objaśnienia z operacjami Gaussa. Łańcuch wymaga wpisania pojedynczego wyniku; pozostałe trzy równości są weryfikowane przez podstawienie. Prostokątne układy wymagają **klasyfikacji**, a w krokach zawierają wyprowadzone wartości dla przypadku jednoznacznego, parametryzację dla nieskończenie wielu rozwiązań lub jawny wiersz sprzeczności. Nie twierdzimy, że aplikacja ocenia pełną parametryzację prostokątnych układów.
 
+
+## MT-EDU-014 P2 — pełne rozwiązania prostokątne
+
+| Rodzina | Poziomy | Rząd A = rząd [A|b] | Parametry | Warianty |
+|---|---|---|---|---|
+| gauss-rectangular-3x2-parameters | hard, advanced | 1 | 1 | 48 |
+| gauss-rectangular-4x3-parameters | advanced, expert | 2 / 1 | 1 / 2 | 48 |
+| gauss-rectangular-2x3-parameters | advanced, expert | 2 / 1 | 1 / 2 | 48 |
+
+**3 rodziny / 6 par / 144 warianty**; katalog po P2: **121 rodzin / 10533 instancje**, 104 rodziny na advanced i 97 na expert. Hard w 3×2 uczy eliminowania zależnych równań z jednym parametrem; advanced wprowadza dokładne ułamki, a w układach trzech niewiadomych dwa pivoty. Expert wymaga dwóch parametrów, także niepoczątkowych kolumn pivotowych i trzecich części we wzorach. Poziomy nie różnią się wyłącznie wielkością liczb.
+
+`gaussRectangularParameters.ts` konstruuje niezależną bazę schodkową, dodaje zależne równania i wykonuje odwracalne operacje na całych wierszach, łącznie z b. Gwarantuje to zgodność i dokładny rząd. Każda para ma 24 różne zbiory rozwiązań, nie tylko inaczej przeskalowane macierze. Istniejący prezenter `presentGaussParameters` wyprowadza współczynniki i sprawdza Ax=b dla części stałej oraz Ax=0 oddzielnie dla każdej części parametrycznej we wszystkich m równaniach.
+
+Formularz `list` wymaga wszystkich n(1+k) liczb (w tym 0 i 1) w jawnej konwencji: zmienne swobodne od lewej to t1, t2. Inne bazy parametrów nie są przyjmowane; aplikacja nie interpretuje dowolnych napisów symbolicznych. Puste/nieprawidłowe pola są invalid, błędne współczynniki incorrect. Zachowano standardowe sesje, historię i brudnopis.
+
+Niezależny audyt używa wszystkich minorów do rzędów i reguły Cramera na odwracalnym minorze do stałych i współczynników, sprawdza kompletność bazy, wszystkie oryginalne równania oraz każdą pokazaną operację eliminacji i RREF w PL/EN. Fixture z main `f585218e3ce87bcf963a725aabbf056ba1e486fa` chroni pełne 10389 wcześniejszych zadań i rozwiązań PL/EN haszami SHA-256. E2E obejmuje PL/EN, 375/1280 px, wszystkie nowe pary, sesje 10 zadań, lokalny zapis, brudnopis i Undo/Redo.
+
 ## MT-EDU-015A — granice ciągów (P0)
 
-Trzy nowe rodziny, 4 poziomy medium–expert, po 24 odrębne przykłady na każdą parę: **288 wariantów**. Po zmianie: **121 rodzin i 10677 instancji**, w tym 104 rodziny advanced i 98 expert.
+Trzy nowe rodziny, 4 poziomy medium–expert, po 24 odrębne przykłady na każdą parę: **288 wariantów**. Po zmianie: **124 rodziny i 10821 instancji**, w tym 107 rodzin advanced i 100 expert.
 
 | Rodzina | Poziomy | Wynik ucznia |
 | --- | --- | --- |
