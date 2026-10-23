@@ -34,7 +34,7 @@ function absoluteProblem(v: number, level: Difficulty): AbsoluteProblem {
     h: r(v - 11),
     a: r(sign(v) * (1 + ((v + n) % 5)), den),
     b: n === 0 ? zero : r((v % 7) - 3, den),
-    c: r((v % 5) - 2, 1) /* varied height */ ,
+    c: add(r((v % 5) - 2), r(n, 7)), // keep different levels distinct even after rational reduction
   };
 }
 
