@@ -69,7 +69,7 @@ export function presentAreaArc(p:AreaArcProblem,locale:Locale){
       t("Między punktami przecięcia parabola jest poniżej prostej; poza nimi powyżej.","Between the crossings the parabola is lower; outside them it is higher."));
     lesson.work("F(x)=("+a+")[(x−("+h+"))³/3−("+rad+")²(x−("+h+"))]",
       t("F jest funkcją pierwotną podpisanej różnicy f−g.","F is an antiderivative of the signed difference f−g."));
-    lesson.work("Po podziale przy x="+left+" i x="+right+": A="+fmt(ans),
+    lesson.work(t("Po podziale przy x=","After splitting at x=")+left+t(" i x="," and x=")+right+": A="+fmt(ans),
       t("Zsumuj dodatnie pola; dla części ujemnej odwróć znak całki.","Add nonnegative contributions, reversing the sign of each negative integral."));
     return lesson.finish(t("Oblicz dokładnie pole między wykresami na [","Find the exact area between curves on [")+low+"; "+high+"].\nf(x)=("+a+")(x−("+h+"))²+("+b+"); g(x)=("+b+")+("+a+")("+rad+")²",
       {kind:"scalar",value:ans},
