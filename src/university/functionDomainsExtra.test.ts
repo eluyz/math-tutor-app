@@ -64,6 +64,13 @@ describe("MT-EDU-015B P2A: tangent and mixed domains",()=>{
     }
     for(const locale of ["pl","en"] as const){
       const localized=localizeUniversity(task,locale),answer=localized.answer;
+      if(p.kind==="function-mixed-domain"){
+        const base=p.base.denominator===1n ? String(p.base.numerator) :
+          "("+p.base.numerator+"/"+p.base.denominator+")";
+        expect(localized.question).toContain("log_"+base+"(x");
+        expect(localized.question).not.toContain("log_1/2(x");
+        if(p.base.denominator!==1n)expect(localized.question).toContain("log_(1/2)");
+      }
       expect(answer.kind).toBe("choice");
       if(answer.kind!=="choice")throw Error("Expected choice");
       const correct={kind:"choice" as const,value:answer.value};
