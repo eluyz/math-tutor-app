@@ -67,7 +67,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | I06 | Całka oznaczona | częściowo | `integral-definite`; wielomiany i dokładne granice wymierne, bez niewłaściwych całek |
 | I07 | Pole między krzywymi | brak | — |
 | I08 | Długość łuku | brak | — |
-| W01 | Pochodne cząstkowe I/II | brak | — |
+| W01 | Pochodne cząstkowe I/II | częściowo | `multivar-partial-point`, `multivar-gradient-point`; wielomiany kwadratowe, pochodne I/II i gradient, bez funkcji ogólnych |
 | W02 | Ekstrema 2D | brak | — |
 | W03 | Granica i ciągłość 2D | teoria | —; wymaga ujęcia pojęciowego i zadań |
 
