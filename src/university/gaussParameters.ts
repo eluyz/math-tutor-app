@@ -122,7 +122,7 @@ export function presentGaussParameters(problem:Linear,locale:Locale) {
   const values=coefficients.flat();
   const answer:AnswerSpec={kind:"list",labels,values};
   const freeText=result.freeColumns.map((col,i)=>`${names[col]}=t${i+1}`).join(", ");
-  const example=result.freeColumns.length===1?"x=c+at1":"x=c+at1+bt2";
+  const example=rectangular&&result.freeColumns.length===1?"x=c+at1":"x=c+at1+bt2";
   const prompt=t(
     `Rozwiąż metodą Gaussa: [A|b]=${compact(augmented)}. Zmienne swobodne: ${freeText}. Wpisz dla każdej niewiadomej STAŁĄ oraz WSPÓŁCZYNNIKI przy t1${result.freeColumns.length===2?" i t2":""}, np. ${example}. Nie wpisuj całego wyrażenia do jednego pola.`,
     `Solve by Gaussian elimination: [A|b]=${compact(augmented)}. Free variables: ${freeText}. For each unknown, enter the CONSTANT and the COEFFICIENTS of t1${result.freeColumns.length===2?" and t2":""}, e.g. ${example}. Do not enter an entire expression in one field.`);
