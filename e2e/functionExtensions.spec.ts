@@ -17,7 +17,7 @@ for (const width of [375, 1280]) for (const en of [false, true])
     await btn(page,en ? "Functions" : "Funkcje").click();
     await btn(page,en ? "Medium" : "Średni").click();
 
-    await btn(page,en ? "Even and odd functions" : "Parzystość funkcji z wzoru").click();
+    await page.getByRole("button",{name:en ? /Even and odd functions/ : /Parzystość funkcji z wzoru/}).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id","function-parity");
     const polynomial = shownPolynomial((await page.locator(".question").innerText()).split("\n").find(line=>line.startsWith("f(x) = "))!.slice(7));
     const even = polynomial.every((x,i)=>i%2===0 || x.numerator===0n);
@@ -35,7 +35,7 @@ for (const width of [375, 1280]) for (const en of [false, true])
     await btn(page,en ? "Show all steps" : "Pokaż wszystkie kroki").click();
     await expect(page.locator(".solution-panel")).toContainText("f(−x)");
 
-    await btn(page,en ? "Inverse of an affine function" : "Funkcja odwrotna do liniowej").click();
+    await page.getByRole("button",{name:en ? /Inverse of an affine function/ : /Funkcja odwrotna do liniowej/}).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id","function-affine-inverse");
     const question = await page.locator(".question").innerText();
     const match = question.match(/f\(x\) = \(([^()]*)\)\(x − \(([^()]*)\)\) \+ \(([^()]*)\)/);
