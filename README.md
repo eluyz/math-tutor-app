@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **137 rodzin** i **11757 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **139 rodzin** i **11901 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -263,3 +263,7 @@ Trzy kolejne rodziny zadań (+216 wariantów): `function-graph-monotonicity` (ro
 ### MT-EDU-016 P1A — trygonometryczne pochodne z regułą łańcuchową
 
 Dodano **2 rodziny / 144 warianty** w 3 poziomach trudności: `derivative-trig-chain` — wybór poprawnego wzoru pochodnej `a·sin(kx+b)`, `a·cos(kx+b)` lub `a·tan(kx+b)`, uwzględniający pochodną argumentu, znak i dziedzinę tangensa; `derivative-trig-special-point` — dokładne wartości pochodnej w wybranym punkcie dla sin, cos, tg/tan o argumentach 0, π, π/2 lub 3π/2, z dodatkowym składnikiem liniowym na wyższych poziomach. Materiały PL/EN, autorskie rozwiązania krok po kroku, niezależne testy wszystkich generatorów. To **nie** zastępuje ogólnego parsera symbolicznego; domena D03 pozostaje częściowo pokryta. Po PR #57: **137 rodzin / 11757 wariantów**.
+
+### MT-EDU-016 P1B — pochodne iloczynu i ilorazu w punkcie
+
+**2 rodziny / 144 warianty**, każda po 24 zadania na poziomach easy, medium i hard: `derivative-product-point` dla `(ax+b)(cx²+d)`, z oddzielnym wyliczeniem u′v+uv′, oraz `derivative-quotient-point` dla `(ax+b)/(cx+d)`, z kontrolą niezerowego mianownika i licznika ad−bc. Wyniki są dokładnymi liczbami wymiernymi, z rozwiązaniami PL/EN i testami jednostkowymi oraz przeglądarkowymi. Zakres D02 pozostaje częściowy: nie dodano parsera dowolnych pochodnych symbolicznych. Łącznie po P1A i P1B: **139 rodzin / 11901 wariantów**.

@@ -56,7 +56,7 @@ for (const width of [375, 768, 1280])
           [
             "rational",
             en ? "Medium" : "Średni",
-            en ? /Quotient derivative/ : /Pochodna ilorazu/,
+            en ? /Quotient derivative/ : /Pochodna ilorazu w punkcie/,
           ],
           [
             "maximum",
