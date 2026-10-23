@@ -46,7 +46,7 @@ export function mixedDomain(p:Extract<FunctionDomainExtraProblem,{kind:"function
   return intersection(radicand,logConditions);
 }
 const tanForbidden=(p:Extract<FunctionDomainExtraProblem,{kind:"function-tangent-domain"}>,offset:Rational,frequency:string,scale:number,includePole:boolean)=>{
-  const periodic=`{x = ((${f(offset)} + ${frequency})π)/${scale}, ${frequency==="k"?"k":"k"}∈ℤ}`;
+  const periodic=`{x = ((${f(offset)} + ${frequency})π)/${scale}, k∈ℤ}`;
   return `ℝ ∖ ${periodic}${includePole&&p.pole!==null?` ∖ {${f(p.pole)}}`:""}`;
 };
 export function presentFunctionDomainExtra(problem:FunctionDomainExtraProblem,locale:Locale){
@@ -102,7 +102,7 @@ export function presentFunctionDomainExtra(problem:FunctionDomainExtraProblem,lo
     t("Bierzemy część wspólną warunków. Punkty wykluczone pozostają usunięte nawet na końcach przedziałów.",
       "Intersect all restrictions. Excluded values remain excluded even when they are interval endpoints."));
   return lesson.finish(
-    `${t("Wyznacz dziedzinę rzeczywistą.","Find the real domain.")}\f(x)=${expression}`,
+    `${t("Wyznacz dziedzinę rzeczywistą.","Find the real domain.")}\nf(x)=${expression}`,
     setAnswer(domain,p.p),
     t("Zapisz osobno warunek pierwiastka, logarytmu i mianownika.",
       "Write the square-root, logarithm and denominator conditions separately."),
