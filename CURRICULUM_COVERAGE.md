@@ -50,7 +50,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | G07 | Asymptoty | częściowo | `analysis-asymptote-vertical`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`; także dziury i dwie strony nieskończoności, bez badania dowolnej funkcji |
 | G08 | Ciągłość i granica Heinego | częściowo | `limit-point`; f(a) kontra granica, bez twierdzenia Heinego |
 | D01 | Pochodna potęg po uproszczeniu | pokryte | `derivative-formula` |
-| D02 | Iloczyn i iloraz | częściowo | `derivative-formula`, `derivative-rational-point`; iloraz tylko w punkcie |
+| D02 | Iloczyn i iloraz | częściowo | `derivative-formula`, `derivative-rational-point`, `derivative-product-point`, `derivative-quotient-point`; pochodna iloczynu (czynnik liniowy × kwadratowy) i ilorazu dwóch funkcji liniowych w punkcie, bez parsera dowolnych pochodnych symbolicznych |
 | D03 | Łańcuch i funkcje elementarne | częściowo | `derivative-formula`, `analysis-log-exp-derivative`; wielomiany, ln(u), ln|u|, e^u i prosty iloczyn, bez trygonometrii |
 | D04 | L’Hospital | częściowo | `analysis-lhospital`, `analysis-lhospital-infinity`; kontrolowane 0/0 i ∞/∞ jedno- i dwukrokowe dla wielomianów, ln i e^u, bez wszystkich postaci nieoznaczonych |
 | D05 | Monotoniczność i ekstrema lokalne | częściowo | `derivative-monotonicity`, `derivative-extrema`; kontrolowane wielomiany |

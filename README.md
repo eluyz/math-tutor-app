@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **135 rodzin** i **11613 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **137 rodzin** i **11757 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -259,3 +259,7 @@ Trzy kolejne rodziny zadań (+216 wariantów): `function-graph-monotonicity` (ro
 ### MT-EDU-016 P0 — pochodne jednostronne i różniczkowalność (D06)
 
 **2 rodziny / 144 warianty** (poziomy easy/medium/hard, po 24 warianty na parę rodzina/poziom): `derivative-absolute-one-sided` — dokładne obliczanie lewej i prawej pochodnej funkcji `a|x−h|+b(x−h)+c` przy `a≠0`; `derivative-piecewise-point` — rozróżnianie funkcji ciągłej różniczkowalnej, ciągłej z załamaniem i funkcji nieciągłej ze skokiem na podstawie wartości/granic jednostronnych i współczynników kierunkowych gałęzi. Zadania PL/EN zawierają stopniowe wskazówki i pełne etapy rachunku. Zakres **nie obejmuje** jeszcze ogólnych funkcji odcinkami, stycznych pionowych ani wszystkich form nieróżniczkowalności. Katalog: **135 rodzin / 11613 wariantów**.
+
+### MT-EDU-016 P1B — pochodne iloczynu i ilorazu w punkcie
+
+**2 rodziny / 144 warianty**, każda po 24 zadania na poziomach easy, medium i hard: `derivative-product-point` dla `(ax+b)(cx²+d)`, z oddzielnym wyliczeniem u′v+uv′, oraz `derivative-quotient-point` dla `(ax+b)/(cx+d)`, z kontrolą niezerowego mianownika i licznika ad−bc. Wyniki są dokładnymi liczbami wymiernymi, z rozwiązaniami PL/EN i testami jednostkowymi oraz przeglądarkowymi. Zakres D02 pozostaje częściowy: nie dodano parsera dowolnych pochodnych symbolicznych. Katalog P1B w izolacji względem main po #56: **137 rodzin / 11757 wariantów**. Wspólnie z P1A (#57) po obu scaleniach: **139 rodzin / 11901 wariantów**; PR P1B musi zostać zsynchronizowany po scaleniach wcześniejszych pakietów.

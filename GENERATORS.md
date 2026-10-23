@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **135 rodzin**, **11613 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **137 rodzin**, **11757 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **107**, L5: **100**.
 
@@ -459,3 +459,12 @@ Katalog po P2B-2: **133 rodziny / 11469 instancji**; bez nowego backendu, biblio
 | derivative-piecewise-point | easy, medium, hard | 72 | Pochodna istnieje / ciągłe załamanie / nieciągły skok dla dwóch kontrolowanych gałęzi liniowych |
 
 Razem **2 nowe rodziny, 144 warianty**. Katalog po P0: **135 rodzin / 11613 instancji**. Nie rozszerzono L4/L5 ani zakresu na ogólne krzywe i pionowe styczne. Zachowano dotychczasowe identyfikatory i generatory.
+
+## MT-EDU-016 P1B — pochodne iloczynu i ilorazu
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| derivative-product-point | easy, medium, hard | 72 | Pochodna iloczynu czynnika liniowego i kwadratowego w punkcie |
+| derivative-quotient-point | easy, medium, hard | 72 | Pochodna ilorazu dwóch funkcji liniowych w punkcie, z dokładnym D(h)≠0 |
+
+P1B dodaje **144 warianty** bez bibliotek i parserów. Izolowany PR na bazie main #56: **137 rodzin / 11757 instancji**. Po połączeniu z P1A (+144): **139 rodzin / 11901 instancji**, po aktualizacji testów katalogu i dokumentacji.

@@ -10,6 +10,7 @@ import { functionDomainExtraFamilies, presentFunctionDomainExtra } from "./funct
 import { functionGraphFamilies, presentFunctionGraph } from "./functionGraphs";
 import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProperties";
 import { nondifferentiabilityFamilies, presentNondifferentiability } from "./nondifferentiability";
+import { productQuotientFamilies, presentProductQuotient } from "./productQuotient";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
@@ -42,6 +43,7 @@ export const universityFamilies = [
   ...functionGraphFamilies,
   ...graphPropertyFamilies,
   ...nondifferentiabilityFamilies,
+  ...productQuotientFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
   ...functionLimitFamilies,
@@ -82,6 +84,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "derivative-product-point" || problem.kind === "derivative-quotient-point"
+    ? presentProductQuotient(problem, locale)
     : problem.kind === "derivative-absolute-one-sided" || problem.kind === "derivative-piecewise-point"
     ? presentNondifferentiability(problem, locale)
     : problem.kind === "function-graph-monotonicity" || problem.kind === "function-graph-extrema" || problem.kind === "function-graph-symmetry"

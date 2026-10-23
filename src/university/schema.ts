@@ -10,6 +10,7 @@ import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 import type { FunctionGraphProblem } from "./functionGraphs";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
+import type { ProductQuotientProblem } from "./productQuotient";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -215,6 +216,7 @@ export type UniversityProblem =
   | FunctionGraphProblem
   | GraphPropertyProblem
   | NondifferentiabilityProblem
+  | ProductQuotientProblem
   | SequenceProblem
   | FunctionLimitProblem
   | DerivativeProblem
