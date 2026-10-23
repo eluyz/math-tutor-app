@@ -82,7 +82,9 @@ export function presentFunctionDomainExtra(problem:FunctionDomainExtraProblem,lo
   }
   const p=problem,product=p.mode!=="root-log";
   const root=product?`√((x−(${f(p.p)}))(x−(${f(p.q)})))`:`√(x−(${f(p.p)}))`;
-  const log=`log_${f(p.base)}(x−(${f(p.boundary)}))`;
+  // Parenthesize fractional logarithm bases in plain-text questions to avoid "log_1/2(x)" ambiguity.
+  const baseText=p.base.denominator===1n?f(p.base):`(${f(p.base)})`;
+  const log=`log_${baseText}(x−(${f(p.boundary)}))`;
   const expression=`${root}/${p.mode==="product-root-log"?`√(${log})`:log}`;
   const domain=mixedDomain(p);
   lesson.work(`${t("Warunek pierwiastka", "Square-root condition")}: ${product?`(x−(${f(p.p)}))(x−(${f(p.q)})) ≥ 0`:`x−(${f(p.p)}) ≥ 0`}`,
