@@ -35,6 +35,7 @@ import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes"
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { integralFamilies, presentIntegral } from "./integrals";
+import { areaArcFamilies, presentAreaArc } from "./areaArc";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -70,6 +71,7 @@ export const universityFamilies = [
   ...advancedCalculusFamilies,
   ...functionStudyFamilies,
   ...integralFamilies,
+  ...areaArcFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -80,6 +82,8 @@ const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraPro
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "integral"
     ? presentIntegral(problem, locale)
+    : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"
+    ? presentAreaArc(problem,locale)
     : isFunctionStudy(problem)
     ? presentFunctionStudy(problem, locale)
     : isAdvancedCalculus(problem)

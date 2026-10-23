@@ -5,6 +5,7 @@ import type { CategoryId } from "../exercises";
 import type { Locale } from "../locales/types";
 import type { Polynomial, PolynomialFormula } from "./polynomial";
 import type { IntegralProblem } from "./integrals";
+import type { AreaArcProblem } from "./areaArc";
 import type { FunctionExtensionProblem } from "./functionExtensions";
 import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 import type { FunctionGraphProblem } from "./functionGraphs";
@@ -230,7 +231,8 @@ export type UniversityProblem =
   | AsymptoteProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
-  | IntegralProblem;
+  | IntegralProblem
+  | AreaArcProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isFunctionGraphProblem = (p: UniversityProblem): p is FunctionGraphProblem | GraphPropertyProblem =>

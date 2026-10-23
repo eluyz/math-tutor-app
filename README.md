@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **141 rodzin** i **12045 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **143 rodziny** i **12189 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -268,6 +268,10 @@ Dodano **2 rodziny / 144 warianty** w 3 poziomach trudności: `derivative-trig-c
 
 **2 rodziny / 144 warianty**, każda po 24 zadania na poziomach easy, medium i hard: `derivative-product-point` dla `(ax+b)(cx²+d)`, z oddzielnym wyliczeniem u′v+uv′, oraz `derivative-quotient-point` dla `(ax+b)/(cx+d)`, z kontrolą niezerowego mianownika i licznika ad−bc. Wyniki są dokładnymi liczbami wymiernymi, z rozwiązaniami PL/EN i testami jednostkowymi oraz przeglądarkowymi. Zakres D02 pozostaje częściowy: nie dodano parsera dowolnych pochodnych symbolicznych. Łącznie po P1A i P1B: **139 rodzin / 11901 wariantów**.
 
+### MT-EDU-017 P4 — zastosowania całki
+
+Dodano 2 rodziny po 72 zadania: `integral-area-between` (całka z modułu różnicy paraboli i poziomej prostej, prawidłowy podział przy przecięciach) oraz `integral-arc-length` (długość rzeczywistej krzywej potęgowej z dokładną funkcją pierwotną). Trzy poziomy trudności; pełne PL/EN, wyprowadzenia i testy. Nie stanowi to pełnego pokrycia wszystkich typów pól i łuków. W izolowanym PR katalog liczy 141 rodzin i 12045 wariantów.
+
 ### MT-EDU-018 P1 — pochodne cząstkowe i gradient
 
-2 nowe rodziny / 144 warianty: `multivar-partial-point` (pochodne po x i y pierwszego i drugiego rzędu) oraz `multivar-gradient-point` (dwuelementowy gradient w punkcie). Z dokładnymi ułamkami, wskazówkami PL/EN, testami oraz dostępnością z kategorii Pochodne. To początek tematu W01, nie ogólny parser funkcji 2D. Izolowany katalog 141 / 12045.
+Dodano dwie rodziny / 144 warianty: `multivar-partial-point` (pochodne cząstkowe I i II rzędu w punkcie) oraz `multivar-gradient-point` (dwuelementowy gradient). Wszystkie wyniki liczone na dokładnych ułamkach; szczegółowe rozwiązania i pytania PL/EN, automatyczne testy. Zakres W01 pozostaje częściowy (wybrane wielomiany kwadratowe). Łącznie z MT-EDU-017 po #59: 143 rodziny i 12189 wariantów.

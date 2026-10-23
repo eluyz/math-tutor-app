@@ -143,7 +143,7 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(`MT-EDU-007 P1: **384** nowych instancji; łącznie **8133**.`);
   expect(doc).toContain(`MT-EDU-007 P2: **360** nowych instancji; łącznie **8493**.`);
   expect(doc).toContain(`MT-EDU-007 P3 (częściowo): **${added007.length - 1128}** nowych instancji; łącznie **${beforeIntegrals.length}**.`);
-  expect(integralTasks).toHaveLength(432);
+  expect(integralTasks).toHaveLength(576);
   expect(all.filter(task => ["function-parity", "function-affine-inverse"].includes(task.templateId))).toHaveLength(144);
   expect(all.filter(task => ["function-tangent-domain", "function-mixed-domain"].includes(task.templateId))).toHaveLength(144);
   expect(all.filter(task => ["function-graph-domain-range", "function-graph-zeros"].includes(task.templateId))).toHaveLength(144);
@@ -154,7 +154,7 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(all.filter(task => task.templateId.startsWith("gauss-rectangular-"))).toHaveLength(144);
   expect(all.filter(task => ["sequence-radical-ratio", "sequence-exponential-ratio", "sequence-euler-product"].includes(task.templateId))).toHaveLength(288);
   expect(all.filter(task => newIds.has(task.templateId) && !["multivar-partial-point","multivar-gradient-point","derivative-product-point","derivative-quotient-point","derivative-trig-chain","derivative-trig-special-point","derivative-absolute-one-sided","derivative-piecewise-point","function-graph-monotonicity", "function-graph-extrema", "function-graph-symmetry", "function-graph-domain-range", "function-graph-zeros", "function-tangent-domain", "function-mixed-domain", "function-parity", "function-affine-inverse", "sequence-radical-ratio", "sequence-exponential-ratio", "sequence-euler-product", "gauss-rectangular-3x2-parameters", "gauss-rectangular-4x3-parameters", "gauss-rectangular-2x3-parameters", "system-chain-five", "system-rectangular-3x2", "system-rectangular-4x3", "gauss-parameters-one", "gauss-parameters-two", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift"].includes(task.templateId))).toHaveLength(720);
-  expect(doc).toContain(`MT-EDU-008 P0–P2: **${integralTasks.length}** nowych instancji; łącznie **9021**.`);
+  expect(doc).toContain(`MT-EDU-008 P0–P2: **432** nowych instancji; łącznie **9021**.`);
   expect(doc).toContain("MT-EDU-009: **216** nowych instancji; łącznie **9237**.");
   expect(doc).toContain("MT-EDU-010: **384** nowe instancje; łącznie **9621**.");
   expect(doc).toContain("MT-EDU-012: **120** nowych instancji; łącznie **9741**.");
