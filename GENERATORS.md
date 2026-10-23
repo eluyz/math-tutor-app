@@ -503,4 +503,4 @@ P1 dodaje 144 instancje do katalogu po #59: **143 rodzin / 12189 wariantów**. I
 | multivar-stationary-point | easy, medium, hard | 72 | Rozwiązywanie f_x=f_y=0 dla funkcji kwadratowych 2D z dokładnymi ułamkami |
 | multivar-hessian-classify | easy, medium, hard | 72 | Test Hessiana: minimum, maksimum, punkt siodłowy i przypadek D=0, kiedy test nie rozstrzyga |
 
-P2 wnosi 144 zadania; razem z #59 oraz #60 katalog po scaleniu #61 będzie liczył **145 rodzin i 12333 warianty**. Przypadek D=0 nie oznacza automatycznie braku ekstremum. Zakres W02 pozostaje częściowy.
+P2 wnosi 144 zadania; razem z #59 oraz #60 katalog po scaleniu #61 będzie liczył **145 rodzin i 12333 warianty**. **Poziom Łatwy:** punkty stacjonarne mają całkowite współrzędne z przedziału [−2, 2], bez nadmiernie dużych współczynników liniowych. Poziom Średni: małe ułamki z mianownikiem 2; Trudny: ułamki z mianownikiem 3 i szerszy zakres współrzędnych. Przypadek D=0 nie oznacza automatycznie braku ekstremum; wygenerowany przykład z czwartą potęgą ma rzeczywiste minimum, którego sam test Hessiana nie potwierdza. Zakres W02 pozostaje częściowy.

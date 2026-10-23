@@ -11,6 +11,19 @@ describe("MT-EDU-018 P2 Hessian and stationary points",()=>{
    const D=sub(mul(mul(r(2),p.a),mul(r(2),p.c)),mul(p.b,p.b));
    expect(eq(D,determinantHessian(p))).toBe(true);
    keys.add(task.contentKey);
+   if(level==="easy"){
+     // Beginner exercises must not require ±11 coordinates or coefficients around ±70.
+     for(const coordinate of [p.h,p.k]){
+       expect(coordinate.denominator).toBe(1n);
+       expect(coordinate.numerator>=-2n && coordinate.numerator<=2n).toBe(true);
+     }
+     // The shown stationary polynomial's linear terms remain bounded.
+     if(p.kind==="multivar-stationary-point"){
+       for(const coefficient of [p.d,p.e])expect(
+         coefficient.numerator<=15n && coefficient.numerator>=-15n
+       ).toBe(true);
+     }
+   }
    if(p.kind==="multivar-stationary-point"){
      const [x,y]=stationaryCoordinates(p);
      expect(D.numerator).not.toBe(0n);
@@ -32,7 +45,15 @@ describe("MT-EDU-018 P2 Hessian and stationary points",()=>{
      expect(new Set(task.answer.options.map(o=>o.label)).size).toBe(4);
      expect(assessAnswer(task.answer,{kind:"choice",value:result}).kind).toBe("correct");
      expect(assessAnswer(task.answer,{kind:"choice",value:task.answer.options.find(o=>o.value!==result)!.value}).kind).toBe("incorrect");
-     if(p.degenerate)expect(result).toBe("inconclusive");
+     if(p.degenerate){
+       // f=a(x−h)^2+(y−k)^4+const has an actual strict minimum.
+       // But D=0, so the *Hessian test alone* must still be inconclusive.
+       expect(result).toBe("inconclusive");
+       expect(p.a.numerator>0n).toBe(true);
+       expect(p.b.numerator).toBe(0n);
+       expect(p.c.numerator).toBe(0n);
+       expect(task.question).toContain("⁴");
+     }
    }
    expect(assessAnswer(task.answer,emptyAnswer(task.answer)).kind).toBe("invalid");
    const en=localizeUniversity(task,"en");

@@ -19,7 +19,9 @@ function create(v:number,level:Difficulty,kind:HessianProblem["kind"]):HessianPr
  const a=mode===1?neg(lead):lead;
  const c=mode===1?neg(other):mode===2?neg(other):mode===3?r(0):other;
  const b=mode===3?r(0):r(v%2,den);
- const h=r(v-11,den),k=r(v%7-3,den);
+ // Keep easy exercises readable: small integer stationary points, not ±11/large linear coefficients.
+ const h=n===0?r(v%5-2):n===1?r(v%9-4,2):r(v-11,3);
+ const k=n===0?r(Math.floor(v/5)-2):n===1?r((2*v)%9-4,2):r(v%7-3,3);
  const d=neg(add(mul(mul(r(2),a),h),mul(b,k)));
  const e=neg(add(mul(b,h),mul(mul(r(2),c),k)));
  return {kind,a,b,c,d,e,offset:r(v%5-2,den),h,k,degenerate:mode===3};
