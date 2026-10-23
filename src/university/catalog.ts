@@ -5,6 +5,7 @@ import type { GeneratedTask } from "../generators";
 import type { UniversityProblem, LinearAlgebraProblem, ElementaryAnalysisProblem, AsymptoteProblem, AdvancedCalculusProblem, FunctionStudyProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
+import { functionExtensionFamilies, presentFunctionExtension } from "./functionExtensions";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
@@ -32,6 +33,7 @@ export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
   ...systemFamilies,
   ...functionFamilies,
+  ...functionExtensionFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
   ...functionLimitFamilies,
@@ -72,6 +74,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "function-parity" || problem.kind === "function-affine-inverse"
+    ? presentFunctionExtension(problem, locale)
     : problem.kind === "linear-matrix-practice"
     ? presentMatrixPractice(problem, locale)
     : problem.kind === "linear-matrix-pair"

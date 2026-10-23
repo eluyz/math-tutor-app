@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **124 rodziny** i **10821 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **126 rodzin** i **10965 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -239,3 +239,7 @@ In **Systems of equations**, the new **Gauss 3×2 / 4×3 / 2×3: full parametric
 ### MT-EDU-015A — granice ciągów
 
 W **Granicach ciągów** dodano 288 zadań z ilorazów pierwiastków, porównywania szybkości wzrostu dodatnich podstaw wykładniczych oraz przesuniętych granic Eulera i ich iloczynów. W zadaniach z pierwiastkami uczysz się poprawnie wyłączać n²; przy potęgach łączyć identyczne podstawy przed porównaniem; w zadaniach Eulera przechodzić do logarytmu. Odpowiedzi wymierne wpisujesz w polu granicy, a niewymierne e^(q) wskazujesz dokładnie, bez przybliżenia dziesiętnego.
+
+### MT-EDU-015B P1 — parzystość i funkcja odwrotna
+
+Dwie autorskie rodziny po 3 poziomy (łatwy, średni, trudny) i 24 warianty na parę: **144 zadania**. Dla parzystości porównujemy f(−x) z f(x) i −f(x), z uczciwie mieszanymi przypadkami parzystymi, nieparzystymi i pozostałymi na każdym poziomie. Dla odwrotnej rozwiązujemy f(y)=x dla kontrolowanych funkcji liniowych (w tym postaci z nawiasem i ilorazem), wpisując współczynniki m,n funkcji f⁻¹(x)=mx+n. Brak ogólnego parsera dowolnych odwrotności, odczyt z wykresu będzie osobnym pakietem. Rozwiązania i podpowiedzi PL/EN; zachowane istniejące ćwiczenia.
