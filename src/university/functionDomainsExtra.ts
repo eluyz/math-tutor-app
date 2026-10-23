@@ -10,7 +10,7 @@ export type FunctionDomainExtraProblem =
   | Readonly<{kind:"function-tangent-domain"; factor:number; shift:Rational; pole:Rational|null}>
   | Readonly<{kind:"function-mixed-domain"; p:Rational; q:Rational; boundary:Rational; base:Rational; mode:"root-log"|"product-log"|"product-root-log"}>;
 
-const shifts = [r(0), r(1,4), r(-1,4), r(3,4)] as const;
+const shifts = [r(1,4), r(-1,4), r(1,8), r(3,8)] as const;
 function tangent(v:number, difficulty:Difficulty):FunctionDomainExtraProblem {
   const factor = difficulty==="easy" ? v+1 : 1+(v%6);
   const shift = difficulty==="easy" ? r(0) : shifts[Math.floor(v/6)];
@@ -60,11 +60,11 @@ export function presentFunctionDomainExtra(problem:FunctionDomainExtraProblem,lo
     const expression=`tan((${p.factor})x + (${f(p.shift)})π)${p.pole===null?"":`/(x − (${f(p.pole)}))`}`;
     lesson.work(`(${p.factor})x+(${f(p.shift)})π = π/2 + kπ, k∈ℤ`,
       t("Tangens nie istnieje dla nieparzystych wielokrotności π/2. Zera tangensa są dozwolone.",
-        "Tangent is undefined at odd multiples of π/2. Its zeros are allowed."));
+        "Tangent does not exist at odd multiples of π/2. Its zeros are allowed."));
     lesson.work(`x = ((${f(origin)}+k)π)/${p.factor}, k∈ℤ`,
       t("Odejmujemy przesunięcie i dzielimy przez niezerowy współczynnik x.",
         "Subtract the shift and divide by the nonzero coefficient of x."));
-    if(p.pole!==null)lesson.work(`x ≠ ${f(p.pole)}`,
+    if(p.pole!==null)lesson.work(`${t("Mianownik", "Denominator")}: x ≠ ${f(p.pole)}`,
       t("Mianownik ułamka musi być niezerowy; to dodatkowe wykluczenie.",
         "The rational denominator must be nonzero; this is an additional exclusion."));
     lesson.work(`D = ${correct}`,
@@ -85,20 +85,20 @@ export function presentFunctionDomainExtra(problem:FunctionDomainExtraProblem,lo
   const log=`log_${f(p.base)}(x−(${f(p.boundary)}))`;
   const expression=`${root}/${p.mode==="product-root-log"?`√(${log})`:log}`;
   const domain=mixedDomain(p);
-  lesson.work(product?`(x−(${f(p.p)}))(x−(${f(p.q)})) ≥ 0`:`x−(${f(p.p)}) ≥ 0`,
+  lesson.work(`${t("Warunek pierwiastka", "Square-root condition")}: ${product?`(x−(${f(p.p)}))(x−(${f(p.q)})) ≥ 0`:`x−(${f(p.p)}) ≥ 0`}`,
     t("Pierwiastek w liczniku wymaga wyrażenia nieujemnego; sprawdzamy znaki na przedziałach.",
       "A numerator square root requires a nonnegative radicand; check signs on each interval."));
   if(p.mode!=="product-root-log"){
-    lesson.work(`x>${f(p.boundary)}, x≠${f(add(p.boundary,r(1)))}`,
+    lesson.work(`${t("Warunek logarytmu", "Logarithm condition")}: x>${f(p.boundary)}, x≠${f(add(p.boundary,r(1)))}`,
       t("Argument logarytmu jest dodatni, a mianownik logarytmiczny nie może wynosić zero (log_a 1=0).",
         "The logarithm argument is positive and the logarithmic denominator cannot be zero (log_a 1=0)."));
   }else{
-    lesson.work(p.base.numerator>p.base.denominator?`x>${f(add(p.boundary,r(1)))}`:
-      `${f(p.boundary)}<x<${f(add(p.boundary,r(1)))}`,
+    lesson.work(`${t("Pierwiastek logarytmu", "Logarithm under the square root")}: ${p.base.numerator>p.base.denominator?`x>${f(add(p.boundary,r(1)))}`:
+      `${f(p.boundary)}<x<${f(add(p.boundary,r(1)))}`}`,
       t("Pierwiastek logarytmu w mianowniku wymaga log_a(x−b)>0. Dla podstawy 0<a<1 nierówność odwraca kierunek.",
         "A denominator square root requires log_a(x−b)>0. For a base 0<a<1, the logarithmic inequality reverses direction."));
   }
-  lesson.work(`D = ${setText(domain)}`,
+  lesson.work(`${t("Dziedzina", "Domain")} D = ${setText(domain)}`,
     t("Bierzemy część wspólną warunków. Punkty wykluczone pozostają usunięte nawet na końcach przedziałów.",
       "Intersect all restrictions. Excluded values remain excluded even when they are interval endpoints."));
   return lesson.finish(
