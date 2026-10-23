@@ -26,7 +26,7 @@ import { DeterminantDisplay } from "./DeterminantDisplay";
 import { FunctionGraphDisplay } from "./FunctionGraphDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
-import { isLinearAlgebraProblem } from "./university/schema";
+import { isLinearAlgebraProblem, isFunctionGraphProblem } from "./university/schema";
 import {
   advanceSession,
   createSession,
@@ -614,7 +614,7 @@ export default function App() {
                   >
                     {active.question}
                   </div>
-                  {isUniversityTask(active) && (active.university.kind === "function-graph-domain-range" || active.university.kind === "function-graph-zeros") && (
+                  {isUniversityTask(active) && (isFunctionGraphProblem(active.university)) && (
                     <FunctionGraphDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "determinant" && (

@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **130 rodzin** i **11253 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **133 rodziny** i **11469 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -251,3 +251,7 @@ Dwie kolejne rodziny po 3 poziomy i 24 odrębne warianty na poziom (**144 warian
 ### MT-EDU-015B P2B-1 — wykresy funkcji (SVG)
 
 Dodano **2 rodziny / 144 warianty** na poziomach easy, medium i hard: `function-graph-domain-range` (przedziały dziedziny i zbioru wartości z prawidłowymi nawiasami) oraz `function-graph-zeros` (dwa miejsca zerowe odczytane z łamanej). Wykresy renderuje SVG bez dodatkowej biblioteki, z osiami, skalą, pustymi i pełnymi końcami oraz opisem tekstowym PL/EN. Zadania posiadają autorskie wskazówki, rozwiązania krok po kroku i kontrolowane dokładne odpowiedzi. Wykresowanie dowolnej funkcji, monotoniczność i symetrie pozostają poza zakresem tego etapu.
+
+### MT-EDU-015B P2B-2 — własności funkcji odczytywane z wykresu
+
+Trzy kolejne rodziny zadań (+216 wariantów): `function-graph-monotonicity` (rośnie, maleje lub jest stała na kolejnych odcinkach), `function-graph-extrema` (globalne maksimum i minimum osiągane w środkowym wierzchołku), `function-graph-symmetry` (parzysta, nieparzysta, żadna, z zachowaniem symetrii dziedziny). Poziomy easy/medium/hard, SVG PL/EN, rozwiązania krok po kroku, automatyczne testy matematyczne i przeglądarkowe. Grafy pozostają kontrolowanymi łamanymi trójwierzchołkowymi; nie jest to ogólny silnik wykresowania funkcji. Katalog po P2B-2: **133 rodziny / 11469 wariantów**.

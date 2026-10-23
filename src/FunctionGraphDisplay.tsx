@@ -1,9 +1,10 @@
 import { useId } from "react";
 import type { Locale } from "./locales/types";
 import { graphPlainText, type FunctionGraphProblem } from "./university/functionGraphs";
+import type { GraphPropertyProblem } from "./university/functionGraphProperties";
 
 /** Dependency-free graph: exact vertex coordinates, responsive viewBox, text equivalent. */
-export function FunctionGraphDisplay({problem,locale}:{problem:FunctionGraphProblem;locale:Locale}) {
+export function FunctionGraphDisplay({problem,locale}:{problem:FunctionGraphProblem|GraphPropertyProblem;locale:Locale}) {
   const id=useId().replace(/:/g,"");
   const titleId="graph-title-"+id, descId="graph-description-"+id;
   const title=locale==="pl"?"Wykres funkcji odcinkami liniowej":"Piecewise-linear function graph";
