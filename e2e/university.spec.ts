@@ -29,7 +29,9 @@ async function fillAnySystem(page: Page) {
     await page.locator("#answer").fill(fractionText(solved.answer));
     return {classification:"system-one",values:[]};
   }
-  if (template?.startsWith("gauss-parameters-")) return fillParametricSystem(page);
+  // Dispatch by the rendered coefficient form, including rectangular families.
+  if (await page.locator("form .coefficient-field label").filter({ hasText: /^x: (stała|constant)$/ }).count())
+    return fillParametricSystem(page);
   if (!template?.startsWith("cramer-determinants-")) return fillSystem(page);
   const { values } = await readSystem(page);
   const rows = await page.locator(".linear-algebra-matrices .given-matrix").first().locator("tbody tr").all();

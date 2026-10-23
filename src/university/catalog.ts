@@ -13,6 +13,7 @@ import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
+import { gaussRectangularParameterFamilies } from "./gaussRectangularParameters";
 import { chainFamilies, presentChain } from "./chainEqualities";
 import { rectangularFamilies, presentRectangular } from "./rectangularSystems";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
@@ -38,6 +39,7 @@ export const universityFamilies = [
   ...rankFamilies,
   ...gaussFamilies,
   ...gaussParameterFamilies,
+  ...gaussRectangularParameterFamilies,
   ...chainFamilies,
   ...rectangularFamilies,
   ...cramerFourFamilies,

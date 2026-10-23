@@ -113,7 +113,7 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(
     `Instancje: **${initial.length}** (historyczne **${historical}**, uzupełnienia **${additions}**, L4/L5 **${higher}**).`,
   );
-  const newIds = new Set(["system-chain-five", "system-rectangular-3x2", "system-rectangular-4x3", "gauss-parameters-one", "gauss-parameters-two", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift", "matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five", "matrix-powers", "matrix-composite-operations", "matrix-compatibility", "matrix-chained-dimensions", "cramer-determinants-three", "cramer-determinants-four"]);
+  const newIds = new Set(["gauss-rectangular-3x2-parameters", "gauss-rectangular-4x3-parameters", "gauss-rectangular-2x3-parameters", "system-chain-five", "system-rectangular-3x2", "system-rectangular-4x3", "gauss-parameters-one", "gauss-parameters-two", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift", "matrix-coupled-equations", "determinant-dense-four", "determinant-dense-five", "matrix-powers", "matrix-composite-operations", "matrix-compatibility", "matrix-chained-dimensions", "cramer-determinants-three", "cramer-determinants-four"]);
   const determinantIds = new Set(determinantFamilies.filter(family => !newIds.has(family.id)).map(family => family.id));
   const linearIds = new Set([...inverseFamilies,...rankFamilies,...gaussFamilies,...cramerFourFamilies].map((family) => family.id));
   const analysisIds = new Set([...elementaryAnalysisFamilies, ...asymptoteFamilies, ...advancedCalculusFamilies, ...functionStudyFamilies].map((family) => family.id));
@@ -144,7 +144,8 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(`MT-EDU-007 P2: **360** nowych instancji; łącznie **8493**.`);
   expect(doc).toContain(`MT-EDU-007 P3 (częściowo): **${added007.length - 1128}** nowych instancji; łącznie **${beforeIntegrals.length}**.`);
   expect(integralTasks).toHaveLength(432);
-  expect(all.filter(task => newIds.has(task.templateId) && !["system-chain-five", "system-rectangular-3x2", "system-rectangular-4x3", "gauss-parameters-one", "gauss-parameters-two", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift"].includes(task.templateId))).toHaveLength(720);
+  expect(all.filter(task => task.templateId.startsWith("gauss-rectangular-"))).toHaveLength(144);
+  expect(all.filter(task => newIds.has(task.templateId) && !["gauss-rectangular-3x2-parameters", "gauss-rectangular-4x3-parameters", "gauss-rectangular-2x3-parameters", "system-chain-five", "system-rectangular-3x2", "system-rectangular-4x3", "gauss-parameters-one", "gauss-parameters-two", "matrix-ax-shift", "matrix-axb", "matrix-inverse-plus", "matrix-bx-shift"].includes(task.templateId))).toHaveLength(720);
   expect(doc).toContain(`MT-EDU-008 P0–P2: **${integralTasks.length}** nowych instancji; łącznie **9021**.`);
   expect(doc).toContain("MT-EDU-009: **216** nowych instancji; łącznie **9237**.");
   expect(doc).toContain("MT-EDU-010: **384** nowe instancje; łącznie **9621**.");
