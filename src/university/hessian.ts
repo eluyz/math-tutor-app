@@ -5,11 +5,11 @@ import type {Locale} from "../locales/types";
 import type {UniversityFamily} from "./schema";
 import {teaching} from "./teaching";
 
-export type HessianProblem=Readonly<{
- kind:"multivar-stationary-point"|"multivar-hessian-classify";
+type HessianProblemData=Readonly<{
  a:Rational;b:Rational;c:Rational;d:Rational;e:Rational;offset:Rational;
  h:Rational;k:Rational;degenerate:boolean;
 }>;
+export type HessianProblem=HessianProblemData & (Readonly<{kind:"multivar-stationary-point"}> | Readonly<{kind:"multivar-hessian-classify"}>);
 const neg=(x:Rational)=>sub(r(0),x);
 const index=(d:Difficulty)=>d==="easy"?0:d==="medium"?1:2;
 function create(v:number,level:Difficulty,kind:HessianProblem["kind"]):HessianProblem{
