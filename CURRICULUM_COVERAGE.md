@@ -68,7 +68,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | I07 | Pole między krzywymi | brak | — |
 | I08 | Długość łuku | brak | — |
 | W01 | Pochodne cząstkowe I/II | brak | — |
-| W02 | Ekstrema 2D | brak | — |
+| W02 | Ekstrema 2D | częściowo | `multivar-stationary-point`, `multivar-hessian-classify`; unikatowe punkty stacjonarne funkcji kwadratowych i test Hessiana, w tym D=0; brak ogólnych funkcji i warunków brzegowych |
 | W03 | Granica i ciągłość 2D | teoria | —; wymaga ujęcia pojęciowego i zadań |
 
 Po dodaniu nowych rodzin należy aktualizować wyłącznie wiersze, których umiejętność rzeczywiście obejmują. Dokładne porównanie do 43 PDF-ów i ewentualnych zmian programu jest osobnym, prywatnym audytem; oryginalne materiały ani dane studentów nie trafiają do repozytorium.

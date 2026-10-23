@@ -12,6 +12,7 @@ import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProp
 import { nondifferentiabilityFamilies, presentNondifferentiability } from "./nondifferentiability";
 import { trigDerivativeFamilies, presentTrigDerivative } from "./trigDerivatives";
 import { productQuotientFamilies, presentProductQuotient } from "./productQuotient";
+import { hessianFamilies, presentHessian } from "./hessian";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
@@ -46,6 +47,7 @@ export const universityFamilies = [
   ...nondifferentiabilityFamilies,
   ...trigDerivativeFamilies,
   ...productQuotientFamilies,
+  ...hessianFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
   ...functionLimitFamilies,
@@ -86,6 +88,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
+    ? presentHessian(problem,locale)
     : problem.kind === "derivative-product-point" || problem.kind === "derivative-quotient-point"
     ? presentProductQuotient(problem, locale)
     : problem.kind === "derivative-trig-chain" || problem.kind === "derivative-trig-special-point"

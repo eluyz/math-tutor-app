@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **139 rodzin** i **11901 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **141 rodzin** i **12045 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -267,3 +267,7 @@ Dodano **2 rodziny / 144 warianty** w 3 poziomach trudności: `derivative-trig-c
 ### MT-EDU-016 P1B — pochodne iloczynu i ilorazu w punkcie
 
 **2 rodziny / 144 warianty**, każda po 24 zadania na poziomach easy, medium i hard: `derivative-product-point` dla `(ax+b)(cx²+d)`, z oddzielnym wyliczeniem u′v+uv′, oraz `derivative-quotient-point` dla `(ax+b)/(cx+d)`, z kontrolą niezerowego mianownika i licznika ad−bc. Wyniki są dokładnymi liczbami wymiernymi, z rozwiązaniami PL/EN i testami jednostkowymi oraz przeglądarkowymi. Zakres D02 pozostaje częściowy: nie dodano parsera dowolnych pochodnych symbolicznych. Łącznie po P1A i P1B: **139 rodzin / 11901 wariantów**.
+
+### MT-EDU-018 P2 — punkty stacjonarne i Hessian
+
+Dwie nowe rodziny po 72 warianty: `multivar-stationary-point` (rozwiązywanie f_x=f_y=0 dla kwadratu dwóch zmiennych, dokładne ułamki), `multivar-hessian-classify` (test Hessiana: minimum, maksimum, siodło i poprawnie opisany przypadek D=0). Poziomy easy/medium/hard, PL/EN, kroki i automatyczne testy. W zakresie W02 pozostają inne klasy funkcji i badanie brzegów. Izolowany stan katalogu: 141 / 12045.
