@@ -180,7 +180,7 @@ export function makeUniversityTask(
     difficulty,
     parameters: { variant },
     university,
-    contentKey: `university:${presentation.question}${university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ""}`,
+    contentKey: `university:${presentation.question}${university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "function-graph-domain-range" || university.kind === "function-graph-zeros" ? JSON.stringify(university) : ""}`,
     startingHint: presentation.hint,
     errorRules: [],
   };
