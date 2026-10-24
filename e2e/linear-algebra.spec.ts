@@ -86,7 +86,7 @@ for (const width of [375,1280]) for (const en of [false,true])
     await button(page,en?"University mathematics":"Matematyka na studia").click();
     await button(page,en?"Matrices":"Macierze").click();
     await button(page,en?"Medium":"Średni").click();
-    await page.getByRole("button",{name:en?/Matrix equation AX = 4X \+ B/:/Równanie macierzowe AX = 4X \+ B/}).click();
+    await page.getByRole("button",{name:en?/Matrix equation AX = 4X \+ B(?! \(3×3\))/:/Równanie macierzowe AX = 4X \+ B/}).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id","matrix-ax-shift");
     let A=await shownMatrix(page),B=await shownMatrix(page,1);
     expect(A).toHaveLength(2);expect(B).toHaveLength(2);
@@ -105,7 +105,7 @@ for (const width of [375,1280]) for (const en of [false,true])
     await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
     await expect(page.locator(".solution-panel")).toContainText("A−4I");
     await button(page,en?"Hard":"Trudny").click();
-    await page.getByRole("button",{name:en?/Matrix equation AXB = C/:/Równanie macierzowe AXB = C/}).click();
+    await page.getByRole("button",{name:en?/Matrix equation AXB = C(?! \(3×3\))/:/Równanie macierzowe AXB = C/}).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id","matrix-axb");
     A=await shownMatrix(page); B=await shownMatrix(page,1);
     const C=await shownMatrix(page,2);
