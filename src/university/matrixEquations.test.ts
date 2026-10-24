@@ -18,6 +18,14 @@ describe("MT-EDU-013 P0 matrix equations",()=>{
     expect(advancedMatrixEquationFamilies.filter(x=>x.id.endsWith("-three"))).toHaveLength(2);
   });
 
+  it("P0D variants are distinct across every difficulty, including expert",()=>{
+    for(const family of advancedMatrixEquationFamilies.filter(f=>f.id.endsWith("-three"))){
+      const keys=family.supportedDifficulties.flatMap(level=>
+        taskPool("matrices",level).filter(task=>task.templateId===family.id).map(task=>task.contentKey));
+      expect(keys).toHaveLength(72);
+      expect(new Set(keys).size).toBe(72);
+    }
+  });
   it("P0D genuinely extends size and preserves the existing 2×2 families",()=>{
     for(const family of advancedMatrixEquationFamilies){
       for(const level of family.supportedDifficulties){
