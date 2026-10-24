@@ -6,8 +6,10 @@ Bieżący katalog UI i sesji: **153 rodziny**, **12909 instancji**. `allTemplate
 
 ## MT-EDU-019 P0D — równania macierzowe 3×3
 
-- `matrix-ax-shift-three`: `AX=4X+B`, `A-4I` odwracalna, 24 warianty na poziomie średnim, trudnym i zaawansowanym (72).
-- `matrix-axb-three`: `AXB=C`, obie macierze mnożące odwracalne, 24 warianty na trudnym, zaawansowanym i ekspercie (72).
+| Rodzina | Zakres i poziomy |
+| --- | --- |
+| matrix-ax-shift-three | `AX=4X+B`, `A−4I` odwracalna; medium/hard/advanced × 24 = 72 warianty |
+| matrix-axb-three | `AXB=C`, obie macierze mnożące odwracalne; hard/advanced/expert × 24 = 72 warianty |
 - Dokładne wyniki 3×3, eliminacja Gaussa–Jordana, zachowanie stron mnożenia, podstawienie do oryginalnego równania, PL/EN i walidacja błędnych oraz nieważnych odpowiedzi. Zachowane oryginalne 2×2.
 
 ## Pierwotne rodziny
