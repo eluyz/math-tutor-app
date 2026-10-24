@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan po P0E2 (24.10.2026):** PR #63–#68 (P0A–P0E2) scalone. Zweryfikowany `main` `7c0e26f` zawiera **157 rodzin / 13 197 wariantów** w 14 kategoriach, CI i Pages PASS. **P0F1 powstaje w odrębnym PR bez zgody na merge:** odwrotności i równania 4×4 (+144 warianty), po ewentualnym scaleniu **159 / 13 341**. Mapa 64 kompetencji: 15 pokrytych, 47 częściowych, 2 teoretyczne. [Plan](MT-EDU-019-PLAN.md).
+> **Stan po P0F1 (24.10.2026):** PR #63–#69 zostały scalone. `main` `8d230cc` ma **159 rodzin / 13 341 wariantów** w 14 kategoriach; CI i GitHub Pages PASS. P0F2 (XA=B i AX=4X+B dla macierzy 4×4) jest dopiero planowany, bez wdrożenia i bez zgody na merge. Docelowo +2 rodziny / +144 warianty. Mapa: 15 pokrytych, 47 częściowych, 2 teoretyczne. [Plan](MT-EDU-019-PLAN.md).
 
 > Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
 
