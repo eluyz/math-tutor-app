@@ -1,5 +1,5 @@
 import {test,expect,type Page} from "@playwright/test";
-import {laplace,a,m,d,q} from "../src/university/audit";
+import {laplace,a,m,d,q,eq} from "../src/university/audit";
 import {shownFraction} from "./helpers/functions";
 import {fractionText} from "./helpers/systems";
 import type {Rational} from "../src/rational";
@@ -53,7 +53,7 @@ test("MT-EDU-019 P0G "+width+" "+(en?"EN":"PL"),async({page})=>{
       const values=Array.from({length:4},(_,j)=>
         d(laplace(A.map((row,i)=>row.map((c,k)=>j===k?B[i]:c))),D));
       for(let i=0;i<4;i++)
-        expect(A[i].map((v,j)=>m(v,values[j])).reduce(a,q(0)).numerator).toBeDefined();
+        expect(eq(A[i].map((v,j)=>m(v,values[j])).reduce(a,q(0)),B[i])).toBe(true);
       await page.locator("#answer").selectOption("system-one");
       for(let j=0;j<4;j++)await page.locator("#system-value-"+j).fill(j===0?"99999":fractionText(values[j]));
       await button(page,en?"Check":"Sprawdź").click();
