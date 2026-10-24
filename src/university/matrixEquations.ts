@@ -71,7 +71,7 @@ function nonsingularThree(v:number,level:Difficulty,salt:number):ExactMatrix {
   return a;
 }
 function targetThree(v:number,level:Difficulty):ExactMatrix {
-  const d=level==="advanced"||level==="expert"?2:1;
+  const d=level==="expert"?3:level==="advanced"?2:1;
   return [
     [r(v-11,d),r(v%5-2),r((2*v)%7-3)],
     [r((v+2)%9-4),r((3*v)%7-3,d),r((v+4)%5-2)],
