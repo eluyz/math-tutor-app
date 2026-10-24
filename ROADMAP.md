@@ -66,7 +66,7 @@ Każdy z ośmiu działów musi mieć wszystkie wymagane typy zadań w zwykłym k
 
 > Poniższe P0–P5 to **historyczny plan**, już wdrożony w kontrolowanym zakresie. Nowa kolejność i kryteria akceptacji: **[MT-EDU-019](MT-EDU-019-PLAN.md)**.
 
-1. **P0 / MT-EDU-013 — natychmiastowy priorytet pod najbliższe wejściówki:** rozszerzyć równania macierzowe i operacje występujące w arkuszach; zachować obecne rodziny Cramera oraz wyznaczników bez regresji.
+1. **P0 / MT-EDU-013 — priorytet: podstawy algebry liniowej:** rozszerzyć równania macierzowe i operacje występujące w arkuszach; zachować obecne rodziny Cramera oraz wyznaczników bez regresji.
 2. **P1 / MT-EDU-014 — algebra liniowa:** P0/P1 scalone; P2 rozszerza pełną parametryzację Gaussa na 3×2/4×3/2×3. Dalsze luki: inne rozmiary, trudniejsze przypadki rang i Cramera, dowolny zapis symboliczny.
 3. **P2 / MT-EDU-015 — przygotowanie do kolejnych zajęć:** granice ciągów oraz funkcje, dziedziny, odwrotność, parzystość i odczyt wykresów. Wykresy tylko wtedy, gdy możliwe są testowane, dostępne SVG; nie dodawać ciężkiej biblioteki dla samego wyglądu.
 4. **P3 / MT-EDU-016 — granice i pochodne:** rozszerzyć rachunek bez wymogu dowolnego parsera symbolicznego; osobne zadania na pochodną i na całe badanie funkcji.
@@ -105,13 +105,13 @@ Wykresy SVG pozostają opcjonalną pomocą na przyszłość; nie dodano ciężki
 
 ### MT-EDU-006A — scalone na main w PR #21
 
-P0: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) na podstawie indeksu Issue #20, bez dostępu do prywatnych 43 PDF-ów. P1: cztery autorskie rodziny wyznaczników 4×4/5×5, 11 par rodzina/poziom i 264 różne zadania. Katalog po tej zmianie obejmuje 67 rodzin, 6645 instancji i 13 kategorii; 59 rodzin wspiera każdy z poziomów Advanced i Expert. Dokładny audyt porównuje Laplace'a z niezależną eliminacją i zachowuje pełne 6381 instancji opublikowanego MT-EDU-005. P2: następne luki rozdzielono na MT-EDU-006B, 007, 008, 009, 010 i 011 oraz istniejący MT-EXAM-001 powyżej. PR #21 został scalony na main; CI i Deploy Pages dla ea1cae4 zakończyły się sukcesem. Pełny zakres prywatnych arkuszy, fizyczny Safari oraz pozostałe tematy nie są deklarowane jako ukończone.
+P0: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) na podstawie indeksu Issue #20, na podstawie ogólnego indeksu umiejętności. P1: cztery autorskie rodziny wyznaczników 4×4/5×5, 11 par rodzina/poziom i 264 różne zadania. Katalog po tej zmianie obejmuje 67 rodzin, 6645 instancji i 13 kategorii; 59 rodzin wspiera każdy z poziomów Advanced i Expert. Dokładny audyt porównuje Laplace'a z niezależną eliminacją i zachowuje pełne 6381 instancji opublikowanego MT-EDU-005. P2: następne luki rozdzielono na MT-EDU-006B, 007, 008, 009, 010 i 011 oraz istniejący MT-EXAM-001 powyżej. PR #21 został scalony na main; CI i Deploy Pages dla ea1cae4 zakończyły się sukcesem. Nie deklarujemy pełnej zgodności z programem dowolnej uczelni; kontrola Safari na fizycznym urządzeniu oraz pozostałe tematy wymagają osobnej weryfikacji.
 
 ### MT-EDU-006B — wykonane P0–P2, P3 odłożony
 
 P0: `inverse-two`, `inverse-three`, `inverse-existence`, `inverse-applications` — 13 par ×24 = 312 instancji. P1: `matrix-rank`, `capelli-given-ranks`, `capelli-matrices` — 6 par ×24 = 144. P2: `gauss-unique`, `gauss-classification` — 7 par ×24 = 168. Łącznie 9 rodzin i 648 nowych instancji; cały katalog 76 rodzin, 7293 instancje w 13 kategoriach. Audyt dawnych 6645 pełnych lekcji PL/EN bazuje na opublikowanym main po PR #21. Nie zmieniono schematu postępów ani brudnopisu.
 
-Opcjonalne P3 częściowo wykonano: Cramer czterech niewiadomych (`D,D1…D4`) i `XA=B` mają 2 rodziny / 96 wariantów. Cały katalog obejmuje 78 rodzin / 7365 instancji, 68 rodzin L4 i 65 L5. Układ dwóch równań macierzowych pozostaje przyszły. M03/M04 wymagają osobnej oceny pełniejszej wykonalności mnożenia i potęg. M09–M11 nadal dotyczą kontrolowanych struktur wyznaczników. M12–M14 i U05–U08 mają opisany rzeczywisty, ograniczony zasięg w mapie kompetencji. 43 prywatnych PDF-ów nie udostępniono, a fizycznego Safari nie przetestowano w chmurze.
+Opcjonalne P3 częściowo wykonano: Cramer czterech niewiadomych (`D,D1…D4`) i `XA=B` mają 2 rodziny / 96 wariantów. Cały katalog obejmuje 78 rodzin / 7365 instancji, 68 rodzin L4 i 65 L5. Układ dwóch równań macierzowych pozostaje przyszły. M03/M04 wymagają osobnej oceny pełniejszej wykonalności mnożenia i potęg. M09–M11 nadal dotyczą kontrolowanych struktur wyznaczników. M12–M14 i U05–U08 mają opisany rzeczywisty, ograniczony zasięg w mapie kompetencji. Nie publikujemy materiałów zewnętrznych kursów; Safari na fizycznym urządzeniu nie było testowane w chmurze.
 
 ## MT-DIAG-001 — etap realizowany oddzielnym PR
 
