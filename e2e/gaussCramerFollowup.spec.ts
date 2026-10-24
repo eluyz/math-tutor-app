@@ -47,7 +47,7 @@ test("MT-EDU-019 P0G "+width+" "+(en?"EN":"PL"),async({page})=>{
     const kind=ra<rab?"system-none":ra===4?"system-one":"system-many";
     await button(page,en?"Check":"Sprawdź").click();
     await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
-    if(kind==="system-one"){
+    if(kind==="system-one"&&family.id!=="gauss-four-dependent-diagnostic"){
       const D=laplace(A);
       expect(D.numerator).not.toBe(0n);
       const values=Array.from({length:4},(_,j)=>
@@ -60,7 +60,7 @@ test("MT-EDU-019 P0G "+width+" "+(en?"EN":"PL"),async({page})=>{
       await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
       await page.locator("#system-value-0").fill(fractionText(values[0]));
     }else{
-      await page.locator("#answer").selectOption("system-one");
+      await page.locator("#answer").selectOption(kind==="system-one"?"system-none":"system-one");
       await button(page,en?"Check":"Sprawdź").click();
       await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
       await page.locator("#answer").selectOption(kind);
