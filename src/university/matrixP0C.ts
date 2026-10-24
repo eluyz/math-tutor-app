@@ -17,7 +17,7 @@ function data(v:number,level:Difficulty,rows:number,cols:number,salt:number):Mat
     const value=i===0&&j===0 ? v%5-2+salt%2 :
       i===0&&j===1 ? Math.floor(v/5)-2+salt%2 :
       (v+2*i+3*j+2*salt)%5-2;
-    return r(value,level==="hard"&&(i+j)%2===1?2:1);
+    return r(value+(level==="medium"&&i===0&&j===0?6:0),level==="hard"&&(i+j)%2===1?2:1);
   }));
 }
 function dimensionsCase(v:number,level:Difficulty):{expression:P0C["expression"];shapes:readonly Shape[]}{
@@ -178,7 +178,7 @@ export function presentMatrixP0C(p:P0C,locale:Locale){
       ?t("Wszystkie poddziałania są wykonalne; wynik ma ustalone wymiary.",
           "All intermediate operations are defined and give these dimensions.")
       :t("Co najmniej jedno poddziałanie jest niewykonalne — całe wyrażenie nie istnieje.",
-          "At least one required intermediate operation is undefined, so the expression is impossible."));
+          "At least one required intermediate operation cannot be performed, so the expression is impossible."));
   const answer:AnswerSpec={kind:"choice",value,options:dimOptions(locale)};
   return lesson.finish(
     t("Określ, czy można wykonać "+p.expression+" i podaj wymiar wyniku albo wybierz brak możliwości.",

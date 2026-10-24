@@ -527,7 +527,7 @@ W każdym poziomie każdej rodziny jest dokładnie 8 układów jednoznacznych, 8
 
 | Rodzina | Poziomy | Warianty | Co użytkownik wpisuje |
 | --- | --- | ---: | --- |
-| `matrix-rectangular-evaluation` | easy, medium, hard | 72 | Wszystkie elementy wyniku `AB+C`, `(A+B)C`, `A(B−C)` lub `(AB)ᵀ−C` / `(AB)ᵀ−(3/2)C` |
-| `matrix-transpose-dimensions` | easy, medium, hard | 72 | Wykonalność i wymiar `AᵀB`, `Aᵀ(B+C)`, `(AB)ᵀ+C`, `ABᵀ+C`, `(A+Bᵀ)C` |
+| matrix-rectangular-evaluation | easy, medium, hard | 72 | Wszystkie elementy wyniku `AB+C`, `(A+B)C`, `A(B−C)` lub `(AB)ᵀ−C` / `(AB)ᵀ−(3/2)C` |
+| matrix-transpose-dimensions | easy, medium, hard | 72 | Wykonalność i wymiar `AᵀB`, `Aᵀ(B+C)`, `(AB)ᵀ+C`, `ABᵀ+C`, `(A+Bᵀ)C` |
 
 Generatory korzystają z macierzy 2×2, 2×3, 3×2 i 3×3. Poziom easy: małe liczby całkowite i co najwyżej dwa działania; medium: trzy macierze i nawiasy; hard: transpozycja, dodatkowe kroki i ułamki. W rodzinie wymiarów wszystkie poziomy mieszają zadania wykonalne i niewykonalne. Testy używają niezależnych obliczeń każdej komórki, osobnych reguł zgodności wymiarów i sprawdzają 144 unikalne warianty. **Po potencjalnym scaleniu** 151 rodzin / 12 765 wariantów; 149 poprzednich rodzin i 12 621 wariantów pozostaje dostępnych.
