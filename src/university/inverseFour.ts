@@ -7,7 +7,7 @@ import { product, type ExactMatrix } from "./linearAlgebraMath";
  * An initial zero pivot requires choosing a nonzero pivot from a later row.
  * For inverse exercises, some deliberately singular matrices require classification.
  */
-function fourByFour(variant: number, level: Difficulty, singular: boolean): ExactMatrix {
+export function fourByFour(variant: number, level: Difficulty, singular: boolean): ExactMatrix {
   if (!Number.isInteger(variant) || variant < 0 || variant >= 24) throw Error("Invalid P0F1 variant");
   const tier = level === "hard" ? 1 : level === "advanced" ? 2 : 3;
   const diagonal = [r(variant + tier * 13 + 3, tier === 3 ? 2 : 1),
