@@ -8,7 +8,9 @@ MT-EDU-019 P0E1 (PR #67, scalony i opublikowany) dodaje wyznaczniki 4×4/5×5 li
 
 MT-EDU-019 P0E2 (PR #68, scalony i opublikowany) dodaje rzędy macierzy 4×4 i 4×5: pełne rzędy od 0 do 4, zależne wiersze, brakujący pivot w kolumnie i dokładną eliminację Gaussa–Jordana. Dwie rodziny × 3 poziomy × 24 warianty = 144 ćwiczenia; M14 pozostaje częściowo pokryte.
 
-MT-EDU-019 P0F1 (oddzielny PR, przed scaleniem): dwie nowe rodziny ćwiczeń z macierzą 4×4 — obliczenie A⁻¹ metodą Gaussa–Jordana (także macierze osobliwe) oraz rozwiązanie AX=B przy B o wymiarze 4×2. Warianty obejmują 3 poziomy po 24 przykłady na rodzinę, dokładne ułamki, krokowe rozwiązania i kontrolę przez mnożenie. M12/M13 nadal są częściowe; nowe rodziny nie zastępują ogólnych układów Gaussa ani Cramera.
+MT-EDU-019 P0F1 (PR #69, scalony i opublikowany): dwie nowe rodziny ćwiczeń z macierzą 4×4 — obliczenie A⁻¹ metodą Gaussa–Jordana (także macierze osobliwe) oraz rozwiązanie AX=B przy B o wymiarze 4×2. Warianty obejmują 3 poziomy po 24 przykłady na rodzinę, dokładne ułamki, krokowe rozwiązania i kontrolę przez mnożenie. M12/M13 nadal są częściowe; nowe rodziny nie zastępują ogólnych układów Gaussa ani Cramera.
+
+MT-EDU-019 P0F2 (PR #70, w recenzji — jeszcze nie na `main`): `XA=B` przy A 4×4 i B 2×4 oraz `AX=4X+B` dla A, B i X 4×4. To 2 nowe rodziny, każda 24 warianty × 3 poziomy = 144 dodatkowe zadania; docelowo po scaleniu 161 rodzin / 13 485 instancji. Obie rodziny korzystają z dokładnych obliczeń i weryfikacji podstawieniem. PR wymaga pozytywnego CI i odrębnej zgody na merge.
 
 ## Uruchomienie
 
