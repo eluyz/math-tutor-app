@@ -1,12 +1,14 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **157 rodzin** i **13197 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **159 rodzin** i **13341 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
 MT-EDU-019 P0E1 (PR #67, scalony i opublikowany) dodaje wyznaczniki 4×4/5×5 liczone dynamiczną eliminacją Gaussa, z automatycznym wyborem niezerowego pivota, korektą znaku przy zamianach wierszy, dokładnymi ułamkami i przypadkami det(A)=0. Dwie rodziny obejmują 144 warianty i nie powielają wcześniejszych zaplanowanych operacji.
 
-MT-EDU-019 P0E2 dodaje w osobnym PR rzędy macierzy 4×4 i 4×5: pełne rzędy od 0 do 4, zależne wiersze, brakujący pivot w kolumnie i dokładną eliminację Gaussa–Jordana. Dwie rodziny × 3 poziomy × 24 warianty = 144 ćwiczenia; M14 pozostaje częściowo pokryte.
+MT-EDU-019 P0E2 (PR #68, scalony i opublikowany) dodaje rzędy macierzy 4×4 i 4×5: pełne rzędy od 0 do 4, zależne wiersze, brakujący pivot w kolumnie i dokładną eliminację Gaussa–Jordana. Dwie rodziny × 3 poziomy × 24 warianty = 144 ćwiczenia; M14 pozostaje częściowo pokryte.
+
+MT-EDU-019 P0F1 (oddzielny PR, przed scaleniem): dwie nowe rodziny ćwiczeń z macierzą 4×4 — obliczenie A⁻¹ metodą Gaussa–Jordana (także macierze osobliwe) oraz rozwiązanie AX=B przy B o wymiarze 4×2. Warianty obejmują 3 poziomy po 24 przykłady na rodzinę, dokładne ułamki, krokowe rozwiązania i kontrolę przez mnożenie. M12/M13 nadal są częściowe; nowe rodziny nie zastępują ogólnych układów Gaussa ani Cramera.
 
 ## Uruchomienie
 
