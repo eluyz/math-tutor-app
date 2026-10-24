@@ -1,7 +1,7 @@
 import {describe,it,expect} from "vitest";
 import {inverseFourFamilies} from "./inverseFour";
 import {makeUniversityTask,localizeUniversity} from "./catalog";
-import {inverse,product,type ExactMatrix} from "./linearAlgebraMath";
+import {inverse,type ExactMatrix} from "./linearAlgebraMath";
 import {laplace,eq,m,d,q,auditCalculation} from "./audit";
 import {assessAnswer,formatRational,emptyAnswer} from "../answers";
 import type {Rational} from "../rational";
