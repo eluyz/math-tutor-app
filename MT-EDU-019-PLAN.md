@@ -6,18 +6,18 @@
 
 ## Co naprawdę oznacza mapa
 
-Z 64 pozycji: **15 pokryte, 47 częściowo, 0 oznaczonych jako brak, 2 teoria**. Status „częściowo” obejmuje choć jedną zaimplementowaną kontrolowaną klasę zadań, a **nie** gwarantuje przygotowania do kolokwium czy egzaminu. Kluczowe pozostaje porównanie z aktualnymi materiałami prowadzącej (bez publikowania prywatnych PDF-ów). Wraz z postępem trzeba weryfikować, czy kompetencje nie zostały oznaczone zbyt optymistycznie.
+Z 64 pozycji: **15 pokryte, 47 częściowo, 0 oznaczonych jako brak, 2 teoria**. Status „częściowo” obejmuje choć jedną zaimplementowaną kontrolowaną klasę zadań, a **nie** gwarantuje przygotowania do kolokwium czy egzaminu. Kluczowa jest weryfikacja reprezentatywnych umiejętności na podstawie publicznych programów nauczania i autorskich przykładów, bez publikowania cudzych materiałów. Wraz z postępem trzeba weryfikować, czy kompetencje nie zostały oznaczone zbyt optymistycznie.
 
 ## Rejestr wszystkich 47 częściowych kompetencji i kolejność rozwoju
 
 | Fala / priorytet | Kompetencje w kolejce (kompletna lista kodów) | Liczba | Priorytet użytkownika i ograniczenia |
 | --- | --- | ---: | --- |
-| **P0 — algebra liniowa** | M03, M04, M05, M09, M10, M11, M12, M13, M14; U01, U03, U04, U06, U07, U08 | **15** | Najbliższe wejściówki: wyznaczniki 4×4/5×5, operacje, Cramer; dalsze macierze i Gauss w kolejnych małych porcjach |
+| **P0 — algebra liniowa** | M03, M04, M05, M09, M10, M11, M12, M13, M14; U01, U03, U04, U06, U07, U08 | **15** | Podstawy algebry liniowej: wyznaczniki 4×4/5×5, operacje, Cramer; dalsze macierze i Gauss w kolejnych małych porcjach |
 | **P1 — ciągi/funkcje/granice** | C02, C04, C05; F02, F03, F04, F05, F06, F07; G04, G06, G07, G08 | **13** | Zwiększyć różnorodność zadań i warunków dziedziny, wykresów i granic; unikać pozornego „pełnego” pokrycia |
 | **P2 — pochodne i analiza** | D02, D03, D04, D05, D06, D07, D08, D09, D10 | **9** | Przejść od pojedynczych wzorów do wieloetapowego badania i szkicowania funkcji, stopniowo rozszerzać klasy |
 | **P3 — całki** | I01, I02, I03, I04, I05, I06, I07, I08 | **8** | Wszystkie są częściowe; szersze podstawienia, części, tablice, wybrane pola i długości łuków |
 | **P4 — dwie zmienne** | W01, W02 | **2** | Rozszerzyć funkcje poza kontrolowane wielomiany kwadratowe, zachować poprawną obsługę testu Hessiana D=0 |
-| **SUMA** | **47 pozycji** | **47** | Kolejne priorytety zostaną potwierdzone po audycie aktualnych zadań uczelni |
+| **SUMA** | **47 pozycji** | **47** | Kolejne priorytety zostaną potwierdzone po porównaniu z ogólnymi wymaganiami matematyki akademickiej |
 
 **Osobny tor dydaktyczny, nie doliczany do 47:** C06 — definicje/monotoniczność/ograniczoność ciągu; W03 — granica i ciągłość funkcji dwóch zmiennych. Status „teoria” nie oznacza „zrobione”: warto opracować krótkie wyjaśnienia, rozpoznawanie pojęć i proste rachunkowe przykłady, jeśli syllabus tego wymaga.
 
@@ -39,7 +39,7 @@ Z 64 pozycji: **15 pokryte, 47 częściowo, 0 oznaczonych jako brak, 2 teoria**.
 4. **Jakość**: brak duplikatów `contentKey` w zakresie, zachowanie 12 333 dotychczasowych wariantów i 145 rodzin; pełne Vitest, TypeScript build, Playwright mobilny i desktop PL/EN, kontrola dostępności.
 5. **Zasada PR**: jeden osobny PR na mały przyrost, recenzja po zielonym CI, osobna zgoda właściciela przed squash+merge, a potem CI na `main` i GitHub Pages. Brak automatycznych scaleń.
 6. **Mapa kompetencji**: aktualizować wyłącznie statusy, które potwierdza działający generator i testy. Zachowywać wykaz ograniczeń i nie obiecywać automatycznie statusu „pokryte” za samo dodanie nowej rodziny.
-7. **Prywatność**: żadnych skanów materiałów uczelni, danych studentów ani wewnętrznych dokumentów w publicznym repo. Wystarczą abstrakcyjne, autorskie specyfikacje zadań.
+7. **Prywatność**: żadnych cudzych skanów, danych studentów ani wewnętrznych dokumentów w publicznym repo. Wystarczą abstrakcyjne, autorskie specyfikacje zadań.
 
 ## Po P0A–C
 
