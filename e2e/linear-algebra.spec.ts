@@ -86,7 +86,7 @@ for (const width of [375,1280]) for (const en of [false,true])
     await button(page,en?"University mathematics":"Matematyka na studia").click();
     await button(page,en?"Matrices":"Macierze").click();
     await button(page,en?"Medium":"Średni").click();
-    await page.getByRole("button",{name:en?/Matrix equation AX = 4X \+ B(?! \(3×3\))/:/Równanie macierzowe AX = 4X \+ B/}).click();
+    await page.getByRole("button",{name:en?/Matrix equation AX = 4X \+ B(?! \()/ :/Równanie macierzowe AX = 4X \+ B/}).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id","matrix-ax-shift");
     let A=await shownMatrix(page),B=await shownMatrix(page,1);
     expect(A).toHaveLength(2);expect(B).toHaveLength(2);
@@ -126,7 +126,7 @@ for(const width of [375,768,1280])for(const en of [false,true])test(`MT-EDU-006B
   await button(page,en?"University mathematics":"Matematyka na studia").click();
   await button(page,en?"Matrices":"Macierze").click();
   await button(page,en?"Advanced":"Zaawansowany").click();
-  await page.getByRole("button",{name:/Matrix equation XA = B|Równanie macierzowe XA = B/}).click();
+  await page.getByRole("button",{name:en?/Matrix equation XA = B(?! with)/:/Równanie macierzowe XA = B/}).click();
   const A=await shownMatrix(page),B=await shownMatrix(page,1),X=multiply(B,inverse(A));
   await fillMatrix(page,X);await button(page,en?"Check":"Sprawdź").click();
   await expect(page.locator(".feedback")).toHaveClass("feedback correct");
