@@ -1,6 +1,6 @@
 # MT-EDU-019 — plan domykania pokrycia matematyki (aktualizowany)
     
-**Stan aktualny (24.10.2026):** P0A/#63, P0B/#64, P0C/#65, P0D/#66 i P0E1/#67 scalone; CI i Pages na main PASS. `main`: **155 rodzin / 13 053 warianty**. **P0E2** realizowany w osobnym PR: 2 rodziny rzędu macierzy 4×4 i 4×5, 144 warianty, po ewentualnym scaleniu **157 / 13 197**. M14 nadal częściowo pokryte. Bez automatycznego merge.
+**Stan aktualny (24.10.2026):** PR #63–#68 scalone, pełne CI i Pages po PR #68 PASS. `main`: **157 rodzin / 13 197 wariantów**. P0F1 w osobnym PR: odwrotności 4×4 i równania AX=B dla A 4×4, 144 nowe warianty, po ewentualnym scaleniu **159 / 13 341**. M12/M13 pozostają częściowe. Zakaz automatycznego merge.
 
 **Historyczny stan bazowy:** `main` po PR #61 (`fe1359e`, 23.10.2026): **145 rodzin / 12 333 warianty**, 14 kategorii, CI i GitHub Pages PASS. Źródło: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) i [ROADMAP](ROADMAP.md). Jest to plan do zatwierdzenia, **nie zgoda na implementację ani scalanie**.
 
@@ -57,3 +57,5 @@ Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść f
 - P0E1 (implementacja w osobnym PR): 4×4 i 5×5, każda rodzina 3 poziomy × 24 warianty. Nowa umiejętność: dynamiczny wybór niezerowego pivota, zamiany wierszy, eliminacja z ułamkami i przypadki zerowego wyznacznika. Warunki odbioru: 144 unikalne warianty, niezależny Laplace i kontrola niezmienników operacji, pełne PL/EN, Vitest/Playwright, neutralność wobec uczelni, zgoda właściciela przed merge.
 
 - P0E2 (w odrębnym PR): 4×4 i 4×5, po 3 poziomy × 24 warianty na rodzinę (144). Rzędy od 0 do 4, niezerowe pivoty, wiersze zależne, brakujące kolumny pivotów, ułamki i dokładna redukcja. Kryteria: niezależne wyznaczniki minorów, pełny rejestr 144 treści, testy poprawnych i błędnych odpowiedzi, PL/EN, mobilny/desktop Playwright, recenzja, ponowna zgoda przed merge. W kolejnych etapach pozostają większe macierze i przypadki parametryczne.
+
+- P0F1 (osobny PR): 2 rodziny po 3 poziomy × 24 warianty. Odwrotność 4×4 metodą Gaussa–Jordana, w tym D=0 (brak odwrotności), oraz AX=B przy A 4×4 i B 4×2. Testy niezależne przez dopełnienia algebraiczne, obustronne mnożenie, sprawdzanie AX=B, każdy wariant, PL/EN, Vitest/Playwright. M12/M13 pozostają częściowe. Osobna zgoda przed scaleniem.
