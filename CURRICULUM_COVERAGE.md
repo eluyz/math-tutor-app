@@ -71,4 +71,4 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | W02 | Ekstrema 2D | częściowo | `multivar-stationary-point`, `multivar-hessian-classify`; wybrane funkcje kwadratowe, punkt stacjonarny i test Hessiana (w tym D=0), bez ogólnych warunków brzegowych i funkcji 2D |
 | W03 | Granica i ciągłość 2D | teoria | —; wymaga ujęcia pojęciowego i zadań |
 
-Po dodaniu nowych rodzin należy aktualizować wyłącznie wiersze, których umiejętność rzeczywiście obejmują. Dokładne porównanie do 43 PDF-ów i ewentualnych zmian programu jest osobnym, prywatnym audytem; oryginalne materiały ani dane studentów nie trafiają do repozytorium.
+Po dodaniu nowych rodzin należy aktualizować wyłącznie wiersze, których umiejętność rzeczywiście obejmują. Mapa kompetencji służy ocenie ogólnego zakresu matematyki, bez przypisywania go jednej uczelni. Nie publikujemy zewnętrznych arkuszy, materiałów dydaktycznych ani danych studentów.
