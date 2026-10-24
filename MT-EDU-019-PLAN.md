@@ -1,6 +1,6 @@
 # MT-EDU-019 — plan domykania pokrycia matematyki (aktualizowany)
     
-**Stan aktualny (24.10.2026):** PR #63–#68 scalone, pełne CI i Pages po PR #68 PASS. `main`: **157 rodzin / 13 197 wariantów**. P0F1 w osobnym PR: odwrotności 4×4 i równania AX=B dla A 4×4, 144 nowe warianty, po ewentualnym scaleniu **159 / 13 341**. M12/M13 pozostają częściowe. Zakaz automatycznego merge.
+**Stan aktualny (24.10.2026):** PR #63–#69 scalone. Po PR #69: CI i Pages PASS; `main` ma **159 rodzin / 13 341 wariantów**. Następny proponowany etap P0F2: równanie XA=B dla A 4×4, B 2×4 oraz AX=4X+B z macierzami 4×4. Docelowo 2 rodziny / 144 warianty (161 rodzin / 13 485 wariantów po ewentualnym wdrożeniu). Kod P0F2 znajduje się w otwartym PR #70, nie jest jeszcze scalony; wymaga CI, recenzji i zgody właściciela. Nie scalać bez zgody właściciela.
 
 **Historyczny stan bazowy:** `main` po PR #61 (`fe1359e`, 23.10.2026): **145 rodzin / 12 333 warianty**, 14 kategorii, CI i GitHub Pages PASS. Źródło: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) i [ROADMAP](ROADMAP.md). Jest to plan do zatwierdzenia, **nie zgoda na implementację ani scalanie**.
 
@@ -59,3 +59,10 @@ Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść f
 - P0E2 (w odrębnym PR): 4×4 i 4×5, po 3 poziomy × 24 warianty na rodzinę (144). Rzędy od 0 do 4, niezerowe pivoty, wiersze zależne, brakujące kolumny pivotów, ułamki i dokładna redukcja. Kryteria: niezależne wyznaczniki minorów, pełny rejestr 144 treści, testy poprawnych i błędnych odpowiedzi, PL/EN, mobilny/desktop Playwright, recenzja, ponowna zgoda przed merge. W kolejnych etapach pozostają większe macierze i przypadki parametryczne.
 
 - P0F1 (osobny PR): 2 rodziny po 3 poziomy × 24 warianty. Odwrotność 4×4 metodą Gaussa–Jordana, w tym D=0 (brak odwrotności), oraz AX=B przy A 4×4 i B 4×2. Testy niezależne przez dopełnienia algebraiczne, obustronne mnożenie, sprawdzanie AX=B, każdy wariant, PL/EN, Vitest/Playwright. M12/M13 pozostają częściowe. Osobna zgoda przed scaleniem.
+
+## P0F2 — następny krok po scaleniu PR #69
+
+- `inverse-four-xa-equation`: dla odwracalnej A 4×4 i B 2×4 wylicz X=BA⁻¹, sprawdzając XA=B. 3 poziomy hard/advanced/expert, 24 warianty na poziom.
+- `matrix-ax-shift-four`: AX=4X+B, A i B 4×4; sprowadź do (A−4I)X=B i sprawdź pierwotne równanie. 3 poziomy hard/advanced/expert, 24 warianty na poziom.
+- Implementacja w osobnym PR, niezależne obliczenia wyznacznika i odwrotności (dopełnienia/minory), sprawdzanie poprawnych/błędnych/pustych odpowiedzi, PL/EN, Vitest, build, Playwright desktop/mobile. Bez merge przed osobną zgodą.
+- M05, M12, M13 pozostają częściowe; kolejne luki to układy U01/U03/U06/U07/U08 oraz następnie granice ciągów i funkcje.

@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan po P0E2 (24.10.2026):** PR #63–#68 (P0A–P0E2) scalone. Zweryfikowany `main` `7c0e26f` zawiera **157 rodzin / 13 197 wariantów** w 14 kategoriach, CI i Pages PASS. **P0F1 powstaje w odrębnym PR bez zgody na merge:** odwrotności i równania 4×4 (+144 warianty), po ewentualnym scaleniu **159 / 13 341**. Mapa 64 kompetencji: 15 pokrytych, 47 częściowych, 2 teoretyczne. [Plan](MT-EDU-019-PLAN.md).
+> **Stan po P0F1 (24.10.2026):** PR #63–#69 zostały scalone. `main` `8d230cc` ma **159 rodzin / 13 341 wariantów** w 14 kategoriach; CI i GitHub Pages PASS. P0F2 (`XA=B` i `AX=4X+B` dla 4×4) jest zaimplementowany w otwartym PR #70, ale jeszcze niewdrożony na `main`; wymagane CI, recenzja i osobna zgoda na merge. Docelowo +2 rodziny / +144 warianty. Mapa: 15 pokrytych, 47 częściowych, 2 teoretyczne. [Plan](MT-EDU-019-PLAN.md).
 
 > Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
 
@@ -35,7 +35,7 @@
 | MT-EDU-016 | P0 (#56) oraz P1A (#57) scalone; P1B (iloczyn i iloraz) scalone jako #58 | Pozostają szersze asymptoty, ogólne ilorazy symboliczne, pełniejsze badanie funkcji i szkice |
 | MT-EDU-017 | P4 A wdrożono w #59 (141 rodzin / 12045 wariantów) | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; pozostałe formy całek do rozszerzenia |
 | MT-EDU-018 | P1 (#60) i P2 (#61) scalone i opublikowane | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian w kontrolowanych przypadkach; W03: do opracowania |
-| MT-EDU-019 | P0A–P0E2 (#63–#68) scalone; P0F1 w osobnym PR | [Plan](MT-EDU-019-PLAN.md). P0F1: inverse-four-gauss-jordan i inverse-four-ax-equation (4×4, +144 warianty); M12/M13 nadal częściowe. Brak merge bez osobnej zgody właściciela |
+| MT-EDU-019 | P0A–P0F1 (#63–#69) scalone; P0F2 w otwartym PR #70 | [Plan](MT-EDU-019-PLAN.md). P0F1: odwrotne 4×4 i AX=B; P0F2: XA=B i AX=4X+B dla 4×4 (+144 warianty po merge). M12/M13 częściowe, bez merge bez zgody właściciela |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |

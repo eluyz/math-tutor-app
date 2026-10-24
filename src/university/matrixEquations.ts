@@ -117,8 +117,8 @@ export const advancedMatrixEquationFamilies: readonly UniversityFamily[]=[
 export function presentAdvancedMatrixEquation(p:Equation,locale:Locale){
   const lesson=teaching(locale),{t}=lesson;
   const first=p.left, second=p.rhs;
-  if(![2,3].includes(first.length)||first.some(row=>row.length!==first.length)||second.length!==first.length||second.some(row=>row.length!==first.length))
-    throw Error("Matrix equation requires compatible 2×2 or 3×3 matrices");
+  if(![2,3,4].includes(first.length)||first.length===4&&p.mode!=="ax-shift"||first.some(row=>row.length!==first.length)||second.length!==first.length||second.some(row=>row.length!==first.length))
+    throw Error("Matrix equation requires compatible square matrices (4×4 only for AX−4X=B)");
   if(p.mode==="ax-shift"){
     const reduced=first.map((row,i)=>row.map((value,j)=>i===j?sub(value,p.shift):value));
     lesson.work(`AX = ${f(p.shift)}X + B ⇒ (A − ${f(p.shift)}I)X=B`,

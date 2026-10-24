@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **159 rodzin**, **13341 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 115 rodzin wspiera advanced, a 105 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **161 rodzin**, **13485 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 117 rodzin wspiera advanced, a 107 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **115**, L5: **105**.
+Łącznie rodziny L4: **117**, L5: **107**.
 
-## MT-EDU-019 P0F1 — macierz odwrotna 4×4 i AX=B (osobny PR)
+## MT-EDU-019 P0F2 — XA=B i AX=4X+B w wymiarze 4×4 (PR #70, przed scaleniem)
+
+| Rodzina | Poziomy | Warianty | Umiejętności |
+| --- | --- | ---: | --- |
+| inverse-four-xa-equation | hard, advanced, expert | 72 | A 4×4, B i X 2×4, X=BA⁻¹, test XA=B |
+| matrix-ax-shift-four | hard, advanced, expert | 72 | A,B,X 4×4, (A−4I)X=B, test AX=4X+B |
+
+P0F2: +144 warianty tylko na gałęzi PR #70, łącznie 161 rodzin / 13 485 instancji **dopiero po zatwierdzonym merge**. Nie zmienia istniejących rodzin, 4×4 nie jest automatycznie dopuszczone dla innych trybów równań macierzowych. Niezależne dopełnienia algebraiczne i testy PL/EN, mobile/desktop w procesie CI.
+
+## MT-EDU-019 P0F1 — macierz odwrotna 4×4 i AX=B (PR #69, scalony)
 
 | Rodzina | Poziomy | Warianty | Umiejętności |
 | --- | --- | ---: | --- |
