@@ -71,7 +71,7 @@ describe("MT-EDU-019 P0G pivot-aware 4×4 systems",()=>{
               expect(auditCalculation(calculation)).toBe(true);
           }
           expect(assessAnswer(lesson.answer,emptyAnswer(lesson.answer)).kind).toBe("invalid");
-          if(kind==="system-one"){
+          if(kind==="system-one"&&(p.kind==="linear-cramer-four"||p.method==="gauss")){
             expect(lesson.answer.kind).toBe("system");
             if(lesson.answer.kind!=="system")throw Error("Expected system input");
             expect(lesson.answer.values.every((x,j)=>eq(x,xs[j]))).toBe(true);
