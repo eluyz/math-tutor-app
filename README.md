@@ -1,6 +1,8 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **151 rodzin** i **12765 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **153 rodziny** i **12909 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+
+MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
 ## Uruchomienie
 
@@ -157,11 +159,11 @@ Po MT-EDU-006A katalog zawierał **67 rodzin** i **6645 instancji**. Ten etap do
 
 Wybierz **Matematyka na studia → Wyznaczniki**. Macierz 4×4 lub 5×5 jest czytelną tabelą; odpowiedź to jedna dokładna liczba lub ułamek. Kolejne kroki pokazują wybrany wiersz lub kolumnę, numerowany minor, znak `(-1)^(i+j)`, rachunek 3×3 metodą Sarrusa **tylko dla minora 3×3**, a przy redukcji każdą operację, zmianę znaku lub czynnika i iloczyn przekątnej. Można rozwinąć po innym wierszu/kolumnie; wynik jest ten sam. Zmiana języka nie losuje nowej macierzy ani nie kasuje odpowiedzi, kroków lub brudnopisu.
 
-Mapa [64 kompetencji z indeksu Issue #20](CURRICULUM_COVERAGE.md) rozróżnia pełne i częściowe pokrycie oraz luki. Jest wstępna: prywatnych 43 PDF-ów nie udostępniono w repozytorium i nie twierdzimy, że porównaliśmy oryginalne pytania. Po MT-EDU-006A wdrożono macierze odwrotne, Cramera dla 4 zmiennych i eliminację Gaussa w MT-EDU-006B, a wybrane zagadnienia log/exp w MT-EDU-007. Pola między krzywymi, długość łuku i funkcje dwóch zmiennych pozostają w [ROADMAP.md](ROADMAP.md). Nie dodano backendu ani nowych zależności. Automatyczne testy interfejsu używają Chromium; fizyczny iPhone/iPad Safari wymaga osobnego testu ręcznego.
+Mapa [64 kompetencji z indeksu Issue #20](CURRICULUM_COVERAGE.md) rozróżnia pełne i częściowe pokrycie oraz luki. Jest wstępna: opisuje zakres autorskich generatorów, nie gwarantuje zgodności z arkuszami egzaminacyjnymi dowolnej uczelni. Po MT-EDU-006A wdrożono macierze odwrotne, Cramera dla 4 zmiennych i eliminację Gaussa w MT-EDU-006B, a wybrane zagadnienia log/exp w MT-EDU-007. Pola między krzywymi, długość łuku i funkcje dwóch zmiennych pozostają w [ROADMAP.md](ROADMAP.md). Nie dodano backendu ani nowych zależności. Automatyczne testy interfejsu używają Chromium; fizyczny iPhone/iPad Safari wymaga osobnego testu ręcznego.
 
 ### English
 
-Choose **University mathematics → Determinants** for authored 4×4/5×5 tasks. The answer is one exact scalar. The solution exposes Laplace cofactors and minors or each determinant-preserving/sign-changing row operation, followed by the final exact value. The 64-topic coverage map documents which university topics remain partial or absent; it does not reproduce private course PDFs.
+Choose **University mathematics → Determinants** for authored 4×4/5×5 tasks. The answer is one exact scalar. The solution exposes Laplace cofactors and minors or each determinant-preserving/sign-changing row operation, followed by the final exact value. The 64-topic coverage map documents which university topics remain partial or absent; it is not tied to exam papers from any specific university.
 
 ## MT-EDU-006B — odwracanie, rząd i eliminacja Gaussa
 

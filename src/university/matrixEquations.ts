@@ -54,6 +54,40 @@ function create(v:number,level:Difficulty,mode:Equation["mode"]):Equation {
   const b=nonsingular((v+7)%24,level);
   return {kind:"linear-matrix-equation",mode,left:p,right:b,rhs:product(product(p,x),b)};
 }
+
+/** Invertible 3×3 matrices: triangular core plus determinant-preserving row additions. */
+function nonsingularThree(v:number,level:Difficulty,salt:number):ExactMatrix {
+  const a:Rational[][]=[
+    [r(1+(v+salt)%2),r((v+salt)%5-2),r((2*v+salt)%5-2)],
+    [r(0),r((v+salt)%2===0?-1:2),r((v+3*salt)%3-1)],
+    [r(0),r(0),r((v+salt)%3===0?-2:1)],
+  ];
+  if(level!=="medium"){
+    a[1]=a[1].map((value,j)=>add(value,a[0][j]));
+    a[2]=a[2].map((value,j)=>add(value,mul(r(v%2===0?1:-1),a[1][j])));
+  }
+  if(level==="advanced"||level==="expert")
+    a[0]=a[0].map((value,j)=>add(value,a[2][j]));
+  return a;
+}
+function targetThree(v:number,level:Difficulty):ExactMatrix {
+  const d=level==="expert"?3:level==="advanced"?2:1;
+  return [
+    [r(v-11,d),r(v%5-2),r((2*v)%7-3)],
+    [r((v+2)%9-4),r((3*v)%7-3,d),r((v+4)%5-2)],
+    [r((2*v+1)%7-3),r(v%6-2),r((v+5)%8-4,d)],
+  ];
+}
+function createThree(v:number,level:Difficulty,mode:"ax-shift"|"axb"):Equation {
+  if(!Number.isInteger(v)||v<0||v>=24)throw Error("Variant out of range");
+  const a=nonsingularThree(v,level,1),x=targetThree(v,level);
+  if(mode==="ax-shift")
+    return {kind:"linear-matrix-equation",mode,
+      left:plus(a,scale(r(4),identity(3))),rhs:product(a,x),shift:r(4)};
+  const b=nonsingularThree((v+7)%24,level,3);
+  return {kind:"linear-matrix-equation",mode,left:a,right:b,rhs:product(product(a,x),b)};
+}
+
 export const advancedMatrixEquationFamilies: readonly UniversityFamily[]=[
   {id:"matrix-ax-shift",category:"matrices",
    titles:{pl:"Równanie macierzowe AX = 4X + B",en:"Matrix equation AX = 4X + B"},
@@ -71,12 +105,20 @@ export const advancedMatrixEquationFamilies: readonly UniversityFamily[]=[
    titles:{pl:"Równanie macierzowe 3X + A = BX",en:"Matrix equation 3X + A = BX"},
    supportedDifficulties:["medium","hard","advanced","expert"],
    create:(v,level)=>create(v,level,"bx-shift")},
+  {id:"matrix-ax-shift-three",category:"matrices",
+   titles:{pl:"Równanie AX = 4X + B (3×3)",en:"Matrix equation AX = 4X + B (3×3)"},
+   supportedDifficulties:["medium","hard","advanced"],
+   create:(v,level)=>createThree(v,level,"ax-shift")},
+  {id:"matrix-axb-three",category:"matrices",
+   titles:{pl:"Równanie AXB = C (3×3)",en:"Matrix equation AXB = C (3×3)"},
+   supportedDifficulties:["hard","advanced","expert"],
+   create:(v,level)=>createThree(v,level,"axb")},
 ];
 export function presentAdvancedMatrixEquation(p:Equation,locale:Locale){
   const lesson=teaching(locale),{t}=lesson;
   const first=p.left, second=p.rhs;
-  if(first.length!==2||first.some(row=>row.length!==2)||second.length!==2||second.some(row=>row.length!==2))
-    throw Error("Matrix equation requires 2×2 matrices");
+  if(![2,3].includes(first.length)||first.some(row=>row.length!==first.length)||second.length!==first.length||second.some(row=>row.length!==first.length))
+    throw Error("Matrix equation requires compatible 2×2 or 3×3 matrices");
   if(p.mode==="ax-shift"){
     const reduced=first.map((row,i)=>row.map((value,j)=>i===j?sub(value,p.shift):value));
     lesson.work(`AX = ${f(p.shift)}X + B ⇒ (A − ${f(p.shift)}I)X=B`,

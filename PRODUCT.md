@@ -101,17 +101,17 @@ Wzór pochodnej ma nazwane pola wszystkich współczynników, ze stałą oznaczo
 
 Pełne PL/EN, sesje, pierwsza ważna samodzielna ocena, pominięcia i podglądy, historia oraz składany brudnopis korzystają z tych samych mechanizmów co dotąd. Nie ma backendu, telemetrii, kont, nowych zależności ani parsera dowolnych napisów matematycznych. Całki, wiele zmiennych i egzamin próbny są poza MT-EDU-005.
 
-## MT-EDU-006A — wyznaczniki na studia ekonomiczne
+## MT-EDU-006A — wyznaczniki 4×4 i 5×5
 
 Cztery nowe rodziny uczą wyboru wygodnego wiersza/kolumny Laplace'a, poprawnych znaków dopełnień, rozwinięcia 5→4→3 i reguł operacji wierszowych. Zadania z proporcjonalnymi wierszami wyjaśniają zero bez niepotrzebnego rachunku. W rodzinie operacji wierszowych macierz wejściowa jest zwykle gęsta; ekspert wymaga zarówno odwrócenia zamiany, jak i skali. Wszystkie odpowiedzi są pojedynczym dokładnym skalarem. Każdy etap zawiera autorskie uzasadnienie PL/EN, a dotychczasowe sesje, postępy i brudnopis działają bez migracji.
 
-W [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md) 64 kody służą jedynie do wstępnego porównania tematów z generatorami. Brak prywatnych oryginałów ogranicza wnioski o faktycznych arkuszach. Math Tutor pozostaje ogólną aplikacją edukacyjną. M09–M11 obejmują kontrolowane struktury, a nie wszystkie możliwe 4×4/5×5; pełna algebra macierzy, całki i wielowymiarowa analiza są odłożone zgodnie z roadmapą. Nie publikujemy materiałów uczelni ani danych użytkownika.
+W [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md) 64 kody służą jedynie do wstępnego porównania tematów z generatorami. Mapa nie stanowi potwierdzenia zgodności z arkuszami egzaminacyjnymi dowolnej uczelni. Math Tutor pozostaje ogólną aplikacją edukacyjną. M09–M11 obejmują kontrolowane struktury, a nie wszystkie możliwe 4×4/5×5; pełna algebra macierzy, całki i wielowymiarowa analiza są odłożone zgodnie z roadmapą. Nie publikujemy materiałów uczelni ani danych użytkownika.
 
-## MT-EDU-006B — uczelniana algebra liniowa
+## MT-EDU-006B — algebra liniowa
 
 Uczeń może ćwiczyć macierze odwrotne 2×2/3×3 i sprawdzić, kiedy odwrotność nie istnieje. W równaniach macierzowych ćwiczy poprawną kolejność mnożenia `AX=B → X=A⁻¹B`. Rząd 2×3, 3×3 i 3×4 jest pokazywany przez rzeczywiste operacje wierszowe. Kronecker–Capelli zestawia `rank(A)`, `rank([A|b])` i liczbę niewiadomych. Gauss 3×3/4×4 obejmuje jedno rozwiązanie, sprzeczność i nieskończenie wiele rozwiązań; zadania klasyfikacyjne pokazują parametry, ale formularz ocenia tylko klasę, ponieważ równoważne wzory symboliczne nie są parsowane.
 
-Warianty są dostępne tylko na zadeklarowanych poziomach. P0–P2 dodają 9 rodzin i 624 warianty, a opcjonalne częściowe P3 dalsze 2 rodziny i 96 wariantów; katalog liczy 78 rodzin i 7365 instancji, z zachowaniem 6645 poprzednich. Nauka, wskazówki i uzasadnienia działają po polsku i angielsku; sesje, lokalna historia i brudnopis zachowują dotychczasową semantykę. Cramer 4 niewiadome i `XA=B` są wdrożone; układ dwóch równań macierzowych pozostaje przyszły. Materiały nie są oficjalnymi arkuszami konkretnej uczelni; nie mieliśmy dostępu do 43 prywatnych PDF-ów.
+Warianty są dostępne tylko na zadeklarowanych poziomach. P0–P2 dodają 9 rodzin i 624 warianty, a opcjonalne częściowe P3 dalsze 2 rodziny i 96 wariantów; katalog liczy 78 rodzin i 7365 instancji, z zachowaniem 6645 poprzednich. Nauka, wskazówki i uzasadnienia działają po polsku i angielsku; sesje, lokalna historia i brudnopis zachowują dotychczasową semantykę. Cramer 4 niewiadome i `XA=B` są wdrożone; układ dwóch równań macierzowych pozostaje przyszły. Materiały są autorskie i nie stanowią oficjalnych arkuszy żadnej uczelni.
 
 ## MT-EDU-007 P0–P1 — funkcje elementarne i asymptoty
 
