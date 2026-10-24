@@ -112,7 +112,8 @@ export function presentGaussianPivot(p:DeterminantProblem,locale:Locale){
           "Add a multiple of the pivot row to eliminate below it; the determinant stays unchanged."));
   }
   if(trace.singularColumn!==null){
-    lesson.work("Kolumna "+(trace.singularColumn+1)+": brak niezerowego pivota; det(A)=0",
+    lesson.work(t("Kolumna "+(trace.singularColumn+1)+": brak niezerowego pivota; det(A)=0",
+      "Column "+(trace.singularColumn+1)+": no nonzero pivot; det(A)=0"),
       t("Nie można wybrać kolejnego pivota. Wyznacznik wynosi zero; nigdy nie dzielimy przez zero.",
         "No nonzero pivot remains. The determinant is zero; never divide by zero."));
   }else{
