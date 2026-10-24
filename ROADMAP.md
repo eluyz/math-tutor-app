@@ -35,7 +35,7 @@
 | MT-EDU-016 | P0 (#56) oraz P1A (#57) scalone; P1B (iloczyn i iloraz) scalone jako #58 | Pozostają szersze asymptoty, ogólne ilorazy symboliczne, pełniejsze badanie funkcji i szkice |
 | MT-EDU-017 | P4 A wdrożono w #59 (141 rodzin / 12045 wariantów) | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; pozostałe formy całek do rozszerzenia |
 | MT-EDU-018 | P1 (#60) i P2 (#61) scalone i opublikowane | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian w kontrolowanych przypadkach; W03: do opracowania |
-| MT-EDU-019 | **Propozycja; tylko plan, bez generatorów i bez wdrożenia** | [Plan P0–P4, 47 częściowych kompetencji i pierwsze trzy proponowane PR](MT-EDU-019-PLAN.md). Nie rozpoczynać implementacji bez zatwierdzenia zakresu |
+| MT-EDU-019 | Plan zaakceptowany; P0A przygotowany w osobnym PR, oczekuje na CI i zgodę na merge | [47 częściowych kompetencji i etapy P0A–C/P1–P4](MT-EDU-019-PLAN.md); P0A dodaje 144 kontrolowane warianty strategii wyznaczników 4×4/5×5, P0B/P0C w kolejce |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |

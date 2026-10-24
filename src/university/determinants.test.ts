@@ -141,7 +141,7 @@ describe("MT-EDU-006A exact determinant audit", () => {
             throw new Error("wrong determinant task");
           keys.add(task.contentKey);
           expect(validDeterminantMatrix(p.matrix)).toBe(
-            p.method === "laplace-five" ? 5 : 4,
+            p.method === "laplace-five" || p.method === "staged-five" ? 5 : 4,
           );
           if (p.method === "laplace-four" && !p.dense) {
             const terms = level === "hard" ? 1 : level === "advanced" ? 2 : 3;

@@ -14,8 +14,8 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | M06 | Wyznacznik 2×2 | pokryte | `determinant-two` |
 | M07 | Wyznacznik 3×3 | pokryte | `determinant-sarrus` |
 | M08 | Laplace 4×4 z zerami | pokryte | `determinant-laplace-four` |
-| M09 | 4×4 bez dogodnych zer, operacje wierszowe | częściowo | `determinant-row-operations`, `determinant-dense-four`; pełny Laplace bez zer i wybrane operacje wierszowe; nie wszystkie strategie redukcji |
-| M10 | Wyznacznik 5×5 | częściowo | `determinant-laplace-five`, `determinant-dense-five`; rzadkie i gęste kontrolowane macierze, bez dowolnej swobodnej macierzy |
+| M09 | 4×4 bez dogodnych zer, operacje wierszowe | częściowo | `determinant-row-operations`, `determinant-dense-four`, `determinant-strategy-four`; pełny Laplace bez zer, wybrane operacje i kontrolowane redukcje 4×4; nie wszystkie strategie redukcji |
+| M10 | Wyznacznik 5×5 | częściowo | `determinant-laplace-five`, `determinant-dense-five`, `determinant-strategy-five`; rzadkie, gęste i kontrolowane redukcje 5×5, bez dowolnej swobodnej macierzy |
 | M11 | Własności i wyznacznik zerowy | częściowo | `determinant-properties`, `determinant-zero-row`; zależność wierszy, zamiana, skalar, dodanie wielokrotności |
 | M12 | Macierz odwrotna | częściowo | `inverse-two`, `inverse-three`, `inverse-existence`; 2×2/3×3, także osobliwe, bez ogólnej 4×4 |
 | M13 | Równanie z odwrotnością | częściowo | `inverse-applications`, `inverse-right-applications`, `matrix-ax-shift`, `matrix-axb`, `matrix-inverse-plus`, `matrix-bx-shift`; AX=B → A⁻¹B, XA=B → BA⁻¹ (2×2/3×3) oraz (A−4I)X=B, AXB=C (PR #43), a w PR P1 także (A+4X)⁻¹=B i (B−3I)X=A (2×2); bez ogólnych rozmiarów i innych typów równań odwrotnych |

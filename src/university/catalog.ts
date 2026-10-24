@@ -19,6 +19,7 @@ import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceE
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
+import { determinantStrategyFamilies } from "./determinantStrategies";
 import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
@@ -56,6 +57,7 @@ export const universityFamilies = [
   ...functionLimitFamilies,
   ...derivativeFamilies,
   ...determinantFamilies,
+  ...determinantStrategyFamilies,
   ...inverseFamilies,
   ...rankFamilies,
   ...gaussFamilies,
