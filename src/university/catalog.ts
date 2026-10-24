@@ -23,6 +23,7 @@ import { determinantStrategyFamilies } from "./determinantStrategies";
 import { gaussianPivotFamilies, presentGaussianPivot } from "./gaussianPivotDeterminants";
 import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
+import { rankExtensionFamilies } from "./rankExtensions";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
 import { gaussRectangularParameterFamilies } from "./gaussRectangularParameters";
@@ -64,6 +65,7 @@ export const universityFamilies = [
   ...gaussianPivotFamilies,
   ...inverseFamilies,
   ...rankFamilies,
+  ...rankExtensionFamilies,
   ...gaussFamilies,
   ...gaussParameterFamilies,
   ...gaussRectangularParameterFamilies,
