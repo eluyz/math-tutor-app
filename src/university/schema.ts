@@ -160,7 +160,7 @@ export type DeterminantRowOperation = Readonly<
 >;
 export type DeterminantProblem = Readonly<{
   kind: "determinant";
-  method: "laplace-four" | "row-operations" | "laplace-five" | "properties" | "staged-four" | "staged-five";
+  method: "laplace-four" | "row-operations" | "laplace-five" | "properties" | "staged-four" | "staged-five" | "gaussian-four" | "gaussian-five";
   matrix: SquareDeterminantMatrix;
   /** Operations reduce the displayed matrix to an upper triangular matrix. */
   reductions?: readonly DeterminantRowOperation[];
