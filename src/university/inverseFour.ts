@@ -1,4 +1,4 @@
-import { rational as r, addRational as add, multiplyRational as mul, type Rational } from "../rational";
+import { rational as r, addRational as add, subtractRational as sub, multiplyRational as mul, divideRational as div, type Rational } from "../rational";
 import type { Difficulty } from "../difficulty";
 import type { UniversityFamily, LinearAlgebraProblem } from "./schema";
 import { product, type ExactMatrix } from "./linearAlgebraMath";
@@ -22,6 +22,11 @@ function fourByFour(variant: number, level: Difficulty, singular: boolean): Exac
   if (tier >= 2) a[1] = a[1].map((v, j) => add(v, mul(r(-1, 2), a[3][j])));
   if (tier === 3) a[2] = a[2].map((v, j) => add(v, mul(r(2, 3), a[0][j])));
   [a[0], a[3]] = [a[3], a[0]];
+  // Eliminate the displayed first pivot without changing rank:
+  // a[3] contains the original first row and has a guaranteed nonzero entry.
+  const factor = div(a[0][0], a[3][0]);
+  a[0] = a[0].map((value, j) => sub(value, mul(factor, a[3][j])));
+  if (a[0][0].numerator !== 0n) throw Error("Invalid zero-pivot construction");
   if (singular) a[3] = a[0].map(x => mul(x, r(2)));
   return a;
 }
