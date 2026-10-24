@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan aktualny (23.10.2026):** PR #59, #60 i #61 scalone; `main` `fe1359e`; **145 rodzin / 12 333 warianty**, 14 kategorii, CI + Pages PASS. Mapa 64 kompetencji: **15 pokrytych, 47 częściowych, 0 brak, 2 teoretyczne**. Propozycja kolejnych etapów, bez rozpoczęcia implementacji: **[MT-EDU-019-PLAN.md](MT-EDU-019-PLAN.md)**.
+> **Stan aktualny (23.10.2026):** PR #59, #60 i #61 scalone; `main` `fe1359e`; **147 rodzin / 12 477 wariantów** po #63, 14 kategorii, CI + Pages PASS. Mapa 64 kompetencji: **15 pokrytych, 47 częściowych, 0 brak, 2 teoretyczne**. Propozycja kolejnych etapów, bez rozpoczęcia implementacji: **[MT-EDU-019-PLAN.md](MT-EDU-019-PLAN.md)**.
 
 > Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
 
@@ -35,7 +35,7 @@
 | MT-EDU-016 | P0 (#56) oraz P1A (#57) scalone; P1B (iloczyn i iloraz) scalone jako #58 | Pozostają szersze asymptoty, ogólne ilorazy symboliczne, pełniejsze badanie funkcji i szkice |
 | MT-EDU-017 | P4 A wdrożono w #59 (141 rodzin / 12045 wariantów) | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; pozostałe formy całek do rozszerzenia |
 | MT-EDU-018 | P1 (#60) i P2 (#61) scalone i opublikowane | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian w kontrolowanych przypadkach; W03: do opracowania |
-| MT-EDU-019 | Plan zaakceptowany; P0A przygotowany w osobnym PR, oczekuje na CI i zgodę na merge | [47 częściowych kompetencji i etapy P0A–C/P1–P4](MT-EDU-019-PLAN.md); P0A dodaje 144 kontrolowane warianty strategii wyznaczników 4×4/5×5, P0B/P0C w kolejce |
+| MT-EDU-019 | P0A scalone i opublikowane (#63); P0B w osobnym PR do recenzji, P0C w kolejce | [Plan 47 kompetencji](MT-EDU-019-PLAN.md). P0A: +144 ćwiczenia strategii wyznaczników 4×4/5×5; P0B: +144 ćwiczenia metody Cramera i D=0; U01/U03 pozostają częściowe |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
@@ -46,7 +46,7 @@
 
 **Zakres:** osiem działów matematyki: macierze i wyznaczniki, układy równań, granice ciągów, podstawy funkcji, granice funkcji, pochodne, całki oraz funkcje dwóch zmiennych. Punktem odniesienia jest pełna lista umiejętności i typów zadań potrzebnych na kursie matematyki. Zestawienie jest robocze: opisuje aktualną implementację, a nie gwarancję gotowości do dowolnego egzaminu. Generatory i objaśnienia muszą być autorskie; nie kopiujemy zewnętrznych arkuszy ani kluczy odpowiedzi.
 
-**Stan mapy 64 kompetencji na main po PR #61:** 15 „pokryte”, 47 „częściowo”, 0 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Obecny katalog: **145 rodzin / 12 333 warianty**. Priorytety dla 47 częściowych kompetencji w [MT-EDU-019-PLAN.md](MT-EDU-019-PLAN.md).
+**Stan mapy 64 kompetencji na main po PR #61:** 15 „pokryte”, 47 „częściowo”, 0 „brak”, 2 „teoria”; to liczba zdefiniowanych kompetencji, **nie** procent pokrycia egzaminu. Katalog na main po #63: **147 rodzin / 12 477 wariantów**; po potencjalnym scaleniu P0B: **149 / 12 621**. Priorytety dla 47 częściowych kompetencji w [MT-EDU-019-PLAN.md](MT-EDU-019-PLAN.md).
 
 | Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |

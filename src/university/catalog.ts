@@ -29,6 +29,7 @@ import { chainFamilies, presentChain } from "./chainEqualities";
 import { rectangularFamilies, presentRectangular } from "./rectangularSystems";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
 import { cramerIntermediateFamilies, presentCramerMinors } from "./cramerIntermediate";
+import { cramerDiagnosticFamilies, presentCramerDiagnostic } from "./cramerDiagnostics";
 import { matrixPairFamilies, presentMatrixPair } from "./matrixPair";
 import { advancedMatrixEquationFamilies, presentAdvancedMatrixEquation } from "./matrixEquations";
 import { matrixPracticeFamilies, presentMatrixPractice } from "./matrixPractice";
@@ -67,6 +68,7 @@ export const universityFamilies = [
   ...rectangularFamilies,
   ...cramerFourFamilies,
   ...cramerIntermediateFamilies,
+  ...cramerDiagnosticFamilies,
   ...matrixPairFamilies,
   ...advancedMatrixEquationFamilies,
   ...matrixPracticeFamilies,
@@ -130,6 +132,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentRectangular(problem, locale)
     : problem.kind === "linear-system"
     ? problem.method === "parameters" ? presentGaussParameters(problem, locale) : presentGauss(problem, locale)
+    : problem.kind === "linear-cramer-diagnostic"
+    ? presentCramerDiagnostic(problem, locale)
     : problem.kind === "linear-cramer-minors"
     ? presentCramerMinors(problem, locale)
     : problem.kind === "linear-cramer-four"

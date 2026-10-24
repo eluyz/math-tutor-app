@@ -22,7 +22,7 @@ export function LinearAlgebraDisplay({ problem }: { problem: LinearAlgebraProble
       <MatrixDisplay label="B" values={problem.second} />
     </div>
   );
-  const augmented = problem.kind === "linear-capelli" || problem.kind === "linear-system" || problem.kind === "linear-rectangular" || problem.kind === "linear-cramer-four" || problem.kind === "linear-cramer-minors";
+  const augmented = problem.kind === "linear-capelli" || problem.kind === "linear-system" || problem.kind === "linear-rectangular" || problem.kind === "linear-cramer-four" || problem.kind === "linear-cramer-minors" || problem.kind === "linear-cramer-diagnostic";
   return (
     <div className="given-matrices linear-algebra-matrices">
       {augmented ? (

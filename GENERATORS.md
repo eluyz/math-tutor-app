@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **147 rodzin**, **12477 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **149 rodzin**, **12621 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **107**, L5: **100**.
 
@@ -513,3 +513,12 @@ P2 wnosi 144 zadania; razem z #59 oraz #60 katalog po scaleniu #61 będzie liczy
 | determinant-strategy-five | easy, medium, hard | 72 | 5×5: odpowiednio 1, 2 lub 4 operacje; korekta znaku po zamianie |
 
 Po dodaniu P0A: **147 rodzin i 12477 instancji**. Oryginalne 145 rodzin / 12333 warianty pozostają niezmienione. Macierze są budowane z górnotrójkątnych o małych dokładnych współczynnikach, a następnie transformowane operacjami `R_i += kR_j` i opcjonalnym swap; rozwiązanie jawnie odwraca każdą operację. M09/M10 wciąż pozostają częściowe dla dowolnych macierzy i strategii.
+
+## MT-EDU-019 P0B — diagnostyka metody Cramera (U01/U03)
+
+| Rodzina | Poziomy | Warianty | Charakter |
+| --- | --- | ---: | --- |
+| cramer-applicability | easy, medium, hard | 72 | Dla 2×2/3×3/4×4 rozstrzyga, czy D≠0 i kiedy wolno użyć Cramera; przy D=0 porównuje rzędy |
+| cramer-four-singular-minors | easy, medium, hard | 72 | D oraz D₁–D₄ dla 4×4, także układy zgodne i sprzeczne przy D=0, z wyjaśnionymi rangami |
+
+W każdym poziomie każdej rodziny jest dokładnie 8 układów jednoznacznych, 8 zgodnych nieoznaczonych i 8 sprzecznych; macierze mają w tym poziomie 24 odrębne zestawy danych. **D=0 nie oznacza automatycznie sprzeczności ani nieskończenie wielu rozwiązań.** Niezależny test enumeruje minory dla rzędu macierzy oraz rozwija wszystkie D,Dᵢ. Wszystkie poprzednie 147 rodzin / 12477 wariantów pozostają dostępne. Po P0B: **149 rodzin / 12621 wariantów**.
