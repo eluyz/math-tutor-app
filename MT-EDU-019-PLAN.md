@@ -1,6 +1,6 @@
 # MT-EDU-019 — plan domykania pokrycia matematyki (aktualizowany)
     
-**Stan aktualny (24.10.2026):** PR #63–#69 scalone. Po PR #69: CI i Pages PASS; `main` ma **159 rodzin / 13 341 wariantów**. Następny proponowany etap P0F2: równanie XA=B dla A 4×4, B 2×4 oraz AX=4X+B z macierzami 4×4. Docelowo 2 rodziny / 144 warianty (161 rodzin / 13 485 wariantów po ewentualnym wdrożeniu). Kod P0F2 znajduje się w otwartym PR #70, nie jest jeszcze scalony; wymaga CI, recenzji i zgody właściciela. Nie scalać bez zgody właściciela.
+**Stan aktualny (24.10.2026):** PR #63–#70 scalone. `main` `b46f416b`: **161 rodzin / 13 485 wariantów**, CI i Pages PASS. P0F2 wdrożone. Osobny P0G: 3 rodziny Cramera/Gaussa 4×4, +216 ćwiczeń, na gałęzi 164 / 13 701. Brak zgody na merge P0G. 15 kompetencji pokrytych, 47 częściowych, 2 teoretyczne — bez przypisywania pełnego przygotowania egzaminacyjnego.
 
 **Historyczny stan bazowy:** `main` po PR #61 (`fe1359e`, 23.10.2026): **145 rodzin / 12 333 warianty**, 14 kategorii, CI i GitHub Pages PASS. Źródło: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) i [ROADMAP](ROADMAP.md). Jest to plan do zatwierdzenia, **nie zgoda na implementację ani scalanie**.
 
@@ -66,3 +66,12 @@ Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść f
 - `matrix-ax-shift-four`: AX=4X+B, A i B 4×4; sprowadź do (A−4I)X=B i sprawdź pierwotne równanie. 3 poziomy hard/advanced/expert, 24 warianty na poziom.
 - Implementacja w osobnym PR, niezależne obliczenia wyznacznika i odwrotności (dopełnienia/minory), sprawdzanie poprawnych/błędnych/pustych odpowiedzi, PL/EN, Vitest, build, Playwright desktop/mobile. Bez merge przed osobną zgodą.
 - M05, M12, M13 pozostają częściowe; kolejne luki to układy U01/U03/U06/U07/U08 oraz następnie granice ciągów i funkcje.
+
+## P0G — układy 4×4: Cramer i Gauss (po PR #70)
+
+- `cramer-four-forced-pivot` (72): D≠0 mimo A₁₁=0, poprawny Cramer z D₁–D₄, wymuszona zamiana wierszy w eliminacji.
+- `gauss-four-forced-pivot` (72): jedno rozwiązanie przy zerowym początkowym pivocie, przestawienie wierszy i podstawienie wsteczne.
+- `gauss-four-dependent-diagnostic` (72): trzy klasy układów 4×4 (24 na poziom; jedna/trzy klasy w każdej grupie), zależność wierszy i kontrolowana sprzeczność b.
+- Warunki: 3 poziomy hard/advanced/expert, po 24 przypadki na poziom; rachunki dokładne, niezależny Laplace i rzędy przez minory; PL/EN, testy poprawnych/błędnych/pustych odpowiedzi, Vitest/Playwright na mobile i desktop, pełne CI na HEAD, recenzja.
+- Mapa kompetencji nadal częściowa: U01, U03, U06, U07 i U08. Nie zakładać pełnego pokrycia dowolnych układów, parsera symbolicznego ani przygotowania egzaminacyjnego.
+- **Wymagana odrębna zgoda właściciela przed Squash and merge.**
