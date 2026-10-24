@@ -4,6 +4,15 @@ Bieżący katalog UI i sesji: **159 rodzin**, **13341 instancji**. `allTemplates
 
 Łącznie rodziny L4: **115**, L5: **105**.
 
+## MT-EDU-019 P0F2 — XA=B i AX=4X+B w wymiarze 4×4 (PR #70, przed scaleniem)
+
+| Rodzina | Poziomy | Warianty | Umiejętności |
+| --- | --- | ---: | --- |
+| inverse-four-xa-equation | hard, advanced, expert | 72 | A 4×4, B i X 2×4, X=BA⁻¹, test XA=B |
+| matrix-ax-shift-four | hard, advanced, expert | 72 | A,B,X 4×4, (A−4I)X=B, test AX=4X+B |
+
+P0F2: +144 warianty tylko na gałęzi PR #70, łącznie 161 rodzin / 13 485 instancji **dopiero po zatwierdzonym merge**. Nie zmienia istniejących rodzin, 4×4 nie jest automatycznie dopuszczone dla innych trybów równań macierzowych. Niezależne dopełnienia algebraiczne i testy PL/EN, mobile/desktop w procesie CI.
+
 ## MT-EDU-019 P0F1 — macierz odwrotna 4×4 i AX=B (osobny PR)
 
 | Rodzina | Poziomy | Warianty | Umiejętności |
