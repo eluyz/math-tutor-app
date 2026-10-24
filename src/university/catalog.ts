@@ -33,6 +33,7 @@ import { cramerDiagnosticFamilies, presentCramerDiagnostic } from "./cramerDiagn
 import { matrixPairFamilies, presentMatrixPair } from "./matrixPair";
 import { advancedMatrixEquationFamilies, presentAdvancedMatrixEquation } from "./matrixEquations";
 import { matrixPracticeFamilies, presentMatrixPractice } from "./matrixPractice";
+import { matrixP0CFamilies, presentMatrixP0C } from "./matrixP0C";
 import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./elementaryAnalysis";
 import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
@@ -72,6 +73,7 @@ export const universityFamilies = [
   ...matrixPairFamilies,
   ...advancedMatrixEquationFamilies,
   ...matrixPracticeFamilies,
+  ...matrixP0CFamilies,
   ...elementaryAnalysisFamilies,
   ...asymptoteFamilies,
   ...advancedCalculusFamilies,
@@ -116,6 +118,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentFunctionDomainExtra(problem, locale)
     : problem.kind === "function-parity" || problem.kind === "function-affine-inverse"
     ? presentFunctionExtension(problem, locale)
+    : problem.kind === "linear-matrix-practice" && (problem.mode === "rectangular" || problem.mode === "transpose-dimensions")
+    ? presentMatrixP0C(problem as Extract<LinearAlgebraProblem,{kind:"linear-matrix-practice"}> & {mode:"rectangular"|"transpose-dimensions"}, locale)
     : problem.kind === "linear-matrix-practice"
     ? presentMatrixPractice(problem, locale)
     : problem.kind === "linear-matrix-pair"

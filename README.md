@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **149 rodzin** i **12621 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **151 rodzin** i **12765 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 ## Uruchomienie
 
@@ -287,3 +287,7 @@ Dwie rodziny `determinant-strategy-four` i `determinant-strategy-five` (po 72 wa
 ### MT-EDU-019 P0B — kiedy działa metoda Cramera?
 
 Dwie rodziny po 72 warianty: `cramer-applicability` (2×2, 3×3 lub 4×4 zależnie od poziomu; ocena czy D≠0, oraz klasyfikacja D=0 na podstawie rang) i `cramer-four-singular-minors` (dokładne D oraz D₁–D₄ w 4×4 także w przypadku D=0). Każda obejmuje 8 wariantów: dokładnie jedno, brak i nieskończenie wiele rozwiązań na poziom. Po P0B: **149 rodzin / 12 621 wariantów**. U01/U03 pozostają częściowe — nie deklarujemy pokrycia dowolnych układów.
+
+### MT-EDU-019 P0C — macierze prostokątne i transpozycja
+
+Dwie nowe rodziny zadań: `matrix-rectangular-evaluation` (obliczenia całych wynikowych macierzy o wymiarach 2×2–3×3 z rzeczywistym mnożeniem macierzy prostokątnych, nawiasami, transpozycją i ułamkami) oraz `matrix-transpose-dimensions` (ocena wykonalności i wymiarów zagnieżdżonych wyrażeń z transpozycją). Każda ma po 72 warianty Łatwy/Średni/Trudny, razem 144 nowe zadania. Po potencjalnym scaleniu P0C: **151 rodzin i 12 765 wariantów**. Nie usuwamy dawnych 149 rodzin / 12 621 zadań; M03 i M04 pozostają częściowe.
