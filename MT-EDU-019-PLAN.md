@@ -1,6 +1,6 @@
 # MT-EDU-019 — plan domykania pokrycia matematyki (aktualizowany)
     
-**Stan aktualny (24.10.2026):** P0A/#63, P0B/#64 i P0C/#65 scalone; CI i GitHub Pages dla #65 PASS. Bieżący main: **151 rodzin / 12 765 wariantów**. W P0D osobny PR przygotowuje **2 rodziny 3×3 / 144 warianty**, bez automatycznego merge. Kompetencje M05/M13 pozostają częściowe.
+**Stan aktualny (24.10.2026):** P0A/#63, P0B/#64, P0C/#65 i P0D/#66 scalone; CI i Pages na main PASS. `main` **153 rodziny / 12 909 wariantów**. **P0E1**: osobny PR, dwie rodziny dynamicznej eliminacji Gaussa dla wyznaczników 4×4/5×5, 144 nowe warianty; po ewentualnym scaleniu **155 / 13 053**. M09/M10 pozostają częściowo pokryte. Bez automatycznego merge.
 
 **Historyczny stan bazowy:** `main` po PR #61 (`fe1359e`, 23.10.2026): **145 rodzin / 12 333 warianty**, 14 kategorii, CI i GitHub Pages PASS. Źródło: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) i [ROADMAP](ROADMAP.md). Jest to plan do zatwierdzenia, **nie zgoda na implementację ani scalanie**.
 
@@ -53,3 +53,5 @@ Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść f
 - P0B: przygotowany w osobnym PR; 2 nowe rodziny / 144 warianty, mieszające D≠0, D=0 zgodny i D=0 sprzeczny. Bez scalenia przed nową, osobną zgodą właściciela.
 - P0C: scalony w PR #65; 2 rodziny / 144 warianty: obliczenia na macierzach prostokątnych i wykonalność wyrażeń z transpozycją. CI i Pages na main PASS.
 - P0D: dwa nowe typy dokładnych równań 3×3: `matrix-ax-shift-three` — `AX=4X+B` na poziomach medium/hard/advanced (72), i `matrix-axb-three` — `AXB=C` na hard/advanced/expert (72). Wymagana nieosobliwość, weryfikacja obu stron, 24 różne warianty na poziom, PL/EN, Vitest i Playwright. M05/M13 pozostają częściowe. **Oddzielny PR bez scalenia przed ponowną zgodą właściciela.**
+
+- P0E1 (implementacja w osobnym PR): 4×4 i 5×5, każda rodzina 3 poziomy × 24 warianty. Nowa umiejętność: dynamiczny wybór niezerowego pivota, zamiany wierszy, eliminacja z ułamkami i przypadki zerowego wyznacznika. Warunki odbioru: 144 unikalne warianty, niezależny Laplace i kontrola niezmienników operacji, pełne PL/EN, Vitest/Playwright, neutralność wobec uczelni, zgoda właściciela przed merge.
