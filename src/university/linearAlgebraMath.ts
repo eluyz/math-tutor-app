@@ -42,7 +42,7 @@ export function reduceRows(source: ExactMatrix, pivotColumns = checkMatrix(sourc
 export function rank(a: ExactMatrix): number { return reduceRows(a).pivots.length; }
 export function inverse(a: ExactMatrix): { value: ExactMatrix | null; reduction: Reduction } {
   const {rows,columns}=checkMatrix(a);
-  if(rows!==columns || rows>3) throw new Error("Inverse requires square 1–3 matrix");
+  if(rows!==columns || rows>4) throw new Error("Inverse requires square 1–4 matrix");
   const reduction=reduceRows(a.map((row,i)=>[...row,...identity(rows)[i]]),rows);
   return {value: reduction.pivots.length===rows ? reduction.matrix.map(row=>row.slice(rows)) : null,reduction};
 }
