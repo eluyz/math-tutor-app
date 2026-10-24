@@ -183,6 +183,7 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" | "parameters" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
+  | Readonly<{ kind: "linear-cramer-diagnostic"; target: "eligibility" | "minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-matrix-pair"; coefficients: readonly [Rational, Rational, Rational, Rational];
       first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-matrix-practice";

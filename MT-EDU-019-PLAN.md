@@ -48,4 +48,5 @@ Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść f
 ## Status wdrożenia (po akceptacji planu)
 
 - P0A: opracowanie dwóch rodzin strategii wyznaczników 4×4/5×5 w izolowanym PR, 144 warianty Łatwy/Średni/Trudny. Bez scalania przed pełnym CI i recenzją.
-- P0B/P0C: dopiero po osobnej weryfikacji i decyzjach; specyfikacja pozostaje propozycją.
+- P0B: przygotowany w osobnym PR; 2 nowe rodziny / 144 warianty, mieszające D≠0, D=0 zgodny i D=0 sprzeczny. Bez scalenia przed nową, osobną zgodą właściciela.
+- P0C: kolejny planowany etap po osobnej decyzji.

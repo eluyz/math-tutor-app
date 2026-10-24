@@ -20,9 +20,9 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | M12 | Macierz odwrotna | częściowo | `inverse-two`, `inverse-three`, `inverse-existence`; 2×2/3×3, także osobliwe, bez ogólnej 4×4 |
 | M13 | Równanie z odwrotnością | częściowo | `inverse-applications`, `inverse-right-applications`, `matrix-ax-shift`, `matrix-axb`, `matrix-inverse-plus`, `matrix-bx-shift`; AX=B → A⁻¹B, XA=B → BA⁻¹ (2×2/3×3) oraz (A−4I)X=B, AXB=C (PR #43), a w PR P1 także (A+4X)⁻¹=B i (B−3I)X=A (2×2); bez ogólnych rozmiarów i innych typów równań odwrotnych |
 | M14 | Rząd macierzy | częściowo | `matrix-rank`, `capelli-matrices`; 2×3, 3×3, 3×4 z eliminacją, bez dowolnej 4×4 |
-| U01 | Rozpoznanie układu Cramera | częściowo | `system-cramer-two`, `system-cramer-three`; warunek D≠0 wyjaśniony, brak osobnej klasyfikacji |
+| U01 | Rozpoznanie układu Cramera | częściowo | `system-cramer-two`, `system-cramer-three`, `cramer-applicability`; rozpoznanie D≠0 i klasyfikacja przypadków D=0 na 2×2/3×3/4×4, nadal bez wszystkich struktur układów |
 | U02 | Cramer 3 niewiadome | pokryte | `system-cramer-three`, `cramer-determinants-three`; pełne rozwiązanie i osobna kontrola D,D1–D3 |
-| U03 | Cramer 4 niewiadome | częściowo | `cramer-four`, `cramer-determinants-four`; dokładne D,D1–D4, osobne wpisywanie wyznaczników i klasyfikacja D=0 w kontrolowanych układach 4×4 |
+| U03 | Cramer 4 niewiadome | częściowo | `cramer-four`, `cramer-determinants-four`, `cramer-four-singular-minors`; dokładne D,D1–D4 również przy D=0, osobne wpisywanie wyznaczników i klasyfikacja D=0 w kontrolowanych układach 4×4 |
 | U04 | Łańcuch równości / jedna niewiadoma | częściowo | `system-substitution`, `system-chain-five`; nowy generator pięciu znaków równości pomiędzy sześcioma wyrażeniami z dwiema niewiadomymi, pytaniem o samo x lub y, wyjaśnieniem i kontrolą wszystkich równości. Bez dowolnych nieliniowych łańcuchów |
 | U05 | Liczba rozwiązań z podanych rzędów | pokryte | `capelli-given-ranks`; poprawne relacje r(A), r([A|b]), n |
 | U06 | Klasyfikacja przez obliczenie rzędów | częściowo | `capelli-matrices`, `gauss-classification`, `system-rectangular-3x2`, `system-rectangular-4x3`; klasyfikacja układów 3 równań / 2 niewiadomych i 4 / 3 na podstawie obliczanych rang (jedno, brak, wiele). Bez pełnej dowolności wymiarów |
