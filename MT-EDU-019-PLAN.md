@@ -1,6 +1,6 @@
 # MT-EDU-019 — plan domykania pokrycia matematyki (aktualizowany)
     
-**Stan aktualny (24.10.2026):** P0A/#63, P0B/#64, P0C/#65 i P0D/#66 scalone; CI i Pages na main PASS. `main` **153 rodziny / 12 909 wariantów**. **P0E1**: osobny PR, dwie rodziny dynamicznej eliminacji Gaussa dla wyznaczników 4×4/5×5, 144 nowe warianty; po ewentualnym scaleniu **155 / 13 053**. M09/M10 pozostają częściowo pokryte. Bez automatycznego merge.
+**Stan aktualny (24.10.2026):** P0A/#63, P0B/#64, P0C/#65, P0D/#66 i P0E1/#67 scalone; CI i Pages na main PASS. `main`: **155 rodzin / 13 053 warianty**. **P0E2** realizowany w osobnym PR: 2 rodziny rzędu macierzy 4×4 i 4×5, 144 warianty, po ewentualnym scaleniu **157 / 13 197**. M14 nadal częściowo pokryte. Bez automatycznego merge.
 
 **Historyczny stan bazowy:** `main` po PR #61 (`fe1359e`, 23.10.2026): **145 rodzin / 12 333 warianty**, 14 kategorii, CI i GitHub Pages PASS. Źródło: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) i [ROADMAP](ROADMAP.md). Jest to plan do zatwierdzenia, **nie zgoda na implementację ani scalanie**.
 
@@ -55,3 +55,5 @@ Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść f
 - P0D: dwa nowe typy dokładnych równań 3×3: `matrix-ax-shift-three` — `AX=4X+B` na poziomach medium/hard/advanced (72), i `matrix-axb-three` — `AXB=C` na hard/advanced/expert (72). Wymagana nieosobliwość, weryfikacja obu stron, 24 różne warianty na poziom, PL/EN, Vitest i Playwright. M05/M13 pozostają częściowe. **Oddzielny PR bez scalenia przed ponowną zgodą właściciela.**
 
 - P0E1 (implementacja w osobnym PR): 4×4 i 5×5, każda rodzina 3 poziomy × 24 warianty. Nowa umiejętność: dynamiczny wybór niezerowego pivota, zamiany wierszy, eliminacja z ułamkami i przypadki zerowego wyznacznika. Warunki odbioru: 144 unikalne warianty, niezależny Laplace i kontrola niezmienników operacji, pełne PL/EN, Vitest/Playwright, neutralność wobec uczelni, zgoda właściciela przed merge.
+
+- P0E2 (w odrębnym PR): 4×4 i 4×5, po 3 poziomy × 24 warianty na rodzinę (144). Rzędy od 0 do 4, niezerowe pivoty, wiersze zależne, brakujące kolumny pivotów, ułamki i dokładna redukcja. Kryteria: niezależne wyznaczniki minorów, pełny rejestr 144 treści, testy poprawnych i błędnych odpowiedzi, PL/EN, mobilny/desktop Playwright, recenzja, ponowna zgoda przed merge. W kolejnych etapach pozostają większe macierze i przypadki parametryczne.
