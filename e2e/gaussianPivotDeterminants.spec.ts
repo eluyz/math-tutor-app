@@ -1,5 +1,6 @@
 import {test,expect,type Page} from "@playwright/test";
-import {laplace,a,q} from "../src/university/audit";
+import {laplace} from "../src/university/audit";
+import {rational,addRational} from "../src/rational";
 import {shownFraction} from "./helpers/functions";
 import {formatRational as f} from "../src/answers";
 
@@ -29,10 +30,11 @@ test("MT-EDU-019 P0E1 "+width+" "+(en?"EN":"PL"),async({page})=>{
     const matrix=[];
     for(const row of rows)matrix.push((await row.locator("td").allTextContents()).map(shownFraction));
     expect(matrix.every(row=>row.length===family.n)).toBe(true);
-    const result=laplace(matrix);
+    const full=laplace(matrix);
+    const result=rational(full.numerator,full.denominator);
     await button(page,en?"Check":"Sprawdź").click();
     await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
-    await page.locator("#answer").fill(f(a(result,q(1))));
+    await page.locator("#answer").fill(f(addRational(result,rational(1))));
     await button(page,en?"Check":"Sprawdź").click();
     await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
     await page.locator("#answer").fill(f(result));
