@@ -64,7 +64,10 @@ test("MT-EDU-019 P0F1 inverse 4×4 "+width+" "+(en?"EN":"PL"),async({page})=>{
     await expect(page.locator(".feedback")).toHaveClass("feedback correct");
     await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
     await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
-    await expect(page.locator(".solution-panel")).toContainText("A⁻¹");
+    await expect(page.locator(".solution-panel")).toContainText(
+      family.id==="inverse-four-gauss-jordan"&&determinant.numerator===0n
+        ? en?"No inverse":"Brak odwrotności"
+        : "A⁻¹");
   }
   expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
   expect(errors).toEqual([]);
