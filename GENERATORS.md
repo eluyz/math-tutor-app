@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **157 rodzin**, **13197 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 113 rodzin wspiera advanced, a 103 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **159 rodzin**, **13341 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 115 rodzin wspiera advanced, a 105 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **113**, L5: **103**.
+Łącznie rodziny L4: **115**, L5: **105**.
 
-## MT-EDU-019 P0E2 — rzędy macierzy 4×4 i 4×5 (osobny PR)
+## MT-EDU-019 P0F1 — macierz odwrotna 4×4 i AX=B (osobny PR)
+
+| Rodzina | Poziomy | Warianty | Umiejętności |
+| --- | --- | ---: | --- |
+| inverse-four-gauss-jordan | hard, advanced, expert | 72 | 4×4, dokładny Gauss–Jordan, kontrola A·A⁻¹=I, zamiany wierszy i osobliwość |
+| inverse-four-ax-equation | hard, advanced, expert | 72 | Rozwiązanie AX=B dla A 4×4 i B 4×2, kontrola AX=B, kolejność mnożenia |
+
+P0F1: +144 warianty, M12/M13 pozostają częściowo pokryte. Bez nowego parsera symbolicznego i bez powielania rodzin 2×2/3×3.
+
+## MT-EDU-019 P0E2 — rzędy macierzy 4×4 i 4×5 (scalony PR #68)
 
 | Rodzina | Poziomy | Warianty | Umiejętności |
 | --- | --- | ---: | --- |
