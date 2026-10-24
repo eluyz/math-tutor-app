@@ -3,7 +3,7 @@ import { expectOnlyProgressStorage } from "./helpers/progress";
 import { parseAnswer, rational as r, addRational as add, subtractRational as sub, multiplyRational as mul, type Rational } from "../src/rational";
 
 const format = (value: Rational) => `${value.numerator}/${value.denominator}`;
-type Expected = { kind: "scalar"; value: Rational } | { kind: "list"; values: Rational[] } | { kind: "matrix"; values: Rational[][] };
+type Expected = { kind: "scalar"; value: Rational } | { kind: "list"; values: Rational[] } | { kind: "matrix"; values: Rational[][] } | { kind: "choice"; value: string };
 async function readMatrix(page: Page, label: string): Promise<Rational[][]> {
   const result: Rational[][] = [];
   for (const row of await page.getByRole("table", { name: `Macierz ${label}`, exact: true }).locator("tbody tr").all()) {
@@ -16,6 +16,19 @@ async function readMatrix(page: Page, label: string): Promise<Rational[][]> {
   }
   return result;
 }
+const matAdd=(a:Rational[][],b:Rational[][])=>a.map((row,i)=>row.map((v,j)=>add(v,b[i][j])));
+const matSub=(a:Rational[][],b:Rational[][])=>a.map((row,i)=>row.map((v,j)=>sub(v,b[i][j])));
+const trans=(a:Rational[][])=>a[0].map((_,j)=>a.map(row=>row[j]));
+type Shape={r:number;c:number};
+const dims=(a:Rational[][]):Shape=>({r:a.length,c:a[0].length});
+const plusDims=(a:Shape|null,b:Shape|null):Shape|null=>a&&b&&a.r===b.r&&a.c===b.c?a:null;
+const productDims=(a:Shape|null,b:Shape|null):Shape|null=>a&&b&&a.c===b.r?{r:a.r,c:b.c}:null;
+const transposeDims=(a:Shape|null):Shape|null=>a?{r:a.c,c:a.r}:null;
+const publicMatrixExpression=(question:string)=> {
+  const result=question.match(/^(?:Oblicz|Calculate|Określ, czy można wykonać|Decide whether) ([^ ]+)/);
+  if(!result)throw Error("Unsupported public matrix question: "+question);
+  return result[1];
+};
 function product(a: Rational[][], b: Rational[][]) {
   return a.map((row) => b[0].map((_, j) => row.map((value, k) => mul(value, b[k][j])).reduce(add, r(0))));
 }
@@ -43,11 +56,41 @@ async function matrixAnswer(page: Page): Promise<Expected> {
     return { kind: "matrix", values: numerator.map((row) => row.map((value) => r(value.numerator * det.denominator, value.denominator * det.numerator))) };
   }
   const b = await readMatrix(page, "B");
+  if (id === "matrix-rectangular-evaluation") {
+    const c=await readMatrix(page,"C");
+    const expr=publicMatrixExpression(await page.locator(".question").innerText());
+    let result:Rational[][];
+    switch(expr){
+      case "AB+C":result=matAdd(product(a,b),c);break;
+      case "(A+B)C":result=product(matAdd(a,b),c);break;
+      case "A(B−C)":result=product(a,matSub(b,c));break;
+      case "(AB)ᵀ−C":result=matSub(trans(product(a,b)),c);break;
+      case "(AB)ᵀ−(3/2)C":result=matSub(trans(product(a,b)),c.map(row=>row.map(v=>mul(v,r(3,2)))));break;
+      default:throw Error("Unexpected rectangular expression: "+expr);
+    }
+    return {kind:"matrix",values:result};
+  }
+  if (id === "matrix-transpose-dimensions") {
+    const expr=publicMatrixExpression(await page.locator(".question").innerText());
+    const x=dims(a),y=dims(b);
+    const z=expr==="AᵀB"?null:dims(await readMatrix(page,"C"));
+    let shape:Shape|null;
+    switch(expr){
+      case "AᵀB":shape=productDims(transposeDims(x),y);break;
+      case "Aᵀ(B+C)":shape=productDims(transposeDims(x),plusDims(y,z));break;
+      case "(AB)ᵀ+C":shape=plusDims(transposeDims(productDims(x,y)),z);break;
+      case "ABᵀ+C":shape=plusDims(productDims(x,transposeDims(y)),z);break;
+      case "(A+Bᵀ)C":shape=productDims(plusDims(x,transposeDims(y)),z);break;
+      default:throw Error("Unexpected dimensions expression: "+expr);
+    }
+    return {kind:"choice",value:shape?shape.r+"x"+shape.c:"not-possible"};
+  }
   if (id === "matrix-product") return { kind: "matrix", values: product(a, b) };
   return { kind: "matrix", values: a.map((row, i) => row.map((value, j) => id === "matrix-add" ? add(value, b[i][j]) : sub(value, b[i][j]))) };
 }
 async function fill(page: Page, expected: Expected, wrong = false) {
-  if (expected.kind === "scalar") await page.getByLabel("Twoja odpowiedź", { exact: true }).fill(format(wrong ? add(expected.value, r(1)) : expected.value));
+  if (expected.kind === "choice") await page.locator("#answer").selectOption(wrong?(expected.value==="not-possible"?"2x2":"not-possible"):expected.value);
+  else if (expected.kind === "scalar") await page.getByLabel("Twoja odpowiedź", { exact: true }).fill(format(wrong ? add(expected.value, r(1)) : expected.value));
   else if (expected.kind === "list") {
     const fields = page.locator(".structured-answer input");
     await expect(fields).toHaveCount(expected.values.length);
