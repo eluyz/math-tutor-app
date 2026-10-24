@@ -10,11 +10,11 @@ import { teaching } from "./teaching";
 type Problem = Extract<LinearAlgebraProblem, { kind: "linear-cramer-diagnostic" }>;
 const show = (a: ExactMatrix) => "[" + a.map(row=>"[" + row.map(f).join(", ") + "]").join("; ") + "]";
 const dot = (row:readonly Rational[],x:readonly Rational[]) => row.reduce((sum,c,i)=>add(sum,mul(c,x[i])),r(0));
-// Canonical symbolic labels preserve answer identity across PL/EN.
-const choices = () => [
-  {value:"system-one",label:"D≠0 → 1"},
-  {value:"system-none",label:"D=0; r(A)<r([A|b]) → 0"},
-  {value:"system-many",label:"D=0; r(A)=r([A|b])<n → ∞"},
+// Standard English choice labels are part of the existing englishAnswer contract.
+const choices = (locale:Locale) => [
+  {value:"system-one",label:locale==="pl"?"Tak, D≠0: jedno rozwiązanie":"Exactly one solution"},
+  {value:"system-none",label:locale==="pl"?"Nie, D=0: brak rozwiązań":"No solutions"},
+  {value:"system-many",label:locale==="pl"?"Nie, D=0: nieskończenie wiele rozwiązań":"Infinitely many solutions"},
 ];
 
 /** Rank n−1 when singular; unlike a generic D=0 example this controls both
@@ -95,7 +95,7 @@ export function presentCramerDiagnostic(p:Problem,locale:Locale){
           "D is nonzero, so each Dᵢ can be divided by D; substitution verifies the values."));
     }
   }else{
-    answer={kind:"choice",value:result.kind,options:choices()};
+    answer={kind:"choice",value:result.kind,options:choices(locale)};
   }
   lesson.work("rank(A) = "+result.rankA+"; rank([A|b]) = "+result.rankAugmented+"; n = "+n,
     result.kind==="system-one"

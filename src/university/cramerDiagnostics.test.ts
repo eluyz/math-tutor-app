@@ -63,7 +63,10 @@ describe("MT-EDU-019 P0B: independent Cramer decision and determinant audit",()=
       expect(assessAnswer(spec,{kind:"list",values:entries.map((x,i)=>i?x:"1/0")}).kind).toBe("invalid");
     }
     const en=localizeUniversity(task,"en");
-    expect(en.answer).toEqual(task.answer);
+    if(task.answer.kind==="choice" && en.answer.kind==="choice"){
+      expect(en.answer.value).toBe(task.answer.value);
+      expect(en.answer.options.map(x=>x.value)).toEqual(task.answer.options.map(x=>x.value));
+    }else expect(en.answer).toEqual(task.answer);
     expect(en.contentKey).toBe(task.contentKey);
     expect(en.solution?.length).toBeGreaterThanOrEqual(4);
     expect(task.solution?.length).toBe(en.solution?.length);
