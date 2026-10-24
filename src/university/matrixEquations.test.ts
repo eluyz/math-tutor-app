@@ -12,9 +12,21 @@ const equal=(a:readonly (readonly ReturnType<typeof r>[])[],b:readonly (readonly
   a.length===b.length&&a.every((row,i)=>row.length===b[i].length&&row.every((v,j)=>eq(v,b[i][j])));
 
 describe("MT-EDU-013 P0 matrix equations",()=>{
-  it("generates 336 distinct 2×2 exercises",()=>{
+  it("preserves 336 original 2×2 and adds 144 P0D 3×3 exercises",()=>{
     const total=advancedMatrixEquationFamilies.reduce((sum,family)=>sum+family.supportedDifficulties.length*24,0);
-    expect(total).toBe(336);
+    expect(total).toBe(480);
+    expect(advancedMatrixEquationFamilies.filter(x=>x.id.endsWith("-three"))).toHaveLength(2);
+  });
+
+  it("P0D genuinely extends size and preserves the existing 2×2 families",()=>{
+    for(const family of advancedMatrixEquationFamilies){
+      for(const level of family.supportedDifficulties){
+        const first=makeUniversityTask(family.id,0,level).university;
+        if(first.kind!=="linear-matrix-equation")throw Error("Wrong kind");
+        expect(first.left.length).toBe(family.id.endsWith("-three")?3:2);
+        expect(first.left.every(row=>row.length===first.left.length)).toBe(true);
+      }
+    }
   });
   for(const family of advancedMatrixEquationFamilies)for(const level of family.supportedDifficulties){
     it(`${family.id}/${level}: all exact variants and both locales`,()=>{
@@ -26,7 +38,7 @@ describe("MT-EDU-013 P0 matrix equations",()=>{
         if(p.kind!=="linear-matrix-equation")throw Error("Unexpected task kind");
         const answer=task.answer;
         if(answer.kind!=="matrix")throw Error("Expected matrix answer");
-        expect(answer.values).toHaveLength(2);
+        expect(answer.values).toHaveLength(p.left.length);
         const x=answer.values;
         if(p.mode==="ax-shift"){
           const lhs=dot(p.left,x);
@@ -56,6 +68,7 @@ describe("MT-EDU-013 P0 matrix equations",()=>{
           expect(t.question.length).toBeGreaterThan(50);
           expect(t.solution?.length).toBeGreaterThan(5);
           expect(assessAnswer(t.answer,{kind:"matrix",values:x.map(row=>row.map(f))}).kind).toBe("correct");
+          expect(assessAnswer(t.answer,{kind:"matrix",values:x.map((row,i)=>row.map((e,j)=>i===0&&j===0?f(add(e,r(1))):f(e)))}).kind).toBe("incorrect");
           expect(assessAnswer(t.answer,{kind:"matrix",values:x.map((row,i)=>row.map((e,j)=>i===0&&j===0?"1/0":f(e)))}).kind).toBe("invalid");
         }
       }
