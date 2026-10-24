@@ -18,7 +18,7 @@ test("MT-EDU-019 P0D 3x3 equations "+width+" "+(en?"EN":"PL"),async({page})=>{
     {id:"matrix-ax-shift-three",name:en?"Matrix equation AX = 4X + B (3×3)":"Równanie AX = 4X + B (3×3)"},
     {id:"matrix-axb-three",name:en?"Matrix equation AXB = C (3×3)":"Równanie AXB = C (3×3)"},
   ]){
-    await button(page,family.name).click();
+    await page.locator("button.exercise-item").filter({hasText:family.name}).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id",family.id);
     await expect(page.locator("#answer-2-2")).toBeVisible();
     await button(page,en?"Check":"Sprawdź").click();
