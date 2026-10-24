@@ -1,8 +1,17 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **153 rodziny**, **12909 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 109 rodzin wspiera advanced, a 101 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **155 rodzin**, **13053 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 111 rodzin wspiera advanced, a 102 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **109**, L5: **101**.
+Łącznie rodziny L4: **111**, L5: **102**.
+
+## MT-EDU-019 P0E1 — wyznaczniki z dynamicznym doborem pivota (PR przed scaleniem)
+
+| Rodzina | Poziomy | Liczba | Co ćwiczymy |
+| --- | --- | ---: | --- |
+| determinant-gaussian-pivot-four | medium, hard, advanced | 72 | 4×4: szukanie niezerowego pivota, zamiany wierszy, ułamki i przypadki det=0 |
+| determinant-gaussian-pivot-five | hard, advanced, expert | 72 | 5×5: wieloetapowa eliminacja dokładna i kontrola znaku oraz zerowych pivotów |
+
+P0E1: +144 warianty bez powielania wcześniejszych rodzin Laplace'a i zaplanowanej redukcji; M09/M10 pozostają **częściowe**. Wyniki po ewentualnym scaIeniu: 155 rodzin / 13 053 warianty. Pełne rozwiązania PL/EN i niezależne testy matematyczne. Historyczne liczby w niższych sekcjach pozostają bez zmian.
 
 ## MT-EDU-019 P0D — równania macierzowe 3×3
 

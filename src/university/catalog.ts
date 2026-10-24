@@ -20,6 +20,7 @@ import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
 import { determinantStrategyFamilies } from "./determinantStrategies";
+import { gaussianPivotFamilies, presentGaussianPivot } from "./gaussianPivotDeterminants";
 import { inverseFamilies, presentInverse } from "./inverses";
 import { rankFamilies, presentRank } from "./ranks";
 import { gaussFamilies, presentGauss } from "./gauss";
@@ -60,6 +61,7 @@ export const universityFamilies = [
   ...derivativeFamilies,
   ...determinantFamilies,
   ...determinantStrategyFamilies,
+  ...gaussianPivotFamilies,
   ...inverseFamilies,
   ...rankFamilies,
   ...gaussFamilies,
@@ -143,7 +145,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     : problem.kind === "linear-cramer-four"
     ? presentCramerFour(problem, locale)
     : problem.kind === "determinant"
-    ? presentDeterminant(problem, locale)
+    ? (problem.method==="gaussian-four"||problem.method==="gaussian-five"
+        ? presentGaussianPivot(problem,locale) : presentDeterminant(problem, locale))
     : problem.kind === "system"
       ? presentSystem(problem, locale)
       : problem.kind === "sequence-radical-ratio" ||
