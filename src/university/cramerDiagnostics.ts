@@ -10,10 +10,11 @@ import { teaching } from "./teaching";
 type Problem = Extract<LinearAlgebraProblem, { kind: "linear-cramer-diagnostic" }>;
 const show = (a: ExactMatrix) => "[" + a.map(row=>"[" + row.map(f).join(", ") + "]").join("; ") + "]";
 const dot = (row:readonly Rational[],x:readonly Rational[]) => row.reduce((sum,c,i)=>add(sum,mul(c,x[i])),r(0));
-const choices = (locale:Locale) => [
-  {value:"system-one",label:locale==="pl"?"Tak, D≠0: jedno rozwiązanie":"Yes, D≠0: exactly one solution"},
-  {value:"system-none",label:locale==="pl"?"Nie, D=0: brak rozwiązań":"No, D=0: no solutions"},
-  {value:"system-many",label:locale==="pl"?"Nie, D=0: nieskończenie wiele rozwiązań":"No, D=0: infinitely many solutions"},
+// Canonical symbolic labels preserve answer identity across PL/EN.
+const choices = () => [
+  {value:"system-one",label:"D≠0 → 1"},
+  {value:"system-none",label:"D=0; r(A)<r([A|b]) → 0"},
+  {value:"system-many",label:"D=0; r(A)=r([A|b])<n → ∞"},
 ];
 
 /** Rank n−1 when singular; unlike a generic D=0 example this controls both
@@ -94,7 +95,7 @@ export function presentCramerDiagnostic(p:Problem,locale:Locale){
           "D is nonzero, so each Dᵢ can be divided by D; substitution verifies the values."));
     }
   }else{
-    answer={kind:"choice",value:result.kind,options:choices(locale)};
+    answer={kind:"choice",value:result.kind,options:choices()};
   }
   lesson.work("rank(A) = "+result.rankA+"; rank([A|b]) = "+result.rankAugmented+"; n = "+n,
     result.kind==="system-one"
@@ -108,11 +109,11 @@ export function presentCramerDiagnostic(p:Problem,locale:Locale){
   if(result.kind==="system-none"){
     const row=result.reduction.matrix.find(row=>row.slice(0,n).every(c=>c.numerator===0n)&&row[n].numerator!==0n);
     if(!row)throw Error("Missing contradiction row");
-    lesson.work("0 = "+f(row[n]),
+    lesson.work(t("Sprzeczność w układzie: 0 = ","Contradiction in system: 0 = ")+f(row[n]),
       t("Konkretny sprzeczny wiersz macierzy rozszerzonej wyklucza rozwiązania.",
         "An explicit contradictory row of the augmented matrix rules out solutions."));
   }else if(result.kind==="system-many"){
-    lesson.work(parameterization(result,["x","y","z","w"].slice(0,n)).join("; "),
+    lesson.work(t("Rodzina rozwiązań: ","Solution family: ")+parameterization(result,["x","y","z","w"].slice(0,n)).join("; "),
       t("Zmienna swobodna pozwala opisać rodzinę rozwiązań; D=0 nie oznacza automatycznie sprzeczności.",
         "A free variable parametrizes the solutions; D=0 does not automatically mean inconsistency."));
   }
