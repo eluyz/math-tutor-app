@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **159 rodzin** i **13341 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **161 rodzin** i **13485 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
