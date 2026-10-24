@@ -27,8 +27,8 @@ describe("MT-EDU-019 P0E1: Gaussian pivots 4×4/5×5",()=>{
         const oracle=laplace(p.matrix);
         expect(eq(trace.value,oracle)).toBe(true);
         expect(eq(task.answer.value,oracle)).toBe(true);
-        expect(assessAnswer(task.answer,f(oracle)).kind).toBe("correct");
-        expect(assessAnswer(task.answer,f(add(oracle,r(1)))).kind).toBe("incorrect");
+        expect(assessAnswer(task.answer,f(task.answer.value)).kind).toBe("correct");
+        expect(assessAnswer(task.answer,f(add(task.answer.value,r(1)))).kind).toBe("incorrect");
         expect(assessAnswer(task.answer,"1/0").kind).toBe("invalid");
         expect(trace.steps.some(step=>step.operation.kind==="swap")).toBe(true);
         if(trace.singularColumn!==null){
