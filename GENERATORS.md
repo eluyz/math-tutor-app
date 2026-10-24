@@ -8,8 +8,8 @@ Bieżący katalog UI i sesji: **157 rodzin**, **13197 instancji**. `allTemplates
 
 | Rodzina | Poziomy | Warianty | Umiejętności |
 | --- | --- | ---: | --- |
-| `matrix-rank-four-square` | medium, hard, advanced | 72 | Rząd od 0 do 4, macierz osobliwa i nieosobliwa, zależne wiersze i pomijanie kolumn bez pivota |
-| `matrix-rank-four-rectangular` | hard, advanced, expert | 72 | Prostokątna macierz 4×5, zależność liniowa i kolumny swobodne |
+| matrix-rank-four-square | medium, hard, advanced | 72 | Rząd od 0 do 4, macierz osobliwa i nieosobliwa, zależne wiersze i pomijanie kolumn bez pivota |
+| matrix-rank-four-rectangular | hard, advanced, expert | 72 | Prostokątna macierz 4×5, zależność liniowa i kolumny swobodne |
 
 Razem +144 warianty. Wykorzystywany istniejący, dokładny algorytm redukcji Gaussa–Jordana; M14 pozostaje częściowe. Bez wzmianek o konkretnej uczelni.
 
