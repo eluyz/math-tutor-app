@@ -1,6 +1,6 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **149 rodzin**, **12621 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **151 rodzin**, **12765 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 107 rodzin wspiera advanced, a 100 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **107**, L5: **100**.
 
@@ -522,3 +522,12 @@ Po dodaniu P0A: **147 rodzin i 12477 instancji**. Oryginalne 145 rodzin / 12333 
 | cramer-four-singular-minors | easy, medium, hard | 72 | D oraz D₁–D₄ dla 4×4, także układy zgodne i sprzeczne przy D=0, z wyjaśnionymi rangami |
 
 W każdym poziomie każdej rodziny jest dokładnie 8 układów jednoznacznych, 8 zgodnych nieoznaczonych i 8 sprzecznych; macierze mają w tym poziomie 24 odrębne zestawy danych. **D=0 nie oznacza automatycznie sprzeczności ani nieskończenie wielu rozwiązań.** Niezależny test enumeruje minory dla rzędu macierzy oraz rozwija wszystkie D,Dᵢ. Wszystkie poprzednie 147 rodzin / 12477 wariantów pozostają dostępne. Po P0B: **149 rodzin / 12621 wariantów**.
+
+## MT-EDU-019 P0C — działania prostokątne i transpozycja
+
+| Rodzina | Poziomy | Warianty | Co użytkownik wpisuje |
+| --- | --- | ---: | --- |
+| matrix-rectangular-evaluation | easy, medium, hard | 72 | Wszystkie elementy wyniku `AB+C`, `(A+B)C`, `A(B−C)` lub `(AB)ᵀ−C` / `(AB)ᵀ−(3/2)C` |
+| matrix-transpose-dimensions | easy, medium, hard | 72 | Wykonalność i wymiar `AᵀB`, `Aᵀ(B+C)`, `(AB)ᵀ+C`, `ABᵀ+C`, `(A+Bᵀ)C` |
+
+Generatory korzystają z macierzy 2×2, 2×3, 3×2 i 3×3. Poziom easy: małe liczby całkowite i co najwyżej dwa działania; medium: trzy macierze i nawiasy; hard: transpozycja, dodatkowe kroki i ułamki. W rodzinie wymiarów wszystkie poziomy mieszają zadania wykonalne i niewykonalne. Testy używają niezależnych obliczeń każdej komórki, osobnych reguł zgodności wymiarów i sprawdzają 144 unikalne warianty. **Po potencjalnym scaleniu** 151 rodzin / 12 765 wariantów; 149 poprzednich rodzin i 12 621 wariantów pozostaje dostępnych.

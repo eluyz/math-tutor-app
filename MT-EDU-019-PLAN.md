@@ -49,4 +49,4 @@ Zweryfikować listę niedomkniętych umiejętności P0, a następnie przejść f
 
 - P0A: opracowanie dwóch rodzin strategii wyznaczników 4×4/5×5 w izolowanym PR, 144 warianty Łatwy/Średni/Trudny. Bez scalania przed pełnym CI i recenzją.
 - P0B: przygotowany w osobnym PR; 2 nowe rodziny / 144 warianty, mieszające D≠0, D=0 zgodny i D=0 sprzeczny. Bez scalenia przed nową, osobną zgodą właściciela.
-- P0C: kolejny planowany etap po osobnej decyzji.
+- P0C: **zatwierdzony do implementacji**, zaproponowane 2 rodziny / 144 warianty: obliczenia na macierzach prostokątnych i wykonalność wyrażeń z transpozycją. Osobny PR, pełne CI, recenzja i **nowa zgoda właściciela przed merge**.
