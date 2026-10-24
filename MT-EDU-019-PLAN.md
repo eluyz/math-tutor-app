@@ -1,6 +1,6 @@
 # MT-EDU-019 — plan domykania pokrycia matematyki (aktualizowany)
     
-**Stan aktualny (24.10.2026):** PR #63–#69 scalone. Po PR #69: CI i Pages PASS; `main` ma **159 rodzin / 13 341 wariantów**. Następny proponowany etap P0F2: równanie XA=B dla A 4×4, B 2×4 oraz AX=4X+B z macierzami 4×4. Docelowo 2 rodziny / 144 warianty (161 rodzin / 13 485 wariantów po ewentualnym wdrożeniu). Kod P0F2 nie jest jeszcze zatwierdzony ani scalony. Nie scalać bez zgody właściciela.
+**Stan aktualny (24.10.2026):** PR #63–#69 scalone. Po PR #69: CI i Pages PASS; `main` ma **159 rodzin / 13 341 wariantów**. Następny proponowany etap P0F2: równanie XA=B dla A 4×4, B 2×4 oraz AX=4X+B z macierzami 4×4. Docelowo 2 rodziny / 144 warianty (161 rodzin / 13 485 wariantów po ewentualnym wdrożeniu). Kod P0F2 znajduje się w otwartym PR #70, nie jest jeszcze scalony; wymaga CI, recenzji i zgody właściciela. Nie scalać bez zgody właściciela.
 
 **Historyczny stan bazowy:** `main` po PR #61 (`fe1359e`, 23.10.2026): **145 rodzin / 12 333 warianty**, 14 kategorii, CI i GitHub Pages PASS. Źródło: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) i [ROADMAP](ROADMAP.md). Jest to plan do zatwierdzenia, **nie zgoda na implementację ani scalanie**.
 
