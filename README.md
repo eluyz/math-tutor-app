@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **164 rodziny** i **13701 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **166 rodzin** i **13845 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
@@ -12,7 +12,9 @@ MT-EDU-019 P0F1 (PR #69, scalony i opublikowany): dwie nowe rodziny ćwiczeń z 
 
 MT-EDU-019 P0F2 (PR #70, scalony i opublikowany): `XA=B` przy A 4×4 i B 2×4 oraz `AX=4X+B` dla A, B i X 4×4. To 2 nowe rodziny, każda 24 warianty × 3 poziomy = 144 dodatkowe zadania; docelowo po scaleniu 161 rodzin / 13 485 instancji. Obie rodziny korzystają z dokładnych obliczeń i weryfikacji podstawieniem. PR wymaga pozytywnego CI i odrębnej zgody na merge.
 
-MT-EDU-019 P0G (osobny PR, **jeszcze nie na `main`**): trzy autorskie rodziny układów 4×4 dla Cramera i Gaussa (wymuszona zamiana pierwszych wierszy, wyznacznik niezerowy mimo A₁₁=0, trzy klasy rozwiązań). 3 rodziny × 3 poziomy × 24 warianty = 216 ćwiczeń; na tej gałęzi 164 rodziny / 13 701 instancji, na wdrożonym `main` po #70 nadal 161 / 13 485. PR wymaga niezależnych testów i zgody przed scaleniem.
+MT-EDU-019 P0G (PR #71 scalony; CI i Pages PASS): trzy autorskie rodziny układów 4×4 dla Cramera i Gaussa (wymuszona zamiana pierwszych wierszy, wyznacznik niezerowy mimo A₁₁=0, trzy klasy rozwiązań). 3 rodziny × 3 poziomy × 24 warianty = 216 ćwiczeń; wdrożone po #71: 164 rodziny / 13 701 instancji. PR wymaga niezależnych testów i zgody przed scaleniem.
+
+MT-EDU-020 P1A (nowy PR, jeszcze niewdrożony): dodatkowe ciągi typu n^p·a^n/(n^q·b^n), których nie pokrywają ilorazy samych potęg, oraz osobne ćwiczenia na ścisłą monotoniczność i ograniczoność (w tym naprzemienność). Dwie rodziny × 3 poziomy × 24 warianty = 144; po ewentualnym scaleniu 166 rodzin / 13 845 instancji. Brak zmian w zapisanym postępie, pełne PL/EN, bez merge przed zgodą.
 
 ## Uruchomienie
 

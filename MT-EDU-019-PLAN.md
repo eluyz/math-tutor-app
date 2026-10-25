@@ -1,6 +1,6 @@
 # MT-EDU-019 — plan domykania pokrycia matematyki (aktualizowany)
     
-**Stan aktualny (24.10.2026):** PR #63–#70 scalone. `main` `b46f416b`: **161 rodzin / 13 485 wariantów**, CI i Pages PASS. P0F2 wdrożone. Osobny P0G: 3 rodziny Cramera/Gaussa 4×4, +216 ćwiczeń, na gałęzi 164 / 13 701. Brak zgody na merge P0G. 15 kompetencji pokrytych, 47 częściowych, 2 teoretyczne — bez przypisywania pełnego przygotowania egzaminacyjnego.
+**Stan aktualny (25.10.2026):** PR #63–#71 scalone, `main` `8fe7acf`: **164 rodziny / 13 701 wariantów**, CI i GitHub Pages PASS. P0G wdrożone. Następny zakres: MT-EDU-020 P1A, nowe kombinacje potęgowo-wykładnicze i monotoniczność/ograniczoność; 2 rodziny / 144 zadania w osobnym PR. Żadnej zgody na merge P1A. W mapie początkowo 15 pokrytych, 47 częściowych, 2 teoretyczne; w P1A C06 zmienia stan na częściowy, ale to nie gwarancja ukończenia teorii.
 
 **Historyczny stan bazowy:** `main` po PR #61 (`fe1359e`, 23.10.2026): **145 rodzin / 12 333 warianty**, 14 kategorii, CI i GitHub Pages PASS. Źródło: [mapa 64 kompetencji](CURRICULUM_COVERAGE.md) i [ROADMAP](ROADMAP.md). Jest to plan do zatwierdzenia, **nie zgoda na implementację ani scalanie**.
 
