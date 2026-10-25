@@ -1,7 +1,7 @@
 import {test,expect,type Page} from "@playwright/test";
 import {shownFraction} from "./helpers/functions";
 import {fractionText} from "./helpers/systems";
-import {d,q,eq} from "../src/university/audit";
+import {d,q} from "../src/university/audit";
 import {polishLearningText} from "./helpers/localization";
 import type {LimitValue} from "../src/answers";
 
