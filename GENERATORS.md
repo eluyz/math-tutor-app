@@ -1,8 +1,17 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **164 rodziny**, **13701 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 120 rodzin wspiera advanced, a 110 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **166 rodzin**, **13845 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 122 rodziny wspierają advanced, a 111 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **120**, L5: **110**.
+Łącznie rodziny L4: **122**, L5: **111**.
+
+## MT-EDU-020 P1A — domknięcie luk w ciągach (nowy PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Co sprawdza |
+| --- | --- | ---: | --- |
+| `sequence-power-exponential` | hard, advanced, expert | 72 | Granica ilorazu n^p·a^n / n^q·b^n; dominacja wykładnicza, przypadki równych podstaw, znak i dzielenie przez potęgi n |
+| `sequence-monotonic-bounded` | medium, hard, advanced | 72 | Monotoniczność przez znak aₙ₊₁−aₙ i obustronną ograniczoność dla ciągów liniowych, odwrotności i naprzemiennych |
+
+P1A: +144 zadań na gałęzi, razem 166 rodzin / 13 845 instancji dopiero po osobnym zatwierdzeniu i merge. Nie duplikuje istniejących `sequence-radical-ratio`, `sequence-conjugate`, `sequence-exponential-ratio`, `sequence-euler-product`. C04 nadal częściowe, C06 uzupełnione częściowo (bez pełnej teorii). Bez nowych zależności.
 
 ## MT-EDU-019 P0G — Cramer i Gauss 4×4 (osobny PR, bez merge)
 
@@ -12,7 +21,7 @@ Bieżący katalog UI i sesji: **164 rodziny**, **13701 instancji**. `allTemplate
 | gauss-four-forced-pivot | hard, advanced, expert | 72 | Jednoznaczny układ 4×4 z zerowym pierwszym pivotem; zamiana, eliminacja i podstawienie wsteczne |
 | gauss-four-dependent-diagnostic | hard, advanced, expert | 72 | 4×4: rank(A) vs rank([A|b]), jedno/brak/wiele rozwiązań, wiersze zależne i sprzeczne |
 
-P0G +216 ćwiczeń na gałęzi roboczej, razem 164 rodziny / 13 701 wariantów **dopiero po zatwierdzonym merge**. Wszędzie dokładne ułamki, niezależna weryfikacja wyznaczników i rzędów, PL/EN; wcześniejsze warianty bez zmian.
+P0G +216 ćwiczeń wdrożono w PR #71: razem 164 rodziny / 13 701 wariantów po scaleniu. Wszędzie dokładne ułamki, niezależna weryfikacja wyznaczników i rzędów, PL/EN; wcześniejsze warianty bez zmian.
 
 ## MT-EDU-019 P0F2 — XA=B i AX=4X+B w wymiarze 4×4 (PR #70, przed scaleniem)
 
