@@ -1,5 +1,5 @@
 import {rational as r, multiplyRational as mul, divideRational as div, type Rational} from "../rational";
-import {formatRational as f, type AnswerSpec, type LimitValue} from "../answers";
+import {formatRational as f, type LimitValue} from "../answers";
 import type {Difficulty} from "../difficulty";
 import type {Locale} from "../locales/types";
 import type {SequenceProblem,UniversityFamily} from "./schema";
