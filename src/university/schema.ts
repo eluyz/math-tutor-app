@@ -9,6 +9,7 @@ import type { AreaArcProblem } from "./areaArc";
 import type { FunctionExtensionProblem } from "./functionExtensions";
 import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 import type { FunctionFollowupProblem } from "./functionFollowup";
+import type { LimitFollowupProblem } from "./limitFollowup";
 import type { FunctionGraphProblem } from "./functionGraphs";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
@@ -231,6 +232,7 @@ export type UniversityProblem =
   | HessianProblem
   | SequenceProblem
   | FunctionLimitProblem
+  | LimitFollowupProblem
   | DerivativeProblem
   | DeterminantProblem
   | LinearAlgebraProblem
