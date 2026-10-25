@@ -15,7 +15,7 @@ type Inverse=Extract<FunctionFollowupProblem,{kind:"function-mobius-inverse-poin
 
 function makeDomain(v:number,level:Difficulty):Domain{
  const den=level==="hard"?1:level==="advanced"?2:3;
- const p=r(v-12,den),gap=r(2+v%4,level==="expert"?2:1),q=add(p,gap);
+ const p=r((v-12)*den+(level==="hard"?0:1),den),gap=r(2+v%4,level==="expert"?2:1),q=add(p,gap);
  const pole=v%3===0?sub(p,r(1+v%3,2)):v%3===1?add(p,div(gap,r(2))):add(q,r(1+v%4,2));
  return {kind:"function-log-rational-domain",p,q,pole};
 }
@@ -60,10 +60,10 @@ export function presentFunctionFollowup(z:FunctionFollowupProblem,locale:Locale)
   lesson.work("ln(u)∈ℝ ⇔ u>0",
     t("Argument logarytmu musi być ściśle dodatni; jego zera i bieguny są wykluczone.",
       "The logarithm argument must be strictly positive; its zeros and poles are excluded."));
-  lesson.work("Punkty krytyczne / Critical points: "+roots.map(f).join(" < "),
+  lesson.work(t("Punkty krytyczne: ","Critical points: ")+roots.map(f).join(" < "),
     t("Sortujemy trzy różne punkty krytyczne. W każdym zmienia się znak ilorazu czynników liniowych.",
       "Sort the three distinct critical points; the rational sign flips at every simple root or pole."));
-  lesson.work("Tabela znaków / Sign chart: − | + | − | +",
+  lesson.work(t("Tabela znaków: − | + | − | +","Sign chart: − | + | − | +"),
     t("Po prawej iloraz jest dodatni (zachowuje się jak x); przekraczając każdą granicę zmieniamy znak.",
       "At the right the ratio behaves like x and is positive; cross each boundary and reverse its sign."));
   lesson.work("D = "+setText(D),
