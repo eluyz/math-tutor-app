@@ -86,7 +86,7 @@ export function presentSequenceFollowup(p:Power|Behaviour,locale:Locale){
     lesson.work("aₙ=("+f(coeff)+")·n^("+k+")·("+f(base)+")ⁿ",
       t("Oddzielamy stosunek współczynników, różnicę stopni wielomianów i stosunek dodatnich podstaw.",
         "Separate coefficient ratio, polynomial degree difference and positive base ratio."));
-    if(compare(a,b)!==0)
+    if(compare(a,b)!==0n)
       lesson.work(compare(a,b)<0?"0<"+f(base)+"<1 ⇒ n^("+k+")·("+f(base)+")ⁿ→0":
         f(base)+">1 ⇒ |n^("+k+")·("+f(base)+")ⁿ|→+∞",
         t("Dowolna dodatnia potęga wykładnicza przeważa nad ustaloną potęgą n. Jeżeli podstawa ilorazu jest mniejsza od 1, wynik dąży do zera.",
