@@ -1,7 +1,7 @@
 import {describe,it,expect} from "vitest";
 import {sequenceFollowupFamilies,powerExponentialLimit,classifySequenceBehaviour} from "./sequenceFollowup";
 import {makeUniversityTask,localizeUniversity} from "./catalog";
-import {q,a,m,d,s,eq,auditCalculation} from "./audit";
+import {q,a,m,eq,auditCalculation} from "./audit";
 import {assessAnswer,emptyAnswer,formatRational} from "../answers";
 import type {SequenceProblem} from "./schema";
 import type {Rational} from "../rational";
