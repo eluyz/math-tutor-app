@@ -25,7 +25,7 @@ function makeInfinity(v:number,d:Difficulty):ImproperIntegralProblem{
 function makeEndpoint(v:number,d:Difficulty):ImproperIntegralProblem{
  const power=(["half","one","two"] as const)[v%3];
  return {kind:"integral-improper-endpoint",k:coefficient(v,d),
-   root:r(2+(v%8),d==="hard"?1:d==="advanced"?2:3),power};
+   root:r(2+v,d==="hard"?1:d==="advanced"?2:3),power};
 }
 export const improperIntegralFamilies:readonly UniversityFamily[]=[
  {id:"integral-improper-infinity",category:"integrals",
