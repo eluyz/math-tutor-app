@@ -13,6 +13,7 @@ import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProp
 import { nondifferentiabilityFamilies, presentNondifferentiability } from "./nondifferentiability";
 import { trigDerivativeFamilies, presentTrigDerivative } from "./trigDerivatives";
 import { productQuotientFamilies, presentProductQuotient } from "./productQuotient";
+import { derivativeFollowupFamilies, presentDerivativeFollowup } from "./derivativeFollowup";
 import { partialGradientFamilies, presentPartialGradient } from "./partialGradient";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { sequenceFamilies, presentSequence } from "./sequences";
@@ -61,6 +62,7 @@ export const universityFamilies = [
   ...nondifferentiabilityFamilies,
   ...trigDerivativeFamilies,
   ...productQuotientFamilies,
+  ...derivativeFollowupFamilies,
   ...partialGradientFamilies,
   ...hessianFamilies,
   ...sequenceFamilies,
@@ -120,6 +122,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentHessian(problem, locale)
     : problem.kind === "multivar-partial-point" || problem.kind === "multivar-gradient-point"
     ? presentPartialGradient(problem,locale)
+    : problem.kind === "derivative-quadratic-quotient" || problem.kind === "derivative-log-quadratic"
+    ? presentDerivativeFollowup(problem, locale)
     : problem.kind === "derivative-product-point" || problem.kind === "derivative-quotient-point"
     ? presentProductQuotient(problem, locale)
     : problem.kind === "derivative-trig-chain" || problem.kind === "derivative-trig-special-point"
