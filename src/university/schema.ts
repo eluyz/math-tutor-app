@@ -15,6 +15,7 @@ import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
 import type { ProductQuotientProblem } from "./productQuotient";
+import type { DerivativeFollowupProblem } from "./derivativeFollowup";
 import type { PartialGradientProblem } from "./partialGradient";
 import type { HessianProblem } from "./hessian";
 
@@ -228,6 +229,7 @@ export type UniversityProblem =
   | NondifferentiabilityProblem
   | TrigDerivativeProblem
   | ProductQuotientProblem
+  | DerivativeFollowupProblem
   | PartialGradientProblem
   | HessianProblem
   | SequenceProblem
