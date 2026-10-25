@@ -8,8 +8,8 @@ Bieżący katalog UI i sesji: **166 rodzin**, **13845 instancji**. `allTemplates
 
 | Rodzina | Poziomy | Warianty | Co sprawdza |
 | --- | --- | ---: | --- |
-| `sequence-power-exponential` | hard, advanced, expert | 72 | Granica ilorazu n^p·a^n / n^q·b^n; dominacja wykładnicza, przypadki równych podstaw, znak i dzielenie przez potęgi n |
-| `sequence-monotonic-bounded` | medium, hard, advanced | 72 | Monotoniczność przez znak aₙ₊₁−aₙ i obustronną ograniczoność dla ciągów liniowych, odwrotności i naprzemiennych |
+| sequence-power-exponential | hard, advanced, expert | 72 | Granica ilorazu n^p·a^n / n^q·b^n; dominacja wykładnicza, przypadki równych podstaw, znak i dzielenie przez potęgi n |
+| sequence-monotonic-bounded | medium, hard, advanced | 72 | Monotoniczność przez znak aₙ₊₁−aₙ i obustronną ograniczoność dla ciągów liniowych, odwrotności i naprzemiennych |
 
 P1A: +144 zadań na gałęzi, razem 166 rodzin / 13 845 instancji dopiero po osobnym zatwierdzeniu i merge. Nie duplikuje istniejących `sequence-radical-ratio`, `sequence-conjugate`, `sequence-exponential-ratio`, `sequence-euler-product`. C04 nadal częściowe, C06 uzupełnione częściowo (bez pełnej teorii). Bez nowych zależności.
 
