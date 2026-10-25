@@ -31,9 +31,9 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | C01 | Granica wielomianu i ilorazu | pokryte | `sequence-rational` |
 | C02 | Pierwiastek w ilorazie | częściowo | `sequence-conjugate`, `sequence-radical-ratio`; także ilorazy pierwiastków z kwadratami i możliwością skrócenia wyrazów wiodących, bez wszystkich ogólnych radykałów |
 | C03 | Różnica pierwiastków | pokryte | `sequence-conjugate` |
-| C04 | Granice ciągów wykładniczych | częściowo | `sequence-geometric`, `sequence-exponential-ratio`; dodatnie różne podstawy, dominacja, równe podstawy i skracanie współczynników; nadal brak dowolnych ciągów wykładniczych |
+| C04 | Granice ciągów wykładniczych | częściowo | `sequence-geometric`, `sequence-exponential-ratio`; dodatnie różne podstawy, dominacja, równe podstawy i skracanie współczynników; nadal brak dowolnych ciągów wykładniczych; P1A: `sequence-power-exponential` dodaje n^p·a^n / (n^q·b^n), przypadki a<b, a>b i a=b z różnymi stopniami n; nadal bez wszystkich ogólnych ciągów wykładniczych |
 | C05 | Postać Eulera 1^∞ | częściowo | `analysis-euler-sequence`, `sequence-euler-product`; przesunięte czynniki (1+a/(n+b))^(cn+d), w tym iloczyny, bez ogólnej teorii |
-| C06 | Pojęcia ciągu, monotoniczność, ograniczoność | teoria | —; zadania z granic nie uczą całej teorii |
+| C06 | Pojęcia ciągu, monotoniczność, ograniczoność | częściowo | `sequence-monotonic-bounded`: pięć rozróżnianych klas na ciągach liniowych, odwrotności i naprzemiennych, różnica aₙ₊₁−aₙ oraz dowody ograniczeń; wciąż bez pełnej teorii monotoniczności i ciągów ogólnych |
 | F01 | Dziedzina: pierwiastek i ułamek | pokryte | `function-domain` |
 | F02 | Dziedzina logarytmu | częściowo | `analysis-log-domain`; dodatni argument liniowy i ilorazowy, dodatkowy warunek pierwiastka/mianownika; nie dowolne złożenia |
 | F03 | Moduł w dziedzinie | częściowo | `analysis-absolute`; pierwiastek z \|x−p\|−r, kontrolowane brzegi, bez ogólnych złożeń |
