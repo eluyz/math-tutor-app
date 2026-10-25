@@ -14,8 +14,8 @@ const refPower=(p:Power)=>{
  const base=comparator(p.numeratorBase,p.denominatorBase);
  const degree=p.numeratorDegree-p.denominatorDegree;
  const coeff=ratio(p.coefficient,p.denominatorCoefficient);
- if(base<0||base===0&&degree<0)return {kind:"finite",value:q(0)} as const;
- if(base===0&&degree===0)return {kind:"finite",value:coeff} as const;
+ if(base<0n||base===0n&&degree<0)return {kind:"finite",value:q(0)} as const;
+ if(base===0n&&degree===0)return {kind:"finite",value:coeff} as const;
  return {kind:coeff.numerator>0n?"positive-infinity":"negative-infinity"} as const;
 };
 const refBehaviour=(p:Behaviour)=>{
