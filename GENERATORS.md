@@ -1,17 +1,26 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **166 rodzin**, **13845 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 122 rodziny wspierają advanced, a 111 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **168 rodzin**, **13989 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 124 rodziny wspierają advanced, a 113 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **122**, L5: **111**.
+Łącznie rodziny L4: **124**, L5: **113**.
 
-## MT-EDU-020 P1A — domknięcie luk w ciągach (nowy PR, bez merge)
+## MT-EDU-020 P1B — funkcje i złożone dziedziny (osobny PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Kompetencje |
+| --- | --- | ---: | --- |
+| function-log-rational-domain | hard, advanced, expert | 72 | F02/F04: ln((x−p)(x−q)/(x−s)), trzy różne punkty krytyczne, ścisłe znaki, wykluczenia |
+| function-mobius-inverse-point | hard, advanced, expert | 72 | F06: funkcja odwrotna do (ax+b)/(cx+d), ad−bc≠0, ograniczenia dziedziny i zbioru wartości |
+
+P1B +144 zadań na gałęzi (168 rodzin, 13 989 wariantów po ewentualnym merge). Testy niezależnego znaku funkcji i dwustronnego składania odwrotnej, PL/EN, desktop/mobile; brak dopisywania nieobjętych przypadków jako pokrytych.
+
+## MT-EDU-020 P1A — domknięcie luk w ciągach (PR #72 scalony)
 
 | Rodzina | Poziomy | Warianty | Co sprawdza |
 | --- | --- | ---: | --- |
 | sequence-power-exponential | hard, advanced, expert | 72 | Granica ilorazu n^p·a^n / n^q·b^n; dominacja wykładnicza, przypadki równych podstaw, znak i dzielenie przez potęgi n |
 | sequence-monotonic-bounded | medium, hard, advanced | 72 | Monotoniczność przez znak aₙ₊₁−aₙ i obustronną ograniczoność dla ciągów liniowych, odwrotności i naprzemiennych |
 
-P1A: +144 zadań na gałęzi, razem 166 rodzin / 13 845 instancji dopiero po osobnym zatwierdzeniu i merge. Nie duplikuje istniejących `sequence-radical-ratio`, `sequence-conjugate`, `sequence-exponential-ratio`, `sequence-euler-product`. C04 nadal częściowe, C06 uzupełnione częściowo (bez pełnej teorii). Bez nowych zależności.
+P1A: +144 zadań wdrożono do main w PR #72, 166 rodzin / 13 845 instancji. Nie duplikuje istniejących `sequence-radical-ratio`, `sequence-conjugate`, `sequence-exponential-ratio`, `sequence-euler-product`. C04 nadal częściowe, C06 uzupełnione częściowo (bez pełnej teorii). Bez nowych zależności.
 
 ## MT-EDU-019 P0G — Cramer i Gauss 4×4 (osobny PR, bez merge)
 
