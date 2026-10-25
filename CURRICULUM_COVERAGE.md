@@ -64,7 +64,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | I03 | Podstawienie | częściowo | `integral-substitution`; liniowe i kwadratowe u o kontrolowanej pochodnej oraz dodatkowy składnik liniowy |
 | I04 | Całkowanie przez części | częściowo | `integral-parts`; x^m e^(ax), m=1–3, bez ogólnych iloczynów |
 | I05 | Całka powracająca | częściowo | `integral-recurring`; e^(ax)(p sin bx+q cos bx), b>0, bez innych rodzin powracających |
-| I06 | Całka oznaczona | częściowo | `integral-definite`; wielomiany i dokładne granice wymierne, bez niewłaściwych całek |
+| I06 | Całka oznaczona | częściowo | `integral-definite`; wielomiany i dokładne granice wymierne, bez niewłaściwych całek; P2B `integral-improper-infinity` i `integral-improper-endpoint`: porównanie skończonej wartości z ±∞ przy granicy górnej ∞ lub osobliwej; nadal bez dowolnych funkcji i osobliwości wewnętrznych. |
 | I07 | Pole między krzywymi | częściowo | `integral-area-between`; kontrolowana parabola i prosta, rozcięcie w przecięciach; nie obejmuje ogólnych par krzywych |
 | I08 | Długość łuku | częściowo | `integral-arc-length`; łuk krzywej potęgowej na zadanych granicach; inne klasy wymagają rozszerzenia |
 | W01 | Pochodne cząstkowe I/II | częściowo | `multivar-partial-point`, `multivar-gradient-point`; kontrolowane wielomiany kwadratowe, pochodne I/II i gradient, bez ogólnych funkcji 2D |
