@@ -134,7 +134,7 @@ export function presentSequenceFollowup(p:Power|Behaviour,locale:Locale){
         "Since 0<1/(n+k)≤1/(1+k), the sequence lies between c and c+s/(1+k)."):
       t("Nierówność |aₙ−c|≤|s|/(1+k) gwarantuje ograniczoność przy n≥1.",
         "The inequality |aₙ−c|≤|s|/(1+k) guarantees boundedness for n≥1.");
-  lesson.work(p.mode==="linear"?"|aₙ|→+∞":
+  lesson.work(p.mode==="linear"?"Dla n→+∞: |aₙ|→+∞":
     p.mode==="reciprocal"?"0<1/(n+"+shift+")≤1/"+(1+shift):
     "|aₙ−("+c+")|≤|"+s+"|/"+(1+shift),bound);
   return lesson.finish(t("Dla n≥1 sklasyfikuj monotoniczność i ograniczoność ciągu:\naₙ = "+formula,
