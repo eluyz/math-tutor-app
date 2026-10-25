@@ -18,7 +18,7 @@ const coefficient=(v:number,level:Difficulty):Rational=>
   r((v%2?-1:1)*(v%5+1),level==="hard"?1:level==="advanced"?2:3);
 
 function makeInfinity(v:number,d:Difficulty):ImproperIntegralProblem{
- const power=(v%4+1) as 1|2|3|4;
+ const power=(((v+Math.floor(v/4))%4)+1) as 1|2|3|4;
  return {kind:"integral-improper-infinity",k:coefficient(v,d),
    a:r(v+2,d==="hard"?1:d==="advanced"?2:3),power};
 }
