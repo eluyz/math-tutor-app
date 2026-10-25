@@ -98,10 +98,10 @@ export function presentLimitFollowup(p:LimitFollowupProblem,locale:Locale){
  lesson.work("lim f(xₙ)="+f(p.left)+"; lim f(yₙ)="+f(p.right),
   t("Podstawiając ciągi do obu wzorów, wyrazy z 1/n zanikają. To kryterium Heinego dla granic jednostronnych.",
     "Substituting the sequences into each branch, the 1/n terms vanish. This applies Heine's sequential criterion."));
- lesson.work(equal(p.left,p.right)?"L₋=L₊="+f(p.left):"L₋="+f(p.left)+" ≠ L₊="+f(p.right),
+ lesson.work(t("Granice jednostronne: ","One-sided limits: ")+(equal(p.left,p.right)?"L₋=L₊="+f(p.left):"L₋="+f(p.left)+" ≠ L₊="+f(p.right)),
   t("Granica obustronna istnieje dokładnie wtedy, gdy obie granice jednostronne są równe.",
     "The two-sided limit exists exactly when the two one-sided limits agree."));
- lesson.work("f("+f(p.at)+")="+f(p.valueAt)+"; "+(kind==="continuous"?"L=f(a)":
+ lesson.work(t("Wartość w punkcie: ","Value at the point: ")+"f("+f(p.at)+")="+f(p.valueAt)+"; "+(kind==="continuous"?"L=f(a)":
    kind==="removable"?"L≠f(a)":t("L nie istnieje","L does not exist")),
   kind==="continuous"?t("Wartość w punkcie jest zgodna z granicą, więc funkcja jest ciągła.",
    "The value at the point agrees with the limit, so the function is continuous."):
