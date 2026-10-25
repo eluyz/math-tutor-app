@@ -8,6 +8,7 @@ import type { IntegralProblem } from "./integrals";
 import type { AreaArcProblem } from "./areaArc";
 import type { FunctionExtensionProblem } from "./functionExtensions";
 import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
+import type { FunctionFollowupProblem } from "./functionFollowup";
 import type { FunctionGraphProblem } from "./functionGraphs";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
@@ -220,6 +221,7 @@ export type UniversityProblem =
   | FunctionProblem
   | FunctionExtensionProblem
   | FunctionDomainExtraProblem
+  | FunctionFollowupProblem
   | FunctionGraphProblem
   | GraphPropertyProblem
   | NondifferentiabilityProblem
