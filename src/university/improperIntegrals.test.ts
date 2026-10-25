@@ -5,8 +5,6 @@ import {rational as r,multiplyRational as mul,divideRational as div,equalRationa
 import {assessAnswer,emptyAnswer,formatRational as f} from "../answers";
 import {auditCalculation} from "./audit";
 import {polishLearningText} from "../../e2e/helpers/localization";
-type Infinite=Extract<ImproperIntegralProblem,{kind:"integral-improper-infinity"}>;
-type Endpoint=Extract<ImproperIntegralProblem,{kind:"integral-improper-endpoint"}>;
 const power=(x:Rational,p:number):Rational=>Array.from({length:p},()=>x).reduce(mul,r(1));
 const expected=(p:ImproperIntegralProblem)=>{
  if(p.kind==="integral-improper-infinity"){
