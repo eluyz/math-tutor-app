@@ -34,7 +34,7 @@ for (const width of [375, 768, 1280]) for (const en of [false, true]) test(`MT-E
     await button(page, item.category === "functions" ? en ? "University mathematics" : "Matematyka na studia" : en ? "Review the basics" : "Powtórka podstaw").click();
     await button(page, item.category === "functions" ? en ? "Functions" : "Funkcje" : en ? "Algebra basics" : "Podstawy algebry").click();
     await button(page, ({ easy: en ? "Easy" : "Łatwy", advanced: en ? "Advanced" : "Zaawansowany", hard: en ? "Hard" : "Trudny" } as const)[item.level]).click();
-    await page.getByRole("button", { name: item[en ? "en" : "pl"], exact: false }).click();
+    await page.locator("button.exercise-item:not([disabled])").filter({ hasText: item[en ? "en" : "pl"] }).click();
     const question = await page.locator(".question").innerText();
     const task = taskPool(item.category, item.level).filter(candidate => candidate.templateId === item.id).map(candidate => localizeTask(candidate, en ? "en" : "pl")).find(candidate => candidate.question === question);
     expect(task, `${item.id}: rendered question must belong to the declared pool`).toBeDefined();
