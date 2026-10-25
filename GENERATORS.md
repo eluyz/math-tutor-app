@@ -1,17 +1,26 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **172 rodziny**, **14277 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 128 rodzin wspiera advanced, a 116 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **174 rodziny**, **14421 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 130 rodzin wspiera advanced, a 118 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **128**, L5: **116**.
+Łącznie rodziny L4: **130**, L5: **118**.
 
-## MT-EDU-021 P2A — pochodne złożone (osobny PR, bez merge)
+## MT-EDU-021 P2B — całki niewłaściwe (osobny PR bez merge)
+
+| Rodzina | Poziomy | Warianty | Kompetencje |
+| --- | --- | ---: | --- |
+| integral-improper-infinity | hard, advanced, expert | 72 | I06: ∫₀^∞ k/(x+a)^p dx, a>0, p=1..4; granica całek właściwych, logarytm/potęga, zbieżność lub ±∞ |
+| integral-improper-endpoint | hard, advanced, expert | 72 | I06: ∫₀^(b) k/(b−x)^p dx z p=1/2,1,2 oraz b=r²>0; pierwiastek, granica jednostronna, zbieżność lub rozbieżność |
+
+P2B: +144 warianty na nowej gałęzi; po ewentualnym merge 174 rodziny / 14 421 zadań. Obie rodziny mają rozwiązania PL/EN i niezależne testy. I06 nadal częściowo pokryte.
+
+## MT-EDU-021 P2A — pochodne złożone (PR #75 scalony)
 
 | Rodzina | Poziomy | Warianty | Kompetencje |
 | --- | --- | ---: | --- |
 | derivative-quadratic-quotient | hard, advanced, expert | 72 | D02: pochodna (ax²+bx+c)/(dx+e) w punkcie; reguła ilorazu z u′v−uv′, mianownik niezerowy |
 | derivative-log-quadratic | hard, advanced, expert | 72 | D03: pochodna ln(ax²+bx+c) w punkcie; dodatni argument i reguła łańcuchowa u′/u |
 
-P2A dodaje 144 warianty; po ewentualnym osobno zatwierdzonym merge katalog miałby 172 rodziny i 14 277 wariantów. PL/EN, niezależne dokładne rachunki i E2E na telefon/desktop. D02/D03 pozostają częściowe.
+P2A dodał 144 warianty w scalonym PR #75; main ma 172 rodziny i 14 277 wariantów. PL/EN, niezależne dokładne rachunki i E2E na telefon/desktop. D02/D03 pozostają częściowe.
 
 ## MT-EDU-020 P1C — granice funkcji i kryterium Heinego (PR #74 scalony)
 
