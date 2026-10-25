@@ -46,6 +46,16 @@ test("MT-EDU-020 P1A "+width+"px "+(en?"EN":"PL"),async({page})=>{
  await page.locator("#answer").selectOption(answer.kind);
  if(answer.kind==="finite")await page.locator("#limit-value").fill(fractionText(answer.value));
  await btn(page,en?"Check":"Sprawdź").click();
+ if(await page.locator(".feedback").getAttribute("class")!=="feedback correct"){
+   const actualQuestion=await page.locator(".question").innerText();
+   const feedback=await page.locator(".feedback").innerText();
+   const inputClass=await page.locator("#answer").inputValue();
+   const inputValue=inputClass==="finite"?await page.locator("#limit-value").inputValue():"";
+   await btn(page,en?"Show solution":"Pokaż rozwiązanie").click();
+   await btn(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+   const solution=await page.locator(".solution-panel").innerText();
+   throw Error(JSON.stringify({actualQuestion,expected:answer,inputClass,inputValue,feedback,solution}));
+ }
  await expect(page.locator(".feedback")).toHaveClass("feedback correct");
  await btn(page,en?"Show solution":"Pokaż rozwiązanie").click();
  await btn(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
