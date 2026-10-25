@@ -7,6 +7,7 @@ import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { functionExtensionFamilies, presentFunctionExtension } from "./functionExtensions";
 import { functionDomainExtraFamilies, presentFunctionDomainExtra } from "./functionDomainsExtra";
+import { functionFollowupFamilies, presentFunctionFollowup } from "./functionFollowup";
 import { functionGraphFamilies, presentFunctionGraph } from "./functionGraphs";
 import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProperties";
 import { nondifferentiabilityFamilies, presentNondifferentiability } from "./nondifferentiability";
@@ -53,6 +54,7 @@ export const universityFamilies = [
   ...functionFamilies,
   ...functionExtensionFamilies,
   ...functionDomainExtraFamilies,
+  ...functionFollowupFamilies,
   ...functionGraphFamilies,
   ...graphPropertyFamilies,
   ...nondifferentiabilityFamilies,
@@ -126,6 +128,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentGraphProperty(problem, locale)
     : problem.kind === "function-graph-domain-range" || problem.kind === "function-graph-zeros"
     ? presentFunctionGraph(problem, locale)
+    : problem.kind === "function-log-rational-domain" || problem.kind === "function-mobius-inverse-point"
+    ? presentFunctionFollowup(problem, locale)
     : problem.kind === "function-tangent-domain" || problem.kind === "function-mixed-domain"
     ? presentFunctionDomainExtra(problem, locale)
     : problem.kind === "function-parity" || problem.kind === "function-affine-inverse"
