@@ -97,7 +97,7 @@ export function presentDerivativeFollowup(p:DerivativeFollowupProblem,locale:Loc
  lesson.work("u(x)="+formatPoly(p.a,p.b,p.c)+"; f(x)=ln(u(x))",
    t("Rozpoznajemy złożenie logarytmu naturalnego z wielomianem kwadratowym.",
      "Recognize the composition of a natural logarithm with a quadratic polynomial."));
- lesson.work("u("+h+")="+f(u)+">0",
+ lesson.work(t("Warunek dziedziny: ","Domain condition: ")+"u("+h+")="+f(u)+">0",
    t("Przed różniczkowaniem logarytmu sprawdzamy, czy jego argument jest dodatni w zadanym punkcie.",
      "Before differentiating the logarithm, verify its argument is positive at the given point."));
  lesson.work("u′(x)=2("+f(p.a)+")x+("+f(p.b)+"); u′("+h+")="+f(du),
