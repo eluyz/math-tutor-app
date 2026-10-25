@@ -89,8 +89,9 @@ export function presentLimitFollowup(p:LimitFollowupProblem,locale:Locale){
   "("+f(p.left)+")+("+f(p.leftSlope)+")·(x−("+f(p.at)+"))",
   "("+f(p.right)+")+("+f(p.rightSlope)+")·(x−("+f(p.at)+"))",
  ];
- const expr="f(x) = { "+leftExpr+" dla x<"+f(p.at)+"; "+f(p.valueAt)+" dla x="+f(p.at)+"; "+
-   rightExpr+" dla x>"+f(p.at)+" }";
+ const forWord=t("dla","for");
+ const expr="f(x) = { "+leftExpr+" "+forWord+" x<"+f(p.at)+"; "+f(p.valueAt)+" "+forWord+" x="+f(p.at)+"; "+
+   rightExpr+" "+forWord+" x>"+f(p.at)+" }";
  lesson.work("xₙ="+f(p.at)+"−1/n < "+f(p.at)+"; yₙ="+f(p.at)+"+1/n > "+f(p.at)+" (n≥1)",
   t("Oba ciągi argumentów zbieżne do tego samego punktu, ale z przeciwnych stron.",
     "Both argument sequences converge to the same point from opposite sides."));
@@ -101,7 +102,7 @@ export function presentLimitFollowup(p:LimitFollowupProblem,locale:Locale){
   t("Granica obustronna istnieje dokładnie wtedy, gdy obie granice jednostronne są równe.",
     "The two-sided limit exists exactly when the two one-sided limits agree."));
  lesson.work("f("+f(p.at)+")="+f(p.valueAt)+"; "+(kind==="continuous"?"L=f(a)":
-   kind==="removable"?"L≠f(a)":"L nie istnieje / L does not exist"),
+   kind==="removable"?"L≠f(a)":t("L nie istnieje","L does not exist")),
   kind==="continuous"?t("Wartość w punkcie jest zgodna z granicą, więc funkcja jest ciągła.",
    "The value at the point agrees with the limit, so the function is continuous."):
    kind==="removable"?t("Granica istnieje, lecz wartość w punkcie jest inna: nieciągłość usuwalna.",
@@ -109,7 +110,7 @@ export function presentLimitFollowup(p:LimitFollowupProblem,locale:Locale){
    t("Dwa ciągi Heinego dają różne granice; granica obustronna nie istnieje, więc funkcja nie jest ciągła.",
     "Two Heine sequences yield different limits; no two-sided limit exists and the function is discontinuous."));
  return lesson.finish(
-  t("Sklasyfikuj granicę i ciągłość funkcji w punkcie x=","Classify the limit and continuity at x=")+f(p.at)+".\n"+expr.replaceAll(" dla "," for "),
+  t("Sklasyfikuj granicę i ciągłość funkcji w punkcie x=","Classify the limit and continuity at x=")+f(p.at)+".\n"+expr,
   {kind:"choice",value:kind,options:classLabels(locale)},
   t("Sprawdź osobno lim f(x) z lewej i prawej oraz wartość f(a).",
     "Check the left-hand and right-hand limits separately, then f(a)."),
