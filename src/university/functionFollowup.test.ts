@@ -10,7 +10,6 @@ import {auditCalculation} from "./audit";
 import type {FunctionFollowupProblem} from "./functionFollowup";
 
 type Dom=Extract<FunctionFollowupProblem,{kind:"function-log-rational-domain"}>;
-type Mob=Extract<FunctionFollowupProblem,{kind:"function-mobius-inverse-point"}>;
 function directArgument(z:Dom,x:Rational):Rational|null{
  const denominator=sub(x,z.pole);
  if(!denominator.numerator)return null;
