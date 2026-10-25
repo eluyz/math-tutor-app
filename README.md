@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **168 rodzin** i **13989 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **170 rodzin** i **14133 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
@@ -16,7 +16,9 @@ MT-EDU-019 P0G (PR #71 scalony; CI i Pages PASS): trzy autorskie rodziny układ�
 
 MT-EDU-020 P1A (PR #72 scalony, CI i Pages do potwierdzenia): dodatkowe ciągi typu n^p·a^n/(n^q·b^n), których nie pokrywają ilorazy samych potęg, oraz osobne ćwiczenia na ścisłą monotoniczność i ograniczoność (w tym naprzemienność). Dwie rodziny × 3 poziomy × 24 warianty = 144; po scaleniu 166 rodzin / 13 845 instancji. Brak zmian w zapisanym postępie, pełne PL/EN, bez merge przed zgodą.
 
-MT-EDU-020 P1B (osobny PR — bez merge): dwie nowe rodziny funkcji: dziedzina ln(((x−p)(x−q))/(x−s)) z trzema różnymi punktami krytycznymi i tabelą znaków, oraz odwrotna funkcji ułamkowo-liniowej f(x)=(ax+b)/(cx+d) z kontrolą ad−bc≠0. 2 rodziny × 3 poziomy × 24 warianty = 144. Po zatwierdzonym merge: 168 rodzin / 13 989 wariantów. Pełna walidacja PL/EN, bez zmian w postępach.
+MT-EDU-020 P1B (PR #73 scalony na main): dwie nowe rodziny funkcji: dziedzina ln(((x−p)(x−q))/(x−s)) z trzema różnymi punktami krytycznymi i tabelą znaków, oraz odwrotna funkcji ułamkowo-liniowej f(x)=(ax+b)/(cx+d) z kontrolą ad−bc≠0. 2 rodziny × 3 poziomy × 24 warianty = 144. W main po #73: 168 rodzin / 13 989 wariantów. Pełna walidacja PL/EN, bez zmian w postępach.
+
+MT-EDU-020 P1C (osobny PR, jeszcze niescalony): nowe ćwiczenia z granic pierwiastkowych przy ±∞ (z poprawnym |x|) oraz ciągłości funkcji przedziałami ocenianej kryterium Heinego poprzez ciągi a−1/n i a+1/n. +144 warianty; po ewentualnym scaleniu 170 rodzin / 14 133 instancji. Dokładna arytmetyka, PL/EN i testy mobilne. G04/G08 pozostają częściowe.
 
 ## Uruchomienie
 
