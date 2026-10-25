@@ -12,8 +12,8 @@ const limitFromDisplay=(text:string):LimitValue=>{
  const c=shownFraction(match[1]),p=Number(match[2]),a=shownFraction(match[3]);
  const den=shownFraction(match[4]),r=Number(match[5]),b=shownFraction(match[6]);
  const compare=a.numerator*b.denominator-b.numerator*a.denominator;
- if(compare<0 || compare===0&&p<r)return {kind:"finite",value:q(0)};
- if(compare===0&&p===r)return {kind:"finite",value:d(c,den)};
+ if(compare<0n || compare===0n&&p<r)return {kind:"finite",value:q(0)};
+ if(compare===0n&&p===r)return {kind:"finite",value:d(c,den)};
  return {kind:c.numerator>0n?"positive-infinity":"negative-infinity"};
 };
 const behaviourFromDisplay=(text:string)=>{
