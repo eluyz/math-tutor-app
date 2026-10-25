@@ -19,6 +19,7 @@ import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFollowup";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
+import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
 import { determinantStrategyFamilies } from "./determinantStrategies";
@@ -66,6 +67,7 @@ export const universityFamilies = [
   ...sequenceExtensionFamilies,
   ...sequenceFollowupFamilies,
   ...functionLimitFamilies,
+  ...limitFollowupFamilies,
   ...derivativeFamilies,
   ...determinantFamilies,
   ...determinantStrategyFamilies,
@@ -174,6 +176,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
           problem.kind === "sequence-geometric" ||
           problem.kind === "sequence-conjugate"
         ? presentSequence(problem, locale)
+        : problem.kind === "limit-radical-infinity" || problem.kind === "limit-piecewise-heine"
+          ? presentLimitFollowup(problem, locale)
         : problem.kind === "limit-point" ||
             problem.kind === "limit-infinity" ||
             problem.kind === "limit-conjugate"

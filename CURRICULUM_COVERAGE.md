@@ -44,11 +44,11 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | G01 | Granica przez podstawienie | pokryte | `limit-point` |
 | G02 | 0/0 przez skrócenie | pokryte | `limit-point` |
 | G03 | Granice jednostronne i brak granicy | pokryte | `limit-point` |
-| G04 | ±∞: stopnie i pierwiastki | częściowo | `limit-infinity`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`; kontrolowane pierwiastki √(x²+1), nie ogólna klasa |
+| G04 | ±∞: stopnie i pierwiastki | częściowo | `limit-infinity`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`; kontrolowane pierwiastki √(x²+1), nie ogólna klasa; P1C: `limit-radical-infinity` dodaje √(a²x²+b)+cx+d przy x→±∞, sprzężenie, |x|, skończone i nieskończone limity; nadal brak ogólnych radykałów. |
 | G05 | Sprzężenie | pokryte | `limit-conjugate` |
 | G06 | Granica potęgowa funkcji | częściowo | `analysis-euler-function`; kontrolowane postaci Eulera przy x→0 |
 | G07 | Asymptoty | częściowo | `analysis-asymptote-vertical`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`; także dziury i dwie strony nieskończoności, bez badania dowolnej funkcji |
-| G08 | Ciągłość i granica Heinego | częściowo | `limit-point`; f(a) kontra granica, bez twierdzenia Heinego |
+| G08 | Ciągłość i granica Heinego | częściowo | `limit-point`; f(a) kontra granica, bez twierdzenia Heinego; P1C: `limit-piecewise-heine` sprawdza ciągłość, dziurę i skok, granice dwóch ciągów a−1/n i a+1/n oraz f(a); ogólny warunek Heinego i wszystkie funkcje przedziałami nadal poza zakresem. |
 | D01 | Pochodna potęg po uproszczeniu | pokryte | `derivative-formula` |
 | D02 | Iloczyn i iloraz | częściowo | `derivative-formula`, `derivative-rational-point`, `derivative-product-point`, `derivative-quotient-point`; pochodna iloczynu (czynnik liniowy × kwadratowy) i ilorazu dwóch funkcji liniowych w punkcie, bez parsera dowolnych pochodnych symbolicznych |
 | D03 | Łańcuch i funkcje elementarne | częściowo | `derivative-formula`, `analysis-log-exp-derivative`, `derivative-trig-chain`, `derivative-trig-special-point`; wielomiany, ln(u), ln|u|, e^u, prosty iloczyn, pochodne sin/cos/tg i reguła łańcuchowa z argumentem liniowym (wzory i kontrolowane punkty); bez pełnych złożeń i ogólnych ilorazów |

@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan po P1A (25.10.2026):** PR #63–#72 scalone; `main` `404cefd8` zawiera **166 rodzin / 13 845 wariantów**. Pełny CI i Pages po scaleniu #72 wymagają oddzielnego potwierdzenia. P1B w osobnym PR dodaje funkcje i dziedziny (+144; po ewentualnym merge: 168 / 13 989). Częściowy status F02, F04, F06 pozostaje częściowy. Nie scalać P1B bez osobnej zgody. [Plan P1B](MT-EDU-020-PLAN.md).
+> **Stan po P1B (25.10.2026):** PR #63–#73 scalone, `main` `ddcf827` zawiera **168 rodzin / 13 989 wariantów**. CI i GitHub Pages po merge #73 wymagają oddzielnego potwierdzenia. P1C przygotowywany w osobnym PR (+144, po ewentualnym merge 170 rodzin / 14 133 warianty). G04/G08 pozostają częściowe. Brak merge bez kolejnej zgody. [Plan P1C](MT-EDU-020-P1C-PLAN.md).
 
 > Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
 
@@ -37,7 +37,8 @@
 | MT-EDU-018 | P1 (#60) i P2 (#61) scalone i opublikowane | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian w kontrolowanych przypadkach; W03: do opracowania |
 | MT-EDU-019 | P0A–P0G (#63–#71) scalone i opublikowane | Trudniejsze zadania macierzowe, Cramer, Gauss i klasyfikacja 4×4; kontynuacja pokrycia algebry pozostaje możliwa. |
 | MT-EDU-020 P1A | PR #72 scalony | Granice potęgowo-wykładnicze oraz monotoniczność/ograniczoność; +144 warianty. |
-| MT-EDU-020 P1B | Osobny PR, bez merge | Dziedzina logarytmu ilorazu i odwrotna funkcji ułamkowo-liniowej; +144 warianty po zatwierdzeniu. |
+| MT-EDU-020 P1B | PR #73 scalony | Funkcje wymierne odwrotne i dziedzina ln ilorazu z trzema punktami krytycznymi; +144 warianty. |
+| MT-EDU-020 P1C | Osobny PR, bez merge | Granice pierwiastkowe przy ±∞ i kryterium Heinego dla funkcji przedziałami; +144 warianty. |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
