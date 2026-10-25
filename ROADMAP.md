@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan po P0F2 (24.10.2026):** PR #63–#70 scalone, `main` `b46f416b` ma **161 rodzin / 13 485 wariantów** w 14 kategoriach. Pełne CI i Deploy Pages PASS. P0G w osobnym PR obejmuje trzy rodziny Cramera/Gaussa 4×4 (+216, na gałęzi 164 / 13 701); żadnego scalenia bez osobnej zgody. Mapa: 15 pokrytych, 47 częściowych, 2 teoretyczne; nie jest to procent gotowości egzaminacyjnej. [Plan](MT-EDU-019-PLAN.md).
+> **Stan po P0G (25.10.2026):** PR #63–#71 scalone, `main` `8fe7acf` ma **164 rodziny / 13 701 wariantów** w 14 kategoriach. CI na main i Deploy Pages PASS. P1A/MT-EDU-020 w osobnym PR: 2 rodziny ciągów (+144, 166 rodzin / 13 845 wariantów tylko na gałęzi). C04 nadal częściowe, C06 po P1A częściowo ćwiczone zamiast wyłącznie teorii; pozostałe luki jawnie w [mapie](CURRICULUM_COVERAGE.md). Brak merge bez kolejnej zgody.
 
 > Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
 
@@ -35,7 +35,8 @@
 | MT-EDU-016 | P0 (#56) oraz P1A (#57) scalone; P1B (iloczyn i iloraz) scalone jako #58 | Pozostają szersze asymptoty, ogólne ilorazy symboliczne, pełniejsze badanie funkcji i szkice |
 | MT-EDU-017 | P4 A wdrożono w #59 (141 rodzin / 12045 wariantów) | I07: pola parabola–prosta; I08: dokładne łuki potęgowe; pozostałe formy całek do rozszerzenia |
 | MT-EDU-018 | P1 (#60) i P2 (#61) scalone i opublikowane | W01: pochodne I/II rzędu i gradient; W02: punkty stacjonarne i Hessian w kontrolowanych przypadkach; W03: do opracowania |
-| MT-EDU-019 | P0A–P0F2 (#63–#70) scalone; P0G osobny PR | [Plan](MT-EDU-019-PLAN.md). P0F2: 4×4 XA=B i AX=4X+B wdrożone. P0G: Cramer i Gauss 4×4, wymuszone pivoty, klasyfikacja U03/U06/U07/U08 (+216 po merge). Bez merge bez osobnej zgody. |
+| MT-EDU-019 | P0A–P0G (#63–#71) scalone i opublikowane | Trudniejsze zadania macierzowe, Cramer, Gauss i klasyfikacja 4×4; kontynuacja pokrycia algebry pozostaje możliwa. |
+| MT-EDU-020 P1A | Implementacja w nowym PR, bez merge | Ciągi n^p·a^n i monotoniczność/ograniczoność (+144). Niezależne testy, UI PL/EN, brak automatycznego scalania. |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
