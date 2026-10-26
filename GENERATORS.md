@@ -1,8 +1,17 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **182 rodziny**, **14997 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 138 rodzin wspiera advanced, a 124 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **184 rodziny**, **15141 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 140 rodzin wspiera advanced, a 126 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **138**, L5: **124**.
+Łącznie rodziny L4: **140**, L5: **126**.
+
+## MT-EDU-024 P2F-A — I01/I02 (osobny PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Umiejętności |
+| --- | --- | ---: | --- |
+| integral-direct-product | hard, advanced, expert | 72 | I01: iloczyn liniowego i kwadratowego wielomianu, dokładne rozwinięcie oraz całka składnik po składniku |
+| integral-table-arctan | hard, advanced, expert | 72 | I02: ∫k/(1+(ax+b)²)dx=(k/a) arctan(ax+b)+C, uwzględnienie znaku a i dziedziny R |
+
+Razem +144, 184 rodziny / 15 141 wariantów tylko po zatwierdzonym scaleniu; I01/I02 nadal częściowo.
 
 ## MT-EDU-023 P2E-B2 — parametryczna długość łuku (PR #82, bez merge)
 
