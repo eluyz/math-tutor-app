@@ -1,5 +1,7 @@
 # Plan rozwoju
 
+> **Bieżący stan po PR #82 (26.10.2026):** 182 rodziny / 14 997 wariantów na `main` (commit `6a39cf7`), CI i GitHub Pages PASS. Nowy pakiet **MT-EDU-024 P2F-A** implementuje I01/I02 (+144 warianty) w osobnym PR, bez automatycznego scalenia. Po zatwierdzonym merge: 184 rodziny / 15 141 wariantów. Następnie rekomendowany P2F-B: szersze podstawienia i całkowanie przez części.
+
 > **Stan po PR #81 (26.10.2026):** P2E-B1 scalony na `main` (`909af053`), 181 rodzin / 14 925 wariantów. CI po scaleniu i GitHub Pages sprawdzane osobno. **P2E-B2** jest oddzielnym, niescalonym PR #82 opartym bezpośrednio na `main`, dodaje 72 warianty długości łuków parametrycznych. Po ewentualnym zatwierdzonym merge #82: 182 rodziny / 14 997 wariantów. Bez automatycznego scalania.
 
 > **Stan po P2D-B (26.10.2026, stan historyczny):** PR #79 zatwierdzony i scalony, `main` `cf755e4`, **178 rodzin / 14 709 wariantów**. Kontrola CI i Pages po #79 czeka na potwierdzenie. Wykresy SVG dostępne w rozwiązaniach badania funkcji, nadal bez oceniania własnoręcznie narysowanego szkicu. Kolejny pakiet: **MT-EDU-023 P2E-A** (+144 warianty całek oznaczonych przez podstawienie kwadratowe oraz przez części), w osobnym PR, bez automatycznego scalenia. Docelowo 180 rodzin / 14 853 warianty. [Plan P2E-A](MT-EDU-023-P2E-A-PLAN.md).
@@ -48,7 +50,9 @@
 | MT-EDU-022 P2D-B | PR #79 scalony | Wykresy SVG nowych funkcji w rozwiązaniu, punkty krytyczne, asymptoty, teksty dostępności. 0 nowych rodzin. |
 | MT-EDU-023 P2E-A | PR #80 scalony; CI i Pages PASS | Całki oznaczone: podstawienie kwadratowe z nowymi granicami i całkowanie przez części; +144 warianty. |
 | MT-EDU-023 P2E-B1 | PR #81 scalony | Dwie parabole, 0/1/2 przecięcia w przedziale i dokładne pole bezwzględne; +72 warianty. |
-| MT-EDU-023 P2E-B2 | PR #82, osobny PR bez merge | Nowa rodzina długości łuków parametrycznych, niezależna od I08 z MT-EDU-017. |
+| MT-EDU-023 P2E-B2 | PR #82 scalony i opublikowany | Nowa rodzina długości łuków parametrycznych, niezależna od I08 z MT-EDU-017. |
+| MT-EDU-024 P2F-A | Osobny PR, bez merge | 2 rodziny, +144 warianty: całka iloczynu wielomianów i arctan(ax+b); I01/I02 nadal częściowe. |
+| MT-EDU-024 P2F-B | W planie | Rozszerzenie podstawień oraz całkowania przez części I03/I04. |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |

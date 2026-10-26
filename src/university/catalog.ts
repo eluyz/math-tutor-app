@@ -55,6 +55,7 @@ import { improperIntegralFamilies, presentImproperIntegral } from "./improperInt
 import { areaArcFamilies, presentAreaArc } from "./areaArc";
 import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabolasArea";
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
+import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -110,6 +111,7 @@ export const universityFamilies = [
   ...areaArcFamilies,
   ...twoParabolasAreaFamilies,
   ...parametricArcFamilies,
+  ...integralBasicsFollowupFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -120,6 +122,8 @@ const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraPro
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "integral-improper-infinity" || problem.kind === "integral-improper-endpoint"
     ? presentImproperIntegral(problem, locale)
+    : problem.kind === "integral-direct-product" || problem.kind === "integral-table-arctan"
+    ? presentIntegralBasicsFollowup(problem, locale)
     : problem.kind === "integral-substitution-definite" || problem.kind === "integral-parts-definite"
     ? presentDefiniteIntegralFollowup(problem, locale)
     : problem.kind === "integral"

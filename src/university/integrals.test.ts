@@ -68,7 +68,7 @@ describe("MT-EDU-008 exact integral audit", () => {
       sum + difficulties.reduce((count, level) => count + taskPool(category.id, level)
         .filter(task => !newFamilies.has(task.templateId)).length, 0), 0);
     expect(old).toBe(8589);
-    expect(difficulties.reduce((sum, level) => sum + universityPool("integrals", level).length, 0)).toBe(1008);
+    expect(difficulties.reduce((sum, level) => sum + universityPool("integrals", level).length, 0)).toBe(1152);
     expect(integralFamilies).toHaveLength(6);
     expect(integralFamilies.reduce((sum, family) => sum + family.supportedDifficulties.length, 0)).toBe(18);
   });
