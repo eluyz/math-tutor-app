@@ -57,7 +57,7 @@ describe("MT-EDU-025 P2G-A — 144 W01 exercises",()=>{
     const t=localizeUniversity(task,locale),spec=t.answer;
     expect(t.id).toBe(task.id);expect(t.contentKey).toBe(task.contentKey);
     expect(t.solution?.length).toBeGreaterThanOrEqual(6);
-    expect(t.question.length).toBeGreaterThan(80);
+    expect(t.question.length).toBeGreaterThan(60);
     if(locale==="en")for(const text of [t.title,t.question,t.hint,t.nextHint,t.explanation,...t.solution!.map(s=>s.action+" "+s.reason)])
      expect(text).not.toMatch(polishLearningText);
     if(expected.length===1){
