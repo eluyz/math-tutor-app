@@ -108,7 +108,7 @@ export function presentDefiniteIntegralFollowup(p:DefiniteIntegralFollowupProble
  work("F′(x)="+integrand,
   "Po zróżniczkowaniu wyrazy ze współczynnikiem (x+b)^(n+1) redukują się i zostaje pierwotna podcałkowa.",
   "When differentiated, the terms involving (x+b)^(n+1) cancel and the original integrand remains.");
- work("x="+up+": pierwsza część / first part="+f(first)+"; druga część / second part="+f(second),
+ work("x="+up+": "+t("pierwsza część","first part")+"="+f(first)+"; "+t("druga część","second part")+"="+f(second),
   "Ocenę granicy górnej można rozłożyć na dwie dokładne wartości.",
   "Evaluate the upper endpoint as the difference of two exact values.");
  work("F("+up+")−F("+low+")="+f(definiteIntegralPrimitive(p,p.upper))+"−("+f(definiteIntegralPrimitive(p,p.lower))+")="+f(result),
