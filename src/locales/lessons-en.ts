@@ -245,6 +245,11 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
       options: spec.options.map((o) => ({
         ...o,
         label:
+          ({
+            "Funkcja jest ciągła w punkcie": "The function is continuous at the point",
+            "Nieciągłość usuwalna — granica istnieje, ale f(a,b) jest inne": "Removable discontinuity — the limit exists but differs from f(a,b)",
+            "Nieciągłość nieusuwalna — granica nie istnieje": "Nonremovable discontinuity — the limit does not exist",
+          } as Record<string,string>)[o.label] ??
           (
             {
               two: "Two distinct real roots",
