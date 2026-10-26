@@ -1,7 +1,7 @@
 import {describe,it,expect} from "vitest";
 import {rational as r,addRational as add,multiplyRational as mul,type Rational} from "../rational";
 import {makeUniversityTask} from "./catalog";
-import {criticalPoints,type FunctionStudyFollowupProblem} from "./functionStudyFollowup";
+import {criticalPoints} from "./functionStudyFollowup";
 import {buildStudyPlot} from "./functionStudyPlot";
 import {formatRational as f} from "../answers";
 const num=(x:Rational)=>Number(x.numerator)/Number(x.denominator);
