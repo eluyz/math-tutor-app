@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **178 rodzin**, **14709 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 134 rodziny wspierają advanced, a 120 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **180 rodzin**, **14853 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 136 rodzin wspiera advanced, a 122 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **134**, L5: **120**.
+Łącznie rodziny L4: **136**, L5: **122**.
 
-## MT-EDU-022 P2D-B — wizualizacja wykresów funkcji (osobny PR, bez merge)
+## MT-EDU-023 P2E-A — inne przypadki całek oznaczonych (oddzielny PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| integral-substitution-definite | hard/advanced/expert | 72 | I03/I06: ∫ k(2x+b)(x²+bx+c)^n dx na przedziale, przeliczenie granic i dokładny wynik wymierny |
+| integral-parts-definite | hard/advanced/expert | 72 | I04/I06: ∫ kx(x+b)^n dx, wzór ∫u dv=uv−∫v du, dokładny wynik na przedziale |
+
+Razem 144 nowych wariantów; po ewentualnym merge 180 rodzin / 14 853 wariantów. Testy matematyczne niezależne od generatora i PL/EN. I03/I04/I06 nadal częściowe. Kolejne pola między krzywymi i długości łuków to osobny pakiet.
+
+## MT-EDU-022 P2D-B — wizualizacja wykresów funkcji (PR #79 scalony)
 
 Dodano niezależną od oceny odpowiedzi warstwę SVG w widoku rozwiązania dla `analysis-study-quartic` i `analysis-study-rational-shift`: rzeczywiste krzywe w skali znormalizowanej, oznaczenia punktów stacjonarnych o dokładnych współrzędnych, pionowa i ukośna asymptota oraz celowa przerwa przy biegunie. Wykres nie pojawia się przed odkryciem rozwiązania; tekstowy odpowiednik PL/EN pozostaje dostępny. Rachunki i `AnswerSpec` są nietknięte. Brak nowych rodzin i wariantów — 178/14 709. Rysowanie przez użytkownika i automatyczna ocena szkiców poza zakresem.
 
