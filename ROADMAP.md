@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan po P2C (26.10.2026):** PR #63–#77 scalone. `main` `24f6ead` zawiera **176 rodzin / 14 565 wariantów**; pełne CI na main i Deploy Pages po #77 wymagają niezależnego potwierdzenia. W03 ma kontrolowane generatory i pozostaje „częściowo”. MT-EDU-022 P2D-A: osobny PR (+144 warianty; po ewentualnym scaleniu 178 rodzin / 14 709 wariantów) na analizę funkcji czwartego stopnia i przesuniętej wymiernej. Pełne rysowanie wykresów nadal poza tym pakietem. Nie scalać P2D-A bez osobnej zgody właściciela. [Plan P2D-A](MT-EDU-022-P2D-PLAN.md).
+> **Stan po P2D-A (26.10.2026):** zatwierdzony i scalony PR #78 — `main` `95b7f3a` ma **178 rodzin / 14 709 wariantów**. Pełne CI na main i publikacja Pages po #78 wymagają oddzielnego potwierdzenia; CI na zatwierdzonym HEAD PR #78: Vitest 1243/1243, Playwright 513/513, build PASS. P2D-B: osobny PR wdrażający prawdziwe responsywne wykresy funkcji czwartego stopnia i wymiernej **w rozwiązaniu**, z asymptotami i dokładnymi punktami. Bez nowych rodzin. D09 pozostaje częściowe, bo nie oceniamy szkiców ucznia. Nie scalać P2D-B bez osobnej zgody właściciela.
 
 > Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
 
@@ -42,7 +42,8 @@
 | MT-EDU-021 P2A | PR #75 scalony | Iloraz funkcji kwadratowej i liniowej oraz pochodna ln(kwadratowy); +144 warianty. |
 | MT-EDU-021 P2B | PR #76 scalony i opublikowany | Całki niewłaściwe przy +∞ i z osobliwością na końcu; +144 warianty. |
 | MT-EDU-021 P2C | PR #77 scalony | Granice i ciągłość 2D, różne drogi i oszacowanie; +144 warianty. |
-| MT-EDU-022 P2D-A | Osobny PR, bez merge | Szersze badanie funkcji czwartego stopnia i wymiernej, ekstremum globalne, pochodne i opis szkicu; +144 warianty. |
+| MT-EDU-022 P2D-A | PR #78 scalony | Badanie funkcji czwartego stopnia i wymiernej, ekstrema globalne, pochodne; +144 warianty. |
+| MT-EDU-022 P2D-B | Osobny PR, bez merge | Wykresy SVG nowych funkcji w rozwiązaniu, punkty krytyczne, asymptoty, teksty dostępności. 0 nowych rodzin. |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
