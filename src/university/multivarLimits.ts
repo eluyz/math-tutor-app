@@ -67,7 +67,7 @@ export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
  lesson.work("u=x−("+f(p.atX)+"), v=y−("+f(p.atY)+"); (x,y)→"+point+" ⇔ (u,v)→(0,0)",
   t("Przesuwamy badany punkt do (0,0). Wartość funkcji w tym punkcie nie wpływa na jej granicę.",
     "Translate the point to (0,0). The function's value at the point does not affect its limit."));
- lesson.work("u²+v²>0 oraz u⁴+v²>0 dla (u,v)≠(0,0)",
+ lesson.work("u²+v²>0"+t(" oraz "," and ")+"u⁴+v²>0"+t(" dla "," for ")+"(u,v)≠(0,0)",
   t("Mianowniki są dodatnie poza usuniętym punktem. Analizujemy tylko punkty z dziedziny.",
     "The denominators are positive away from the puncture. Consider only points in the domain."));
  if(divergent){
@@ -108,7 +108,7 @@ export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
    t("Porównujemy granicę w otoczeniu punktu z osobno przypisaną wartością funkcji.",
      "Compare the punctured-neighborhood limit with the separately assigned function value."));
   if(classification==="removable"){
-   lesson.work("f"+point+"≠"+f(L.value)+"; ustawienie f"+point+"="+f(L.value)+" przywraca ciągłość",
+   lesson.work("f"+point+"≠"+f(L.value)+"; "+t("ustawienie ","setting ")+"f"+point+"="+f(L.value)+t(" przywraca ciągłość"," restores continuity"),
     t("Granica istnieje, więc pojedynczą niezgodną wartość można zastąpić granicą.",
       "The limit exists, so redefining the single mismatched value restores continuity."));
   }else{
