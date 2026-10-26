@@ -18,6 +18,7 @@ import { partialGradientFamilies, presentPartialGradient } from "./partialGradie
 import { multivarDerivativeFollowupFamilies, presentMultivarDerivativeFollowup } from "./multivarDerivativeFollowup";
 import { multivarLimitFamilies, presentMultivarLimit } from "./multivarLimits";
 import { hessianFamilies, presentHessian } from "./hessian";
+import { multivarExtremaFamilies, presentMultivarExtrema } from "./multivarExtrema";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFollowup";
@@ -76,6 +77,7 @@ export const universityFamilies = [
   ...multivarDerivativeFollowupFamilies,
   ...multivarLimitFamilies,
   ...hessianFamilies,
+  ...multivarExtremaFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
   ...sequenceFollowupFamilies,
@@ -152,6 +154,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentElementaryAnalysis(problem, locale)
     : problem.kind === "multivar-path-limit" || problem.kind === "multivar-continuity-point"
     ? presentMultivarLimit(problem, locale)
+    : problem.kind === "multivar-rectangle-extrema" || problem.kind === "multivar-disk-linear-extrema"
+    ? presentMultivarExtrema(problem, locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
     ? presentHessian(problem, locale)
     : problem.kind === "multivar-cubic-partial" || problem.kind === "multivar-chain-gradient"
