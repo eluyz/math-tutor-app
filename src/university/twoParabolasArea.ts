@@ -21,7 +21,6 @@ const generate=(variant:number,level:Difficulty):TwoParabolasAreaProblem=>{
   const center=r(variant%7-3,den),radius=r(1+Math.floor(variant/4)%3,den);
   const a=r(4+variant%3,den),delta=r(variant%2===0?2:-2,den);
   const shift=r(variant%2===0?1:-1,den),offset=r(variant%5-2,den);
-  const left=sub(center,radius),right=add(center,radius);
   const farLeft=sub(center,mul(r(2),radius)),farRight=add(center,mul(r(2),radius));
   const midpoint=center,half=div(radius,r(2));
   const bounds=variant%8;
