@@ -1,4 +1,4 @@
-import {rational as r, addRational as add, multiplyRational as mul, divideRational as div, type Rational} from "../rational";
+import {rational as r, divideRational as div, type Rational} from "../rational";
 import {formatRational as fmt} from "../answers";
 import {polynomialProduct, polynomialText, type Polynomial} from "./polynomial";
 import type {Difficulty} from "../difficulty";
