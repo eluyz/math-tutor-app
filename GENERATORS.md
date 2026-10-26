@@ -4,24 +4,24 @@ Bieżący katalog UI i sesji: **182 rodziny**, **14997 instancji**. `allTemplate
 
 Łącznie rodziny L4: **138**, L5: **124**.
 
-## MT-EDU-023 P2E-B2 — parametryczna długość łuku (zależny PR, bez merge)
+## MT-EDU-023 P2E-B2 — parametryczna długość łuku (PR #82, bez merge)
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
 | integral-arc-parametric | hard, advanced, expert | 72 | I08: długość wielomianowej krzywej parametrycznej ze wzorem √(x′²+y′²)=k(t²+1), dokładne granice i ułamki |
 
-W odróżnieniu od istniejącej rodziny wykresów y(x), zadania stosują wzór dla x(t),y(t). Po scaleniu B1 i B2: 182 rodziny / 14 997 wariantów; I08 nadal częściowo.
+W odróżnieniu od istniejącej rodziny wykresów y(x), zadania stosują wzór dla x(t),y(t). Po ewentualnym merge #82: 182 rodziny / 14 997 wariantów; I08 nadal częściowo.
 
-## MT-EDU-023 P2E-B1 — pole między parabolami (PR bez merge)
+## MT-EDU-023 P2E-B1 — pole między parabolami (PR #81 scalony)
 
-Nowa rodzina `integral-area-parabolas` (hard/advanced/expert; 72 warianty) obejmuje dwie parabole o różnych niezerowych krzywiznach, dokładne przecięcia, przypadki 0/1/2 wewnętrznych przecięć przedziału, bezwzględne pole i wyniki wymierne. I07 pozostaje częściowe. Po ewentualnym merge: 181 rodzin / 14 925 wariantów.
+Nowa rodzina `integral-area-parabolas` (hard/advanced/expert; 72 warianty) obejmuje dwie parabole o różnych niezerowych krzywiznach, dokładne przecięcia, przypadki 0/1/2 wewnętrznych przecięć przedziału, bezwzględne pole i wyniki wymierne. I07 pozostaje częściowe. Na main po #81: 181 rodzin / 14 925 wariantów.
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
 | integral-area-parabolas | hard, advanced, expert | 72 | I07: dwie prawdziwe parabole, 0/1/2 przecięcia na przedziale i dokładne pole geometryczne |
 
 
-## MT-EDU-023 P2E-A — inne przypadki całek oznaczonych (oddzielny PR, bez merge)
+## MT-EDU-023 P2E-A — inne przypadki całek oznaczonych (PR #80 scalony)
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
