@@ -123,7 +123,7 @@ export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
  }
  return lesson.finish(
   t("Sklasyfikuj ciągłość f w punkcie ","Classify continuity of f at ")+point+
-  ".\n"+definition+t(" dla "," for ")+"(x,y)≠"+point+"; f"+point+"="+f(p.valueAt),
+  ".\n"+definition+"; f(x,y)=g(x,y)"+t(" dla "," for ")+"(x,y)≠"+point+"; f"+point+"="+f(p.valueAt),
   {kind:"choice",value:classification,options:labels(locale)},
   t("Ciągłość wymaga istnienia granicy 2D i jej równości z f(a,b).",
     "Continuity requires an existing 2D limit equal to f(a,b)."),
