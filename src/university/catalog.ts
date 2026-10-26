@@ -56,6 +56,7 @@ import { areaArcFamilies, presentAreaArc } from "./areaArc";
 import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabolasArea";
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
+import { integralMethodsFollowupFamilies, presentIntegralMethodsFollowup } from "./integralMethodsFollowup";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -112,6 +113,7 @@ export const universityFamilies = [
   ...twoParabolasAreaFamilies,
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
+  ...integralMethodsFollowupFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -120,7 +122,9 @@ const isFunctionStudy = (problem: UniversityProblem): problem is FunctionStudyPr
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";
 const present = (problem: UniversityProblem, locale: Locale) =>
-  problem.kind === "integral-improper-infinity" || problem.kind === "integral-improper-endpoint"
+  problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"
+    ? presentIntegralMethodsFollowup(problem,locale)
+    : problem.kind === "integral-improper-infinity" || problem.kind === "integral-improper-endpoint"
     ? presentImproperIntegral(problem, locale)
     : problem.kind === "integral-direct-product" || problem.kind === "integral-table-arctan"
     ? presentIntegralBasicsFollowup(problem, locale)
