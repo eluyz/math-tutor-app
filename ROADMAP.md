@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan po PR #80 (26.10.2026):** P2E-A scalony i wdrożony, 180 rodzin / 14 853 warianty, CI na main i GitHub Pages SUCCESS. **P2E-B1** dodaje 72 warianty pól między dwiema parabolami w oddzielnym PR; następny **P2E-B2** poszerzy długości łuków. Bez automatycznego scalania.
+> **Stan po PR #81 (26.10.2026):** P2E-B1 scalony na `main` (`909af053`), 181 rodzin / 14 925 wariantów. CI po scaleniu i GitHub Pages sprawdzane osobno. **P2E-B2** jest oddzielnym, niescalonym PR #82 opartym bezpośrednio na `main`, dodaje 72 warianty długości łuków parametrycznych. Po ewentualnym zatwierdzonym merge #82: 182 rodziny / 14 997 wariantów. Bez automatycznego scalania.
 
 > **Stan po P2D-B (26.10.2026, stan historyczny):** PR #79 zatwierdzony i scalony, `main` `cf755e4`, **178 rodzin / 14 709 wariantów**. Kontrola CI i Pages po #79 czeka na potwierdzenie. Wykresy SVG dostępne w rozwiązaniach badania funkcji, nadal bez oceniania własnoręcznie narysowanego szkicu. Kolejny pakiet: **MT-EDU-023 P2E-A** (+144 warianty całek oznaczonych przez podstawienie kwadratowe oraz przez części), w osobnym PR, bez automatycznego scalenia. Docelowo 180 rodzin / 14 853 warianty. [Plan P2E-A](MT-EDU-023-P2E-A-PLAN.md).
 
@@ -47,8 +47,8 @@
 | MT-EDU-022 P2D-A | PR #78 scalony | Badanie funkcji czwartego stopnia i wymiernej, ekstrema globalne, pochodne; +144 warianty. |
 | MT-EDU-022 P2D-B | PR #79 scalony | Wykresy SVG nowych funkcji w rozwiązaniu, punkty krytyczne, asymptoty, teksty dostępności. 0 nowych rodzin. |
 | MT-EDU-023 P2E-A | PR #80 scalony; CI i Pages PASS | Całki oznaczone: podstawienie kwadratowe z nowymi granicami i całkowanie przez części; +144 warianty. |
-| MT-EDU-023 P2E-B1 | Osobny PR, bez merge | Dwie parabole, 0/1/2 przecięcia w przedziale i dokładne pole bezwzględne; +72 warianty. |
-| MT-EDU-023 P2E-B2 | W planie | Nowa rodzina długości łuków parametrycznych, niezależna od I08 z MT-EDU-017. |
+| MT-EDU-023 P2E-B1 | PR #81 scalony | Dwie parabole, 0/1/2 przecięcia w przedziale i dokładne pole bezwzględne; +72 warianty. |
+| MT-EDU-023 P2E-B2 | PR #82, osobny PR bez merge | Nowa rodzina długości łuków parametrycznych, niezależna od I08 z MT-EDU-017. |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |

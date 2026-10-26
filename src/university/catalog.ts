@@ -54,6 +54,7 @@ import { definiteIntegralFollowupFamilies, presentDefiniteIntegralFollowup } fro
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
 import { areaArcFamilies, presentAreaArc } from "./areaArc";
 import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabolasArea";
+import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -108,6 +109,7 @@ export const universityFamilies = [
   ...improperIntegralFamilies,
   ...areaArcFamilies,
   ...twoParabolasAreaFamilies,
+  ...parametricArcFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -122,6 +124,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentDefiniteIntegralFollowup(problem, locale)
     : problem.kind === "integral"
     ? presentIntegral(problem, locale)
+    : problem.kind === "integral-arc-parametric"
+    ? presentParametricArc(problem,locale)
     : problem.kind === "integral-area-parabolas"
     ? presentTwoParabolasArea(problem,locale)
     : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"
