@@ -69,9 +69,16 @@ for (const width of [375, 768]) for (const en of [false, true])
       name: en ? "Search exercise families" : "Szukaj rodziny zadań",
     });
     await search.fill(en ? "calkowanie przez czesci" : "integration by parts");
-    const result = page.locator(".catalog-search-list button");
+    const results = page.locator(".catalog-search-list button");
+    await expect(results).toHaveCount(2);
+    await expect(results).toContainText([
+      en ? "Integration by parts" : "Całkowanie przez części",
+      en ? "Definite integral by integration by parts" : "Całka oznaczona — całkowanie przez części",
+    ]);
+    const result = results.filter({
+      has: page.locator("strong").getByText(en ? "Integration by parts" : "Całkowanie przez części", { exact: true }),
+    });
     await expect(result).toHaveCount(1);
-    await expect(result).toContainText(en ? "Integration by parts" : "Całkowanie przez części");
     await expect(result).toContainText(en ? "Integrals" : "Całki");
     await result.click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id", "integral-parts");
