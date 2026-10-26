@@ -3,6 +3,8 @@ import { useEffect, useRef, useState } from "react";
 import type { GeneratedTask } from "../generators";
 import { formatRational as f, type AnswerSpec } from "../answers";
 import { MatrixDisplay } from "../MatrixDisplay";
+import { FunctionStudyGraph } from "../FunctionStudyGraph";
+import { isUniversityTask } from "../university/catalog";
 import { solutionFor, calculationText } from "./model";
 import "./solutions.css";
 
@@ -87,7 +89,7 @@ export function SolutionPanel({
   inSession: boolean;
   onReveal: () => void;
 }) {
-  const { copy } = useLocale();
+  const { copy, locale } = useLocale();
   const c = copy.solution;
   const [opened, setOpened] = useState(false);
   const solution = opened ? solutionFor(task) : null;
@@ -120,6 +122,10 @@ export function SolutionPanel({
       ) : (
         <>
           <h4>{c.name}</h4>
+          {isUniversityTask(task) && (task.university.kind === "analysis-study-quartic" ||
+            task.university.kind === "analysis-study-rational-shift") && (
+            <FunctionStudyGraph problem={task.university} locale={locale}/>
+          )}
           <p role="status">{c.status(visible, solution.length)}</p>
           <ol>
             {solution.slice(0, visible).map((step, i) => (
