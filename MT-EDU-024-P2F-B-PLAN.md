@@ -1,6 +1,6 @@
 # MT-EDU-024 P2F-B — nowe przypadki I03/I04
 
-Baza: \`main\` commit \`0c462bcfa95c3b317478716d09a50cd6e8e44f52\`, 184 rodziny / 15 141 wariantów, CI/Pages SUCCESS.
+Baza: `main` commit `0c462bcfa95c3b317478716d09a50cd6e8e44f52`, 184 rodziny / 15 141 wariantów, CI/Pages SUCCESS.
 
 ## P2F-B1: integral-log-substitution
 - Całka ∫ k·2a(ax+b)/((ax+b)²+c) dx z a,k≠0, c>0; u=(ax+b)²+c.

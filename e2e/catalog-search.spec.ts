@@ -70,10 +70,11 @@ for (const width of [375, 768]) for (const en of [false, true])
     });
     await search.fill(en ? "calkowanie przez czesci" : "integration by parts");
     const results = page.locator(".catalog-search-list button");
-    await expect(results).toHaveCount(2);
+    await expect(results).toHaveCount(3);
     await expect(results).toContainText([
       en ? "Integration by parts" : "Całkowanie przez części",
       en ? "Definite integral by integration by parts" : "Całka oznaczona — całkowanie przez części",
+      en ? "Integration by parts — sine and cosine" : "Całkowanie przez części — sinus i cosinus",
     ]);
     const result = results.filter({
       has: page.locator("strong").getByText(en ? "Integration by parts" : "Całkowanie przez części", { exact: true }),
