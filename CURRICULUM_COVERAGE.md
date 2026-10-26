@@ -69,6 +69,6 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | I08 | Długość łuku | częściowo | `integral-arc-length`; łuk krzywej potęgowej na zadanych granicach; inne klasy wymagają rozszerzenia |
 | W01 | Pochodne cząstkowe I/II | częściowo | `multivar-partial-point`, `multivar-gradient-point`; kontrolowane wielomiany kwadratowe, pochodne I/II i gradient, bez ogólnych funkcji 2D |
 | W02 | Ekstrema 2D | częściowo | `multivar-stationary-point`, `multivar-hessian-classify`; wybrane funkcje kwadratowe, punkt stacjonarny i test Hessiana (w tym D=0), bez ogólnych warunków brzegowych i funkcji 2D |
-| W03 | Granica i ciągłość 2D | teoria | —; wymaga ujęcia pojęciowego i zadań |
+| W03 | Granica i ciągłość 2D | częściowo | `multivar-path-limit`: granice zależne od drogi (prosta kontra parabola) i zbieżne przez jednolite oszacowanie; `multivar-continuity-point`: porównanie granicy z f(a,b), przypadki ciągłe, usuwalne i nieusuwalne. Warianty kontrolowane i lokalizacje PL/EN; bez pełnej klasy funkcji 2D, ogólnych współrzędnych biegunowych i dowolnych dróg. |
 
 Po dodaniu nowych rodzin należy aktualizować wyłącznie wiersze, których umiejętność rzeczywiście obejmują. Mapa kompetencji służy ocenie ogólnego zakresu matematyki, bez przypisywania go jednej uczelni. Nie publikujemy zewnętrznych arkuszy, materiałów dydaktycznych ani danych studentów.
