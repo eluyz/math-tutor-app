@@ -117,7 +117,7 @@ export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
       "The value at the point equals the limit, so the function is continuous there."));
   }
  }else{
-  lesson.work("lim[(x,y)→"+point+"]g(x,y) nie istnieje / does not exist; f"+point+"="+f(p.valueAt),
+  lesson.work("lim[(x,y)→"+point+"]g(x,y) "+t("nie istnieje","does not exist")+"; f"+point+"="+f(p.valueAt),
    t("Brak granicy nie zależy od wartości dopisanej w pojedynczym punkcie.",
      "A missing limit cannot be repaired by choosing a value at just one point."));
  }
