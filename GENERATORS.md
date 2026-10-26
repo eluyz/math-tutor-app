@@ -1,8 +1,17 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **180 rodzin**, **14853 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 136 rodzin wspiera advanced, a 122 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **181 rodzin**, **14925 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 137 rodzin wspiera advanced, a 123 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **136**, L5: **122**.
+Łącznie rodziny L4: **137**, L5: **123**.
+
+## MT-EDU-023 P2E-B1 — pole między parabolami (PR bez merge)
+
+Nowa rodzina `integral-area-parabolas` (hard/advanced/expert; 72 warianty) obejmuje dwie parabole o różnych niezerowych krzywiznach, dokładne przecięcia, przypadki 0/1/2 wewnętrznych przecięć przedziału, bezwzględne pole i wyniki wymierne. I07 pozostaje częściowe. Po ewentualnym merge: 181 rodzin / 14 925 wariantów.
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| integral-area-parabolas | hard, advanced, expert | 72 | I07: dwie prawdziwe parabole, 0/1/2 przecięcia na przedziale i dokładne pole geometryczne |
+
 
 ## MT-EDU-023 P2E-A — inne przypadki całek oznaczonych (oddzielny PR, bez merge)
 
