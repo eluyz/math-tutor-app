@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **178 rodzin** i **14709 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **180 rodzin** i **14853 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
@@ -28,7 +28,9 @@ MT-EDU-021 P2C (PR #77 scalony na main): dwa generatory z W03 — granice 2D wzd
 
 MT-EDU-022 P2D-A (PR #78 scalony na main): dwie rodziny pełniejszego badania funkcji — przesunięta funkcja czwartego stopnia i wymierna z asymptotą ukośną. Pochodne I/II, tabele monotoniczności, klasyfikacja ekstremów, przegięcia lub ich brak, zakresy globalne i opis szkicu jakościowego. 2 × 3 poziomy × 24 warianty = +144. W main po merge: 178 rodzin / 14 709 wariantów. Pełniejsze badanie pozostaje ograniczone do kontrolowanych funkcji.
 
-MT-EDU-022 P2D-B (osobny PR, bez merge): po ujawnieniu krokowego rozwiązania ćwiczeń z funkcją czwartego stopnia i funkcją wymierną pojawiają się responsywne wykresy SVG: prawdziwa krzywa, dokładnie podpisane punkty stacjonarne i asymptoty. Przerwa przy biegunie nie jest łączona linią; wykres ma opis dla czytników ekranu PL/EN i nie zdradza odpowiedzi przed rozwiązaniem. **Bez nowych generatorów: 178 rodzin / 14 709 wariantów.**
+MT-EDU-022 P2D-B (PR #79 zatwierdzony i scalony): po ujawnieniu krokowego rozwiązania ćwiczeń z funkcją czwartego stopnia i funkcją wymierną pojawiają się responsywne wykresy SVG: prawdziwa krzywa, dokładnie podpisane punkty stacjonarne i asymptoty. Przerwa przy biegunie nie jest łączona linią; wykres ma opis dla czytników ekranu PL/EN i nie zdradza odpowiedzi przed rozwiązaniem. **Bez nowych generatorów: 178 rodzin / 14 709 wariantów.**
+
+MT-EDU-023 P2E-A (oddzielny PR, bez merge): kolejne dwie rodziny całek oznaczonych — podstawienie kwadratowe z przeliczeniem obu granic oraz całkowanie przez części ∫x(x+b)^n z porównaniem F(upper)−F(lower). Poziomy hard/advanced/expert, +144 warianty; po ewentualnym zatwierdzonym merge 180 rodzin / 14 853 warianty. Wyniki wymierne, dokładne kroki PL/EN i niezależna weryfikacja. I03/I04/I06 nadal **częściowo**; inne pola i łuki pozostają odrębnym kolejnym zakresem.
 
 ## Uruchomienie
 
