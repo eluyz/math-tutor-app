@@ -48,6 +48,7 @@ import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes"
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { integralFamilies, presentIntegral } from "./integrals";
+import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
 import { areaArcFamilies, presentAreaArc } from "./areaArc";
 
 export const UNIVERSITY_VARIANTS = 24;
@@ -97,6 +98,7 @@ export const universityFamilies = [
   ...advancedCalculusFamilies,
   ...functionStudyFamilies,
   ...integralFamilies,
+  ...improperIntegralFamilies,
   ...areaArcFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
@@ -106,7 +108,9 @@ const isFunctionStudy = (problem: UniversityProblem): problem is FunctionStudyPr
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";
 const present = (problem: UniversityProblem, locale: Locale) =>
-  problem.kind === "integral"
+  problem.kind === "integral-improper-infinity" || problem.kind === "integral-improper-endpoint"
+    ? presentImproperIntegral(problem, locale)
+    : problem.kind === "integral"
     ? presentIntegral(problem, locale)
     : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"
     ? presentAreaArc(problem,locale)
