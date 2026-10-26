@@ -1,17 +1,26 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **186 rodzin**, **15285 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 142 rodziny wspierają advanced, a 128 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **188 rodzin**, **15429 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 144 rodziny wspierają advanced, a 130 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **142**, L5: **128**.
+Łącznie rodziny L4: **144**, L5: **130**.
 
-## MT-EDU-024 P2F-B — I03/I04 (osobny PR, bez merge)
+## MT-EDU-025 P2G-A — W01 (osobny PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| multivar-cubic-partial | hard, advanced, expert | 72 | f_x, f_y, f_xx, f_xy, f_yy wielomianu stopnia 3 z x²y oraz xy² |
+| multivar-chain-gradient | hard, advanced, expert | 72 | Gradient k(ax+by+c)³+dxy i reguła łańcuchowa dla obu zmiennych |
+
+Razem +144; po zatwierdzonym merge 188 rodzin / 15 429 wariantów. W01 pozostaje częściowe.
+
+## MT-EDU-024 P2F-B — I03/I04 (PR #84 scalony)
 
 | Rodzina | Poziomy | Warianty | Kompetencje |
 | --- | --- | ---: | --- |
 | integral-log-substitution | hard, advanced, expert | 72 | I03: ∫ k·u′/u dx dla u=(ax+b)²+c, c>0, dokładna całka k ln(u)+C |
 | integral-parts-trig-linear | hard, advanced, expert | 72 | I04: ∫kx sin(ax+b)dx i ∫kx cos(ax+b)dx, dokładne 2 składniki i kontrola znaków |
 
-Docelowo +144 po osobno zatwierdzonym scaleniu: 186 rodzin / 15 285 wariantów. Podstawienie i całkowanie przez części nadal częściowe.
++144 wdrożone w PR #84, CI i Pages PASS: 186 rodzin / 15 285 wariantów na bazowym main. Podstawienie i całkowanie przez części nadal częściowe.
 
 ## MT-EDU-024 P2F-A — I01/I02 (PR #83 scalony)
 

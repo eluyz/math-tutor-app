@@ -24,6 +24,7 @@ import type { TrigDerivativeProblem } from "./trigDerivatives";
 import type { ProductQuotientProblem } from "./productQuotient";
 import type { DerivativeFollowupProblem } from "./derivativeFollowup";
 import type { PartialGradientProblem } from "./partialGradient";
+import type { MultivarDerivativeFollowupProblem } from "./multivarDerivativeFollowup";
 import type { MultivarLimitProblem } from "./multivarLimits";
 import type { HessianProblem } from "./hessian";
 
@@ -239,6 +240,7 @@ export type UniversityProblem =
   | ProductQuotientProblem
   | DerivativeFollowupProblem
   | PartialGradientProblem
+  | MultivarDerivativeFollowupProblem
   | MultivarLimitProblem
   | HessianProblem
   | SequenceProblem

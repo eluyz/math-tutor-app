@@ -15,6 +15,7 @@ import { trigDerivativeFamilies, presentTrigDerivative } from "./trigDerivatives
 import { productQuotientFamilies, presentProductQuotient } from "./productQuotient";
 import { derivativeFollowupFamilies, presentDerivativeFollowup } from "./derivativeFollowup";
 import { partialGradientFamilies, presentPartialGradient } from "./partialGradient";
+import { multivarDerivativeFollowupFamilies, presentMultivarDerivativeFollowup } from "./multivarDerivativeFollowup";
 import { multivarLimitFamilies, presentMultivarLimit } from "./multivarLimits";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { sequenceFamilies, presentSequence } from "./sequences";
@@ -72,6 +73,7 @@ export const universityFamilies = [
   ...productQuotientFamilies,
   ...derivativeFollowupFamilies,
   ...partialGradientFamilies,
+  ...multivarDerivativeFollowupFamilies,
   ...multivarLimitFamilies,
   ...hessianFamilies,
   ...sequenceFamilies,
@@ -152,6 +154,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentMultivarLimit(problem, locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
     ? presentHessian(problem, locale)
+    : problem.kind === "multivar-cubic-partial" || problem.kind === "multivar-chain-gradient"
+    ? presentMultivarDerivativeFollowup(problem,locale)
     : problem.kind === "multivar-partial-point" || problem.kind === "multivar-gradient-point"
     ? presentPartialGradient(problem,locale)
     : problem.kind === "derivative-quadratic-quotient" || problem.kind === "derivative-log-quadratic"

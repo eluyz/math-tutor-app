@@ -1,10 +1,12 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **186 rodzin** i **15285 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **188 rodzin** i **15429 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-024 P2F-A (PR #83 scalony, CI i Pages PASS): dwie nowe rodziny całek nieoznaczonych I01/I02: iloczyn wielomianów przed całkowaniem oraz wzór arctan dla 1/(1+(ax+b)²). 2×72=144 warianty, dokładne ułamki, krokowe rozwiązania PL/EN, konieczność dodania +C. Docelowo po osobnym zatwierdzonym merge: 184 rodziny / 15 141 wariantów.
 
-MT-EDU-024 P2F-B (osobny PR, bez merge): I03 — podstawienie logarytmiczne w ∫k·u′/u dx dla u=(ax+b)²+c>0; I04 — całkowanie przez części ∫kx sin(ax+b)dx i ∫kx cos(ax+b)dx. Nowe 2 rodziny × 3 poziomy × 24 warianty = 144 ćwiczenia, dokładne ułamki, PL/EN, +C i niezależne testy. Docelowo po osobnym zatwierdzonym merge 186 rodzin / 15 285 wariantów. I03/I04 nadal częściowe.
+MT-EDU-024 P2F-B (PR #84 scalony; CI i Pages PASS): I03 — podstawienie logarytmiczne w ∫k·u′/u dx dla u=(ax+b)²+c>0; I04 — całkowanie przez części ∫kx sin(ax+b)dx i ∫kx cos(ax+b)dx. Nowe 2 rodziny × 3 poziomy × 24 warianty = 144 ćwiczenia, dokładne ułamki, PL/EN, +C i niezależne testy. Docelowo po osobnym zatwierdzonym merge 186 rodzin / 15 285 wariantów. I03/I04 nadal częściowe.
+
+MT-EDU-025 P2G-A (osobny PR, bez merge): dwie nowe rodziny W01 — pochodne cząstkowe I i II rzędu wielomianu trzeciego stopnia oraz gradient funkcji złożonej z regułą łańcuchową. Każda zawiera 72 warianty, dokładne ułamki, PL/EN, testy matematyczne i E2E. Po ewentualnym, osobno zatwierdzonym scaleniu: 188 rodzin / 15 429 wariantów. W01 nadal częściowe.
 
 MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
