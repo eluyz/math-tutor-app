@@ -1,5 +1,7 @@
 # Plan rozwoju
 
+> **Bieżący stan po PR #84 (26.10.2026):** main `b113d789` — 186 rodzin / 15 285 wariantów, CI i Pages PASS. P2G-A (W01) w osobnym PR (+144 warianty). Po ewentualnym zatwierdzonym merge: 188 rodzin / 15 429 wariantów. Bez automatycznego scalania.
+
 > **Bieżący stan po PR #83 (26.10.2026):** main `0c462bcf` — 184 rodziny / 15 141 wariantów, CI i GitHub Pages PASS. MT-EDU-024 P2F-B implementowany w osobnym PR: +144 warianty (I03/I04), po ewentualnym zatwierdzonym scaleniu 186 rodzin / 15 285 wariantów. Nie scalać bez osobnej zgody właściciela.
 
 > **Bieżący stan po PR #82 (26.10.2026):** 182 rodziny / 14 997 wariantów na `main` (commit `6a39cf7`), CI i GitHub Pages PASS. Nowy pakiet **MT-EDU-024 P2F-A** implementuje I01/I02 (+144 warianty) w osobnym PR, bez automatycznego scalenia. Po zatwierdzonym merge: 184 rodziny / 15 141 wariantów. Następnie rekomendowany P2F-B: szersze podstawienia i całkowanie przez części.
