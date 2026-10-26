@@ -12,6 +12,7 @@ import type { AreaArcProblem } from "./areaArc";
 import type { TwoParabolasAreaProblem } from "./twoParabolasArea";
 import type { ParametricArcProblem } from "./parametricArc";
 import type { IntegralBasicsFollowupProblem } from "./integralBasicsFollowup";
+import type { IntegralMethodsFollowupProblem } from "./integralMethodsFollowup";
 import type { FunctionExtensionProblem } from "./functionExtensions";
 import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 import type { FunctionFollowupProblem } from "./functionFollowup";
@@ -257,7 +258,8 @@ export type UniversityProblem =
   | AreaArcProblem
   | TwoParabolasAreaProblem
   | ParametricArcProblem
-  | IntegralBasicsFollowupProblem;
+  | IntegralBasicsFollowupProblem
+  | IntegralMethodsFollowupProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
 export const isFunctionGraphProblem = (p: UniversityProblem): p is FunctionGraphProblem | GraphPropertyProblem =>
