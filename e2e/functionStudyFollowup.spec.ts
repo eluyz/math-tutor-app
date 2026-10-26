@@ -37,7 +37,16 @@ test("MT-EDU-022 P2D "+width+"px "+(en?"EN":"PL")+" "+level,async({page})=>{
   await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
   await page.locator("#answer").fill(f(spec.values[0]));
   await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+  await expect(page.locator("[data-study-plot]")).toHaveCount(0);
   await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+  const graph=page.locator('[data-study-plot="'+family.id+'"]');
+  await expect(graph).toHaveCount(1);
+  await expect(graph.locator("svg[role=img]")).toHaveCount(1);
+  await expect(graph.getByTestId("study-curve")).toHaveCount(family.id==="analysis-study-quartic"?1:2);
+  await expect(graph.getByTestId("study-critical")).toHaveCount(family.id==="analysis-study-quartic"?3:2);
+  await expect(graph.getByTestId("study-oblique-asymptote")).toHaveCount(family.id==="analysis-study-quartic"?0:1);
+  await graph.locator("summary").click();
+  await expect(graph.locator("details")).toContainText(en?"Stationary points":"Punkty stacjonarne");
   await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
   await expect(page.locator(".solution-panel")).toContainText(en?"Final answer":"Końcowa odpowiedź");
   if(en)expect(await page.locator(".solution-panel").innerText()).not.toMatch(polishLearningText);
