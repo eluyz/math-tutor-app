@@ -6,8 +6,8 @@ import {rational as r,addRational as add} from "../src/rational";
 import {formatRational as f} from "../src/answers";
 const button=(p:Page,name:string)=>p.getByRole("button",{name,exact:true});
 const families=[
- {id:"integral-area-between",pl:/Pole między dwiema krzywymi/,en:/Area between two curves/},
- {id:"integral-arc-length",pl:/Długość łuku krzywej/,en:/Arc length of a curve/}
+ {id:"integral-area-between",pl:"Pole między dwiema krzywymi",en:"Area between two curves"},
+ {id:"integral-arc-length",pl:"Długość łuku krzywej",en:"Arc length of a curve"}
 ] as const;
 for(const width of [375,1280])for(const en of [false,true])
 for(const [level,plLevel,enLevel] of [["easy","Łatwy","Easy"],["medium","Średni","Medium"],["hard","Trudny","Hard"]] as const)
@@ -20,7 +20,11 @@ test("MT-EDU-017 "+width+" "+level+" "+(en?"EN":"PL"),async({page})=>{
  await button(page,en?"Integrals":"Całki").click();
  await button(page,en?enLevel:plLevel).click();
  for(const family of families){
-  await page.getByRole("button",{name:en?family.en:family.pl}).click();
+  const choice=page.locator("button.exercise-item").filter({
+   has:page.locator("strong").getByText(en?family.en:family.pl,{exact:true}),
+  });
+  await expect(choice).toHaveCount(1);
+  await choice.click();
   await expect(page.locator(".question")).toHaveAttribute("data-template-id",family.id);
   const rendered=await page.locator(".question").innerText();
   const task=taskPool("integrals",level).filter(t=>t.templateId===family.id).map(t=>localizeTask(t,en?"en":"pl")).find(t=>t.question===rendered);
