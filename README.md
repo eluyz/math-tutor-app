@@ -26,7 +26,9 @@ MT-EDU-021 P2B (PR #76 scalony i opublikowany): dwie nowe rodziny całek niewła
 
 MT-EDU-021 P2C (PR #77 scalony na main): dwa generatory z W03 — granice 2D wzdłuż dwóch dróg lub przez oszacowanie oraz ciągłość i typ nieciągłości w punkcie. Poziomy medium/hard/advanced, 24 warianty na parę rodzina-poziom, PL/EN, rozwiązania krok po kroku. +144 warianty (stan main po scaleniu: 176 rodzin / 14 565 wariantów). W03 pozostaje częściowe.
 
-MT-EDU-022 P2D-A (nowy PR, bez merge): dwie rodziny pełniejszego badania funkcji — przesunięta funkcja czwartego stopnia i wymierna z asymptotą ukośną. Pochodne I/II, tabele monotoniczności, klasyfikacja ekstremów, przegięcia lub ich brak, zakresy globalne i opis szkicu jakościowego. 2 × 3 poziomy × 24 warianty = +144. Po zatwierdzonym merge: 178 rodzin / 14 709 wariantów. **Nie jest to jeszcze narysowany wykres ani kompletne D05–D10.**
+MT-EDU-022 P2D-A (PR #78 scalony na main): dwie rodziny pełniejszego badania funkcji — przesunięta funkcja czwartego stopnia i wymierna z asymptotą ukośną. Pochodne I/II, tabele monotoniczności, klasyfikacja ekstremów, przegięcia lub ich brak, zakresy globalne i opis szkicu jakościowego. 2 × 3 poziomy × 24 warianty = +144. W main po merge: 178 rodzin / 14 709 wariantów. Pełniejsze badanie pozostaje ograniczone do kontrolowanych funkcji.
+
+MT-EDU-022 P2D-B (osobny PR, bez merge): po ujawnieniu krokowego rozwiązania ćwiczeń z funkcją czwartego stopnia i funkcją wymierną pojawiają się responsywne wykresy SVG: prawdziwa krzywa, dokładnie podpisane punkty stacjonarne i asymptoty. Przerwa przy biegunie nie jest łączona linią; wykres ma opis dla czytników ekranu PL/EN i nie zdradza odpowiedzi przed rozwiązaniem. **Bez nowych generatorów: 178 rodzin / 14 709 wariantów.**
 
 ## Uruchomienie
 
