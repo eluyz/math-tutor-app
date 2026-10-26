@@ -15,6 +15,7 @@ import { trigDerivativeFamilies, presentTrigDerivative } from "./trigDerivatives
 import { productQuotientFamilies, presentProductQuotient } from "./productQuotient";
 import { derivativeFollowupFamilies, presentDerivativeFollowup } from "./derivativeFollowup";
 import { partialGradientFamilies, presentPartialGradient } from "./partialGradient";
+import { multivarLimitFamilies, presentMultivarLimit } from "./multivarLimits";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
@@ -65,6 +66,7 @@ export const universityFamilies = [
   ...productQuotientFamilies,
   ...derivativeFollowupFamilies,
   ...partialGradientFamilies,
+  ...multivarLimitFamilies,
   ...hessianFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
@@ -122,6 +124,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "multivar-path-limit" || problem.kind === "multivar-continuity-point"
+    ? presentMultivarLimit(problem, locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
     ? presentHessian(problem, locale)
     : problem.kind === "multivar-partial-point" || problem.kind === "multivar-gradient-point"
