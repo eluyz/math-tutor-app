@@ -1,5 +1,5 @@
 import {describe,it,expect} from "vitest";
-import {rational as r, addRational as add, subtractRational as sub, multiplyRational as mul, divideRational as div, equalRational as eq, type Rational} from "../rational";
+import {rational as r, addRational as add, subtractRational as sub, multiplyRational as mul, equalRational as eq, type Rational} from "../rational";
 import {formatRational as fmt, assessAnswer, emptyAnswer} from "../answers";
 import {makeUniversityTask, localizeUniversity} from "./catalog";
 import {twoParabolasAreaFamilies, parabolaValues, exactTwoParabolasArea, type TwoParabolasAreaProblem} from "./twoParabolasArea";
