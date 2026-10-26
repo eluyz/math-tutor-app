@@ -50,6 +50,7 @@ import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCal
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { functionStudyFollowupFamilies, presentFunctionStudyFollowup } from "./functionStudyFollowup";
 import { integralFamilies, presentIntegral } from "./integrals";
+import { definiteIntegralFollowupFamilies, presentDefiniteIntegralFollowup } from "./definiteIntegralFollowup";
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
 import { areaArcFamilies, presentAreaArc } from "./areaArc";
 
@@ -102,6 +103,7 @@ export const universityFamilies = [
   ...functionStudyFamilies,
   ...functionStudyFollowupFamilies,
   ...integralFamilies,
+  ...definiteIntegralFollowupFamilies,
   ...improperIntegralFamilies,
   ...areaArcFamilies,
 ];
@@ -114,6 +116,8 @@ const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraPro
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "integral-improper-infinity" || problem.kind === "integral-improper-endpoint"
     ? presentImproperIntegral(problem, locale)
+    : problem.kind === "integral-substitution-definite" || problem.kind === "integral-parts-definite"
+    ? presentDefiniteIntegralFollowup(problem, locale)
     : problem.kind === "integral"
     ? presentIntegral(problem, locale)
     : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"
