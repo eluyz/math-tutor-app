@@ -48,6 +48,7 @@ import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./element
 import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
+import { functionStudyFollowupFamilies, presentFunctionStudyFollowup } from "./functionStudyFollowup";
 import { integralFamilies, presentIntegral } from "./integrals";
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
 import { areaArcFamilies, presentAreaArc } from "./areaArc";
@@ -99,6 +100,7 @@ export const universityFamilies = [
   ...asymptoteFamilies,
   ...advancedCalculusFamilies,
   ...functionStudyFamilies,
+  ...functionStudyFollowupFamilies,
   ...integralFamilies,
   ...improperIntegralFamilies,
   ...areaArcFamilies,
@@ -116,6 +118,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentIntegral(problem, locale)
     : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"
     ? presentAreaArc(problem,locale)
+    : problem.kind === "analysis-study-quartic" || problem.kind === "analysis-study-rational-shift"
+    ? presentFunctionStudyFollowup(problem, locale)
     : isFunctionStudy(problem)
     ? presentFunctionStudy(problem, locale)
     : isAdvancedCalculus(problem)
