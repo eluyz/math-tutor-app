@@ -95,7 +95,7 @@ export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
  if(p.kind==="multivar-path-limit"){
   return lesson.finish(
    t("Wyznacz granicę 2D (lub stwierdź jej brak) w punkcie ","Find the 2D limit (or identify its nonexistence) at ")+
-    point+".\n"+definition+" dla (x,y)≠"+point,
+    point+".\n"+definition+t(" dla "," for ")+"(x,y)≠"+point,
    {kind:"limit",value:multivarLimitValue(p)},
    t("Sprawdź prostą v=0, potem parabolę v=cu² albo oszacowanie wartości bezwzględnej.",
      "Try v=0, then the parabola v=cu² or a uniform absolute-value bound."),
@@ -123,7 +123,7 @@ export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
  }
  return lesson.finish(
   t("Sklasyfikuj ciągłość f w punkcie ","Classify continuity of f at ")+point+
-  ".\n"+definition+" dla (x,y)≠"+point+"; f"+point+"="+f(p.valueAt),
+  ".\n"+definition+t(" dla "," for ")+"(x,y)≠"+point+"; f"+point+"="+f(p.valueAt),
   {kind:"choice",value:classification,options:labels(locale)},
   t("Ciągłość wymaga istnienia granicy 2D i jej równości z f(a,b).",
     "Continuity requires an existing 2D limit equal to f(a,b)."),
