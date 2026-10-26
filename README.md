@@ -1,6 +1,6 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **176 rodzin** i **14565 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **178 rodzin** i **14709 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-019 P0D dodaje równania 3×3 `AX = 4X + B` i `AXB = C` z dokładnymi macierzami odwrotnymi, sprawdzeniem przez podstawienie oraz rozwiązaniami PL/EN. Wersje 2×2 i proste `AX=B`/`XA=B` pozostają dostępne; M05/M13 są nadal częściowo pokryte.
 
@@ -24,7 +24,9 @@ MT-EDU-021 P2A (PR #75 scalony na main): rozszerzenie pochodnych o iloraz wielom
 
 MT-EDU-021 P2B (PR #76 scalony i opublikowany): dwie nowe rodziny całek niewłaściwych — na nieograniczonym przedziale [0,+∞) oraz z osobliwością przy górnym końcu przedziału. Zbieżność i rozbieżność rozstrzygane dokładnie przez granicę całki właściwej (bez zaokrąglania). +144 warianty, stan main po scaleniu: 174 rodziny / 14 421 wariantów. I06 nadal częściowo pokryte.
 
-MT-EDU-021 P2C (osobny PR, bez merge): dwa generatory z W03 — granice 2D wzdłuż dwóch dróg lub przez oszacowanie oraz ciągłość i typ nieciągłości w punkcie. Poziomy medium/hard/advanced, 24 warianty na parę rodzina-poziom, PL/EN, rozwiązania krok po kroku. +144 warianty (po ewentualnym scaleniu 176 rodzin / 14 565 wariantów). W03 pozostaje częściowe.
+MT-EDU-021 P2C (PR #77 scalony na main): dwa generatory z W03 — granice 2D wzdłuż dwóch dróg lub przez oszacowanie oraz ciągłość i typ nieciągłości w punkcie. Poziomy medium/hard/advanced, 24 warianty na parę rodzina-poziom, PL/EN, rozwiązania krok po kroku. +144 warianty (stan main po scaleniu: 176 rodzin / 14 565 wariantów). W03 pozostaje częściowe.
+
+MT-EDU-022 P2D-A (nowy PR, bez merge): dwie rodziny pełniejszego badania funkcji — przesunięta funkcja czwartego stopnia i wymierna z asymptotą ukośną. Pochodne I/II, tabele monotoniczności, klasyfikacja ekstremów, przegięcia lub ich brak, zakresy globalne i opis szkicu jakościowego. 2 × 3 poziomy × 24 warianty = +144. Po zatwierdzonym merge: 178 rodzin / 14 709 wariantów. **Nie jest to jeszcze narysowany wykres ani kompletne D05–D10.**
 
 ## Uruchomienie
 
