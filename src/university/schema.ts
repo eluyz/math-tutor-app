@@ -5,6 +5,7 @@ import type { CategoryId } from "../exercises";
 import type { Locale } from "../locales/types";
 import type { Polynomial, PolynomialFormula } from "./polynomial";
 import type { IntegralProblem } from "./integrals";
+import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
 import type { ImproperIntegralProblem } from "./improperIntegrals";
 import type { AreaArcProblem } from "./areaArc";
 import type { FunctionExtensionProblem } from "./functionExtensions";
@@ -245,6 +246,7 @@ export type UniversityProblem =
   | AsymptoteProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
+  | FunctionStudyFollowupProblem
   | IntegralProblem
   | ImproperIntegralProblem
   | AreaArcProblem;

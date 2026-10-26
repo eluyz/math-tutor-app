@@ -1,6 +1,6 @@
 # Plan rozwoju
 
-> **Stan po P2B (26.10.2026):** PR #63–#76 scalone i opublikowane. `main` `47b510a` ma **174 rodziny / 14 421 wariantów**, CI na main i Deploy Pages #76 **SUCCESS**. MT-EDU-021 P2C wdrażany w osobnym PR (+144 warianty, po ewentualnym scaleniu 176 rodzin / 14 565 wariantów). Pokrycie W03 zmienia się z „teoria” na „częściowo” tylko dla kontrolowanych typów zadań. Bez osobnej zgody użytkownika nie scalać P2C. [Plan P2C](MT-EDU-021-P2C-PLAN.md).
+> **Stan po P2C (26.10.2026):** PR #63–#77 scalone. `main` `24f6ead` zawiera **176 rodzin / 14 565 wariantów**; pełne CI na main i Deploy Pages po #77 wymagają niezależnego potwierdzenia. W03 ma kontrolowane generatory i pozostaje „częściowo”. MT-EDU-022 P2D-A: osobny PR (+144 warianty; po ewentualnym scaleniu 178 rodzin / 14 709 wariantów) na analizę funkcji czwartego stopnia i przesuniętej wymiernej. Pełne rysowanie wykresów nadal poza tym pakietem. Nie scalać P2D-A bez osobnej zgody właściciela. [Plan P2D-A](MT-EDU-022-P2D-PLAN.md).
 
 > Liczby i statusy przy starszych etapach poniżej to **historyczne migawki**, nie bieżący stan produktu; aktualny wynik znajduje się w tym nagłówku.
 
@@ -41,7 +41,8 @@
 | MT-EDU-020 P1C | PR #74 scalony | Granice pierwiastkowe przy ±∞ i kryterium Heinego; +144 warianty. |
 | MT-EDU-021 P2A | PR #75 scalony | Iloraz funkcji kwadratowej i liniowej oraz pochodna ln(kwadratowy); +144 warianty. |
 | MT-EDU-021 P2B | PR #76 scalony i opublikowany | Całki niewłaściwe przy +∞ i z osobliwością na końcu; +144 warianty. |
-| MT-EDU-021 P2C | Osobny PR, bez merge | Granice i ciągłość dwóch zmiennych, różne drogi i oszacowanie; +144 warianty. |
+| MT-EDU-021 P2C | PR #77 scalony | Granice i ciągłość 2D, różne drogi i oszacowanie; +144 warianty. |
+| MT-EDU-022 P2D-A | Osobny PR, bez merge | Szersze badanie funkcji czwartego stopnia i wymiernej, ekstremum globalne, pochodne i opis szkicu; +144 warianty. |
 | MT-EXAM-001/002 | Scalone na `main` — rozwój sprawdzianów wstrzymany | Obecny sprawdzian 5/10/20 zadań, historia, czas, wybór rodzin i kilku poziomów (PR #36); nowych funkcji sprawdzianów teraz nie planujemy |
 | MT-DIAG-001 | Scalone w PR #35 | „Znajdź mój błąd”, kontrola konkretnych kroków i trzy zadania naprawcze; bez OCR |
 | MT-UI-REMOVE-FREE | Scalone w PR #38 | Usunięto napis „ZA DARMO / FREE” z nagłówka i wdrożono na GitHub Pages |
@@ -52,7 +53,7 @@
 
 **Zakres:** osiem działów matematyki: macierze i wyznaczniki, układy równań, granice ciągów, podstawy funkcji, granice funkcji, pochodne, całki oraz funkcje dwóch zmiennych. Punktem odniesienia jest pełna lista umiejętności i typów zadań potrzebnych na kursie matematyki. Zestawienie jest robocze: opisuje aktualną implementację, a nie gwarancję gotowości do dowolnego egzaminu. Generatory i objaśnienia muszą być autorskie; nie kopiujemy zewnętrznych arkuszy ani kluczy odpowiedzi.
 
-**Bieżąca mapa po PR #76:** 15 „pokryte”, 48 „częściowo”, 0 „brak”, 1 „teoria” (W03). Po ewentualnym zatwierdzonym P2C będzie 15 pokrytych, 49 częściowych, 0 „teoria”. To liczby kompetencji, nie procent zaliczenia egzaminu. Źródło: [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md). Historyczny stan po #68: 157 rodzin / 13 197 wariantów.
+**Bieżąca mapa po PR #77:** 15 „pokryte”, 49 „częściowo”, 0 „brak”, 0 „teoria”. P2D-A poszerza treść częściowych D05/D07/D08/D09/D10, bez zmiany liczby oznaczonych kompetencji. To liczby kompetencji, nie procent zaliczenia egzaminu. Źródło: [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md). Historyczny stan po #68: 157 rodzin / 13 197 wariantów.
 
 | Dział matematyki | Co już ćwiczymy | Najistotniejsze luki do uzupełnienia |
 | --- | --- | --- |

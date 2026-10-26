@@ -1,17 +1,26 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **176 rodzin**, **14565 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 132 rodziny wspierają advanced, a 118 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **178 rodzin**, **14709 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 134 rodziny wspierają advanced, a 120 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **132**, L5: **118**.
+Łącznie rodziny L4: **134**, L5: **120**.
 
-## MT-EDU-021 P2C — granice i ciągłość dwóch zmiennych (osobny PR, bez merge)
+## MT-EDU-022 P2D-A — rozszerzenie badania funkcji (osobny PR bez merge)
+
+| Rodzina | Poziomy | Warianty | Obszar |
+| --- | --- | ---: | --- |
+| analysis-study-quartic | hard, advanced, expert | 72 | D05/D07/D08/D09/D10: przesunięta funkcja m((x−a)²−q²)²+k, trzy punkty krytyczne, dwa przegięcia, tabela znaków i globalne max/min na zamkniętym przedziale |
+| analysis-study-rational-shift | hard, advanced, expert | 72 | D05/D08/D09/D10: m((x−a)+q²/(x−a))+k, biegun, asymptota ukośna, pochodne, dwa ekstrema i max/min na przedziale bez bieguna |
+
+P2D-A: +144 warianty; po osobno zatwierdzonym merge 178 rodzin / 14 709 wariantów. Krokowa analiza PL/EN i opis jakościowego szkicu; **brak rysowania krzywej**. D05/D07/D08/D09/D10 pozostają częściowe.
+
+## MT-EDU-021 P2C — granice i ciągłość dwóch zmiennych (PR #77 scalony)
 
 | Rodzina | Poziomy | Warianty | Kompetencje |
 | --- | --- | ---: | --- |
 | multivar-path-limit | medium, hard, advanced | 72 | W03: dwa różne przebiegi u→0, v=0 i v=cu²; brak granicy lub granica skończona ustalona oszacowaniem | 
 | multivar-continuity-point | medium, hard, advanced | 72 | W03: warunek lim f(x,y)=f(a,b), nieciągłość usuwalna lub nieusuwalna, wartość funkcji w izolowanym punkcie |
 
-P2C dodaje 144 warianty. Katalog po potencjalnym merge: 176 rodzin / 14 565 wariantów. Obie rodziny PL/EN i dokładne rachunki; W03 pozostaje częściowe.
+P2C: 144 warianty scalone w PR #77. Katalog main po #77: 176 rodzin / 14 565 wariantów. Obie rodziny PL/EN i dokładne rachunki; W03 pozostaje częściowe.
 
 ## MT-EDU-021 P2B — całki niewłaściwe (PR #76 scalony i opublikowany)
 
