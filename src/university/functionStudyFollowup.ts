@@ -72,6 +72,9 @@ export function presentFunctionStudyFollowup(p:FunctionStudyFollowupProblem,loca
   work("f("+l+")="+k+"; f("+a+")="+f(vals[3])+"; f("+rr+")="+k,
    "Wszystkie wartości ekstremalne liczymy przez podstawienie, nie z rysunku.",
    "Compute every stationary value exactly by substitution, not by guessing from a sketch.");
+  work(t("Ekstrema lokalne: ","Local extrema: ")+"x="+l+", "+rr+" "+t(positive?"minima":"maksima",positive?"minima":"maxima")+"; x="+a+" "+t(positive?"maksimum":"minimum",positive?"maximum":"minimum"),
+   "Zmiana znaku pochodnej przez każdy punkt krytyczny klasyfikuje lokalne minimum lub maksimum.",
+   "Changes of the derivative sign classify each critical point as a local minimum or maximum.");
   work("f′′(x)=4("+m+")(3"+T+"²−("+q+")²); x="+a+"±("+q+")/√3",
    "W obu miejscach f′′=0 zmienia się znak: dwa przegięcia, mimo że ich x mogą być niewymierne.",
    "The second derivative changes sign at both roots: two inflections, possibly with irrational x.");
