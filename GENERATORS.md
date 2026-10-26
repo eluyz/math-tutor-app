@@ -8,6 +8,11 @@ Bieżący katalog UI i sesji: **181 rodzin**, **14925 instancji**. `allTemplates
 
 Nowa rodzina `integral-area-parabolas` (hard/advanced/expert; 72 warianty) obejmuje dwie parabole o różnych niezerowych krzywiznach, dokładne przecięcia, przypadki 0/1/2 wewnętrznych przecięć przedziału, bezwzględne pole i wyniki wymierne. I07 pozostaje częściowe. Po ewentualnym merge: 181 rodzin / 14 925 wariantów.
 
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| integral-area-parabolas | hard, advanced, expert | 72 | I07: dwie prawdziwe parabole, 0/1/2 przecięcia na przedziale i dokładne pole geometryczne |
+
+
 ## MT-EDU-023 P2E-A — inne przypadki całek oznaczonych (oddzielny PR, bez merge)
 
 | Rodzina | Poziomy | Warianty | Zakres |
