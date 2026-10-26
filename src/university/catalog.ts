@@ -53,6 +53,7 @@ import { integralFamilies, presentIntegral } from "./integrals";
 import { definiteIntegralFollowupFamilies, presentDefiniteIntegralFollowup } from "./definiteIntegralFollowup";
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
 import { areaArcFamilies, presentAreaArc } from "./areaArc";
+import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabolasArea";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -106,6 +107,7 @@ export const universityFamilies = [
   ...definiteIntegralFollowupFamilies,
   ...improperIntegralFamilies,
   ...areaArcFamilies,
+  ...twoParabolasAreaFamilies,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -120,6 +122,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentDefiniteIntegralFollowup(problem, locale)
     : problem.kind === "integral"
     ? presentIntegral(problem, locale)
+    : problem.kind === "integral-area-parabolas"
+    ? presentTwoParabolasArea(problem,locale)
     : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"
     ? presentAreaArc(problem,locale)
     : problem.kind === "analysis-study-quartic" || problem.kind === "analysis-study-rational-shift"
