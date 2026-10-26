@@ -18,7 +18,7 @@ for(const width of [375,768,1280]) for(const en of [false,true]) test(`MT-EDU-00
     await button(page,en?"University mathematics":"Matematyka na studia").click();
     await button(page,en?"Derivatives":"Pochodne").click();
     await button(page,item.level==="expert"?en?"Expert":"Ekspert":en?"Advanced":"Zaawansowany").click();
-    await page.getByRole("button",{name:item[en?"en":"pl"],exact:false}).click();
+    await page.getByRole("button",{name:item[en?"en":"pl"],exact:true}).click();
     const question=await page.locator(".question").innerText();
     const task=taskPool("derivatives",item.level).filter(candidate=>candidate.templateId===item.id).map(candidate=>localizeTask(candidate,en?"en":"pl")).find(candidate=>candidate.question===question);
     expect(task).toBeDefined();const spec=getAnswerSpec(task!);expect(spec.kind).toBe("list");if(spec.kind!=="list")throw Error("List expected");
