@@ -4,14 +4,18 @@ Bieżący katalog UI i sesji: **178 rodzin**, **14709 instancji**. `allTemplates
 
 Łącznie rodziny L4: **134**, L5: **120**.
 
-## MT-EDU-022 P2D-A — rozszerzenie badania funkcji (osobny PR bez merge)
+## MT-EDU-022 P2D-B — wizualizacja wykresów funkcji (osobny PR, bez merge)
+
+Dodano niezależną od oceny odpowiedzi warstwę SVG w widoku rozwiązania dla `analysis-study-quartic` i `analysis-study-rational-shift`: rzeczywiste krzywe w skali znormalizowanej, oznaczenia punktów stacjonarnych o dokładnych współrzędnych, pionowa i ukośna asymptota oraz celowa przerwa przy biegunie. Wykres nie pojawia się przed odkryciem rozwiązania; tekstowy odpowiednik PL/EN pozostaje dostępny. Rachunki i `AnswerSpec` są nietknięte. Brak nowych rodzin i wariantów — 178/14 709. Rysowanie przez użytkownika i automatyczna ocena szkiców poza zakresem.
+
+## MT-EDU-022 P2D-A — rozszerzenie badania funkcji (PR #78 scalony)
 
 | Rodzina | Poziomy | Warianty | Obszar |
 | --- | --- | ---: | --- |
 | analysis-study-quartic | hard, advanced, expert | 72 | D05/D07/D08/D09/D10: przesunięta funkcja m((x−a)²−q²)²+k, trzy punkty krytyczne, dwa przegięcia, tabela znaków i globalne max/min na zamkniętym przedziale |
 | analysis-study-rational-shift | hard, advanced, expert | 72 | D05/D08/D09/D10: m((x−a)+q²/(x−a))+k, biegun, asymptota ukośna, pochodne, dwa ekstrema i max/min na przedziale bez bieguna |
 
-P2D-A: +144 warianty; po osobno zatwierdzonym merge 178 rodzin / 14 709 wariantów. Krokowa analiza PL/EN i opis jakościowego szkicu; **brak rysowania krzywej**. D05/D07/D08/D09/D10 pozostają częściowe.
+P2D-A: +144 warianty scalone w PR #78; main ma 178 rodzin / 14 709 wariantów. D05/D07/D08/D09/D10 nadal częściowe. D05/D07/D08/D09/D10 pozostają częściowe.
 
 ## MT-EDU-021 P2C — granice i ciągłość dwóch zmiennych (PR #77 scalony)
 
