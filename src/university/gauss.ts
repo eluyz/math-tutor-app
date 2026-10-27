@@ -32,7 +32,7 @@ export const gaussFamilies:readonly UniversityFamily[]=[
   {id:"gauss-classification",category:"systems",titles:{pl:"Eliminacja Gaussa: klasyfikacja",en:"Gaussian elimination: classify"},supportedDifficulties:["hard","advanced","expert"],create:(v,d)=>create(v,d,"classification")},
 ];
 export function presentGauss(p:Extract<LinearAlgebraProblem,{kind:"linear-system"}>,locale:Locale){
-  const lesson=teaching(locale),{t}=lesson,n=p.matrix[0].length, names=["x","y","z","w"].slice(0,n);
+  const lesson=teaching(locale),{t}=lesson,n=p.matrix[0].length, names=["x","y","z","w","v"].slice(0,n);
   const result=classifySystem(p.matrix,p.rhs), forward=gaussianElimination(p.matrix,p.rhs);
   const augmented=p.matrix.map((row,i)=>[...row,p.rhs[i]]);
   lesson.work(`[A|b] = ${compact(augmented)}`,t("Tworzymy macierz rozszerzoną; każde równanie obejmuje prawą stronę.","Form the augmented matrix; each equation includes the right-hand side."));
