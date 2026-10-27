@@ -1,5 +1,7 @@
 # Plan rozwoju
 
+> **MT-EDU-027 P3A (27.10.2026):** audyt aktualnej mapy potwierdził 64 kompetencje: 15 pokrytych w zdefiniowanym zakresie, 49 częściowych, 0 bez generatora; jest to audyt zakresów, nie dowód pełnej poprawności dowolnego zadania. Issue #96 i osobny PR dodają D06 (styczne pionowe/ostrza, rzeczywiste granice ilorazu różnicowego) oraz G08 (oscylacje Heinego i wygaszanie przez oszacowanie): 2 × 3 × 24 = +144; dopiero po zatwierdzonym merge 200 rodzin / 16 293 warianty. Bez scalania bez zgody.
+
 > **MT-EDU-026 P2H-B (27.10.2026):** Issue #94 — M04, górnotrójkątna A⁻² oraz podobieństwo PAP⁻¹ dla 3×3. Dwie rodziny × 3 poziomy × 24 warianty = +144. Osobny PR, bez scalania przed zgodą właściciela; docelowo 198 rodzin / 16 149 wariantów. M04 nadal częściowe.
 
 > **MT-EDU-026 P2H-A (27.10.2026):** PR #93 zatwierdzony i scalony, commit `a8d00706`. 196 rodzin / 16 005 wariantów. Pełne CI przed merge PASS; kontrola CI na main i Pages po merge osobno. M04 nadal częściowe.
