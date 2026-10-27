@@ -1,5 +1,7 @@
 # Plan rozwoju
 
+> **MT-EDU-030 (27.10.2026, Issue #109, unmerged PR):** Syllabus U06/U08 — two five-unknown rectangular Gaussian system families, 3×5 and 4×5, with 144 exact PL/EN variants (20 consistent with two independent free parameters and 4 inconsistent per family/level). Independent rank/minor tests, browser PL/EN and mobile checks mandatory. Proposed 206 families / 16,725 variants **only after explicit owner-approved merge**. Custom-problem mode #104 deferred until full syllabus gate #108.
+
 > **MT-EDU-029 P3C (27.10.2026):** Issue #100 and an independent, unmerged PR: M03 four-factor rectangular compatibility and W03 anisotropic limits with nonlinear path + universal squeeze. 144 bilingual deterministic variants; only after an owner-approved merge: **204 families / 16,581 variants**. Both skills remain partially covered. New project work is documented in English; historical Polish records stay intact.
 
 > **MT-EDU-028 P3B (27.10.2026, completed):** PR #99 was owner-approved and squash merged (`8bc01bd0e64d477073d71bd4c5d58d6654f8a4bd`); post-merge main CI 40501158920 PASS, Pages 40502824244 PASS; Issue #98 closed. Deployed **202 families / 16,437 variants**. I06 remains partially covered.
