@@ -21,6 +21,7 @@ import { polarContinuityFamilies, presentPolarContinuity } from "./polarContinui
 import { hessianFamilies, presentHessian } from "./hessian";
 import { multivarExtremaFamilies, presentMultivarExtrema } from "./multivarExtrema";
 import { degenerateDiskFamilies, presentDegenerateDisk } from "./degenerateDisk";
+import { negativePowerFamilies, presentNegativePower } from "./negativePower";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
 import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFollowup";
@@ -82,6 +83,7 @@ export const universityFamilies = [
   ...hessianFamilies,
   ...multivarExtremaFamilies,
   ...degenerateDiskFamilies,
+  ...negativePowerFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
   ...sequenceFollowupFamilies,
@@ -160,6 +162,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentPolarContinuity(problem, locale)
     : problem.kind === "multivar-path-limit" || problem.kind === "multivar-continuity-point"
     ? presentMultivarLimit(problem, locale)
+    : problem.kind === "matrix-negative-square-two" || problem.kind === "matrix-conjugation-two"
+    ? presentNegativePower(problem, locale)
     : problem.kind === "multivar-degenerate-quartic" || problem.kind === "multivar-diagonal-quadratic-disk"
     ? presentDegenerateDisk(problem, locale)
     : problem.kind === "multivar-rectangle-extrema" || problem.kind === "multivar-disk-linear-extrema"
