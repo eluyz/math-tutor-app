@@ -1,6 +1,8 @@
 # Plan rozwoju
 
-> **MT-EDU-026 P2H-A (27.10.2026):** Issue #92 — rozszerzenie M04 o dokładne potęgi ujemne A⁻² i podobieństwo PAP⁻¹ macierzy 2×2 (+144 warianty). Osobny PR bez automatycznego scalania. Po zatwierdzonym merge 196 rodzin / 16 005 wariantów. M04 nadal częściowe.
+> **MT-EDU-026 P2H-B (27.10.2026):** Issue #94 — M04, górnotrójkątna A⁻² oraz podobieństwo PAP⁻¹ dla 3×3. Dwie rodziny × 3 poziomy × 24 warianty = +144. Osobny PR, bez scalania przed zgodą właściciela; docelowo 198 rodzin / 16 149 wariantów. M04 nadal częściowe.
+
+> **MT-EDU-026 P2H-A (27.10.2026):** PR #93 zatwierdzony i scalony, commit `a8d00706`. 196 rodzin / 16 005 wariantów. Pełne CI przed merge PASS; kontrola CI na main i Pages po merge osobno. M04 nadal częściowe.
 
 > **MT-EDU-025 P2G-D (27.10.2026):** zatwierdzony Squash and merge PR #91, commit `33f77ed2`; 194 rodziny / 15 861 wariantów. CI przed merge PASS, CI i Pages na main sprawdzane osobno. W02 nadal częściowe.
 

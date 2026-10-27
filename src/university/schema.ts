@@ -31,6 +31,7 @@ import type { HessianProblem } from "./hessian";
 import type { MultivarExtremaProblem } from "./multivarExtrema";
 import type { DegenerateDiskProblem } from "./degenerateDisk";
 import type { NegativePowerProblem } from "./negativePower";
+import type { TriangularThreeProblem } from "./triangularThree";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -251,6 +252,7 @@ export type UniversityProblem =
   | MultivarExtremaProblem
   | DegenerateDiskProblem
   | NegativePowerProblem
+  | TriangularThreeProblem
   | SequenceProblem
   | FunctionLimitProblem
   | LimitFollowupProblem
