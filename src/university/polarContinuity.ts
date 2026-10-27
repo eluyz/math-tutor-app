@@ -17,7 +17,7 @@ const sign=(v:number)=>v%2===0?1:-1;
 function polar(v:number,level:Difficulty):Polar{
  const d=denominator(level);
  return {kind:"multivar-polar-homogeneous-limit",atX:r(v%7-3,d),atY:r(Math.floor(v/3)-4,d),
-   base:r(v%11-5,d),factor:r(sign(v)*(1+Math.floor(v/2)%7),d),power:v%2===0?1:2};
+   base:r(v%11-5,d),factor:r(sign(Math.floor(v/2))*(1+Math.floor(v/2)%7),d),power:v%2===0?1:2};
 }
 function angular(v:number,level:Difficulty):Angular{
  const d=denominator(level);
