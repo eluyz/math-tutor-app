@@ -1,6 +1,8 @@
 # Math Tutor
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **188 rodzin** i **15429 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **190 rodzin** i **15573 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+
+MT-EDU-025 P2G-B (osobny PR, bez scalania): W02 — ekstrema globalne funkcji kwadratowej na domkniętym prostokącie (wnętrze, krawędzie, narożniki i remisy) oraz funkcji liniowej na kole (ograniczenie kołowe, punkty brzegowe i mnożniki Lagrange'a). Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty z dokładnymi ułamkami i rozwiązaniami PL/EN. Po osobno zatwierdzonym scaleniu: 190 rodzin / 15 573 warianty; W02 nadal częściowe.
 
 MT-EDU-024 P2F-A (PR #83 scalony, CI i Pages PASS): dwie nowe rodziny całek nieoznaczonych I01/I02: iloczyn wielomianów przed całkowaniem oraz wzór arctan dla 1/(1+(ax+b)²). 2×72=144 warianty, dokładne ułamki, krokowe rozwiązania PL/EN, konieczność dodania +C. Docelowo po osobnym zatwierdzonym merge: 184 rodziny / 15 141 wariantów.
 

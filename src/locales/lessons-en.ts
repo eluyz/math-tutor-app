@@ -197,6 +197,7 @@ const fieldLabels: Record<string, string> = {
   "X[1,1]": "X[1,1]", "X[1,2]": "X[1,2]", "X[2,1]": "X[2,1]", "X[2,2]": "X[2,2]",
   "Y[1,1]": "Y[1,1]", "Y[1,2]": "Y[1,2]", "Y[2,1]": "Y[2,1]", "Y[2,2]": "Y[2,2]",
   "max f": "max f", "min f": "min f",
+  x_min:"x_min", y_min:"y_min", f_min:"f_min", x_max:"x_max", y_max:"y_max", f_max:"f_max",
   "q*": "q*", "P(q*)": "P(q*)", "x⁵": "x⁵",
   m:"m", n:"n", c:"c", "x₀":"x₀", "y₀":"y₀", "x₁":"x₁", "y₁":"y₁", "x₂":"x₂", "y₂":"y₂", "x₃":"x₃", "y₃":"y₃",
   x: "x", y: "y", z: "z", a: "a", b: "b", "xᵥ": "xᵥ", "yᵥ": "yᵥ", "x²": "x²", "x³": "x³", "x⁴": "x⁴", "1": "1",

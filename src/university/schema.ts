@@ -27,6 +27,7 @@ import type { PartialGradientProblem } from "./partialGradient";
 import type { MultivarDerivativeFollowupProblem } from "./multivarDerivativeFollowup";
 import type { MultivarLimitProblem } from "./multivarLimits";
 import type { HessianProblem } from "./hessian";
+import type { MultivarExtremaProblem } from "./multivarExtrema";
 
 export type SystemProblem = Readonly<{
   kind: "system";
@@ -243,6 +244,7 @@ export type UniversityProblem =
   | MultivarDerivativeFollowupProblem
   | MultivarLimitProblem
   | HessianProblem
+  | MultivarExtremaProblem
   | SequenceProblem
   | FunctionLimitProblem
   | LimitFollowupProblem

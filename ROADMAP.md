@@ -1,5 +1,7 @@
 # Plan rozwoju
 
+> **MT-EDU-025 P2G-B (26.10.2026):** po zatwierdzonym merge PR #86 (limit CI 40 min), `main` ma 188 rodzin / 15 429 wariantów. Osobna gałąź P2G-B dodaje ekstrema na prostokącie i kole (+144 warianty, W02) — po osobno zatwierdzonym merge 190 rodzin / 15 573 warianty. Pełne CI i publikacja po PR #86 podlegają odrębnej weryfikacji. Nie scalać P2G-B bez zgody właściciela.
+
 > **Bieżący stan po PR #84 (26.10.2026):** main `b113d789` — 186 rodzin / 15 285 wariantów, CI i Pages PASS. P2G-A (W01) w osobnym PR (+144 warianty). Po ewentualnym zatwierdzonym merge: 188 rodzin / 15 429 wariantów. Bez automatycznego scalania.
 
 > **Bieżący stan po PR #83 (26.10.2026):** main `0c462bcf` — 184 rodziny / 15 141 wariantów, CI i GitHub Pages PASS. MT-EDU-024 P2F-B implementowany w osobnym PR: +144 warianty (I03/I04), po ewentualnym zatwierdzonym scaleniu 186 rodzin / 15 285 wariantów. Nie scalać bez osobnej zgody właściciela.
