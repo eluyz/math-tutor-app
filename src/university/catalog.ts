@@ -19,6 +19,7 @@ import { partialGradientFamilies, presentPartialGradient } from "./partialGradie
 import { multivarDerivativeFollowupFamilies, presentMultivarDerivativeFollowup } from "./multivarDerivativeFollowup";
 import { multivarLimitFamilies, presentMultivarLimit } from "./multivarLimits";
 import { polarContinuityFamilies, presentPolarContinuity } from "./polarContinuity";
+import { rectangularPathFamilies, presentRectangularPath } from "./rectangularPaths";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { multivarExtremaFamilies, presentMultivarExtrema } from "./multivarExtrema";
 import { degenerateDiskFamilies, presentDegenerateDisk } from "./degenerateDisk";
@@ -84,6 +85,7 @@ export const universityFamilies = [
   ...multivarDerivativeFollowupFamilies,
   ...multivarLimitFamilies,
   ...polarContinuityFamilies,
+  ...rectangularPathFamilies,
   ...hessianFamilies,
   ...multivarExtremaFamilies,
   ...degenerateDiskFamilies,
@@ -138,7 +140,9 @@ const isFunctionStudy = (problem: UniversityProblem): problem is FunctionStudyPr
 const isInverse = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-inverse"|"linear-application"}> => problem.kind === "linear-inverse" || problem.kind === "linear-application";
 const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraProblem,{kind:"linear-rank"|"linear-capelli"|"linear-rank-given"}> => problem.kind === "linear-rank" || problem.kind === "linear-capelli" || problem.kind === "linear-rank-given";
 const present = (problem: UniversityProblem, locale: Locale) =>
-  problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"
+  (problem.kind === "matrix-four-factor-dimensions" || problem.kind === "multivar-anisotropic-limit")
+    ? presentRectangularPath(problem,locale)
+    : problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"
     ? presentIntegralMethodsFollowup(problem,locale)
     : problem.kind === "integral-improper-interior-power" || problem.kind === "integral-improper-interior-pv"
     ? presentInteriorImproper(problem,locale)
