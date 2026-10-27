@@ -1,4 +1,4 @@
-import {rational as r, addRational as add, divideRational as div, multiplyRational as mul, type Rational} from "../rational";
+import {rational as r, addRational as add, divideRational as div, type Rational} from "../rational";
 import {formatRational as f} from "../answers";
 import type {Difficulty} from "../difficulty";
 import type {Locale} from "../locales/types";
