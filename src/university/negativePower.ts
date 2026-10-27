@@ -1,4 +1,4 @@
-import {rational as r,addRational as add,subtractRational as sub,multiplyRational as mul,divideRational as div, type Rational} from "../rational";
+import {rational as r,addRational as add,subtractRational as sub,multiplyRational as mul,divideRational as div} from "../rational";
 import {multiplyMatrices,determinant,type Matrix} from "../matrices";
 import {formatRational as fmt} from "../answers";
 import type {Difficulty} from "../difficulty";
