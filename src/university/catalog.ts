@@ -11,6 +11,7 @@ import { functionFollowupFamilies, presentFunctionFollowup } from "./functionFol
 import { functionGraphFamilies, presentFunctionGraph } from "./functionGraphs";
 import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProperties";
 import { nondifferentiabilityFamilies, presentNondifferentiability } from "./nondifferentiability";
+import { edgeLimitFamilies, presentEdgeLimit } from "./edgeLimits";
 import { trigDerivativeFamilies, presentTrigDerivative } from "./trigDerivatives";
 import { productQuotientFamilies, presentProductQuotient } from "./productQuotient";
 import { derivativeFollowupFamilies, presentDerivativeFollowup } from "./derivativeFollowup";
@@ -74,6 +75,7 @@ export const universityFamilies = [
   ...functionGraphFamilies,
   ...graphPropertyFamilies,
   ...nondifferentiabilityFamilies,
+  ...edgeLimitFamilies,
   ...trigDerivativeFamilies,
   ...productQuotientFamilies,
   ...derivativeFollowupFamilies,
@@ -184,6 +186,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentProductQuotient(problem, locale)
     : problem.kind === "derivative-trig-chain" || problem.kind === "derivative-trig-special-point"
     ? presentTrigDerivative(problem, locale)
+    : problem.kind === "derivative-vertical-cusp" || problem.kind === "limit-oscillatory-heine"
+    ? presentEdgeLimit(problem,locale)
     : problem.kind === "derivative-absolute-one-sided" || problem.kind === "derivative-piecewise-point"
     ? presentNondifferentiability(problem, locale)
     : problem.kind === "function-graph-monotonicity" || problem.kind === "function-graph-extrema" || problem.kind === "function-graph-symmetry"
