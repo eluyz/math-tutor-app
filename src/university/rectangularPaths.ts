@@ -20,7 +20,7 @@ function makeChain(v:number,d:Difficulty):Chain{
  const bcols=2+(v+2*t)%5,ccols=2+(Math.floor(v/3)+t)%5,dcols=2+(Math.floor(v/5)+t)%5;
  const mode=v%4; // valid, invalid AB, invalid (AB)C, invalid ((AB)C)D
  return {kind:"matrix-four-factor-dimensions",matrices:[
-  shape(ar,ac),shape(mode===1?ac+1:ac,bcols),
+  shape(ar,ac),shape(mode===1?(ac===7?ac-1:ac+1):ac,bcols),
   shape(mode===2?bcols+1:bcols,ccols),
   shape(mode===3?ccols+1:ccols,dcols),
  ]};
