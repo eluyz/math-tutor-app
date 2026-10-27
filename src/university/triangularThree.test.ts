@@ -69,7 +69,8 @@ describe("MT-EDU-026 P2H-B: 3×3 inverse-power and similarity exact audit",()=>{
     expect(eql(spec.values,wanted)).toBe(true);
     expect(assessAnswer(spec,emptyAnswer(spec)).kind).toBe("invalid");
     const correct=wanted.map(row=>row.map(f));
-    expect(assessAnswer(spec,{kind:"matrix",values:correct}).kind).toBe("correct");
+    const checked=assessAnswer(spec,{kind:"matrix",values:correct});
+    expect(checked,`${family.id}/${level}/${v}/${locale}: ${JSON.stringify(correct)}; feedback=${JSON.stringify(checked)}`).toEqual({kind:"correct"});
     const wrong=correct.map(row=>[...row]);wrong[0][0]=f(a(wanted[0][0],q(1)));
     expect(assessAnswer(spec,{kind:"matrix",values:wrong}).kind).toBe("incorrect");
     wrong[0][0]="1/0";
