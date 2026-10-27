@@ -20,6 +20,7 @@ import type { LimitFollowupProblem } from "./limitFollowup";
 import type { FunctionGraphProblem } from "./functionGraphs";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
+import type { EdgeLimitProblem } from "./edgeLimits";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
 import type { ProductQuotientProblem } from "./productQuotient";
 import type { DerivativeFollowupProblem } from "./derivativeFollowup";
@@ -241,6 +242,7 @@ export type UniversityProblem =
   | FunctionGraphProblem
   | GraphPropertyProblem
   | NondifferentiabilityProblem
+  | EdgeLimitProblem
   | TrigDerivativeProblem
   | ProductQuotientProblem
   | DerivativeFollowupProblem

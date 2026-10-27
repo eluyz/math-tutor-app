@@ -247,6 +247,14 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
         ...o,
         label:
           ({
+            "ciągła i różniczkowalna": "continuous and differentiable",
+            "ciągła, ale ma skończone różne pochodne jednostronne (załamanie)": "continuous with unequal finite one-sided derivatives (corner)",
+            "ciągła, styczna pionowa (obustronnie ta sama nieskończona pochodna)": "continuous, vertical tangent (same signed infinite one-sided derivatives)",
+            "ciągła, ostrze/cusp (pochodne jednostronne przeciwnych znaków nieskończonych)": "continuous, cusp (opposite signed infinite one-sided derivatives)",
+            "ciągła w punkcie": "continuous at the point",
+            "nieciągłość usuwalna (granica istnieje)": "removable discontinuity (limit exists)",
+            "brak granicy wskutek oscylacji": "limit does not exist because of oscillations",
+            "nieciągłość skokowa (różne skończone granice jednostronne)": "jump discontinuity (different finite one-sided limits)",
             "Funkcja jest ciągła w punkcie": "The function is continuous at the point",
             "Nieciągłość usuwalna — granica istnieje, ale f(a,b) jest inne": "Removable discontinuity — the limit exists but differs from f(a,b)",
             "Nieciągłość nieusuwalna — granica nie istnieje": "Nonremovable discontinuity — the limit does not exist",

@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **198 rodzin**, **16149 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 154 rodziny wspierają advanced, a 140 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **200 rodzin**, **16293 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 156 rodzin wspiera advanced, a 142 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **154**, L5: **140**.
+Łącznie rodziny L4: **156**, L5: **142**.
 
-## MT-EDU-026 P2H-B — M04 (Issue #94, osobny PR, bez merge)
+## MT-EDU-027 P3A — D06/G08 (Issue #96, separate draft PR)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| derivative-vertical-cusp | hard, advanced, expert | 72 | Continuous cubic root versus fractional absolute power: finite differentiability fails; vertical tangent versus cusp via signed infinite difference quotients |
+| limit-oscillatory-heine | hard, advanced, expert | 72 | Heine's sequential criterion disproves an oscillatory limit; damping factor gives a valid squeeze-bound limit, continuous or removable at the assigned point |
+
+Together +144, pending owner-approved merge **200 families / 16,293 variants**. D06 and G08 remain partially covered.
+
+## MT-EDU-026 P2H-B — M04 (PR #95 merged, CI and Pages PASS)
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
