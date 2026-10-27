@@ -110,6 +110,7 @@ export const universityFamilies = [
   ...gaussCramerFollowupFamilies,
   ...gaussParameterFamilies,
   ...gaussRectangularParameterFamilies,
+  ...gaussFiveFamilies,
   ...chainFamilies,
   ...rectangularFamilies,
   ...cramerFourFamilies,
