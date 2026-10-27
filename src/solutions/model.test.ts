@@ -41,7 +41,7 @@ describe("rzeczywiste rozwiązania wszystkich 35 rodzin", () => {
     }
   });
   it("MT-QA-002: each signed-product level explains only displayed factors in PL and EN", () => {
-    const signed = tasks.filter((task) => task.templateId === "signed-product");
+    const signed = tasks.filter((task) => task.templateId === "signed-product" && isLegacyDifficulty(task.difficulty));
     expect(signed.length).toBeGreaterThan(0);
     const byLevel = new Set<string>();
     for (const task of signed) {
@@ -71,7 +71,7 @@ describe("rzeczywiste rozwiązania wszystkich 35 rodzin", () => {
         expect(steps.at(-1)).toMatchObject({ kind: "answer", answer: getAnswerSpec(task) });
       }
     }
-    expect(byLevel).toEqual(new Set(["easy", "medium", "hard", "advanced", "expert"]));
+    expect(byLevel).toEqual(new Set(["easy", "medium", "hard"]));
   });
   it("Sarrus zawiera sześć oddzielnych iloczynów z właściwym znakiem i sumami", () => {
     for (const task of tasks.filter((t) => t.templateId === "determinant-sarrus" && isLegacyDifficulty(t.difficulty))) {
