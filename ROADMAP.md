@@ -1,6 +1,8 @@
 # Plan rozwoju
 
-> **MT-EDU-027 P3A (27.10.2026):** audyt aktualnej mapy potwierdził 64 kompetencje: 15 pokrytych w zdefiniowanym zakresie, 49 częściowych, 0 bez generatora; jest to audyt zakresów, nie dowód pełnej poprawności dowolnego zadania. Issue #96 i osobny PR dodają D06 (styczne pionowe/ostrza, rzeczywiste granice ilorazu różnicowego) oraz G08 (oscylacje Heinego i wygaszanie przez oszacowanie): 2 × 3 × 24 = +144; dopiero po zatwierdzonym merge 200 rodzin / 16 293 warianty. Bez scalania bez zgody.
+> **MT-EDU-028 P3B (27.10.2026):** Issue #98 i osobny PR wprowadzający do I06 dwie rodziny całek niewłaściwych z osobliwością wewnątrz przedziału: potęga |x−h|^(−p) oraz różnica między zwykłą rozbieżną całką a skończoną wartością główną Cauchy’ego. +144 warianty, docelowo 202 rodziny / 16 437 wariantów po osobno zatwierdzonym scaIeniu. I06 nadal częściowe.
+
+> **MT-EDU-027 P3A (27.10.2026):** PR #97 scalony przez właściciela, commit `966a7b1e`; CI na main i Pages weryfikowane osobno. Audyt aktualnej mapy potwierdził 64 kompetencje: 15 pokrytych w zdefiniowanym zakresie, 49 częściowych, 0 bez generatora; jest to audyt zakresów, nie dowód pełnej poprawności dowolnego zadania. Issue #96 i osobny PR dodają D06 (styczne pionowe/ostrza, rzeczywiste granice ilorazu różnicowego) oraz G08 (oscylacje Heinego i wygaszanie przez oszacowanie): 2 × 3 × 24 = +144; dopiero po zatwierdzonym merge 200 rodzin / 16 293 warianty. Bez scalania bez zgody.
 
 > **MT-EDU-026 P2H-B (27.10.2026):** Issue #94 — M04, górnotrójkątna A⁻² oraz podobieństwo PAP⁻¹ dla 3×3. Dwie rodziny × 3 poziomy × 24 warianty = +144. Osobny PR, bez scalania przed zgodą właściciela; docelowo 198 rodzin / 16 149 wariantów. M04 nadal częściowe.
 
