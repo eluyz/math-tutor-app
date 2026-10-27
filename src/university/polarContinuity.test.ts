@@ -27,13 +27,14 @@ describe("MT-EDU-025 P2G-C W03 exact polar and angular limits",()=>{
  });
  for(const family of polarContinuityFamilies)for(const level of family.supportedDifficulties)
  it(family.id+"/"+level+" independently checks 24 different variants in PL/EN",()=>{
-  const distinct=new Set<string>(),types=new Set<string>();
+  const distinct=new Set<string>(),types=new Set<string>(),polarSigns=new Set<string>();
   for(let v=0;v<24;v++){
    const task=makeUniversityTask(family.id,v,level),p=task.university;
    distinct.add(task.contentKey);
    expect(task.category).toBe("function-limits");
    if(p.kind==="multivar-polar-homogeneous-limit"){
     expect(p.factor.numerator).not.toBe(0n);
+    polarSigns.add(p.power+":"+(p.factor.numerator>0n?"positive":"negative"));
     const actual=polarLimitValue(p);
     types.add(actual.kind);
     if(p.power===1){
@@ -102,6 +103,7 @@ describe("MT-EDU-025 P2G-C W03 exact polar and angular limits",()=>{
   }
   expect(distinct.size).toBe(24);
   expect(types.size).toBe(family.id==="multivar-polar-homogeneous-limit"?2:3);
+  if(family.id==="multivar-polar-homogeneous-limit")expect(polarSigns.size).toBe(4);
  },45000);
  it("rejects invalid indices, unsupported difficulties, and invalid analytical assumptions",()=>{
   for(const family of polarContinuityFamilies){
