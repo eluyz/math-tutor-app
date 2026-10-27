@@ -29,6 +29,7 @@ import type { PartialGradientProblem } from "./partialGradient";
 import type { MultivarDerivativeFollowupProblem } from "./multivarDerivativeFollowup";
 import type { MultivarLimitProblem } from "./multivarLimits";
 import type { PolarContinuityProblem } from "./polarContinuity";
+import type { RectangularPathProblem } from "./rectangularPaths";
 import type { HessianProblem } from "./hessian";
 import type { MultivarExtremaProblem } from "./multivarExtrema";
 import type { DegenerateDiskProblem } from "./degenerateDisk";
@@ -251,6 +252,7 @@ export type UniversityProblem =
   | MultivarDerivativeFollowupProblem
   | MultivarLimitProblem
   | PolarContinuityProblem
+  | RectangularPathProblem
   | HessianProblem
   | MultivarExtremaProblem
   | DegenerateDiskProblem

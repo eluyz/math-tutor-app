@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **202 rodziny**, **16437 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 158 rodzin wspiera advanced, a 144 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **204 rodziny**, **16581 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 160 rodzin wspiera advanced, a 146 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **158**, L5: **144**.
+Łącznie rodziny L4: **160**, L5: **146**.
 
-## MT-EDU-028 P3B — I06 (Issue #98, separate draft PR)
+## MT-EDU-029 P3C — M03 / W03 (Issue #100, separate unmerged PR)
+
+| Family | Levels | Variants | Bounded mathematical scope |
+| --- | --- | ---: | --- |
+| matrix-four-factor-dimensions | hard, advanced, expert | 72 | Four rectangular factors A·B·C·D with dimensions up to 7, compatible/incompatible at different multiplication stages, verified result shape or impossibility |
+| multivar-anisotropic-limit | hard, advanced, expert | 72 | u^p v²/(u⁶+v⁴), p∈{3,4}; nonexistence by u=t²,v=t³ vs axis; full squeeze proof for p=4 and continuity at the defined center |
+
+Total +144. After a separately approved merge: **204 families / 16,581 variants**. M03/W03 remain partially covered. No arbitrary matrix-expression parser or general 2D limit solver.
+
+## MT-EDU-028 P3B — I06 (PR #99 merged, CI and Pages PASS)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
