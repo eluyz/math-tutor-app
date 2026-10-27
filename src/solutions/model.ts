@@ -52,8 +52,11 @@ export function solutionFor(task: GeneratedTask): Solution {
       return finish(scalar(sum.result));
     }
     case "signed-product": {
-      const first = calc("product", -a, b); working("Pomnóż dwa pierwsze czynniki", "Iloczyn liczby ujemnej i dodatniej jest ujemny.", first);
-      const last = calculate("product", first.result, r(c)); working(`Uwzględnij czynnik ${c}`, "Dwie liczby ujemne dają dodatni iloczyn; mnożenie przez 1 zachowuje wynik.", last);
+      const first = calc("product", -a, b);
+      working("Pomnóż pierwszy ujemny i drugi dodatni czynnik", "Ujemna liczba razy dodatnia jest ujemna.", first);
+      if (c === 1) return finish(scalar(first.result));
+      const last = calculate("product", first.result, r(c));
+      working(`Pomnóż przez trzeci czynnik (${c})`, "Gdy mnożymy dwa ujemne czynniki, otrzymujemy wynik dodatni.", last);
       return finish(scalar(last.result));
     }
     case "fraction-add": case "fraction-subtract": {

@@ -6,6 +6,7 @@ import { allTemplates, difficulties, taskPool } from "../generators";
 import { getAnswerSpec } from "../exercises";
 import { categories, studyCategories } from "../locales/pl";
 import { solutionFor, type Calculation } from "./model";
+import { englishTask } from "../locales/lessons-en";
 import type { Rational } from "../rational";
 
 // Independent arithmetic: cross multiplication, without the production rational operators.
@@ -38,6 +39,39 @@ describe("rzeczywiste rozwiązania wszystkich 35 rodzin", () => {
       }
       expect(steps.at(-1)).toMatchObject({ kind: "answer", answer: getAnswerSpec(task) });
     }
+  });
+  it("MT-QA-002: each signed-product level explains only displayed factors in PL and EN", () => {
+    const signed = tasks.filter((task) => task.templateId === "signed-product" && isLegacyDifficulty(task.difficulty));
+    expect(signed.length).toBeGreaterThan(0);
+    const byLevel = new Set<string>();
+    for (const task of signed) {
+      const factor = task.parameters.c;
+      const easyCase = factor === 1;
+      byLevel.add(task.difficulty);
+      const pl = solutionFor(task);
+      const en = solutionFor(englishTask(task));
+      for (const [locale, steps] of [["pl", pl], ["en", en]] as const) {
+        const working = steps.filter((step) => step.kind === "working");
+        expect(working, `${locale}:${task.id}`).toHaveLength(easyCase ? 1 : 2);
+        expect(working[0].calculations, `${locale}:${task.id}`).toHaveLength(1);
+        expect(working[0].calculations[0].result.numerator < 0n).toBe(true);
+        const combined = working.map((step) => step.action + " " + step.reason).join(" ");
+        if (easyCase) {
+          expect(task.question).not.toContain("× (");
+          expect(combined).not.toMatch(/two negative|dwa ujemne|dwóch ujemnych|trzeci|third|multiply by 1|mnożenie przez 1/i);
+          expect(combined).toMatch(locale === "pl" ? /ujemna/i : /negative/i);
+        } else {
+          expect(factor).toBeLessThan(0);
+          expect(working[1].calculations).toHaveLength(1);
+          expect(working[1].calculations[0].result.numerator > 0n).toBe(true);
+          expect(working[1].reason).toMatch(locale === "pl" ? /dwa ujemne/i : /two negative/i);
+          expect(working[1].action).toContain(String(factor));
+          expect(task.question).toContain("× (");
+        }
+        expect(steps.at(-1)).toMatchObject({ kind: "answer", answer: getAnswerSpec(task) });
+      }
+    }
+    expect(byLevel).toEqual(new Set(["easy", "medium", "hard"]));
   });
   it("Sarrus zawiera sześć oddzielnych iloczynów z właściwym znakiem i sumami", () => {
     for (const task of tasks.filter((t) => t.templateId === "determinant-sarrus" && isLegacyDifficulty(t.difficulty))) {

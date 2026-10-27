@@ -423,16 +423,23 @@ function legacyScenes(task: GeneratedTask): Scene[] {
         "Keep the sign of the first term after changing the operation.",
       ],
     ],
-    "signed-product": [
-      [
-        "Multiply the first two factors",
-        "A negative times a positive is negative.",
-      ],
-      [
-        `Multiply by the remaining factor (${p.c})`,
-        "Two negative factors give a positive product; multiplying by 1 keeps the value.",
-      ],
-    ],
+    "signed-product": p.c === 1
+      ? [
+          [
+            "Multiply the negative factor by the positive factor",
+            "A negative number times a positive number is negative.",
+          ],
+        ]
+      : [
+          [
+            "Multiply the negative factor by the positive factor",
+            "A negative number times a positive number is negative.",
+          ],
+          [
+            `Multiply by the third factor (${p.c})`,
+            "Multiplying two negative factors gives a positive result.",
+          ],
+        ],
     "fraction-add": [
       [
         `Expand both fractions to denominator ${p.a * p.b}`,
