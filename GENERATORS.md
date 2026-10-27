@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **192 rodziny**, **15717 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 148 rodzin wspiera advanced, a 134 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **194 rodziny**, **15861 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 150 rodzin wspiera advanced, a 136 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **148**, L5: **134**.
+Łącznie rodziny L4: **150**, L5: **136**.
 
-## MT-EDU-025 P2G-C — W03 (Issue #88, osobny PR, bez merge)
+## MT-EDU-025 P2G-D — W02 (Issue #90, osobny PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| multivar-degenerate-quartic | hard, advanced, expert | 72 | Faktyczna klasyfikacja min/max/siodła dla a(x−h)⁴+b(y−k)⁴, mimo zerowego Hessianu w punkcie |
+| multivar-diagonal-quadratic-disk | hard, advanced, expert | 72 | Globalne min/max diagonalnej funkcji kwadratowej na domkniętym kole; środek, brzeg i remisy |
+
+Razem +144; po zatwierdzonym merge 194 rodziny / 15 861 wariantów. W02 nadal częściowe.
+
+## MT-EDU-025 P2G-C — W03 (PR #89 scalony, CI przed merge PASS)
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
