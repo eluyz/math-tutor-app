@@ -1,8 +1,17 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **204 rodziny**, **16581 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 160 rodzin wspiera advanced, a 146 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **206 rodzin**, **16725 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 162 rodziny wspierają advanced, a 148 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **160**, L5: **146**.
+Łącznie rodziny L4: **162**, L5: **148**.
+
+## MT-EDU-030 — five-unknown Gauss, 3×5 and 4×5 (Issue #109, unmerged PR)
+
+| Family | Levels | Variants | Bounded mathematical scope |
+| --- | --- | ---: | --- |
+| gauss-five-3x5 | hard, advanced, expert | 72 | Three equations, five unknowns; rank 3 consistent with two free variables or rank 2 inconsistent; exact Gaussian trace |
+| gauss-five-4x5 | hard, advanced, expert | 72 | Four equations, five unknowns; same independent rank and contradiction certification, exact two-parameter coefficient answers |
+
+Total proposed +144, yielding **206 families / 16,725 variants** after explicit owner-approved merge. Not a general parser, arbitrary matrix-shape engine, or five-variable Cramer solver. Independent minors and exact parameter-basis tests cover both PL/EN.
 
 ## MT-EDU-029 P3C — M03 / W03 (Issue #100, separate unmerged PR)
 

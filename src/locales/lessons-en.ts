@@ -232,9 +232,9 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
       labels: spec.labels.map((s) => {
         // Affine Gauss forms use fixed variable and parameter labels. Do not
         // blindly translate arbitrary input or introduce a symbolic parser.
-        const constant = /^([xyzw]): stała$/.exec(s);
+        const constant = /^([xyzwv]): stała$/.exec(s);
         if (constant) return `${constant[1]}: constant`;
-        if (/^[xyzw]: t[12]$/.test(s)) return s;
+        if (/^[xyzwv]: t[12]$/.test(s)) return s;
         if (!fieldLabels[s])
           throw new Error(`Missing English answer label: ${s}`);
         return fieldLabels[s];

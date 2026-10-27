@@ -43,6 +43,7 @@ import { gaussFamilies, presentGauss } from "./gauss";
 import { gaussCramerFollowupFamilies } from "./gaussCramerFollowup";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
 import { gaussRectangularParameterFamilies } from "./gaussRectangularParameters";
+import { gaussFiveFamilies } from "./gaussFive";
 import { chainFamilies, presentChain } from "./chainEqualities";
 import { rectangularFamilies, presentRectangular } from "./rectangularSystems";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
@@ -109,6 +110,7 @@ export const universityFamilies = [
   ...gaussCramerFollowupFamilies,
   ...gaussParameterFamilies,
   ...gaussRectangularParameterFamilies,
+  ...gaussFiveFamilies,
   ...chainFamilies,
   ...rectangularFamilies,
   ...cramerFourFamilies,
