@@ -4,8 +4,9 @@ import {triangularThreeFamilies,triangularThreeResult,triangularUpperInverse,low
 import {q,a,s,m,d,eq} from "./audit";
 import {assessAnswer,emptyAnswer,formatRational as f} from "../answers";
 import {polishLearningText} from "../../e2e/helpers/localization";
-import type {Rational} from "../rational";
+import {rational as normalize,type Rational} from "../rational";
 type M=readonly (readonly Rational[])[];
+const format=(v:Rational)=>f(normalize(v.numerator,v.denominator));
 const I=Array.from({length:3},(_,i)=>Array.from({length:3},(_,j)=>q(i===j?1:0)));
 const mul=(A:M,B:M):Rational[][]=>A.map(row=>B[0].map((_,j)=>row.reduce((acc,x,k)=>a(acc,m(x,B[k][j])),q(0))));
 const eql=(A:M,B:M)=>A.length===B.length&&A.every((row,i)=>row.length===B[i].length&&row.every((x,j)=>eq(x,B[i][j])));
@@ -68,10 +69,10 @@ describe("MT-EDU-026 P2H-B: 3×3 inverse-power and similarity exact audit",()=>{
     if(spec.kind!=="matrix")throw Error("Expected matrix");
     expect(eql(spec.values,wanted)).toBe(true);
     expect(assessAnswer(spec,emptyAnswer(spec)).kind).toBe("invalid");
-    const correct=wanted.map(row=>row.map(f));
+    const correct=wanted.map(row=>row.map(format));
     const checked=assessAnswer(spec,{kind:"matrix",values:correct});
     expect(checked,`${family.id}/${level}/${v}/${locale}: ${JSON.stringify(correct)}; feedback=${JSON.stringify(checked)}`).toEqual({kind:"correct"});
-    const wrong=correct.map(row=>[...row]);wrong[0][0]=f(a(wanted[0][0],q(1)));
+    const wrong=correct.map(row=>[...row]);wrong[0][0]=format(a(wanted[0][0],q(1)));
     expect(assessAnswer(spec,{kind:"matrix",values:wrong}).kind).toBe("incorrect");
     wrong[0][0]="1/0";
     expect(assessAnswer(spec,{kind:"matrix",values:wrong}).kind).toBe("invalid");
