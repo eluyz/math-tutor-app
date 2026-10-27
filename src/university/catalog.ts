@@ -140,9 +140,9 @@ const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraPro
 const present = (problem: UniversityProblem, locale: Locale) =>
   problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"
     ? presentIntegralMethodsFollowup(problem,locale)
-      : problem.kind === "integral-improper-interior-power" || problem.kind === "integral-improper-interior-pv"
+    : problem.kind === "integral-improper-interior-power" || problem.kind === "integral-improper-interior-pv"
     ? presentInteriorImproper(problem,locale)
-    :   : problem.kind === "integral-improper-infinity" || problem.kind === "integral-improper-endpoint"
+    : problem.kind === "integral-improper-infinity" || problem.kind === "integral-improper-endpoint"
     ? presentImproperIntegral(problem, locale)
     : problem.kind === "integral-direct-product" || problem.kind === "integral-table-arctan"
     ? presentIntegralBasicsFollowup(problem, locale)
