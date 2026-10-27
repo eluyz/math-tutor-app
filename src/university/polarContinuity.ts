@@ -110,7 +110,7 @@ export function presentPolarContinuity(p:PolarContinuityProblem,locale:Locale){
    lesson.work("v=0: g="+f(p.base)+"; v=u≠0: g="+f(diagonal),
      t("Na osi poziomej część ułamkowa wynosi zero; na przekątnej wynosi 1/4.",
        "On the horizontal axis the fraction is zero; on the diagonal it equals 1/4."));
-   lesson.work(f(p.base)+" ≠ "+f(diagonal)+" ⇒ lim[(x,y)→"+at+"]g nie istnieje",
+   lesson.work(f(p.base)+" ≠ "+f(diagonal)+" ⇒ "+t("granica nie istnieje","limit does not exist"),
      t("Niezerowy współczynnik daje dwie różne granice drogowe, więc granica 2D nie istnieje.",
        "The nonzero coefficient gives two distinct path limits, so the 2D limit does not exist."));
   }
@@ -130,7 +130,7 @@ export function presentPolarContinuity(p:PolarContinuityProblem,locale:Locale){
    t("Na osiach mianownik skraca się odpowiednio z u² albo z v².",
      "Along the axes the denominator cancels with u² or v² respectively."));
  if(classification==="nonremovable"){
-  lesson.work(f(onU)+" ≠ "+f(onV)+" ⇒ lim[(x,y)→"+at+"]f nie istnieje",
+  lesson.work(f(onU)+" ≠ "+f(onV)+" ⇒ "+t("granica nie istnieje","limit does not exist"),
     t("Różne granice wzdłuż osi wystarczają, by wykazać nieciągłość nieusuwalną.",
       "Distinct axis limits prove a nonremovable discontinuity."));
   lesson.work("f"+at+"="+f(p.valueAt)+t(" nie zmienia granic drogowych"," does not change path limits"),
