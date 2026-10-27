@@ -9,7 +9,7 @@ import { teaching } from "./teaching";
 type Linear = Extract<LinearAlgebraProblem,{kind:"linear-system"}>;
 const compact=(m:ExactMatrix)=>`[${m.map(row=>`[${row.map(f).join(", ")}]`).join("; ")}]`;
 const zero=r(0),one=r(1);
-const varNames=["x","y","z","w"];
+const varNames=["x","y","z","w","v"];
 
 /** Canonical affine coefficients for x_j=c_j+sum_k alpha_jk*t_k.
  *  t_k is exactly the kth free variable, in left-to-right column order. */
