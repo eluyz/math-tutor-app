@@ -101,7 +101,7 @@ function presentChain(p:Chain,locale:Locale){
    t("Sprawdziliśmy zgodność wszystkich trzech mnożeń, a nie tylko początkowej pary.",
      "All three multiplications are compatible, not merely the first pair."):
    t("Wystarczy jedna niezgodna para w wymaganym łańcuchu, aby iloczyn nie istniał.",
-     "One incompatible inner dimension makes the requested product undefined."));
+     "One incompatible inner dimension makes the requested product not defined."));
  return lesson.finish(
   t("Określ, czy istnieje iloczyn ABCD. Jeśli tak, podaj jego wymiary. ",
     "Determine whether ABCD is defined. If so, give its dimensions. ")+
