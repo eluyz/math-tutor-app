@@ -1,6 +1,8 @@
 # Plan rozwoju
 
-> **MT-EDU-025 P2G-D (27.10.2026):** Issue #90 — W02: ekstrema faktyczne mimo nierozstrzygającego Hessianu oraz globalne na kole dla formy kwadratowej. Osobny PR, +144 warianty, docelowo 194 rodziny / 15 861 wariantów po zgodzie na merge. W02 nadal częściowe.
+> **MT-EDU-026 P2H-A (27.10.2026):** Issue #92 — rozszerzenie M04 o dokładne potęgi ujemne A⁻² i podobieństwo PAP⁻¹ macierzy 2×2 (+144 warianty). Osobny PR bez automatycznego scalania. Po zatwierdzonym merge 196 rodzin / 16 005 wariantów. M04 nadal częściowe.
+
+> **MT-EDU-025 P2G-D (27.10.2026):** zatwierdzony Squash and merge PR #91, commit `33f77ed2`; 194 rodziny / 15 861 wariantów. CI przed merge PASS, CI i Pages na main sprawdzane osobno. W02 nadal częściowe.
 
 > **MT-EDU-025 P2G-C (27.10.2026):** zatwierdzony Squash and merge PR #89, main `0b65a743`: 192 rodziny / 15 717 wariantów. 1336 testów Vitest, 577 Playwright i kompilacja PASS przed merge; kontrola CI i Pages po merge osobno. W03 pozostaje częściowe.
 
