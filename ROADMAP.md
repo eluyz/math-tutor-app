@@ -1,6 +1,8 @@
 # Plan rozwoju
 
-> **MT-EDU-025 P2G-B (26.10.2026):** po zatwierdzonym merge PR #86 (limit CI 40 min), `main` ma 188 rodzin / 15 429 wariantów. Osobna gałąź P2G-B dodaje ekstrema na prostokącie i kole (+144 warianty, W02) — po osobno zatwierdzonym merge 190 rodzin / 15 573 warianty. Pełne CI i publikacja po PR #86 podlegają odrębnej weryfikacji. Nie scalać P2G-B bez zgody właściciela.
+> **MT-EDU-025 P2G-C (27.10.2026):** Issue #88 — nowy pakiet W03, dwa generatory: granice biegunowe i ciągłość z zależnością kątową (hard/advanced/expert, po 24 warianty), razem +144. Osobna gałąź i PR, bez automatycznego scalania. Po osobno zatwierdzonym merge docelowo 192 rodziny / 15 717 wariantów. W03 nadal częściowe.
+
+> **MT-EDU-025 P2G-B (27.10.2026):** PR #87 zatwierdzony i scalony, `main` `e44c9c1` ma 190 rodzin / 15 573 warianty. CI (1324 Vitest, 569 Playwright) i GitHub Pages po merge PASS. W02 pozostaje częściowe.
 
 > **Bieżący stan po PR #84 (26.10.2026):** main `b113d789` — 186 rodzin / 15 285 wariantów, CI i Pages PASS. P2G-A (W01) w osobnym PR (+144 warianty). Po ewentualnym zatwierdzonym merge: 188 rodzin / 15 429 wariantów. Bez automatycznego scalania.
 

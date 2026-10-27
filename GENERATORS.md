@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **190 rodzin**, **15573 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 146 rodzin wspiera advanced, a 132 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **192 rodziny**, **15717 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 148 rodzin wspiera advanced, a 134 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **146**, L5: **132**.
+Łącznie rodziny L4: **148**, L5: **134**.
 
-## MT-EDU-025 P2G-B — W02 (osobny PR, bez merge)
+## MT-EDU-025 P2G-C — W03 (Issue #88, osobny PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| multivar-polar-homogeneous-limit | hard, advanced, expert | 72 | Współrzędne biegunowe: `u²v²/(u²+v²)^p`, p=1 lub 2; granica przez oszacowanie lub dwie różne drogi |
+| multivar-angular-continuity | hard, advanced, expert | 72 | Iloraz `(a u²+c v²)/(u²+v²)`; klasyfikacja ciągłości, nieciągłości usuwalnej i nieusuwalnej |
+
+Razem +144; po osobno zatwierdzonym merge 192 rodziny / 15 717 wariantów. Kompetencja W03 nadal częściowo pokryta.
+
+## MT-EDU-025 P2G-B — W02 (PR #87 scalony, CI i Pages PASS)
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |

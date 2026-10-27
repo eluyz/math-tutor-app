@@ -17,6 +17,7 @@ import { derivativeFollowupFamilies, presentDerivativeFollowup } from "./derivat
 import { partialGradientFamilies, presentPartialGradient } from "./partialGradient";
 import { multivarDerivativeFollowupFamilies, presentMultivarDerivativeFollowup } from "./multivarDerivativeFollowup";
 import { multivarLimitFamilies, presentMultivarLimit } from "./multivarLimits";
+import { polarContinuityFamilies, presentPolarContinuity } from "./polarContinuity";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { multivarExtremaFamilies, presentMultivarExtrema } from "./multivarExtrema";
 import { sequenceFamilies, presentSequence } from "./sequences";
@@ -76,6 +77,7 @@ export const universityFamilies = [
   ...partialGradientFamilies,
   ...multivarDerivativeFollowupFamilies,
   ...multivarLimitFamilies,
+  ...polarContinuityFamilies,
   ...hessianFamilies,
   ...multivarExtremaFamilies,
   ...sequenceFamilies,
@@ -152,6 +154,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)
     ? presentElementaryAnalysis(problem, locale)
+    : problem.kind === "multivar-polar-homogeneous-limit" || problem.kind === "multivar-angular-continuity"
+    ? presentPolarContinuity(problem, locale)
     : problem.kind === "multivar-path-limit" || problem.kind === "multivar-continuity-point"
     ? presentMultivarLimit(problem, locale)
     : problem.kind === "multivar-rectangle-extrema" || problem.kind === "multivar-disk-linear-extrema"
