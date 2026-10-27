@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **194 rodziny**, **15861 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 150 rodzin wspiera advanced, a 136 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **196 rodzin**, **16005 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 152 rodziny wspierają advanced, a 138 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **150**, L5: **136**.
+Łącznie rodziny L4: **152**, L5: **138**.
 
-## MT-EDU-025 P2G-D — W02 (Issue #90, osobny PR, bez merge)
+## MT-EDU-026 P2H-A — M04 (Issue #92, osobny PR, bez merge)
+
+| Rodzina | Poziomy | Warianty | Zakres |
+| --- | --- | ---: | --- |
+| matrix-negative-square-two | hard, advanced, expert | 72 | A⁻² dla odwracalnej macierzy 2×2, dokładne A⁻¹ i mnożenie, sprawdzenie A²A⁻²=I |
+| matrix-conjugation-two | hard, advanced, expert | 72 | Wyrażenie P A P⁻¹, dokładna odwrotność P, kolejność mnożenia i zachowanie wyznacznika |
+
+Razem +144; po osobnym zatwierdzonym scaleniu 196 rodzin / 16 005 wariantów. M04 nadal częściowo pokryte; bez macierzy o dowolnym rozmiarze.
+
+## MT-EDU-025 P2G-D — W02 (PR #91 scalony, przed merge CI PASS)
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
