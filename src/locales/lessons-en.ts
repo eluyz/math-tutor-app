@@ -247,6 +247,10 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
         ...o,
         label:
           ({
+            "Całka niewłaściwa jest rozbieżna; wartość główna Cauchy’ego wynosi 0": "The improper integral diverges; its Cauchy principal value is zero",
+            "Całka niewłaściwa jest rozbieżna; wartość główna Cauchy’ego jest niezerowa": "The improper integral diverges; its Cauchy principal value is nonzero",
+            "Całka niewłaściwa jest zbieżna i równa wartości głównej": "The improper integral converges and equals its principal value",
+            "Całka niewłaściwa i wartość główna Cauchy’ego nie istnieją": "Neither the improper integral nor the Cauchy principal value exists",
             "ciągła i różniczkowalna": "continuous and differentiable",
             "ciągła, ale ma skończone różne pochodne jednostronne (załamanie)": "continuous with unequal finite one-sided derivatives (corner)",
             "ciągła, styczna pionowa (obustronnie ta sama nieskończona pochodna)": "continuous, vertical tangent (same signed infinite one-sided derivatives)",

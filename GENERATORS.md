@@ -1,10 +1,19 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **200 rodzin**, **16293 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 156 rodzin wspiera advanced, a 142 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **202 rodziny**, **16437 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 158 rodzin wspiera advanced, a 144 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **156**, L5: **142**.
+Łącznie rodziny L4: **158**, L5: **144**.
 
-## MT-EDU-027 P3A — D06/G08 (Issue #96, separate draft PR)
+## MT-EDU-028 P3B — I06 (Issue #98, separate draft PR)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| integral-improper-interior-power | hard, advanced, expert | 72 | ∫k/|x−h|^p for p=1/2,1,2 and singular h inside the interval; independent limits at h; finite 2k(a+b) or sign(k) infinity |
+| integral-improper-interior-pv | hard, advanced, expert | 72 | Divergent ∫k/(x−h) with opposite signed infinities on the two sides; Cauchy PV=k ln(b/a) exists, vanishing only if a=b |
+
+Total +144; **202 families / 16,437 variants** only after separately approved merge. I06 remains partially covered.
+
+## MT-EDU-027 P3A — D06/G08 (PR #97 merged, pre-merge CI PASS)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
