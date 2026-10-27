@@ -7,7 +7,7 @@ import {polishLearningText} from "./helpers/localization";
 const button=(page:Page,name:string)=>page.getByRole("button",{name,exact:true});
 const families=[
  {id:"derivative-vertical-cusp",category:"derivatives",plCategory:"Pochodne",enCategory:"Derivatives",pl:"Styczna pionowa czy ostry wierzchołek?",en:"Vertical tangent or cusp?"},
- {id:"limit-oscillatory-heine",category:"function-limits",plCategory:"Granice funkcji",enCategory:"Function limits",pl:"Granica oscylacyjna i kryterium Heinego",en:"Oscillatory limits and the Heine criterion"},
+ {id:"limit-oscillatory-heine",category:"function-limits",plCategory:"Granice funkcji",enCategory:"Limits of functions",pl:"Granica oscylacyjna i kryterium Heinego",en:"Oscillatory limits and the Heine criterion"},
 ] as const;
 for(const width of [375,1280])for(const en of [false,true])
 for(const level of ["hard","expert"] as const)for(const fam of families)
