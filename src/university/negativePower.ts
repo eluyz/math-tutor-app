@@ -15,7 +15,10 @@ const print=(A:Matrix)=>"["+A.map(row=>row.map(fmt).join(", ")).join("; ")+"]";
 const den=(d:Difficulty)=>d==="hard"?1:d==="advanced"?2:3;
 const sign=(v:number)=>v%2===0?1:-1;
 function base(v:number,level:Difficulty):Matrix{
- const d=den(level),a=r(((v*5)%13)-6||1,d),b=r((Math.floor(v/3)%7)-3||-1,d);
+ const d=den(level),a=r(((v*5)%13)-6||1,d);
+ const offsetDen=level==="hard"?3:level==="advanced"?5:7;
+ const bIndex=(Math.floor(v/3)%7)-3;
+ const b=r(bIndex*offsetDen+1,offsetDen); // distinct 1/3, 1/5, 1/7 fractional parts across levels
  return [[add(r(1),mul(a,b)),a],[b,r(1)]];
 }
 function makePower(v:number,level:Difficulty):Power{return {kind:"matrix-negative-square-two",A:base(v,level)};}
@@ -68,7 +71,7 @@ export function presentNegativePower(p:NegativePowerProblem,locale:Locale){
    t("Sprawdzenie przez mnożenie potwierdza własność potęg dla macierzy odwracalnej.",
      "Multiplication verifies the inverse-power identity for an invertible matrix."));
   return lesson.finish(
-   t("Oblicz macierz A⁻² dla A=","Calculate the matrix A⁻² for A=")+print(p.A)+".",
+   t("Oblicz macierz A⁻² dla A=","Calculate the matrix A⁻² for A=")+print(p.A)+". "+t("Podaj cztery dokładne elementy wyniku.","Enter the four exact entries of the result."),
    {kind:"matrix",values:result},
    t("Najpierw oblicz det(A) i A⁻¹.","Compute det(A) and A⁻¹ first."),
    t("Następnie pomnóż A⁻¹ przez A⁻¹ w zwykły sposób macierzowy.",
