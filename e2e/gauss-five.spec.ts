@@ -14,7 +14,7 @@ for (const width of [375, 1280]) for (const en of [false, true])
       await button(page, en ? "Hard" : "Trudny").click();
       const title = en ? "Gaussian systems " + shape.replace("x", "×") + ": five unknowns" :
         "Gauss " + shape.replace("x", "×") + ": pięć niewiadomych";
-      await button(page, title).click();
+      await page.locator(".exercise-list-items .exercise-item").filter({ hasText: title }).click();
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", "gauss-five-" + shape);
       const table = page.locator(".linear-algebra-matrices .given-matrix");
       await expect(table.locator("tbody tr")).toHaveCount(Number(shape[0]));
