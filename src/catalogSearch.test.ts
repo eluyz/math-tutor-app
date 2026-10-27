@@ -19,14 +19,14 @@ describe("catalog search and selection", () => {
     expect(searchCatalog(" ")).toEqual([]);
     expect(searchCatalog("zzzz-no-such-family")).toEqual([]);
     expect(new Set(searchCatalog("rownan").map((family) => family.id)).size).toBe(searchCatalog("rownan").length);
-    expect(allTemplates).toHaveLength(194);
-    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(176);
+    expect(allTemplates).toHaveLength(196);
+    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(178);
     const categories = new Set(allTemplates.map((family) => family.category));
     expect(categories.size).toBe(14);
     expect([...categories].reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(15861);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(16005);
     expect([...categories].filter((category) => category !== "integrals").reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(14565);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(14709);
   });
 
   it("preserves supported level or chooses nearest available level without changing the family", () => {
