@@ -15,7 +15,7 @@ const denominator=(level:Difficulty)=>level==="hard"?2:level==="advanced"?3:5;
 function derivative(v:number,level:Difficulty):Derivative{
  const d=denominator(level);
  return {kind:"derivative-vertical-cusp",at:r(v-11),
-  constant:r((v%7-3)*d+1,d),coefficient:r(sign(v)*(v%5+1),d),
+  constant:r((v%7-3)*d+1,d),coefficient:r(sign(Math.floor(v/2))*(v%5+1),d),
   linear:r((v%9-4),d),mode:v%2===0?"vertical":"cusp"};
 }
 function oscillation(v:number,level:Difficulty):Oscillation{
