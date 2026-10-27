@@ -94,9 +94,9 @@ function presentChain(p:Chain,locale:Locale){
     t("Wewnętrzne wymiary są równe; wynik ma zewnętrzne wymiary.",
       "Inner dimensions agree; the result takes the outer dimensions."):
     t("Liczba kolumn lewej macierzy różni się od liczby wierszy prawej. Łańcuch nie jest wykonalny.",
-      "The left column count differs from the right row count. The product is undefined."));
+      "The left column count differs from the right row count. The product is not defined."));
  }
- lesson.work("dim(ABCD)="+(trace.shape?dim(trace.shape):t("nie istnieje","undefined")),
+ lesson.work("dim(ABCD)="+(trace.shape?dim(trace.shape):t("nie istnieje","not defined")),
   trace.shape?
    t("Sprawdziliśmy zgodność wszystkich trzech mnożeń, a nie tylko początkowej pary.",
      "All three multiplications are compatible, not merely the first pair."):
