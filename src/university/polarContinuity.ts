@@ -70,13 +70,13 @@ const polarExpression=(p:Polar)=>
 const angularExpression=(p:Angular)=>
  "g(x,y)=("+f(p.base)+")+(("+f(p.a)+")u²+("+f(p.c)+")v²)/(u²+v²)";
 const options=(locale:Locale)=>locale==="pl"?[
- {value:"continuous",label:"ciągła w punkcie"},
- {value:"removable",label:"nieciągłość usuwalna"},
- {value:"nonremovable",label:"nieciągłość nieusuwalna"}
+ {value:"continuous",label:"Funkcja jest ciągła w punkcie"},
+ {value:"removable",label:"Nieciągłość usuwalna — granica istnieje, ale f(a,b) jest inne"},
+ {value:"nonremovable",label:"Nieciągłość nieusuwalna — granica nie istnieje"}
 ]:[
- {value:"continuous",label:"continuous at the point"},
- {value:"removable",label:"removable discontinuity"},
- {value:"nonremovable",label:"nonremovable discontinuity"}
+ {value:"continuous",label:"The function is continuous at the point"},
+ {value:"removable",label:"Removable discontinuity — the limit exists but differs from f(a,b)"},
+ {value:"nonremovable",label:"Nonremovable discontinuity — the limit does not exist"}
 ];
 export function presentPolarContinuity(p:PolarContinuityProblem,locale:Locale){
  const lesson=teaching(locale),{t}=lesson;
