@@ -48,7 +48,7 @@ export function inverse(a: ExactMatrix): { value: ExactMatrix | null; reduction:
 }
 export function classifySystem(a: ExactMatrix,b: readonly Rational[]): {kind:"system-one"|"system-none"|"system-many"; values:readonly Rational[]; rankA:number; rankAugmented:number; reduction:Reduction; freeColumns:readonly number[]} {
   const {rows,columns}=checkMatrix(a);
-  if(b.length!==rows || columns>4) throw new Error("Invalid system dimensions");
+  if(b.length!==rows || columns>5) throw new Error("Invalid system dimensions");
   const reduction=reduceRows(a.map((row,i)=>[...row,b[i]]),columns);
   const rankA=reduction.pivots.length;
   const inconsistent=reduction.matrix.some(row=>row.slice(0,columns).every(zero) && !zero(row[columns]));
@@ -68,7 +68,7 @@ export function parameterization(result: ReturnType<typeof classifySystem>, vari
 /** Forward Gaussian elimination with a separate exact backward substitution. */
 export function gaussianElimination(a: ExactMatrix, b: readonly Rational[]): Reduction {
   const {rows,columns}=checkMatrix(a);
-  if(b.length!==rows || columns>4) throw new Error("Invalid system dimensions");
+  if(b.length!==rows || columns>5) throw new Error("Invalid system dimensions");
   const matrix=a.map((row,i)=>[...row,b[i]]), steps:RowStep[]=[], pivots:number[]=[];
   let lead=0;
   for(let col=0;col<columns && lead<rows;col++){
