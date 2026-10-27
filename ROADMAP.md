@@ -1,5 +1,9 @@
 # Plan rozwoju
 
+> **MT-EDU-029 P3C (27.10.2026):** Issue #100 and an independent, unmerged PR: M03 four-factor rectangular compatibility and W03 anisotropic limits with nonlinear path + universal squeeze. 144 bilingual deterministic variants; only after an owner-approved merge: **204 families / 16,581 variants**. Both skills remain partially covered. New project work is documented in English; historical Polish records stay intact.
+
+> **MT-EDU-028 P3B (27.10.2026, completed):** PR #99 was owner-approved and squash merged (`8bc01bd0e64d477073d71bd4c5d58d6654f8a4bd`); post-merge main CI 40501158920 PASS, Pages 40502824244 PASS; Issue #98 closed. Deployed **202 families / 16,437 variants**. I06 remains partially covered.
+
 > **MT-EDU-028 P3B (27.10.2026):** Issue #98 i osobny PR wprowadzający do I06 dwie rodziny całek niewłaściwych z osobliwością wewnątrz przedziału: potęga |x−h|^(−p) oraz różnica między zwykłą rozbieżną całką a skończoną wartością główną Cauchy’ego. +144 warianty, docelowo 202 rodziny / 16 437 wariantów po osobno zatwierdzonym scaIeniu. I06 nadal częściowe.
 
 > **MT-EDU-027 P3A (27.10.2026):** PR #97 scalony przez właściciela, commit `966a7b1e`; CI na main i Pages weryfikowane osobno. Audyt aktualnej mapy potwierdził 64 kompetencje: 15 pokrytych w zdefiniowanym zakresie, 49 częściowych, 0 bez generatora; jest to audyt zakresów, nie dowód pełnej poprawności dowolnego zadania. Issue #96 i osobny PR dodają D06 (styczne pionowe/ostrza, rzeczywiste granice ilorazu różnicowego) oraz G08 (oscylacje Heinego i wygaszanie przez oszacowanie): 2 × 3 × 24 = +144; dopiero po zatwierdzonym merge 200 rodzin / 16 293 warianty. Bez scalania bez zgody.
