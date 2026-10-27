@@ -1,6 +1,8 @@
 # Plan rozwoju
 
-> **MT-EDU-025 P2G-C (27.10.2026):** Issue #88 — nowy pakiet W03, dwa generatory: granice biegunowe i ciągłość z zależnością kątową (hard/advanced/expert, po 24 warianty), razem +144. Osobna gałąź i PR, bez automatycznego scalania. Po osobno zatwierdzonym merge docelowo 192 rodziny / 15 717 wariantów. W03 nadal częściowe.
+> **MT-EDU-025 P2G-D (27.10.2026):** Issue #90 — W02: ekstrema faktyczne mimo nierozstrzygającego Hessianu oraz globalne na kole dla formy kwadratowej. Osobny PR, +144 warianty, docelowo 194 rodziny / 15 861 wariantów po zgodzie na merge. W02 nadal częściowe.
+
+> **MT-EDU-025 P2G-C (27.10.2026):** zatwierdzony Squash and merge PR #89, main `0b65a743`: 192 rodziny / 15 717 wariantów. 1336 testów Vitest, 577 Playwright i kompilacja PASS przed merge; kontrola CI i Pages po merge osobno. W03 pozostaje częściowe.
 
 > **MT-EDU-025 P2G-B (27.10.2026):** PR #87 zatwierdzony i scalony, `main` `e44c9c1` ma 190 rodzin / 15 573 warianty. CI (1324 Vitest, 569 Playwright) i GitHub Pages po merge PASS. W02 pozostaje częściowe.
 
