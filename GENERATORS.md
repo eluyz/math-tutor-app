@@ -1,8 +1,16 @@
+## MT-F05-P0C — disconnected global injectivity (Issue #127; proposed Draft PR)
+
+| Family | Levels | Variants | Mathematical scope |
+| --- | --- | --- | --- |
+| function-disconnected-injectivity | hard, advanced, expert | 72 | Global horizontal-line test on distinct branches, open/closed endpoints, holes, flat sections and synthetic shared-x jump; compare all included x values, not just branch count |
+
+**Candidate only:** 215 families / 17,373 variants pending CI, independent review and explicit owner permission. The six source graphs remain private, and full F05 source-to-app acceptance remains partial.
+
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **214 rodzin**, **17301 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 169 rodzin wspiera advanced, a 155 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **215 rodzin**, **17373 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 170 rodzin wspiera advanced, a 156 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **169**, L5: **155**.
+Łącznie rodziny L4: **170**, L5: **156**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 

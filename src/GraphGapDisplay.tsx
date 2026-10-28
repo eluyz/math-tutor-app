@@ -2,9 +2,10 @@ import { useId } from "react";
 import type { Locale } from "./locales/types";
 import type { GraphGapProblem, GapNode } from "./university/graphGaps";
 import type { GraphGapRangeProblem } from "./university/graphGapRange";
+import type { GraphDisconnectedInjectivityProblem } from "./university/graphDisconnectedInjectivity";
 
 const fmt=(n:number)=>String(n).replace("-","−");
-export function GraphGapDisplay({problem,locale}:{problem:GraphGapProblem|GraphGapRangeProblem;locale:Locale}) {
+export function GraphGapDisplay({problem,locale}:{problem:GraphGapProblem|GraphGapRangeProblem|GraphDisconnectedInjectivityProblem;locale:Locale}) {
   const id=useId().replace(/:/g,"");
   const [a,h,b]=problem.left,[c,d]=problem.right;
   const [ac,bc,cc,dc]=problem.included;
@@ -37,7 +38,7 @@ export function GraphGapDisplay({problem,locale}:{problem:GraphGapProblem|GraphG
         </g>)}
         {xMin<=0&&xMax>=0&&<line x1={px(0)} x2={px(0)} y1={12} y2={225}
           stroke="currentColor" strokeOpacity="0.55" strokeWidth="1.5"/>}
-        {[a.x,h.x,b.x,c.x,d.x].map(x=><g key={x}>
+        {[...new Set([a.x,h.x,b.x,c.x,d.x])].map(x=><g key={x}>
           <line x1={px(x)} x2={px(x)} y1={16} y2={225}
             stroke="currentColor" strokeOpacity="0.12"/>
           <text x={px(x)} y={244} textAnchor="middle" fontSize="12" fill="currentColor">{x}</text>
