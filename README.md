@@ -1,5 +1,7 @@
 # Math Tutor
 
+MT-EDU-032 (Issue #114, separate PR awaiting explicit owner approval): exact 2×2 determinant calculations with irrational radical coefficients in Q(√d), d∈{2,3,5,7}. One bounded family × hard/advanced/expert × 24 = +72 bilingual tasks, with rendered radical matrices and exact symbolic steps. **Prospective** catalog 209 families / 16,941 variants only after approved merge. Existing rational 2×2–5×5 determinants remain unchanged; arbitrary multiradical expressions are out of scope.
+
 See [SYLLABUS_ACCEPTANCE.md](SYLLABUS_ACCEPTANCE.md) for a source-backed, bounded 64-skill curriculum acceptance matrix and the remaining assessment-format gaps.
 
 MT-EDU-031 (Issue #111, PR #112 merged; main CI/Pages verification follows): M14 exact rank of 5×4 and 6×3 matrices: two families × hard/advanced/expert × 24 = 144 PL/EN variants, with exact row-operation traces and independent minor tests. Catalog **208 families / 16,869 variants** after owner-approved merge; legacy matrix/system/inverse size limits unchanged.
