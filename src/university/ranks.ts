@@ -4,7 +4,8 @@ import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import type { LinearAlgebraProblem, UniversityFamily } from "./schema";
 import { teaching } from "./teaching";
-import { classifySystem, parameterization, rank, reduceRows, type ExactMatrix } from "./linearAlgebraMath";
+import { classifySystem, parameterization, reduceRows, type ExactMatrix } from "./linearAlgebraMath";
+import { reduceTallRank } from "./rankTall";
 const compact=(a:ExactMatrix)=>`[${a.map(row=>`[${row.map(f).join(", ")}]`).join("; ")}]`;
 const options=(locale:Locale)=>[
   {value:"system-one",label:locale==="pl"?"Jedno rozwiązanie":"Exactly one solution"},
@@ -58,7 +59,7 @@ export function presentRank(p:Extract<LinearAlgebraProblem,{kind:"linear-rank"|"
     return lesson.finish(t(`Układ ma ${p.equations} równań i ${p.variables} niewiadomych, rank(A) = ${p.rankA}, rank([A|b]) = ${p.rankAugmented}. Ile ma rozwiązań?`,`A system has ${p.equations} equations and ${p.variables} unknowns, rank(A) = ${p.rankA}, rank([A|b]) = ${p.rankAugmented}. How many solutions?`),choice(kind,locale),t("Porównaj dwa rzędy, a potem liczbę niewiadomych.","Compare the two ranks, then the number of unknowns."),t("Różne rzędy: brak; równe n: jedno; równe mniejsze od n: nieskończenie wiele.","Different ranks: none; equal to n: one; equal below n: infinitely many."));
   }
   if(p.kind==="linear-rank"){
-    const reduction=reduceRows(p.matrix),value=rank(p.matrix);
+    const reduction=p.matrix.length>4?reduceTallRank(p.matrix):reduceRows(p.matrix),value=reduction.pivots.length;
     lesson.work(`A = ${compact(p.matrix)}`,t("Rząd to liczba pivotów, czyli niezerowych wierszy po eliminacji.","Rank is the number of pivots, or nonzero rows after elimination."));
     for(const step of reduction.steps)lesson.work(`${step.action}: ${compact(step.matrix)}`,t("Elementarne operacje wierszowe nie zmieniają rzędu; pivot jest zawsze niezerowy.","Elementary row operations preserve rank; a chosen pivot is always nonzero."));
     lesson.work(`RREF(A) = ${compact(reduction.matrix)}; rank(A) = ${value}`,t("Liczymy niezerowe wiersze, także dla macierzy prostokątnej; zerowy wyznacznik sam nie określa rzędu.","Count nonzero rows, including for rectangular matrices; a zero determinant alone does not determine rank."));
