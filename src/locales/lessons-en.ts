@@ -247,6 +247,8 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
         ...o,
         label:
           ({
+            "Tak — każda prosta pozioma przecina wykres najwyżej raz.": "Yes — every horizontal line meets the graph at most once.",
+            "Nie — istnieje prosta pozioma przecinająca wykres co najmniej dwa razy.": "No — some horizontal line meets the graph at least twice.",
             "Całka niewłaściwa jest rozbieżna; wartość główna Cauchy’ego wynosi 0": "The improper integral diverges; its Cauchy principal value is zero",
             "Całka niewłaściwa jest rozbieżna; wartość główna Cauchy’ego jest niezerowa": "The improper integral diverges; its Cauchy principal value is nonzero",
             "Całka niewłaściwa jest zbieżna i równa wartości głównej": "The improper integral converges and equals its principal value",
