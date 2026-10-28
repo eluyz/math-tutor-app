@@ -54,7 +54,7 @@ export const horizontalAreaFamilies:readonly UniversityFamily[]=[{
 
 export function presentHorizontalSliceArea(p:HorizontalSliceAreaProblem,locale:Locale) {
   const lesson=teaching(locale),{t}=lesson;
-  const {lower,upper}=horizontalAreaBounds(p);
+  const {upper}=horizontalAreaBounds(p);
   const c=fmt(p.center),k=fmt(p.coefficient),h=fmt(p.bottom),R=fmt(p.radius);
   const upperText=fmt(upper), result=fmt(exactHorizontalSliceArea(p)),Rsquared=fmt(square(p.radius));
   const left="("+c+")−("+k+")√(y−("+h+"))";
