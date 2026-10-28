@@ -39,6 +39,7 @@ import { inverseFourFamilies } from "./inverseFour";
 import { inverseFourFollowupFamilies } from "./inverseFourFollowup";
 import { rankFamilies, presentRank } from "./ranks";
 import { rankExtensionFamilies } from "./rankExtensions";
+import { tallRankFamilies } from "./rankTall";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { gaussCramerFollowupFamilies } from "./gaussCramerFollowup";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
@@ -106,6 +107,7 @@ export const universityFamilies = [
   ...inverseFourFollowupFamilies,
   ...rankFamilies,
   ...rankExtensionFamilies,
+  ...tallRankFamilies,
   ...gaussFamilies,
   ...gaussCramerFollowupFamilies,
   ...gaussParameterFamilies,
