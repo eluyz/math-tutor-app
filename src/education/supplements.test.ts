@@ -143,7 +143,7 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain(`MT-EDU-007 P1: **384** nowych instancji; łącznie **8133**.`);
   expect(doc).toContain(`MT-EDU-007 P2: **360** nowych instancji; łącznie **8493**.`);
   expect(doc).toContain(`MT-EDU-007 P3 (częściowo): **${added007.length - 1128}** nowych instancji; łącznie **${beforeIntegrals.length}**.`);
-  expect(integralTasks).toHaveLength(1440);
+  expect(integralTasks).toHaveLength(1512);
   expect(all.filter(task => ["function-parity", "function-affine-inverse"].includes(task.templateId))).toHaveLength(144);
   expect(all.filter(task => ["function-tangent-domain", "function-mixed-domain"].includes(task.templateId))).toHaveLength(144);
   expect(all.filter(task => ["function-graph-domain-range", "function-graph-zeros"].includes(task.templateId))).toHaveLength(144);

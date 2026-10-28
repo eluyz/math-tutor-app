@@ -66,6 +66,7 @@ import { definiteIntegralFollowupFamilies, presentDefiniteIntegralFollowup } fro
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
 import { interiorImproperFamilies, presentInteriorImproper } from "./interiorImproper";
 import { areaArcFamilies, presentAreaArc } from "./areaArc";
+import { horizontalAreaFamilies, presentHorizontalSliceArea } from "./horizontalSliceArea";
 import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabolasArea";
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
@@ -136,6 +137,7 @@ export const universityFamilies = [
   ...improperIntegralFamilies,
   ...interiorImproperFamilies,
   ...areaArcFamilies,
+  ...horizontalAreaFamilies,
   ...twoParabolasAreaFamilies,
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
@@ -164,6 +166,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentIntegral(problem, locale)
     : problem.kind === "integral-arc-parametric"
     ? presentParametricArc(problem,locale)
+    : problem.kind === "integral-area-horizontal-slices"
+    ? presentHorizontalSliceArea(problem,locale)
     : problem.kind === "integral-area-parabolas"
     ? presentTwoParabolasArea(problem,locale)
     : problem.kind === "integral-area-between" || problem.kind === "integral-arc-length"

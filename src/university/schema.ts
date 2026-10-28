@@ -10,6 +10,7 @@ import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
 import type { ImproperIntegralProblem } from "./improperIntegrals";
 import type { InteriorImproperProblem } from "./interiorImproper";
 import type { AreaArcProblem } from "./areaArc";
+import type { HorizontalSliceAreaProblem } from "./horizontalSliceArea";
 import type { TwoParabolasAreaProblem } from "./twoParabolasArea";
 import type { ParametricArcProblem } from "./parametricArc";
 import type { IntegralBasicsFollowupProblem } from "./integralBasicsFollowup";
@@ -287,6 +288,7 @@ export type UniversityProblem =
   | InteriorImproperProblem
   | DefiniteIntegralFollowupProblem
   | AreaArcProblem
+  | HorizontalSliceAreaProblem
   | TwoParabolasAreaProblem
   | ParametricArcProblem
   | IntegralBasicsFollowupProblem
