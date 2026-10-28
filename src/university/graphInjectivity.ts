@@ -98,7 +98,7 @@ export function presentGraphInjectivity(p: GraphInjectivityProblem, locale: Loca
     t("Sprawdź, czy kierunek się zmienia lub pojawia się poziomy fragment.",
       "Check for a turn or a horizontal section."));
   if (duplicated !== null) {
-    lesson.work("y = " + fmt(duplicated),
+    lesson.work(t("Prosta pozioma y = ", "Horizontal line y = ") + fmt(duplicated),
       t("Ta prosta pozioma przecina wykres w co najmniej dwóch różnych punktach o różnych x, więc funkcja nie jest różnowartościowa.",
         "This horizontal line intersects at two or more different x-values, so the function is not one-to-one."));
   } else {
