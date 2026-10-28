@@ -25,6 +25,7 @@ import { MatrixDisplay } from "./MatrixDisplay";
 import { DeterminantDisplay } from "./DeterminantDisplay";
 import { RadicalDeterminantDisplay } from "./RadicalDeterminantDisplay";
 import { FunctionGraphDisplay } from "./FunctionGraphDisplay";
+import { GraphGapDisplay } from "./GraphGapDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
 import { isLinearAlgebraProblem, isFunctionGraphProblem } from "./university/schema";
@@ -617,6 +618,9 @@ export default function App() {
                   </div>
                   {isUniversityTask(active) && (isFunctionGraphProblem(active.university)) && (
                     <FunctionGraphDisplay problem={active.university} locale={locale} />
+                  )}
+                  {isUniversityTask(active) && active.university.kind === "function-disconnected-domain" && (
+                    <GraphGapDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "determinant" && (
                     <DeterminantDisplay matrix={active.university.matrix} locale={locale} />

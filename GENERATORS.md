@@ -1,16 +1,24 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **209 rodzin**, **16941 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 165 rodzin wspiera advanced, a 151 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **210 rodzin**, **17013 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 166 rodzin wspiera advanced, a 152 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **165**, L5: **151**.
+Łącznie rodziny L4: **166**, L5: **152**.
 
-## MT-EDU-032 — exact radical 2×2 determinants (Issue #114, PR pending approval)
+## MT-EDU-033 — disconnected graph domains with a removable hole (Issue #116, separate unmerged PR)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| function-disconnected-domain | hard, advanced, expert | 72 | Two disconnected linear branches, excluded interior point, four independently open/closed endpoints; exact domain as three-interval union |
+
+**Proposed**, not deployed: 210 families / 17,013 variants after an owner's separately approved merge. A new accessible SVG shows true gaps and holes, and an independent endpoint/geometry oracle verifies all 72 answers and bilingual feedback. No claim of general scanned-graph recognition or full fidelity to every P21 graph.
+
+## MT-EDU-032 — exact radical 2×2 determinants (Issue #114, PR #115 merged, main CI and Pages PASS)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | determinant-radical-two | hard, advanced, expert | 72 | Exact algebra in Q(√d), d∈{2,3,5,7}, two-by-two matrix with radical coefficients and rational final answer. Hard: conjugate products; advanced/expert: invertible row/column additions requiring radical terms to cancel across ad−bc. |
 
-**Proposed** +72 exercises in one new family: **209 families / 16,941 tasks** only if this separately reviewed PR is merged. This does not change the existing `Rational` or determinant 2×2–5×5 APIs. A separate independent pair-ring oracle checks all 72 variants; classroom witness still needs an explicit source-fidelity sign-off.
+**Deployed** +72 exercises in one new family, reaching **209 families / 16,941 tasks** at main commit `55cdb973`. This does not change the existing `Rational` or determinant 2×2–5×5 APIs. A separate independent pair-ring oracle checks all 72 variants; classroom witness still needs an explicit source-fidelity sign-off.
 
 ## MT-EDU-031 — tall matrix ranks, 5×4 and 6×3 (Issue #111, PR #112 merged; main CI and Pages PASS)
 
