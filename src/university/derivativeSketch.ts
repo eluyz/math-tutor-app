@@ -67,7 +67,7 @@ export function presentDerivativeSketch(p: DerivativeSketchProblem, locale: Loca
       "The rational term tends to zero as |x|→∞, giving an oblique asymptote."));
   lesson.work("f′(x) = " + e + "·[1−" + (s * s) + "/(x−(" + a + "))²]; f′=0 ⇔ x=" + g.leftX + t(" lub ", " or ") + g.rightX,
     t("Pochodna znika w dwóch punktach, ale w x=a nie istnieje funkcja.",
-      "The derivative vanishes at two points, but the function is undefined at x=a."));
+      "The derivative vanishes at two points, but x=a is outside the function's domain."));
   lesson.work("f′: " + sign + ", " + reverse + " | x=" + a + t(" wyłączone ", " excluded ") + " | " + reverse + ", " + sign,
     t("Znaki na kolejnych przedziałach określają monotoniczność i naprzemienność ekstremów.",
       "The signs on successive intervals determine monotonicity and classify the extrema."));
