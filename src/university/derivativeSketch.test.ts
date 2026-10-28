@@ -34,7 +34,7 @@ describe("MT-SYLLABUS-D09: guided paper sketch from derivative sign charts", () 
         const df = (t: number) => e * (1 - s * s / (t * t));
         const ddf = (t: number) => 2 * e * s * s / (t * t * t);
         expect(f(-s)).toBe(g.leftY); expect(f(s)).toBe(g.rightY);
-        expect(df(-s)).toBe(0); expect(df(s)).toBe(0);
+        expect(Math.abs(df(-s))).toBe(0); expect(Math.abs(df(s))).toBe(0);
         for (const [t, first, second] of [
           [-2*s,e,-e],[-s/2,-e,-e],[s/2,-e,e],[2*s,e,e]
         ]) {
