@@ -19,7 +19,11 @@ function expectedRange(p:Point[]){
   // separately from the generator's merge routine.
   for(let j=0;j<ys.length;j++){
     const y=ys[j];
-    if(active(y)&&!result.some(r=>r.hi===y&&r.rc))result.push({lo:y,hi:y,lc:true,rc:true});
+    if(active(y)) {
+      const previous=result.at(-1);
+      if(previous&&previous.hi===y)previous.rc=true;
+      else result.push({lo:y,hi:y,lc:true,rc:true});
+    }
     if(j===ys.length-1)break;
     const next=ys[j+1],middle=(y+next)/2;
     if(!active(middle))continue;
