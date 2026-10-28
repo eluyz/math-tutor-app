@@ -926,3 +926,14 @@ footer p {
 .sketch-reference { margin-top: 0.8rem; border-top: 1px solid #c9d4c9; padding: 0.6rem 0; }
 .sketch-reference summary { cursor: pointer; font-weight: 650; }
 .sketch-reference svg { display: block; width: 100%; max-width: 540px; height: auto; }
+
+/* D09 mobile fix: allow the containing grid track to shrink instead of making
+   the whole document as wide as the sign table. The table remains horizontally
+   scrollable inside its own named region, not at page level. */
+.sketch-sign-chart { min-width: 0; width: 100%; overflow-wrap: anywhere; }
+.sketch-table-scroll { width: 100%; min-width: 0; display: block; overflow-x: auto; }
+.sketch-reference { min-width: 0; overflow-wrap: anywhere; }
+@media (max-width: 800px) {
+  .exercise-layout { grid-template-columns: minmax(0, 1fr); }
+  .exercise-panel { min-width: 0; }
+}
