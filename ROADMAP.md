@@ -1,6 +1,10 @@
 # Plan rozwoju
 
-> **MT-EDU-033 (28.10.2026, Issue #116, separate unmerged PR):** F05 exact graph domain with two disconnected branches, an excluded interior hole and variable open/closed endpoints; 24 × hard/advanced/expert = 72 PL/EN cases. Independent geometric/endpoint oracle and responsive SVG browser tests required. Prospective 210 families / 17,013 variants, not a generic graph reader. Full P21 source witness acceptance remains separate.
+> **Source-backed completeness audit (28.10.2026):** [SYLLABUS_AUDIT_2026-10-28.md](SYLLABUS_AUDIT_2026-10-28.md). All 64 skill IDs have families, but 41 still require source-witness acceptance. Priorities: I07 dy-area #118, D09 drawing workflow #119, F05 per-graph witness fidelity, W01/W02 mixed symbolic partials/nonlinear extrema and QA. **Do not close #108** without owner sign-off.
+
+> **MT-EDU-034 (28.10.2026, Issue #118, separate unmerged PR):** x=c±k√(y−h), h≤y≤h+R²; positive horizontal width and exact dy-area 4kR³/3. +72 exact PL/EN variants, 24 per hard/advanced/expert; independent rational oracle, numerical quadrature and 375px/desktop browser tests. Prospective 211 families / 17,085 variants only after separate exact-HEAD owner approval.
+
+> **MT-EDU-033 (28.10.2026, Issue #116, PR #117 owner-approved and merged):** F05 exact graph domain with two disconnected branches, an excluded interior hole and variable open/closed endpoints; 24 × hard/advanced/expert = 72 PL/EN cases. Independent geometric/endpoint oracle and responsive SVG browser tests required. Merged 210 families / 17,013 variants at `d3fbbc40`, not a generic graph reader. Full P21 source witness acceptance remains separate.
 
 > **MT-EDU-032 (28.10.2026, Issue #114, PR #115 owner-approved, merged, main CI + Pages PASS):** M06 exact 2×2 determinant with radical entries from Q(√d), d∈{2,3,5,7}; 24 variants per hard/advanced/expert = 72. Independent coefficient-pair arithmetic, exact cancellation and responsive browser tests. **Deployed** 209 families / 16,941 variants at `55cdb973`. Require final HEAD CI, mathematical/UX review and separate owner approval before merge. Do not claim arbitrary CAS support or source-fidelity completion.
 

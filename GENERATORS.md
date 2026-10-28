@@ -1,16 +1,24 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **210 rodzin**, **17013 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 166 rodzin wspiera advanced, a 152 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **211 rodzin**, **17085 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 167 rodzin wspiera advanced, a 153 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **166**, L5: **152**.
+Łącznie rodziny L4: **167**, L5: **153**.
 
-## MT-EDU-033 — disconnected graph domains with a removable hole (Issue #116, separate unmerged PR)
+## MT-EDU-034 — horizontal slicing for exact areas (Issue #118, separate unmerged PR)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| integral-area-horizontal-slices | hard, advanced, expert | 72 | Exact y-integration between x=c−k√(y−h) and x=c+k√(y−h), h≤y≤h+R², area 4kR³/3 |
+
+**Proposed**, not yet deployed: 211 families / 17,085 tasks only after exact-HEAD owner approval. A separate analytic rational-reference oracle checks all variants, plus numerical quadrature and bilingual mobile/desktop browser flow. This is not a general area region solver.
+
+## MT-EDU-033 — disconnected graph domains with a removable hole (Issue #116, PR #117 owner-approved and merged)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | function-disconnected-domain | hard, advanced, expert | 72 | Two disconnected linear branches, excluded interior point, four independently open/closed endpoints; exact domain as three-interval union |
 
-**Proposed**, not deployed: 210 families / 17,013 variants after an owner's separately approved merge. A new accessible SVG shows true gaps and holes, and an independent endpoint/geometry oracle verifies all 72 answers and bilingual feedback. No claim of general scanned-graph recognition or full fidelity to every P21 graph.
+**Merged** 210 families / 17,013 variants at `d3fbbc40`; main CI and Pages are checked separately. A new accessible SVG shows true gaps and holes, and an independent endpoint/geometry oracle verifies all 72 answers and bilingual feedback. No claim of general scanned-graph recognition or full fidelity to every P21 graph.
 
 ## MT-EDU-032 — exact radical 2×2 determinants (Issue #114, PR #115 merged, main CI and Pages PASS)
 
