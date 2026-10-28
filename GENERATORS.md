@@ -1,16 +1,24 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **212 rodzin**, **17157 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 168 rodzin wspiera advanced, a 154 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **213 rodzin**, **17229 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 168 rodzin wspiera advanced, a 154 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **168**, L5: **154**.
 
-## MT-SYLLABUS-D09 — graph sketch from derivative/concavity signs (Issue #119, unmerged PR)
+## MT-F05-P0A — graph injectivity via horizontal-line test (Issue #123, unmerged PR)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| function-graph-injectivity | easy, medium, hard | 72 | Graphically test one-to-one by a horizontal line on a connected three-vertex polyline, including strict monotonicity, a turn, horizontal segments and open/closed outer endpoints. |
+
+**Proposed** 213 families / 17,229 variants after exact-HEAD owner approval; only method-level coverage is established. Six original source-graph witnesses still pending under #122.
+
+## MT-SYLLABUS-D09 — graph sketch from derivative/concavity signs (Issue #119, owner-approved PR #121 merged)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | derivative-sign-sketch | hard, advanced, expert | 72 | Exact rational graph-sign charts with two extrema, a vertical and oblique asymptote, closed-form slope/concavity; explicit **paper drawing and self-assessment**, numeric coordinate checkpoints |
 
-**Proposed** 212 families / 17,157 variants only after separate exact-HEAD owner approval. The reference graph is voluntarily revealed by the learner; there is **no** automatic grading of the paper drawing or broad claim that all course sketches match. Detailed manual protocol: [D09_PAPER_SKETCH.md](docs/D09_PAPER_SKETCH.md).
+**Merged** 212 families / 17,157 variants on main `7be77ddb`, CI + Pages PASS. The reference graph is voluntarily revealed by the learner; there is **no** automatic grading of the paper drawing or broad claim that all course sketches match. Detailed manual protocol: [D09_PAPER_SKETCH.md](docs/D09_PAPER_SKETCH.md).
 
 ## MT-EDU-034 — horizontal slicing for exact areas (Issue #118, PR #120 owner-approved and merged)
 

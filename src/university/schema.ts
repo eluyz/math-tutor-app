@@ -23,6 +23,7 @@ import type { FunctionGraphProblem } from "./functionGraphs";
 import type { GraphGapProblem } from "./graphGaps";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
+import type { GraphInjectivityProblem } from "./graphInjectivity";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
 import type { EdgeLimitProblem } from "./edgeLimits";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
@@ -258,6 +259,7 @@ export type UniversityProblem =
   | GraphGapProblem
   | DerivativeSketchProblem
   | GraphPropertyProblem
+  | GraphInjectivityProblem
   | NondifferentiabilityProblem
   | EdgeLimitProblem
   | TrigDerivativeProblem
@@ -297,7 +299,7 @@ export type UniversityProblem =
   | IntegralMethodsFollowupProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
   p.kind.startsWith("function-");
-export const isFunctionGraphProblem = (p: UniversityProblem): p is FunctionGraphProblem | GraphPropertyProblem =>
+export const isFunctionGraphProblem = (p: UniversityProblem): p is FunctionGraphProblem | GraphPropertyProblem | GraphInjectivityProblem =>
   p.kind.startsWith("function-graph-");
 export const isLinearAlgebraProblem = (p: UniversityProblem): p is LinearAlgebraProblem =>
   p.kind.startsWith("linear-");
