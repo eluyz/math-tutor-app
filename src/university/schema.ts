@@ -19,6 +19,7 @@ import type { FunctionDomainExtraProblem } from "./functionDomainsExtra";
 import type { FunctionFollowupProblem } from "./functionFollowup";
 import type { LimitFollowupProblem } from "./limitFollowup";
 import type { FunctionGraphProblem } from "./functionGraphs";
+import type { GraphGapProblem } from "./graphGaps";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
 import type { EdgeLimitProblem } from "./edgeLimits";
@@ -252,6 +253,7 @@ export type UniversityProblem =
   | FunctionDomainExtraProblem
   | FunctionFollowupProblem
   | FunctionGraphProblem
+  | GraphGapProblem
   | GraphPropertyProblem
   | NondifferentiabilityProblem
   | EdgeLimitProblem

@@ -1,6 +1,8 @@
 # Plan rozwoju
 
-> **MT-EDU-032 (28.10.2026, Issue #114, separate unmerged PR):** M06 exact 2×2 determinant with radical entries from Q(√d), d∈{2,3,5,7}; 24 variants per hard/advanced/expert = 72. Independent coefficient-pair arithmetic, exact cancellation and responsive browser tests. **Proposed**, not deployed: 209 families / 16,941 variants. Require final HEAD CI, mathematical/UX review and separate owner approval before merge. Do not claim arbitrary CAS support or source-fidelity completion.
+> **MT-EDU-033 (28.10.2026, Issue #116, separate unmerged PR):** F05 exact graph domain with two disconnected branches, an excluded interior hole and variable open/closed endpoints; 24 × hard/advanced/expert = 72 PL/EN cases. Independent geometric/endpoint oracle and responsive SVG browser tests required. Prospective 210 families / 17,013 variants, not a generic graph reader. Full P21 source witness acceptance remains separate.
+
+> **MT-EDU-032 (28.10.2026, Issue #114, PR #115 owner-approved, merged, main CI + Pages PASS):** M06 exact 2×2 determinant with radical entries from Q(√d), d∈{2,3,5,7}; 24 variants per hard/advanced/expert = 72. Independent coefficient-pair arithmetic, exact cancellation and responsive browser tests. **Deployed** 209 families / 16,941 variants at `55cdb973`. Require final HEAD CI, mathematical/UX review and separate owner approval before merge. Do not claim arbitrary CAS support or source-fidelity completion.
 
 Source-backed acceptance evidence: [SYLLABUS_ACCEPTANCE.md](SYLLABUS_ACCEPTANCE.md). Keep the syllabus gate #108 open until the form-level acceptance criteria are met.
 
