@@ -63,7 +63,7 @@ function segmentImage(a: GapNode, b: GapNode, includedA: boolean, includedB: boo
 export function disconnectedRange(p: GraphGapRangeProblem): readonly YInterval[] {
   const [a, h, b] = p.left, [c, d] = p.right;
   if (!(a.x < h.x && h.x < b.x && b.x < c.x && c.x < d.x) ||
-      h.x * 2 !== a.x + b.x || h.y * 2 !== a.y + b.y)
+      ![a,h,b,c,d].every(n=>Number.isSafeInteger(n.x)&&Number.isSafeInteger(n.y)))
     throw Error("Invalid disconnected/holey graph geometry");
   const [ac, bc, cc, dc] = p.included;
   const images = [
