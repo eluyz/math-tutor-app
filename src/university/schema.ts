@@ -25,6 +25,7 @@ import type { GraphGapRangeProblem } from "./graphGapRange";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { GraphInjectivityProblem } from "./graphInjectivity";
+import type { GraphDisconnectedInjectivityProblem } from "./graphDisconnectedInjectivity";
 import type { NondifferentiabilityProblem } from "./nondifferentiability";
 import type { EdgeLimitProblem } from "./edgeLimits";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
@@ -262,6 +263,7 @@ export type UniversityProblem =
   | DerivativeSketchProblem
   | GraphPropertyProblem
   | GraphInjectivityProblem
+  | GraphDisconnectedInjectivityProblem
   | NondifferentiabilityProblem
   | EdgeLimitProblem
   | TrigDerivativeProblem
