@@ -71,8 +71,9 @@ describe("MT-EDU-032: exact radical 2×2 determinants", () => {
           expect(assessAnswer(view.answer,"1/0").kind).toBe("invalid");
           const working=view.solution!.filter(x=>x.kind==="working");
           expect(working).toHaveLength(4);
-          expect(working[1].action).toContain("√");
-          expect(working[2].action).toContain("√");
+          expect(working[1].action).toContain("a₁₁a₂₂");
+          expect(working[2].action).toContain("a₁₂a₂₁");
+          expect(view.explanation).toContain("√d");
           expect(working[3].action).toContain("det(A)");
           expect(working[3].action).toContain(String(whole).replace("-","−"));
           expect(working.every(x=>x.reason.length>35)).toBe(true);
