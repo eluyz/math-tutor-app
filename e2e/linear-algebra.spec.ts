@@ -43,7 +43,7 @@ for(const width of [375,768,1280])for(const en of [false,true])test(`MT-EDU-006B
   await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
   await expect(page.locator(".solution-panel")).toContainText("A⁻¹");
   await button(page,en?"Medium":"Średni").click();
-  await page.getByRole("button",{name:en?/Matrix rank(?!:)/:/Rząd macierzy(?!\s+[45]×)/}).click();
+  await page.getByRole("button",{name:en?/Matrix rank(?!:)/:/Rząd macierzy(?!\s+\d+×)/}).click();
   A=await shownMatrix(page);
   expect(A).toHaveLength(2);expect(A[0]).toHaveLength(3);
   await page.locator("#answer").fill(String(rank(A)));
