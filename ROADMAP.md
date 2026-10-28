@@ -1,6 +1,8 @@
 # Plan rozwoju
 
-> **MT-EDU-031 (28.10.2026, Issue #111, separate unmerged PR):** M14 — exact row ranks for 5×4 and 6×3. Two bounded families × hard/advanced/expert × 24 = +144 PL/EN tasks. Independent minor audit and mobile/desktop Chromium tests. **Proposed** 208 families / 16,869 variants after separate owner approval. Existing matrix, system and inverse size restrictions stay unchanged.
+Source-backed acceptance evidence: [SYLLABUS_ACCEPTANCE.md](SYLLABUS_ACCEPTANCE.md). Keep the syllabus gate #108 open until the form-level acceptance criteria are met.
+
+> **MT-EDU-031 (28.10.2026, Issue #111, PR #112 owner-approved and merged):** M14 — exact row ranks for 5×4 and 6×3. Two bounded families × hard/advanced/expert × 24 = +144 PL/EN tasks. Independent minor audit and mobile/desktop Chromium tests. **Merged** 208 families / 16,869 variants; main CI/Pages verification is a separate release gate. Existing matrix, system and inverse size restrictions stay unchanged.
 
 > **MT-EDU-030 (27.10.2026, Issue #109, PR #110 merged, CI + Pages PASS):** Syllabus U06/U08 — two five-unknown rectangular Gaussian system families, 3×5 and 4×5, with 144 exact PL/EN variants (20 consistent with two independent free parameters and 4 inconsistent per family/level). Independent rank/minor tests, browser PL/EN and mobile checks mandatory. Deployed 206 families / 16,725 variants at `1aede0a7`. Custom-problem mode #104 deferred until full syllabus gate #108.
 
