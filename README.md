@@ -1,6 +1,8 @@
 # Math Tutor
 
-MT-EDU-034 (Issue #118, separate unmerged PR): I07 exact geometric area from horizontal slices, x=c±k√(y−h) over y∈[h,h+R²], integral with respect to y, six teaching steps and an independent exact oracle. One family × hard/advanced/expert × 24 = 72 PL/EN variants; **prospective 211 families / 17,085 variants only after separate owner-approved merge**. Does not imply every area worksheet shape is covered.
+**Proposed D09 practice (Issue #119, separate unmerged PR):** draw a graph on paper from derivative and concavity sign charts; 72 PL/EN exercises verify numerical extrema coordinates and provide an optional reference SVG for **self-assessment**. The app does **not** grade the drawn sketch. [Paper workflow and limits](docs/D09_PAPER_SKETCH.md). After separately approved merge, the catalogue would have 212 families / 17,157 variants.
+
+MT-EDU-034 (Issue #118, PR #120 owner-approved and merged): I07 exact geometric area from horizontal slices, x=c±k√(y−h) over y∈[h,h+R²], integral with respect to y, six teaching steps and an independent exact oracle. One family × hard/advanced/expert × 24 = 72 PL/EN variants; 211 families / 17,085 variants merged at `9b9aa041`; main CI and Pages verified separately. Does not imply every area worksheet shape is covered.
 
 See [SYLLABUS_AUDIT_2026-10-28.md](SYLLABUS_AUDIT_2026-10-28.md) for the grounded completeness audit, acceptance gates and ranked missing exercise forms.
 
@@ -28,7 +30,7 @@ MT-EDU-025 P2G-D (PR #91 scalony, przed merge pełne CI PASS): W02 — klasyfika
 
 MT-EDU-025 P2G-C (PR #89 scalony, CI przed merge PASS): W03 — granice funkcji dwóch zmiennych przy użyciu współrzędnych biegunowych, także przykład zależny od kąta, oraz klasyfikacja ciągłości funkcji z ilorazem form kwadratowych na podstawie dwóch osi. Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty, dokładne odpowiedzi i rozwiązania PL/EN. Po osobno zatwierdzonym merge: 192 rodziny / 15 717 wariantów. Pokrycie W03 nadal częściowe.
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **211 rodzin** i **17085 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **212 rodzin** i **17157 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-025 P2G-B (PR #87 scalony, CI i Pages PASS): W02 — ekstrema globalne funkcji kwadratowej na domkniętym prostokącie (wnętrze, krawędzie, narożniki i remisy) oraz funkcji liniowej na kole (ograniczenie kołowe, punkty brzegowe i mnożniki Lagrange'a). Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty z dokładnymi ułamkami i rozwiązaniami PL/EN. Po osobno zatwierdzonym scaleniu: 190 rodzin / 15 573 warianty; W02 nadal częściowe.
 

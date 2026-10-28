@@ -26,6 +26,7 @@ import { DeterminantDisplay } from "./DeterminantDisplay";
 import { RadicalDeterminantDisplay } from "./RadicalDeterminantDisplay";
 import { FunctionGraphDisplay } from "./FunctionGraphDisplay";
 import { GraphGapDisplay } from "./GraphGapDisplay";
+import { DerivativeSketchDisplay } from "./DerivativeSketchDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
 import { isLinearAlgebraProblem, isFunctionGraphProblem } from "./university/schema";
@@ -621,6 +622,9 @@ export default function App() {
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-disconnected-domain" && (
                     <GraphGapDisplay problem={active.university} locale={locale} />
+                  )}
+                  {isUniversityTask(active) && active.university.kind === "derivative-sign-sketch" && (
+                    <DerivativeSketchDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "determinant" && (
                     <DeterminantDisplay matrix={active.university.matrix} locale={locale} />

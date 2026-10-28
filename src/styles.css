@@ -914,3 +914,15 @@ footer p {
 .function-graph-text summary { cursor: pointer; text-decoration: underline; text-underline-offset: 2px; }
 .function-graph-text p { margin: .5rem 0 0; line-height: 1.55; }
 @media (max-width: 430px) { .function-graph { padding: .25rem; } .function-graph figcaption { padding: 0 .5rem; } }
+
+/* D09: sign-table paper sketch with optional voluntarily revealed reference. */
+.sketch-sign-chart { max-width: 100%; margin: 1rem 0; }
+.sketch-table-scroll { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.sketch-sign-chart table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 0.93rem; }
+.sketch-sign-chart caption { padding: 0.5rem; font-weight: 700; text-align: left; }
+.sketch-sign-chart th, .sketch-sign-chart td { border: 1px solid #c9d4c9; padding: 0.55rem; text-align: center; }
+.sketch-sign-chart th { background: #eaf0e7; }
+.sketch-sign-chart .sketch-note { margin: 0.65rem 0; }
+.sketch-reference { margin-top: 0.8rem; border-top: 1px solid #c9d4c9; padding: 0.6rem 0; }
+.sketch-reference summary { cursor: pointer; font-weight: 650; }
+.sketch-reference svg { display: block; width: 100%; max-width: 540px; height: auto; }

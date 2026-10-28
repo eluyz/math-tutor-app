@@ -10,6 +10,7 @@ import { functionDomainExtraFamilies, presentFunctionDomainExtra } from "./funct
 import { functionFollowupFamilies, presentFunctionFollowup } from "./functionFollowup";
 import { functionGraphFamilies, presentFunctionGraph } from "./functionGraphs";
 import { graphGapFamilies, presentGraphGap } from "./graphGaps";
+import { derivativeSketchFamilies, presentDerivativeSketch } from "./derivativeSketch";
 import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProperties";
 import { nondifferentiabilityFamilies, presentNondifferentiability } from "./nondifferentiability";
 import { edgeLimitFamilies, presentEdgeLimit } from "./edgeLimits";
@@ -81,6 +82,7 @@ export const universityFamilies = [
   ...functionFollowupFamilies,
   ...functionGraphFamilies,
   ...graphGapFamilies,
+  ...derivativeSketchFamilies,
   ...graphPropertyFamilies,
   ...nondifferentiabilityFamilies,
   ...edgeLimitFamilies,
@@ -202,6 +204,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentPartialGradient(problem,locale)
     : problem.kind === "derivative-quadratic-quotient" || problem.kind === "derivative-log-quadratic"
     ? presentDerivativeFollowup(problem, locale)
+    : problem.kind === "derivative-sign-sketch"
+    ? presentDerivativeSketch(problem, locale)
     : problem.kind === "derivative-product-point" || problem.kind === "derivative-quotient-point"
     ? presentProductQuotient(problem, locale)
     : problem.kind === "derivative-trig-chain" || problem.kind === "derivative-trig-special-point"
