@@ -24,7 +24,9 @@ test("MT-EDU-034 horizontal area dy "+level+" "+width+"px "+(en?"EN":"PL"),async
   });
   await expect(selection).toHaveCount(1);await selection.click();
   await expect(page.locator(".question")).toHaveAttribute("data-template-id","integral-area-horizontal-slices");
-  const rendered=await page.locator(".question").innerText();
+  // textContent preserves the exact newlines in the generated mathematical prompt; innerText is CSS-normalized.
+  const rendered=await page.locator(".question").textContent();
+  expect(rendered).not.toBeNull();
   expect(rendered).toContain("√");
   expect(rendered).toContain("x_left(y)");
   expect(rendered).toContain("x_right(y)");
