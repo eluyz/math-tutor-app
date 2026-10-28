@@ -180,6 +180,16 @@ export type DeterminantRowOperation = Readonly<
   | { kind: "swap"; first: number; second: number }
   | { kind: "scale"; row: number; factor: Rational }
 >;
+/** Bounded Q(√d) coefficient for exact 2×2 worksheets; never substituted for Rational. */
+export type RadicalCoefficient = Readonly<{ whole: number; root: number }>;
+export type RadicalDeterminantProblem = Readonly<{
+  kind: "determinant-radical-two";
+  radicand: 2 | 3 | 5 | 7;
+  matrix: readonly [
+    readonly [RadicalCoefficient, RadicalCoefficient],
+    readonly [RadicalCoefficient, RadicalCoefficient],
+  ];
+}>;
 export type DeterminantProblem = Readonly<{
   kind: "determinant";
   method: "laplace-four" | "row-operations" | "laplace-five" | "properties" | "staged-four" | "staged-five" | "gaussian-four" | "gaussian-five";
@@ -263,6 +273,7 @@ export type UniversityProblem =
   | LimitFollowupProblem
   | DerivativeProblem
   | DeterminantProblem
+  | RadicalDeterminantProblem
   | LinearAlgebraProblem
   | ElementaryAnalysisProblem
   | AsymptoteProblem

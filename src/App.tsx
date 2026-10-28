@@ -23,6 +23,7 @@ import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
 import { DeterminantDisplay } from "./DeterminantDisplay";
+import { RadicalDeterminantDisplay } from "./RadicalDeterminantDisplay";
 import { FunctionGraphDisplay } from "./FunctionGraphDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
@@ -619,6 +620,9 @@ export default function App() {
                   )}
                   {isUniversityTask(active) && active.university.kind === "determinant" && (
                     <DeterminantDisplay matrix={active.university.matrix} locale={locale} />
+                  )}
+                  {isUniversityTask(active) && active.university.kind === "determinant-radical-two" && (
+                    <RadicalDeterminantDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && isLinearAlgebraProblem(active.university) && (
                     <LinearAlgebraDisplay problem={active.university} />

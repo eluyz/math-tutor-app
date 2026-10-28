@@ -32,6 +32,7 @@ import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
+import { radicalDeterminantFamilies, presentRadicalDeterminant } from "./radicalDeterminants";
 import { determinantStrategyFamilies } from "./determinantStrategies";
 import { gaussianPivotFamilies, presentGaussianPivot } from "./gaussianPivotDeterminants";
 import { inverseFamilies, presentInverse } from "./inverses";
@@ -100,6 +101,7 @@ export const universityFamilies = [
   ...limitFollowupFamilies,
   ...derivativeFamilies,
   ...determinantFamilies,
+  ...radicalDeterminantFamilies,
   ...determinantStrategyFamilies,
   ...gaussianPivotFamilies,
   ...inverseFamilies,
@@ -236,6 +238,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentCramerMinors(problem, locale)
     : problem.kind === "linear-cramer-four"
     ? presentCramerFour(problem, locale)
+    : problem.kind === "determinant-radical-two"
+    ? presentRadicalDeterminant(problem, locale)
     : problem.kind === "determinant"
     ? (problem.method==="gaussian-four"||problem.method==="gaussian-five"
         ? presentGaussianPivot(problem,locale) : presentDeterminant(problem, locale))
@@ -318,7 +322,7 @@ export function makeUniversityTask(
     difficulty,
     parameters: { variant },
     university,
-    contentKey: `university:${presentation.question}${university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry"].includes(university.kind) ? JSON.stringify(university) : ""}`,
+    contentKey: `university:${presentation.question}${university.kind === "determinant-radical-two" ? JSON.stringify(university.matrix) : university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry"].includes(university.kind) ? JSON.stringify(university) : ""}`,
     startingHint: presentation.hint,
     errorRules: [],
   };

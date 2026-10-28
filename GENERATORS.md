@@ -1,17 +1,25 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **208 rodzin**, **16869 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 164 rodziny wspierają advanced, a 150 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **209 rodzin**, **16941 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 165 rodzin wspiera advanced, a 151 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **164**, L5: **150**.
+Łącznie rodziny L4: **165**, L5: **151**.
 
-## MT-EDU-031 — tall matrix ranks, 5×4 and 6×3 (Issue #111, separate unmerged PR)
+## MT-EDU-032 — exact radical 2×2 determinants (Issue #114, PR pending approval)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| determinant-radical-two | hard, advanced, expert | 72 | Exact algebra in Q(√d), d∈{2,3,5,7}, two-by-two matrix with radical coefficients and rational final answer. Hard: conjugate products; advanced/expert: invertible row/column additions requiring radical terms to cancel across ad−bc. |
+
+**Proposed** +72 exercises in one new family: **209 families / 16,941 tasks** only if this separately reviewed PR is merged. This does not change the existing `Rational` or determinant 2×2–5×5 APIs. A separate independent pair-ring oracle checks all 72 variants; classroom witness still needs an explicit source-fidelity sign-off.
+
+## MT-EDU-031 — tall matrix ranks, 5×4 and 6×3 (Issue #111, PR #112 merged; main CI and Pages PASS)
 
 | Family | Levels | Variants | Bounded mathematical scope |
 | --- | --- | ---: | --- |
 | matrix-rank-five-four | hard, advanced, expert | 72 | Exact rank of 5×4 rectangular matrices: dependent rows, pivot swaps, rank 0–4 |
 | matrix-rank-six-three | hard, advanced, expert | 72 | Exact rank of 6×3 matrices: dependent rows, missing first pivot, rank 0–3 |
 
-**Proposed** +144 variants, reaching **208 families / 16,869 tasks** only after separately approved merge. The rank-only 5×4/6×3 reducer does not change existing matrix-product, system or inverse dimension limits; independent exact minors verify the ranks.
+**Deployed** +144 variants; catalog had **208 families / 16,869 tasks** before MT-EDU-032. The rank-only 5×4/6×3 reducer does not change existing matrix-product, system or inverse dimension limits; independent exact minors verify the ranks.
 
 ## MT-EDU-030 — five-unknown Gauss, 3×5 and 4×5 (Issue #109, PR #110 merged, CI + Pages PASS)
 

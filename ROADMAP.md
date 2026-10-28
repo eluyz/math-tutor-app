@@ -1,5 +1,7 @@
 # Plan rozwoju
 
+> **MT-EDU-032 (28.10.2026, Issue #114, separate unmerged PR):** M06 exact 2×2 determinant with radical entries from Q(√d), d∈{2,3,5,7}; 24 variants per hard/advanced/expert = 72. Independent coefficient-pair arithmetic, exact cancellation and responsive browser tests. **Proposed**, not deployed: 209 families / 16,941 variants. Require final HEAD CI, mathematical/UX review and separate owner approval before merge. Do not claim arbitrary CAS support or source-fidelity completion.
+
 Source-backed acceptance evidence: [SYLLABUS_ACCEPTANCE.md](SYLLABUS_ACCEPTANCE.md). Keep the syllabus gate #108 open until the form-level acceptance criteria are met.
 
 > **MT-EDU-031 (28.10.2026, Issue #111, PR #112 owner-approved and merged):** M14 — exact row ranks for 5×4 and 6×3. Two bounded families × hard/advanced/expert × 24 = +144 PL/EN tasks. Independent minor audit and mobile/desktop Chromium tests. **Merged** 208 families / 16,869 variants; main CI/Pages verification is a separate release gate. Existing matrix, system and inverse size restrictions stay unchanged.
