@@ -59,6 +59,18 @@ test("MT-SYLLABUS-D09 sign-chart paper sketch "+level+" "+width+"px "+(english?"
   await expect(details.getByTestId("sketch-branch-right")).toBeVisible();
   await expect(details.getByTestId("sketch-oblique")).toBeVisible();
   await expect(sheet).toContainText(english?"not the quality of your drawing":"nie jakość rysunku");
-  expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
+  // On a phone only the sign table may scroll; the document must not.
+  if (width === 375) {
+    const table = sheet.locator(".sketch-table-scroll");
+    const ownScroll = await table.evaluate(node=>node.scrollWidth>node.clientWidth);
+    expect(ownScroll, "The sign table should scroll within its own region").toBe(true);
+  }
+  const viewport = await page.evaluate(() => ({
+    wide: document.documentElement.scrollWidth > innerWidth,
+    overflowing: Array.from(document.querySelectorAll("body *"))
+      .filter(el => { const b=el.getBoundingClientRect(); return b.right > innerWidth + 2 && b.width > 0 })
+      .slice(0,8).map(el => el.tagName.toLowerCase()+"."+(el.className?.toString()??"").slice(0,60))
+  }));
+  expect(viewport.wide, "Document overflow culprits: "+viewport.overflowing.join(", ")).toBe(false);
   expect(errors).toEqual([]);
 });
