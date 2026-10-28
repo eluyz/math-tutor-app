@@ -620,6 +620,9 @@ export default function App() {
                   {isUniversityTask(active) && (isFunctionGraphProblem(active.university)) && (
                     <FunctionGraphDisplay problem={active.university} locale={locale} />
                   )}
+                  {isUniversityTask(active) && active.university.kind === "function-disconnected-range" && (
+                    <GraphGapDisplay problem={active.university} locale={locale} />
+                  )}
                   {isUniversityTask(active) && active.university.kind === "function-disconnected-domain" && (
                     <GraphGapDisplay problem={active.university} locale={locale} />
                   )}

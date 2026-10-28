@@ -1,9 +1,10 @@
 import { useId } from "react";
 import type { Locale } from "./locales/types";
 import type { GraphGapProblem, GapNode } from "./university/graphGaps";
+import type { GraphGapRangeProblem } from "./university/graphGapRange";
 
 const fmt=(n:number)=>String(n).replace("-","−");
-export function GraphGapDisplay({problem,locale}:{problem:GraphGapProblem;locale:Locale}) {
+export function GraphGapDisplay({problem,locale}:{problem:GraphGapProblem|GraphGapRangeProblem;locale:Locale}) {
   const id=useId().replace(/:/g,"");
   const [a,h,b]=problem.left,[c,d]=problem.right;
   const [ac,bc,cc,dc]=problem.included;

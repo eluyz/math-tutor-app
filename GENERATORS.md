@@ -1,16 +1,24 @@
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **213 rodzin**, **17229 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 168 rodzin wspiera advanced, a 154 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **214 rodzin**, **17301 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 169 rodzin wspiera advanced, a 155 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **168**, L5: **154**.
+Łącznie rodziny L4: **169**, L5: **155**.
 
-## MT-F05-P0A — graph injectivity via horizontal-line test (Issue #123, unmerged PR)
+## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
+
+| Family | Levels | Variants | Evidence |
+| --- | --- | ---: | --- |
+| function-disconnected-range | hard, advanced, expert | 72 | Exact union of segment y-images with open/closed endpoints, a removed interior x and two disconnected branches; interval merging preserves y when another included x attains it |
+
+**Proposed** 214 families / 17,301 variants, subject to final exact-HEAD CI, full maths/technical audit and owner merge approval. Six uploaded original source figures and key were directly checked; this new generator is a *bounded method witness*, not a transcribed copy. The live main remains 213 / 17,229 until authorized merge.
+
+## MT-F05-P0A — graph injectivity via horizontal-line test (Issue #123, owner-approved PR #124 merged)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | function-graph-injectivity | easy, medium, hard | 72 | Graphically test one-to-one by a horizontal line on a connected three-vertex polyline, including strict monotonicity, a turn, horizontal segments and open/closed outer endpoints. |
 
-**Proposed** 213 families / 17,229 variants after exact-HEAD owner approval; only method-level coverage is established. Six original source-graph witnesses still pending under #122.
+**Merged** 213 families / 17,229 variants, post-merge main CI and Pages PASS at `c369e18c`. Six source cases were later directly checked; exact figure-to-generator match is still partial. Six original source-graph witnesses still pending under #122.
 
 ## MT-SYLLABUS-D09 — graph sketch from derivative/concavity signs (Issue #119, owner-approved PR #121 merged)
 
