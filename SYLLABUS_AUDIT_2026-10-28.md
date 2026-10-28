@@ -1,5 +1,7 @@
 # Mathematics syllabus completeness — evidence and release audit (2026-10-28)
 
+**Update 28 Oct 2026:** owner-approved #121 was merged and verified live at `7be77ddb` (212 families / 17,157 variants). D09 paper/self-check workflow is accepted; paper drawing is **not** automatically graded. F05 witness audit [Issue #122](https://github.com/eluyz/math-tutor-app/issues/122) confirms the horizontal-line **injectivity** method is not yet in the graph catalogue. Issue #123 implements only this bounded method in an unmerged PR; the six original graph images and answer keys are still not directly accessible for per-graph acceptance. Historical numeric baselines below describe the audit date, not current production.
+
 **Status: NOT COMPLETE.** An extensive generator catalogue is not the same as independently accepted exercise forms, mathematical explanations or confirmed full written-exam coverage.
 
 ## Grounding and limits

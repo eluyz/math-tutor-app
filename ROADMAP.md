@@ -1,5 +1,7 @@
 # Plan rozwoju
 
+> **F05 / Issue #123 (unmerged draft PR):** implement source-confirmed *method* of graphical injectivity by horizontal-line test, on 72 independently checked bounded connected SVG shapes at easy/medium/hard. Include correct/wrong/invalid PL/EN and 375px desktop Chromium checks. Six actual P21/a–f diagram-to-key acceptances remain **unverified** because the ZIP cannot be materialized here; do not call them complete (#122). New total 213 families / 17,229 variants is only proposed until separate exact-HEAD merge consent; production stays 212 / 17,157.
+
 > **D09 / Issue #119 (separate unmerged PR):** bounded paper-sketch exercise with exact derivative/concavity chart, a vertical and oblique asymptote, two extrema; 24 variants × hard/advanced/expert = 72. The app scores only the four extrema coordinates, never the hand-drawn graph. Optional reference SVG with manual checklist. Requires mathematical review, PL/EN and mobile checks, and owner sign-off on the *paper assessment protocol*. Prospective 212 families / 17,157 variants only after separately approved merge. [Protocol](docs/D09_PAPER_SKETCH.md).
 
 > **Source-backed completeness audit (28.10.2026):** [SYLLABUS_AUDIT_2026-10-28.md](SYLLABUS_AUDIT_2026-10-28.md). All 64 skill IDs have families, but 41 still require source-witness acceptance. Priorities: I07 dy-area #118, D09 drawing workflow #119, F05 per-graph witness fidelity, W01/W02 mixed symbolic partials/nonlinear extrema and QA. **Do not close #108** without owner sign-off.
