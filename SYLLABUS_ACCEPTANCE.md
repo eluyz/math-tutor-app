@@ -1,0 +1,102 @@
+# Syllabus exercise-form acceptance matrix (64 skills)
+
+**Status:** audit baseline / candidate evidence map. This is **not** a claim of 100% exam or educational coverage. See [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md) for the full generator scope of each skill. As of PR #112, the production candidate has 208 exercise families and 16,869 variants, subject to main CI/Pages verification.
+
+## Evidence and privacy
+
+This table is grounded in a private inventory of **43 course PDF materials (221 pages)** and the separately available contemporary official written-exam syllabus; no institution, author, private mathematical question, scanned image, contact details or original handout is published here. The opaque `Pxx` IDs refer to the owner's private source inventory, **not files bundled in this public repository**. Evidence pointers such as `P09/1b` identify an anonymized exercise *type*, not license to reproduce the exercise.
+
+The official syllabus establishes eight broad areas and explicitly includes sketching graphs as a learning outcome. The collection contains 64 identified skill/problem categories, **not necessarily 64 independent types of graded written exercises**. Current 64-row coverage labels are bounded generator coverage, not proof that every original sample maps 1:1 to a supported exercise.
+
+## Interpreting the status
+
+- **BOUNDED MATCH:** the supported generator's mathematical method matches the identified exercise type, within explicit limitations; still requires representative case-by-case acceptance.
+- **SHAPE-MATCHED:** the exact source-observed matrix dimensions now exist, with independently verified rank checks.
+- **SAMPLE MATCH PENDING / SHAPE-MATCH REVIEW / GRAPH-MATCH REVIEW:** generator exists, but a source-by-source worksheet witness has not been accepted in this matrix.
+- **OPEN FORM GAP:** an actual exercise type requires a mathematical representation absent from the generator.
+- **DRAWING GATE:** a supplied graphical/sketch exercise is not equivalent to merely showing a finished SVG; a grading or owner-approved paper workflow is required.
+- **LECTURE — EXAM STATUS UNKNOWN:** concept is in course materials but has no separate calculation worksheet; do not infer a missing practical exam exercise without evidence.
+
+## Acceptance matrix by source-observed form
+
+| Skill | Source-observed skill/form | Private evidence ID | Existing Math Tutor families (examples) | Required method | Independent acceptance oracle | Evidence status |
+| --- | --- | --- | --- | --- | --- | --- |
+| M01 | Skalar, dodawanie, odejmowanie | P03/1a,1j,2a | `matrix-scale`, `matrix-add`, `matrix-subtract` | component-wise arithmetic | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | BOUNDED MATCH |
+| M02 | Transpozycja | P03/1b,1e–f,3 | `matrix-transpose` | transpose and dimension check | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | BOUNDED MATCH |
+| M03 | Mnożenie i wykonalność | P03/1c–m,2d–f | `matrix-product`, `matrix-dimensions`, `matrix-compatibility`, `matrix-chained-dimensions` | row-by-column product and dimension compatibility | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M04 | Działania złożone i potęgi | P03/2b–h,3 | `matrix-product`, `matrix-add`, `matrix-powers`, `matrix-composite-operations` | ordered matrix expressions and powers | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M05 | Równanie macierzowe i układ dwóch macierzy | P03/4–5 | `inverse-applications`, `inverse-right-applications`, `matrix-coupled-equations`, `matrix-ax-shift` | matrix equations and inverse-side order | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M06 | Wyznacznik 2×2 | P09/1a–b | `determinant-two` | 2×2 expansion with radical simplification | Symbolic square-root field; conjugate product and exact determinant | OPEN FORM GAP |
+| M07 | Wyznacznik 3×3 | P09/1c–f,1n | `determinant-sarrus` | Sarrus 3×3 determinant | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | BOUNDED MATCH |
+| M08 | Laplace 4×4 z zerami | P09/1h,1l,1t | `determinant-laplace-four` | cofactor Laplace 4×4 | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | BOUNDED MATCH |
+| M09 | 4×4 bez dogodnych zer, operacje wierszowe | P09/1g–j,1o–s | `determinant-row-operations`, `determinant-dense-four`, `determinant-strategy-four`, `determinant-gaussian-pivot-four` | row elimination then Laplace 4×4 | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M10 | Wyznacznik 5×5 | P09/1k,1m | `determinant-laplace-five`, `determinant-dense-five`, `determinant-strategy-five`, `determinant-gaussian-pivot-five` | reduction/Laplace 5×5 | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M11 | Własności i wyznacznik zerowy | P09/1q,1u | `determinant-properties`, `determinant-zero-row` | determinant invariants and zero tests | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M12 | Macierz odwrotna | P05/1a–h | `inverse-two`, `inverse-three`, `inverse-existence`, `inverse-four-gauss-jordan` | inverse via cofactors/Gauss–Jordan | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M13 | Równanie z odwrotnością | P05/2a–e | `inverse-four-ax-equation`, `inverse-applications`, `inverse-right-applications`, `matrix-ax-shift` | AXB-type inverse equations | Independent exact matrix arithmetic, determinant/minor or rank/inverse identity | SAMPLE MATCH PENDING |
+| M14 | Rząd macierzy | P07/1a–m | `matrix-rank`, `capelli-matrices`, `matrix-rank-four-square`, `matrix-rank-four-rectangular` | exact echelon rank | Exact independent minors and row-step rank invariance | SHAPE-MATCHED |
+| U01 | Rozpoznanie układu Cramera | P12/1a–h | `system-cramer-two`, `system-cramer-three`, `cramer-applicability`, `cramer-four-forced-pivot` | square nonsingular applicability | Independent residual substitution, determinant/minor and augmented-rank comparison | SAMPLE MATCH PENDING |
+| U02 | Cramer 3 niewiadome | P12/1a–c,1f–g | `system-cramer-three`, `cramer-determinants-three` | Cramer D and column-replaced determinants | Independent residual substitution, determinant/minor and augmented-rank comparison | BOUNDED MATCH |
+| U03 | Cramer 4 niewiadome | P12/1e,5s | `cramer-four`, `cramer-determinants-four`, `cramer-four-singular-minors`, `cramer-four-forced-pivot` | 4-unknown Cramer and D=0 cases | Independent residual substitution, determinant/minor and augmented-rank comparison | SAMPLE MATCH PENDING |
+| U04 | Łańcuch równości / jedna niewiadoma | P12/2 | `system-substitution`, `system-chain-five` | chain equalities → linear system | Independent residual substitution, determinant/minor and augmented-rank comparison | SAMPLE MATCH PENDING |
+| U05 | Liczba rozwiązań z podanych rzędów | P12/3a–d | `capelli-given-ranks` | rank comparisons for 0/1/∞ solutions | Independent residual substitution, determinant/minor and augmented-rank comparison | BOUNDED MATCH |
+| U06 | Klasyfikacja przez obliczenie rzędów | P12/4a–h | `capelli-matrices`, `gauss-classification`, `system-rectangular-3x2`, `system-rectangular-4x3` | augmented-matrix row reduction | Independent residual substitution, determinant/minor and augmented-rank comparison | SAMPLE MATCH PENDING |
+| U07 | Gauss: jedno rozwiązanie | P12/5b,e,k,m | `gauss-unique`, `gauss-four-forced-pivot` | Gaussian elimination + back substitution | Independent residual substitution, determinant/minor and augmented-rank comparison | SAMPLE MATCH PENDING |
+| U08 | Gauss: parametry i sprzeczność | P12/5a,c–d,f–t | `gauss-classification`, `capelli-matrices`, `gauss-parameters-one`, `gauss-parameters-two` | affine free-parameter solutions / contradictions | Independent residual substitution, determinant/minor and augmented-rank comparison | SAMPLE MATCH PENDING |
+| C01 | Granica wielomianu i ilorazu | P15/1a–l | `sequence-rational` | dominant powers in rational sequence | Dominant-term/limit algebra and independent exact reference cases | BOUNDED MATCH |
+| C02 | Pierwiastek w ilorazie | P15/1b,1h | `sequence-conjugate`, `sequence-radical-ratio` | radical quotient simplification | Dominant-term/limit algebra and independent exact reference cases | SAMPLE MATCH PENDING |
+| C03 | Różnica pierwiastków | P15/1m–t | `sequence-conjugate` | conjugation | Dominant-term/limit algebra and independent exact reference cases | BOUNDED MATCH |
+| C04 | Granice ciągów wykładniczych | P15/1v–y | `sequence-geometric`, `sequence-exponential-ratio`, `sequence-power-exponential` | exponential base comparison | Dominant-term/limit algebra and independent exact reference cases | SAMPLE MATCH PENDING |
+| C05 | Postać Eulera 1^∞ | P15/2a–g | `analysis-euler-sequence`, `sequence-euler-product` | Euler 1^∞ | Dominant-term/limit algebra and independent exact reference cases | SAMPLE MATCH PENDING |
+| C06 | Pojęcia ciągu, monotoniczność, ograniczoność | P13/2–8 (lecture) | `sequence-monotonic-bounded` | sequence monotonicity and boundedness | Dominant-term/limit algebra and independent exact reference cases | LECTURE — EXAM STATUS UNKNOWN |
+| F01 | Dziedzina: pierwiastek i ułamek | P17/1a,b,h,k | `function-domain` | radical/rational domain intersection | Domain sign-table, graph geometry and inverse substitution | BOUNDED MATCH |
+| F02 | Dziedzina logarytmu | P17/1c,i,l,m | `analysis-log-domain`, `function-log-rational-domain` | log argument positivity + exclusions | Domain sign-table, graph geometry and inverse substitution | SAMPLE MATCH PENDING |
+| F03 | Moduł w dziedzinie | P17/1f,g,n | `analysis-absolute` | absolute-value domain | Domain sign-table, graph geometry and inverse substitution | SAMPLE MATCH PENDING |
+| F04 | Kilka warunków dziedziny | P17/1e,j,l,n | `function-domain`, `analysis-log-domain`, `function-tangent-domain`, `function-mixed-domain` | multiple simultaneous domain conditions | Domain sign-table, graph geometry and inverse substitution | SAMPLE MATCH PENDING |
+| F05 | Własności z wykresu | P21/a–f (graphs) | `function-graph-domain-range`, `function-graph-zeros`, `function-graph-monotonicity`, `function-graph-extrema` | read domain, range, trends and parity from graph | Geometry with closed/open endpoints, holes and disconnected arcs | GRAPH-MATCH REVIEW |
+| F06 | Parzystość, złożenie i odwrotność | P18/9,13 (lecture exercises) | `function-composition`, `function-parity`, `function-affine-inverse`, `function-graph-symmetry` | even/odd, composition and inverse | Domain sign-table, graph geometry and inverse substitution | SAMPLE MATCH PENDING |
+| F07 | Prawa exp/log, równania i nierówności | P19/2–10 (lecture) | `analysis-power-law`, `analysis-elementary-equation`, `analysis-log-inequality` | exp/log rules and inequalities | Domain sign-table, graph geometry and inverse substitution | LECTURE — EXAM STATUS UNKNOWN |
+| G01 | Granica przez podstawienie | P26/1l | `limit-point` | direct substitution | Analytic simplification and one-sided/limit reference cases | BOUNDED MATCH |
+| G02 | 0/0 przez skrócenie | P26/1a,b,d,k,w–z | `limit-point` | factor cancellation 0/0 | Analytic simplification and one-sided/limit reference cases | BOUNDED MATCH |
+| G03 | Granice jednostronne i brak granicy | P26/1c,e,j,m,v,y | `limit-point` | one-sided signs | Analytic simplification and one-sided/limit reference cases | BOUNDED MATCH |
+| G04 | ±∞: stopnie i pierwiastki | P26/1f–i,p–u | `limit-infinity`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`, `limit-radical-infinity` | growth and |x| at infinity | Analytic simplification and one-sided/limit reference cases | SAMPLE MATCH PENDING |
+| G05 | Sprzężenie | P26/2a–d,g,h,j | `limit-conjugate` | radical conjugation | Analytic simplification and one-sided/limit reference cases | BOUNDED MATCH |
+| G06 | Granica potęgowa funkcji | P26/3a–d | `analysis-euler-function` | Euler limits | Analytic simplification and one-sided/limit reference cases | SAMPLE MATCH PENDING |
+| G07 | Asymptoty | P24/1–9 | `analysis-asymptote-vertical`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique` | vertical/horizontal/oblique asymptotes | Analytic simplification and one-sided/limit reference cases | SAMPLE MATCH PENDING |
+| G08 | Ciągłość i granica Heinego | P22/2–12,21–23 (lecture) | `limit-point`, `limit-piecewise-heine`, `limit-oscillatory-heine` | point continuity and Heine sequences | Analytic simplification and one-sided/limit reference cases | LECTURE — EXAM STATUS UNKNOWN |
+| D01 | Pochodna potęg po uproszczeniu | P29/1g,h,i,s | `derivative-formula` | power derivative after rewriting | Symbolic differentiation, sign charts and critical-value checks | BOUNDED MATCH |
+| D02 | Iloczyn i iloraz | P29/1a–f,j–m,5,7 | `derivative-formula`, `derivative-rational-point`, `derivative-product-point`, `derivative-quotient-point` | product and quotient rules | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| D03 | Łańcuch i funkcje elementarne | P29/1n,t–z,1–12 | `derivative-formula`, `analysis-log-exp-derivative`, `derivative-trig-chain`, `derivative-trig-special-point` | chain rule for elementary functions | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| D04 | L’Hospital | P34/1a–j | `analysis-lhospital`, `analysis-lhospital-infinity` | l'Hospital with preconditions | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| D05 | Monotoniczność i ekstrema lokalne | P32/1a–o | `derivative-monotonicity`, `derivative-extrema`, `analysis-study-quartic`, `analysis-study-rational-shift` | first derivative sign chart | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| D06 | Brak pochodnej w punkcie krytycznym | P32/1o | `derivative-absolute-one-sided`, `derivative-piecewise-point`, `derivative-vertical-cusp` | nondifferentiability at extrema | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| D07 | Wypukłość i przegięcia | P32/2a–g | `analysis-concavity` | second derivative/inflection | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| D08 | Pełne badanie funkcji | P32/3a–h | `analysis-study-polynomial`, `analysis-study-rational` | full graph study | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| D09 | Szkic z tabeli | P32/4a–b (sketch) | `analysis-study-polynomial`, `analysis-study-rational` | qualitative graph sketch from supplied signs | Reference qualitative sketch + owner-approved drawing-assessment approach | DRAWING GATE |
+| D10 | Ekstrema globalne | P32/5a–f,6 | `derivative-profit-maximum` | global extrema incl. endpoints | Symbolic differentiation, sign charts and critical-value checks | SAMPLE MATCH PENDING |
+| I01 | Całka bezpośrednia po uproszczeniu | P36/1a–d,n–p,z | `integral-direct`, `integral-direct-product` | direct integration after expansion | Differentiate antiderivative or verify exact endpoints/area/arc | SAMPLE MATCH PENDING |
+| I02 | Całka trygonometryczna i tablicowa | P36/1m,q,x,y | `integral-table`, `integral-table-arctan` | table/trigonometric identities | Differentiate antiderivative or verify exact endpoints/area/arc | SAMPLE MATCH PENDING |
+| I03 | Podstawienie | P36/1e–i,v | `integral-substitution`, `integral-substitution-definite`, `integral-log-substitution` | u-substitution | Differentiate antiderivative or verify exact endpoints/area/arc | SAMPLE MATCH PENDING |
+| I04 | Całkowanie przez części | P36/1j–l,r–t | `integral-parts`, `integral-parts-definite`, `integral-parts-trig-linear` | integration by parts, repeated | Differentiate antiderivative or verify exact endpoints/area/arc | SAMPLE MATCH PENDING |
+| I05 | Całka powracająca | P36/1u,w | `integral-recurring` | recurring integral closure | Differentiate antiderivative or verify exact endpoints/area/arc | SAMPLE MATCH PENDING |
+| I06 | Całka oznaczona | P38/1a–n | `integral-definite`, `integral-improper-infinity`, `integral-improper-endpoint`, `integral-improper-interior-power` | definite integral by FTC | Differentiate antiderivative or verify exact endpoints/area/arc | SAMPLE MATCH PENDING |
+| I07 | Pole między krzywymi | P38/2a–j | `integral-area-between`, `integral-area-parabolas` | piecewise nonnegative area | Piecewise integral with sign-change segmentation | SHAPE-MATCH REVIEW |
+| I08 | Długość łuku | P38/3a–c | `integral-arc-length`, `integral-arc-parametric` | arc-length integral | Differentiate antiderivative or verify exact endpoints/area/arc | SAMPLE MATCH PENDING |
+| W01 | Pochodne cząstkowe I/II | P43/1a–j | `multivar-partial-point`, `multivar-gradient-point`, `multivar-cubic-partial`, `multivar-chain-gradient` | first/second mixed partial derivatives | Independent partial derivatives, stationary equations and Hessian signs | SAMPLE MATCH PENDING |
+| W02 | Ekstrema 2D | P43/2a–h | `multivar-stationary-point`, `multivar-hessian-classify`, `multivar-rectangle-extrema`, `multivar-disk-linear-extrema` | stationary equations and Hessian | Independent partial derivatives, stationary equations and Hessian signs | SAMPLE MATCH PENDING |
+| W03 | Granica i ciągłość 2D | P41/2–5 (lecture) | `multivar-path-limit`, `multivar-continuity-point`, `multivar-polar-homogeneous-limit`, `multivar-angular-continuity` | 2-variable limit/continuity theory | No standalone calculation list in supplied materials | LECTURE-ONLY |
+
+## Confirmed follow-up gates
+
+1. **M06 — exact radicals inside a 2×2 determinant:** the source worksheet includes a concrete square-root coefficient example. Today's determinant task data is rational-only; a correct *numeric* determinant implementation does not make the symbolic-input exercise type covered. Propose a bounded expression family with exact algebraic simplification and an independent oracle. Do not widen all determinant APIs or resort to floating-point comparisons.
+2. **D09 — sketch from a derivative/concavity sign chart:** the source worksheet requires a qualitative hand-drawn graph (two examples), with no official model sketch in the answers. Existing solution SVGs offer visual guidance but do not grade the student's own sketch. Need owner acceptance of a paper/offline sketch or a deliberately bounded interactive checkpoints feature; avoid falsely claiming freehand grading.
+3. **F05 — graph reading with discontinuities/open points:** supplied sketches have holes and disconnected branches. Current SVG/geometry families cover controlled piecewise lines but need a witness-by-witness fidelity review.
+4. **I07 — region area:** worksheet contains split regions and an example where integrating with respect to y is natural. Reconcile existing parabola/linear families against those particular region orientations and splitting steps.
+5. **W01/W02 — mixed derivatives and nonlinear stationarity:** source includes rational, trig, log, root and polynomial examples. Verify representative solutions against current bounded 2D families rather than merely counting generators.
+6. **M14:** 5×4 and 6×3 shape gap is resolved by PR #112. Keep status bounded pending an explicit final regression and owner syllabus acceptance.
+
+## Completion protocol
+
+For each of the 64 rows: choose at least one original source witness where available, run an independently checked corresponding Math Tutor generated example on the expected level, inspect mathematical **method and explanations** as well as final answer, validate wrong/invalid answers in both languages, verify mobile view, and record PASS/NEEDS_FIXES or not-applicable theory evidence. Do not silently turn lecture-only concepts into invented written-exam requirements. When a format requires a sketch or free-text proof, document a real assessment path; never mark it complete merely because a solution is displayed.
+
+**Governance:** syllabus gate #108 remains open. The custom-problem feature #104 stays deferred. No PR shall be squash-merged without the owner's separate exact-HEAD approval.

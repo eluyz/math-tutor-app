@@ -1,6 +1,8 @@
 # Math Tutor
 
-MT-EDU-031 (Issue #111, separate unmerged PR): M14 exact rank of 5×4 and 6×3 matrices: two families × hard/advanced/expert × 24 = 144 PL/EN variants, with exact row-operation traces and independent minor tests. Proposed catalog **208 families / 16,869 variants** only after owner-approved merge; legacy matrix/system/inverse size limits unchanged.
+See [SYLLABUS_ACCEPTANCE.md](SYLLABUS_ACCEPTANCE.md) for a source-backed, bounded 64-skill curriculum acceptance matrix and the remaining assessment-format gaps.
+
+MT-EDU-031 (Issue #111, PR #112 merged; main CI/Pages verification follows): M14 exact rank of 5×4 and 6×3 matrices: two families × hard/advanced/expert × 24 = 144 PL/EN variants, with exact row-operation traces and independent minor tests. Catalog **208 families / 16,869 variants** after owner-approved merge; legacy matrix/system/inverse size limits unchanged.
 
 MT-EDU-030 (Issue #109, PR #110 merged, CI + Pages PASS): U06/U08 five-unknown Gaussian systems with 3×5 and 4×5 exact matrices, two-parameter affine solutions and independent inconsistent cases. Two families × 3 levels × 24 = 144 bilingual variants; deployed catalog **206 families / 16,725 instances**. Existing Gauss/Cramer tasks remain intact.
 
