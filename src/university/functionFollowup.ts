@@ -67,11 +67,11 @@ export function presentFunctionFollowup(z:FunctionFollowupProblem,locale:Locale)
     t("Po prawej iloraz jest dodatni (zachowuje się jak x); przekraczając każdą granicę zmieniamy znak.",
       "At the right the ratio behaves like x and is positive; cross each boundary and reverse its sign."));
   lesson.work("D = "+setText(D),
-    t("Wybieramy dodatnie przedziały bez końców. Nie wolno dopuścić zera logarytmu ani mianownika.",
+    t("Wybieramy dodatnie przedziały bez końców. Argument logarytmu musi być ściśle dodatni, a mianownik nie może być zerem.",
       "Select positive intervals with open endpoints: neither log(0) nor a zero denominator is permitted."));
   return lesson.finish(t("Wyznacz dziedzinę rzeczywistą.","Find the real domain.")+"\nf(x)="+expression,
     setAnswer(D,roots[1]),
-    t("Zapisz trzy miejsca zerowe i biegun, a następnie ułóż tabelę znaków.",
+    t("Zapisz dwa miejsca zerowe licznika i biegun mianownika, a następnie ułóż tabelę znaków.",
       "List the two numerator zeros and denominator pole, then construct the sign chart."),
     t("Iloraz ma być ściśle dodatni: użyj otwartych końców przedziałów.",
       "The quotient must be strictly positive; use open interval boundaries."));
