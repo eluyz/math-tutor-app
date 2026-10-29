@@ -27,8 +27,20 @@ test("F05 P0F two-pole exact range "+level+" "+width+"px "+(pl?"PL":"EN"),async(
   text:(n as HTMLOptionElement).textContent?.trim(),value:(n as HTMLOptionElement).value
  })).filter(n=>n.value));
  expect(options).toHaveLength(4);
- const expected=options.find(o=>o.value==="asymptote-range:0");
- expect(expected).toBeDefined(); // first sampled variant in UI uses "cross" mode
+ // The session can draw any of the 24 variants. Infer the mathematically
+ // correct range from the displayed curve's two pole limits and its midpoint
+ // instead of assuming the first variant is the cross/ℝ case.
+ const d=await fig.getByTestId("asymptote-middle-path").getAttribute("d")||"";
+ const plotted=[...d.matchAll(/[ML] ([^ ]+) ([^ ]+)/g)].map(m=>({x:Number(m[1]),y:Number(m[2])}));
+ expect(plotted).toHaveLength(159);
+ const left=plotted[0],mid=plotted[79],right=plotted[158];
+ const opposite=(left.y<128)!==(right.y<128);
+ const centerHeight=Math.round((128-mid.y)/20.7);
+ const bound=String(centerHeight).replace("-","−");
+ const correctLabel=opposite?"ℝ":left.y>128?
+   "(−∞; "+bound+"]":"["+bound+"; +∞)";
+ const expected=options.find(o=>o.text===correctLabel);
+ expect(expected).toBeDefined();
  const wrong=options.find(o=>o.value!==expected!.value);
  expect(wrong).toBeDefined();
  await btn(page,pl?"Sprawdź":"Check").click();
