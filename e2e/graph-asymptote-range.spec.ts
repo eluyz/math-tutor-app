@@ -16,8 +16,11 @@ test("F05 P0F two-pole exact range "+level+" "+width+"px "+(pl?"PL":"EN"),async(
  await expect(page.locator(".question")).toHaveAttribute("data-template-id","function-asymptote-range");
  const fig=page.locator("figure[data-graph-kind=function-asymptote-range]");
  await expect(fig.locator("svg[role=img]")).toBeVisible();
- await expect(fig.getByTestId("asymptote-left")).toBeVisible();
- await expect(fig.getByTestId("asymptote-right")).toBeVisible();
+ // Vertical SVG <line> has a zero-width bounding box in Chromium, so
+ // Playwright's toBeVisible() reports "hidden" even though the dashed stroke renders.
+ // Verify exact elements and their mathematical pole coordinates instead.
+ await expect(fig.getByTestId("asymptote-left")).toHaveCount(1);
+ await expect(fig.getByTestId("asymptote-right")).toHaveCount(1);
  await expect(fig.getByTestId("asymptote-middle-path")).toBeVisible();
  await expect(fig.getByTestId("asymptote-outer-segment")).toHaveCount(2);
  const a=Number(await fig.getByTestId("asymptote-left").getAttribute("data-x"));
