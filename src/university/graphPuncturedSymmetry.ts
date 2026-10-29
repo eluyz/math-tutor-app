@@ -22,7 +22,7 @@ export function makeGraphPuncturedSymmetry(v:number,difficulty:Difficulty):Graph
  const a=sign*(1+v%4),b=sign*(1+(v+level)%3),c=1+(v+level)%3;
  const outer=(v+level)%2===0;
  const holesIncluded=v%3===0,centerIncluded=!holesIncluded;
- const nodes=mode===1
+ const nodes:GraphPuncturedSymmetryProblem["nodes"]=mode===1
    ? [n(-L,a),n(-h,b),n(0,0),n(h,-b),n(L,-a)]
    : [n(-L,a),n(-h,b),n(0,c),n(h,b),n(L,mode===3?0:a)];
  const included:readonly [boolean,boolean,boolean,boolean,boolean]=mode===2
@@ -31,7 +31,7 @@ export function makeGraphPuncturedSymmetry(v:number,difficulty:Difficulty):Graph
     ? [outer,false,true,false,outer] // symmetric domain; heights break both
     : [outer,holesIncluded,centerIncluded,holesIncluded,outer];
  return {kind:"function-punctured-symmetry",
-  nodes:nodes as GraphPuncturedSymmetryProblem["nodes"],included};
+  nodes,included};
 }
 export function puncturedParity(p:GraphPuncturedSymmetryProblem):Parity {
  const v=p.nodes,s=p.included;
