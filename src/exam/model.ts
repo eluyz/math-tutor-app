@@ -122,6 +122,7 @@ export function isBlankAnswer(input: AnswerInput): boolean {
     case "limit": return !input.classification && !input.value.trim();
     case "roots": return !input.classification && input.values.every((value) => !value.trim());
     case "choice": return !input.value;
+    case "multi-choice": return Object.values(input.values).every(value=>!value.trim());
     case "list": return input.values.every((value) => !value.trim());
     case "matrix": return input.values.every((row) => row.every((value) => !value.trim()));
   }

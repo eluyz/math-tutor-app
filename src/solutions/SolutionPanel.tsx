@@ -68,6 +68,11 @@ export function FinalAnswer({ answer }: { answer: AnswerSpec }) {
           }
         </p>
       );
+    case "multi-choice":
+      return <dl className="graph-properties-solution">{answer.fields.map(field=><div key={field.id}>
+        <dt>{field.label}</dt>
+        <dd>{field.options.find(option=>option.value===field.value)?.label}</dd>
+      </div>)}</dl>;
     case "roots":
       return (
         <p className="solution-answer">

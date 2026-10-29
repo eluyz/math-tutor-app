@@ -15,6 +15,7 @@ export function inputFor(spec: AnswerSpec): AnswerInput {
   if (spec.kind === "system") return {kind:"system",classification:spec.classification,values:spec.values.map(f)};
   if (spec.kind === "scalar") return f(spec.value);
   if (spec.kind === "choice") return { kind: "choice", value: spec.value };
+  if (spec.kind === "multi-choice") return {kind:"multi-choice",values:Object.fromEntries(spec.fields.map(f=>[f.id,f.value]))};
   if (spec.kind === "roots") return { kind: "roots", classification: ["none", "double", "two"][spec.values.length], values: [...spec.values].reverse().map(f) };
   return spec.kind === "list" ? { kind: "list", values: spec.values.map(f) } : { kind: "matrix", values: spec.values.map((row) => row.map(f)) };
 }
@@ -22,6 +23,7 @@ function wrongInput(spec: AnswerSpec): AnswerInput {
   const input = inputFor(spec);
   if (typeof input === "string") return f(addRational(spec.kind === "scalar" ? spec.value : r(0), r(1)));
   if (input.kind === "choice" && spec.kind === "choice") return { kind: "choice", value: spec.options.find((o) => o.value !== spec.value)!.value };
+  if (input.kind === "multi-choice" && spec.kind === "multi-choice") return {...input,values:{...input.values,[spec.fields[0].id]:spec.fields[0].options.find(o=>o.value!==spec.fields[0].value)!.value}};
   if (input.kind === "roots") return { kind: "roots", classification: "double", values: ["99999"] };
   if (input.kind === "list") return { kind: "list", values: input.values.map((v, i) => i === 0 ? "99999" : v) };
   if (input.kind === "matrix") return { kind: "matrix", values: input.values.map((row, i) => row.map((v, j) => i === 0 && j === 0 ? "99999" : v)) };

@@ -15,7 +15,8 @@ export type AnswerSpec =
   | { kind: "scalar"; value: Rational }
   | { kind: "list"; values: readonly Rational[]; labels: readonly string[]; unordered?: boolean }
   | { kind: "matrix"; values: Matrix }
-  | { kind: "choice"; value: string; options: readonly { value: string; label: string }[] };
+  | { kind: "choice"; value: string; options: readonly { value: string; label: string }[] }
+  | { kind: "multi-choice"; fields: readonly {id:string;label:string;value:string;options:readonly {value:string;label:string}[]}[] };
 export type AnswerInput = string
   | { kind: "primitive"; coefficients: readonly string[]; hasConstant: boolean }
   | { kind: "system"; classification: string; values: readonly string[] }
@@ -23,7 +24,8 @@ export type AnswerInput = string
   | { kind: "roots"; classification: string; values: readonly string[] }
   | { kind: "list"; values: readonly string[] }
   | { kind: "matrix"; values: readonly (readonly string[])[] }
-  | { kind: "choice"; value: string };
+  | { kind: "choice"; value: string }
+  | { kind: "multi-choice"; values: Readonly<Record<string,string>> };
 type ParseReason = Extract<ParsedAnswer, { kind: "invalid" }>["reason"];
 export type AnswerAssessment = { kind: "correct" } | { kind: "incorrect"; reason?: "missing-constant" }
   | { kind: "invalid"; reason: ParseReason | "structure" | "choice" };
@@ -39,6 +41,7 @@ export function emptyAnswer(spec: AnswerSpec): AnswerInput {
   if (spec.kind === "roots") return { kind: "roots", classification: "", values: [] };
   if (spec.kind === "scalar") return "";
   if (spec.kind === "choice") return { kind: "choice", value: "" };
+  if (spec.kind === "multi-choice") return { kind:"multi-choice",values:Object.fromEntries(spec.fields.map(f=>[f.id,""])) };
   if (spec.kind === "list") return { kind: "list", values: spec.values.map(() => "") };
   return { kind: "matrix", values: spec.values.map((row) => row.map(() => "")) };
 }
@@ -49,6 +52,7 @@ export function describeInput(input: AnswerInput, spec?: AnswerSpec): string {
   if (input.kind === "system") return input.classification === "system-one" ? input.values.join("; ") : input.classification === "system-none" ? "∅" : input.classification === "system-many" ? "∞" : "";
   if (input.kind === "limit") return input.classification === "finite" ? input.value : input.classification === "positive-infinity" ? "+∞" : input.classification === "negative-infinity" ? "−∞" : input.classification === "does-not-exist" ? "∄ lim" : "";
   if (input.kind === "choice") return spec?.kind === "choice" ? spec.options.find((option) => option.value === input.value)?.label ?? "" : input.value;
+  if (input.kind === "multi-choice") return spec?.kind === "multi-choice" ? spec.fields.map(f=>f.label+": "+(f.options.find(o=>o.value===input.values[f.id])?.label??"—")).join("; ") : "";
   if (input.kind === "roots") return input.classification === "none" ? "Brak pierwiastków rzeczywistych" : input.values.join("; ");
   return input.kind === "list" ? input.values.join("; ") : input.values.map((row) => `[${row.join("; ")}]`).join(" ");
 }
@@ -88,6 +92,12 @@ export function assessAnswer(spec: AnswerSpec, input: AnswerInput): AnswerAssess
     if (failed?.kind === "invalid") return failed;
     if (count !== spec.values.length) return { kind: "incorrect" };
     return assessAnswer({ kind: "list", values: spec.values, labels: [], unordered: true }, { kind: "list", values: input.values });
+  }
+  if (spec.kind === "multi-choice") {
+    if(typeof input==="string"||input.kind!=="multi-choice") return invalid("structure");
+    if(!spec.fields.length||new Set(spec.fields.map(f=>f.id)).size!==spec.fields.length) return invalid("structure");
+    if(spec.fields.some(f=>!f.options.some(o=>o.value===input.values[f.id])))return invalid("choice");
+    return {kind:spec.fields.every(f=>input.values[f.id]===f.value)?"correct":"incorrect"};
   }
   if (spec.kind === "choice") {
     if (typeof input === "string" || input.kind !== "choice" || !spec.options.some((option) => option.value === input.value))

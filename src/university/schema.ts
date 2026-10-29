@@ -25,6 +25,8 @@ import type { GraphGapRangeProblem } from "./graphGapRange";
 import type { GraphMonotonicityIntervalsProblem } from "./graphMonotonicityIntervals";
 import type { GraphPuncturedSymmetryProblem } from "./graphPuncturedSymmetry";
 import type { GraphAsymptoteRangeProblem } from "./graphAsymptoteRange";
+import type { GraphIntegratedProblem } from "./graphIntegratedProperties";
+import type { IntegratedJumpProblem } from "./graphIntegratedJump";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { GraphInjectivityProblem } from "./graphInjectivity";
@@ -266,6 +268,8 @@ export type UniversityProblem =
   | GraphMonotonicityIntervalsProblem
   | GraphPuncturedSymmetryProblem
   | GraphAsymptoteRangeProblem
+  | GraphIntegratedProblem
+  | IntegratedJumpProblem
   | DerivativeSketchProblem
   | GraphPropertyProblem
   | GraphInjectivityProblem

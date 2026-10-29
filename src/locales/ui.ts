@@ -235,6 +235,7 @@ const en: UiCopy = {
     matrix:
       "Enter every matrix entry, row by row. Integers and exact fractions a/b are accepted.",
     choice: "Choose one of the available answers.",
+    "multi-choice": "Fill every field separately. Each graph property will be checked independently.",
     roots:
       "Choose the number of roots, then enter their exact values, including fractions a/b, without rounding.",
   },
