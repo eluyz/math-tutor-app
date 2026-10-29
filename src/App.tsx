@@ -27,6 +27,7 @@ import { RadicalDeterminantDisplay } from "./RadicalDeterminantDisplay";
 import { FunctionGraphDisplay } from "./FunctionGraphDisplay";
 import { GraphGapDisplay } from "./GraphGapDisplay";
 import { PuncturedSymmetryDisplay } from "./PuncturedSymmetryDisplay";
+import { AsymptoteRangeDisplay } from "./AsymptoteRangeDisplay";
 import { DerivativeSketchDisplay } from "./DerivativeSketchDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
@@ -620,6 +621,9 @@ export default function App() {
                   </div>
                   {isUniversityTask(active) && (isFunctionGraphProblem(active.university)) && (
                     <FunctionGraphDisplay problem={active.university} locale={locale} />
+                  )}
+                  {isUniversityTask(active) && active.university.kind === "function-asymptote-range" && (
+                    <AsymptoteRangeDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-punctured-symmetry" && (
                     <PuncturedSymmetryDisplay problem={active.university} locale={locale} />
