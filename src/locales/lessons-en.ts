@@ -232,6 +232,21 @@ function englishMonotonicityIntervals(label: string): string | null {
   return `Increasing: ${match[1]}; Decreasing: ${match[2]}; Constant: ${match[3]}`;
 }
 export function englishAnswer(spec: AnswerSpec): AnswerSpec {
+  if(spec.kind==="multi-choice"){
+    const fieldNames:Record<string,string>={
+      "Dziedzina (D)":"Domain (D)","Zbiór wartości (W)":"Range (W)",
+      "Ściśle rośnie":"Strictly increasing","Ściśle maleje":"Strictly decreasing",
+      "Różnowartościowa?":"One-to-one?","Parzystość":"Parity",
+    };
+    const optionNames:Record<string,string>={
+      "Tak":"Yes","Nie":"No","Parzysta":"Even","Nieparzysta":"Odd",
+      "Ani parzysta, ani nieparzysta":"Neither",
+    };
+    return {...spec,fields:spec.fields.map(f=>({...f,
+      label:fieldNames[f.label]??f.label,
+      options:f.options.map(o=>({...o,label:optionNames[o.label]??o.label})),
+    }))};
+  }
   if (spec.kind === "list")
     return {
       ...spec,

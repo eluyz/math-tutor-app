@@ -99,6 +99,7 @@ function input(spec: AnswerSpec): AnswerInput {
       classification: ["none", "double", "two"][spec.values.length],
       values: [...spec.values].reverse().map(f),
     };
+  if (spec.kind === "multi-choice") return {kind:"multi-choice",values:Object.fromEntries(spec.fields.map(f=>[f.id,f.value]))};
   return { kind: "choice", value: spec.value };
 }
 function audit(task: HigherTask) {

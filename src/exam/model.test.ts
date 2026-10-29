@@ -22,6 +22,7 @@ function correct(spec: AnswerSpec): AnswerInput {
     case "list": return { kind: "list", values: spec.values.map(number) };
     case "matrix": return { kind: "matrix", values: spec.values.map((row) => row.map(number)) };
     case "choice": return { kind: "choice", value: spec.value };
+    case "multi-choice": return {kind:"multi-choice",values:Object.fromEntries(spec.fields.map(f=>[f.id,f.value]))};
   }
 }
 function malformed(spec: AnswerSpec): AnswerInput {
@@ -32,6 +33,7 @@ function malformed(spec: AnswerSpec): AnswerInput {
   if (valid.kind === "limit") return { ...valid, classification: "" };
   if (valid.kind === "roots") return { ...valid, classification: "" };
   if (valid.kind === "choice") return { ...valid, value: "unknown" };
+  if (valid.kind === "multi-choice") return {...valid,values:{...valid.values,domain:"unknown"}};
   if (valid.kind === "list") return { ...valid, values: ["1/0", ...valid.values.slice(1)] };
   return { ...valid, values: valid.values.map((row, i) => i ? row : ["1/0", ...row.slice(1)]) };
 }
@@ -49,6 +51,7 @@ function incorrect(spec: AnswerSpec): AnswerInput {
     case "matrix": return { kind: "matrix", values: spec.values.map((row, i) =>
       row.map((value, j) => i === 0 && j === 0 ? plusOne(value) : number(value))) };
     case "choice": return { kind: "choice", value: spec.options.find((option) => option.value !== spec.value)!.value };
+    case "multi-choice": return {kind:"multi-choice",values:Object.fromEntries(spec.fields.map((f,i)=>[f.id,i===0?f.options.find(o=>o.value!==f.value)!.value:f.value]))};
   }
 }
 
@@ -101,7 +104,7 @@ describe("MT-EXAM-001 model", () => {
       const task = taskPool(family.category, level).find((item) => item.templateId === family.id);
       if (task) specimens.set(getAnswerSpec(task).kind, specimens.get(getAnswerSpec(task).kind) ?? task);
     }
-    expect([...specimens.keys()].sort()).toEqual(["choice", "limit", "list", "matrix", "primitive", "roots", "scalar", "system"]);
+    expect([...specimens.keys()].sort()).toEqual(["choice", "limit", "list", "matrix", "multi-choice", "primitive", "roots", "scalar", "system"]);
     for (const task of specimens.values()) {
       const spec = getAnswerSpec(task);
       const state = { ...startExam({ categories: [task.category], difficulty: task.difficulty,
