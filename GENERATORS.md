@@ -1,3 +1,11 @@
+## MT-F05-P0F — two vertical asymptotes and whole-graph range (Issue #133, Draft PR)
+
+| Family | Levels | Variants | Exact method |
+| --- | --- | --- | --- |
+| function-asymptote-range | hard, advanced, expert | 72 | Synthetic two-pole rational middle branch and two finite outer fragments; use opposite/same-sign infinite pole limits and attained center extrema to distinguish ℝ, (−∞; M], [m; +∞) |
+
+**Candidate only:** 218 families / 17,589 variants pending full CI, bounded independent math and technical review, separate exact-HEAD owner approval and post-merge Pages. The source six-graph P21/a–f acceptance remains PARTIAL.
+
 ## MT-F05-P0E — graph symmetry with punctures (Issue #131, Draft PR)
 
 | Family | Levels | Variants | Method and boundaries |
@@ -24,9 +32,9 @@
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **217 rodzin**, **17517 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 172 rodzin wspiera advanced, a 158 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **218 rodzin**, **17589 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 173 rodzin wspiera advanced, a 159 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **172**, L5: **158**.
+Łącznie rodziny L4: **173**, L5: **159**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
