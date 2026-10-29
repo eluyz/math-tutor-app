@@ -59,7 +59,7 @@ export function presentGraphPuncturedSymmetry(p:GraphPuncturedSymmetryProblem,lo
  const type=puncturedParity(p),s=p.included,v=p.nodes;
  const lbl={
   even:t("parzysta","even"),odd:t("nieparzysta","odd"),
-  neither:t("ani parzysta, ani nieparzysta","neither even nor odd"),
+  neither:t("ani parzysta, ani nieparzysta","neither"),
  };
  const domainSymmetric=s[0]===s[4]&&s[1]===s[3];
  lesson.work(t("Dziedzina po odbiciu x → −x","Domain under x → −x")+

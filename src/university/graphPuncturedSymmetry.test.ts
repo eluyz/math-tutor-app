@@ -59,7 +59,7 @@ describe("F05 P0E punctured-domain parity",()=>{
       expect(spec.options.find(o=>o.value===expected)?.label).toBe(
         expected==="even"?(locale==="pl"?"parzysta":"even"):
         expected==="odd"?(locale==="pl"?"nieparzysta":"odd"):
-        (locale==="pl"?"ani parzysta, ani nieparzysta":"neither even nor odd"));
+        (locale==="pl"?"ani parzysta, ani nieparzysta":"neither"));
       expect(assessAnswer(spec,{kind:"choice",value:expected}).kind).toBe("correct");
       expect(assessAnswer(spec,{kind:"choice",value:expected==="even"?"odd":"even"}).kind).toBe("incorrect");
       expect(assessAnswer(spec,emptyAnswer(spec)).kind).toBe("invalid");
