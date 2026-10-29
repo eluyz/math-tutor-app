@@ -39,15 +39,15 @@ describe("F05 P0D connected monotonicity intervals with a hole",()=>{
     rising+=expectSets.up.length;falling+=expectSets.down.length;constant+=expectSets.flat.length;
     open+=Number(!ac||!bc||!cc||!dc);keys.add(task.contentKey);
     for(const locale of ["pl","en"] as const){
-     const view=localizeUniversity(task,locale);
-     if(view.answer.kind!=="choice")throw Error("No choice");
+     const view=localizeUniversity(task,locale),answer=view.answer;
+     if(answer.kind!=="choice")throw Error("No choice");
      const right=formatMonotonicity(expectSets,locale);
-     expect(view.answer.options).toHaveLength(4);
-     expect(new Set(view.answer.options.map(q=>q.label)).size).toBe(4);
-     expect(view.answer.options.find(q=>q.value===view.answer.value)?.label).toBe(right);
-     expect(assessAnswer(view.answer,{kind:"choice",value:view.answer.value}).kind).toBe("correct");
-     expect(assessAnswer(view.answer,{kind:"choice",value:view.answer.options.find(q=>q.value!==view.answer.value)!.value}).kind).toBe("incorrect");
-     expect(assessAnswer(view.answer,emptyAnswer(view.answer)).kind).toBe("invalid");
+     expect(answer.options).toHaveLength(4);
+     expect(new Set(answer.options.map(q=>q.label)).size).toBe(4);
+     expect(answer.options.find(q=>q.value===answer.value)?.label).toBe(right);
+     expect(assessAnswer(answer,{kind:"choice",value:answer.value}).kind).toBe("correct");
+     expect(assessAnswer(answer,{kind:"choice",value:answer.options.find(q=>q.value!==answer.value)!.value}).kind).toBe("incorrect");
+     expect(assessAnswer(answer,emptyAnswer(answer)).kind).toBe("invalid");
      expect(view.explanation).toContain(right);
      if(locale==="en")expect(view.explanation).not.toMatch(/[ąćęłńóśźż]/i);
     }
