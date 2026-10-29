@@ -71,8 +71,11 @@ export function presentGraphPuncturedSymmetry(p:GraphPuncturedSymmetryProblem,lo
     "On every existing segment: even requires f(−x)=f(x), odd requires f(−x)=−f(x). Excluded vertices do not remove the constraints from adjacent segment values."));
  lesson.work(t("Warunek w środku wykresu","Condition at the centre"),
   v[2].y===0
-   ? t("Dla nieparzystości wartość i granica przy 0 są zgodne z symetrią środkową.",
-       "The value and limiting shape at zero are consistent with odd symmetry.")
+   ? s[2]
+     ? t("Wartość f(0)=0 i granica przy 0 są zgodne z symetrią środkową.",
+         "The value f(0)=0 and the limit at zero are consistent with odd symmetry.")
+     : t("Punkt x=0 jest wyłączony, więc f(0) nie jest określone. Granica przy 0 wynosi 0 i jest zgodna z symetrią środkową.",
+         "The point x=0 is excluded, so f(0) is not defined. The limit at zero is 0 and is consistent with odd symmetry.")
    : t("Wysokość środkowego wierzchołka jest różna od zera, więc wykres nie jest symetryczny względem początku układu.",
        "The central vertex has nonzero height, so the graph is not symmetric about the origin."));
  lesson.work(t("Klasyfikacja","Classification")+": "+lbl[type],
