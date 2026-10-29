@@ -66,7 +66,7 @@ describe("MT-F05-P0H integrated five-property source method",()=>{
     keys.add(task.contentKey);
     for(const field of ["domain","range","increasing","decreasing","injective","parity"] as const)
      expect(oracle[field],level+"/"+v+"/"+field).toBe(ind[field]);
-    tally[oracle.parity]++;tally[oracle.injective]++;if(!p.included[1])tally.hole++;
+    tally[oracle.parity as "even"|"odd"|"neither"]++;tally[oracle.injective as "yes"|"no"]++;if(!p.included[1])tally.hole++;
     for(const locale of ["pl","en"] as const){
      const view=localizeUniversity(task,locale),spec=view.answer;
      if(spec.kind!=="multi-choice")throw Error("Missing six-field answer");
