@@ -23,6 +23,7 @@ import type { FunctionGraphProblem } from "./functionGraphs";
 import type { GraphGapProblem } from "./graphGaps";
 import type { GraphGapRangeProblem } from "./graphGapRange";
 import type { GraphMonotonicityIntervalsProblem } from "./graphMonotonicityIntervals";
+import type { GraphPuncturedSymmetryProblem } from "./graphPuncturedSymmetry";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { GraphInjectivityProblem } from "./graphInjectivity";
@@ -262,6 +263,7 @@ export type UniversityProblem =
   | GraphGapProblem
   | GraphGapRangeProblem
   | GraphMonotonicityIntervalsProblem
+  | GraphPuncturedSymmetryProblem
   | DerivativeSketchProblem
   | GraphPropertyProblem
   | GraphInjectivityProblem
