@@ -262,6 +262,24 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
         </div>
       </>
     );
+  if (spec.kind === "multi-choice") {
+    const vals=typeof value!=="string"&&value.kind==="multi-choice"?value.values:{};
+    return <div className="structured-answer graph-properties-answers">
+      <fieldset aria-describedby={fieldId("answer-help")}>
+        <legend>{ui.answer}</legend>
+        {spec.fields.map((field,index)=><div className="coefficient-field" key={field.id}>
+          <label htmlFor={fieldId(index===0?"answer":"answer-"+field.id)}>{field.label}</label>
+          <select id={fieldId(index===0?"answer":"answer-"+field.id)}
+            value={vals[field.id]??""}
+            onChange={(event)=>onChange({kind:"multi-choice",values:{...vals,[field.id]:event.target.value}})}>
+            <option value="">{c.choose}</option>
+            {field.options.map(option=><option key={option.value} value={option.value}>{option.label}</option>)}
+          </select>
+        </div>)}
+      </fieldset>
+      {check}
+    </div>;
+  }
   if (spec.kind === "list") {
     const values = spec.values.map((_, i) =>
       typeof value !== "string" && value.kind === "list"

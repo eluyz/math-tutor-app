@@ -34,6 +34,7 @@ export const answerHints = {
   list: "Uzupełnij każde opisane pole. Możesz użyć liczb całkowitych lub dokładnych ułamków a/b.",
   matrix: "Wpisz wszystkie elementy macierzy, wiersz po wierszu. Dopuszczalne są liczby całkowite i dokładne ułamki a/b.",
   choice: "Wybierz jedną z podanych odpowiedzi.",
+  "multi-choice": "Uzupełnij osobno wszystkie pola. Każda własność wykresu będzie sprawdzona niezależnie.",
   roots: "Wybierz liczbę pierwiastków. Jeśli istnieją, wpisz dokładne wartości (także ułamki a/b), bez zaokrąglania.",
 } as const;
 

@@ -20,6 +20,7 @@ import {
   type GeneratedTask,
 } from "./generators";
 import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
+import { IntegratedGraphDisplay } from "./IntegratedGraphDisplay";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
 import { DeterminantDisplay } from "./DeterminantDisplay";
@@ -622,6 +623,9 @@ export default function App() {
                   {isUniversityTask(active) && (isFunctionGraphProblem(active.university)) && (
                     <FunctionGraphDisplay problem={active.university} locale={locale} />
                   )}
+                  {isUniversityTask(active) && active.university.kind === "function-integrated-properties" && (
+                    <IntegratedGraphDisplay problem={active.university} locale={locale}/>
+                  )}
                   {isUniversityTask(active) && active.university.kind === "function-asymptote-range" && (
                     <AsymptoteRangeDisplay problem={active.university} locale={locale} />
                   )}
@@ -705,6 +709,18 @@ export default function App() {
                         </span>
                       )}
                       <p>{result.message}</p>
+                      {activeSpec?.kind==="multi-choice"&&checkedInput!==null&&typeof checkedInput!=="string"&&checkedInput.kind==="multi-choice"&&(
+                        <ul className="graph-property-field-results" aria-label={locale==="pl"?"Wyniki poszczególnych pól":"Individual field results"}>
+                          {activeSpec.fields.map(field=>{
+                            const entered=checkedInput.values[field.id]??"";
+                            const status=!entered?"missing":entered===field.value?"correct":"incorrect";
+                            return <li key={field.id} data-field={field.id} data-field-result={status}>
+                              <strong>{field.label}</strong>: {status==="missing"?(locale==="pl"?"Brak odpowiedzi":"Unanswered"):
+                                status==="correct"?(locale==="pl"?"Poprawnie":"Correct"):(locale==="pl"?"Niepoprawnie":"Incorrect")}
+                            </li>;
+                          })}
+                        </ul>
+                      )}
                       {result.kind === "incorrect" && (
                         <>
                           {result.diagnosis.kind === "hypotheses" ? (
