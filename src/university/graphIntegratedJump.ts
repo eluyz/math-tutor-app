@@ -141,7 +141,7 @@ export const graphIntegratedJumpFamilies:readonly UniversityFamily[]=[{
 }];
 export function presentIntegratedJump(p:IntegratedJumpProblem,locale:Locale){
  const lesson=teaching(locale),{t}=lesson,o=jumpOracle(p);
- const [a,b]=p.left,[c,d]=p.right,yes=o.injective==="yes";
+ const yes=o.injective==="yes";
  const pattern=p.topology==="separated"
   ?t("Obrazy obu gałęzi są rozłączne.","The two branches have disjoint value sets.")
   :t("Obrazy gałęzi nakładają się.","The branch images overlap.");
