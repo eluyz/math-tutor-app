@@ -11,6 +11,7 @@ import { functionFollowupFamilies, presentFunctionFollowup } from "./functionFol
 import { functionGraphFamilies, presentFunctionGraph } from "./functionGraphs";
 import { graphGapFamilies, presentGraphGap } from "./graphGaps";
 import { graphGapRangeFamilies, presentGraphGapRange } from "./graphGapRange";
+import { graphMonotonicityIntervalsFamilies, presentGraphMonotonicityIntervals } from "./graphMonotonicityIntervals";
 import { derivativeSketchFamilies, presentDerivativeSketch } from "./derivativeSketch";
 import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProperties";
 import { graphInjectivityFamilies, presentGraphInjectivity } from "./graphInjectivity";
@@ -86,6 +87,7 @@ export const universityFamilies = [
   ...functionGraphFamilies,
   ...graphGapFamilies,
   ...graphGapRangeFamilies,
+  ...graphMonotonicityIntervalsFamilies,
   ...derivativeSketchFamilies,
   ...graphPropertyFamilies,
   ...graphInjectivityFamilies,
@@ -226,6 +228,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentGraphInjectivity(problem, locale)
     : problem.kind === "function-disconnected-injectivity"
     ? presentGraphDisconnectedInjectivity(problem,locale)
+    : problem.kind === "function-disconnected-monotonicity"
+    ? presentGraphMonotonicityIntervals(problem,locale)
     : problem.kind === "function-disconnected-range"
     ? presentGraphGapRange(problem, locale)
     : problem.kind === "function-disconnected-domain"
@@ -346,7 +350,7 @@ export function makeUniversityTask(
     difficulty,
     parameters: { variant },
     university,
-    contentKey: `university:${presentation.question}${university.kind === "determinant-radical-two" ? JSON.stringify(university.matrix) : university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-disconnected-domain","function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry","function-graph-injectivity","function-disconnected-range","function-disconnected-injectivity"].includes(university.kind) ? JSON.stringify(university) : ""}`,
+    contentKey: `university:${presentation.question}${university.kind === "determinant-radical-two" ? JSON.stringify(university.matrix) : university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-disconnected-domain","function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry","function-graph-injectivity","function-disconnected-range","function-disconnected-injectivity","function-disconnected-monotonicity"].includes(university.kind) ? JSON.stringify(university) : ""}`,
     startingHint: presentation.hint,
     errorRules: [],
   };
