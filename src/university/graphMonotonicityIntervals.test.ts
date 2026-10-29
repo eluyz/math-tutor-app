@@ -53,6 +53,10 @@ describe("F05 P0D connected monotonicity intervals with a hole",()=>{
     }
    }
   }
+  // Regression: a different difficulty must not reproduce an identical graph.
+  const advanced=makeGraphMonotonicityIntervals(4,"advanced");
+  const expert=makeGraphMonotonicityIntervals(1,"expert");
+  expect(JSON.stringify(advanced)).not.toBe(JSON.stringify(expert));
   expect(keys.size).toBe(72);
   expect(rising).toBeGreaterThan(30);expect(falling).toBeGreaterThan(30);
   expect(constant).toBeGreaterThan(10);expect(open).toBeGreaterThan(15);

@@ -27,8 +27,10 @@ export function makeGraphMonotonicityIntervals(v:number,difficulty:Difficulty):G
  const level=difficulty==="hard"?0:difficulty==="advanced"?1:2;
  const start=v-11+3*level,[ly,ry]=patterns[(v+3*level)%patterns.length];
  return {kind:"function-disconnected-monotonicity",
-  left:[n(start,ly[0]),n(start+2,ly[1]),n(start+4,ly[2])],
-  right:[n(start+7,ry[0]),n(start+11,ry[1])],
+  // Level-specific x spacing prevents identical geometries across difficulty levels
+  // while keeping the displayed coordinates in a practical study range.
+  left:[n(start,ly[0]),n(start+2+level,ly[1]),n(start+4+2*level,ly[2])],
+  right:[n(start+7+2*level,ry[0]),n(start+11+2*level,ry[1])],
   included:[level===0||v%2===0,level===0||v%3!==0,(v+level)%2===0,level===0||(v+level)%3!==0]};
 }
 export function monotonicitySegments(p:GraphMonotonicityIntervalsProblem):readonly [Segment,Segment,Segment]{

@@ -225,6 +225,12 @@ const graphPropertyChoiceLabels: Record<string, string> = {
   "jest stała, potem maleje": "is constant, then decreases",
   "jest stała, potem jest stała": "is constant, then is constant"
 };
+/** Translate the structured interval headings while preserving exact mathematical sets. */
+function englishMonotonicityIntervals(label: string): string | null {
+  const match = /^Rośnie: (.*); Maleje: (.*); Stała: (.*)$/.exec(label);
+  if (!match) return null;
+  return `Increasing: ${match[1]}; Decreasing: ${match[2]}; Constant: ${match[3]}`;
+}
 export function englishAnswer(spec: AnswerSpec): AnswerSpec {
   if (spec.kind === "list")
     return {
@@ -246,6 +252,7 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
       options: spec.options.map((o) => ({
         ...o,
         label:
+          englishMonotonicityIntervals(o.label) ??
           ({
             "Tak — każda prosta pozioma przecina wykres najwyżej raz.": "Yes — every horizontal line meets the graph at most once.",
             "Nie — istnieje prosta pozioma przecinająca wykres co najmniej dwa razy.": "No — some horizontal line meets the graph at least twice.",
