@@ -1,6 +1,49 @@
 import { expect, test } from "@playwright/test";
 import { HISTORY_KEY } from "../src/progress/model";
 
+
+for (const viewport of [
+  { width: 1280, height: 900 },
+  { width: 375, height: 812 },
+]) for (const en of [false, true]) {
+  test(`MT-UX-002 ${viewport.width}px ${en ? "EN" : "PL"}: competency code, coverage disclosure and selection`, async ({ page }) => {
+    await page.setViewportSize(viewport);
+    await page.goto("/");
+    if (en) await page.getByRole("button", { name: "English", exact: true }).click();
+
+    const search = page.getByRole("searchbox", {
+      name: en ? "Search exercise families" : "Szukaj rodziny zadań",
+    });
+    await search.fill("M03");
+    await expect(page.locator("#catalog-search-competency")).toContainText("M03:");
+    await expect(page.locator("#catalog-search-competency")).toContainText(
+      en ? "Partial coverage" : "Pokrycie częściowe",
+    );
+    await expect(page.locator(".catalog-search-list li")).toHaveCount(7);
+    await expect(search).toHaveAttribute("aria-describedby", /catalog-search-competency/);
+    await expect(page.locator(".catalog-search-list")).toContainText(en ? "Matrices" : "Macierze");
+
+    await search.fill("M07");
+    await expect(page.locator("#catalog-search-competency")).toContainText("M07:");
+    await expect(page.locator("#catalog-search-competency")).toContainText(
+      en ? "documented bounds" : "opisanych granicach",
+    );
+    await expect(page.locator(".catalog-search-list li")).toHaveCount(1);
+    await page.locator(".catalog-search-list button").click();
+    await expect(page.locator(".question")).toHaveAttribute("data-template-id", "determinant-sarrus");
+    await expect(page.locator("#exercise-title")).toBeFocused();
+    await expect(search).toHaveValue("");
+
+    await search.fill("W03");
+    await expect(page.locator("#catalog-search-competency")).toContainText("W03:");
+    await expect(page.locator(".catalog-search-list li").first()).toBeVisible();
+    await search.fill("M99");
+    await expect(page.locator("#catalog-search-competency")).toHaveCount(0);
+    await expect(page.locator(".catalog-search-list li")).toHaveCount(0);
+    expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+  });
+}
+
 for (const viewport of [
   { width: 1280, height: 900 },
   { width: 768, height: 1024 },
