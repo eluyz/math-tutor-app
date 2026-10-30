@@ -161,7 +161,7 @@ export const integratedAsymptoteFamilies: readonly UniversityFamily[] = [{
 export function presentIntegratedAsymptote(p: IntegratedAsymptoteProblem, locale: Locale) {
   const lesson = teaching(locale), { t } = lesson, o = integratedAsymptoteOracle(p);
   const [a, b] = integratedPoles(p);
-  const [l0, l1] = p.left, [r0, r1] = p.right;
+  const l1 = p.left[1];
   lesson.work(t("Dziedzina", "Domain") + ": " + o.domain,
     t("Oba bieguny x=", "Both poles x=") + fmt(a) + ", x=" + fmt(b) + " " +
     t("są wykluczone. Zewnętrzne odcinki mają pełne końce.",
