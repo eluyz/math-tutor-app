@@ -16,6 +16,7 @@ import { graphPuncturedSymmetryFamilies, presentGraphPuncturedSymmetry } from ".
 import { graphAsymptoteRangeFamilies, presentGraphAsymptoteRange } from "./graphAsymptoteRange";
 import { graphIntegratedFamilies, presentGraphIntegrated } from "./graphIntegratedProperties";
 import { graphIntegratedJumpFamilies, presentIntegratedJump } from "./graphIntegratedJump";
+import { graphIntegratedPunctureFamilies, presentIntegratedPunctures } from "./graphIntegratedPunctures";
 import { derivativeSketchFamilies, presentDerivativeSketch } from "./derivativeSketch";
 import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProperties";
 import { graphInjectivityFamilies, presentGraphInjectivity } from "./graphInjectivity";
@@ -96,6 +97,7 @@ export const universityFamilies = [
   ...graphAsymptoteRangeFamilies,
   ...graphIntegratedFamilies,
   ...graphIntegratedJumpFamilies,
+  ...graphIntegratedPunctureFamilies,
   ...derivativeSketchFamilies,
   ...graphPropertyFamilies,
   ...graphInjectivityFamilies,
@@ -236,6 +238,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentGraphInjectivity(problem, locale)
     : problem.kind === "function-disconnected-injectivity"
     ? presentGraphDisconnectedInjectivity(problem,locale)
+    : problem.kind === "function-integrated-punctures"
+    ? presentIntegratedPunctures(problem,locale)
     : problem.kind === "function-integrated-jump"
     ? presentIntegratedJump(problem,locale)
     : problem.kind === "function-integrated-properties"
