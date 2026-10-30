@@ -2,7 +2,7 @@
 
 | Family | Levels | Candidate variants | Scope |
 | --- | --- | ---: | --- |
-| `function-integrated-punctures` | hard / advanced / expert | 72 | Five-knot synthetic polylines with 1–2 excluded inputs; distinguishes removed and retained y-heights; six graded fields D/W/strict increase/strict decrease/injectivity/parity, PL/EN, accessible existing graphic and 375px mobile. |
+| function-integrated-punctures | hard / advanced / expert | 72 | Five-knot synthetic polylines with 1–2 excluded inputs; distinguishes removed and retained y-heights; six graded fields D/W/strict increase/strict decrease/injectivity/parity, PL/EN, accessible existing graphic and 375px mobile. |
 
 **Candidate only:** 221 families / 17,805 variants if merged. Never count as independently audited or claim full acceptance of six private source figures. Separate final HEAD CI, technical/mathematical review, explicit owner merge approval, post-merge main CI/Pages required.
 
