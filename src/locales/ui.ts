@@ -35,12 +35,12 @@ const pl = {
     chooseTopic: "Wybierz temat",
     chooseDescription:
       "Wyszukaj rodzinę w całym katalogu albo wybierz dział i temat. Po pomyłce możesz skorzystać ze wskazówek i spróbować ponownie.",
-    searchLabel: "Szukaj po nazwie lub kodzie kompetencji",
+    searchLabel: "Szukaj rodziny zadań",
     searchPlaceholder: "Np. M03, D09, W03 lub nazwa tematu",
     searchClear: "Wyczyść wyszukiwanie",
     searchResults: "Wyniki wyszukiwania rodzin zadań",
     searchCount: (count: number) => `Znaleziono rodzin: ${count}`,
-    searchEmpty: "Brak pasujących rodzin. Sprawdź kod lub nazwę tematu.",
+    searchEmpty: "Brak pasujących rodzin. Spróbuj innej nazwy.",
     searchLocked: "Wyszukiwanie jest dostępne po zakończeniu sesji 10 zadań.",
     searchCompetencyScope: (code: string, coverage: "bounded" | "partial") =>
       coverage === "bounded"
@@ -290,12 +290,12 @@ const en: UiCopy = {
     chooseTopic: "Choose a topic",
     chooseDescription:
       "Search the full catalog or choose a subject and exercise family. After a mistake, use the hints and try again.",
-    searchLabel: "Search by name or competency code",
+    searchLabel: "Search exercise families",
     searchPlaceholder: "E.g. M03, D09, W03, or a topic name",
     searchClear: "Clear search",
     searchResults: "Exercise family search results",
     searchCount: (count: number) => `Families found: ${count}`,
-    searchEmpty: "No matching families. Check the code or topic name.",
+    searchEmpty: "No matching families. Try another name.",
     searchLocked: "Search is available after the 10-exercise session ends.",
     searchCompetencyScope: (code: string, coverage: "bounded" | "partial") =>
       coverage === "bounded"
