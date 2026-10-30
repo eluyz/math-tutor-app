@@ -9,6 +9,11 @@ describe("catalog search and selection", () => {
     for (const [code, entry] of Object.entries(competencyIndex)) {
       expect(["bounded", "partial"]).toContain(entry.coverage);
       expect(entry.familyIds.length).toBeGreaterThan(0);
+      expect(new Set(entry.familyIds).size).toBe(entry.familyIds.length);
+      const realFamilyIds = new Set(allTemplates.map((family) => family.id));
+      for (const familyId of entry.familyIds) {
+        expect(realFamilyIds.has(familyId), `${code}: unknown family ${familyId}`).toBe(true);
+      }
       const found = searchCatalog(code);
       expect(found.length).toBeGreaterThan(0);
       expect(found.every((family) => entry.familyIds.includes(family.id))).toBe(true);
