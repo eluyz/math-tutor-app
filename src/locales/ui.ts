@@ -35,13 +35,17 @@ const pl = {
     chooseTopic: "Wybierz temat",
     chooseDescription:
       "Wyszukaj rodzinę w całym katalogu albo wybierz dział i temat. Po pomyłce możesz skorzystać ze wskazówek i spróbować ponownie.",
-    searchLabel: "Szukaj rodziny zadań",
-    searchPlaceholder: "Wpisz nazwę rodziny lub kategorii",
+    searchLabel: "Szukaj po nazwie lub kodzie kompetencji",
+    searchPlaceholder: "Np. M03, D09, W03 lub nazwa tematu",
     searchClear: "Wyczyść wyszukiwanie",
     searchResults: "Wyniki wyszukiwania rodzin zadań",
     searchCount: (count: number) => `Znaleziono rodzin: ${count}`,
-    searchEmpty: "Brak pasujących rodzin. Spróbuj innej nazwy.",
+    searchEmpty: "Brak pasujących rodzin. Sprawdź kod lub nazwę tematu.",
     searchLocked: "Wyszukiwanie jest dostępne po zakończeniu sesji 10 zadań.",
+    searchCompetencyScope: (code: string, coverage: "bounded" | "partial") =>
+      coverage === "bounded"
+        ? `${code}: Pokrycie określonego typu zadań w opisanych granicach, nie potwierdzenie ukończenia całego działu.`
+        : `${code}: Pokrycie częściowe — pokazujemy dostępne rodziny, nie wszystkie możliwe przypadki.`,
     searchOpen: (family: string, category: string, levels: string) =>
       `Wybierz z wyszukiwarki: ${family}, ${category}. Dostępne poziomy: ${levels}`,
     searchLevelChanged: (from: string, to: string) =>
@@ -286,13 +290,17 @@ const en: UiCopy = {
     chooseTopic: "Choose a topic",
     chooseDescription:
       "Search the full catalog or choose a subject and exercise family. After a mistake, use the hints and try again.",
-    searchLabel: "Search exercise families",
-    searchPlaceholder: "Enter a family or category name",
+    searchLabel: "Search by name or competency code",
+    searchPlaceholder: "E.g. M03, D09, W03, or a topic name",
     searchClear: "Clear search",
     searchResults: "Exercise family search results",
     searchCount: (count: number) => `Families found: ${count}`,
-    searchEmpty: "No matching families. Try another name.",
+    searchEmpty: "No matching families. Check the code or topic name.",
     searchLocked: "Search is available after the 10-exercise session ends.",
+    searchCompetencyScope: (code: string, coverage: "bounded" | "partial") =>
+      coverage === "bounded"
+        ? `${code}: This exercise form is covered within documented bounds, not proof of entire-topic completion.`
+        : `${code}: Partial coverage — showing available families, not every possible case.`,
     searchOpen: (family: string, category: string, levels: string) =>
       `Choose from search: ${family}, ${category}. Available levels: ${levels}`,
     searchLevelChanged: (from: string, to: string) =>
