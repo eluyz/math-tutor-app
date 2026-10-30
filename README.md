@@ -1,5 +1,10 @@
 # Math Tutor
 
+## F05 asymptote-plus-sloping-segments candidate (not yet released)
+
+A separate Draft PR proposes `function-integrated-asymptotes`: 1 new family × 24 deterministic geometries × 3 levels = **72 candidate variants**. It reuses the existing middle rational branch between two vertical poles, adds nonhorizontal finite outer fragments and grades all six fields on one graph (domain, range, strictly increasing/decreasing intervals, injectivity, parity). Includes PL/EN teaching and responsive SVG. **Counts would become 222 families / 17,877 variants only after merge**; deployed main remains 221 / 17,805 until then. This method-level candidate does **not** accept the original six source figures (still 0/6) and does not change paused QA #106.
+
+
 ## Verified release on main — 30 October 2026 (CI and Pages PASS)
 
 - **Merged source on `main`: 221 exercise families / 17,805 deterministic variants**, as of owner-approved [PR #144](https://github.com/eluyz/math-tutor-app/pull/144), merge commit [`eae427026f849ba5b27a43ff82a5ef63df93d94c`](https://github.com/eluyz/math-tutor-app/commit/eae427026f849ba5b27a43ff82a5ef63df93d94c). [PR #143](https://github.com/eluyz/math-tutor-app/pull/143) added competency search for all 64 syllabus codes and is merged into the preceding main commit `c2c3aa4`.
