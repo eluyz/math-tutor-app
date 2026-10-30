@@ -642,7 +642,7 @@ export default function App() {
                   {isUniversityTask(active) && active.university.kind === "function-asymptote-range" && (
                     <AsymptoteRangeDisplay problem={active.university} locale={locale} />
                   )}
-                  {isUniversityTask(active) && active.university.kind === "function-punctured-symmetry" && (
+                  {isUniversityTask(active) && (active.university.kind === "function-punctured-symmetry" || active.university.kind === "function-integrated-punctures") && (
                     <PuncturedSymmetryDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-disconnected-injectivity" && (
