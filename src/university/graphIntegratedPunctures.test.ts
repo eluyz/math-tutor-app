@@ -7,11 +7,6 @@ import {
   type IntegratedPuncturesProblem,
 } from "./graphIntegratedPunctures";
 
-const fmt = (x: number) => String(x).replace(/-/g, "−");
-const label = (lo: number, hi: number, left: boolean, right: boolean) =>
-  (left ? "[" : "(") + fmt(lo) + "; " + fmt(hi) + (right ? "]" : ")");
-const join = (segments: string[]) => segments.join(" ∪ ") || "∅";
-
 /** Independent graph-as-a-set evaluation of membership at sampled x and y,
  * never calling the production interval union functions.
  */
