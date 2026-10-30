@@ -27,6 +27,7 @@ import type { GraphPuncturedSymmetryProblem } from "./graphPuncturedSymmetry";
 import type { GraphAsymptoteRangeProblem } from "./graphAsymptoteRange";
 import type { GraphIntegratedProblem } from "./graphIntegratedProperties";
 import type { IntegratedJumpProblem } from "./graphIntegratedJump";
+import type { IntegratedPuncturesProblem } from "./graphIntegratedPunctures";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { GraphInjectivityProblem } from "./graphInjectivity";
@@ -270,6 +271,7 @@ export type UniversityProblem =
   | GraphAsymptoteRangeProblem
   | GraphIntegratedProblem
   | IntegratedJumpProblem
+  | IntegratedPuncturesProblem
   | DerivativeSketchProblem
   | GraphPropertyProblem
   | GraphInjectivityProblem
