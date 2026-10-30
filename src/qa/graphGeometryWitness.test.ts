@@ -148,6 +148,7 @@ describe("QA-003 — additional graph-as-points witness, both six-field families
         expect(view.question.trim().length).toBeGreaterThan(50);
         expect(view.hint.trim().length).toBeGreaterThan(20);
         expect(view.nextHint.trim().length).toBeGreaterThan(20);
+        if(!view.solution)throw Error("Missing worked solution: "+key+"/"+locale);
         expect(view.solution).toHaveLength(id==="function-integrated-jump"?8:7);
         expect(view.solution.every(step=>step.action.trim()&&step.reason.trim())).toBe(true);
         if(locale==="en")expect(view.explanation).not.toMatch(/[ąćęłńóśźż]/i);
