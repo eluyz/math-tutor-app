@@ -30,6 +30,7 @@ for (const [level, levelPl, levelEn] of [
     await expect(figure.getByTestId("integrated-asymptote-middle")).toHaveCount(1);
     await expect(figure.getByTestId("integrated-sloping-segment")).toHaveCount(2);
     await expect(figure.getByTestId("integrated-outer-point")).toHaveCount(4);
+    await expect(figure.getByTestId("integrated-x-tick")).toHaveCount(7);
     const leftPole = Number(await figure.getByTestId("integrated-pole-left").getAttribute("data-x"));
     const rightPole = Number(await figure.getByTestId("integrated-pole-right").getAttribute("data-x"));
     expect(leftPole).toBeLessThan(rightPole);
