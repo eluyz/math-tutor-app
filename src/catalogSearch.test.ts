@@ -1,8 +1,36 @@
 import { describe, expect, it } from "vitest";
 import { allTemplates, difficulties, taskPool } from "./generators";
-import { categoryTitle, normalizeCatalogQuery, searchCatalog, selectCatalogFamily } from "./catalogSearch";
+import { categoryTitle, normalizeCatalogQuery, resolveCatalogCompetency, searchCatalog, selectCatalogFamily } from "./catalogSearch";
 
 describe("catalog search and selection", () => {
+  it("resolves all 64 curated codes without claiming full syllabus acceptance", async () => {
+    const { competencyIndex } = await import("./competencyIndex");
+    expect(Object.keys(competencyIndex)).toHaveLength(64);
+    for (const [code, entry] of Object.entries(competencyIndex)) {
+      expect(["bounded", "partial"]).toContain(entry.coverage);
+      expect(entry.familyIds.length).toBeGreaterThan(0);
+      const found = searchCatalog(code);
+      expect(found.length).toBeGreaterThan(0);
+      expect(found.every((family) => entry.familyIds.includes(family.id))).toBe(true);
+    }
+  });
+
+  it("searches competency codes, space-tolerant codes and curated PL/EN aliases", () => {
+    for (const query of ["M03", "m3", "M 03", "mnozenie macierzy", "matrix multiplication"]) {
+      expect(searchCatalog(query).map((family) => family.id)).toContain("matrix-product");
+    }
+    expect(searchCatalog("D09").map((family) => family.id)).toContain("derivative-sign-sketch");
+    expect(searchCatalog("W03").map((family) => family.id)).toContain("multivar-path-limit");
+    expect(searchCatalog("partial derivatives").map((family) => family.id)).toContain("multivar-partial-point");
+    expect(resolveCatalogCompetency("F05")?.coverage).toBe("partial");
+    expect(resolveCatalogCompetency("M07")?.coverage).toBe("bounded");
+    expect(resolveCatalogCompetency("M99")).toBeNull();
+    expect(resolveCatalogCompetency("M03 rubbish")).toBeNull();
+    expect(searchCatalog("M99")).toEqual([]);
+    const limited = allTemplates.filter((family) => family.id === "matrix-product");
+    expect(searchCatalog("M03", limited).map((family) => family.id)).toEqual(["matrix-product"]);
+  });
+
   it("normalizes Polish accents, Ł, case and whitespace", () => {
     expect(normalizeCatalogQuery("  RÓŻNE   ŹRÓDŁA  ")).toBe("rozne zrodla");
     expect(normalizeCatalogQuery("  ZaŻÓŁĆ  ")).toBe("zazolc");
