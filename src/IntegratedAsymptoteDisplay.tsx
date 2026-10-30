@@ -6,15 +6,17 @@ import {
 } from "./university/graphIntegratedAsymptotes";
 
 const fmt = (x: number) => String(x).replace(/-/g, "−");
-const clamp = (x: number) => Math.max(-5, Math.min(5, x));
 export function IntegratedAsymptoteDisplay({
   problem: p, locale,
 }: { problem: IntegratedAsymptoteProblem; locale: Locale }) {
   const uid = useId().replace(/:/g, ""), pl = locale === "pl";
   const [a, b] = integratedPoles(p);
   const minX = p.left[0].x - 1, maxX = p.right[1].x + 1;
+  const allOuterY = [...p.left, ...p.right].map(point => Math.abs(point.y));
+  const yExtent = Math.max(5, ...allOuterY) + 1;
+  const clamp = (v: number) => Math.max(-yExtent, Math.min(yExtent, v));
   const px = (x: number) => 30 + 352 * (x - minX) / (maxX - minX);
-  const py = (y: number) => 125 - 20.5 * y;
+  const py = (y: number) => 125 - 100 * y / yExtent;
   const middle = Array.from({ length: 199 }, (_unused, i) => {
     const x = a + (b - a) * (i + 1) / 200;
     return { x, y: clamp(integratedAsymptoteValue(p, x)) };
@@ -35,14 +37,14 @@ export function IntegratedAsymptoteDisplay({
     (pl ? "Wszystkie cztery końce odcinków są pełne; asymptoty są wyłączone." :
       "All four segment endpoints are filled; poles are excluded.");
   return <figure className="function-graph" data-graph-kind={p.kind}>
-    <svg role="img" focusable="false" viewBox="0 0 400 260"
+    <svg role="img" focusable="false" viewBox="0 0 400 270"
       aria-labelledby={"ia-title-" + uid + " ia-desc-" + uid}>
       <title id={"ia-title-" + uid}>{pl ?
         "Sześć własności wykresu z dwiema asymptotami i ukośnymi odcinkami" :
         "Six graph properties with two poles and sloping outer segments"}</title>
       <desc id={"ia-desc-" + uid}>{text}</desc>
       <g aria-hidden="true">
-        {[-4, -2, 0, 2, 4].map(y => <g key={y}>
+        {[-6, -4, -2, 0, 2, 4, 6].filter(y => Math.abs(y) < yExtent).map(y => <g key={y}>
           <line x1={18} x2={386} y1={py(y)} y2={py(y)}
             stroke="currentColor" strokeOpacity={y === 0 ? 0.55 : 0.13}/>
           <text x="17" y={py(y) + 4} fontSize="10"
@@ -50,9 +52,13 @@ export function IntegratedAsymptoteDisplay({
         </g>)}
         {minX < 0 && maxX > 0 && <line x1={px(0)} x2={px(0)}
           y1={15} y2={229} stroke="currentColor" strokeOpacity="0.35"/>}
-        {[p.left[0].x, a, p.center, b, p.right[1].x].map((x, i) => <g key={i}>
-          <text x={px(x)} y={244} fontSize="10" textAnchor="middle"
-            fill="currentColor">{fmt(x)}</text>
+        {[p.left[0].x, p.left[1].x, a, p.center, b, p.right[0].x, p.right[1].x]
+          .map((x, i) => <g key={i}>
+          <line x1={px(x)} x2={px(x)} y1={229} y2={234}
+            stroke="currentColor" strokeOpacity="0.5"/>
+          <text data-testid="integrated-x-tick" data-x={x} x={px(x)}
+            y={i === 2 || i === 4 ? 256 : 244} fontSize="10"
+            textAnchor="middle" fill="currentColor">{fmt(x)}</text>
         </g>)}
         {[a, b].map((x, i) => <line key={x}
           data-testid={i === 0 ? "integrated-pole-left" : "integrated-pole-right"}
