@@ -1,10 +1,10 @@
-## MT-F05-P0J — integrated punctures (merged in PR #144; post-merge Pages not verified)
+## MT-F05-P0J — integrated punctures (merged and released in PR #144)
 
 | Family | Levels | Candidate variants | Scope |
 | --- | --- | ---: | --- |
 | function-integrated-punctures | hard / advanced / expert | 72 | Five-knot synthetic polylines with 1–2 excluded inputs; distinguishes removed and retained y-heights; six graded fields D/W/strict increase/strict decrease/injectivity/parity, PL/EN, accessible existing graphic and 375px mobile. |
 
-**Merged source:** PR #144 was owner-approved at exact HEAD `127a2f7645c268e33d5f4766c5f751d0f3da6b43` and Squash-merged as main `eae427026f849ba5b27a43ff82a5ef63df93d94c`, now 221 families / 17,805 deterministic variants. [Exact-head PR CI #41050245110](https://github.com/eluyz/math-tutor-app/actions/runs/41050245110) **SUCCESS**. **Post-merge main CI and GitHub Pages at identical SHA remain NOT_VERIFIED.** This synthetic family is not independently bulk-audited and does not complete any of the six original private worksheet figures. [F05 next source-backed method and gate](docs/F05_NEXT_SCOPE.md).
+**Merged source:** PR #144 was owner-approved at exact HEAD `127a2f7645c268e33d5f4766c5f751d0f3da6b43` and Squash-merged as main `eae427026f849ba5b27a43ff82a5ef63df93d94c`, now 221 families / 17,805 deterministic variants. [Exact-head PR CI #41050245110](https://github.com/eluyz/math-tutor-app/actions/runs/41050245110) **SUCCESS**. **Post-merge main [CI #41058451157](https://github.com/eluyz/math-tutor-app/actions/runs/41058451157) and [Pages #41059832222](https://github.com/eluyz/math-tutor-app/actions/runs/41059832222) are SUCCESS on identical SHA `eae427026f849ba5b27a43ff82a5ef63df93d94c`.** This synthetic family is not independently bulk-audited and does not complete any of the six original private worksheet figures. [F05 next source-backed method and gate](docs/F05_NEXT_SCOPE.md).
 
 ## MT-F05-P0I — integrated discontinuous graph methods (historical PR #139 candidate checkpoint; merged)
 
