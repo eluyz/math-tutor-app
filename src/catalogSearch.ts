@@ -1,6 +1,7 @@
 import { difficultyConfig, type Difficulty } from "./difficulty";
 import type { CategoryId } from "./exercises";
 import { allTemplates } from "./generators";
+import { competencyAliases, competencyIndex } from "./competencyIndex";
 import { familyTitle } from "./locales/catalog";
 import type { Locale } from "./locales/types";
 import { uiCopy } from "./locales/ui";
@@ -24,11 +25,27 @@ export function categoryTitle(category: CategoryId, locale: Locale): string {
     .find((item) => item.id === category)?.label ?? category;
 }
 
+/** Resolve an exact competency code (M03, M3, M 03) or curated PL/EN alias. */
+export function resolveCatalogCompetency(query: string) {
+  const normalized = normalizeCatalogQuery(query);
+  const compact = normalized.replace(/\s+/g, "");
+  const code = /^[mucfgdiw]\d{1,2}$/.test(compact)
+    ? compact[0].toUpperCase() + compact.slice(1).padStart(2, "0")
+    : competencyAliases[normalized];
+  const definition = code ? competencyIndex[code] : undefined;
+  return definition ? { code, ...definition } : null;
+}
+
 /** Search the whole catalog in either language, independent of the current category. */
 export function searchCatalog(
   query: string,
   families: readonly CatalogFamily[] = allTemplates,
 ): CatalogFamily[] {
+  const competency = resolveCatalogCompetency(query);
+  if (competency) {
+    const ids = new Set(competency.familyIds);
+    return families.filter((family) => ids.has(family.id));
+  }
   const words = normalizeCatalogQuery(query).split(" ").filter(Boolean);
   if (!words.length) return [];
   return families.filter((family) => {
