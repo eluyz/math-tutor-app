@@ -5,7 +5,7 @@ Parent evidence: [F05 original-source witness #122](https://github.com/eluyz/mat
 
 ## 1. Verified baseline, not a complete F05 acceptance
 
-- Current merged source commit: `eae427026f849ba5b27a43ff82a5ef63df93d94c` (owner-approved PR #144), **221 families / 17,805 variants**. The PR CI at approved HEAD `127a2f7` is PASS, but **same-SHA push CI and Pages for merge SHA are NOT_VERIFIED**.
+- Current merged source commit: `eae427026f849ba5b27a43ff82a5ef63df93d94c` (owner-approved PR #144), **221 families / 17,805 variants**. The PR CI at approved HEAD `127a2f7` is PASS, but **same-SHA push CI and Pages for merge SHA are VERIFIED SUCCESS**.
 - Existing `function-asymptote-range` is a **single-property range** family with two vertical asymptotes, a synthetic rational middle branch and **flat offset outer segments**. It is not a complete source-style graph.
 - `function-integrated-properties` assesses six fields on a **bounded three-knot** plot; `function-integrated-jump` on two bounded segments with a shared x; `function-integrated-punctures` on a **bounded five-knot** plot with holes. None models the specific full P21/d profile.
 - Original source/key inspection: **6/6 images inspected, 30/30 grouped source answers examined, 0/6 exact complete source-to-app witnesses accepted**. A synthetic-family PASS is not acceptance of a private source image.
@@ -35,18 +35,16 @@ Required cases to cover by method, not by volume:
 - Post-merge CI on `main` and deployment via GitHub Pages must each be confirmed on **the identical merge SHA** before claiming it live.
 - Finally, compare **each original witness a–f**, privately, to the *exact* app fixtures. An implementation of P21/d method does not automatically move 0/6 to 1/6.
 
-## 4. Post-merge release evidence still needed for #144
+## 4. PR #144 post-merge release verified (30 October 2026)
 
-The PR #144 merge was confirmed as `eae427026f849ba5b27a43ff82a5ef63df93d94c`; exact-head PR CI [#41050245110](https://github.com/eluyz/math-tutor-app/actions/runs/41050245110) succeeded.
-
-The available connected GitHub run lookup lists **pull-request runs only**, not main push/deploy runs; attempts to read public Actions/Pages in this session did not yield authoritative results. Therefore leave:
+The owner-approved merge SHA is `eae427026f849ba5b27a43ff82a5ef63df93d94c`. All required automated release gates have **independently verifiable run IDs and exact-SHA evidence**:
 
 | Gate | Evidence | Status |
 | --- | --- | --- |
-| Owner authorization and Squash merge | PR #144 closed/merged and merge commit fetched | PASS |
-| Source on `main` | Generator file read directly from `main` | PASS |
-| PR CI, same approved HEAD | Run #41050245110 | PASS |
-| `main` CI, merge SHA `eae4270` | Exact matching push run still required | NOT_VERIFIED |
-| Deploy Pages, merge SHA `eae4270` | Exact matching successful deploy still required | NOT_VERIFIED |
+| Owner authorization and Squash merge | PR #144 closed/merged; merged SHA fetched | PASS |
+| Source on `main` | Generator file present at merge SHA | PASS |
+| PR CI on approved HEAD `127a2f7` | [PR CI #41050245110](https://github.com/eluyz/math-tutor-app/actions/runs/41050245110) | PASS |
+| `main` CI, merge SHA `eae4270` | [Push CI #41058451157](https://github.com/eluyz/math-tutor-app/actions/runs/41058451157), event `push`, branch `main`, all tests/build/Playwright/artifact SUCCESS | PASS |
+| Deploy Pages, merge SHA `eae4270` | [Deploy #41059832222](https://github.com/eluyz/math-tutor-app/actions/runs/41059832222), event `workflow_run`, downloaded verified CI artifact, deployed successfully | PASS |
 
-To close the last two gates, examine [CI workflow history](https://github.com/eluyz/math-tutor-app/actions/workflows/ci.yml) and [Deploy Pages history](https://github.com/eluyz/math-tutor-app/actions/workflows/pages.yml), verify the run event/branch/head SHA and conclusion. Do not use the mere existence of a website or passing PR tests as proof of deployment of this particular commit.
+**This closes the automated release gate only**. It does **not** change the six original source-witness acceptance score of 0/6 or the paused global mathematical/teaching QA #106.
