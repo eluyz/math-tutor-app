@@ -1,0 +1,82 @@
+# QA-003 — independent audit coverage and evidence register
+
+**Last evidence update:** 2026-10-30 (Europe/Warsaw), following the owner-authorized merge of PR #141; post-merge CI/Pages verification remains a separate gate. **Tracking issue:** [#106](https://github.com/eluyz/math-tutor-app/issues/106). **Proposed documentation PR:** separate; not a production release certificate.
+
+## Explicit, non-interchangeable denominators
+
+| Metric | Confirmed / total | Definition and evidence |
+|---|---:|---|
+| Current main catalogue at `01ea8ad2989ca05b539354064eeeca417a8d077f` | **220 families / 17,733 distinct task instances** | Generator catalogue on `main`; *inventory*, not correctness certification |
+| Independently checked answer/classification tuples | **1,434 / 17,733 (8.09%)** | QA-003 pilot and expansion, issue [#106](https://github.com/eluyz/math-tutor-app/issues/106#issuecomment-6495501846); executed on a previously pinned main plus QA patch, **not fully rerun on this latest main** |
+| Families with bounded independent answer coverage | **19 / 220 (8.64%)** | All documented supported variants of these 19 families were enumerated in the reported QA runs |
+| Task tuples not covered by that independent answer audit | **16,299** | Explicit **NOT_VERIFIED**, not FAIL |
+| Tasks with complete human-style teaching/step review in *both* PL and EN | **75 / 17,733 (0.42%)** | 150 localized presentations / 952 displayed steps assessed; see #106 |
+| Answer-assessment **scenarios** exercised | **36,472 PASS** | Includes correct, wrong, missing, malformed and equivalence checks; **not 36,472 tasks** |
+| Confirmed teaching defects in audited content | **3 distinct defects**, corrected and released | Two PL logarithm explanations and one excluded-origin explanation in both languages; [merged PR #137](https://github.com/eluyz/math-tutor-app/pull/137) with exact-SHA main CI/Pages PASS |
+| Wrong *final answer keys* in audited sample | **0 confirmed** | This is a claim limited to the sampled 1,434 tasks, not the full catalogue |
+| Original six F05 source graph witnesses | **6/6 visually inspected, 0/6 complete source-to-app acceptance** | See [#122](https://github.com/eluyz/math-tutor-app/issues/122#issuecomment-6494351248); 30 source-key answer groups inspected, no exact integrated app/browser acceptance |
+| Main CI and Pages on latest #141 commit | **PENDING post-merge verification** | PR #141 HEAD [CI #40958795298](https://github.com/eluyz/math-tutor-app/actions/runs/40958795298) PASS; [post-merge main CI #41016852447](https://github.com/eluyz/math-tutor-app/actions/runs/41016852447) started for `01ea8ad2`; Pages on that same SHA remains NOT_VERIFIED in this checkpoint. Prior #137 release CI and Pages PASS at SHA `e670b6f9`. This does not certify mathematical explanations |
+
+**Do not combine** task tuples, locale presentations, mathematical operations, grading scenarios and source witness counts into a single misleading denominator. The 1,434 independently audited tuples comprise **864 + 288 + 282**; no duplicate counting. The **90 in-repository signed-arithmetic regression cases in merged PR #141** have passed exact-HEAD CI, but remain a **separate automated-oracle evidence tier**. They have **not** been added to the historical external independent-auditor count of 1,434 or to the 75 pedagogical reviews.
+
+## Audited families and batch boundaries
+
+**Batch A — 864 tuples:** 12 families × 3 levels × 24 variants, independent exact expected answer and PL/EN answer-spec comparison:
+
+```text
+determinant-gaussian-pivot-five
+inverse-four-xa-equation
+gauss-five-4x5
+cramer-four-singular-minors
+sequence-power-exponential
+function-log-rational-domain
+function-disconnected-range
+limit-oscillatory-heine
+derivative-vertical-cusp
+integral-log-substitution
+integral-improper-interior-power
+multivar-degenerate-quartic
+```
+
+**Batch B — 288 tuples:** 4 families × 3 levels × 24 variants, independent answer, arithmetic and selected displayed-step checks:
+
+```text
+function-disconnected-monotonicity
+function-punctured-symmetry
+function-asymptote-range
+Möbius inverse function family — exact registered family ID should be verified against the private evidence archive before importing per-task rows
+```
+
+**Batch C — 282 tuples:** all supported variants and supplemental instances across five difficulty levels in **three** legacy families:
+
+```text
+fraction-add
+fraction-subtract
+fraction-product
+```
+
+The independent checker reported **75 distinct tuples** fully reviewed for question wording, both hints, every worked step, reasons and localized final answers. For the **other 1,359** checked tuples, answer correctness was tested but a complete semantic explanation review remains **NOT_VERIFIED**. The exact 75 tuple keys and per-case details are in the original audit evidence archive reported in [#106](https://github.com/eluyz/math-tutor-app/issues/106#issuecomment-6495501846); do not invent individual reviewed flags here.
+
+## Confirmed defects and merge gate
+
+- **F01 / F02 — `function-log-rational-domain`:** incorrect Polish wording implied three numerator zeros and incorrectly ruled out `ln(1)=0`. All 72 Polish task presentations share the relevant explanation template. Expected result/grading remained correct in the audited scope.
+- **F03 — `function-punctured-symmetry`:** six level/variant tuples incorrectly referred to `f(0)` at an excluded origin; PL and EN wording repaired without changing the parity key.
+- **Fixed and published:** [PR #137](https://github.com/eluyz/math-tutor-app/pull/137) was explicitly approved at HEAD `cb9d72c9a1a6cd98edcc656f46e609c379ecd789` and Squash-merged as `e670b6f9f532c8aff83b4f6e0538886cc38b127f`. Its three focused regression tests passed, followed by same-SHA [main CI](https://github.com/eluyz/math-tutor-app/actions/runs/40948126630) and [GitHub Pages](https://github.com/eluyz/math-tutor-app/actions/runs/40950464164) SUCCESS. No answer keys, variant IDs or generator logic were changed. Historic defects remain in the findings ledger but their **release status is FIXED**.
+- The source documents/PDF screenshots and exact coordinates of original worksheets must stay private.
+
+## Next independent audit batches (NOT_YET_EXECUTED)
+
+| Priority | Evidence to gather | Exit criteria |
+|---|---|---|
+| P0 | Latest two integrated graph families: `function-integrated-properties` (#136) and `function-integrated-jump` (#139), 72 + 72 instances | Independent oracle *separate from production implementation*, all six fields, PL/EN selected/wrong/missing answer paths, full sampled reasons; do not simply re-label existing Vitest tests as independent QA-003 |
+| DONE | #137 three teaching fixes | Owner-authorized Squash, full PR and post-merge main CI including Chromium PASS, same-SHA Pages SUCCESS, commit `e670b6f9` |
+| CODE MERGED; RELEASE GATE PENDING | [PR #141](https://github.com/eluyz/math-tutor-app/pull/141): 90 signed-arithmetic tuples across 3 families × 3 levels | Owner-authorized Squash at approved HEAD `1a7d500195a817142091ef925c06a0efc9ebc22a` created main `01ea8ad2989ca05b539354064eeeca417a8d077f`. In-repo BigInt test derives expected results from the **visible problem statement** and checks the answer, calculation, intermediate step and grading cases; PR CI #40958795298 PASS. **Matching-SHA main CI/Pages must be checked before calling this deployed.** Do not add these 90 to 1,434 external QA tuples. |
+| P0 | F05 six authentic source witnesses a–f | For each, same source plot → domain, range, strict increase/decrease, injectivity and parity; independent expected values, PL/EN grading, 375px and desktop browser evidence; current result **0/6 fully accepted** |
+| P1 | Remaining high-risk required syllabus families across matrices/systems, sequences/limits, derivatives, integrals, two-variable calculus | Stratified exact oracle by family and boundary/degenerate cases; full pedagogical sample, source mapping and proof-linked report |
+| P1 | Difficulty calibration | Demonstrate a *methodological* difference among levels rather than only coefficient changes; report independently |
+
+### Rules for future rows / progress reporting
+
+Each row must include **`main_sha`, `family_id`, `difficulty`, `variant_index`, `source_reference` (private pointer only), `oracle_kind`, `answer_result`, `grading_result`, `pl_steps_result`, `en_steps_result`, `reviewer`, `evidence_link`**. Use statuses `PASS`, `FAIL`, `NEEDS_FIXES`, `NOT_VERIFIED`. A family is *complete* only with evidence for all supported variants, correct and incorrect grading paths, and a separately stated semantic-review level. Never change historical scope silently when `main` advances.
+
+**Open release/acceptance gates:** [#106 independent QA](https://github.com/eluyz/math-tutor-app/issues/106), [#122 F05 six original witness forms](https://github.com/eluyz/math-tutor-app/issues/122), [#108 64-skill syllabus acceptance](https://github.com/eluyz/math-tutor-app/issues/108). Do not start custom problem mode [#104](https://github.com/eluyz/math-tutor-app/issues/104) before #108 acceptance.
