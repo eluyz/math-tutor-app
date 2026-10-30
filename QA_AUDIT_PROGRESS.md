@@ -1,12 +1,12 @@
 # QA-003 — independent audit coverage and evidence register
 
-**Last evidence update:** 2026-10-29 (Europe/Warsaw), following confirmed release of PR #137. **Tracking issue:** [#106](https://github.com/eluyz/math-tutor-app/issues/106). **Proposed documentation PR:** separate; not a production release certificate.
+**Last evidence update:** 2026-10-30 (Europe/Warsaw), following the owner-authorized merge of PR #141; post-merge CI/Pages verification remains a separate gate. **Tracking issue:** [#106](https://github.com/eluyz/math-tutor-app/issues/106). **Proposed documentation PR:** separate; not a production release certificate.
 
 ## Explicit, non-interchangeable denominators
 
 | Metric | Confirmed / total | Definition and evidence |
 |---|---:|---|
-| Current main catalogue at `e670b6f9f532c8aff83b4f6e0538886cc38b127f` | **220 families / 17,733 distinct task instances** | Generator catalogue on `main`; *inventory*, not correctness certification |
+| Current main catalogue at `01ea8ad2989ca05b539354064eeeca417a8d077f` | **220 families / 17,733 distinct task instances** | Generator catalogue on `main`; *inventory*, not correctness certification |
 | Independently checked answer/classification tuples | **1,434 / 17,733 (8.09%)** | QA-003 pilot and expansion, issue [#106](https://github.com/eluyz/math-tutor-app/issues/106#issuecomment-6495501846); executed on a previously pinned main plus QA patch, **not fully rerun on this latest main** |
 | Families with bounded independent answer coverage | **19 / 220 (8.64%)** | All documented supported variants of these 19 families were enumerated in the reported QA runs |
 | Task tuples not covered by that independent answer audit | **16,299** | Explicit **NOT_VERIFIED**, not FAIL |
@@ -15,9 +15,9 @@
 | Confirmed teaching defects in audited content | **3 distinct defects**, corrected and released | Two PL logarithm explanations and one excluded-origin explanation in both languages; [merged PR #137](https://github.com/eluyz/math-tutor-app/pull/137) with exact-SHA main CI/Pages PASS |
 | Wrong *final answer keys* in audited sample | **0 confirmed** | This is a claim limited to the sampled 1,434 tasks, not the full catalogue |
 | Original six F05 source graph witnesses | **6/6 visually inspected, 0/6 complete source-to-app acceptance** | See [#122](https://github.com/eluyz/math-tutor-app/issues/122#issuecomment-6494351248); 30 source-key answer groups inspected, no exact integrated app/browser acceptance |
-| CI/Playwright on current main | **PASS** | GitHub Actions [CI](https://github.com/eluyz/math-tutor-app/actions/runs/40948126630) and [Pages](https://github.com/eluyz/math-tutor-app/actions/runs/40950464164) at the same SHA; does **not** mean all mathematical explanations are verified |
+| Main CI and Pages on latest #141 commit | **PENDING post-merge verification** | PR #141 HEAD [CI #40958795298](https://github.com/eluyz/math-tutor-app/actions/runs/40958795298) PASS; [post-merge main CI #41016852447](https://github.com/eluyz/math-tutor-app/actions/runs/41016852447) started for `01ea8ad2`; Pages on that same SHA remains NOT_VERIFIED in this checkpoint. Prior #137 release CI and Pages PASS at SHA `e670b6f9`. This does not certify mathematical explanations |
 
-**Do not combine** task tuples, locale presentations, mathematical operations, grading scenarios and source witness counts into a single misleading denominator. The 1,434 independently audited tuples comprise **864 + 288 + 282**; no duplicate counting. The **90 proposed in-repository signed-arithmetic regression cases** in Draft PR #141 are tracked separately until merged and independently re-reviewed; they are not part of those 1,434.
+**Do not combine** task tuples, locale presentations, mathematical operations, grading scenarios and source witness counts into a single misleading denominator. The 1,434 independently audited tuples comprise **864 + 288 + 282**; no duplicate counting. The **90 in-repository signed-arithmetic regression cases in merged PR #141** have passed exact-HEAD CI, but remain a **separate automated-oracle evidence tier**. They have **not** been added to the historical external independent-auditor count of 1,434 or to the 75 pedagogical reviews.
 
 ## Audited families and batch boundaries
 
@@ -70,7 +70,7 @@ The independent checker reported **75 distinct tuples** fully reviewed for quest
 |---|---|---|
 | P0 | Latest two integrated graph families: `function-integrated-properties` (#136) and `function-integrated-jump` (#139), 72 + 72 instances | Independent oracle *separate from production implementation*, all six fields, PL/EN selected/wrong/missing answer paths, full sampled reasons; do not simply re-label existing Vitest tests as independent QA-003 |
 | DONE | #137 three teaching fixes | Owner-authorized Squash, full PR and post-merge main CI including Chromium PASS, same-SHA Pages SUCCESS, commit `e670b6f9` |
-| P0 | [Draft PR #141](https://github.com/eluyz/math-tutor-app/pull/141): 90 legacy signed-arithmetic questions, 3 families × 3 legacy difficulty levels | In-repository BigInt parser derives expected integer values from **visible questions** and checks keys, explanation arithmetic and 7 grading paths. Original CI on old base PASS; refreshed HEAD `1a7d500195a817142091ef925c06a0efc9ebc22a` requires fresh complete CI and separate owner approval. **Do not add 90 to historical 1,434 independent external QA tuples merely because an in-repository regression test passed.** |
+| CODE MERGED; RELEASE GATE PENDING | [PR #141](https://github.com/eluyz/math-tutor-app/pull/141): 90 signed-arithmetic tuples across 3 families × 3 levels | Owner-authorized Squash at approved HEAD `1a7d500195a817142091ef925c06a0efc9ebc22a` created main `01ea8ad2989ca05b539354064eeeca417a8d077f`. In-repo BigInt test derives expected results from the **visible problem statement** and checks the answer, calculation, intermediate step and grading cases; PR CI #40958795298 PASS. **Matching-SHA main CI/Pages must be checked before calling this deployed.** Do not add these 90 to 1,434 external QA tuples. |
 | P0 | F05 six authentic source witnesses a–f | For each, same source plot → domain, range, strict increase/decrease, injectivity and parity; independent expected values, PL/EN grading, 375px and desktop browser evidence; current result **0/6 fully accepted** |
 | P1 | Remaining high-risk required syllabus families across matrices/systems, sequences/limits, derivatives, integrals, two-variable calculus | Stratified exact oracle by family and boundary/degenerate cases; full pedagogical sample, source mapping and proof-linked report |
 | P1 | Difficulty calibration | Demonstrate a *methodological* difference among levels rather than only coefficient changes; report independently |
