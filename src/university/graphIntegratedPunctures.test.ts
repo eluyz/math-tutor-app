@@ -74,7 +74,7 @@ describe("F05 P0J integrated five-knot punctures", () => {
   it("distinguishes restored and truly missing heights at holes", () => {
     for (const mode of [0, 1, 2, 3]) {
       const p = makeIntegratedPunctures(mode, "hard");
-      const excluded = p.nodes.filter((n, i) => !p.included[i]);
+      const excluded = p.nodes.filter((_n, i) => !p.included[i]);
       expect(excluded.length).toBeGreaterThan(0);
       for (const n of excluded) {
         expect(punctureHasHeight(p, n.y)).toBe(true);
@@ -83,7 +83,7 @@ describe("F05 P0J integrated five-knot punctures", () => {
     }
     for (const mode of [4, 5]) {
       const p = makeIntegratedPunctures(mode, "hard");
-      for (const n of p.nodes.filter((n, i) => !p.included[i])) {
+      for (const n of p.nodes.filter((_n, i) => !p.included[i])) {
         expect(punctureHasHeight(p, n.y)).toBe(false);
         expect(sourceHasY(p, n.y)).toBe(false);
       }
@@ -119,7 +119,7 @@ describe("F05 P0J integrated five-knot punctures", () => {
         // Value membership across each integer knot and each quarter-level.
         for (let y = -3; y <= 3; y += 0.25)
           expect(belongs(o.range, y), level + ":" + v + " y=" + y).toBe(sourceHasY(p, y));
-        const removed = p.nodes.filter((n, i) => !p.included[i]);
+        const removed = p.nodes.filter((_n, i) => !p.included[i]);
         expect(removed.length).toBeGreaterThan(0);
         for (const n of removed) expect(punctureHasHeight(p, n.y)).toBe(sourceHasY(p, n.y));
 
@@ -131,7 +131,7 @@ describe("F05 P0J integrated five-knot punctures", () => {
             const right = f.options.find(opt => opt.value === f.value);
             expect(right).toBeDefined();
             expect(new Set(f.options.map(opt => opt.label)).size).toBe(f.options.length);
-            if (f.id !== "injective" && f.id !== "parity") expect(right!.label).toBe(o[f.id]);
+            if (f.id !== "injective" && f.id !== "parity") expect(right!.label).toBe(o[f.id as keyof typeof o]);
             expect(f.options.length).toBeGreaterThanOrEqual(2);
           }
           const correct = { kind: "multi-choice" as const,
