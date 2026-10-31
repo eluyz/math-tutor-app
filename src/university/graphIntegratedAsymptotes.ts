@@ -37,8 +37,11 @@ export function makeIntegratedAsymptote(v: number, difficulty: Difficulty): Inte
   const radius = 2 + level;
   // Retain the 72-variant catalog while adding the P21/d-inspired topology:
   // selected profiles meet the excluded pole x at an OPEN exterior end.
-  const gap = profile === 0 || profile === 2 ? 0 : 1 + group % 2;
-  const span = 2 + Math.floor(group / 2);
+  const touchesPoles = profile === 0 || profile === 2;
+  const gap = touchesPoles ? 0 : 1 + group % 2;
+  // With zero gap, group must still change the geometry; otherwise two
+  // previously distinct variants would collapse to the same contentKey.
+  const span = 2 + (touchesPoles ? group : Math.floor(group / 2));
   const center = [0, 0, 1, 0, -1, 2][profile];
   const shift = [0, 0, 1, 1, -1, -1][profile];
   const sign: 1 | -1 = profile % 2 === 0 ? 1 : -1;
