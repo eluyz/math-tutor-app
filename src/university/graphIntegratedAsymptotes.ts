@@ -37,7 +37,7 @@ export function makeIntegratedAsymptote(v: number, difficulty: Difficulty): Inte
   const radius = 2 + level;
   // Retain the 72-variant catalog while adding the P21/d-inspired topology:
   // selected profiles meet the excluded pole x at an OPEN exterior end.
-  const gap = profile === 0 ? 0 : 1 + group % 2;
+  const gap = profile === 0 || profile === 2 ? 0 : 1 + group % 2;
   const span = 2 + Math.floor(group / 2);
   const center = [0, 0, 1, 0, -1, 2][profile];
   const shift = [0, 0, 1, 1, -1, -1][profile];
@@ -165,7 +165,8 @@ export const integratedAsymptoteFamilies: readonly UniversityFamily[] = [{
 export function presentIntegratedAsymptote(p: IntegratedAsymptoteProblem, locale: Locale) {
   const lesson = teaching(locale), { t } = lesson, o = integratedAsymptoteOracle(p);
   const [a, b] = integratedPoles(p);
-  const l1 = p.left[1];
+  // An interior y-height is attained even when a segment endpoint at a pole is hollow.
+  const witnessY = (p.left[0].y + p.left[1].y) / 2;
   const poleAdjacent = p.left[1].x === a || p.right[0].x === b;
   lesson.work(t("Dziedzina", "Domain") + ": " + o.domain,
     t("Oba bieguny x=", "Both poles x=") + fmt(a) + ", x=" + fmt(b) + " " +
@@ -191,7 +192,7 @@ export function presentIntegratedAsymptote(p: IntegratedAsymptoteProblem, locale
           "Outer segments have closed endpoints and the middle is open; keep components separate even if their directions agree.")));
 
   lesson.work(t("Różnowartościowość", "Injectivity") + ": " + t("nie", "no"),
-    t("Przykład: wartość y=", "For example, y=") + fmt(l1.y) + " " +
+    t("Przykład: wartość y=", "For example, y=") + fmt(witnessY) + " " +
     t("występuje na lewym odcinku oraz dla pewnego innego x między biegunami, bo środek przyjmuje każde y.",
       "is attained on the left segment and also at another x between the poles, because the middle branch covers all y."));
   lesson.work(t("Parzystość", "Parity") + ": " +
