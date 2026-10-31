@@ -25,6 +25,7 @@ function inIntervals(s: string, x: number): boolean {
  */
 function graphAtX(p: IntegratedAsymptoteProblem, x: number): number | null {
   const [a, b] = integratedPoles(p);
+  if (x === a || x === b) return null; // poles stay excluded, even at hollow exterior endpoints
   for (const [u, v] of [p.left, p.right]) if (x >= u.x && x <= v.x)
     return u.y + (v.y - u.y) * (x - u.x) / (v.x - u.x);
   return x > a && x < b ? integratedAsymptoteValue(p, x) : null;
@@ -81,21 +82,26 @@ describe("F05 two poles, sloping exterior segments, all six graded fields", () =
         const [a, b] = integratedPoles(p);
         const [l0, l1] = p.left, [r0, r1] = p.right;
         expect(l0.x).toBeLessThan(l1.x);
-        expect(l1.x).toBeLessThan(a);
+        expect(l1.x).toBeLessThanOrEqual(a);
         expect(a).toBeLessThan(b);
-        expect(b).toBeLessThan(r0.x);
+        expect(b).toBeLessThanOrEqual(r0.x);
+        const touchesPoles = v % 6 === 0;
+        expect(l1.x === a).toBe(touchesPoles);
+        expect(r0.x === b).toBe(touchesPoles);
         expect(r0.x).toBeLessThan(r1.x);
         expect(l0.y).not.toBe(l1.y);
         expect(r0.y).not.toBe(r1.y);
-        for (const x of [l0.x, l1.x, (l0.x + l1.x)/2, p.center,
-          r0.x, r1.x, (r0.x + r1.x)/2]) {
+        for (const x of [l0.x, (l0.x + l1.x)/2, p.center,
+          r1.x, (r0.x + r1.x)/2, ...(!touchesPoles ? [l1.x, r0.x] : [])]) {
           expect(graphAtX(p, x)).not.toBeNull();
           expect(inIntervals(o.domain, x)).toBe(true);
         }
-        for (const x of [a, b, (a+l1.x)/2, (b+r0.x)/2, l0.x-1, r1.x+1]) {
+        for (const x of [a, b, ...(touchesPoles ? [] : [(a+l1.x)/2, (b+r0.x)/2]), l0.x-1, r1.x+1]) {
           expect(graphAtX(p, x)).toBeNull();
           expect(inIntervals(o.domain, x)).toBe(false);
         }
+        expect(o.domain.includes(touchesPoles ? fmt(a) + ")": fmt(a) + "]")).toBe(true);
+        expect(o.domain.includes(touchesPoles ? "(" + fmt(b) : "[" + fmt(b))).toBe(true);
         const sides = [
           [(l0.x+l1.x)/2, 0.01],
           [p.center, 0.01],
