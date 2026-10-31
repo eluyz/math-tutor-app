@@ -1,6 +1,6 @@
 # F05 — next source-confirmed implementation scope (30 October 2026)
 
-**Status: planning / method gap confirmed, NO implementation or merge approval.**
+**Status: source-confirmed method gap; a separate P0K implementation candidate is in preparation, NOT merged or source-witness accepted. Owner authorization permits implementation and testing, not a merge.**
 Parent evidence: [F05 original-source witness #122](https://github.com/eluyz/math-tutor-app/issues/122#issuecomment-6494351248) and [syllabus #108](https://github.com/eluyz/math-tutor-app/issues/108). All original scans, keys, exact source coordinates and identifying material remain private.
 
 ## 1. Verified baseline, not a complete F05 acceptance

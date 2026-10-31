@@ -304,7 +304,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "function-asymptote-range",
       "function-integrated-properties",
       "function-integrated-jump",
-      "function-integrated-punctures"
+      "function-integrated-punctures",
+      "function-integrated-asymptotes"
     ]
   },
   "F06": {

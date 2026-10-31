@@ -1,5 +1,10 @@
 # Math Tutor
 
+## F05 asymptote-plus-sloping-segments candidate (not yet released)
+
+A separate Draft PR proposes `function-integrated-asymptotes`: 1 new family × 24 deterministic geometries × 3 levels = **72 candidate variants**. It reuses the existing middle rational branch between two vertical poles, adds nonhorizontal finite outer fragments and grades all six fields on one graph (domain, range, strictly increasing/decreasing intervals, injectivity, parity). Includes PL/EN teaching and responsive SVG. **Counts would become 222 families / 17,877 variants only after merge**; deployed main remains 221 / 17,805 until then. This method-level candidate does **not** accept the original six source figures (still 0/6) and does not change paused QA #106.
+
+
 ## Verified release on main — 30 October 2026 (CI and Pages PASS)
 
 - **Merged source on `main`: 221 exercise families / 17,805 deterministic variants**, as of owner-approved [PR #144](https://github.com/eluyz/math-tutor-app/pull/144), merge commit [`eae427026f849ba5b27a43ff82a5ef63df93d94c`](https://github.com/eluyz/math-tutor-app/commit/eae427026f849ba5b27a43ff82a5ef63df93d94c). [PR #143](https://github.com/eluyz/math-tutor-app/pull/143) added competency search for all 64 syllabus codes and is merged into the preceding main commit `c2c3aa4`.
@@ -45,7 +50,7 @@ MT-EDU-025 P2G-D (PR #91 scalony, przed merge pełne CI PASS): W02 — klasyfika
 
 MT-EDU-025 P2G-C (PR #89 scalony, CI przed merge PASS): W03 — granice funkcji dwóch zmiennych przy użyciu współrzędnych biegunowych, także przykład zależny od kąta, oraz klasyfikacja ciągłości funkcji z ilorazem form kwadratowych na podstawie dwóch osi. Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty, dokładne odpowiedzi i rozwiązania PL/EN. Po osobno zatwierdzonym merge: 192 rodziny / 15 717 wariantów. Pokrycie W03 nadal częściowe.
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **221 rodzin** i **17805 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **222 rodziny** i **17877 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-025 P2G-B (PR #87 scalony, CI i Pages PASS): W02 — ekstrema globalne funkcji kwadratowej na domkniętym prostokącie (wnętrze, krawędzie, narożniki i remisy) oraz funkcji liniowej na kole (ograniczenie kołowe, punkty brzegowe i mnożniki Lagrange'a). Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty z dokładnymi ułamkami i rozwiązaniami PL/EN. Po osobno zatwierdzonym scaleniu: 190 rodzin / 15 573 warianty; W02 nadal częściowe.
 
