@@ -1,11 +1,11 @@
-# F05 — next source-confirmed implementation scope (30 October 2026)
+# F05 — historical source-confirmed implementation scope (delivered 31 October 2026)
 
-**Status: source-confirmed method gap; a separate P0K implementation candidate is in preparation, NOT merged or source-witness accepted. Owner authorization permits implementation and testing, not a merge.**
+**Status: P0K method IMPLEMENTED AND RELEASED via PR #146 at main SHA ac6eca75, with same-SHA CI/Pages PASS. This closes the synthetic method construction gate, NOT original P21/d exact source acceptance. See [six-source witness acceptance ledger](F05_SOURCE_WITNESS_ACCEPTANCE.md).**
 Parent evidence: [F05 original-source witness #122](https://github.com/eluyz/math-tutor-app/issues/122#issuecomment-6494351248) and [syllabus #108](https://github.com/eluyz/math-tutor-app/issues/108). All original scans, keys, exact source coordinates and identifying material remain private.
 
 ## 1. Verified baseline, not a complete F05 acceptance
 
-- Current merged source commit: `eae427026f849ba5b27a43ff82a5ef63df93d94c` (owner-approved PR #144), **221 families / 17,805 variants**. The PR CI at approved HEAD `127a2f7` is PASS, but **same-SHA push CI and Pages for merge SHA are VERIFIED SUCCESS**.
+- Historical pre-P0K baseline: `eae427026f849ba5b27a43ff82a5ef63df93d94c` (PR #144, 221 families / 17,805 variants). Current released code: **PR #146 / ac6eca75, 222 families / 17,877 variants**, [main CI #41209453996](https://github.com/eluyz/math-tutor-app/actions/runs/41209453996) and [Pages #41210361618](https://github.com/eluyz/math-tutor-app/actions/runs/41210361618) both SUCCESS at this SHA.
 - Existing `function-asymptote-range` is a **single-property range** family with two vertical asymptotes, a synthetic rational middle branch and **flat offset outer segments**. It is not a complete source-style graph.
 - `function-integrated-properties` assesses six fields on a **bounded three-knot** plot; `function-integrated-jump` on two bounded segments with a shared x; `function-integrated-punctures` on a **bounded five-knot** plot with holes. None models the specific full P21/d profile.
 - Original source/key inspection: **6/6 images inspected, 30/30 grouped source answers examined, 0/6 exact complete source-to-app witnesses accepted**. A synthetic-family PASS is not acceptance of a private source image.
