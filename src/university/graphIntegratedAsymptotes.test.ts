@@ -100,8 +100,8 @@ describe("F05 two poles, sloping exterior segments, all six graded fields", () =
           expect(graphAtX(p, x)).toBeNull();
           expect(inIntervals(o.domain, x)).toBe(false);
         }
-        expect(o.domain.includes(touchesPoles ? fmt(a) + ")": fmt(a) + "]")).toBe(true);
-        expect(o.domain.includes(touchesPoles ? "(" + fmt(b) : "[" + fmt(b))).toBe(true);
+        expect(o.domain.includes(fmt(touchesPoles ? a : l1.x) + (touchesPoles ? ")" : "]"))).toBe(true);
+        expect(o.domain.includes((touchesPoles ? "(" : "[") + fmt(touchesPoles ? b : r0.x))).toBe(true);
         const sides = [
           [(l0.x+l1.x)/2, 0.01],
           [p.center, 0.01],
