@@ -85,7 +85,7 @@ describe("F05 two poles, sloping exterior segments, all six graded fields", () =
         expect(l1.x).toBeLessThanOrEqual(a);
         expect(a).toBeLessThan(b);
         expect(b).toBeLessThanOrEqual(r0.x);
-        const touchesPoles = v % 6 === 0;
+        const touchesPoles = [0, 2].includes(v % 6);
         expect(l1.x === a).toBe(touchesPoles);
         expect(r0.x === b).toBe(touchesPoles);
         expect(r0.x).toBeLessThan(r1.x);
@@ -123,7 +123,8 @@ describe("F05 two poles, sloping exterior segments, all six graded fields", () =
         expect(o.injective).toBe("no");
         // A y-height reached on a finite outer segment is also reached in the
         // central interval: explicit independent witness for non-injectivity.
-        const yy = l1.y, middleX = findMiddleAtY(p, yy);
+        const yy = (l0.y + l1.y) / 2, middleX = findMiddleAtY(p, yy);
+        expect(graphAtX(p, (l0.x + l1.x) / 2)).toBe(yy);
         expect(middleX).toBeGreaterThan(a);
         expect(middleX).toBeLessThan(b);
         expect(Math.abs(integratedAsymptoteValue(p, middleX)-yy)).toBeLessThan(1e-7);
