@@ -1,10 +1,10 @@
-## MT-F05-P0K — integrated poles and sloping outer segments (Draft candidate)
+## MT-F05-P0K — integrated poles and sloping outer segments (released PR #146)
 
 | Family | Levels | Candidate variants | Scope |
 | --- | --- | ---: | --- |
 | function-integrated-asymptotes | hard / advanced / expert | 72 | Two vertical poles, a strictly monotone rational middle branch with W=ℝ and **nonhorizontal finite external segments**. One graph, six separately graded properties; synthetic odd/neither parity, cross-branch non-injectivity, PL/EN, mathematical oracles and responsive SVG. |
 
-**Candidate only:** if approved and merged, 222 families / 17,877 variants; current verified main remains 221 / 17,805. The central rational curve reuses the tested P0F model; no private source figure or answer key is reproduced. Do not claim full P21/d witness acceptance, external correctness QA #106 progress or post-merge Pages before proof and separate owner authorization.
+**Released:** owner-approved Squash-merged [PR #146](https://github.com/eluyz/math-tutor-app/pull/146), main SHA `ac6eca75570dc8775e7edb55fe9b7f060c2ad727`; [main CI #41209453996](https://github.com/eluyz/math-tutor-app/actions/runs/41209453996) and [Pages #41210361618](https://github.com/eluyz/math-tutor-app/actions/runs/41210361618) both SUCCESS for the exact same SHA. Catalogue now **222 families / 17,877 variants**. The rational curve reuses the tested P0F method; **0/6 private original source-to-app witnesses accepted**. Do not confuse this release with global independent QA #106. See [six-source acceptance matrix](docs/F05_SOURCE_WITNESS_ACCEPTANCE.md).
 
 ## MT-F05-P0J — integrated punctures (merged and released in PR #144)
 
