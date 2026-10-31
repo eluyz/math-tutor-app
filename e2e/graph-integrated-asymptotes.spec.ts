@@ -30,10 +30,20 @@ for (const [level, levelPl, levelEn] of [
     await expect(figure.getByTestId("integrated-asymptote-middle")).toHaveCount(1);
     await expect(figure.getByTestId("integrated-sloping-segment")).toHaveCount(2);
     await expect(figure.getByTestId("integrated-outer-point")).toHaveCount(4);
-    await expect(figure.getByTestId("integrated-x-tick")).toHaveCount(7);
+    const hollow = figure.locator('[data-testid="integrated-outer-point"][data-open="true"]');
+    const hollowCount = await hollow.count();
+    expect([0, 2]).toContain(hollowCount);
+    await expect(figure.getByTestId("integrated-x-tick")).toHaveCount(hollowCount ? 5 : 7);
     const leftPole = Number(await figure.getByTestId("integrated-pole-left").getAttribute("data-x"));
     const rightPole = Number(await figure.getByTestId("integrated-pole-right").getAttribute("data-x"));
     expect(leftPole).toBeLessThan(rightPole);
+    if (hollowCount) {
+      expect(await hollow.evaluateAll(nodes => nodes.map(x => Number(x.getAttribute("data-x"))).sort((a,b)=>a-b)))
+        .toEqual([leftPole, rightPole]);
+      await expect(figure.locator("figcaption")).toContainText(pl ? "puste" : "hollow");
+    }
+    await expect(figure.locator('[data-testid="integrated-outer-point"][data-open="false"]'))
+      .toHaveCount(4 - hollowCount);
     for (const segment of await figure.getByTestId("integrated-sloping-segment").all())
       expect(Number(await segment.getAttribute("data-slope"))).not.toBe(0);
     const fields = ["domain", "range", "increasing", "decreasing", "injective", "parity"] as const;
