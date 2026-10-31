@@ -35,7 +35,9 @@ export function makeIntegratedAsymptote(v: number, difficulty: Difficulty): Inte
   const profile = v % 6;
   const group = Math.floor(v / 6);
   const radius = 2 + level;
-  const gap = 1 + group % 2;
+  // Retain the 72-variant catalog while adding the P21/d-inspired topology:
+  // selected profiles meet the excluded pole x at an OPEN exterior end.
+  const gap = profile === 0 ? 0 : 1 + group % 2;
   const span = 2 + Math.floor(group / 2);
   const center = [0, 0, 1, 0, -1, 2][profile];
   const shift = [0, 0, 1, 1, -1, -1][profile];
@@ -64,7 +66,7 @@ function validate(p: IntegratedAsymptoteProblem) {
     ![p.center, p.radius, p.shift, p.scale].every(Number.isSafeInteger) ||
     p.radius <= 0 || p.scale <= 0 || (p.sign !== 1 && p.sign !== -1) ||
     ![l0, l1, r0, r1].every(q => Number.isSafeInteger(q.x) && Number.isSafeInteger(q.y)) ||
-    !(l0.x < l1.x && l1.x < a && a < b && b < r0.x && r0.x < r1.x) ||
+    !(l0.x < l1.x && l1.x <= a && a < b && b <= r0.x && r0.x < r1.x) ||
     l0.y === l1.y || r0.y === r1.y)
     throw Error("Invalid integrated asymptote geometry");
 }
@@ -74,8 +76,10 @@ export function integratedAsymptoteValue(p: IntegratedAsymptoteProblem, x: numbe
   return middleValue({ kind: "function-asymptote-range", center: p.center,
     radius: p.radius, shift: p.shift, scale: p.scale, sign: p.sign, mode: "cross" }, x);
 }
-const outerInterval = (points: readonly [Point, Point]) =>
-  interval(points[0].x, points[1].x, true, true);
+const leftOuterInterval = (p: IntegratedAsymptoteProblem) =>
+  interval(p.left[0].x, p.left[1].x, true, p.left[1].x < integratedPoles(p)[0]);
+const rightOuterInterval = (p: IntegratedAsymptoteProblem) =>
+  interval(p.right[0].x, p.right[1].x, p.right[0].x > integratedPoles(p)[1], true);
 const middleInterval = (p: IntegratedAsymptoteProblem) => {
   const [a, b] = integratedPoles(p);
   return interval(a, b, false, false);
@@ -87,7 +91,7 @@ const middleInterval = (p: IntegratedAsymptoteProblem) => {
  */
 export function integratedAsymptoteOracle(p: IntegratedAsymptoteProblem): AsymptoteOracle {
   validate(p);
-  const pieces = [outerInterval(p.left), middleInterval(p), outerInterval(p.right)];
+  const pieces = [leftOuterInterval(p), middleInterval(p), rightOuterInterval(p)];
   const up: Interval[] = [], down: Interval[] = [];
   (p.left[1].y > p.left[0].y ? up : down).push(pieces[0]);
   (p.sign === -1 ? up : down).push(pieces[1]);
@@ -120,7 +124,7 @@ export function integratedAsymptoteAnswer(p: IntegratedAsymptoteProblem, locale:
   const joined = show(interval(p.left[0].x, p.right[1].x, true, true));
   const holeless = show(interval(p.left[0].x, p.right[1].x, false, false));
   const mid = show(middleInterval(p));
-  const left = show(outerInterval(p.left)), right = show(outerInterval(p.right));
+  const left = show(leftOuterInterval(p)), right = show(rightOuterInterval(p));
   const tr = {
     yes: locale === "pl" ? "Tak" : "Yes", no: locale === "pl" ? "Nie" : "No",
     even: locale === "pl" ? "Parzysta" : "Even",
@@ -162,10 +166,14 @@ export function presentIntegratedAsymptote(p: IntegratedAsymptoteProblem, locale
   const lesson = teaching(locale), { t } = lesson, o = integratedAsymptoteOracle(p);
   const [a, b] = integratedPoles(p);
   const l1 = p.left[1];
+  const poleAdjacent = p.left[1].x === a || p.right[0].x === b;
   lesson.work(t("Dziedzina", "Domain") + ": " + o.domain,
     t("Oba bieguny x=", "Both poles x=") + fmt(a) + ", x=" + fmt(b) + " " +
-    t("są wykluczone. Zewnętrzne odcinki mają pełne końce.",
-      "are excluded. Both finite outer segments have filled endpoints."));
+    (poleAdjacent
+      ? t("są wykluczone. Końce odcinków przy asymptotach są puste; dalsze końce są pełne.",
+          "are excluded. Segment endpoints at the poles are hollow; far endpoints are filled.")
+      : t("są wykluczone. Zewnętrzne odcinki mają pełne końce.",
+          "are excluded. Both finite outer segments have filled endpoints.")));
   lesson.work(t("Zbiór wartości", "Range") + ": " + o.range,
     t("Gałąź środkowa jest ciągła między asymptotami i biegnie od jednej nieskończoności do przeciwnej. Osiąga każde y; ukośne odcinki nie mogą już rozszerzyć W.",
       "The middle branch is continuous between the poles and runs from one infinity to the opposite. It attains every y, so the sloping outer segments cannot enlarge W."));
@@ -176,8 +184,12 @@ export function presentIntegratedAsymptote(p: IntegratedAsymptoteProblem, locale
     t("Nie łącz przedziałów przez asymptoty.",
       "Do not join intervals across the poles."));
   lesson.work(t("Ścisły spadek", "Strict decrease") + ": " + o.decreasing,
-    t("Oba zewnętrzne przedziały mają domknięte końce, a środek jest otwarty; rozdziel je mimo ewentualnej zgodności kierunków.",
-      "Outer segments have closed endpoints and the middle is open; keep components separate even if their directions agree."));
+    (poleAdjacent
+      ? t("Przedziały na końcach przy asymptotach są otwarte, a dalsze końce pełne. Środek jest otwarty; nie łącz części przez bieguny.",
+          "Outer intervals are open at the poles and filled at far endpoints. The middle is open; do not join across poles.")
+      : t("Oba zewnętrzne przedziały mają domknięte końce, a środek jest otwarty; rozdziel je mimo ewentualnej zgodności kierunków.",
+          "Outer segments have closed endpoints and the middle is open; keep components separate even if their directions agree.")));
+
   lesson.work(t("Różnowartościowość", "Injectivity") + ": " + t("nie", "no"),
     t("Przykład: wartość y=", "For example, y=") + fmt(l1.y) + " " +
     t("występuje na lewym odcinku oraz dla pewnego innego x między biegunami, bo środek przyjmuje każde y.",
