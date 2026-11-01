@@ -224,7 +224,7 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-matrix-equation"; mode: "bx-shift"; left: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; shift: Rational }>
   | Readonly<{ kind: "linear-rank"; matrix: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-capelli"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
-  | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
+  | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number; sourceForm?: "parameter-count" }>
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" | "parameters" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
