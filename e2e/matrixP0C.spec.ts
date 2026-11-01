@@ -111,8 +111,8 @@ test("SYLLABUS M01/M02 complete worksheet expression forms "+width+" "+(en?"EN":
  if(en)await button(page,"English").click();
  await button(page,en?"University mathematics":"Matematyka na studia").click();
  await button(page,en?"Matrices":"Macierze").click();
- await button(page,en?"Hard":"Trudny").click();
- await page.getByRole("button",{name:en?/Rectangular matrix expression calculations/:/Obliczenia na macierzach prostokątnych/}).click();
+ await button(page,en?"Medium":"Średni").click();
+ await page.getByRole("button",{name:en?/Worksheet-style composite matrix calculations/:/Złożone rachunki macierzowe z arkusza/}).click();
  const seen=new Set<string>();
  for(let step=0;step<24&&seen.size<2;step++){
    const question=await page.locator(".question").innerText();
