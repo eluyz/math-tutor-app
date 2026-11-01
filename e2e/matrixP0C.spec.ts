@@ -25,6 +25,8 @@ async function displayed(page:Page):Promise<M[]>{
 }
 const calculate=(name:string,[A,B,C]:M[]):M=>{
  switch(name){
+  case "3A−B":return sub(A.map(row=>row.map(x=>m(q(3),x))),B);
+  case "A+Aᵀ":return add(A,tr(A));
   case "AB+C":return add(mul(A,B),C);
   case "(A+B)C":return mul(add(A,B),C);
   case "A(B−C)":return mul(A,sub(B,C));
@@ -69,7 +71,9 @@ test("MT-EDU-019 P0C "+width+" "+level+" "+(en?"EN":"PL"),async({page})=>{
   expect(match).not.toBeNull();
   const name=match![1];
   const matrices=await displayed(page);
-  expect(matrices.length).toBeGreaterThanOrEqual(2);
+  expect(matrices.length).toBeGreaterThanOrEqual(name==="A+Aᵀ"?1:2);
+  if(name==="3A−B")expect(matrices.map(m=>[m.length,m[0].length])).toEqual([[2,3],[2,3]]);
+  if(name==="A+Aᵀ")expect(matrices.map(m=>[m.length,m[0].length])).toEqual([[3,3]]);
   await button(page,en?"Check":"Sprawdź").click();
   await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
   if(family.id==="matrix-rectangular-evaluation"){
@@ -97,4 +101,45 @@ test("MT-EDU-019 P0C "+width+" "+level+" "+(en?"EN":"PL"),async({page})=>{
  }
  expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
  expect(errors).toEqual([]);
+});
+
+for(const width of [375,1280])for(const en of [false,true])
+test("SYLLABUS M01/M02 complete worksheet expression forms "+width+" "+(en?"EN":"PL"),async({page})=>{
+ test.setTimeout(120000);
+ await page.setViewportSize({width,height:900});
+ await page.goto("/");
+ if(en)await button(page,"English").click();
+ await button(page,en?"University mathematics":"Matematyka na studia").click();
+ await button(page,en?"Matrices":"Macierze").click();
+ await button(page,en?"Medium":"Średni").click();
+ await page.getByRole("button",{name:en?/Worksheet-style composite matrix calculations/:/Złożone rachunki macierzowe z arkusza/}).click();
+ const seen=new Set<string>();
+ for(let step=0;step<24&&seen.size<2;step++){
+   const question=await page.locator(".question").innerText();
+   const match=question.match(/^(?:Oblicz|Calculate) ([^ ]+)/);
+   expect(match).not.toBeNull();
+   const name=match![1];
+   const matrices=await displayed(page);
+   const answer=calculate(name,matrices);
+   if(name==="3A−B"){
+     expect(matrices.map(m=>[m.length,m[0].length])).toEqual([[2,3],[2,3]]);
+     seen.add(name);
+   }else if(name==="A+Aᵀ"){
+     expect(matrices.map(m=>[m.length,m[0].length])).toEqual([[3,3]]);
+     for(let i=0;i<3;i++)for(let j=0;j<3;j++)expect(f(answer[i][j])).toBe(f(answer[j][i]));
+     seen.add(name);
+   }
+   for(let i=0;i<answer.length;i++)for(let j=0;j<answer[i].length;j++)
+     await page.locator(i===0&&j===0?"#answer":"#answer-"+i+"-"+j).fill(f(answer[i][j]));
+   await button(page,en?"Check":"Sprawdź").click();
+   await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+   if(seen.has(name)){
+     await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+     await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+     await expect(page.locator(".solution-panel")).toContainText(en?"Final answer":"Końcowa odpowiedź");
+   }
+   if(seen.size<2)await button(page,en?"Next example":"Następny przykład").click();
+ }
+ expect([...seen].sort()).toEqual(["3A−B","A+Aᵀ"].sort());
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
 });
