@@ -52,8 +52,8 @@ describe("catalog search and selection", () => {
     expect(searchCatalog(" ")).toEqual([]);
     expect(searchCatalog("zzzz-no-such-family")).toEqual([]);
     expect(new Set(searchCatalog("rownan").map((family) => family.id)).size).toBe(searchCatalog("rownan").length);
-    expect(allTemplates).toHaveLength(222);
-    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(201);
+    expect(allTemplates).toHaveLength(223);
+    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(202);
     const categories = new Set(allTemplates.map((family) => family.category));
     expect(categories.size).toBe(14);
     expect([...categories].reduce((total, category) => total +
