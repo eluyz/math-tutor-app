@@ -40,15 +40,6 @@ export function makeMatrixP0C(mode:P0C["mode"],v:number,level:Difficulty):P0C{
     return {kind:"linear-matrix-practice",mode,expression:setup.expression,
       matrices:setup.shapes.map((s,i)=>({label:["A","B","C"][i],values:data(v,level,s.rows,s.columns,i)}))};
   }
-  // Two existing variant profiles now represent whole source exercise forms:
-  // M01: scalar multiplication followed by subtraction on a 2×3 matrix;
-  // M02: a 3×3 square matrix added to its own transpose.
-  // No new family, level or variant: the catalogue count stays unchanged.
-  if(v%6===0)return {kind:"linear-matrix-practice",mode,expression:"3A−B",
-    matrices:[{label:"A",values:data(v,level,2,3,0)},
-      {label:"B",values:data(v,level,2,3,1)}]};
-  if(v%6===2)return {kind:"linear-matrix-practice",mode,expression:"A+Aᵀ",
-    matrices:[{label:"A",values:data(v,level,3,3,0)}]};
   const rows=2+v%2, inner=opposite(rows), columns=2+Math.floor(v/2)%2;
   const expression:P0C["expression"]=level==="easy"?(v%2?"AB+C":"(A+B)C"):
     level==="medium"? (["AB+C","(A+B)C","A(B−C)"] as const)[v%3]:
@@ -62,7 +53,22 @@ export function makeMatrixP0C(mode:P0C["mode"],v:number,level:Difficulty):P0C{
     matrices:shapes.map((s,i)=>({label:["A","B","C"][i],values:data(v,level,s.rows,s.columns,i)}))};
 }
 
+/** Add only the two independently verified missing source forms. Historic
+ * matrix-rectangular-evaluation variants remain completely immutable.
+ * One medium-level 24-case family, not another 72-case bulk expansion. */
+function makeWorksheetComposite(v:number,level:Difficulty):P0C {
+  if(level!=="medium"||!Number.isInteger(v)||v<0||v>=24)
+    throw Error("Unsupported source worksheet matrix variant");
+  if(v%2===0)return {kind:"linear-matrix-practice",mode:"rectangular",expression:"3A−B",
+    matrices:[{label:"A",values:data(v,level,2,3,0)},
+      {label:"B",values:data(v,level,2,3,1)}]};
+  return {kind:"linear-matrix-practice",mode:"rectangular",expression:"A+Aᵀ",
+    matrices:[{label:"A",values:data(v,level,3,3,0)}]};
+}
 export const matrixP0CFamilies:readonly UniversityFamily[]=[
+  {id:"matrix-worksheet-composites",category:"matrices",
+    titles:{pl:"Złożone rachunki macierzowe z arkusza",en:"Worksheet-style composite matrix calculations"},
+    supportedDifficulties:["medium"],create:makeWorksheetComposite},
   {id:"matrix-rectangular-evaluation",category:"matrices",
     titles:{pl:"Obliczenia na macierzach prostokątnych",en:"Rectangular matrix expression calculations"},
     supportedDifficulties:["easy","medium","hard"],create:(v,d)=>makeMatrixP0C("rectangular",v,d)},
