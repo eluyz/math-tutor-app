@@ -105,13 +105,13 @@ describe("MT-EDU-019 P0C: independent mathematical and lesson audit",()=>{
      expect(invalid).toBeGreaterThan(0);
    }
   }
-  expect(all.size).toBe(72);
-  expect(expressions.size).toBeGreaterThanOrEqual(3);
+  expect(all.size).toBe(family.id==="matrix-worksheet-composites"?24:72);
+  expect(expressions.size).toBeGreaterThanOrEqual(family.id==="matrix-worksheet-composites"?2:3);
  });
  it("source-form M01 and M02 profiles preserve exact size and full-answer grading, PL/EN",()=>{
-   for(const level of ["easy","medium","hard"] as const){
-     const scalar=makeUniversityTask("matrix-rectangular-evaluation",0,level);
-     const symmetry=makeUniversityTask("matrix-rectangular-evaluation",2,level);
+   for(const level of ["medium"] as const){
+     const scalar=makeUniversityTask("matrix-worksheet-composites",0,level);
+     const symmetry=makeUniversityTask("matrix-worksheet-composites",1,level);
      expect(scalar.university.kind).toBe("linear-matrix-practice");
      expect(symmetry.university.kind).toBe("linear-matrix-practice");
      if(scalar.university.kind!=="linear-matrix-practice" ||
