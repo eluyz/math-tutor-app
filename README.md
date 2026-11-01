@@ -1,5 +1,7 @@
 # Math Tutor
 
+**Syllabus coverage:** the [64-skill source-to-app closure audit v2](docs/SYLLABUS_COVERAGE_V2.md) is the current work queue; generator variants and successful CI are **not** certificates that 64 source exercise forms have passed independently.
+
 ## Latest released source — 31 October 2026 (CI and Pages PASS)
 
 Owner-approved [PR #146](https://github.com/eluyz/math-tutor-app/pull/146) was Squash-merged to main commit `ac6eca75570dc8775e7edb55fe9b7f060c2ad727`. [Main push CI #41209453996](https://github.com/eluyz/math-tutor-app/actions/runs/41209453996) and [Deploy Pages #41210361618](https://github.com/eluyz/math-tutor-app/actions/runs/41210361618) both finished **SUCCESS for this exact SHA**, including unit tests, production build and Chromium Playwright. **Deployed catalogue: 222 families / 17,877 variants**.

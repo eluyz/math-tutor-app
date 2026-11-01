@@ -1,5 +1,7 @@
 # Syllabus exercise-form acceptance matrix (64 skills)
 
+> **Historical source-form snapshot.** This file contains stale candidate/PR statuses from October 2026. For the updated 64-skill closure queue, confirmed PR #147 release and explicit distinction between method coverage and original-source acceptance, use [syllabus coverage v2](docs/SYLLABUS_COVERAGE_V2.md). Keep this detailed source inventory as evidence, not as the live progress dashboard.
+
 **Status:** audit baseline / candidate evidence map. This is **not** a claim of 100% exam or educational coverage. See [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md) for the full generator scope of each skill. As of owner-approved PR #124 merge, production main has 213 exercise families and 17,229 variants; full post-merge CI/Pages verification is a separate release gate. [Detailed completeness audit](SYLLABUS_AUDIT_2026-10-28.md) records the outstanding source witnesses.
 
 ## Evidence and privacy

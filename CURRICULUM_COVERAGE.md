@@ -1,5 +1,7 @@
 # Mapa 64 kompetencji matematycznych — Math Tutor
 
+**Aktualny plan akceptacji źródłowej:** [Audyt pokrycia sylabusa v2 — 64 kompetencje](docs/SYLLABUS_COVERAGE_V2.md). Status `pokryte` / `częściowo` poniżej opisuje generator, nie niezależną akceptację wszystkich oryginalnych zadań. Nie zmieniamy statusów bez dowodów.
+
 The [source-backed 64-skill acceptance matrix](SYLLABUS_ACCEPTANCE.md) separates verified exercise formats, bounded generator mappings, lecture-only topics and confirmed gaps. **This catalogue is not a syllabus-completion certificate.**
 
 To **robocza mapa tematów i kompetencji** potrzebnych do opanowania ośmiu działów matematyki, połączona z rzeczywistymi generatorami w repozytorium. `Pokryte` oznacza, że dany typ zadania jest zaimplementowany w opisanych granicach; nie stanowi obietnicy pokrycia wszystkich możliwych wariantów. `Częściowo` oznacza ograniczoną klasę przypadków. `Teoria` dotyczy umiejętności, której nie można rzetelnie ocenić wyłącznie pojedynczym wynikiem liczbowym. Pełne pokrycie wymaga weryfikacji każdego typu zadania, rozwiązania i testu.
