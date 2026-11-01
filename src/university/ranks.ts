@@ -45,11 +45,7 @@ export const rankFamilies:readonly UniversityFamily[]=[
   {id:"matrix-rank",category:"matrices",titles:{pl:"Rząd macierzy",en:"Matrix rank"},supportedDifficulties:["medium","hard","advanced"],create:(v,d)=>{const matrix=rows(v,d==="medium"?2:3,d==="advanced"?4:3);return {kind:"linear-rank",matrix:d==="medium"?matrix:matrix.map((row,i)=>i===0?row.map(value=>mul(value,r(1,2))):row)};}},
   {id:"capelli-given-ranks",category:"systems",titles:{pl:"Twierdzenie Kroneckera–Capellego z rang",en:"Kronecker–Capelli from ranks"},supportedDifficulties:["easy"],create:(v)=>{
     const n=2+(Math.floor(v/3)%4), equations=n+Math.floor(v/12), mode=v%3;
-    // The source syllabus also requires the consistent rank n−1 case:
-    // n=4 and rank(A)=rank([A|b])=3 means exactly one free parameter.
-    // Reuse an existing profile, retaining n=4/rank=2 at v=20.
-    const rankA=v===8?n-1:mode===0?n:mode===1?n-1:Math.max(0,n-2),
-      rankAugmented=mode===1?rankA+1:rankA;
+    const rankA=mode===0?n:mode===1?n-1:Math.max(0,n-2),rankAugmented=mode===1?rankA+1:rankA;
     return {kind:"linear-rank-given",rankA,rankAugmented,variables:n,equations};
   }},
   {id:"capelli-matrices",category:"systems",titles:{pl:"Kronecker–Capelli z macierzy",en:"Kronecker–Capelli from matrices"},supportedDifficulties:["hard","advanced"],create:(v,d)=>capelli(v,d)},
@@ -60,32 +56,7 @@ export function presentRank(p:Extract<LinearAlgebraProblem,{kind:"linear-rank"|"
     const kind=p.rankA<p.rankAugmented?"system-none":p.rankA===p.variables?"system-one":"system-many";
     lesson.work(`rank(A) = ${p.rankA}, rank([A|b]) = ${p.rankAugmented}, n = ${p.variables}`,t("Porównaj najpierw rzędy macierzy współczynników i rozszerzonej.","First compare the coefficient and augmented matrix ranks."));
     lesson.work(kind==="system-none"?"rank(A) < rank([A|b])":kind==="system-one"?"rank(A) = rank([A|b]) = n":"rank(A) = rank([A|b]) < n",kind==="system-none"?t("Sprzeczny wiersz 0=c≠0 wyklucza rozwiązania.","An inconsistent row 0=c≠0 excludes all solutions."):kind==="system-one"?t("Pivot każdej niewiadomej daje dokładnie jedno rozwiązanie.","A pivot for every variable gives exactly one solution."):t("Brak sprzeczności i co najmniej jedna zmienna swobodna oznaczają nieskończenie wiele rozwiązań nad R.","Consistency and at least one free variable give infinitely many solutions over the reals."));
-    const count=kind==="system-none"?"not-applicable":kind==="system-one"?"0":String(p.variables-p.rankA);
-    lesson.work(kind==="system-none"?"Liczba parametrów: nie dotyczy":
-      "n − rank(A) = "+p.variables+" − "+p.rankA+" = "+count,
-      kind==="system-none"
-        ?t("Układ sprzeczny nie ma rozwiązań, więc nie opisujemy ich parametrami.",
-          "An inconsistent system has no solutions to parameterize.")
-        :t("Liczba zmiennych swobodnych to n pomniejszone o rząd macierzy A.",
-          "The number of free variables is n minus the rank of A."));
-    const parameterOptions=[
-      {value:"not-applicable",label:t("Nie dotyczy — brak rozwiązań","Not applicable — no solutions")},
-      ...["0","1","2","3","4"].map(value=>({value,label:value}))
-    ];
-    const answer:AnswerSpec={kind:"multi-choice",fields:[
-      {id:"classification",label:t("Liczba rozwiązań","Number of solutions"),
-        value:kind,options:options(locale)},
-      {id:"parameters",label:t("Liczba parametrów swobodnych","Number of free parameters"),
-        value:count,options:parameterOptions}
-    ]};
-    return lesson.finish(
-      t(`Układ ma ${p.equations} równań i ${p.variables} niewiadomych, rank(A) = ${p.rankA}, rank([A|b]) = ${p.rankAugmented}. Określ liczbę rozwiązań i parametrów swobodnych.`,
-        `A system has ${p.equations} equations and ${p.variables} unknowns, rank(A) = ${p.rankA}, rank([A|b]) = ${p.rankAugmented}. Classify its solutions and number of free parameters.`),
-      answer,
-      t("Najpierw porównaj oba rzędy, a następnie odejmij rank(A) od n, jeśli układ jest zgodny.",
-        "Compare both ranks first, then subtract rank(A) from n if the system is consistent."),
-      t("Różne rzędy: brak rozwiązań i parametry nie dotyczą. Zgodny, rząd=n: jedno i 0 parametrów. Zgodny, rząd<n: nieskończenie wiele i n−r parametrów.",
-        "Unequal ranks: none and parameters not applicable. Consistent, rank=n: one and 0 parameters. Consistent, rank<n: infinitely many and n−r parameters."));
+    return lesson.finish(t(`Układ ma ${p.equations} równań i ${p.variables} niewiadomych, rank(A) = ${p.rankA}, rank([A|b]) = ${p.rankAugmented}. Ile ma rozwiązań?`,`A system has ${p.equations} equations and ${p.variables} unknowns, rank(A) = ${p.rankA}, rank([A|b]) = ${p.rankAugmented}. How many solutions?`),choice(kind,locale),t("Porównaj dwa rzędy, a potem liczbę niewiadomych.","Compare the two ranks, then the number of unknowns."),t("Różne rzędy: brak; równe n: jedno; równe mniejsze od n: nieskończenie wiele.","Different ranks: none; equal to n: one; equal below n: infinitely many."));
   }
   if(p.kind==="linear-rank"){
     const reduction=p.matrix.length>4?reduceTallRank(p.matrix):reduceRows(p.matrix),value=reduction.pivots.length;
