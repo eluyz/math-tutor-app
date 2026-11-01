@@ -38,6 +38,12 @@ A reviewer with access to the **private** worksheet and answer key must, for eac
 4. Capture **375px and desktop Chromium evidence**. Physical Safari can be recorded as NOT_VERIFIED if not tested. Do not count generic full-suite Playwright as an exact private-source acceptance test.
 5. Mark a row **SOURCE_PASS only if every gate is evidenced on the identical code commit and independently reviewed**. Otherwise retain SOURCE_NOT_VERIFIED, name the precise blocker, and file a **small missing-method issue** rather than another speculative bulk variant pack.
 
+## P0M candidate — pole-adjacent OPEN exterior endpoints (Issue #148)
+
+The existing synthetic family `function-integrated-asymptotes` has a **confirmed topology limitation**: all exterior fragments end at positive x-gaps from the excluded poles and all four finite endpoints are filled. Private P21/d-inspired source inspection requires **hollow exterior endpoints at the same x arguments as the poles**. Issue [#148](https://github.com/eluyz/math-tutor-app/issues/148) tracks the smallest correction: retain the existing family and **72 variants**, make a controlled subset have exterior intervals `[L,a) ∪ (b,R]` (center `(a,b)`), render the two pole-boundary endpoints hollow, and grade all six fields with correct boundary semantics.
+
+**Candidate, NOT RELEASED or SOURCE_PASS.** No original private coordinates/plot/key are copied. Other variants preserve nonzero gaps and four filled points. Any merge needs exact-head CI + separate owner consent; postmerge CI+Pages must match the merge SHA. The original figure score stays **0/6** until independently comparing original source, answers and actual browser fixture.
+
 ## Immediate nonduplicative priorities
 
 1. **P21/d:** compare the now-released six-field sloping two-pole proxy to the original private geometry. If shape/answers differ, document exact non-identifying missing feature before coding again.
