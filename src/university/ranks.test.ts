@@ -15,6 +15,37 @@ const oracleRank=(A:ExactMatrix)=>{
   return 0;
 };
 describe("P1 ranks and Kronecker–Capelli",()=>{
+ it("U05: exact four source rank-pattern classes coexist with legacy immutable tasks",()=>{
+   const samples=[
+    {v:0,n:3,ra:2,rab:3,kind:"system-none",params:"not-applicable"},
+    {v:1,n:4,ra:3,rab:3,kind:"system-many",params:"1"},
+    {v:2,n:4,ra:4,rab:4,kind:"system-one",params:"0"},
+    {v:3,n:4,ra:2,rab:2,kind:"system-many",params:"2"}
+   ];
+   for(const c of samples){
+     const newer=makeUniversityTask("capelli-free-parameters",c.v,"easy");
+     const p=newer.university;
+     if(p.kind!=="linear-rank-given")throw Error("Wrong task kind");
+     expect(p.sourceForm).toBe("parameter-count");
+     expect([p.variables,p.rankA,p.rankAugmented]).toEqual([c.n,c.ra,c.rab]);
+     for(const locale of ["pl","en"] as const){
+       const spec=localizeUniversity(newer,locale).answer;
+       expect(spec.kind).toBe("multi-choice");
+       if(spec.kind!=="multi-choice")throw Error("Missing both fields");
+       expect(Object.fromEntries(spec.fields.map(f=>[f.id,f.value])))
+         .toEqual({classification:c.kind,parameters:c.params});
+     }
+   }
+   const old=makeUniversityTask("capelli-given-ranks",8,"easy");
+   expect(old.university.kind).toBe("linear-rank-given");
+   if(old.university.kind==="linear-rank-given"){
+     expect([old.university.variables,old.university.rankA,old.university.rankAugmented])
+       .toEqual([4,2,2]);
+     expect(old.university.sourceForm).toBeUndefined();
+     expect(old.answer.kind).toBe("choice");
+   }
+ });
+
   it("independently audits every matrix minor, variant, classification and bilingual solution",()=>{
     for(const family of rankFamilies)for(const level of difficulties){
       if(!family.supportedDifficulties.includes(level))continue;
@@ -45,6 +76,15 @@ describe("P1 ranks and Kronecker–Capelli",()=>{
             expect(lesson.answer.kind).toBe("scalar");
             expect(assessAnswer(lesson.answer,expected).kind).toBe("correct");
             expect(assessAnswer(lesson.answer,"99").kind).toBe("incorrect");
+          }else if(p.kind==="linear-rank-given" && p.sourceForm==="parameter-count"){
+            expect(lesson.answer.kind).toBe("multi-choice");
+            if(lesson.answer.kind!=="multi-choice")throw Error("Missing free-parameter answer field");
+            expect(lesson.answer.fields.map(f=>f.id)).toEqual(["classification","parameters"]);
+            const count=expected==="system-none"?"not-applicable":expected==="system-one"?"0":String(p.variables-p.rankA);
+            const values={classification:expected,parameters:count};
+            expect(assessAnswer(lesson.answer,{kind:"multi-choice",values}).kind).toBe("correct");
+            expect(assessAnswer(lesson.answer,{kind:"multi-choice",values:{...values,parameters:count==="1"?"2":"1"}}).kind).toBe("incorrect");
+            expect(assessAnswer(lesson.answer,{kind:"multi-choice",values:{...values,classification:expected==="system-one"?"system-none":"system-one"}}).kind).toBe("incorrect");
           }else{
             expect(lesson.answer.kind).toBe("choice");
             expect(assessAnswer(lesson.answer,{kind:"choice",value:expected}).kind).toBe("correct");
