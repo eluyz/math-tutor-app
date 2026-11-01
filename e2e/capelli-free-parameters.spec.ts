@@ -13,8 +13,8 @@ test("SYLLABUS U05 Capelli: solution classification and independently derived fr
   await button(page,en?"University mathematics":"Matematyka na studia").click();
   await button(page,en?"Systems of equations":"Układy równań").click();
   await button(page,en?"Easy":"Łatwy").click();
-  await page.getByRole("button",{name:en?/Kronecker–Capelli from ranks/:/Twierdzenie Kroneckera–Capellego z rang/}).click();
-  await expect(page.locator(".question")).toHaveAttribute("data-template-id","capelli-given-ranks");
+  await page.getByRole("button",{name:en?/Kronecker–Capelli: number of free parameters/:/Kronecker–Capelli: liczba parametrów/}).click();
+  await expect(page.locator(".question")).toHaveAttribute("data-template-id","capelli-free-parameters");
 
   const question=await page.locator(".question").innerText();
   const n=Number(question.match(en?/(\d+) unknowns/:/(\d+) niewiadomych/)?.[1]);
