@@ -25,6 +25,8 @@ async function displayed(page:Page):Promise<M[]>{
 }
 const calculate=(name:string,[A,B,C]:M[]):M=>{
  switch(name){
+  case "3A−B":return sub(A.map(row=>row.map(x=>m(q(3),x))),B);
+  case "A+Aᵀ":return add(A,tr(A));
   case "AB+C":return add(mul(A,B),C);
   case "(A+B)C":return mul(add(A,B),C);
   case "A(B−C)":return mul(A,sub(B,C));
@@ -69,7 +71,9 @@ test("MT-EDU-019 P0C "+width+" "+level+" "+(en?"EN":"PL"),async({page})=>{
   expect(match).not.toBeNull();
   const name=match![1];
   const matrices=await displayed(page);
-  expect(matrices.length).toBeGreaterThanOrEqual(2);
+  expect(matrices.length).toBeGreaterThanOrEqual(name==="A+Aᵀ"?1:2);
+  if(name==="3A−B")expect(matrices.map(m=>[m.length,m[0].length])).toEqual([[2,3],[2,3]]);
+  if(name==="A+Aᵀ")expect(matrices.map(m=>[m.length,m[0].length])).toEqual([[3,3]]);
   await button(page,en?"Check":"Sprawdź").click();
   await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
   if(family.id==="matrix-rectangular-evaluation"){
