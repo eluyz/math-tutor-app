@@ -12,6 +12,7 @@ const sub=(A:M,B:M):Rational[][]=>A.map((row,i)=>row.map((v,j)=>s(v,B[i][j])));
 const mul=(A:M,B:M):Rational[][]=>A.map(row=>B[0].map((_,j)=>row.reduce((sum,v,k)=>a(sum,m(v,B[k][j])),q(0))));
 const tr=(A:M):Rational[][]=>A[0].map((_,j)=>A.map(row=>row[j]));
 const scaled=(A:M):Rational[][]=>A.map(row=>row.map(v=>m(v,q(3,2))));
+const times3=(A:M):Rational[][]=>A.map(row=>row.map(v=>m(v,q(3))));
 const same=(A:M,B:M):boolean=>A.length===B.length&&A.every((row,i)=>row.length===B[i].length&&row.every((x,j)=>eq(x,B[i][j])));
 type Shape={rows:number;columns:number};
 const shape=(a:M):Shape=>({rows:a.length,columns:a[0].length});
@@ -20,9 +21,11 @@ const product=(x:Shape|null,y:Shape|null):Shape|null=>x&&y&&x.columns===y.rows?{
 const transpose=(x:Shape|null):Shape|null=>x?{rows:x.columns,columns:x.rows}:null;
 const reference=(p:Practice):M|string=>{
  const get=(name:string)=>p.matrices.find(x=>x.label===name)!.values;
- const A=get("A"),B=get("B"),C=p.matrices.length>2?get("C"):null;
+ const A=get("A"),B=p.matrices.some(x=>x.label==="B")?get("B"):null,C=p.matrices.length>2?get("C"):null;
  if(p.mode==="rectangular"){
-  if(!C)throw Error("Missing C");
+  if(p.expression==="3A−B"){if(!B)throw Error("Missing B");return sub(times3(A),B);}
+  if(p.expression==="A+Aᵀ")return add(A,tr(A));
+  if(!B||!C)throw Error("Missing B or C");
   switch(p.expression){
    case "AB+C":return add(mul(A,B),C);
    case "(A+B)C":return mul(add(A,B),C);
@@ -33,6 +36,7 @@ const reference=(p:Practice):M|string=>{
   }
  }
  if(p.mode!=="transpose-dimensions")throw Error("Expected P0C dimension family");
+ if(!B)throw Error("Missing dimension operand B");
  const aa=shape(A),bb=shape(B),cc=C?shape(C):null;
  let ans:Shape|null;
  switch(p.expression){
@@ -55,7 +59,8 @@ describe("MT-EDU-019 P0C: independent mathematical and lesson audit",()=>{
     if(task.university.kind!=="linear-matrix-practice")throw Error("Matrix payload expected");
     const p=task.university;
     keys.add(task.contentKey);all.add(task.contentKey);expressions.add(p.expression);
-    expect(p.matrices.length).toBeGreaterThanOrEqual(2);
+    expect(p.matrices.length).toBeGreaterThanOrEqual(p.expression==="A+Aᵀ"?1:2);
+    if(p.expression==="A+Aᵀ")expect(p.matrices.length).toBe(1);
     for(const item of p.matrices){
       expect(item.values.length).toBeGreaterThanOrEqual(2);
       expect(item.values.length).toBeLessThanOrEqual(3);
@@ -102,6 +107,43 @@ describe("MT-EDU-019 P0C: independent mathematical and lesson audit",()=>{
   }
   expect(all.size).toBe(72);
   expect(expressions.size).toBeGreaterThanOrEqual(3);
+ });
+ it("source-form M01 and M02 profiles preserve exact size and full-answer grading, PL/EN",()=>{
+   for(const level of ["easy","medium","hard"] as const){
+     const scalar=makeUniversityTask("matrix-rectangular-evaluation",0,level);
+     const symmetry=makeUniversityTask("matrix-rectangular-evaluation",2,level);
+     expect(scalar.university.kind).toBe("linear-matrix-practice");
+     expect(symmetry.university.kind).toBe("linear-matrix-practice");
+     if(scalar.university.kind!=="linear-matrix-practice" ||
+        symmetry.university.kind!=="linear-matrix-practice")throw Error("Wrong family");
+     expect(scalar.university.expression).toBe("3A−B");
+     expect(symmetry.university.expression).toBe("A+Aᵀ");
+     expect(scalar.university.matrices.map(m=>[m.values.length,m.values[0].length]))
+       .toEqual([[2,3],[2,3]]);
+     expect(symmetry.university.matrices.map(m=>[m.values.length,m.values[0].length]))
+       .toEqual([[3,3]]);
+     for(const task of [scalar,symmetry]){
+       for(const locale of ["pl","en"] as const){
+         const shown=localizeUniversity(task,locale);
+         const spec=shown.answer;
+         expect(spec.kind).toBe("matrix");
+         if(spec.kind!=="matrix")throw Error("Wrong answer type");
+         const independent=reference(task.university as Practice);
+         expect(typeof independent).not.toBe("string");
+         if(typeof independent==="string")throw Error("Not matrix");
+         expect(same(spec.values,independent)).toBe(true);
+         expect(shown.solution?.length).toBeGreaterThanOrEqual(4);
+         expect(shown.hint?.length).toBeGreaterThan(15);
+         const correct=independent.map(row=>row.map(f));
+         const incorrect=independent.map(row=>row.map(f));
+         incorrect[0][0]=f(a(independent[0][0],q(1)));
+         expect(assessAnswer(spec,{kind:"matrix",values:correct}).kind).toBe("correct");
+         expect(assessAnswer(spec,{kind:"matrix",values:incorrect}).kind).toBe("incorrect");
+         incorrect[0][0]="1/0";
+         expect(assessAnswer(spec,{kind:"matrix",values:incorrect}).kind).toBe("invalid");
+       }
+     }
+   }
  });
  it("boundary variants and difficulty levels are enforced",()=>{
    expect(()=>makeMatrixP0C("rectangular",24,"easy")).toThrow();
