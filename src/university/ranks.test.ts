@@ -15,6 +15,28 @@ const oracleRank=(A:ExactMatrix)=>{
   return 0;
 };
 describe("P1 ranks and Kronecker–Capelli",()=>{
+  it("U05 covers all four distinct private source rank patterns without new variants",()=>{
+    const cases=[
+      {v:4,n:3,ra:2,rab:3,kind:"system-none",params:"not-applicable"},
+      {v:8,n:4,ra:3,rab:3,kind:"system-many",params:"1"},
+      {v:6,n:4,ra:4,rab:4,kind:"system-one",params:"0"},
+      {v:20,n:4,ra:2,rab:2,kind:"system-many",params:"2"}
+    ];
+    for(const c of cases){
+      const task=makeUniversityTask("capelli-given-ranks",c.v,"easy");
+      if(task.university.kind!=="linear-rank-given")throw Error("Wrong generator");
+      expect([task.university.variables,task.university.rankA,task.university.rankAugmented])
+        .toEqual([c.n,c.ra,c.rab]);
+      for(const locale of ["pl","en"] as const){
+        const shown=localizeUniversity(task,locale);
+        expect(shown.answer.kind).toBe("multi-choice");
+        if(shown.answer.kind!=="multi-choice")throw Error("Wrong answer");
+        expect(Object.fromEntries(shown.answer.fields.map(f=>[f.id,f.value])))
+          .toEqual({classification:c.kind,parameters:c.params});
+        expect(shown.solution?.length).toBeGreaterThanOrEqual(3);
+      }
+    }
+  });
   it("independently audits every matrix minor, variant, classification and bilingual solution",()=>{
     for(const family of rankFamilies)for(const level of difficulties){
       if(!family.supportedDifficulties.includes(level))continue;
@@ -45,10 +67,21 @@ describe("P1 ranks and Kronecker–Capelli",()=>{
             expect(lesson.answer.kind).toBe("scalar");
             expect(assessAnswer(lesson.answer,expected).kind).toBe("correct");
             expect(assessAnswer(lesson.answer,"99").kind).toBe("incorrect");
-          }else{
+          }else if(p.kind==="linear-capelli"){
             expect(lesson.answer.kind).toBe("choice");
             expect(assessAnswer(lesson.answer,{kind:"choice",value:expected}).kind).toBe("correct");
             expect(assessAnswer(lesson.answer,{kind:"choice",value:expected==="system-one"?"system-none":"system-one"}).kind).toBe("incorrect");
+          }else{
+            expect(lesson.answer.kind).toBe("multi-choice");
+            if(lesson.answer.kind!=="multi-choice")throw Error("Expected both source fields");
+            expect(lesson.answer.fields.map(f=>f.id)).toEqual(["classification","parameters"]);
+            const count=expected==="system-none"?"not-applicable":expected==="system-one"?"0":String(p.variables-p.rankA);
+            const values={classification:expected,parameters:count};
+            expect(assessAnswer(lesson.answer,{kind:"multi-choice",values}).kind).toBe("correct");
+            const badClass={...values,classification:expected==="system-one"?"system-none":"system-one"};
+            expect(assessAnswer(lesson.answer,{kind:"multi-choice",values:badClass}).kind).toBe("incorrect");
+            const badCount={...values,parameters:count==="1"?"2":"1"};
+            expect(assessAnswer(lesson.answer,{kind:"multi-choice",values:badCount}).kind).toBe("incorrect");
           }
           if(p.kind==="linear-capelli" && expected==="system-many")auditShownParameters(p.matrix,p.rhs,lesson.solution!);
           expect(assessAnswer(lesson.answer,emptyAnswer(lesson.answer)).kind).toBe("invalid");
