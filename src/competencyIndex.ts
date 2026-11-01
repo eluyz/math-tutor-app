@@ -17,13 +17,15 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "matrix-scale",
       "matrix-add",
-      "matrix-subtract"
+      "matrix-subtract",
+      "matrix-rectangular-evaluation"
     ]
   },
   "M02": {
     "coverage": "bounded",
     "familyIds": [
-      "matrix-transpose"
+      "matrix-transpose",
+      "matrix-rectangular-evaluation"
     ]
   },
   "M03": {
