@@ -27,6 +27,8 @@ import type { GraphPuncturedSymmetryProblem } from "./graphPuncturedSymmetry";
 import type { GraphAsymptoteRangeProblem } from "./graphAsymptoteRange";
 import type { GraphIntegratedProblem } from "./graphIntegratedProperties";
 import type { IntegratedJumpProblem } from "./graphIntegratedJump";
+import type { IntegratedPuncturesProblem } from "./graphIntegratedPunctures";
+import type { IntegratedAsymptoteProblem } from "./graphIntegratedAsymptotes";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { GraphInjectivityProblem } from "./graphInjectivity";
@@ -222,7 +224,7 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-matrix-equation"; mode: "bx-shift"; left: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; shift: Rational }>
   | Readonly<{ kind: "linear-rank"; matrix: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-capelli"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
-  | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number }>
+  | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number; sourceForm?: "parameter-count" }>
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" | "parameters" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
@@ -231,7 +233,7 @@ export type LinearAlgebraProblem =
       first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-matrix-practice";
       mode: "power" | "composite" | "compatibility" | "chain" | "rectangular" | "transpose-dimensions";
-      expression: "A²" | "A³" | "AB−C" | "(A+B)C" | "A(B−C)" | "(AB)ᵀ−C" | "(AB)ᵀ−(3/2)C" |
+      expression: "A²" | "A³" | "AB−C" | "(A+B)C" | "A(B−C)" | "(AB)ᵀ−C" | "(AB)ᵀ−(3/2)C" | "3A−B" | "A+Aᵀ" |
         "A+B" | "AB" | "BA" | "AB+C" | "A(B+C)" | "A(BC)" | "AᵀB" | "Aᵀ(B+C)" | "ABᵀ+C" | "(AB)ᵀ+C" | "(A+Bᵀ)C";
       matrices: readonly { label: string; values: Matrix }[] }>;
 export type ElementaryAnalysisProblem =
@@ -270,6 +272,8 @@ export type UniversityProblem =
   | GraphAsymptoteRangeProblem
   | GraphIntegratedProblem
   | IntegratedJumpProblem
+  | IntegratedPuncturesProblem
+  | IntegratedAsymptoteProblem
   | DerivativeSketchProblem
   | GraphPropertyProblem
   | GraphInjectivityProblem

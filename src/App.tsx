@@ -30,6 +30,7 @@ import { FunctionGraphDisplay } from "./FunctionGraphDisplay";
 import { GraphGapDisplay } from "./GraphGapDisplay";
 import { PuncturedSymmetryDisplay } from "./PuncturedSymmetryDisplay";
 import { AsymptoteRangeDisplay } from "./AsymptoteRangeDisplay";
+import { IntegratedAsymptoteDisplay } from "./IntegratedAsymptoteDisplay";
 import { DerivativeSketchDisplay } from "./DerivativeSketchDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
@@ -47,7 +48,7 @@ import { SessionSummaryPanel } from "./SessionSummaryPanel";
 import { completedSession } from "./progress/model";
 import { useProgress } from "./progress/useProgress";
 import { ProgressDashboard } from "./progress/ProgressDashboard";
-import { categoryTitle, searchCatalog, selectCatalogFamily } from "./catalogSearch";
+import { categoryTitle, resolveCatalogCompetency, searchCatalog, selectCatalogFamily } from "./catalogSearch";
 import { ExamMode } from "./exam/ExamMode";
 import { examCopy } from "./exam/copy";
 
@@ -111,6 +112,7 @@ export default function App() {
     (template) => template.category === selectedCategory,
   );
   const searchResults = useMemo(() => searchCatalog(searchQuery), [searchQuery]);
+  const searchCompetency = useMemo(() => resolveCatalogCompetency(searchQuery), [searchQuery]);
   const studying = studyCategories.some(
     (category) => category.id === selectedCategory,
   );
@@ -399,7 +401,10 @@ export default function App() {
                 placeholder={a.searchPlaceholder}
                 disabled={sessionNumber > 0}
                 aria-controls="catalog-search-results"
-                aria-describedby={sessionNumber > 0 ? "catalog-search-locked" : undefined}
+                aria-describedby={[
+                  sessionNumber > 0 ? "catalog-search-locked" : null,
+                  searchCompetency ? "catalog-search-competency" : null,
+                ].filter(Boolean).join(" ") || undefined}
                 onChange={(event) => setSearchQuery(event.target.value)}
               />
               {searchQuery && (
@@ -413,6 +418,11 @@ export default function App() {
               )}
             </div>
             {sessionNumber > 0 && <p id="catalog-search-locked" className="input-help">{a.searchLocked}</p>}
+            {searchCompetency && (
+              <p id="catalog-search-competency" className="input-help" role="status">
+                {a.searchCompetencyScope(searchCompetency.code, searchCompetency.coverage)}
+              </p>
+            )}
             <div id="catalog-search-results">
               {searchQuery.trim() && (
                 <>
@@ -630,10 +640,13 @@ export default function App() {
                   {isUniversityTask(active) && active.university.kind === "function-integrated-properties" && (
                     <IntegratedGraphDisplay problem={active.university} locale={locale}/>
                   )}
+                  {isUniversityTask(active) && active.university.kind === "function-integrated-asymptotes" && (
+                    <IntegratedAsymptoteDisplay problem={active.university} locale={locale} />
+                  )}
                   {isUniversityTask(active) && active.university.kind === "function-asymptote-range" && (
                     <AsymptoteRangeDisplay problem={active.university} locale={locale} />
                   )}
-                  {isUniversityTask(active) && active.university.kind === "function-punctured-symmetry" && (
+                  {isUniversityTask(active) && (active.university.kind === "function-punctured-symmetry" || active.university.kind === "function-integrated-punctures") && (
                     <PuncturedSymmetryDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-disconnected-injectivity" && (

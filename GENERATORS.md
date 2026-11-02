@@ -1,10 +1,42 @@
-## MT-F05-P0I — integrated discontinuous graph methods (Issue #138, Draft PR #139)
+## MT-SYLLABUS-P0 M01/M02 — source worksheet composites (Draft PR #152)
+
+| Family | Levels | Candidate variants | Scope |
+| --- | --- | ---: | --- |
+| matrix-worksheet-composites | medium | 24 | Complete 2×3 3A−B and 3×3 A+Aᵀ worksheet forms, independently checked PL/EN; all historical variants preserved. |
+
+**Draft candidate, not deployed:** one source-evidenced missing exercise form, **+1 family / +24 variants** only. This addition deliberately leaves all previously released family IDs, variants, answer keys, and teaching texts unchanged; the immutable-regression checks must stay PASS. No original private numbers or scans are reproduced. Current released main remains 222 / 17,877 pending exact-HEAD CI, independent review, owner approval and same-SHA postmerge CI/Pages. Parent syllabus issue #108 and source-acceptance issue #151 remain OPEN; independent bulk QA #106 stays paused.
+
+## MT-SYLLABUS-P0 U05 — exact free-parameter counts (Draft PR #154)
+
+| Family | Levels | Candidate variants | Scope |
+| --- | --- | ---: | --- |
+| capelli-free-parameters | easy | 24 | Both solution classification and n−rank(A) free-parameter count, including inconsistent/unique/1-param/2-param cases; original family preserved. |
+
+**Draft candidate, not deployed:** one source-evidenced missing exercise form, **+1 family / +24 variants** only. This addition deliberately leaves all previously released family IDs, variants, answer keys, and teaching texts unchanged; the immutable-regression checks must stay PASS. No original private numbers or scans are reproduced. Current released main remains 222 / 17,877 pending exact-HEAD CI, independent review, owner approval and same-SHA postmerge CI/Pages. Parent syllabus issue #108 and source-acceptance issue #151 remain OPEN; independent bulk QA #106 stays paused.
+
+## MT-F05-P0K — integrated poles and sloping outer segments (released PR #146)
+
+| Family | Levels | Candidate variants | Scope |
+| --- | --- | ---: | --- |
+| function-integrated-asymptotes | hard / advanced / expert | 72 | Two vertical poles, a strictly monotone rational middle branch with W=ℝ and **nonhorizontal finite external segments**. One graph, six separately graded properties; synthetic odd/neither parity, cross-branch non-injectivity, PL/EN, mathematical oracles and responsive SVG. |
+
+**Released:** owner-approved Squash-merged [PR #146](https://github.com/eluyz/math-tutor-app/pull/146), main SHA `ac6eca75570dc8775e7edb55fe9b7f060c2ad727`; [main CI #41209453996](https://github.com/eluyz/math-tutor-app/actions/runs/41209453996) and [Pages #41210361618](https://github.com/eluyz/math-tutor-app/actions/runs/41210361618) both SUCCESS for the exact same SHA. Catalogue now **222 families / 17,877 variants**. The rational curve reuses the tested P0F method; **0/6 private original source-to-app witnesses accepted**. Do not confuse this release with global independent QA #106. See [six-source acceptance matrix](docs/F05_SOURCE_WITNESS_ACCEPTANCE.md).
+
+## MT-F05-P0J — integrated punctures (merged and released in PR #144)
+
+| Family | Levels | Candidate variants | Scope |
+| --- | --- | ---: | --- |
+| function-integrated-punctures | hard / advanced / expert | 72 | Five-knot synthetic polylines with 1–2 excluded inputs; distinguishes removed and retained y-heights; six graded fields D/W/strict increase/strict decrease/injectivity/parity, PL/EN, accessible existing graphic and 375px mobile. |
+
+**Merged source:** PR #144 was owner-approved at exact HEAD `127a2f7645c268e33d5f4766c5f751d0f3da6b43` and Squash-merged as main `eae427026f849ba5b27a43ff82a5ef63df93d94c`, now 221 families / 17,805 deterministic variants. [Exact-head PR CI #41050245110](https://github.com/eluyz/math-tutor-app/actions/runs/41050245110) **SUCCESS**. **Post-merge main [CI #41058451157](https://github.com/eluyz/math-tutor-app/actions/runs/41058451157) and [Pages #41059832222](https://github.com/eluyz/math-tutor-app/actions/runs/41059832222) are SUCCESS on identical SHA `eae427026f849ba5b27a43ff82a5ef63df93d94c`.** This synthetic family is not independently bulk-audited and does not complete any of the six original private worksheet figures. [F05 next source-backed method and gate](docs/F05_NEXT_SCOPE.md).
+
+## MT-F05-P0I — integrated discontinuous graph methods (historical PR #139 candidate checkpoint; merged)
 
 | Family | Levels | Candidate variants | Scope |
 | --- | --- | --- | --- |
 | function-integrated-jump | hard / advanced / expert | 72 | Two synthetic types, each with 36 cases: (f-like) complete domain, disjoint ranges, injectivity despite jump; (c-like) one excluded left limit and included right value at x=0, overlapping y-images. Six individually graded fields covering D, W, increasing, decreasing, injectivity, parity; PL/EN. |
 
-**Draft candidate:** 220 families / 17,733 variants, pending latest HEAD full unit/build/Playwright PASS, math/technical review and **new owner approval for exact SHA**. The six private original figures are **NOT** yet accepted in full by this synthetic proxy.
+**Historical candidate checkpoint (superseded):** 220 families / 17,733 variants were proposed for PR #139. PR #139 has since merged and its main CI/Pages were previously verified at `afca26c7` under #122. The six original source figures are **NOT** accepted in full by this synthetic method.
 
 ## MT-F05-P0H — integrated graph properties (Issue #135, RELEASED PR #136)
 
@@ -48,9 +80,9 @@
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **220 rodzin**, **17733 instancji**. `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 175 rodzin wspiera advanced, a 161 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **224 rodziny**, **17925 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 177 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **175**, L5: **161**.
+Łącznie rodziny L4: **177**, L5: **163**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 

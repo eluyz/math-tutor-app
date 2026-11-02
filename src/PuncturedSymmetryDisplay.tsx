@@ -3,7 +3,7 @@ import type {Locale} from "./locales/types";
 import type {GraphPuncturedSymmetryProblem} from "./university/graphPuncturedSymmetry";
 
 const fmt=(x:number)=>String(x).replace("-","−");
-export function PuncturedSymmetryDisplay({problem:p,locale}:{problem:GraphPuncturedSymmetryProblem;locale:Locale}){
+export function PuncturedSymmetryDisplay({problem:p,locale}:{problem:Pick<GraphPuncturedSymmetryProblem,"nodes"|"included"> & {kind:string};locale:Locale}){
  const uid=useId().replace(/:/g,"");
  const pts=p.nodes,included=p.included,pl=locale==="pl";
  const L=pts[4].x;
@@ -14,7 +14,7 @@ export function PuncturedSymmetryDisplay({problem:p,locale}:{problem:GraphPunctu
   (pl?". Puste punkty są wyłączone z dziedziny.":". Hollow points are excluded from the domain.");
  return <figure className="function-graph" data-graph-kind={p.kind}>
   <svg role="img" viewBox="0 0 400 260" aria-labelledby={"sym-title-"+uid+" sym-desc-"+uid} focusable="false">
-   <title id={"sym-title-"+uid}>{pl?"Wykres symetrii z dziurami":"Symmetry graph with excluded points"}</title>
+   <title id={"sym-title-"+uid}>{pl?"Wykres funkcji z dziurami":"Function graph with excluded points"}</title>
    <desc id={"sym-desc-"+uid}>{description}</desc>
    <g aria-hidden="true">
     {[-4,-2,0,2,4].map(y=><g key={y}>
