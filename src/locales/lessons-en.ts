@@ -237,10 +237,16 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
       "Dziedzina (D)":"Domain (D)","Zbiór wartości (W)":"Range (W)",
       "Ściśle rośnie":"Strictly increasing","Ściśle maleje":"Strictly decreasing",
       "Różnowartościowa?":"One-to-one?","Parzystość":"Parity",
+      "Liczba rozwiązań":"Number of solutions",
+      "Liczba parametrów swobodnych":"Number of free parameters",
     };
     const optionNames:Record<string,string>={
       "Tak":"Yes","Nie":"No","Parzysta":"Even","Nieparzysta":"Odd",
       "Ani parzysta, ani nieparzysta":"Neither",
+      "Jedno rozwiązanie":"Exactly one solution",
+      "Brak rozwiązań":"No solutions",
+      "Nieskończenie wiele rozwiązań":"Infinitely many solutions",
+      "Nie dotyczy — brak rozwiązań":"Not applicable — no solutions",
     };
     return {...spec,fields:spec.fields.map(f=>({...f,
       label:fieldNames[f.label]??f.label,

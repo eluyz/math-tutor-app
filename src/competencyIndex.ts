@@ -186,7 +186,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "U05": {
     "coverage": "bounded",
     "familyIds": [
-      "capelli-given-ranks"
+      "capelli-given-ranks",
+      "capelli-free-parameters"
     ]
   },
   "U06": {
