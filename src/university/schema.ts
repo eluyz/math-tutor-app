@@ -233,7 +233,7 @@ export type LinearAlgebraProblem =
       first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-matrix-practice";
       mode: "power" | "composite" | "compatibility" | "chain" | "rectangular" | "transpose-dimensions";
-      expression: "A²" | "A³" | "AB−C" | "(A+B)C" | "A(B−C)" | "(AB)ᵀ−C" | "(AB)ᵀ−(3/2)C" |
+      expression: "A²" | "A³" | "AB−C" | "(A+B)C" | "A(B−C)" | "(AB)ᵀ−C" | "(AB)ᵀ−(3/2)C" | "3A−B" | "A+Aᵀ" |
         "A+B" | "AB" | "BA" | "AB+C" | "A(B+C)" | "A(BC)" | "AᵀB" | "Aᵀ(B+C)" | "ABᵀ+C" | "(AB)ᵀ+C" | "(A+Bᵀ)C";
       matrices: readonly { label: string; values: Matrix }[] }>;
 export type ElementaryAnalysisProblem =
