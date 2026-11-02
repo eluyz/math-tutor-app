@@ -53,7 +53,22 @@ export function makeMatrixP0C(mode:P0C["mode"],v:number,level:Difficulty):P0C{
     matrices:shapes.map((s,i)=>({label:["A","B","C"][i],values:data(v,level,s.rows,s.columns,i)}))};
 }
 
+/** Add only the two independently verified missing source forms. Historic
+ * matrix-rectangular-evaluation variants remain completely immutable.
+ * One medium-level 24-case family, not another 72-case bulk expansion. */
+function makeWorksheetComposite(v:number,level:Difficulty):P0C {
+  if(level!=="medium"||!Number.isInteger(v)||v<0||v>=24)
+    throw Error("Unsupported source worksheet matrix variant");
+  if(v%2===0)return {kind:"linear-matrix-practice",mode:"rectangular",expression:"3A−B",
+    matrices:[{label:"A",values:data(v,level,2,3,0)},
+      {label:"B",values:data(v,level,2,3,1)}]};
+  return {kind:"linear-matrix-practice",mode:"rectangular",expression:"A+Aᵀ",
+    matrices:[{label:"A",values:data(v,level,3,3,0)}]};
+}
 export const matrixP0CFamilies:readonly UniversityFamily[]=[
+  {id:"matrix-worksheet-composites",category:"matrices",
+    titles:{pl:"Złożone rachunki macierzowe z arkusza",en:"Worksheet-style composite matrix calculations"},
+    supportedDifficulties:["medium"],create:makeWorksheetComposite},
   {id:"matrix-rectangular-evaluation",category:"matrices",
     titles:{pl:"Obliczenia na macierzach prostokątnych",en:"Rectangular matrix expression calculations"},
     supportedDifficulties:["easy","medium","hard"],create:(v,d)=>makeMatrixP0C("rectangular",v,d)},
@@ -77,14 +92,59 @@ export function presentMatrixP0C(p:P0C,locale:Locale){
     if(!value)throw Error("Missing matrix "+name);
     return value.values;
   };
-  const A=by("A"),B=by("B"),C=p.matrices.length>2?by("C"):null;
+  const A=by("A"),B=p.matrices.some(m=>m.label==="B")?by("B"):null,C=p.matrices.length>2?by("C"):null;
   for(const input of p.matrices){
     lesson.work("dim("+input.label+") = "+dims(matrixShape(input.values)),
       t("Wypisz osobno liczby wierszy i kolumn; nie zamieniaj ich kolejności.",
         "Count rows and columns separately; do not reverse their order."));
   }
   if(p.mode==="rectangular"){
-    if(!C)throw Error("Composite operation needs C");
+    if(p.expression==="3A−B"){
+      if(!B)throw Error("3A−B requires B");
+      const threeA=scaleMatrix(A,r(3)), result=subtractMatrices(threeA,B);
+      lesson.work("3A = "+printed(threeA),
+        t("Najpierw pomnóż każdy element A przez 3.",
+          "First multiply every entry of A by 3."));
+      for(let i=0;i<result.length;i++)for(let j=0;j<result[i].length;j++)
+        lesson.work("c"+(i+1)+(j+1)+" = 3·("+fmt(A[i][j])+") − ("+fmt(B[i][j])+") = "+fmt(result[i][j]),
+          t("Odejmuj element B z tej samej pozycji i zachowaj znak.",
+            "Subtract B at the same entry position and preserve the sign."));
+      lesson.work("3A−B = "+printed(result),
+        t("Sprawdź wynikowy wymiar 2×3 i wszystkie sześć pól.",
+          "Verify the 2×3 result shape and all six entries."));
+      return lesson.finish(
+        t("Oblicz 3A−B. Wpisz całą macierz wynikową.",
+          "Calculate 3A−B. Enter the entire resulting matrix."),
+        {kind:"matrix",values:result},
+        t("Najpierw oblicz 3A, dopiero potem odejmij B.",
+          "Calculate 3A first, then subtract B."),
+        t("Minus przed ujemnym elementem B zmienia znak na plus.",
+          "Subtracting a negative B entry changes the sign to plus."));
+    }
+    if(p.expression==="A+Aᵀ"){
+      const shape=matrixShape(A);
+      if(shape.rows!==3||shape.columns!==3)throw Error("A+Aᵀ requires 3×3");
+      const transpose=transposeMatrix(A), result=addMatrices(A,transpose);
+      lesson.work("Aᵀ = "+printed(transpose),
+        t("Transpozycja zamienia wiersze z kolumnami macierzy A.",
+          "Transposition exchanges rows and columns of A."));
+      for(let i=0;i<3;i++)for(let j=0;j<3;j++)
+        lesson.work("c"+(i+1)+(j+1)+" = ("+fmt(A[i][j])+") + ("+fmt(A[j][i])+") = "+fmt(result[i][j]),
+          t("Dodaj aᵢⱼ do aⱼᵢ, nie do tego samego pola po przestawieniu.",
+            "Add aᵢⱼ to aⱼᵢ, not to an unchanged-position entry."));
+      lesson.work("A+Aᵀ = "+printed(result),
+        t("Wynik musi być symetryczny: cᵢⱼ = cⱼᵢ.",
+          "The result must be symmetric: cᵢⱼ = cⱼᵢ."));
+      return lesson.finish(
+        t("Oblicz A+Aᵀ dla macierzy 3×3. Wpisz wynik.",
+          "Calculate A+Aᵀ for the 3×3 matrix. Enter the result."),
+        {kind:"matrix",values:result},
+        t("Zamień wiersze A na kolumny, potem dodawaj odpowiadające sobie pola.",
+          "Swap rows of A for columns, then add matching entries."),
+        t("Element na przekątnej wyniku jest podwójnym elementem A.",
+          "A result diagonal entry is twice the corresponding A entry."));
+    }
+    if(!B||!C)throw Error("Composite operation needs B and C");
     let result:Matrix;
     if(p.expression==="AB+C"||p.expression==="(AB)ᵀ−C"||p.expression==="(AB)ᵀ−(3/2)C"){
       const ab=multiplyMatrices(A,B);
@@ -130,6 +190,7 @@ export function presentMatrixP0C(p:P0C,locale:Locale){
         "For products, combine a row from the left matrix with a column from the right."));
   }
   if(p.mode!=="transpose-dimensions")throw Error("Unknown P0C mode");
+  if(!B)throw Error("Dimension expression requires B");
   const sa=matrixShape(A),sb=matrixShape(B),sc=C?matrixShape(C):null;
   let result:Shape|null;
   if(p.expression==="AᵀB"){
