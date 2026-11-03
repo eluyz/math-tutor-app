@@ -4,6 +4,7 @@ import { educationTemplates } from "../education/catalog";
 import { makeEducationInstance } from "../education/types";
 import { localizeTask } from "../locales/catalog";
 import { getAnswerSpec } from "../exercises";
+import { solutionFor } from "../solutions/model";
 import { auditCalculation, a, m, s, q, eq, laplace } from "../university/audit";
 import { formatRational as f } from "../answers";
 import type { Rational } from "../rational";
@@ -86,10 +87,11 @@ describe("#151 Batch A independent bilingual semantic gates", () => {
       const spec=getAnswerSpec(view);
       if(spec.kind!=="scalar")throw Error("Expected numeric determinant");
       expect(eq(spec.value,answer)).toBe(true);
-      const steps=work(view.solution);
+      const renderedSolution=solutionFor(view);
+      const steps=work(renderedSolution);
       expect(steps).toHaveLength(9); // rule, six products, two totals
       expect(steps.filter(step=>step.kind==="working"&&step.calculations.some(c=>c.operation==="product"))).toHaveLength(6);
-      const text=solutionStrings(view.solution!);
+      const text=solutionStrings(renderedSolution);
       expect(text).toContain(locale==="pl"?"Zastosuj Sarrusa":"Use Sarrus' rule");
       expect(text).toContain(locale==="pl"?"Odejmij sumę":"Subtract the entire upward sum");
       expect(view.hint.length).toBeGreaterThan(15);
