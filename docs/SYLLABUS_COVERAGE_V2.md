@@ -1,5 +1,16 @@
 # Math Tutor — sylabus: audyt pokrycia v2 (64 kompetencje)
 
+## Live progress checkpoint — 2026-11-03
+
+**Current deployed `main`:** `5f8b29a1dacbaf800c720bc5f74ae70c1092c39e`, **226 families / 17,973 variants**; [main CI #41643677979 PASS](https://github.com/eluyz/math-tutor-app/actions/runs/41643677979) and [same-SHA Pages #41646226673 PASS](https://github.com/eluyz/math-tutor-app/actions/runs/41646226673). From the historical v2 baseline of 222 / 17,877, this is **+4 families / +96 variants**. This is inventory progress, NOT 96 accepted syllabus exercises.
+
+**Stable denominators:** mapped skills **64/64**; generator coverage **14/64 bounded (21.9%)**, **50/64 partial (78.1%)**; source-accepted skills **0/14** in [#151](https://github.com/eluyz/math-tutor-app/issues/151); Batch A independent text/math/automated UI evidence **6/6**, full original-source acceptance **0/6**; original F05 full source witnesses **0/6**; broad #106 QA paused. **One unmerged Draft PR: #142** (separate F05 QA). See [6-skill Batch A evidence ledger](SOURCE_ACCEPTANCE_BATCH_A.md).
+
+**Area counts (bounded/total):** matrices/determinants **4/14**, systems **2/8**, sequences **2/6**, functions **1/7**, function limits **4/8**, derivatives **1/10**, integrals **0/8**, two-variable functions **0/3**. Zero in the bounded column does NOT mean there are zero practice generators in that area.
+
+**The 2026-11-01 checkpoint immediately below is a historical baseline**, not the current deployed HEAD. The 64-skill table remains an acceptance queue, and each row still needs its own source witness.
+
+
 **Data:** 2026-11-01 · **Wersja bazowa `main`:** `410c484af47f2ce76d6c2ab2d25de2792128aff8` (owner-approved PR #147; [main CI #41240044320](https://github.com/eluyz/math-tutor-app/actions/runs/41240044320) i [Pages #41241290137](https://github.com/eluyz/math-tutor-app/actions/runs/41241290137) completed SUCCESS przy tym samym SHA). **Katalog:** 222 rodziny / 17 877 wariantów. PR #149 to **osobna, niescalona poprawka F05**.
 
 ## Cel i granice dowodów
