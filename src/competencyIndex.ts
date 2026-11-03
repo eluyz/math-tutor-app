@@ -163,6 +163,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "U02": {
     "coverage": "bounded",
     "familyIds": [
+      "cramer-eligibility-solve-three",
       "system-cramer-three",
       "cramer-determinants-three"
     ]
