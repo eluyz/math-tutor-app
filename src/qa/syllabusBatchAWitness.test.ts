@@ -5,6 +5,7 @@ import { makeEducationInstance } from "../education/types";
 import { localizeTask } from "../locales/catalog";
 import { q, a as plus, s as minus, m as times, d as divide, eq } from "../university/audit";
 import { assessAnswer, emptyAnswer, formatRational as fmt } from "../answers";
+import { getAnswerSpec } from "../exercises";
 import type { Rational } from "../rational";
 
 /**
@@ -118,14 +119,15 @@ describe("#151 Batch A — pinned mathematical source-form witnesses",()=>{
     const result=minus(forward,backward);
     for(const locale of ["pl","en"] as const){
       const view=localizeTask(task,locale);
-      if(view.answer.kind!=="scalar")throw Error("Expected scalar");
-      expect(eq(view.answer.value,result)).toBe(true);
+      const spec=getAnswerSpec(view);
+      if(spec.kind!=="scalar")throw Error("Expected scalar");
+      expect(eq(spec.value,result)).toBe(true);
       expect(view.hint.length).toBeGreaterThan(12);
       expect(view.nextHint.length).toBeGreaterThan(12);
       expect(view.explanation.length).toBeGreaterThan(60);
-      expect(assessAnswer(view.answer,fmt(result)).kind).toBe("correct");
-      expect(assessAnswer(view.answer,fmt(plus(result,q(1)))).kind).toBe("incorrect");
-      expect(assessAnswer(view.answer,emptyAnswer(view.answer)).kind).toBe("invalid");
+      expect(assessAnswer(spec,fmt(result)).kind).toBe("correct");
+      expect(assessAnswer(spec,fmt(plus(result,q(1)))).kind).toBe("incorrect");
+      expect(assessAnswer(spec,emptyAnswer(spec)).kind).toBe("invalid");
     }
   });
   it("M08 P09: 4×4 determinant correct, but source sparse-column layout not witnessed",()=>{
