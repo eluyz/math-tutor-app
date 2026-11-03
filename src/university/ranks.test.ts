@@ -14,6 +14,25 @@ const oracleRank=(A:ExactMatrix)=>{
   }
   return 0;
 };
+describe("#151 U05 inconsistent parameter-count bilingual solution step",()=>{
+  it("does not leak Polish action into the English solution for P12/3a form",()=>{
+    const task=makeUniversityTask("capelli-free-parameters",0,"easy");
+    const pl=localizeUniversity(task,"pl");
+    const en=localizeUniversity(task,"en");
+    if(pl.answer.kind!=="multi-choice"||en.answer.kind!=="multi-choice")throw Error("Wrong answer kind");
+    expect(pl.answer.fields.find(field=>field.id==="parameters")?.value).toBe("not-applicable");
+    expect(en.answer.fields.find(field=>field.id==="parameters")?.value).toBe("not-applicable");
+    const plSteps=pl.solution?.filter(step=>step.kind==="working").map(step=>step.action)??[];
+    const enSteps=en.solution?.filter(step=>step.kind==="working").map(step=>step.action)??[];
+    expect(plSteps).toContain("Parametry: nie dotyczy");
+    expect(enSteps).toContain("Parameters: not applicable");
+    expect(enSteps).not.toContain("Parametry: nie dotyczy");
+    expect(assessAnswer(en.answer,{kind:"multi-choice",values:{classification:"system-none",parameters:"not-applicable"}}).kind).toBe("correct");
+    expect(assessAnswer(en.answer,emptyAnswer(en.answer)).kind).toBe("invalid");
+    expect(assessAnswer(en.answer,{kind:"multi-choice",values:{classification:"system-none",parameters:"0"}}).kind).toBe("incorrect");
+  });
+});
+
 describe("P1 ranks and Kronecker–Capelli",()=>{
  it("U05: exact four source rank-pattern classes coexist with legacy immutable tasks",()=>{
    const samples=[
