@@ -205,7 +205,7 @@ export type RadicalDeterminantProblem = Readonly<{
 }>;
 export type DeterminantProblem = Readonly<{
   kind: "determinant";
-  method: "laplace-four" | "row-operations" | "laplace-five" | "properties" | "staged-four" | "staged-five" | "gaussian-four" | "gaussian-five";
+  method: "laplace-four" | "laplace-column-four" | "row-operations" | "laplace-five" | "properties" | "staged-four" | "staged-five" | "gaussian-four" | "gaussian-five";
   matrix: SquareDeterminantMatrix;
   /** Operations reduce the displayed matrix to an upper triangular matrix. */
   reductions?: readonly DeterminantRowOperation[];
