@@ -201,6 +201,18 @@ function laplaceFour(v: number, level: Difficulty): DeterminantProblem {
   ];
   return { kind: "determinant", method: "laplace-four", matrix };
 }
+/** Third-column Laplace source form. Transpose and two permutations of
+ * a stable hard-level row-sparse example: det remains unchanged, but the
+ * unique cofactor is now at (row 4, column 3). Published IDs stay intact. */
+function laplaceColumnThree(v: number, level: Difficulty): DeterminantProblem {
+  if (level !== "hard") throw new Error("Unsupported source-column level");
+  const previous = laplaceFour(v, "hard").matrix;
+  const transposed: Square = previous.map((_, i) => previous.map(row => row[i]));
+  const swapColumns: Square = transposed.map(row => [row[2], row[1], row[0], row[3]]);
+  const matrix: Square = swapColumns.map((row, i) =>
+    i === 0 ? swapColumns[3] : i === 3 ? swapColumns[0] : row);
+  return { kind: "determinant", method: "laplace-column-four", matrix };
+}
 function laplaceFive(v: number, level: Difficulty): DeterminantProblem {
   const four = laplaceFour(
     v,
@@ -277,6 +289,16 @@ function denseDeterminant(v: number, level: Difficulty, n: 4 | 5): DeterminantPr
 }
 
 export const determinantFamilies: readonly UniversityFamily[] = [
+  {
+    id: "determinant-laplace-column-three",
+    category: "determinants",
+    titles: {
+      pl: "Laplace 4×4 — zera w trzeciej kolumnie",
+      en: "Laplace 4×4 — zeros in the third column",
+    },
+    supportedDifficulties: ["hard"],
+    create: laplaceColumnThree,
+  },
   {
     id: "determinant-laplace-four",
     category: "determinants",
@@ -481,7 +503,7 @@ export function presentDeterminant(p: DeterminantProblem, locale: Locale) {
     (p.method === "laplace-five" || p.method === "staged-five") !== (n === 5)
   )
     throw new Error("Determinant family has wrong size");
-  const question = `${t("Oblicz dokładnie det(A) dla macierzy A poniżej.", "Calculate the exact det(A) for matrix A below.")} ${p.method === "staged-four" || p.method === "staged-five" ? t("Zastosuj kontrolowane operacje wierszowe, następnie oblicz iloczyn przekątnej i popraw znak.", "Use planned row operations, then multiply the diagonal and correct the sign.") : p.method === "laplace-five" ? t("Rozwiń 5×5 do minorów 4×4 i 3×3.", "Expand 5×5 into 4×4 and 3×3 minors.") : p.method === "laplace-four" ? (p.dense ? t("Wybierz wiersz lub kolumnę i rozwiń metodą Laplace'a (bez zer).", "Choose a row or column for full Laplace expansion (no zeros).") : t("Wykorzystaj zera i rozwinięcie Laplace'a.", "Use the zeros and Laplace expansion.")) : t("Użyj odpowiednich własności wyznacznika i operacji wierszowych.", "Use determinant properties and row operations.")}`;
+  const question = `${t("Oblicz dokładnie det(A) dla macierzy A poniżej.", "Calculate the exact det(A) for matrix A below.")} ${p.method === "staged-four" || p.method === "staged-five" ? t("Zastosuj kontrolowane operacje wierszowe, następnie oblicz iloczyn przekątnej i popraw znak.", "Use planned row operations, then multiply the diagonal and correct the sign.") : p.method === "laplace-five" ? t("Rozwiń 5×5 do minorów 4×4 i 3×3.", "Expand 5×5 into 4×4 and 3×3 minors.") : p.method === "laplace-column-four" ? t("Rozwiń wyznacznik względem trzeciej kolumny.", "Expand the determinant along its third column.") : p.method === "laplace-four" ? (p.dense ? t("Wybierz wiersz lub kolumnę i rozwiń metodą Laplace'a (bez zer).", "Choose a row or column for full Laplace expansion (no zeros).") : t("Wykorzystaj zera i rozwinięcie Laplace'a.", "Use the zeros and Laplace expansion.")) : t("Użyj odpowiednich własności wyznacznika i operacji wierszowych.", "Use determinant properties and row operations.")}`;
   let value: Rational;
   if (p.dependentRows) {
     const [source, target] = p.dependentRows;
