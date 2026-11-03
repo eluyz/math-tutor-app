@@ -87,7 +87,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "M08": {
     "coverage": "bounded",
     "familyIds": [
-      "determinant-laplace-four"
+      "determinant-laplace-four",
+      "determinant-laplace-column-three"
     ]
   },
   "M09": {

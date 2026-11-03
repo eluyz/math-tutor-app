@@ -78,9 +78,20 @@
 
 **Candidate only:** 215 families / 17,373 variants pending CI, independent review and explicit owner permission. The six source graphs remain private, and full F05 source-to-app acceptance remains partial.
 
+## MT-SYLLABUS M08 — third-column Laplace form (draft #156)
+The additive `determinant-laplace-column-three` family supplies 24 hard-level 4×4
+variants with exactly one nonzero in column three, at row four.
+The determinant is verified by an independent Gaussian oracle, the cofactor
+sign and steps by the Laplace teaching engine, and bilingual mobile/desktop
+test coverage. Old 4×4 variants and their deterministic identities remain
+unchanged. This matches the sparse-column topology, not the private PDF
+coefficients; full SOURCE_PASS in #151 requires separately pinned evidence.
+
+| determinant-laplace-column-three | determinants | hard (24) | column 3, row 4: one Laplace cofactor |
+
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **224 rodziny**, **17925 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 177 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **225 rodzin**, **17949 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 177 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **177**, L5: **163**.
 
