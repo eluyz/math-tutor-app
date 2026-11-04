@@ -28,7 +28,7 @@ describe("#151 G05 direct-source method completion: infinity radical conjugates"
     expect(()=>makeUniversityTask("limit-root-infinity-conjugates",24,"advanced")).toThrow();
   });
   it("independently proves all 24 exact limits, finite-difference convergence and PL/EN feedback",()=>{
-    const keys=new Set<string>(),forms=new Set<string>(),directions=new Set<string>(),signs=new Set<number>();
+    const keys=new Set<string>(),forms=new Set<string>(),directions=new Set<string>(),signs=new Set<number>(),pairSigns=new Set<number>();
     for(let v=0;v<24;v++){
       const task=makeUniversityTask("limit-root-infinity-conjugates",v,"advanced"),p=task.university;
       if(p.kind!=="limit-root-infinity-conjugates")throw Error("Wrong G05 problem");
