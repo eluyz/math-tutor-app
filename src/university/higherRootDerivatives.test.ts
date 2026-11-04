@@ -30,9 +30,9 @@ describe("#151 D01 direct-source method completion: higher root powers",()=>{
           (a*x-b*Math.pow(x,5/6))/(x*Math.sqrt(x));
       };
       for(const x of [0.8,2,3.2]){
-        const transformed=coefficients.reduce((acc,coeff,i)=>acc+num(coeff)*Math.pow(x,num(exponents[i])),0);
+        const transformed=(coefficients as readonly Rational[]).reduce<number>((acc,coeff,i)=>acc+num(coeff)*Math.pow(x,num(exponents[i])),0);
         expect(Math.abs(original(x)-transformed)).toBeLessThan(1e-8);
-        const derivative=values.reduce((acc,coeff,i)=>acc+num(coeff)*Math.pow(x,num(sub(exponents[i],r(1)))),0);
+        const derivative=values.reduce<number>((acc,coeff,i)=>acc+num(coeff)*Math.pow(x,num(sub(exponents[i],r(1)))),0);
         const h=1e-5;
         expect(Math.abs((original(x+h)-original(x-h))/(2*h)-derivative)).toBeLessThan(0.001);
       }
