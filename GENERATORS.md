@@ -1,3 +1,11 @@
+## MT-SYLLABUS D01 — rational powers and radicals (Draft PR #168)
+
+| Family | Levels | Candidate variants | Bounded mathematical method |
+| --- | --- | ---: | --- |
+| derivative-fractional-powers | medium | 24 | On x>0, rewrite √x, x√x, √(x³), 1/√x and reciprocal powers as rational exponents, then apply (c x^α)′=cαx^(α−1). Three independently graded coefficients for four synthetic expression forms. |
+
+**Candidate, not yet deployed:** historical P29/1g,h,i,s needs fractional/negative exponents; polynomial-only derivative-formula is not a source-shaped witness. Full original PDF/key recheck remains unavailable. This adds **0 SOURCE_PASS**, does not alter existing derivative tasks, and requires owner approval before merge.
+
 ## MT-SYLLABUS G03 — cancelled simple pole source-shape (Draft)
 
 | Family | Level | Proposed variants | Exact source-relevant method |
