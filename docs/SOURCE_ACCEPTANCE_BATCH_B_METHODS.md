@@ -54,6 +54,23 @@ Historical private-source records \`01_AUDYT_MATERIALOW.md\`, \`03_KATALOG_ZADAN
 
 **Counters remain** Batch A 6/6; Batch B 0/8, overall 6/14 SOURCE_PASS, formal 6/64=9.4%, bounded map 14/64=21.9%; candidate only 229 families/18,045 variants if merged. F05 original graphics 0/6; broad #106 PAUSED; #142 untouched. A fresh exact-head CI and separate owner approval are required before merge.
 
+## Direct source-to-generator check (2026-11-04, owner-supplied 43 PDF ZIP)
+
+Private source task/answer pages P14/P15 (sequences), P16/P17 (domain), P25/P26 (point and infinity limits), and P27/P29 (derivatives) were **opened directly**, visually inspected and independently checked with exact algebra (the eight skills C01/C03/F01/G01/G02/G03/G05/D01). Prior archive-only source uncertainty is superseded for these specific source-page inspections; unrelated archival comments remain historical.
+
+| Skill | Direct source example | Independent original oracle | Candidate generator/method | Pending gate |
+| --- | --- | --- | --- | --- |
+| C01 | P15/1a → P14/1a | Polynomial degree numerator smaller than denominator: zero | `sequence-rational:medium:7` (matching degree order, synthetic) | Confirm exact variant browser witness and acceptance |
+| C03 | P15/1n → P14/1n | Rationalization, dominant n and positive root coefficient | `sequence-conjugate:hard:12` (scaled root, synthetic) | Source-to-UI acceptance |
+| F01 | P17/1h → P16/1h | Intersect closed radical ray and excluded denominator zero | `function-radical-over-linear-domain:medium` (same topology) | Choose actual variant with interior pole; UI acceptance |
+| G01 | P26/1l → P25/1l | Nonzero denominator permits direct evaluation | `limit-point:easy` | Source-to-UI acceptance |
+| G02 | P26/1a → P25/1a | Common linear factor cancels only away from excluded point | `limit-point:medium` | Source-to-UI acceptance |
+| G03 | P26/1c → P25/1c | Cancelling one factor leaves an odd simple pole with opposite one-sided infinities | `limit-cancelled-pole:hard` | Source-to-UI acceptance |
+| G05 | P26/2a,b,c,d,g,h,j → P25 same | Conjugation at both +∞ and −∞; correct sign from √(x²)=|x|; root pair and linear cancellation | **New** `limit-root-infinity-conjugates:advanced` (24 synthetic variants) plus existing `limit-conjugate`, `limit-radical-infinity` | PR CI, browser and release |
+| D01 | P29/1g,h,i,s → P27 same | Polynomial, radical and reciprocal power rules agree with the source key including indices 3/4/5/6 | **New** `derivative-higher-root-powers:hard` (24 synthetic variants) plus existing `derivative-formula` and `derivative-fractional-powers` | PR CI, browser and release |
+
+All original coefficients/results are retained **only in private source files**, never in committed tests, documentation or screenshots. The public crosswalk records only opaque task pointers, topology and synthetic generator IDs. **Do not mark SOURCE_PASS until same-HEAD unit, production and Chromium tests, an independent source-method review, an authorized merge and same-SHA main CI+Pages PASS.** Counts remain Batch A 6/6, Batch B 0/8 (formal 6/64 = 9.4%); candidate implementation 231 families / 18,093 variants.
+
 ## Next acceptance order
 
 1. C01/C03 and G01/G02/G03: use the original source and its key to check actual topology before upgrading any row.
