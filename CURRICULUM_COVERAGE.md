@@ -49,7 +49,7 @@ ID w tabeli są prawdziwymi identyfikatorami rodzin. `—` oznacza brak generato
 | F07 | Prawa exp/log, równania i nierówności | częściowo | `analysis-power-law`, `analysis-elementary-equation`, `analysis-log-inequality`; wybrane dokładne tożsamości i równania, bez ogólnych złożeń |
 | G01 | Granica przez podstawienie | pokryte | `limit-point` |
 | G02 | 0/0 przez skrócenie | pokryte | `limit-point` |
-| G03 | Granice jednostronne i brak granicy | pokryte | `limit-point` |
+| G03 | Granice jednostronne i brak granicy | pokryte | `limit-point`, `limit-cancelled-pole` (dodatkowa syntetyczna forma 0/0: wspólny czynnik i pozostały biegun; źródłowe potwierdzenie P26/1c nadal wymagane) |
 | G04 | ±∞: stopnie i pierwiastki | częściowo | `limit-infinity`, `analysis-asymptote-horizontal`, `analysis-asymptote-oblique`; kontrolowane pierwiastki √(x²+1), nie ogólna klasa; P1C: `limit-radical-infinity` dodaje √(a²x²+b)+cx+d przy x→±∞, sprzężenie, |x|, skończone i nieskończone limity; nadal brak ogólnych radykałów. |
 | G05 | Sprzężenie | pokryte | `limit-conjugate` |
 | G06 | Granica potęgowa funkcji | częściowo | `analysis-euler-function`; kontrolowane postaci Eulera przy x→0 |
