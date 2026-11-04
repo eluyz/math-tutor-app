@@ -1,8 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { makeUniversityTask, localizeUniversity } from "../university/catalog";
-import { referenceExpand } from "../university/functions-audit";
 import { assessAnswer, emptyAnswer, formatRational as fmt } from "../answers";
-import { rational as r, addRational as add, subtractRational as sub, divideRational as div, multiplyRational as mul, equalRational as eq } from "../rational";
+import { rational as r, addRational as add, divideRational as div, multiplyRational as mul, equalRational as eq } from "../rational";
 import { polishLearningText } from "../../e2e/helpers/localization";
 
 /** G05: two different released methods, not proof of exact P26 source acceptance. */
