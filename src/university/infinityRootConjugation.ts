@@ -16,7 +16,7 @@ const square=(x:Rational)=>mul(x,x);
 function task(v:number):InfinityRootConjugationProblem{
   const mode=v%3===0?"quadratic-pair":v%3===1?"quadratic-linear":"linear-pair";
   const s=r(1+Math.floor(v/3)%3),b=r((v%7)-3||1),c=r(2+v%5);
-  const d=mode==="linear-pair"?r(2+v%4):add(b,r((Math.floor(v/3)%2?-1:1)*(1+v%3)));
+  const d=mode==="linear-pair"?r(2+v%4):add(b,r((Math.floor(v/6)%2?-1:1)*(1+v%3)));
   const e=mode==="linear-pair"?add(mul(square(s),d),r(1+v%5)):r(3+v%7);
   return {kind:"limit-root-infinity-conjugates",mode,s,b,c,d,e,
     direction:mode==="linear-pair"?"positive":v%2?"negative":"positive"};
