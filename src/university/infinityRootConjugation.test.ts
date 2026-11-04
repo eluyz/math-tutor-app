@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { makeUniversityTask, localizeUniversity } from "./catalog";
 import { infinityRootConjugationFamilies, infinityRootConjugationLimit } from "./infinityRootConjugation";
-import { rational as r, addRational as add, subtractRational as sub, multiplyRational as mul, divideRational as div, equalRational as eq, type Rational } from "../rational";
+import { rational as r, subtractRational as sub, multiplyRational as mul, divideRational as div, equalRational as eq, type Rational } from "../rational";
 import { assessAnswer, emptyAnswer, formatRational as f } from "../answers";
 import { auditCalculation } from "./audit";
 import { polishLearningText } from "../../e2e/helpers/localization";
