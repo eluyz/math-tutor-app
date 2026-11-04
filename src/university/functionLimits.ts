@@ -128,7 +128,7 @@ function cancelledPoleProblem(v: number): FunctionLimitProblem {
   const at = r(v - 11, 1 + (v % 3)),
     root = [negative(at), r(1)],
     shift = r((v % 4) + 1),
-    other = v % 2 ? sub(at, shift) : add(at, shift),
+    other = v % 3 === 0 ? sub(at, shift) : add(at, shift),
     leading = r(v % 2 ? -2 : 3, 1 + (v % 3));
   return {
     kind: "limit-point",
