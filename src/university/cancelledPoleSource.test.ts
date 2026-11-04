@@ -2,7 +2,7 @@ import { describe, expect, it } from "vitest";
 import { makeUniversityTask, localizeUniversity } from "./catalog";
 import { referenceExpand, referencePointLimit, referenceShift } from "./functions-audit";
 import { assessAnswer, emptyAnswer } from "../answers";
-import { q, eq, auditCalculation } from "./audit";
+import { auditCalculation } from "./audit";
 import { polishLearningText } from "../../e2e/helpers/localization";
 
 /** Synthetic G03 source-method witness, NOT the original private worksheet. */
