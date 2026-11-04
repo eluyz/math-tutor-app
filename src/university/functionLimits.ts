@@ -120,6 +120,24 @@ function pointProblem(v: number, level: Difficulty): FunctionLimitProblem {
     definedAt: r(v - 11),
   };
 }
+/** G03 source-shaped (x−a)(mx−b)/(x−a)²: indeterminate 0/0
+ * with a simple pole after legitimate cancellation (x≠a). The private
+ * P26 exercise is not copied; all coefficients are synthetic.
+ */
+function cancelledPoleProblem(v: number): FunctionLimitProblem {
+  const at = r(v - 11, 1 + (v % 3)),
+    root = [negative(at), r(1)],
+    shift = r((v % 4) + 1),
+    other = v % 3 === 0 ? sub(at, shift) : add(at, shift),
+    leading = r(v % 2 ? -2 : 3, 1 + (v % 3));
+  return {
+    kind: "limit-point",
+    numerator: poly(polynomialProduct(root, [mul(negative(other), leading), leading])),
+    denominator: power(root, 2),
+    at,
+    side: "both",
+  };
+}
 export const functionLimitFamilies: readonly UniversityFamily[] = [
   {
     id: "limit-conjugate",
@@ -150,6 +168,16 @@ export const functionLimitFamilies: readonly UniversityFamily[] = [
               ? "second-order"
               : "two-roots",
     }),
+  },
+  {
+    id: "limit-cancelled-pole",
+    category: "function-limits",
+    titles: {
+      pl: "Skracanie 0/0 i granice jednostronne przy biegunie",
+      en: "Cancel 0/0 and compare one-sided pole limits",
+    },
+    supportedDifficulties: ["hard"],
+    create: (v) => cancelledPoleProblem(v),
   },
   {
     id: "limit-point",
