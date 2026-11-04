@@ -43,8 +43,11 @@ export function presentInfinityRootConjugation(p:InfinityRootConjugationProblem,
   const qRoot=root(p.b,p.c);
   let expr:string;
   lesson.work("x→"+sign+"; "+t("analiza wyrazów dominujących","dominant-term analysis"),
-    t("Dla dostatecznie dużego |x| składnik s²x² dominuje: pierwiastek jest określony i √(s²x²)=s|x|, s>0.",
-      "For sufficiently large |x| the s²x² term dominates: roots are defined and √(s²x²)=s|x|, s>0."));
+    p.mode==="linear-pair"
+      ?t("Dla dostatecznie dużego dodatniego x radikandy są dodatnie. Dominujące składniki to s²x i x; oba pierwiastki rosną jak s√x po uwzględnieniu współczynnika, s>0.",
+        "For sufficiently large positive x the radicands are positive. Their leading terms are s²x and x; after including the coefficient, both root terms grow like s√x, s>0.")
+      :t("Dla dostatecznie dużego |x| składnik s²x² dominuje: pierwiastek jest określony i √(s²x²)=s|x|, s>0.",
+        "For sufficiently large |x| the s²x² term dominates: roots are defined and √(s²x²)=s|x|, s>0."));
   if(p.mode==="quadratic-pair"){
     const other=root(p.d,p.e),linear=calculate("difference",p.b,p.d),constant=calculate("difference",p.c,p.e);
     expr=qRoot+" − "+other;

@@ -8,7 +8,9 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:batch-b": "vitest run src/qa/batchBAcceptance.test.ts src/qa/syllabusBatchBMethodWitness.test.ts src/university/sequences.test.ts src/university/functions.test.ts src/university/functionLimits.test.ts src/university/rootPoleDomain.test.ts src/university/cancelledPoleSource.test.ts src/university/limitFollowup.test.ts src/university/infinityRootConjugation.test.ts src/university/derivatives.test.ts src/university/fractionalPowerDerivatives.test.ts src/university/higherRootDerivatives.test.ts src/qa/g05MethodPair.test.ts",
+    "test:e2e:batch-b": "playwright test --config playwright.batch-b.config.ts"
   },
   "dependencies": {
     "react": "19.3.1",

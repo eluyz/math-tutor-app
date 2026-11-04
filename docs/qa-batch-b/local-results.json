@@ -1,0 +1,759 @@
+{
+  "baseline": "8db9ca714932e04f19e60fa4b88d22217d08efd6",
+  "scope": "Batch B synthetic method evidence; no SOURCE_PASS",
+  "production_browser": {
+    "stats": {
+      "startTime": "2026-11-04T22:01:38.198Z",
+      "duration": 375517.791,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "witness_count": 132,
+    "unique_tasks": 33,
+    "witnesses": [
+      {
+        "test": "C01 sequence-rational/medium pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "sequence-rational:medium:7",
+          "sequence-rational:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/medium pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "sequence-conjugate:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/hard pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "sequence-conjugate:hard:12"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-radical-over-linear-domain/medium pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "function-radical-over-linear-domain:medium:2",
+          "function-radical-over-linear-domain:medium:0",
+          "function-radical-over-linear-domain:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/hard pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "function-domain:hard:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/expert pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "function-domain:expert:0",
+          "function-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G01 limit-point/easy pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-point:easy:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G02 limit-point/medium pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-point:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-point/hard pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-point:hard:2",
+          "limit-point:hard:0",
+          "limit-point:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-cancelled-pole/hard pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-cancelled-pole:hard:0",
+          "limit-cancelled-pole:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-conjugate/advanced pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-conjugate:advanced:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-root-infinity-conjugates/advanced pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-root-infinity-conjugates:advanced:2",
+          "limit-root-infinity-conjugates:advanced:3",
+          "limit-root-infinity-conjugates:advanced:0",
+          "limit-root-infinity-conjugates:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-radical-infinity/hard pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-radical-infinity:hard:2",
+          "limit-radical-infinity:hard:3",
+          "limit-radical-infinity:hard:0",
+          "limit-radical-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-formula/easy pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "derivative-formula:easy:2"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-fractional-powers/medium pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "derivative-fractional-powers:medium:2",
+          "derivative-fractional-powers:medium:3",
+          "derivative-fractional-powers:medium:0",
+          "derivative-fractional-powers:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-higher-root-powers/hard pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "derivative-higher-root-powers:hard:0",
+          "derivative-higher-root-powers:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C01 sequence-rational/medium en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "sequence-rational:medium:7",
+          "sequence-rational:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/medium en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "sequence-conjugate:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/hard en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "sequence-conjugate:hard:12"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-radical-over-linear-domain/medium en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "function-radical-over-linear-domain:medium:2",
+          "function-radical-over-linear-domain:medium:0",
+          "function-radical-over-linear-domain:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/hard en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "function-domain:hard:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/expert en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "function-domain:expert:0",
+          "function-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G01 limit-point/easy en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-point:easy:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G02 limit-point/medium en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-point:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-point/hard en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-point:hard:2",
+          "limit-point:hard:0",
+          "limit-point:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-cancelled-pole/hard en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-cancelled-pole:hard:0",
+          "limit-cancelled-pole:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-conjugate/advanced en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-conjugate:advanced:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-root-infinity-conjugates/advanced en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-root-infinity-conjugates:advanced:2",
+          "limit-root-infinity-conjugates:advanced:3",
+          "limit-root-infinity-conjugates:advanced:0",
+          "limit-root-infinity-conjugates:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-radical-infinity/hard en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-radical-infinity:hard:2",
+          "limit-radical-infinity:hard:3",
+          "limit-radical-infinity:hard:0",
+          "limit-radical-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-formula/easy en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "derivative-formula:easy:2"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-fractional-powers/medium en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "derivative-fractional-powers:medium:2",
+          "derivative-fractional-powers:medium:3",
+          "derivative-fractional-powers:medium:0",
+          "derivative-fractional-powers:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-higher-root-powers/hard en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "derivative-higher-root-powers:hard:0",
+          "derivative-higher-root-powers:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C01 sequence-rational/medium pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "sequence-rational:medium:7",
+          "sequence-rational:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/medium pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "sequence-conjugate:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/hard pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "sequence-conjugate:hard:12"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-radical-over-linear-domain/medium pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "function-radical-over-linear-domain:medium:2",
+          "function-radical-over-linear-domain:medium:0",
+          "function-radical-over-linear-domain:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/hard pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "function-domain:hard:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/expert pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "function-domain:expert:0",
+          "function-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G01 limit-point/easy pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-point:easy:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G02 limit-point/medium pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-point:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-point/hard pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-point:hard:2",
+          "limit-point:hard:0",
+          "limit-point:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-cancelled-pole/hard pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-cancelled-pole:hard:0",
+          "limit-cancelled-pole:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-conjugate/advanced pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-conjugate:advanced:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-root-infinity-conjugates/advanced pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-root-infinity-conjugates:advanced:2",
+          "limit-root-infinity-conjugates:advanced:3",
+          "limit-root-infinity-conjugates:advanced:0",
+          "limit-root-infinity-conjugates:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-radical-infinity/hard pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-radical-infinity:hard:2",
+          "limit-radical-infinity:hard:3",
+          "limit-radical-infinity:hard:0",
+          "limit-radical-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-formula/easy pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "derivative-formula:easy:2"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-fractional-powers/medium pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "derivative-fractional-powers:medium:2",
+          "derivative-fractional-powers:medium:3",
+          "derivative-fractional-powers:medium:0",
+          "derivative-fractional-powers:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-higher-root-powers/hard pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "derivative-higher-root-powers:hard:0",
+          "derivative-higher-root-powers:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C01 sequence-rational/medium en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "sequence-rational:medium:7",
+          "sequence-rational:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/medium en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "sequence-conjugate:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C03 sequence-conjugate/hard en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "sequence-conjugate:hard:12"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-radical-over-linear-domain/medium en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "function-radical-over-linear-domain:medium:2",
+          "function-radical-over-linear-domain:medium:0",
+          "function-radical-over-linear-domain:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/hard en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "function-domain:hard:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F01 function-domain/expert en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "function-domain:expert:0",
+          "function-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G01 limit-point/easy en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-point:easy:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G02 limit-point/medium en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-point:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-point/hard en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-point:hard:2",
+          "limit-point:hard:0",
+          "limit-point:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G03 limit-cancelled-pole/hard en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-cancelled-pole:hard:0",
+          "limit-cancelled-pole:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-conjugate/advanced en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-conjugate:advanced:0"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-root-infinity-conjugates/advanced en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-root-infinity-conjugates:advanced:2",
+          "limit-root-infinity-conjugates:advanced:3",
+          "limit-root-infinity-conjugates:advanced:0",
+          "limit-root-infinity-conjugates:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G05 limit-radical-infinity/hard en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-radical-infinity:hard:2",
+          "limit-radical-infinity:hard:3",
+          "limit-radical-infinity:hard:0",
+          "limit-radical-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-formula/easy en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "derivative-formula:easy:2"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-fractional-powers/medium en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "derivative-fractional-powers:medium:2",
+          "derivative-fractional-powers:medium:3",
+          "derivative-fractional-powers:medium:0",
+          "derivative-fractional-powers:medium:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "D01 derivative-higher-root-powers/hard en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "derivative-higher-root-powers:hard:0",
+          "derivative-higher-root-powers:hard:1"
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "unit": {
+    "files": 123,
+    "passed": 1572,
+    "command": "npm test -- --maxWorkers=2"
+  },
+  "targeted_unit": {
+    "files": 13,
+    "passed": 83,
+    "command": "npm run test:batch-b"
+  },
+  "build": "PASS; tsc -b && vite build",
+  "tested_file_sha256": {
+    "src/qa/batchB.ts": "79ca8381a27cc2b01e509854e6ade4c9a2c093526206dab225a5c7da396fb5c1",
+    "src/qa/batchBAcceptance.test.ts": "891694917a6cdecfc437a3ef4bebb9e0e76f2b0f0fcf92c458ab1788c5222310",
+    "src/university/infinityRootConjugation.ts": "446825c8d1f348e3fbd49e922c5af72327b2399064c84429a290e40f0382ee1a",
+    "e2e/batchBAcceptance.spec.ts": "bffedf89f21885521a474b367bb44f2582c726f380d680d51b6018af547eec29",
+    "index.html": "1c66f881e487b400d15b94bc1d9ead0888f4cf95565346a2b155999b6b741215",
+    "public/favicon.svg": "201f34726fb82d03a8fef5dd028ebe62692e77b6d4b2f1f036dbc3dbef245d84"
+  },
+  "existing_playwright": {
+    "selected_files": 10,
+    "tests_with_successful_execution": 60,
+    "first_run": {
+      "passed": 53,
+      "failed": 7,
+      "failure": "ERR_CONNECTION_REFUSED after pre-existing dev server stopped"
+    },
+    "sequences_repeat": {
+      "passed": 12,
+      "failed": 0,
+      "command": "CI=true PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e -- e2e/sequences.spec.ts --workers=2"
+    }
+  }
+}
