@@ -1,7 +1,8 @@
 import {test,expect} from "@playwright/test";
 import {shownFraction} from "./helpers/functions";
 import {fractionText} from "./helpers/systems";
-import {q,s,m,d,type Rational} from "../src/university/audit";
+import {q,s,m,d} from "../src/university/audit";
+import type {Rational} from "../src/rational";
 import {polishLearningText} from "./helpers/localization";
 const button=(p:import("@playwright/test").Page,name:string)=>p.getByRole("button",{name,exact:true});
 const asNum=(z:Rational)=>Number(z.numerator)/Number(z.denominator);
