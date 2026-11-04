@@ -44,6 +44,8 @@ import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { fractionalPowerDerivativeFamilies, presentFractionalPowerDerivative } from "./fractionalPowerDerivatives";
+import { higherRootDerivativeFamilies, presentHigherRootDerivative } from "./higherRootDerivatives";
+import { infinityRootConjugationFamilies, presentInfinityRootConjugation } from "./infinityRootConjugation";
 import { determinantFamilies, presentDeterminant } from "./determinants";
 import { radicalDeterminantFamilies, presentRadicalDeterminant } from "./radicalDeterminants";
 import { determinantStrategyFamilies } from "./determinantStrategies";
@@ -125,8 +127,10 @@ export const universityFamilies = [
   ...sequenceFollowupFamilies,
   ...functionLimitFamilies,
   ...limitFollowupFamilies,
+  ...infinityRootConjugationFamilies,
   ...derivativeFamilies,
   ...fractionalPowerDerivativeFamilies,
+  ...higherRootDerivativeFamilies,
   ...determinantFamilies,
   ...radicalDeterminantFamilies,
   ...determinantStrategyFamilies,
@@ -310,12 +314,16 @@ const present = (problem: UniversityProblem, locale: Locale) =>
           problem.kind === "sequence-geometric" ||
           problem.kind === "sequence-conjugate"
         ? presentSequence(problem, locale)
+        : problem.kind === "limit-root-infinity-conjugates"
+          ? presentInfinityRootConjugation(problem,locale)
         : problem.kind === "limit-radical-infinity" || problem.kind === "limit-piecewise-heine"
           ? presentLimitFollowup(problem, locale)
         : problem.kind === "limit-point" ||
             problem.kind === "limit-infinity" ||
             problem.kind === "limit-conjugate"
           ? presentFunctionLimit(problem, locale)
+          : problem.kind === "derivative-higher-root-powers"
+            ? presentHigherRootDerivative(problem,locale)
           : problem.kind === "derivative-fractional-powers"
             ? presentFractionalPowerDerivative(problem,locale)
           : problem.kind === "derivative" ||
