@@ -79,3 +79,12 @@ All original coefficients/results are retained **only in private source files**,
 4. D01: decide whether to add a small restricted radical/negative-power generator only after confirming no existing family already implements the required original methods.
 
 **Policy:** No additional SOURCE_PASS is awarded merely for a test running green. A separate owner approval is required for any merge at the final HEAD.
+
+## Repeatable automated acceptance package
+
+The [Batch B QA report](QA_BATCH_B_CODEX_REPORT.md) records the automated method
+checks from the post-#169 baseline, with exact synthetic family/level/variant
+witnesses. Run `npm run test:batch-b`, `npm run build`, then
+`npm run test:e2e:batch-b` for the dedicated production Chromium matrix. The new
+manifest supplements the historical witnesses above; it does not attest to a new
+private-source inspection or change any SOURCE_PASS counter.

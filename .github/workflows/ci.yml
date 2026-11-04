@@ -39,6 +39,21 @@ jobs:
       - name: Run browser tests
         run: npm run test:e2e
 
+      - name: Run Batch B acceptance against the production bundle
+        run: npm run test:e2e:batch-b
+
+      - name: Save Batch B browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: batch-b-browser-evidence
+          path: |
+            test-results/batch-b-results.json
+            test-results/batch-b/
+            playwright-report/batch-b/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Save Pages build from main
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: actions/upload-artifact@v7
