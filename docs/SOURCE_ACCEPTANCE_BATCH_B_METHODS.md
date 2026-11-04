@@ -22,6 +22,16 @@
 - Keep F05 original full-graph matches **0/6**, global QA #106 PAUSED and unrelated #142 Draft.
 - Never copy the owner's original PDF coefficients, page screenshots or answer key into this public repository.
 
+## F01 source-form review — proposed correction (2026-11-04)
+
+- The archived private visual audit describes P17/1h as **one linear square-root radicand in the numerator and one linear denominator**. This is not the exact formula topology of the original pinned `function-domain:hard:0` (quadratic radicand).
+- Current generator families display: one radical ray with no pole; a quadratic radical with one pole; or a linear radical with two poles. They do not display this specific one-radical/one-pole formula.
+- **Draft candidate** `function-radical-over-linear-domain:medium:0..23` adds one narrowly scoped source-observed form and independently tests root endpoint inclusion, denominator exclusion, the pole outside/on/inside the ray, PL/EN hints and working, and correct/wrong/empty grading. No private source coefficients or keys are included.
+- This is a **method coverage fix only**, not SOURCE_PASS. The original PDF/answer key and an actual deployed same-SHA Chromium 375px/desktop witness still need comparison.
+- Other seven entries remain source-unverified. G05 requires two generators (`limit-conjugate` and `limit-radical-infinity`); D01's original fractional/negative power **symbolic differentiation** is not represented by polynomial-only `derivative-formula`. Do not create a D01 family without checking the actual source forms.
+
+**No counter increase:** Batch A 6/6; Batch B 0/8; scoped source acceptance 6/64 = 9.4%; bounded generator labels 14/64 = 21.9%. #106 stays PAUSED, F05 original graphs 0/6, #142 Draft.
+
 ## Next acceptance order
 
 1. C01/C03 and G01/G02/G03: use the original source and its key to check actual topology before upgrading any row.
