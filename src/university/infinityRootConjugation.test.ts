@@ -37,6 +37,7 @@ describe("#151 G05 direct-source method completion: infinity radical conjugates"
       const ref=expected(p);
       expect(eq(ref,infinityRootConjugationLimit(p))).toBe(true);
       signs.add(Math.sign(number(ref)));
+      if(p.mode==="quadratic-pair")pairSigns.add(Math.sign(number(ref)));
       // Separate oracle evaluates the original radical expression far along its valid ray.
       const x=p.direction==="negative"?-1e8:1e8;
       expect(Math.abs(evaluate(p,x)-number(ref))).toBeLessThan(0.005);
