@@ -38,6 +38,7 @@ import type { EdgeLimitProblem } from "./edgeLimits";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
 import type { ProductQuotientProblem } from "./productQuotient";
 import type { DerivativeFollowupProblem } from "./derivativeFollowup";
+import type { FractionalPowerDerivativeProblem } from "./fractionalPowerDerivatives";
 import type { PartialGradientProblem } from "./partialGradient";
 import type { MultivarDerivativeFollowupProblem } from "./multivarDerivativeFollowup";
 import type { MultivarLimitProblem } from "./multivarLimits";
@@ -284,6 +285,7 @@ export type UniversityProblem =
   | TrigDerivativeProblem
   | ProductQuotientProblem
   | DerivativeFollowupProblem
+  | FractionalPowerDerivativeProblem
   | PartialGradientProblem
   | MultivarDerivativeFollowupProblem
   | MultivarLimitProblem

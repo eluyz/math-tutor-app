@@ -44,6 +44,16 @@ Archived private source registers `01_AUDYT_MATERIALOW.md`, `03_KATALOG_ZADAN.md
 
 Nothing in this comparison authorizes ticking any Batch B checkbox. The five audited competencies remain **0/5 accepted**; Batch B 0/8; overall **6/64 = 9.4%** source-accepted (6/14 of #151); bounded generator mapping **14/64 = 21.9%**, mapped 64/64. Broad #106 paused, F05 source charts 0/6, unrelated PR #142 untouched. Future merge requires explicit user consent at exact HEAD.
 
+## G05/D01 method review and D01 proposed bounded implementation — 2026-11-04
+
+Historical private-source records \`01_AUDYT_MATERIALOW.md\`, \`03_KATALOG_ZADAN.md\`, and \`10_KONTROLA_ODPOWIEDZI.md\` identify **G05 P26/2a–d,g,h,j** (conjugates at finite points and ±∞, with \`√(x²)=|x|\`), and **D01 P29/1g,h,i,s** (simplify radicals/reciprocals into fractional and negative powers and differentiate). Historical P29/P27 coverage consists of pointwise checks of 38 symbolic answers, not a fresh original-PDF read.
+
+- **G05 METHOD_COVERED (not SOURCE_PASS)**: \`limit-conjugate\` implements finite-point conjugation, while \`limit-radical-infinity\` separately handles ±∞ and absolute-value sign. Prior independent unit suites and 375px/1280px Playwright tests cover both; a new paired audit asserts 24 deterministic synthetic cases of each in PL/EN. The two mechanisms must *not* be conflated into one fictitious original form.
+- **D01 METHOD_GAP before fix**: \`derivative-formula:easy:2\` returns only polynomial coefficients with integer nonnegative powers. An inventory of other derivative families found no bounded *symbolic* derivative task with reciprocal and radical input and negative/fractional power output. Scalar evaluation and other unrelated derivative families do not close this gap.
+- **D01 CANDIDATE FIX**: \`derivative-fractional-powers:medium:0..23\`, 4 explicit synthetic forms combining \`√x\`, \`x√x\`, \`√(x³)\`, \`1/√x\`, \`1/x²\`, and \`1/√(x³)\`. Every task declares **x>0** so the real power rule and reciprocal identities are valid. Three exact rational coefficients are independently graded with labels specifying the derivative powers; PL/EN, correct/wrong/blank grading, stepwise power-law calculations, and 375px/1280px browser witnesses. Historical original coefficients are not disclosed. **Do not add SOURCE_PASS** until P29/P27 direct source-to-answer matching.
+
+**Counters remain** Batch A 6/6; Batch B 0/8, overall 6/14 SOURCE_PASS, formal 6/64=9.4%, bounded map 14/64=21.9%; candidate only 229 families/18,045 variants if merged. F05 original graphics 0/6; broad #106 PAUSED; #142 untouched. A fresh exact-head CI and separate owner approval are required before merge.
+
 ## Next acceptance order
 
 1. C01/C03 and G01/G02/G03: use the original source and its key to check actual topology before upgrading any row.
