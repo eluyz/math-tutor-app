@@ -1,5 +1,7 @@
 # Batch A — semantic acceptance review (2026-11-03)
 
+**Follow-up, 2026-11-04:** after #163 merge and independent original source-to-current-generator review, all six bounded method forms received scoped **SOURCE_PASS** in [Issue #151](https://github.com/eluyz/math-tutor-app/issues/151#issuecomment-6625286771). Deployment `main@733fc73dac208016ffc4876c6798fbde723c11ac` had [CI PASS](https://github.com/eluyz/math-tutor-app/actions/runs/41724981813) and [Pages PASS](https://github.com/eluyz/math-tutor-app/actions/runs/41727742263). The pre-acceptance counts and governance wording below describe the original Nov 3 Draft review, not the present status. Current ledger: [Batch A](SOURCE_ACCEPTANCE_BATCH_A.md). Original source PDF page images were not freshly rendered; archived 2026-10-18 visual audit was explicitly reused. No Safari test.
+
 **Reference release:** `main@a337cadbfb9d128a208156ecbba164e7fffb5587`, 226 generator families / 17,973 variants. [Full CI](https://github.com/eluyz/math-tutor-app/actions/runs/41712633324) and [same-SHA Pages](https://github.com/eluyz/math-tutor-app/actions/runs/41714600312) PASS.
 
 ## Independent scope and source provenance
