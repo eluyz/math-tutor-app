@@ -18,7 +18,7 @@ describe("#151 G05 method audit: finite-point conjugation AND ±infinity",()=>{
         if(view.answer.kind!=="limit"||view.answer.value.kind!=="finite")throw Error("Expected finite limit");
         expect(eq(view.answer.value.value,expected)).toBe(true);
         expect(assessAnswer(view.answer,{kind:"limit",classification:"finite",value:fmt(expected)}).kind).toBe("correct");
-        expect(assessAnswer(view.answer,emptyAnswer(view.answer)).toBeDefined();
+        expect(assessAnswer(view.answer,emptyAnswer(view.answer))).toBeDefined();
         if(locale==="en")expect(view.explanation).not.toMatch(polishLearningText);
       }
       const inf=makeUniversityTask("limit-radical-infinity",v,"hard");
@@ -33,7 +33,7 @@ describe("#151 G05 method audit: finite-point conjugation AND ±infinity",()=>{
         if(view.answer.kind!=="limit")throw Error("Expected limit");
         expect(view.answer.value.kind).toBe(expectedKind);
         if(expectedKind==="finite"&&view.answer.value.kind==="finite")expect(eq(view.answer.value.value,ip.d)).toBe(true);
-        expect(assessAnswer(view.answer,emptyAnswer(view.answer)).toBeDefined();
+        expect(assessAnswer(view.answer,emptyAnswer(view.answer))).toBeDefined();
         if(locale==="en")expect(view.explanation).not.toMatch(polishLearningText);
       }
     }
