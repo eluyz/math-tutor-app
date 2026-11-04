@@ -69,6 +69,8 @@ function independentDomain(
       return !eq(m(first, second), q(0));
     case "root-ray":
       return cmp(m(p.sign, first), q(0)) >= 0;
+    case "root-over-one":
+      return cmp(m(p.sign, first), q(0)) >= 0 && !eq(second, q(0));
     case "root-over-linear":
       return cmp(m(first, second), q(0)) >= 0 && !eq(third, q(0));
     case "root-over-two":
