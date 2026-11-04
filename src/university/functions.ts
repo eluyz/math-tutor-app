@@ -496,11 +496,13 @@ export function presentFunction(p: FunctionProblem, locale: Locale) {
       const poles =
         p.mode === "one-pole"
           ? [p.p]
-          : p.mode === "two-poles" || p.mode === "root-over-one"
-            ? [p.p, p.q].slice(p.mode === "root-over-one" ? 1 : 0)
-            : p.mode === "root-over-linear"
-              ? [p.r]
-              : [p.q, p.r];
+          : p.mode === "root-over-one"
+            ? [p.q]
+            : p.mode === "two-poles"
+              ? [p.p, p.q]
+              : p.mode === "root-over-linear"
+                ? [p.r]
+                : [p.q, p.r];
       lesson.work(
         `${t("Wykluczenia", "Excluded inputs")}: x ∉ {${poles.map(f).join("; ")}}`,
         t(
