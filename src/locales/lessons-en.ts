@@ -262,6 +262,8 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
         const constant = /^([xyzwv]): stała$/.exec(s);
         if (constant) return `${constant[1]}: constant`;
         if (/^[xyzwv]: t[12]$/.test(s)) return s;
+        // Exact mathematical power labels are language-neutral; never treat them as Polish prose.
+        if (/^x\^\([−-]?\d+(?:\/\d+)?\)$/.test(s)) return s;
         if (!fieldLabels[s])
           throw new Error(`Missing English answer label: ${s}`);
         return fieldLabels[s];

@@ -43,6 +43,7 @@ import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFol
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
+import { fractionalPowerDerivativeFamilies, presentFractionalPowerDerivative } from "./fractionalPowerDerivatives";
 import { determinantFamilies, presentDeterminant } from "./determinants";
 import { radicalDeterminantFamilies, presentRadicalDeterminant } from "./radicalDeterminants";
 import { determinantStrategyFamilies } from "./determinantStrategies";
@@ -125,6 +126,7 @@ export const universityFamilies = [
   ...functionLimitFamilies,
   ...limitFollowupFamilies,
   ...derivativeFamilies,
+  ...fractionalPowerDerivativeFamilies,
   ...determinantFamilies,
   ...radicalDeterminantFamilies,
   ...determinantStrategyFamilies,
@@ -314,6 +316,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
             problem.kind === "limit-infinity" ||
             problem.kind === "limit-conjugate"
           ? presentFunctionLimit(problem, locale)
+          : problem.kind === "derivative-fractional-powers"
+            ? presentFractionalPowerDerivative(problem,locale)
           : problem.kind === "derivative" ||
               problem.kind === "derivative-analysis" ||
               problem.kind === "derivative-economics" ||
