@@ -64,6 +64,7 @@ describe("#151 G05 direct-source method completion: infinity radical conjugates"
     expect(forms).toEqual(new Set(["quadratic-pair","quadratic-linear","linear-pair"]));
     expect(directions).toEqual(new Set(["positive","negative"]));
     expect(signs).toEqual(new Set([-1,0,1]));
+    expect(pairSigns).toEqual(new Set([-1,1]));
   });
   it("guards against undefined leading terms and unsupported direction",()=>{
     const task=makeUniversityTask("limit-root-infinity-conjugates",2,"advanced").university;
