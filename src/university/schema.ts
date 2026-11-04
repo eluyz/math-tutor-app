@@ -74,6 +74,7 @@ export type FunctionProblem =
         | "two-poles"
         | "root-ray"
         | "root-over-linear"
+        | "root-over-one"
         | "root-over-two"
         | "root-ratio";
       p: Rational;
