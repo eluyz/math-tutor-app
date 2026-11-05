@@ -3,6 +3,7 @@ import { makeUniversityTask, localizeUniversity } from "../../src/university/cat
 import type { AnswerInput } from "../../src/answers";
 import type { Difficulty } from "../../src/difficulty";
 import { polishLearningText } from "./localization";
+import { parseAnswer, equalRational } from "../../src/rational";
 
 type Task = ReturnType<typeof makeUniversityTask>;
 export type AcceptanceRow = { family: string; level: Difficulty; variants: readonly number[] };
@@ -12,11 +13,22 @@ const categories = {
   "functions": ["Funkcje", "Functions"],
   "function-limits": ["Granice funkcji", "Limits of functions"],
   "derivatives": ["Pochodne", "Derivatives"],
+  "matrices": ["Macierze", "Matrices"],
+  "determinants": ["Wyznaczniki", "Determinants"],
+  "systems": ["Układy równań", "Systems of equations"],
 };
 const levels = { easy: ["Łatwy", "Easy"], medium: ["Średni", "Medium"], hard: ["Trudny", "Hard"], advanced: ["Zaawansowany", "Advanced"], expert: ["Ekspert", "Expert"] };
 async function fill(page: Page, input: AnswerInput) {
-  if (typeof input === "string") throw Error("Unexpected scalar");
-  if (input.kind === "limit") {
+  if (typeof input === "string") {
+    await page.locator("#answer").fill(input);
+  } else if (input.kind === "matrix") {
+    for (let i = 0; i < input.values.length; i++) for (let j = 0; j < input.values[i].length; j++)
+      await page.locator(i === 0 && j === 0 ? "#answer" : `#answer-${i}-${j}`).fill(input.values[i][j]);
+  } else if (input.kind === "system") {
+    await page.locator("#answer").selectOption(input.classification);
+    if (input.classification === "system-one") for (let i = 0; i < input.values.length; i++)
+      await page.locator(`#system-value-${i}`).fill(input.values[i]);
+  } else if (input.kind === "limit") {
     await page.locator("#answer").selectOption(input.classification);
     if (input.classification === "finite") await page.locator("#limit-value").fill(input.value);
   } else if (input.kind === "list") {
@@ -57,7 +69,45 @@ export async function runPinnedAcceptance(
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", row.family);
       await expect(page.locator(".question")).toHaveAttribute("data-difficulty", row.level);
       const displayed = await page.locator(".question").innerText();
-      const matches = candidates.filter(task => localizeUniversity(task, locale).question === displayed);
+      let matches = candidates.filter(task => localizeUniversity(task, locale).question === displayed);
+      const rationalMatrices = (task: Task) => {
+        const p = task.university;
+        if (p.kind === "linear-matrix-practice") return p.matrices.map(item => item.values);
+        if (p.kind === "determinant" || p.kind === "linear-inverse" || p.kind === "linear-rank") return [p.matrix];
+        if (p.kind === "linear-application") return [p.matrix, p.rhs];
+        if (p.kind === "linear-system" || p.kind === "linear-cramer-four" || p.kind === "linear-cramer-diagnostic") return [p.matrix.map((row, i) => [...row, p.rhs[i]])];
+        if (p.kind === "linear-matrix-pair") return [p.first, p.second];
+        if (p.kind === "linear-matrix-equation") return p.mode === "axb" ? [p.left, p.right, p.rhs] : [p.left, p.rhs];
+        return [];
+      };
+      if (matches.some(task => rationalMatrices(task).length)) {
+        // Read all operands in one browser call: some families put their data
+        // entirely outside .question. Match both shapes and every exact entry.
+        const tables = await page.locator(".linear-algebra-matrices .given-matrix, .determinant-display:not(.determinant-radical)").evaluateAll(nodes => nodes.map(table =>
+          Array.from(table.querySelectorAll("tbody tr"), row => Array.from(row.querySelectorAll("td"), cell => cell.textContent ?? ""))));
+        matches = matches.filter(task => {
+          const expected = rationalMatrices(task);
+          return expected.length === tables.length && expected.every((matrix, i) => matrix.length === tables[i].length && matrix.every((row, j) => row.length === tables[i][j].length && row.every((value, k) => {
+            const parsed = parseAnswer(tables[i][j][k]);
+            return parsed.kind === "valid" && equalRational(value, parsed.value);
+          })));
+        });
+      }
+      if (matches.some(task => task.university.kind === "determinant-radical-two")) {
+        const shown = await page.locator(".determinant-radical td").allTextContents();
+        // Parse visible a+b√d independently of the production radical formatter.
+        const read = (text: string) => {
+          const clean = text.replaceAll("−", "-").replaceAll(/\s/g, "");
+          const [prefix, radicand] = clean.split("√");
+          if (radicand === undefined) return { whole: Number(prefix), root: 0, radicand: null };
+          const pair = /^(-?\d+)([+-])(\d*)$/.exec(prefix);
+          return pair ? { whole: Number(pair[1]), root: (pair[2] === "-" ? -1 : 1) * Number(pair[3] || 1), radicand: Number(radicand) }
+            : { whole: 0, root: Number(prefix === "-" ? -1 : prefix === "" || prefix === "+" ? 1 : prefix), radicand: Number(radicand) };
+        };
+        const cells = shown.map(read);
+        matches = matches.filter(task => task.university.kind === "determinant-radical-two" && task.university.matrix.flat().length === cells.length && task.university.matrix.flat().every((value, i) =>
+          value.whole === cells[i].whole && value.root === cells[i].root && (value.root === 0 || cells[i].radicand === (task.university as Extract<Task["university"], { kind: "determinant-radical-two" }>).radicand)));
+      }
       expect(matches, "Rendered question must identify one exact variant").toHaveLength(1);
       const task = matches[0], variant = Number(task.id.split(":").at(-1));
       if (pending.has(variant)) {
