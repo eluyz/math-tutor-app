@@ -46,7 +46,9 @@ export function makeIntegratedAsymptote(v: number, difficulty: Difficulty): Inte
   const shift = [0, 0, 1, 1, -1, -1][profile];
   const sign: 1 | -1 = profile % 2 === 0 ? 1 : -1;
   const slopeLeft = [1, -1, 1, -1, 1, -1][profile];
-  const slopeRight = [1, -1, -1, 1, 1, -1][profile];
+  // Profile 2 combines pole-adjacent hollow ends, two rising outer
+  // segments and a falling middle on a nonsymmetric domain.
+  const slopeRight = [1, -1, 1, 1, 1, -1][profile];
   const nearLeft = [1, -1, -1, 1, 0, 1][profile];
   const nearRight = [-1, 1, 2, 0, -1, -2][profile];
   const a = center - radius, b = center + radius;
