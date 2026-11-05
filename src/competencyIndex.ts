@@ -334,13 +334,15 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "G01": {
     "coverage": "bounded",
     "familyIds": [
-      "limit-point"
+      "limit-point",
+      "limit-quadratic-ratio-point"
     ]
   },
   "G02": {
     "coverage": "bounded",
     "familyIds": [
-      "limit-point"
+      "limit-point",
+      "limit-cancelled-quadratic-ratio"
     ]
   },
   "G03": {
