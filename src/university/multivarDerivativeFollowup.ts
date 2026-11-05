@@ -74,7 +74,7 @@ export function presentMultivarDerivativeFollowup(p:MultivarDerivativeFollowupPr
   return lesson.finish(t("Oblicz ","Compute ")+label+t(" w punkcie "," at ")+at+".\nf(x,y)="+poly(p),
     {kind:"scalar",value:values[p.target]},
     t("Różniczkuj po jednej zmiennej, drugą uznając za stałą.","Differentiate in one variable, holding the other constant."),
-    t("Oblicz odpowiednią pochodną drugiego rzędu i podstaw punkt.","Find the required second partial, if needed, and substitute the point."));
+    t("Oblicz pochodną drugiego rzędu, jeśli jest potrzebna, i podstaw punkt.","Find the required second partial, if needed, and substitute the point."));
  }
  const ans=chainGradient(p),inside="("+f(p.a)+")x+("+f(p.b)+")y+("+f(p.c)+")";
  const u=add(add(mul(p.a,p.x),mul(p.b,p.y)),p.c);
