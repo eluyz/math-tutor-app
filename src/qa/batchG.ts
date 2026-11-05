@@ -1,7 +1,7 @@
 import type {makeUniversityTask} from "../university/catalog";
 import {formatRational as f,type AnswerInput} from "../answers";
 import {wrongAcceptanceAnswer} from "./acceptance";
-import {r,add,sub,mul,div,sign,cmp,demand,evaluate,pow,polyEqual,type Rational} from "./batchFMath";
+import {r,add,sub,mul,div,sign,cmp,demand,evaluate,convolution,polyEqual,type Rational} from "./batchFMath";
 import {cellDomain,abs,baseText,polyText,compose,signedPower} from "./batchGMath";
 
 export const batchG=[
@@ -16,10 +16,21 @@ export const batchG=[
  {block:"G2",skills:["F07"],family:"analysis-power-law",level:"hard",variants:[0,1]},
  {block:"G2",skills:["F07"],family:"analysis-elementary-equation",level:"hard",variants:[0,1]},
  {block:"G2",skills:["F07"],family:"analysis-log-inequality",level:"hard",variants:[0,1]},
+ {block:"G3",skills:["G06"],family:"analysis-euler-function",level:"hard",variants:[0,11]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-vertical",level:"advanced",variants:[0,1]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-horizontal",level:"advanced",variants:[0,1]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-oblique",level:"advanced",variants:[0,1]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-oblique",level:"expert",variants:[0,1]},
 ] as const;
 type Task=ReturnType<typeof makeUniversityTask>;
 export type GCertificate={input:AnswerInput;anchors:readonly (readonly string[])[];facts:readonly string[];choiceLabel?:string;critical?:readonly Rational[];contains?:(x:Rational)=>boolean;classes?:string;bounds?:{lower:Rational|null;upper:Rational|null}};
 const qkey=(x:Rational)=>`${x.numerator}/${x.denominator}`;
+type Line={a:Rational;b:Rational}|null;
+const lineKey=(v:Line)=>v===null?"none":`line:${qkey(v.a)}:${qkey(v.b)}`;
+const lineText=(v:Line)=>v===null?"∄":sign(v.a)===0?`y=${f(v.b)}`:`y=(${f(v.a)})x+(${f(v.b)})`;
+const pair=(plus:Line,minus:Line,anchors:GCertificate["anchors"],facts:readonly string[]):GCertificate=>({
+ input:{kind:"choice",value:`plus:${lineKey(plus)}|minus:${lineKey(minus)}`},choiceLabel:`+∞: ${lineText(plus)}; −∞: ${lineText(minus)}`,anchors,facts,
+});
 const exponent=(q:Rational):AnswerInput=>sign(q)===0?"1":{kind:"choice",value:"exp:"+qkey(q)};
 
 /** Parameters only. No production answer, hint, solution or solver is read. */
@@ -58,6 +69,7 @@ export function batchGCertificate(task:Task,locale:"pl"|"en"="en"):GCertificate 
     value=positive?"decreasing-bounded":"increasing-bounded";
     step=`aₙ₊₁−aₙ=−(${f(s)})/((n+${k})(n+${k+1}))`;bound=`0<1/(n+${k})≤1/${k+1}`;
    }else{
+    demand(positive,"Selected alternating factory has positive amplitude");
     value="neither-bounded";
     step=`a₁=${f(c)}−(${f(s)})/(1+${k}); a₂=${f(c)}+(${f(s)})/(2+${k}); a₃=${f(c)}−(${f(s)})/(3+${k})`;
     bound=`|aₙ−(${f(c)})|≤|${f(s)}|/${k+1}`;
@@ -123,6 +135,49 @@ export function batchGCertificate(task:Task,locale:"pl"|"en"="en"):GCertificate 
    const contains=(x:Rational)=>cmp(x,p.p)>0&&(inc?cmp(x,threshold)<=0:cmp(x,threshold)>=0);
    const domain=cellDomain([p.p,threshold],contains),a=f(p.base);
    return {input:{kind:"choice",value:domain.key},choiceLabel:domain.text,anchors:[[`x−${f(p.p)}>0 ⇔ x>${f(p.p)}`],[`${baseText(p.base)}^(${p.exponent})=${f(power)}`,`x=${f(threshold)}`],[t(inc?`${a}>1 ⇒ log_a jest rosnący`:`0<${a}<1 ⇒ log_a jest malejący`,inc?`${a}>1 ⇒ log_a is increasing`:`0<${a}<1 ⇒ log_a is decreasing`)],[`S=${domain.text}`]],facts:["positive original log argument","signed integer powers computed exactly","base monotonicity determines inequality direction; equality endpoint included"],critical:domain.cuts,contains,classes:inc?"base>1":"base<1"};
+  }
+  case "analysis-euler":{
+   demand(p.variable==="function"&&p.mode==="scaled"&&sign(p.a)!==0&&sign(p.b)>0,"Selected genuine scaled function Euler form");
+   const q=mul(p.a,p.b),epsilon=div(r(1),mul(r(2),abs(p.a)));
+   // |x|<epsilon gives |a*x|<1/2; no one-sided sign mistake or
+   // logarithm of a negative base is possible. ln(1+ax)/(ax)->1.
+   demand(sign(epsilon)>0,"Positive two-sided neighborhood");
+   return {input:exponent(q),choiceLabel:`e^(${f(q)})`,anchors:[[t("x→0: licznik i mianownik podstawy są dodatnie w małym otoczeniu","x→0: numerator and denominator of the base are positive nearby")],[`ln L=lim [E·t·ln(1+t)/t]=${f(q)}`],[`L=e^(${f(q)})`]],facts:[`base>1/2 for |x|<${f(epsilon)}`,"base tends to 1; b/x diverges with opposite signs on the two sides","logarithmic limit equals exact a*b on both sides; exponential limit is strictly positive"],classes:sign(q)>0?"exponent-positive":"exponent-negative"};
+  }
+  case "analysis-asymptote-vertical":{
+   demand(p.mode==="hole"||p.mode==="cancellation","Selected hole/simple-after-cancellation cases");
+   const at=f(p.at),c=f(p.coefficient),finite=add(p.at,p.coefficient),s=sign(p.coefficient);
+   demand(s!==0,"Nonzero remaining coefficient");
+   const left=s>0?"−∞":"+∞",right=s>0?"+∞":"−∞";
+   return p.mode==="hole"?{input:{kind:"choice",value:"asymptote-none"},choiceLabel:"∄",anchors:[[`x≠${at}`],[`f(x)=x+(${c}) (x≠${at})`,`lim₋f=lim₊f=${f(finite)}`],[t("brak asymptoty pionowej","no vertical asymptote")]],facts:["cancel common factor only off excluded x=a","both one-sided limits finite a+c; no vertical asymptote"],classes:"hole"}:
+    {input:{kind:"choice",value:`${left}:${right}`},choiceLabel:`x=${at}; lim₋=${left}, lim₊=${right}`,anchors:[[`x≠${at}`],[`f(x)=${c}/(x−(${at})) (x≠${at})`,`lim₋f=${left}`,`lim₊f=${right}`],[`x=${at}`]],facts:["original numerator has one zero, denominator two; one pole remains","sign of c/(x-a) differs on left and right; both one-sided limits infinite"],classes:`pole:${left}:${right}`};
+  }
+  case "analysis-asymptote-horizontal":{
+   if(p.mode==="linear"){
+    demand(sign(p.b)>0,"Positive nonzero linear slope");
+    return {...pair(null,null,[[`${f(p.b)}>0`,"f(x)→+∞", "f(x)→−∞"],["+∞: ∄; −∞: ∄"]],["linear function has no finite limit at either infinity","therefore no horizontal asymptote; this is not a claim of no linear graph"]),classes:"no-horizontal"};
+   }
+   demand(p.mode==="radical","Selected normalized root quotient");
+   const plus={a:r(0),b:add(p.a,p.b)},minus={a:r(0),b:sub(p.a,p.b)};
+   return {...pair(plus,minus,[["√(x²+1)=|x|√(1+1/x²)"],[`x→+∞: x/|x|→1, L₊=${f(plus.b)}`,`x→−∞: x/|x|→−1, L₋=${f(minus.b)}`],[`+∞: ${lineText(plus)}; −∞: ${lineText(minus)}`]],["x²+1>0 for every real x","divide by |x|; independent directions give a+b and a-b"]),classes:"two-horizontal"};
+  }
+  case "analysis-asymptote-oblique":{
+   if(p.mode==="rational"){
+    // Descending polynomial long division, independent of the production
+    // direct intercept/remainder formulas. Preserve the original hole/pole.
+    const n=[p.c,p.b,p.a],d=[sub(r(0),p.at),r(1)],rem=[...n],q=[r(0),r(0)];
+    for(let i=2;i>=1;i--){q[i-1]=div(rem[i],d[1]);rem[i]=sub(rem[i],mul(q[i-1],d[1]));rem[i-1]=sub(rem[i-1],mul(q[i-1],d[0]));}
+    const product=convolution(q,d);product[0]=add(product[0],rem[0]);
+    demand(polyEqual(n,product),"Exact polynomial division identity");
+    const line={a:q[1],b:q[0]},a=f(q[1]),b=f(q[0]),at=f(p.at),R=f(rem[0]);
+    return {...pair(line,line,[[`f(x)=(${a})x+(${b})+(${R})/(x−(${at}))`],[`lim f(x)/x=${a}`,`lim(f(x)−ax)=${b}`,"R/(x−d)→0"],[`+∞: ${lineText(line)}; −∞: ${lineText(line)}`]],["independent coefficient division certifies both slope and intercept","original domain excludes at even if remainder=0; no restored domain point","remainder divided by x-at tends to zero in both directions"]),classes:sign(rem[0])===0?"zero-remainder":"nonzero-remainder"};
+   }
+   if(p.mode==="radical"){
+    const plus={a:r(2),b:p.b},minus={a:r(0),b:p.b};
+    return {...pair(plus,minus,[["√(x²+1)−|x|=1/(√(x²+1)+|x|)→0"],[`x→+∞: |x|=x ⇒ y=2x+(${f(p.b)})`,`x→−∞: |x|=−x ⇒ y=${f(p.b)}`],[`+∞: ${lineText(plus)}; −∞: ${lineText(minus)}`]],["exact conjugate remainder tends to zero on both rays","slope/intercept +infinity: 2,b; -infinity: 0,b (horizontal)"]),classes:"oblique-plus-horizontal-minus"};
+   }
+   demand(p.mode==="quadratic","Controlled no-linear-asymptote case");
+   return {...pair(null,null,[[`f(x)/x=x+(${f(p.b)})+(${f(p.c)})/x`],["+∞: ∄; −∞: ∄"]],["quotient f(x)/x has no finite limit in either direction","no finite linear slope, hence no linear asymptote"]),classes:"no-linear-asymptote"};
   }
   default:throw Error("Outside Batch G matrix: "+p.kind);
  }

@@ -1,5 +1,5 @@
 import {formatRational as f} from "../answers";
-import {r,add,sub,mul,div,cmp,pow,sign,convolution,type Rational,type Poly} from "./batchFMath";
+import {r,add,sub,div,cmp,pow,sign,convolution,type Rational,type Poly} from "./batchFMath";
 export const qkey=(x:Rational)=>`${x.numerator}/${x.denominator}`;
 export const abs=(x:Rational)=>sign(x)<0?sub(r(0),x):x;
 export const signedPower=(x:Rational,k:number)=>k<0?div(r(1),pow(x,-k)):pow(x,k);

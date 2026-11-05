@@ -10,9 +10,22 @@ const clean=(s:string)=>s.replace(/\s/g,"").replaceAll("-","−");
 
 describe("Batch G independent sequence, domain and asymptote proofs",()=>{
  it("keeps the scope bounded",()=>{
-  expect(batchG.length).toBeLessThanOrEqual(16);
+  expect(batchG.length).toBe(16);
+  expect(new Set(batchG.flatMap(x=>x.skills)).size).toBe(8);
   expect(new Set(batchG.map(x=>x.family+":"+x.level)).size).toBe(batchG.length);
-  expect(batchG.flatMap(x=>x.variants).length).toBeLessThanOrEqual(32);
+  expect(batchG.flatMap(x=>x.variants).length).toBe(32);
+ });
+ it("matches hand-derived controls on already sampled IDs",()=>{
+  const controls=[
+   ["sequence-euler-product","expert",0,{kind:"choice",value:"exp:5/12"}],
+   ["sequence-monotonic-bounded","advanced",2,{kind:"choice",value:"increasing-unbounded"}],
+   ["analysis-power-law","hard",0,"−21/2"],
+   ["analysis-elementary-equation","hard",0,"−10"],
+   ["analysis-euler-function","hard",11,{kind:"choice",value:"exp:4/1"}],
+   ["analysis-asymptote-vertical","advanced",1,{kind:"choice",value:"+∞:−∞"}],
+   ["analysis-asymptote-oblique","advanced",0,{kind:"choice",value:"plus:line:1/1:−14/1|minus:line:1/1:−14/1"}],
+  ] as const;
+  for(const [family,level,v,expected] of controls)expect(batchGCertificate(makeUniversityTask(family,v,level)).input).toEqual(typeof expected==="string"?expected:{...expected,value:expected.value.startsWith("plus:")?expected.value.replaceAll("−","-"):expected.value});
  });
  for(const row of batchG)it(`${row.block} ${row.skills.join("/")} ${row.family}/${row.level}: exactly 24 tasks × PL/EN`,()=>{
   const keys=new Set<string>(),classes=new Set<string>();
@@ -59,6 +72,10 @@ describe("Batch G independent sequence, domain and asymptote proofs",()=>{
    }
   }
   expect(keys.size).toBe(24);
+  if(row.family==="analysis-euler-function")expect(classes).toEqual(new Set(["exponent-positive","exponent-negative"]));
+  if(row.family==="analysis-asymptote-vertical")expect(classes).toEqual(new Set(["hole","pole:−∞:+∞","pole:+∞:−∞"]));
+  if(row.family==="analysis-asymptote-horizontal")expect(classes).toEqual(new Set(["no-horizontal","two-horizontal"]));
+  if(row.family==="analysis-asymptote-oblique")expect(classes).toEqual(new Set(row.level==="advanced"?["zero-remainder","nonzero-remainder"]:["oblique-plus-horizontal-minus","no-linear-asymptote"]));
   if(row.family==="function-mixed-domain")expect(classes).toEqual(new Set(row.level==="hard"?["empty","connected"]:["connected","disconnected"]));
   if(row.family==="function-parity")expect(classes).toEqual(new Set(["even","odd","neither"]));
   if(row.family==="analysis-log-inequality")expect(classes).toEqual(new Set(["base>1","base<1"]));
