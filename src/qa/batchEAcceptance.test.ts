@@ -4,13 +4,26 @@ import {makeUniversityTask,localizeUniversity} from "../university/catalog";
 import {assessAnswer,emptyAnswer} from "../answers";
 import {auditCalculation} from "../university/audit";
 import {polishLearningText} from "../../e2e/helpers/localization";
-import {subtractRational as sub} from "../rational";
+import {rational as r, subtractRational as sub, addRational as add, multiplyRational as mul} from "../rational";
+import {formatRational as f} from "../answers";
 
 describe("Batch E independent calculus method evidence",()=>{
   it("enforces the bounded manifest",()=>{
-    expect(batchE.length).toBeLessThanOrEqual(16);
+    expect(batchE.length).toBe(16);
+    expect(new Set(batchE.map(x=>x.skill)).size).toBe(8);
     expect(new Set(batchE.map(x=>x.family+":"+x.level)).size).toBe(batchE.length);
-    expect(batchE.flatMap(x=>x.variants).length).toBeLessThanOrEqual(32);
+    expect(batchE.flatMap(x=>x.variants).length).toBe(32);
+    expect(batchE.every(x=>x.variants.every(v=>v>=0&&v<24))).toBe(true);
+  });
+  it("has hand-derived controls independent of both generators and oracle formulas",()=>{
+    const cases=[
+      ["integral-parts","expert",{kind:"primitive",coefficients:["1","−3","6","−6"],hasConstant:true}],
+      ["integral-recurring","expert",{kind:"primitive",coefficients:["3/2","1/2"],hasConstant:true}],
+      ["integral-area-parabolas","hard","8"],
+      ["integral-arc-length","hard","14/3"],
+      ["integral-arc-parametric","advanced","5/3"],
+    ] as const;
+    for(const [family,level,expected] of cases)expect(batchECertificate(makeUniversityTask(family,0,level)).input).toEqual(expected);
   });
   for(const row of batchE)it(`${row.block} ${row.skill} ${row.family}/${row.level}: 24 exact variants × PL/EN`,()=>{
     const keys=new Set<string>(),orientations=new Set<number>();
@@ -39,6 +52,35 @@ describe("Batch E independent calculus method evidence",()=>{
         for(const step of steps)if(step.kind==="working"){
           expect(step.action.trim()).not.toBe("");expect(step.reason.length).toBeGreaterThan(15);
           for(const calculation of step.calculations)expect(auditCalculation(calculation)).toBe(true);
+        }
+        // Check independent mathematical anchors in the displayed working as
+        // well as the typed answer. Free prose is reviewed per bounded template.
+        const actions=steps.map(x=>x.action).join(" ");
+        const compact=(s:string)=>s.replace(/[·\s]/g,"");
+        if(typeof expected!=="string"&&expected.kind==="primitive"){
+          certificate.basis.forEach((basis,i)=>expect(compact(actions)).toContain(compact(`(${expected.coefficients[i]})${basis}`)));
+          expect(actions).toMatch(/\+ ?C/);
+        }
+        if(p.kind==="integral-substitution-definite"){
+          for(const x of [p.lower,p.upper])expect(actions).toContain(`x=${f(x)} ⇒ u=${f(evaluate([p.c,p.b,r(1)],x))}`);
+        }
+        if(p.kind==="integral-area-parabolas"){
+          for(const x of [sub(p.center,p.radius),add(p.center,p.radius)])expect(actions).toContain(`x=${f(x)}`);
+          expect(actions).toContain("|f(x)−g(x)|");
+        }
+        if(p.kind==="integral-improper-interior-power"||p.kind==="integral-improper-interior-pv"){
+          expect(actions).toContain("ε");expect(actions).toContain("δ");
+          if(p.kind==="integral-improper-interior-pv")expect(actions).toContain(`PV=(${f(p.k)})ln(${f(p.rightLength)}/${f(p.leftLength)})`);
+          else if(p.power==="half"){
+            expect(actions).toContain(`I_left=2(${f(p.k)})√(h−L)=2(${f(p.k)})(${f(p.leftRoot)})`);
+            expect(actions).toContain(`I_right=2(${f(p.k)})√(R−h)=2(${f(p.k)})(${f(p.rightRoot)})`);
+          }
+        }
+        if(p.kind==="integral-arc-length")expect(actions).toContain(`u: 1→${p.endRoot*p.endRoot}`);
+        if(p.kind==="integral-arc-parametric")expect(actions).toContain(`√(x′(t)²+y′(t)²)=(${f(p.scale)})(t²+1)`);
+        if(p.kind==="integral-area-horizontal-slices")expect(actions).toContain(`u: 0→${f(mul(p.radius,p.radius))}`);
+        if(p.kind==="integral"&&p.method==="parts"&&sign(p.a)<0){
+          expect(actions).not.toBe("");expect(view.explanation).not.toMatch(/signs alternate|znaki współczynników zmieniają się naprzemiennie/);
         }
         if(view===en)expect([view.question,view.hint,view.nextHint,view.explanation,...steps.map(x=>x.action+" "+x.reason)].join(" ")).not.toMatch(new RegExp(polishLearningText.source+"|\\blub\\b|\\bod .+ do ","iu"));
       }

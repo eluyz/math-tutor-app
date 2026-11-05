@@ -12,6 +12,14 @@ export const batchE = [
   {block:"E1",skill:"I03",family:"integral-substitution-definite",level:"advanced",variants:[0,3]},
   {block:"E1",skill:"I04",family:"integral-parts",level:"expert",variants:[0,1]},
   {block:"E1",skill:"I04",family:"integral-parts-trig-linear",level:"advanced",variants:[0,1]},
+  {block:"E2",skill:"I05",family:"integral-recurring",level:"expert",variants:[0,1]},
+  {block:"E2",skill:"I06",family:"integral-improper-infinity",level:"expert",variants:[0,1]},
+  {block:"E2",skill:"I06",family:"integral-improper-interior-power",level:"advanced",variants:[0,1]},
+  {block:"E2",skill:"I06",family:"integral-improper-interior-pv",level:"advanced",variants:[0,1]},
+  {block:"E2",skill:"I07",family:"integral-area-parabolas",level:"hard",variants:[0,3]},
+  {block:"E2",skill:"I07",family:"integral-area-horizontal-slices",level:"hard",variants:[0,1]},
+  {block:"E2",skill:"I08",family:"integral-arc-length",level:"hard",variants:[0,1]},
+  {block:"E2",skill:"I08",family:"integral-arc-parametric",level:"advanced",variants:[0,3]},
 ] as const;
 
 type Task = ReturnType<typeof makeUniversityTask>;
@@ -84,6 +92,72 @@ export function batchECertificate(task:Task):{input:AnswerInput;basis:readonly s
       const inside=`(${f(p.a)})x+(${f(p.b)})`,other=p.mode==="sin"?"cos":"sin";
       return primitive([first,second],[`x ${other}(${inside})`,`${p.mode}(${inside})`],["product and chain rules","non-x trig terms cancel on R"]);
     }
+    case "integral-improper-infinity": {
+      require(sign(p.a)>0&&sign(p.k)!==0,"No finite-domain pole, nonzero coefficient");
+      if(p.power===1)return limit(null,p.k,["log(T+a) tends to +infinity","one infinite endpoint; sign k controls divergence"]);
+      // Antiderivative -k/((p-1)(x+a)^(p-1)); derivative is k/(x+a)^p.
+      const c=div(sub(r(0),p.k),r(p.power-1));
+      require(same(mul(c,r(1-p.power)),p.k),"Power-rule derivative");
+      const atZero=div(c,power(p.a,p.power-1));
+      return limit(sub(r(0),atZero),p.k,["negative power tends to zero at +infinity","F(infinity)-F(0); no interior pole"]);
+    }
+    case "integral-improper-interior-power": {
+      require(sign(p.leftRoot)>0&&sign(p.rightRoot)>0&&sign(p.k)!==0,"Two nonempty sides of singularity");
+      if(p.power==="half"){
+        // On each side x=h±z²: k/|x-h|^(1/2)|dx| = 2k dz.
+        const left=integral([mul(r(2),p.k)],r(0),p.leftRoot);
+        const right=integral([mul(r(2),p.k)],r(0),p.rightRoot);
+        return limit(add(left,right),p.k,["independent left limit via distance=z^2","independent right limit via distance=z^2"]);
+      }
+      return limit(null,p.k,[p.power==="one"?"left: -k log(epsilon) diverges":"left: k/epsilon diverges",p.power==="one"?"right: -k log(delta) diverges":"right: k/delta diverges"]);
+    }
+    case "integral-improper-interior-pv": {
+      require(sign(p.leftLength)>0&&sign(p.rightLength)>0&&sign(p.k)!==0,"Interior pole with two sides");
+      // Independent cutoffs: k(log eps-log L) and k(log R-log delta).
+      // Each diverges; only imposing eps=delta gives the finite principal value.
+      const ratio=div(p.rightLength,p.leftLength);
+      return {input:{kind:"choice",value:same(ratio,r(1))?"divergent-pv-zero":"divergent-pv-nonzero"},basis:[],checks:["left infinity sign=-sign(k)","right infinity sign=sign(k)","ordinary integral diverges; PV=k log(R/L)"]};
+    }
+    case "integral-area-parabolas": {
+      // Expand both ORIGINAL curves in t=x-center, subtract their coefficients.
+      const top=[add(mul(p.a,power(p.shift,2)),p.offset),mul(r(-2),mul(p.a,p.shift)),p.a];
+      const bottom=[add(add(mul(p.a,power(p.shift,2)),p.offset),mul(p.delta,power(p.radius,2))),mul(r(-2),mul(p.a,p.shift)),sub(p.a,p.delta)];
+      const difference=top.map((x,i)=>sub(x,bottom[i]));
+      require(sign(p.radius)>0&&sign(p.delta)!==0&&sign(p.a)!==0&&sign(bottom[2])!==0,"Two genuine parabolas");
+      const lo=sub(p.lower,p.center),hi=sub(p.upper,p.center);
+      const roots=[sub(r(0),p.radius),p.radius];
+      for(const root of roots)require(same(evaluate(difference,root),r(0)),"Intersection solves original equality");
+      const cuts=[lo,...roots.filter(x=>sign(sub(x,lo))>0&&sign(sub(hi,x))>0),hi];
+      let total=r(0);
+      for(let i=1;i<cuts.length;i++){
+        const mid=div(add(cuts[i-1],cuts[i]),r(2));
+        const order=sign(evaluate(difference,mid));
+        const contribution=mul(r(order),integral(difference,cuts[i-1],cuts[i]));
+        require(sign(contribution)>=0,"Area contribution nonnegative");total=add(total,contribution);
+      }
+      return scalar(total,["expanded both original curves","both roots solve f=g; all interior roots split interval","upper/lower chosen on each cell; area units squared"]);
+    }
+    case "integral-area-horizontal-slices": {
+      require(sign(p.coefficient)>0&&sign(p.radius)>0,"Right-left width is nonnegative");
+      // y=h+z²: width=2kz, dy=2z dz; integral of 4kz².
+      return scalar(integral([r(0),r(0),mul(r(4),p.coefficient)],r(0),p.radius),["left/right meet only at y=h","right-left=2k sqrt(y-h)>=0","both transformed bounds 0,R; area units squared"]);
+    }
+    case "integral-arc-length": {
+      require(p.slope>0&&p.endRoot>1,"Graph interval x>=shift");
+      // y'=k sqrt(x-h); z=sqrt(1+k²(x-h)), dx=2z/k² dz.
+      // Integrate speed z times dx over z=1..endRoot.
+      const speedMeasure=[r(0),r(0),r(2,p.slope*p.slope)];
+      return scalar(integral(speedMeasure,r(1),r(p.endRoot)),["D((2k/3)(x-h)^(3/2))=k sqrt(x-h)","graph speed sqrt(1+k²(x-h)); z bounds 1,m","speed nonnegative; length units"]);
+    }
+    case "integral-arc-parametric": {
+      require(sign(p.scale)>0&&sign(sub(p.upper,p.lower))>0,"Positive scale, ordered parameter interval");
+      const x=[p.shift,sub(r(0),p.scale),r(0),div(p.scale,r(3))],y=[p.offset,r(0),p.scale];
+      const dx=derivative(x),dy=derivative(y);
+      const dx2=convolution(dx,dx),dy2=convolution(dy,dy);
+      const speed=[p.scale,r(0),p.scale]; // strictly positive for every t
+      require(polyEqual(convolution(speed,speed),dx2.map((v,i)=>add(v,dy2[i]??r(0)))),"Exact squared norm of independent derivatives");
+      return scalar(integral(speed,p.lower,p.upper),["differentiate both original coordinates","sum derivative squares equals k²(t²+1)²","speed>0 for every t; correct parameter interval; length units"]);
+    }
     case "integral": {
       require(sign(p.a)!==0,"Nonzero exponential/trig coefficient");
       const a=f(p.a),b=f(p.b),inside=`(${a})x+(${b})`;
@@ -99,6 +173,14 @@ export function batchECertificate(task:Task):{input:AnswerInput;basis:readonly s
         const d=derivative(cs),identity=cs.map((c,j)=>add(mul(p.a,c),d[j]??r(0)));
         require(polyEqual(identity,Array.from({length:p.n+1},(_,j)=>j===p.n?p.k:r(0))),"P'+aP=k*x^n");
         return primitive([...cs].reverse(),Array.from({length:p.n+1},(_,i)=>p.n-i?`x^${p.n-i}e^((${a})x)`:`e^((${a})x)`),["closed factorial oracle","D(e^(ax)P)=e^(ax)(P'+aP) on R"]);
+      }
+      if(p.method==="recurrence"){
+        const denominator=add(power(p.a,2),power(p.b,2));
+        require(sign(denominator)>0&&sign(p.b)!==0,"Nonsingular two-coefficient derivative system");
+        const A=div(add(mul(p.a,p.k),mul(p.b,p.q)),denominator),B=div(sub(mul(p.a,p.q),mul(p.b,p.k)),denominator);
+        require(same(sub(mul(p.a,A),mul(p.b,B)),p.k),"Restored sine coefficient");
+        require(same(add(mul(p.b,A),mul(p.a,B)),p.q),"Restored cosine coefficient");
+        return primitive([A,B],[`e^((${a})x)sin((${b})x)`,`e^((${a})x)cos((${b})x)`],["solve independent derivative coefficient system","both trig coefficients restored on R"]);
       }
       throw Error("Integral method outside bounded manifest: "+p.method);
     }

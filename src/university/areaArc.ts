@@ -81,7 +81,7 @@ export function presentAreaArc(p:AreaArcProblem,locale:Locale){
   const curve="y=(2·"+k+"/3)(x−("+h+"))^(3/2)+("+offset+")";
   lesson.work("y′="+k+"√(x−("+h+"))",
     t("Reguła potęgowa daje pochodną; obliczamy tylko dla x≥h.","The power rule gives the derivative for x≥h."));
-  lesson.work("L=∫ od "+h+" do "+fmt(end)+" √(1+(y′)²) dx = ∫ √(1+"+(k*k)+"(x−("+h+"))) dx",
+  lesson.work("L=∫"+t(" od "," from ")+h+t(" do "," to ")+fmt(end)+" √(1+(y′)²) dx = ∫ √(1+"+(k*k)+"(x−("+h+"))) dx",
     t("Zastosuj wzór na długość łuku wykresu y(x).","Apply the arc-length formula for a graph y(x)."));
   lesson.work("u=1+"+(k*k)+"(x−("+h+")); du="+(k*k)+" dx; u: 1→"+(m*m),
     t("Podstawienie sprowadza całkę do ∫√u du; oba końce są dodatnie.","Substitution reduces the integral to ∫√u du; both bounds are positive."));
