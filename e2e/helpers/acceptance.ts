@@ -48,6 +48,7 @@ export async function runPinnedAcceptance(
   wrong: (answer: AnswerInput, task: Task) => AnswerInput,
   adapter?: {
     categoryLabels?: readonly [string,string];
+    group?: "basics" | "university";
     fillInput?: (page:Page,input:AnswerInput)=>Promise<void>;
     inspectPinned?: (page:Page,task:Task)=>Promise<void>;
   },
@@ -64,7 +65,8 @@ export async function runPinnedAcceptance(
     await page.addInitScript(() => { Date.now = () => 151169; });
     await page.goto("/");
     if (en) await button(page, "English").click();
-    await button(page, en ? "University mathematics" : "Matematyka na studia").click();
+    const basics=adapter?.group==="basics";
+    await button(page, en ? (basics?"Review the basics":"University mathematics") : (basics?"Powtórka podstaw":"Matematyka na studia")).click();
     const candidates = Array.from({ length: 24 }, (_, v) => makeUniversityTask(row.family, v, row.level));
     const category = candidates[0].category as keyof typeof categories;
     await button(page, (adapter?.categoryLabels ?? categories[category])[lang]).click();

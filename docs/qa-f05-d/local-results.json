@@ -1,0 +1,236 @@
+{
+  "recordedAtUtc": "2026-11-05T15:13:36.312940+00:00",
+  "baselineMain": "37617586563300787f1964932cbd38706f918865",
+  "implementationHead": "955d3406bd89e91de658867b2559c9505d4f42aa",
+  "change": "Only profile-2 right slope changes from -1 to +1; v2,8,14,20 at hard/advanced/expert. No new endpoint/renderer/answer rule.",
+  "familyCountUnchanged": 231,
+  "catalogVariantCountUnchanged": 18093,
+  "familyVariantCount": 72,
+  "changedVariantIds": [
+    "function-integrated-asymptotes:hard:2",
+    "function-integrated-asymptotes:hard:8",
+    "function-integrated-asymptotes:hard:14",
+    "function-integrated-asymptotes:hard:20",
+    "function-integrated-asymptotes:advanced:2",
+    "function-integrated-asymptotes:advanced:8",
+    "function-integrated-asymptotes:advanced:14",
+    "function-integrated-asymptotes:advanced:20",
+    "function-integrated-asymptotes:expert:2",
+    "function-integrated-asymptotes:expert:8",
+    "function-integrated-asymptotes:expert:14",
+    "function-integrated-asymptotes:expert:20"
+  ],
+  "independentMathTasks": 12,
+  "localizedInstances": 24,
+  "results": {
+    "targeted": {
+      "passed": 24,
+      "failed": 0,
+      "files": 4,
+      "report": "test-results/f05-d-targeted.json",
+      "sha256": "3ffc908be7f350d10f7284614a8fd320692c9d3694aef190c442df677655e2a2"
+    },
+    "fullUnits": {
+      "passed": 1654,
+      "failed": 0,
+      "files": 128,
+      "report": "test-results/f05-d-full-unit.json",
+      "sha256": "68a45db297989e014cc6ce4ed2680177f4a403067b37ac6151f11c24ec8e140c"
+    },
+    "productionChromium": {
+      "passed": 16,
+      "strictPinnedTests": 4,
+      "existingRendererRegressions": 12,
+      "durationMs": 35819.4,
+      "report": "test-results/f05-d-results.json",
+      "sha256": "0221a43e9f4c08bc04b6c2a0db6374c6fd0d5d3b5aa4bc7903ec74524886d47d"
+    }
+  },
+  "build": "PASS (existing >500kB chunk warning)",
+  "witnesses": [
+    {
+      "id": "function-integrated-asymptotes:hard:2",
+      "locale": "pl",
+      "width": 375,
+      "geometry": [
+        [
+          -3,
+          -3
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "labels": {
+        "domain": "[−3; −1) ∪ (−1; 3) ∪ (3; 5]",
+        "range": "ℝ",
+        "increasing": "[−3; −1) ∪ (3; 5]",
+        "decreasing": "(−1; 3)",
+        "injective": "Nie",
+        "parity": "Ani parzysta, ani nieparzysta"
+      },
+      "errors": []
+    },
+    {
+      "id": "function-integrated-asymptotes:hard:2",
+      "locale": "en",
+      "width": 375,
+      "geometry": [
+        [
+          -3,
+          -3
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "labels": {
+        "domain": "[−3; −1) ∪ (−1; 3) ∪ (3; 5]",
+        "range": "ℝ",
+        "increasing": "[−3; −1) ∪ (3; 5]",
+        "decreasing": "(−1; 3)",
+        "injective": "No",
+        "parity": "Neither"
+      },
+      "errors": []
+    },
+    {
+      "id": "function-integrated-asymptotes:hard:2",
+      "locale": "pl",
+      "width": 1280,
+      "geometry": [
+        [
+          -3,
+          -3
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "labels": {
+        "domain": "[−3; −1) ∪ (−1; 3) ∪ (3; 5]",
+        "range": "ℝ",
+        "increasing": "[−3; −1) ∪ (3; 5]",
+        "decreasing": "(−1; 3)",
+        "injective": "Nie",
+        "parity": "Ani parzysta, ani nieparzysta"
+      },
+      "errors": []
+    },
+    {
+      "id": "function-integrated-asymptotes:hard:2",
+      "locale": "en",
+      "width": 1280,
+      "geometry": [
+        [
+          -3,
+          -3
+        ],
+        [
+          -1,
+          -1
+        ],
+        [
+          3,
+          2
+        ],
+        [
+          5,
+          4
+        ]
+      ],
+      "labels": {
+        "domain": "[−3; −1) ∪ (−1; 3) ∪ (3; 5]",
+        "range": "ℝ",
+        "increasing": "[−3; −1) ∪ (3; 5]",
+        "decreasing": "(−1; 3)",
+        "injective": "No",
+        "parity": "Neither"
+      },
+      "errors": []
+    }
+  ],
+  "screenshots": [
+    {
+      "test": "F05-d hard:2 exact six fields pl 375px",
+      "sha256": "1defeb90e5550f377bb48f792813d485755090acd7a83055afe2bf78ef661f48"
+    },
+    {
+      "test": "F05-d hard:2 exact six fields en 375px",
+      "sha256": "e99946a8c24d1d04f20d541a55d0e09bc5e17381795668e28beb029d80316e77"
+    },
+    {
+      "test": "F05-d hard:2 exact six fields pl 1280px",
+      "sha256": "3786981738ab27d86fc70ffc68e45bbaa0cd8854de03854d362705fc7cbcbd0d"
+    },
+    {
+      "test": "F05-d hard:2 exact six fields en 1280px",
+      "sha256": "9f2e79f233b04f70e2b07e5959e6c6bbbbaed34d6695fae01127778886915b05"
+    }
+  ],
+  "sourceSha256": {
+    "src/university/graphIntegratedAsymptotes.ts": "8a27d43229f62b937a2a738df24761434677af66ca21ad5033948ffa15101700",
+    "src/university/graphIntegratedAsymptotes.test.ts": "c4bfad36c6c7a7cf5483bcc409692a31b7080fb23b7fb31394030605849552c7",
+    "src/university/f05DProfile.test.ts": "1e331f925f0a5cf012bf30b5c045d33e4f91029d3e502a990facce29b02645e4",
+    "src/university/graphAsymptoteRange.ts": "9db995610266c18040f8defdd3da8757b3e25bc9ee0ee916c1a5b06581a43b10",
+    "src/university/graphAsymptoteRange.test.ts": "edd53fc08f2bb740dfc8d021c0cafae61bfc70f64233d3ff29ebf9bb9d3edf5c",
+    "src/university/f05MethodProxyEvidence.test.ts": "19abdc3a0e85f609e1b7805a5028d5abe1892cddf8df4e019ba72f7be664f644",
+    "src/IntegratedAsymptoteDisplay.tsx": "4208a7995ac38cc510a0801f38bfa192da85437febc089f18dc8a2b3d7dd60b2",
+    "src/answers.ts": "2cf91a211217e11199c7a7c4815c85899c981444f9c76e2bc6ca0f67b1ffa0b9",
+    "src/rational.ts": "bfbf34f7d6acd2942e8089b2aff214865689d07cb9b6a638c974975c4c3c41a3",
+    "e2e/f05-d-profile.spec.ts": "34cf85f25c11de14b543817116a11df6da99890a447333a3db24efb443ddc93c",
+    "e2e/graph-integrated-asymptotes.spec.ts": "966b1f59a7460fd2095393c3540d714756dfc5e0d67b924d17cdb9946e30625b",
+    "e2e/helpers/acceptance.ts": "e339077709fad3c081f150a86294d3e894dd83be689eebecfda120f0c36ff79c",
+    "playwright.f05-d.config.ts": "d76fb1ae0577325da83a6ae25f2bed4df60287f5e7c1c032d26c58e8437161c5",
+    "playwright.config.ts": "efba0ec9bed2502393cdc019881beb41125de0639634f6a7bdfeba0226d879f9",
+    "playwright.batch-b.config.ts": "72c960d49583865bc1b03d63242f1413261b4b29ffc336bbc9f0553502c971f4",
+    "tsconfig.node.json": "cc2fb947052b6f1bdce1736f5dbaa2788b39d5768196c774d3af6fd4c16da740",
+    "docs/F05_SOURCE_WITNESS_ACCEPTANCE.md": "b7ef72fb52b16a03a1fd95813ae42ad1999ee571d57a8c9913d22a40ac90f6b6",
+    ".github/workflows/ci.yml": "69c50bebacef2a3d72144891f4d89ab91e2cdd21a4becbecc234a739ed929c27",
+    "package-lock.json": "593df17d1f722f189e6894e7df63f79d572a4b4d3791ffa50acfe49faf179f2f"
+  },
+  "productionSha256": {
+    "dist/assets/index-BUu7QWlL.js": "0e14ed355c3a3a876ecc41e618b61f66dbae1edc6025ac91cb1c1ed2c34c2861",
+    "dist/assets/index-Cyp6kSf3.css": "d7de1284128a0208fa3ed4bd6d4bf0ccf811f89c27c0e61efacfbd79d5fa909c",
+    "dist/assets/react-vendor-DPWBTFcE.js": "6989d54c795d694bb0fd5d038161cb5cd121a31fc81ffae6b849082e41dbd513",
+    "dist/assets/rolldown-runtime-WkwZ5CU-.js": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e",
+    "dist/favicon.svg": "201f34726fb82d03a8fef5dd028ebe62692e77b6d4b2f1f036dbc3dbef245d84",
+    "dist/index.html": "0064431199fec82f701a7e605e9a2b33f6ae9ffa36fe14a8e93bc753622a7d4f"
+  },
+  "commands": {
+    "targeted": "npx vitest run src/university/f05DProfile.test.ts src/university/graphIntegratedAsymptotes.test.ts src/university/f05MethodProxyEvidence.test.ts src/university/graphAsymptoteRange.test.ts --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/f05-d-targeted.json",
+    "fullUnits": "npm test -- --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/f05-d-full-unit.json",
+    "build": "npm run build",
+    "productionChromium": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npx playwright test --config playwright.f05-d.config.ts"
+  },
+  "beforeFix": "13/13 new tests fail on baseline: negative right slope / wrong pinned geometry.",
+  "sourceAcceptance": "SOURCE_NOT_VERIFIED; no private source read or SOURCE_PASS awarded.",
+  "ci": "Final delivery SHA and immutable terminal Actions URL paired in Draft PR validation. No workflow mutation; four strict tests also run in existing base suite."
+}
