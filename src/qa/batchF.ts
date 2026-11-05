@@ -137,7 +137,7 @@ export function batchFCertificate(task:Task):FCertificate {
   case "analysis-study-polynomial":
   case "analysis-study-rational":{
    demand(p.target==="stationary"&&sign(p.coefficient)!==0,"Selected original complete-study slice");
-   const m=p.coefficient,a=p.at,left=sub(a,r(1)),right=add(a,r(1)),h=`(x−(${f(a)}))`,sgn=sign(m),up=glyph(sgn),down=glyph(-sgn);
+   const m=p.coefficient,a=p.at,left=sub(a,r(1)),right=add(a,r(1)),h=`(x−(${f(a)}))`,sgn=sign(m);
    if(p.kind==="analysis-study-polynomial"){
     const original=[r(0),mul(r(-3),m),r(0),m],d=derivative(original),dd=derivative(d);
     demand(polyEqual(d,scaled([r(-1),r(0),r(1)],mul(r(3),m))),"Cubic derivative factorization");

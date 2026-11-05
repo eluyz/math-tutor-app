@@ -31,6 +31,9 @@ async function fill(page: Page, input: AnswerInput) {
   } else if (input.kind === "limit") {
     await page.locator("#answer").selectOption(input.classification);
     if (input.classification === "finite") await page.locator("#limit-value").fill(input.value);
+  } else if (input.kind === "roots") {
+    await page.locator("#answer").selectOption(input.classification);
+    for (let i=0;i<input.values.length;i++) await page.locator(`#root-${i}`).fill(input.values[i]);
   } else if (input.kind === "list") {
     const fields = page.locator("form .coefficient-field input");
     await expect(fields).toHaveCount(input.values.length);
@@ -43,6 +46,7 @@ export async function runPinnedAcceptance(
   page: Page, info: TestInfo, row: AcceptanceRow, locale: "pl" | "en", width: number,
   oracle: (task: Task) => AnswerInput,
   wrong: (answer: AnswerInput, task: Task) => AnswerInput,
+  extensions?: {inspectPinned?: (page:Page,task:Task)=>Promise<void>},
 ) {
     test.setTimeout(180_000);
     const en = locale === "en", lang = en ? 1 : 0;
@@ -62,14 +66,17 @@ export async function runPinnedAcceptance(
     await button(page, categories[category][lang]).click();
     await button(page, levels[row.level][lang]).click();
     const title = localizeUniversity(candidates[0], locale).title;
-    await page.locator("button.exercise-item").filter({ hasText: title }).click();
+    await page.locator("button.exercise-item").filter({ has: page.getByText(title, { exact: true }) }).click();
     const pending = new Set<number>(row.variants);
     const witnessed: string[] = [];
     for (let attempt = 0; attempt < 24 && pending.size; attempt++) {
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", row.family);
       await expect(page.locator(".question")).toHaveAttribute("data-difficulty", row.level);
       const displayed = await page.locator(".question").innerText();
-      let matches = candidates.filter(task => localizeUniversity(task, locale).question === displayed);
+      // Browser innerText collapses whitespace at line breaks. Mathematical
+      // content must still identify exactly one variant after normalization.
+      const normalized=(text:string)=>text.replace(/\s+/g," ").trim();
+      let matches = candidates.filter(task => normalized(localizeUniversity(task, locale).question) === normalized(displayed));
       const rationalMatrices = (task: Task) => {
         const p = task.university;
         if (p.kind === "linear-matrix-practice") return p.matrices.map(item => item.values);
@@ -134,6 +141,7 @@ export async function runPinnedAcceptance(
           await expect(page.locator(".solution-panel")).toContainText(step.action);
           await expect(page.locator(".solution-panel")).toContainText(step.reason);
         }
+        await extensions?.inspectPinned?.(page,task);
         if (en) expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
         expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
         expect(errors).toEqual([]);
