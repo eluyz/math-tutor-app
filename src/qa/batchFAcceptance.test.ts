@@ -4,14 +4,26 @@ import {makeUniversityTask,localizeUniversity} from "../university/catalog";
 import {assessAnswer,emptyAnswer} from "../answers";
 import {auditCalculation} from "../university/audit";
 import {polishLearningText} from "../../e2e/helpers/localization";
-const clean=(s:string)=>s.replace(/\s/g,"");
+const clean=(s:string)=>s.replace(/\s/g,"").replaceAll("-","−");
 
 describe("Batch F: exact independent derivatives and function analysis",()=>{
  it("enforces the bounded manifest",()=>{
-  expect(batchF.length).toBeLessThanOrEqual(16);
+  expect(batchF.length).toBe(16);
+  expect(new Set(batchF.flatMap(x=>x.skills)).size).toBe(8);
   expect(new Set(batchF.map(x=>x.family+":"+x.level)).size).toBe(batchF.length);
-  expect(batchF.flatMap(x=>x.variants).length).toBeLessThanOrEqual(32);
+  expect(batchF.flatMap(x=>x.variants).length).toBe(32);
   expect(batchF.every(x=>x.variants.every(v=>v>=0&&v<24))).toBe(true);
+ });
+ it("agrees with hand-derived controls on already sampled IDs",()=>{
+  const controls=[
+   ["analysis-lhospital","expert",11,"1/2"],
+   ["analysis-lhospital-infinity","expert",0,"1/2"],
+   ["derivative-extrema","expert",0,{kind:"choice",value:"ext:none"}],
+   ["analysis-study-polynomial","advanced",11,{kind:"list",values:["−1","2","1","−2"]}],
+   ["analysis-study-rational","advanced",11,{kind:"list",values:["−1","−2","1","2"]}],
+   ["derivative-sign-sketch","expert",0,{kind:"list",values:["−5","0","−3","−4"]}],
+  ] as const;
+  for(const [family,level,v,answer] of controls)expect(batchFCertificate(makeUniversityTask(family,v,level)).input).toEqual(answer);
  });
  for(const row of batchF)it(`${row.block} ${row.skills.join("/")} ${row.family}/${row.level}: 24 exact tasks × PL/EN and all working steps`,()=>{
   const ids=new Set<string>(),forms=new Set<string>();
@@ -36,11 +48,26 @@ describe("Batch F: exact independent derivatives and function analysis",()=>{
      for(const anchor of cert.anchors[i])expect(clean(step.action),task.id+" step "+(i+1)).toContain(clean(anchor));
      for(const calculation of step.calculations)expect(auditCalculation(calculation)).toBe(true);
     });
+    if(view.answer.kind==="choice"&&typeof expected!=="string"&&expected.kind==="choice"){
+     const label=view.answer.options.find(o=>o.value===expected.value)?.label??"";
+     const meanings:Record<string,readonly [RegExp,RegExp]>={
+      "derivative:0":[/ciągła i różniczkowalna/,/continuous and differentiable/],
+      "derivative:1":[/ciągła, ale nieróżniczkowalna/,/continuous but not differentiable/],
+      "derivative:2":[/nieciągła/,/discontinuous/],
+      "vertical":[/styczna pionowa/,/vertical tangent/],"cusp":[/ostrze/,/cusp/],
+      "ext:none":[/bez ekstremum/,/without an extremum/],
+      "ext:min-max":[/Minimum, potem maksimum/,/Minimum, then maximum/],
+      "ext:max-min":[/Maksimum, potem minimum/,/Maximum, then minimum/],
+      "inflection-none":[/^∄$/,/^∄$/],
+     };
+     if(meanings[expected.value])expect(label).toMatch(meanings[expected.value][view===en?1:0]);
+    }
     if(cert.choiceLabel&&view.answer.kind==="choice"&&typeof expected!=="string"&&expected.kind==="choice")expect(view.answer.options.find(o=>o.value===expected.value)?.label).toBe(cert.choiceLabel);
     if(view===en)expect([view.question,view.hint,view.nextHint,view.explanation,...steps.map(s=>s.action+" "+s.reason)].join(" ")).not.toMatch(new RegExp(polishLearningText.source+"|\\b(gdy|lub)\\b","iu"));
    }
   }
   expect(ids.size).toBe(24);
+  if(row.family==="derivative-extrema")expect(forms).toEqual(new Set(["ext:none","ext:min-max","ext:max-min"]));
   if(row.family==="derivative-piecewise-point")expect(forms).toEqual(new Set(["derivative:0","derivative:1","derivative:2"]));
   if(row.family==="derivative-vertical-cusp")expect(forms).toEqual(new Set(["vertical","cusp"]));
  });
