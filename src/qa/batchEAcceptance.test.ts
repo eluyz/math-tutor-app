@@ -26,12 +26,16 @@ describe("Batch E independent calculus method evidence",()=>{
     for(const [family,level,expected] of cases)expect(batchECertificate(makeUniversityTask(family,0,level)).input).toEqual(expected);
   });
   for(const row of batchE)it(`${row.block} ${row.skill} ${row.family}/${row.level}: 24 exact variants × PL/EN`,()=>{
-    const keys=new Set<string>(),orientations=new Set<number>();
+    const keys=new Set<string>(),orientations=new Set<number>(),forms=new Set<string>();
     for(let v=0;v<24;v++){
       const task=makeUniversityTask(row.family,v,row.level),p=task.university;
       const certificate=batchECertificate(task),expected=certificate.input;
       expect(certificate.checks.length).toBeGreaterThanOrEqual(2);
       keys.add(task.contentKey);
+      if(typeof expected!=="string"&&expected.kind==="limit")forms.add(expected.classification);
+      if(p.kind==="integral-improper-interior-pv"&&typeof expected!=="string"&&expected.kind==="choice")forms.add(expected.value);
+      if(p.kind==="integral-area-parabolas")forms.add(String([sub(p.center,p.radius),add(p.center,p.radius)].filter(x=>sign(sub(x,p.lower))>0&&sign(sub(p.upper,x))>0).length));
+      if(p.kind==="integral-arc-parametric")forms.add(sign(p.upper)<0?"negative":sign(p.lower)>0?"positive":"crosses-zero");
       if(p.kind==="integral-substitution-definite")orientations.add(sign(sub(evaluate([p.c,p.b,{numerator:1n,denominator:1n}],p.upper),evaluate([p.c,p.b,{numerator:1n,denominator:1n}],p.lower))));
       const pl=localizeUniversity(task,"pl"),en=localizeUniversity(task,"en");
       expect(pl.hint).not.toBe(en.hint);expect(pl.nextHint).not.toBe(en.nextHint);
@@ -86,6 +90,10 @@ describe("Batch E independent calculus method evidence",()=>{
       }
     }
     expect(keys.size).toBe(24);
+    if(row.family==="integral-improper-infinity"||row.family==="integral-improper-interior-power")expect(forms).toEqual(new Set(["finite","positive-infinity","negative-infinity"]));
+    if(row.family==="integral-improper-interior-pv")expect(forms).toEqual(new Set(["divergent-pv-zero","divergent-pv-nonzero"]));
+    if(row.family==="integral-area-parabolas")expect(forms).toEqual(new Set(["0","1","2"]));
+    if(row.family==="integral-arc-parametric")expect(forms).toEqual(new Set(["negative","positive","crosses-zero"]));
     if(row.family==="integral-substitution-definite")expect(orientations).toEqual(new Set([-1,0,1]));
   });
 });

@@ -3,7 +3,7 @@ import { defineConfig } from '@playwright/test'
 export default defineConfig({
   testDir: './e2e',
   // Acceptance batches have separate production-preview configurations.
-  testIgnore: ['**/batchBAcceptance.spec.ts', '**/batchCAcceptance.spec.ts'],
+  testIgnore: ['**/batchBAcceptance.spec.ts', '**/batchCAcceptance.spec.ts', '**/batchEAcceptance.spec.ts'],
   use: {
     baseURL: 'http://127.0.0.1:4173/math-tutor-app/',
     browserName: 'chromium',

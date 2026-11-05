@@ -45,6 +45,21 @@ jobs:
       - name: Run Batch C acceptance against the production bundle
         run: npm run test:e2e:batch-c
 
+      - name: Run Batch E acceptance against the production bundle
+        run: npm run test:e2e:batch-e
+
+      - name: Save Batch E browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: batch-e-browser-evidence
+          path: |
+            test-results/batch-e-results.json
+            test-results/batch-e/
+            playwright-report/batch-e/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Save Batch C browser evidence
         if: always()
         uses: actions/upload-artifact@v7

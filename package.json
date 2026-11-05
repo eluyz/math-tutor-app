@@ -12,7 +12,9 @@
     "test:batch-b": "vitest run src/qa/batchBAcceptance.test.ts src/qa/syllabusBatchBMethodWitness.test.ts src/university/sequences.test.ts src/university/functions.test.ts src/university/functionLimits.test.ts src/university/rootPoleDomain.test.ts src/university/cancelledPoleSource.test.ts src/university/limitFollowup.test.ts src/university/infinityRootConjugation.test.ts src/university/derivatives.test.ts src/university/fractionalPowerDerivatives.test.ts src/university/higherRootDerivatives.test.ts src/qa/g05MethodPair.test.ts",
     "test:e2e:batch-b": "playwright test --config playwright.batch-b.config.ts",
     "test:batch-c": "vitest run src/qa/batchCAcceptance.test.ts",
-    "test:e2e:batch-c": "playwright test --config playwright.batch-c.config.ts"
+    "test:e2e:batch-c": "playwright test --config playwright.batch-c.config.ts",
+    "test:batch-e": "vitest run src/qa/batchEAcceptance.test.ts",
+    "test:e2e:batch-e": "playwright test --config playwright.batch-e.config.ts"
   },
   "dependencies": {
     "react": "19.3.1",
