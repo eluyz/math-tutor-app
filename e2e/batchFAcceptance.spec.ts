@@ -15,6 +15,15 @@ async function inspect(page:Page,task:ReturnType<typeof makeUniversityTask>){
  expect(await table.locator("tbody tr").nth(1).locator("td").allTextContents()).toEqual([second[0],second[0],second[1],second[1]]);
  const headers=await table.locator("thead th").allTextContents();
  expect(headers.map(clean)).toEqual(["x",`(−∞;${a-s})`,`(${a-s};${a})`,`(${a};${a+s})`,`(${a+s};+∞)`].map(clean));
+ // A wide sign table may scroll within its container on mobile. Verify
+ // the final column is reachable without overflowing the whole page.
+ const scroller=chart.locator(".sketch-table-scroll");
+ await scroller.evaluate(node=>{node.scrollLeft=node.scrollWidth;});
+ const clip=await scroller.boundingBox(),last=await table.locator("thead th").last().boundingBox();
+ expect(clip).not.toBeNull();expect(last).not.toBeNull();
+ expect(last!.x+last!.width).toBeLessThanOrEqual(clip!.x+clip!.width+2);
+ expect(last!.x).toBeGreaterThanOrEqual(clip!.x-2);
+ await scroller.evaluate(node=>{node.scrollLeft=0;});
  if(!(await chart.locator("details").evaluate(node=>node.hasAttribute("open"))))await chart.locator("summary").click();
  await expect(chart.locator("svg")).toBeVisible();
  const expected=cert.input;if(typeof expected==="string"||expected.kind!=="list")throw Error("Coordinates expected");
