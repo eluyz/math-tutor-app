@@ -65,7 +65,7 @@ export function presentAreaArc(p:AreaArcProblem,locale:Locale){
       t("Najpierw zapisz obie krzywe; stała pionowa znika po odjęciu.","Write both curves first; the vertical shift cancels in their difference."));
     lesson.work("f−g=("+a+")[(x−("+h+"))²−("+rad+")²]; x="+left+", "+right,
       t("Rozwiąż f(x)=g(x), aby wyznaczyć wszystkie punkty zmiany znaku.","Solve f(x)=g(x) to find all possible sign changes."));
-    lesson.work("A=∫ od "+low+" do "+high+" |f(x)−g(x)| dx",
+    lesson.work("A=∫"+t(" od "," from ")+low+t(" do "," to ")+high+" |f(x)−g(x)| dx",
       t("Między punktami przecięcia parabola jest poniżej prostej; poza nimi powyżej.","Between the crossings the parabola is lower; outside them it is higher."));
     lesson.work("F(x)=("+a+")[(x−("+h+"))³/3−("+rad+")²(x−("+h+"))]",
       t("F jest funkcją pierwotną podpisanej różnicy f−g.","F is an antiderivative of the signed difference f−g."));
@@ -81,7 +81,7 @@ export function presentAreaArc(p:AreaArcProblem,locale:Locale){
   const curve="y=(2·"+k+"/3)(x−("+h+"))^(3/2)+("+offset+")";
   lesson.work("y′="+k+"√(x−("+h+"))",
     t("Reguła potęgowa daje pochodną; obliczamy tylko dla x≥h.","The power rule gives the derivative for x≥h."));
-  lesson.work("L=∫ od "+h+" do "+fmt(end)+" √(1+(y′)²) dx = ∫ √(1+"+(k*k)+"(x−("+h+"))) dx",
+  lesson.work("L=∫"+t(" od "," from ")+h+t(" do "," to ")+fmt(end)+" √(1+(y′)²) dx = ∫ √(1+"+(k*k)+"(x−("+h+"))) dx",
     t("Zastosuj wzór na długość łuku wykresu y(x).","Apply the arc-length formula for a graph y(x)."));
   lesson.work("u=1+"+(k*k)+"(x−("+h+")); du="+(k*k)+" dx; u: 1→"+(m*m),
     t("Podstawienie sprowadza całkę do ∫√u du; oba końce są dodatnie.","Substitution reduces the integral to ∫√u du; both bounds are positive."));

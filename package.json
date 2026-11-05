@@ -14,7 +14,9 @@
     "test:batch-c": "vitest run src/qa/batchCAcceptance.test.ts",
     "test:e2e:batch-c": "playwright test --config playwright.batch-c.config.ts",
     "test:batch-d": "vitest run src/qa/batchDAcceptance.test.ts",
-    "test:e2e:batch-d": "playwright test --config playwright.batch-d.config.ts"
+    "test:e2e:batch-d": "playwright test --config playwright.batch-d.config.ts",
+    "test:batch-e": "vitest run src/qa/batchEAcceptance.test.ts",
+    "test:e2e:batch-e": "playwright test --config playwright.batch-e.config.ts"
   },
   "dependencies": {
     "react": "19.3.1",
