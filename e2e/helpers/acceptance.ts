@@ -31,6 +31,9 @@ async function fill(page: Page, input: AnswerInput) {
   } else if (input.kind === "limit") {
     await page.locator("#answer").selectOption(input.classification);
     if (input.classification === "finite") await page.locator("#limit-value").fill(input.value);
+  } else if (input.kind === "roots") {
+    await page.locator("#answer").selectOption(input.classification);
+    for (let i=0;i<input.values.length;i++) await page.locator(`#root-${i}`).fill(input.values[i]);
   } else if (input.kind === "list") {
     const fields = page.locator("form .coefficient-field input");
     await expect(fields).toHaveCount(input.values.length);
@@ -44,8 +47,9 @@ export async function runPinnedAcceptance(
   oracle: (task: Task) => AnswerInput,
   wrong: (answer: AnswerInput, task: Task) => AnswerInput,
   adapter?: {
-    categoryLabels: readonly [string,string];
-    fillInput: (page:Page,input:AnswerInput)=>Promise<void>;
+    categoryLabels?: readonly [string,string];
+    fillInput?: (page:Page,input:AnswerInput)=>Promise<void>;
+    inspectPinned?: (page:Page,task:Task)=>Promise<void>;
   },
 ) {
     test.setTimeout(180_000);
@@ -141,6 +145,7 @@ export async function runPinnedAcceptance(
           await expect(page.locator(".solution-panel")).toContainText(step.action);
           await expect(page.locator(".solution-panel")).toContainText(step.reason);
         }
+        await adapter?.inspectPinned?.(page,task);
         if (en) expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
         expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
         expect(errors).toEqual([]);

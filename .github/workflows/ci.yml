@@ -75,6 +75,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Run Batch F acceptance against the production bundle
+        run: npm run test:e2e:batch-f
+
+      - name: Save Batch F browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: batch-f-browser-evidence
+          path: |
+            test-results/batch-f-results.json
+            test-results/batch-f/
+            playwright-report/batch-f/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Save Batch C browser evidence
         if: always()
         uses: actions/upload-artifact@v7
