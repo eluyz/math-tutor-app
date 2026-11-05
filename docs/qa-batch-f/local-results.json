@@ -1,6 +1,6 @@
 {
   "recordedAtUtc": "2026-11-05T08:32:01.396648+00:00",
-  "implementationHead": "4f0a5720ca52e16fbca9c0f133898a5f01efa942",
+  "implementationHead": "2a2d479d0cf0c462f78ec106a60100006bf50c16",
   "baselineMain": "cdb0ab76b20c5f176153593507cd7b9171f67cc4",
   "scope": {
     "skills": 8,
@@ -290,8 +290,8 @@
     "success": true
   },
   "fullUnits": {
-    "numTotalTests": 1622,
-    "numPassedTests": 1622,
+    "numTotalTests": 1641,
+    "numPassedTests": 1641,
     "numFailedTests": 0,
     "numPendingTests": 0,
     "success": true
@@ -303,44 +303,13 @@
   },
   "browser": {
     "successfulScenarios": 64,
-    "initialStats": {
-      "startTime": "2026-11-05T08:22:04.248Z",
-      "duration": 199181.39599999998,
-      "expected": 60,
-      "skipped": 0,
-      "unexpected": 4,
-      "flaky": 0
-    },
-    "targetedD09Stats": {
-      "startTime": "2026-11-05T08:29:00.661Z",
-      "duration": 16786.622,
-      "expected": 4,
+    "stats": {
+      "startTime": "2026-11-05T08:47:07.793Z",
+      "duration": 237070.078,
+      "expected": 64,
       "skipped": 0,
       "unexpected": 0,
       "flaky": 0
-    },
-    "note": "60 unaffected passes plus 4 corrected D09 passes; final CI runs all 64. Rerun is limited to the same 2 D09 IDs in PL/EN and both widths.",
-    "matrix": {
-      "pl/375": {
-        "witnesses": 32,
-        "distinct": 32,
-        "errors": []
-      },
-      "en/375": {
-        "witnesses": 32,
-        "distinct": 32,
-        "errors": []
-      },
-      "pl/1280": {
-        "witnesses": 32,
-        "distinct": 32,
-        "errors": []
-      },
-      "en/1280": {
-        "witnesses": 32,
-        "distinct": 32,
-        "errors": []
-      }
     },
     "pinnedIds": [
       "analysis-concavity:advanced:0",
@@ -376,6 +345,29 @@
       "derivative-vertical-cusp:expert:0",
       "derivative-vertical-cusp:expert:3"
     ],
+    "matrix": {
+      "pl/375": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "en/375": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "pl/1280": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "en/1280": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      }
+    },
+    "note": "Fresh complete production run on integrated implementation, both locales and widths; all 64 passed in one run.",
     "visualReview": [
       "D09 EN 375px",
       "D08 rational EN 1280px"
@@ -391,16 +383,19 @@
     "npm test -- --reporter=default --reporter=json --outputFile=test-results/batch-f-full-unit-results.json"
   ],
   "testedFileSha256": {
-    ".github/workflows/ci.yml": "d7bffd9c757059411e8cdd3ee846aa35f1e25bfb4e49d91be34bf5b19b05c77a",
+    ".github/workflows/ci.yml": "69c50bebacef2a3d72144891f4d89ab91e2cdd21a4becbecc234a739ed929c27",
+    "e2e/batchEAcceptance.spec.ts": "f4a4cc03ed5ed50734fc2c77c311a6f598aef983adf5e8967c66fe1f0ecdae37",
     "e2e/batchFAcceptance.spec.ts": "4290d6cfcc4e22c75001203c1de0567def302f0c371a5736f184c685aeed0cc8",
-    "e2e/helpers/acceptance.ts": "9407c68aff63f6a1ad857e0cdce064ad15d1ef1428f6023c572a1ede1a80d757",
+    "e2e/helpers/acceptance.ts": "e339077709fad3c081f150a86294d3e894dd83be689eebecfda120f0c36ff79c",
     "e2e/helpers/localization.ts": "2ed5673589da5831568133fc2d1b203f8704a331c8ddddf311e79d4bf16cd9e3",
-    "package.json": "369247e72babe0ee713f8569d1091745a57fabfbe8069d7637effa0f56ad36f9",
+    "package.json": "b59ab6adfd3f6a3e6291954950c878b54ca3dbf77bed1cb1e108455631a8f3d4",
     "playwright.batch-b.config.ts": "72c960d49583865bc1b03d63242f1413261b4b29ffc336bbc9f0553502c971f4",
     "playwright.batch-f.config.ts": "aba4cd3914febbe7d3c38b2bf51d9c9121978f29f6eb3d70450a9761fe4b4aae",
-    "playwright.config.ts": "1266cbe08b05a0cb65e2eed188b5316048e866f34b415fec7e2c81c9840bb817",
+    "playwright.config.ts": "efba0ec9bed2502393cdc019881beb41125de0639634f6a7bdfeba0226d879f9",
     "src/DerivativeSketchDisplay.tsx": "15ca3db6ab75d29299acd13192499aecf69097a7c61d539e4f1cfdc5b6201f32",
     "src/answers.ts": "2cf91a211217e11199c7a7c4815c85899c981444f9c76e2bc6ca0f67b1ffa0b9",
+    "src/qa/batchE.ts": "e045ab6cefbad60e8564dd306a68cb7f85942290e03329caf231e3f22697474e",
+    "src/qa/batchEAcceptance.test.ts": "c0a0a7ab69370392842922ba38b5466fd0b99c22e264d78785bd9cdda99a241f",
     "src/qa/batchF.ts": "b3396d5d3d9eaf9ad1c6c74f83e247140b97080ba2cb906a0e843b217da67ff9",
     "src/qa/batchFAcceptance.test.ts": "26b405b269caa095f869e4624ef8c0765adf4cfe842540b5ae851b2653778a33",
     "src/qa/batchFMath.ts": "e56b2ede049250e106392576450bfe583c7960f5ddbaeb85ae0719564b7532bf",
@@ -408,23 +403,143 @@
     "src/university/catalog.ts": "7fdae70383e548ea6175e929b58776f7f594ab11e383acedab5641c2ce154bf3",
     "src/university/derivativeFollowup.ts": "1fa8b65a4df09abbc46362ccdc1d344bed5a790c2137083e5877d168298f6441",
     "src/university/functions-audit.ts": "55702c3f0c464ea9a07521101e03869798b34ca4f3332666e31ab6842acd3f51",
-    "tsconfig.node.json": "13deed113302c0d379d2f39cff7dfe7cac228362c261b94005cc768301ee3ef1"
+    "tsconfig.node.json": "9c9d3328bffc7f130ddb7a3ca7410eb6b1542468b99d80f0037cae4bceee7948"
   },
   "bundleSha256": {
-    "dist/assets/index-BU5FPu3K.js": "5efc8af007fdb305f6ba59677b5a024c1824fac27900f57843c9512b6076aa77",
+    "dist/assets/index-BxjYL-HQ.js": "16d5076f52e0c4a12b97ddcf15892a126b4f47b694cd5daaa7c8e182b615da3d",
     "dist/assets/index-Cyp6kSf3.css": "d7de1284128a0208fa3ed4bd6d4bf0ccf811f89c27c0e61efacfbd79d5fa909c",
     "dist/assets/react-vendor-DPWBTFcE.js": "6989d54c795d694bb0fd5d038161cb5cd121a31fc81ffae6b849082e41dbd513",
     "dist/assets/rolldown-runtime-WkwZ5CU-.js": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e",
     "dist/favicon.svg": "201f34726fb82d03a8fef5dd028ebe62692e77b6d4b2f1f036dbc3dbef245d84",
-    "dist/index.html": "8f13a74110c1d0da3a5b1e42ec09ba6e51b494296eda749c4f1ecd567cd94859"
+    "dist/index.html": "0a554f8954bf454967a84ec6c73b02f31c564b196522067210ed312aff1e8336"
   },
   "rawReportSha256": {
     "test-results/batch-f-initial-results.json": "ed448290a8de85add206321028b5f522ed3e0a101216c2133c9a36c32e6ef2ac",
-    "test-results/batch-f-results.json": "308ae444d698df80a42660614873449b5b1ebae1ba676c0d9043561f2c1b7e4c",
+    "test-results/batch-f-results.json": "51e25e6dccc5e69d445e3740c8b8dec1dd9771da12949fe62d740b0344ceb561",
     "test-results/batch-f-unit-results.json": "e6bf176ca63f04f35bb14f7e812f30fd2251c9e45976d3269ec1aa5748120ac4",
     "test-results/batch-f-regression-results.json": "01d9a3e5378b0734853ee9e9218ff6a744ecc0c5ab0b622974092857f69a32ca",
-    "test-results/batch-f-full-unit-results.json": "e4da0b02208421d891bd7b93f5b37d6913dbcd05eb017817dc2e921af69db3eb"
+    "test-results/batch-f-full-unit-results.json": "e4da0b02208421d891bd7b93f5b37d6913dbcd05eb017817dc2e921af69db3eb",
+    "test-results/batch-f-integration-unit-results.json": "87bff962d57b6f5357b78d737757eb235ed8ba721be6376ed7d3ce26e7164edc",
+    "test-results/batch-f-integrated-full-unit-results.json": "6ef0143eca8eaea29841f246a872aedd84f9dd6ed29efca0907a9eab849a98d4",
+    "test-results/batch-f-contention-results.json": "56cf95e250d8372b9fba26eab4f4309c15e1c6b535af930eb7d9ca872cabd629",
+    "test-results/batch-f-preintegration-sketch-results.json": "308ae444d698df80a42660614873449b5b1ebae1ba676c0d9043561f2c1b7e4c"
   },
   "sourceGate": "BLOCKED_SOURCE for D02-D09; no private original read; zero SOURCE_PASS",
-  "finalCi": "Exact final delivery SHA and immutable terminal run URL are paired in the Draft PR validation section."
+  "finalCi": "Exact final delivery SHA and immutable terminal run URL are paired in the Draft PR validation section.",
+  "preIntegration": {
+    "implementationHead": "4f0a5720ca52e16fbca9c0f133898a5f01efa942",
+    "fullUnits": {
+      "numTotalTests": 1622,
+      "numPassedTests": 1622,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "success": true
+    },
+    "browser": {
+      "successfulScenarios": 64,
+      "initialStats": {
+        "startTime": "2026-11-05T08:22:04.248Z",
+        "duration": 199181.39599999998,
+        "expected": 60,
+        "skipped": 0,
+        "unexpected": 4,
+        "flaky": 0
+      },
+      "targetedD09Stats": {
+        "startTime": "2026-11-05T08:29:00.661Z",
+        "duration": 16786.622,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      },
+      "note": "60 unaffected passes plus 4 corrected D09 passes; final CI runs all 64. Rerun is limited to the same 2 D09 IDs in PL/EN and both widths.",
+      "matrix": {
+        "pl/375": {
+          "witnesses": 32,
+          "distinct": 32,
+          "errors": []
+        },
+        "en/375": {
+          "witnesses": 32,
+          "distinct": 32,
+          "errors": []
+        },
+        "pl/1280": {
+          "witnesses": 32,
+          "distinct": 32,
+          "errors": []
+        },
+        "en/1280": {
+          "witnesses": 32,
+          "distinct": 32,
+          "errors": []
+        }
+      },
+      "pinnedIds": [
+        "analysis-concavity:advanced:0",
+        "analysis-concavity:advanced:11",
+        "analysis-concavity:expert:0",
+        "analysis-concavity:expert:11",
+        "analysis-lhospital-infinity:expert:0",
+        "analysis-lhospital-infinity:expert:1",
+        "analysis-lhospital:expert:0",
+        "analysis-lhospital:expert:11",
+        "analysis-log-exp-derivative:hard:0",
+        "analysis-log-exp-derivative:hard:1",
+        "analysis-study-polynomial:advanced:0",
+        "analysis-study-polynomial:advanced:11",
+        "analysis-study-rational:advanced:0",
+        "analysis-study-rational:advanced:11",
+        "derivative-absolute-one-sided:hard:0",
+        "derivative-absolute-one-sided:hard:1",
+        "derivative-extrema:expert:0",
+        "derivative-extrema:expert:1",
+        "derivative-log-quadratic:expert:0",
+        "derivative-log-quadratic:expert:1",
+        "derivative-piecewise-point:hard:1",
+        "derivative-piecewise-point:hard:2",
+        "derivative-product-point:hard:0",
+        "derivative-product-point:hard:1",
+        "derivative-quadratic-quotient:expert:0",
+        "derivative-quadratic-quotient:expert:1",
+        "derivative-sign-sketch:expert:0",
+        "derivative-sign-sketch:expert:16",
+        "derivative-trig-special-point:hard:0",
+        "derivative-trig-special-point:hard:1",
+        "derivative-vertical-cusp:expert:0",
+        "derivative-vertical-cusp:expert:3"
+      ],
+      "visualReview": [
+        "D09 EN 375px",
+        "D08 rational EN 1280px"
+      ]
+    },
+    "note": "Superseded by fresh integrated full-unit and 64-scenario browser runs."
+  },
+  "integratedMain": "591a1d6ac0d69faeeb074a1b0c633cac3b69c4ae",
+  "integrationUnits": {
+    "numTotalTests": 37,
+    "numPassedTests": 37,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "resourceContention": {
+    "failedTests": 2,
+    "reason": "Two existing historical scans exceeded 5000ms while Chromium was running concurrently. Repeat full units alone with maxWorkers=1 passed; no timeout change.",
+    "failedReportSha256": "56cf95e250d8372b9fba26eab4f4309c15e1c6b535af930eb7d9ca872cabd629"
+  },
+  "integrationCommands": [
+    "npx vitest run src/qa/batchEAcceptance.test.ts src/qa/batchFAcceptance.test.ts --reporter=default --reporter=json --outputFile=test-results/batch-f-integration-unit-results.json",
+    "npm run build",
+    "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e:batch-f",
+    "npm test -- --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/batch-f-integrated-full-unit-results.json"
+  ],
+  "oldCi": {
+    "run": 41995304740,
+    "head": "ccba4b91b806349d384228386ef31b98c4eabb3e",
+    "status": "cancelled after owner merged E; not final acceptance"
+  },
+  "integrationRecordedAtUtc": "2026-11-05T08:54:21.921748+00:00"
 }
