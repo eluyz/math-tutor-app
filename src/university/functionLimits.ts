@@ -120,6 +120,35 @@ function pointProblem(v: number, level: Difficulty): FunctionLimitProblem {
     definedAt: r(v - 11),
   };
 }
+/** G01: synthetic non-singular quadratic/quadratic rational limit.
+ * The positive quadratic denominator retains a genuine denominator under
+ * direct substitution, as required by the mapped source method. No private
+ * exercise coefficients or answer-key values are stored in this family.
+ */
+function quadraticRationalPoint(v: number): FunctionLimitProblem {
+  const at = r(v - 11, 1 + (v % 3));
+  const numerator = [r(v - 7), r((v % 5) - 2), r(v % 2 ? -2 : 3)];
+  const offset = r(2 + (v % 5));
+  // D(x)=(x-at)^2+offset>0 on R, hence D(at)>0.
+  const denominator = [add(mul(at, at), offset), mul(r(-2), at), r(1)];
+  return { kind: "limit-point", numerator: poly(numerator), denominator, at, side: "both" };
+}
+
+/** G02: synthetic 0/0 rational limit with one cancellable factor and one
+ * nonzero residual denominator factor. Unlike the older medium point family,
+ * the denominator does not reduce to the constant 1 after cancellation.
+ */
+function cancelledRationalPoint(v: number): FunctionLimitProblem {
+  const at = r(v - 11, 1 + (v % 3)), root = [negative(at), r(1)];
+  const gap = r(1 + (v % 4)), other = v % 2 ? add(at, gap) : sub(at, gap);
+  const lead = r(v % 2 ? -2 : 3), residualAt = r((v % 3 ? -1 : 1) * (2 + (v % 5)));
+  const residualNumerator = [sub(residualAt, mul(lead, at)), lead];
+  return {
+    kind: "limit-point", numerator: poly(polynomialProduct(root, residualNumerator)),
+    denominator: polynomialProduct(root, [negative(other), r(1)]), at, side: "both",
+  };
+}
+
 /** G03 source-shaped (x−a)(mx−b)/(x−a)²: indeterminate 0/0
  * with a simple pole after legitimate cancellation (x≠a). The private
  * P26 exercise is not copied; all coefficients are synthetic.
@@ -168,6 +197,26 @@ export const functionLimitFamilies: readonly UniversityFamily[] = [
               ? "second-order"
               : "two-roots",
     }),
+  },
+  {
+    id: "limit-quadratic-ratio-point",
+    category: "function-limits",
+    titles: {
+      pl: "Granica ilorazu dwóch wielomianów kwadratowych przy niezerowym mianowniku",
+      en: "Quadratic-over-quadratic point limit with a nonzero denominator",
+    },
+    supportedDifficulties: ["easy"],
+    create: (v) => quadraticRationalPoint(v),
+  },
+  {
+    id: "limit-cancelled-quadratic-ratio",
+    category: "function-limits",
+    titles: {
+      pl: "Granica 0/0 po skróceniu z pozostającym czynnikiem mianownika",
+      en: "Cancel a 0/0 factor while retaining a denominator factor",
+    },
+    supportedDifficulties: ["medium"],
+    create: (v) => cancelledRationalPoint(v),
   },
   {
     id: "limit-cancelled-pole",
