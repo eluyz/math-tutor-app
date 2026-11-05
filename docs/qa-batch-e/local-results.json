@@ -1,0 +1,159 @@
+{
+  "recordedAtUtc": "2026-11-05T07:31:50.735717+00:00",
+  "implementationHead": "594b55b0deba2a0fa2076bf7f7c94bfa22bd55bd",
+  "baselineMain": "fd2db7855e35bece7925412f9742d76e6e3b39c3",
+  "scope": {
+    "skills": 8,
+    "combinations": 16,
+    "unitVariantsPerCombination": 24,
+    "distinctUnitTasks": 384,
+    "localizedUnitInstances": 768,
+    "distinctUiVariants": 32,
+    "uiWitnesses": 128
+  },
+  "units": {
+    "numTotalTestSuites": 2,
+    "numPassedTestSuites": 2,
+    "numTotalTests": 18,
+    "numPassedTests": 18,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "regressions": {
+    "numTotalTestSuites": 20,
+    "numPassedTestSuites": 20,
+    "numTotalTests": 61,
+    "numPassedTests": 61,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "fullUnits": {
+    "numTotalTestSuites": 253,
+    "numPassedTestSuites": 253,
+    "numTotalTests": 1597,
+    "numPassedTests": 1597,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "productionBuild": {
+    "status": "PASS",
+    "command": "npm run build",
+    "existingWarning": "bundle >500 kB; no size-limit change"
+  },
+  "browser": {
+    "stats": {
+      "startTime": "2026-11-05T07:23:25.551Z",
+      "duration": 222621.612,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "matrix": {
+      "pl/375": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "en/375": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "pl/1280": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "en/1280": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      }
+    },
+    "pinnedTaskIds": [
+      "integral-arc-length:hard:0",
+      "integral-arc-length:hard:1",
+      "integral-arc-parametric:advanced:0",
+      "integral-arc-parametric:advanced:3",
+      "integral-area-horizontal-slices:hard:0",
+      "integral-area-horizontal-slices:hard:1",
+      "integral-area-parabolas:hard:0",
+      "integral-area-parabolas:hard:3",
+      "integral-direct-product:expert:0",
+      "integral-direct-product:expert:1",
+      "integral-improper-infinity:expert:0",
+      "integral-improper-infinity:expert:1",
+      "integral-improper-interior-power:advanced:0",
+      "integral-improper-interior-power:advanced:1",
+      "integral-improper-interior-pv:advanced:0",
+      "integral-improper-interior-pv:advanced:1",
+      "integral-log-substitution:advanced:0",
+      "integral-log-substitution:advanced:1",
+      "integral-parts-trig-linear:advanced:0",
+      "integral-parts-trig-linear:advanced:1",
+      "integral-parts:expert:0",
+      "integral-parts:expert:1",
+      "integral-recurring:expert:0",
+      "integral-recurring:expert:1",
+      "integral-substitution-definite:advanced:0",
+      "integral-substitution-definite:advanced:3",
+      "integral-table-arctan:expert:0",
+      "integral-table-arctan:expert:4",
+      "integral-table:hard:0",
+      "integral-table:hard:1",
+      "integral-table:medium:0",
+      "integral-table:medium:1"
+    ],
+    "visualInspection": [
+      "I04 integral-parts/expert en 375px final witness",
+      "I07 integral-area-parabolas/hard en 1280px final witness"
+    ]
+  },
+  "commands": [
+    "npm run test:batch-e -- --reporter=default --reporter=json --outputFile=test-results/batch-e-unit-results.json",
+    "npm run build",
+    "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e:batch-e",
+    "npx vitest run src/university/integrals.test.ts src/university/areaArc.test.ts src/university/twoParabolasArea.test.ts src/university/integralBasicsFollowup.test.ts src/university/integralMethodsFollowup.test.ts src/university/definiteIntegralFollowup.test.ts src/university/improperIntegrals.test.ts src/university/interiorImproper.test.ts src/university/horizontalSliceArea.test.ts src/university/parametricArc.test.ts --reporter=default --reporter=json --outputFile=test-results/batch-e-regression-results.json",
+    "npm test -- --reporter=default --reporter=json --outputFile=test-results/batch-e-full-unit-results.json"
+  ],
+  "testedFileSha256": {
+    ".github/workflows/ci.yml": "39e79674881d3c1869e2cf8a20bf0ba31d5481a9aa984b2913d29e5547d0ebb8",
+    "e2e/batchEAcceptance.spec.ts": "f4a4cc03ed5ed50734fc2c77c311a6f598aef983adf5e8967c66fe1f0ecdae37",
+    "e2e/helpers/acceptance.ts": "cbc4c592d10390757c81498e21629ef25571a1d887ef262400bb83818f5dfd7f",
+    "e2e/helpers/localization.ts": "2ed5673589da5831568133fc2d1b203f8704a331c8ddddf311e79d4bf16cd9e3",
+    "package.json": "392841f65f87ce616d65c7157850eca3c903befa704f4152dcea60d2c1ebb94b",
+    "playwright.batch-b.config.ts": "72c960d49583865bc1b03d63242f1413261b4b29ffc336bbc9f0553502c971f4",
+    "playwright.batch-e.config.ts": "2658fd4e72e54c014071e26fa0817004cc5465503953c74bb77c83cca3057563",
+    "playwright.config.ts": "76243af51830a826db7c1501acb81a0660301fe0779282bf4c3b1ad53c6432c6",
+    "src/answers.ts": "2cf91a211217e11199c7a7c4815c85899c981444f9c76e2bc6ca0f67b1ffa0b9",
+    "src/qa/batchE.ts": "e045ab6cefbad60e8564dd306a68cb7f85942290e03329caf231e3f22697474e",
+    "src/qa/batchEAcceptance.test.ts": "dc6e06d2e55d445ac27ff237678aabffa2dbe3f83c54e3a9c9cee84e30b8ca99",
+    "src/rational.ts": "bfbf34f7d6acd2942e8089b2aff214865689d07cb9b6a638c974975c4c3c41a3",
+    "src/university/areaArc.ts": "380b5ef84c27f48f331c22cd81c3ca295077135e5964622edcfc8e46f10e84e0",
+    "src/university/catalog.ts": "7fdae70383e548ea6175e929b58776f7f594ab11e383acedab5641c2ce154bf3",
+    "src/university/gauss-rectangular-regression.test.ts": "d6c65ac9decadc9a5417fdeec0915778571ecbc597596ee3b44980d0e262ab1e",
+    "src/university/integrals.ts": "6a7efb31676a0399d5447bbadd0d99f4eaa54c2780ee9aad260f40bfe1bb5338",
+    "src/university/twoParabolasArea.ts": "be00baa88381738820412cbdc71b41b442252811f21c330679e45cd03c52732c",
+    "tsconfig.node.json": "18508c6ab0e337c318535ea85d86817c08e66667e1dd60b20a74a14bb55df1b7"
+  },
+  "productionBundleSha256": {
+    "dist/assets/index-B-0PXe5M.js": "0bb00c8a9e673fd485e28fe99ec358a367856f425eedfaf28aa3c5c3c03b1194",
+    "dist/assets/index-Cyp6kSf3.css": "d7de1284128a0208fa3ed4bd6d4bf0ccf811f89c27c0e61efacfbd79d5fa909c",
+    "dist/assets/react-vendor-DPWBTFcE.js": "6989d54c795d694bb0fd5d038161cb5cd121a31fc81ffae6b849082e41dbd513",
+    "dist/assets/rolldown-runtime-WkwZ5CU-.js": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e",
+    "dist/favicon.svg": "201f34726fb82d03a8fef5dd028ebe62692e77b6d4b2f1f036dbc3dbef245d84",
+    "dist/index.html": "4e7212d83845ecb08d792eaab64677d8fb0c992b08aaa31c48aac021b388057c"
+  },
+  "rawReportSha256": {
+    "test-results/batch-e-results.json": "7028da4fc4e8dfbd3d8179fa8fee3a4c775bb634d7002f6a84105f3e136ba2f4",
+    "test-results/batch-e-unit-results.json": "73cf503c2bdc87708a0e0b9098410ef99401d78e3887f8ce9df8894b7f2d444d",
+    "test-results/batch-e-regression-results.json": "4743ab03b4ef5d2d40dc2aa92e5763b319f5b1f23bdd5365d4f201248c422d09",
+    "test-results/batch-e-full-unit-results.json": "026494980f87f005f7c0b943ed0b7e02dfceeaadcfd13881edb37487a0bb0f20"
+  },
+  "sourceEvidence": "BLOCKED_SOURCE for I01-I08; no private PDF read; zero SOURCE_PASS",
+  "finalCi": "Final delivery SHA and immutable terminal CI run URL are paired in the Draft PR validation section."
+}
