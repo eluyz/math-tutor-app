@@ -25,6 +25,12 @@ const baseline = JSON.parse(
     sha256: string;
   }[];
 };
+// Batch G only parenthesizes the fractional log/power base. Preserve the
+// original archive bytes for these four families; current notation is tested
+// independently by Batch G. No answers, coefficients or exclusions are exempt.
+const archiveBaseNotation=(text:string,family:string)=>
+  ["analysis-log-domain","analysis-power-law","analysis-elementary-equation","analysis-log-inequality"].includes(family)
+    ? text.replaceAll("log_(1/2)","log_1/2").replaceAll("(1/2)^","1/2^") : text;
 it("preserves all 10389 previously published PL/EN exercises and complete solutions", () => {
   expect(baseline.source).toBe("f585218e3ce87bcf963a725aabbf056ba1e486fa");
   expect(baseline.families).toHaveLength(118);
@@ -50,7 +56,7 @@ it("preserves all 10389 previously published PL/EN exercises and complete soluti
     const hash = createHash("sha256")
       .update(
         JSON.stringify(contents, (_, v) =>
-          typeof v === "bigint" ? v.toString() : typeof v === "string" ? v
+          typeof v === "bigint" ? v.toString() : typeof v === "string" ? archiveBaseNotation(v, saved.id)
             // Batch E corrects this teaching sentence, including occurrences in
             // the explanation. Restore only those exact words for the archive
             // hash; current signed reasoning is checked by Batch E acceptance.
