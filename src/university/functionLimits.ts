@@ -131,7 +131,7 @@ function quadraticRationalPoint(v: number): FunctionLimitProblem {
   const offset = r(2 + (v % 5));
   // D(x)=(x-at)^2+offset>0 on R, hence D(at)>0.
   const denominator = [add(mul(at, at), offset), mul(r(-2), at), r(1)];
-  return { kind: "limit-point", numerator: poly(numerator), denominator, at, side: "both" };
+  return { kind: "limit-point", numerator: poly(numerator), denominator, at, side: "both", teachingMethod: "direct-substitution" };
 }
 
 /** G02: synthetic 0/0 rational limit with one cancellable factor and one
@@ -465,11 +465,47 @@ export function presentFunctionLimit(p: FunctionLimitProblem, locale: Locale) {
   lesson.work(
     `N(x) = ${polynomialText(numerator)}; N(${f(p.at)}) = ${f(nAt)}; M(${f(p.at)}) = ${f(dAt)}`,
     t(
-      "Rozwijamy licznik i sprawdzamy podstawienie do oryginalnego ilorazu. Niezerowy mianownik pozwala użyć ciągłości, ale 0/0 jest postacią nieoznaczoną, a nie wynikiem granicy.",
-      "Expand the numerator and substitute into the original ratio. A nonzero denominator allows continuity, but 0/0 is an indeterminate form, never the limit itself.",
+      p.teachingMethod === "direct-substitution"
+        ? "Rozwijamy licznik i podstawiamy argument do licznika oraz mianownika. Niezerowy mianownik umożliwia bezpośrednie obliczenie granicy przez ciągłość."
+        : "Rozwijamy licznik i sprawdzamy podstawienie do oryginalnego ilorazu. Niezerowy mianownik pozwala użyć ciągłości, ale 0/0 jest postacią nieoznaczoną, a nie wynikiem granicy.",
+      p.teachingMethod === "direct-substitution"
+        ? "Expand the numerator and substitute into numerator and denominator. A nonzero denominator lets us evaluate the limit directly by continuity."
+        : "Expand the numerator and substitute into the original ratio. A nonzero denominator allows continuity, but 0/0 is an indeterminate form, never the limit itself.",
     ),
     ...trace.splice(0),
   );
+  if (p.teachingMethod === "direct-substitution") {
+    if (zero(dAt) || value.kind !== "finite" || p.definedAt !== undefined)
+      throw new Error("Direct substitution requires a continuous quotient with a nonzero denominator.");
+    const quotient = calculate("quotient", nAt, dAt);
+    lesson.work(
+      `M(${f(p.at)}) = ${f(dAt)} ≠ 0`,
+      t(
+        "Mianownik jest niezerowy w punkcie. Iloraz wielomianów jest więc w nim ciągły i nie trzeba rozkładać ani skracać czynników.",
+        "The denominator is nonzero at this point. The quotient of polynomials is continuous here, so factoring and cancellation are unnecessary.",
+      ),
+    );
+    lesson.work(
+      `lim f(x) = N(${f(p.at)})/M(${f(p.at)}) = (${f(nAt)})/(${f(dAt)}) = ${f(quotient.result)}`,
+      t(
+        "Podstawiamy do ciągłego ilorazu i dzielimy dokładne wartości licznika oraz mianownika.",
+        "Substitute into the continuous quotient and divide the exact numerator and denominator values.",
+      ),
+      quotient,
+    );
+    return lesson.finish(
+      `${t("Wyznacz granicę", "Find the limit")}: x→(${f(p.at)}).\nf(x) = (${formulaText(p.numerator)})/(${polynomialText(p.denominator)})`,
+      { kind: "limit", value },
+      t(
+        "Podstaw punkt do licznika i mianownika.",
+        "Substitute the point into the numerator and denominator.",
+      ),
+      t(
+        "Sprawdź, że mianownik nie jest zerem. Następnie zastosuj ciągłość ilorazu i oblicz wartość przez bezpośrednie podstawienie.",
+        "Check that the denominator is nonzero. Then use continuity of the quotient and evaluate by direct substitution.",
+      ),
+    );
+  }
   const n = removeAt(numerator, p.at, trace),
     den = removeAt(p.denominator, p.at, trace);
   if (Number.isFinite(n.order))

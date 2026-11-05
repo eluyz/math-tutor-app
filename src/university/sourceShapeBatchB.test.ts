@@ -52,6 +52,19 @@ describe("Issue #151 G01/G02 source-shaped rational point limits",()=>{
           expect(view.hint).not.toBe(view.nextHint);
           expect(view.explanation.length).toBeGreaterThan(20);
           const steps=view.solution?.filter(step=>step.kind==="working")??[];
+          if(spec.skill==="G01"){
+            // Regression: G01 must teach substitution/continuity, not an artificial
+            // (x-a)^0 factorisation or the G02 cancellation method, in both locales.
+            expect(p.teachingMethod).toBe("direct-substitution");
+            expect(view.nextHint).toMatch(locale==="pl"?/ciągłość|ciągły|ciągłego/u:/continuity|continuous/u);
+            const teachingText=[view.hint,view.nextHint,...steps.flatMap(step=>step.kind==="working"?[step.action,step.reason]:[])].join(" ");
+            expect(teachingText).not.toMatch(/\^0\b/);
+            expect(teachingText).not.toMatch(/skracani|skracan|skróc|cancel|factoriz/iu);
+            expect(steps.some(step=>step.kind==="working"&&step.action.includes("M(")&&step.action.includes("≠ 0"))).toBe(true);
+            expect(steps.some(step=>step.kind==="working"&&step.action.includes("lim f(x) = N("))).toBe(true);
+          }else{
+            expect(p.teachingMethod).toBeUndefined();
+          }
           expect(steps.length).toBeGreaterThanOrEqual(3);
           for(const step of steps)if(step.kind==="working"){
             expect(step.action.trim()).not.toBe("");

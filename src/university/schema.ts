@@ -152,6 +152,8 @@ export type FunctionLimitProblem =
       at: Rational;
       side: "both" | "left" | "right";
       definedAt?: Rational;
+      /** Opt-in teaching path; preserve historical point-limit explanations. */
+      teachingMethod?: "direct-substitution";
     }>
   | Readonly<{
       kind: "limit-infinity";
