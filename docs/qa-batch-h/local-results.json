@@ -1,0 +1,307 @@
+{
+  "recordedAtUtc": "2026-11-05T14:15:56.829311+00:00",
+  "baselineMain": "37617586563300787f1964932cbd38706f918865",
+  "implementationHead": "76edf5f08ca844abe31ad4713eadbac4a0e88724",
+  "scope": {
+    "skills": 2,
+    "familyLevelCombinations": 10,
+    "mathTasks": 240,
+    "localizedInstances": 480,
+    "supplementalCubicHintIds": 72,
+    "supplementalIdsOutsideMathMatrix": 48,
+    "uiPins": 28,
+    "uiWitnesses": 112
+  },
+  "manifest": [
+    {
+      "skill": "W01",
+      "family": "multivar-partial-point",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "skill": "W01",
+      "family": "multivar-gradient-point",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0
+      ]
+    },
+    {
+      "skill": "W01",
+      "family": "multivar-cubic-partial",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    {
+      "skill": "W01",
+      "family": "multivar-chain-gradient",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "skill": "W02",
+      "family": "multivar-stationary-point",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1,
+        2
+      ]
+    },
+    {
+      "skill": "W02",
+      "family": "multivar-hessian-classify",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    {
+      "skill": "W02",
+      "family": "multivar-degenerate-quartic",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1,
+        3
+      ]
+    },
+    {
+      "skill": "W02",
+      "family": "multivar-rectangle-extrema",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        3
+      ]
+    },
+    {
+      "skill": "W02",
+      "family": "multivar-disk-linear-extrema",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0
+      ]
+    },
+    {
+      "skill": "W02",
+      "family": "multivar-diagonal-quadratic-disk",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    }
+  ],
+  "pinnedIds": [
+    "multivar-chain-gradient:expert:0",
+    "multivar-chain-gradient:expert:1",
+    "multivar-cubic-partial:expert:0",
+    "multivar-cubic-partial:expert:1",
+    "multivar-cubic-partial:expert:2",
+    "multivar-cubic-partial:expert:3",
+    "multivar-cubic-partial:expert:4",
+    "multivar-degenerate-quartic:expert:0",
+    "multivar-degenerate-quartic:expert:1",
+    "multivar-degenerate-quartic:expert:3",
+    "multivar-diagonal-quadratic-disk:expert:0",
+    "multivar-diagonal-quadratic-disk:expert:1",
+    "multivar-disk-linear-extrema:expert:0",
+    "multivar-gradient-point:hard:0",
+    "multivar-hessian-classify:hard:0",
+    "multivar-hessian-classify:hard:1",
+    "multivar-hessian-classify:hard:2",
+    "multivar-hessian-classify:hard:3",
+    "multivar-partial-point:hard:0",
+    "multivar-partial-point:hard:1",
+    "multivar-partial-point:hard:2",
+    "multivar-partial-point:hard:3",
+    "multivar-partial-point:hard:4",
+    "multivar-rectangle-extrema:hard:0",
+    "multivar-rectangle-extrema:hard:3",
+    "multivar-stationary-point:hard:0",
+    "multivar-stationary-point:hard:1",
+    "multivar-stationary-point:hard:2"
+  ],
+  "results": {
+    "targeted": {
+      "passed": 41,
+      "failed": 0,
+      "files": 6,
+      "report": "test-results/batch-h-targeted.json",
+      "sha256": "54d9abeab11e0a06ff425d2c763178de5251dfac958528f079e7558c69b07498"
+    },
+    "fullUnits": {
+      "passed": 1654,
+      "failed": 0,
+      "files": 128,
+      "report": "test-results/batch-h-full-unit.json",
+      "sha256": "3e3c2dfdb12da255b83f285be13c086b8b63bf87a1757dfc7939914d866672e7"
+    },
+    "productionChromium": {
+      "passed": 40,
+      "failed": 0,
+      "flaky": 0,
+      "witnesses": 112,
+      "distinctPins": 28,
+      "coverage": [
+        {
+          "locale": "pl",
+          "width": 375,
+          "pins": 28,
+          "errors": 0
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "pins": 28,
+          "errors": 0
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "pins": 28,
+          "errors": 0
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "pins": 28,
+          "errors": 0
+        }
+      ],
+      "durationMs": 131869.33000000002,
+      "report": "test-results/batch-h-results.json",
+      "sha256": "e97c41ae1625f4cf4dd5fa50f1d5817d047dead5095e7b7ba345a131dbcbd37d"
+    }
+  },
+  "build": "PASS (existing chunk-size warning)",
+  "sourceSha256": {
+    "src/qa/batchH.ts": "df5a7e635183bc0b5ce41c1424d828dc0d34ce58299cad1bfb64c6d0d302c94a",
+    "src/qa/batchHAcceptance.test.ts": "92d1526fb7967900bcb9d507805ad83c0b4c3eaddbe0a59ff56d15cbf0476152",
+    "src/qa/batchFMath.ts": "e56b2ede049250e106392576450bfe583c7960f5ddbaeb85ae0719564b7532bf",
+    "src/qa/acceptance.ts": "14cbc5742b8d7dcc8e2f7f1a9cdacb39208944128d3343c939695b386ce32ac6",
+    "src/answers.ts": "2cf91a211217e11199c7a7c4815c85899c981444f9c76e2bc6ca0f67b1ffa0b9",
+    "src/rational.ts": "bfbf34f7d6acd2942e8089b2aff214865689d07cb9b6a638c974975c4c3c41a3",
+    "src/university/catalog.ts": "7fdae70383e548ea6175e929b58776f7f594ab11e383acedab5641c2ce154bf3",
+    "e2e/batchHAcceptance.spec.ts": "862f4c080e3e885724b5dcbf9bc9b188a3fea14855d6adbe7b23a5147a0c3f5a",
+    "e2e/helpers/acceptance.ts": "e339077709fad3c081f150a86294d3e894dd83be689eebecfda120f0c36ff79c",
+    "e2e/helpers/localization.ts": "2ed5673589da5831568133fc2d1b203f8704a331c8ddddf311e79d4bf16cd9e3",
+    "playwright.config.ts": "efba0ec9bed2502393cdc019881beb41125de0639634f6a7bdfeba0226d879f9",
+    "playwright.batch-b.config.ts": "72c960d49583865bc1b03d63242f1413261b4b29ffc336bbc9f0553502c971f4",
+    "vite.config.ts": "187b4910fff8264a2a8e2bdd50c306914c381941789aebc9cb0533f4333ee746",
+    "package.json": "b59ab6adfd3f6a3e6291954950c878b54ca3dbf77bed1cb1e108455631a8f3d4",
+    "package-lock.json": "593df17d1f722f189e6894e7df63f79d572a4b4d3791ffa50acfe49faf179f2f",
+    ".github/workflows/ci.yml": "69c50bebacef2a3d72144891f4d89ab91e2cdd21a4becbecc234a739ed929c27",
+    "src/university/partialGradient.ts": "9a9d4571897a5796fec868509125d9bd62d3d3498e644851e3e27f62d5b27cb9",
+    "src/university/partialGradient.test.ts": "46ead0519490fe8b86c208b23aa95ec775154e27536ae1950211c2bf4b6addba",
+    "e2e/partialGradient.spec.ts": "3837bfae4cae05f5d475268b9f0da20530f61139fbe65e0a59f9ab4cd6de838f",
+    "src/university/multivarDerivativeFollowup.ts": "0d7ac0d0bf07f1627244c1ba7afea2c0fa34ed63915bce34ed1f1953acbcadac",
+    "src/university/multivarDerivativeFollowup.test.ts": "de356531dd4fc0483d5d158318a8f8ebf7a95e9a45a685e509ce427093a4ebfe",
+    "e2e/multivarDerivativeFollowup.spec.ts": "5c60a5c47b84af7d2cb096a52c72d927a71fbae699663d8b052e460b68f699c2",
+    "src/university/hessian.ts": "706661ea7e15c3d8ce2157e4c078fd26fec7acf63de21d2fd302d3b7e365fe07",
+    "src/university/hessian.test.ts": "052b5fee788f15afe4a74b80c4ab929b29df856498d693d005b0e14daf9797e7",
+    "e2e/hessian.spec.ts": "cfcf61d2824cd1e78bcd5582c076c2300b4e73c657a743b13a1e07b1f6d5727d",
+    "src/university/degenerateDisk.ts": "31ededc0836c4bc7eab18e0c97e3a5b897e35fea3cc7405b42b7d36c6a5f5464",
+    "src/university/degenerateDisk.test.ts": "d86cee902ae073c34a28385f49035fa2d36c46af5739e0c3bf6c91435b70631a",
+    "e2e/degenerateDisk.spec.ts": "4853db99308f5023de9e4d188ff626af7f295e3af10f038a46425b4adde83fc4",
+    "src/university/multivarExtrema.ts": "7790da51d844edce2d6687b0e745cdb3cdd246b5c4206f297b35e4be0f1cf7b2",
+    "src/university/multivarExtrema.test.ts": "51e429c999ff98418473894c8136522433735286d62da4acce9e47f38de0bbc6",
+    "e2e/multivarExtrema.spec.ts": "d61cbd4210df0458e6894cc600121c3c6a3004cb2321d0463cd7a74d031adba4"
+  },
+  "productionSha256": {
+    "dist/assets/index-Cyp6kSf3.css": "d7de1284128a0208fa3ed4bd6d4bf0ccf811f89c27c0e61efacfbd79d5fa909c",
+    "dist/assets/index-WCjEvWdj.js": "e5a8154ddf927c8fee367aed8f5e70a816c2fd5f50b5c5dc422bcc2994a21f4f",
+    "dist/assets/react-vendor-DPWBTFcE.js": "6989d54c795d694bb0fd5d038161cb5cd121a31fc81ffae6b849082e41dbd513",
+    "dist/assets/rolldown-runtime-WkwZ5CU-.js": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e",
+    "dist/favicon.svg": "201f34726fb82d03a8fef5dd028ebe62692e77b6d4b2f1f036dbc3dbef245d84",
+    "dist/index.html": "24260e47478b3bca3b34d0af4498d169ca698c8ade4d2d29e108aefe132f9de9"
+  },
+  "screenshots": [
+    {
+      "title": "W02 multivar-hessian-classify/hard en 375px",
+      "sha256": "c3466d5fe8cfeda3799bb2828ea9ad383c9f492e955800b69c9aebfabb3eb308"
+    }
+  ],
+  "productionConfig": "import {defineConfig} from '@playwright/test';\nimport production from '../../playwright.batch-b.config';\nexport default defineConfig({...production,testDir:'../../e2e',testMatch:'batchHAcceptance.spec.ts',testIgnore:[],fullyParallel:true,workers:2,outputDir:'/workspace/math-tutor-app/test-results/batch-h/browser',reporter:[['list'],['json',{outputFile:'/workspace/math-tutor-app/test-results/batch-h-results.json'}]],use:{...production.use,baseURL:'http://127.0.0.1:4973/math-tutor-app/'},webServer:{command:'npm run preview -- --host 127.0.0.1 --port 4973 --strictPort',url:'http://127.0.0.1:4973/math-tutor-app/',reuseExistingServer:false,timeout:30000}});\n",
+  "commands": {
+    "targeted": "npx vitest run src/qa/batchHAcceptance.test.ts src/university/partialGradient.test.ts src/university/multivarDerivativeFollowup.test.ts src/university/hessian.test.ts src/university/degenerateDisk.test.ts src/university/multivarExtrema.test.ts --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/batch-h-targeted.json",
+    "fullUnits": "npm test -- --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/batch-h-full-unit.json",
+    "build": "npm run build",
+    "productionChromium": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npx playwright test --config test-results/batch-h/production.config.ts"
+  },
+  "sourceGate": {
+    "W01": "BLOCKED_SOURCE",
+    "W02": "BLOCKED_SOURCE"
+  },
+  "findings": {
+    "fixed": "Polish cubic hint incorrectly always requested second derivative for first-order targets. One line qualified with if needed.",
+    "missingCatalogScope": "W01 elementary trig/log/radical partial derivatives and mixed elementary forms. No P43 originals read.",
+    "remainingNumericalDefects": 0
+  },
+  "attempts": {
+    "beforeFix": "New hint regression failed on baseline; 1 failed / 11 passed.",
+    "initialBrowser": "Interrupted after redundant post-correct hint lookup timed out. Inspector fixed; common runner already checks hint before correct submission.",
+    "finalBrowser": "One fresh complete 40/40 PASS run; counts not combined across attempts."
+  },
+  "ci": "Exact final delivery SHA and immutable terminal Actions URL paired in Draft PR validation. H runs in existing base browser suite, no CI mutation; no separate CI H artifact upload added."
+}
