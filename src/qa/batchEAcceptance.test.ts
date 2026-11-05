@@ -15,6 +15,21 @@ describe("Batch E independent calculus method evidence",()=>{
     expect(batchE.flatMap(x=>x.variants).length).toBe(32);
     expect(batchE.every(x=>x.variants.every(v=>v>=0&&v<24))).toBe(true);
   });
+  it("localizes area-between integration bounds across all existing PL/EN variants",()=>{
+    for(const level of ["easy","medium","hard"] as const)for(let variant=0;variant<24;variant++){
+      const task=makeUniversityTask("integral-area-between",variant,level),p=task.university;
+      if(p.kind!=="integral-area-between")throw Error("Expected area-between task");
+      const pl=localizeUniversity(task,"pl"),en=localizeUniversity(task,"en");
+      const areaStep=(view:typeof en)=>{
+        const step=view.solution?.find(s=>s.kind==="working"&&s.action.startsWith("A=∫"));
+        if(step?.kind!=="working")throw Error("Expected displayed area integral bounds");
+        return step.action;
+      };
+      expect(areaStep(pl)).toBe(`A=∫ od ${f(p.lower)} do ${f(p.upper)} |f(x)−g(x)| dx`);
+      expect(areaStep(en)).toBe(`A=∫ from ${f(p.lower)} to ${f(p.upper)} |f(x)−g(x)| dx`);
+      expect(areaStep(en)).not.toMatch(/\\bod\\b|\\bdo\\b/iu);
+    }
+  });
   it("has hand-derived controls independent of both generators and oracle formulas",()=>{
     const cases=[
       ["integral-parts","expert",{kind:"primitive",coefficients:["1","−3","6","−6"],hasConstant:true}],
