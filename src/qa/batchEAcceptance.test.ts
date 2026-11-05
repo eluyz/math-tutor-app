@@ -50,7 +50,12 @@ describe("Batch E independent calculus method evidence",()=>{
         }
         expect(view.hint.length).toBeGreaterThan(15);expect(view.nextHint.length).toBeGreaterThan(15);
         expect(view.hint).not.toBe(view.nextHint);expect(view.explanation.length).toBeGreaterThan(20);
-        expect(view.solution?.at(-1)?.kind).toBe("answer");
+        const final=view.solution?.at(-1);
+        expect(final?.kind).toBe("answer");
+        if(final?.kind==="answer"){
+          expect(assessAnswer(final.answer,expected),task.id+" final step").toEqual({kind:"correct"});
+          if(final.answer.kind==="primitive")expect(final.answer.terms.map(x=>x.basis)).toEqual(certificate.basis);
+        }
         const steps=view.solution?.filter(x=>x.kind==="working")??[];
         expect(steps.length).toBeGreaterThanOrEqual(3);
         for(const step of steps)if(step.kind==="working"){
