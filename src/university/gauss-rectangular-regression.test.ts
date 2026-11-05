@@ -50,7 +50,14 @@ it("preserves all 10389 previously published PL/EN exercises and complete soluti
     const hash = createHash("sha256")
       .update(
         JSON.stringify(contents, (_, v) =>
-          typeof v === "bigint" ? v.toString() : v,
+          typeof v === "bigint" ? v.toString() : typeof v === "string" ? v
+            // Batch E corrects this teaching sentence, including occurrences in
+            // the explanation. Restore only those exact words for the archive
+            // hash; current signed reasoning is checked by Batch E acceptance.
+            .replaceAll("Powtarzamy całkowanie przez części, aż pochodna wielomianu zniknie; każdy kolejny współczynnik mnożymy przez −stopień/a, zachowując znak a.",
+              "Powtarzamy całkowanie przez części, aż pochodna wielomianu zniknie; znaki współczynników zmieniają się naprzemiennie.")
+            .replaceAll("Repeat integration by parts until the polynomial derivative vanishes; multiply each successive coefficient by −degree/a, preserving the sign of a.",
+              "Repeat integration by parts until the polynomial derivative vanishes; coefficient signs alternate.") : v,
         ),
       )
       .digest("hex");

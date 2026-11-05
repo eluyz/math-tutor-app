@@ -46,7 +46,11 @@ export async function runPinnedAcceptance(
   page: Page, info: TestInfo, row: AcceptanceRow, locale: "pl" | "en", width: number,
   oracle: (task: Task) => AnswerInput,
   wrong: (answer: AnswerInput, task: Task) => AnswerInput,
-  extensions?: {inspectPinned?: (page:Page,task:Task)=>Promise<void>},
+  adapter?: {
+    categoryLabels?: readonly [string,string];
+    fillInput?: (page:Page,input:AnswerInput)=>Promise<void>;
+    inspectPinned?: (page:Page,task:Task)=>Promise<void>;
+  },
 ) {
     test.setTimeout(180_000);
     const en = locale === "en", lang = en ? 1 : 0;
@@ -63,7 +67,7 @@ export async function runPinnedAcceptance(
     await button(page, en ? "University mathematics" : "Matematyka na studia").click();
     const candidates = Array.from({ length: 24 }, (_, v) => makeUniversityTask(row.family, v, row.level));
     const category = candidates[0].category as keyof typeof categories;
-    await button(page, categories[category][lang]).click();
+    await button(page, (adapter?.categoryLabels ?? categories[category])[lang]).click();
     await button(page, levels[row.level][lang]).click();
     const title = localizeUniversity(candidates[0], locale).title;
     await page.locator("button.exercise-item").filter({ has: page.getByText(title, { exact: true }) }).click();
@@ -73,9 +77,9 @@ export async function runPinnedAcceptance(
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", row.family);
       await expect(page.locator(".question")).toHaveAttribute("data-difficulty", row.level);
       const displayed = await page.locator(".question").innerText();
-      // Browser innerText collapses whitespace at line breaks. Mathematical
-      // content must still identify exactly one variant after normalization.
-      const normalized=(text:string)=>text.replace(/\s+/g," ").trim();
+      // innerText collapses whitespace at line breaks; retain exact mathematical
+      // text while normalizing that browser-only rendering difference.
+      const normalized = (text:string) => text.replace(/\s+/g," ").trim();
       let matches = candidates.filter(task => normalized(localizeUniversity(task, locale).question) === normalized(displayed));
       const rationalMatrices = (task: Task) => {
         const p = task.university;
@@ -124,7 +128,7 @@ export async function runPinnedAcceptance(
           await expect(page.locator(".feedback")).toHaveClass("feedback " + kind);
         };
         await checked("invalid");
-        await fill(page, wrong(expected, task));
+        await (adapter?.fillInput ?? fill)(page, wrong(expected, task));
         await checked("incorrect");
         await expect(page.locator(".learning-hint")).toHaveCount(1);
         await expect(page.locator(".learning-hint").first()).toContainText(view.hint);
@@ -132,7 +136,7 @@ export async function runPinnedAcceptance(
         await expect(page.locator(".learning-hint")).toHaveCount(2);
         await expect(page.locator(".learning-hint").nth(1)).toContainText(view.nextHint);
         expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
-        await fill(page, expected);
+        await (adapter?.fillInput ?? fill)(page, expected);
         await checked("correct");
         await button(page, en ? "Show solution" : "Pokaż rozwiązanie").click();
         await button(page, en ? "Show all steps" : "Pokaż wszystkie kroki").click();
@@ -141,7 +145,7 @@ export async function runPinnedAcceptance(
           await expect(page.locator(".solution-panel")).toContainText(step.action);
           await expect(page.locator(".solution-panel")).toContainText(step.reason);
         }
-        await extensions?.inspectPinned?.(page,task);
+        await adapter?.inspectPinned?.(page,task);
         if (en) expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
         expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
         expect(errors).toEqual([]);
