@@ -45,7 +45,7 @@ describe("Issue #151 G01/G02 source-shaped rational point limits",()=>{
         for(const locale of ["pl","en"] as const){
           const view=localizeUniversity(task,locale);
           expect(assessAnswer(view.answer,expected)).toEqual({kind:"correct"});
-          expect(assessAnswer(view.answer,{...expected,value:f(add(result,r(1))}).kind).toBe("incorrect");
+          expect(assessAnswer(view.answer,{...expected,value:f(add(result,r(1)))}).kind).toBe("incorrect");
           expect(assessAnswer(view.answer,emptyAnswer(view.answer)).kind).toBe("invalid");
           expect(view.hint.length).toBeGreaterThan(15);
           expect(view.nextHint.length).toBeGreaterThan(15);
