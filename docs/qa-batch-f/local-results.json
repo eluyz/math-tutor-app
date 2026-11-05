@@ -1,0 +1,430 @@
+{
+  "recordedAtUtc": "2026-11-05T08:32:01.396648+00:00",
+  "implementationHead": "4f0a5720ca52e16fbca9c0f133898a5f01efa942",
+  "baselineMain": "cdb0ab76b20c5f176153593507cd7b9171f67cc4",
+  "scope": {
+    "skills": 8,
+    "combinations": 16,
+    "unitVariantsPerCombination": 24,
+    "distinctUnitTasks": 384,
+    "localizedInstances": 768,
+    "pinnedUiVariants": 32,
+    "uiWitnesses": 128
+  },
+  "manifest": [
+    {
+      "block": "F1",
+      "skills": [
+        "D02"
+      ],
+      "family": "derivative-product-point",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D02"
+      ],
+      "family": "derivative-quadratic-quotient",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D03"
+      ],
+      "family": "derivative-log-quadratic",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D03"
+      ],
+      "family": "analysis-log-exp-derivative",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D03"
+      ],
+      "family": "derivative-trig-special-point",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D04"
+      ],
+      "family": "analysis-lhospital",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        11
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D04"
+      ],
+      "family": "analysis-lhospital-infinity",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D06"
+      ],
+      "family": "derivative-absolute-one-sided",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D06"
+      ],
+      "family": "derivative-piecewise-point",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        1,
+        2
+      ]
+    },
+    {
+      "block": "F1",
+      "skills": [
+        "D06"
+      ],
+      "family": "derivative-vertical-cusp",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        3
+      ]
+    },
+    {
+      "block": "F2",
+      "skills": [
+        "D05"
+      ],
+      "family": "derivative-extrema",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "F2",
+      "skills": [
+        "D07"
+      ],
+      "family": "analysis-concavity",
+      "level": "advanced",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        11
+      ]
+    },
+    {
+      "block": "F2",
+      "skills": [
+        "D07"
+      ],
+      "family": "analysis-concavity",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        11
+      ]
+    },
+    {
+      "block": "F2",
+      "skills": [
+        "D05",
+        "D07",
+        "D08"
+      ],
+      "family": "analysis-study-polynomial",
+      "level": "advanced",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        11
+      ]
+    },
+    {
+      "block": "F2",
+      "skills": [
+        "D05",
+        "D07",
+        "D08"
+      ],
+      "family": "analysis-study-rational",
+      "level": "advanced",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        11
+      ]
+    },
+    {
+      "block": "F2",
+      "skills": [
+        "D05",
+        "D07",
+        "D09"
+      ],
+      "family": "derivative-sign-sketch",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        16
+      ]
+    }
+  ],
+  "units": {
+    "numTotalTests": 18,
+    "numPassedTests": 18,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "regressions": {
+    "numTotalTests": 39,
+    "numPassedTests": 39,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "fullUnits": {
+    "numTotalTests": 1622,
+    "numPassedTests": 1622,
+    "numFailedTests": 0,
+    "numPendingTests": 0,
+    "success": true
+  },
+  "build": {
+    "status": "PASS",
+    "command": "npm run build",
+    "existingWarning": ">500 kB app chunk"
+  },
+  "browser": {
+    "successfulScenarios": 64,
+    "initialStats": {
+      "startTime": "2026-11-05T08:22:04.248Z",
+      "duration": 199181.39599999998,
+      "expected": 60,
+      "skipped": 0,
+      "unexpected": 4,
+      "flaky": 0
+    },
+    "targetedD09Stats": {
+      "startTime": "2026-11-05T08:29:00.661Z",
+      "duration": 16786.622,
+      "expected": 4,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "note": "60 unaffected passes plus 4 corrected D09 passes; final CI runs all 64. Rerun is limited to the same 2 D09 IDs in PL/EN and both widths.",
+    "matrix": {
+      "pl/375": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "en/375": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "pl/1280": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      },
+      "en/1280": {
+        "witnesses": 32,
+        "distinct": 32,
+        "errors": []
+      }
+    },
+    "pinnedIds": [
+      "analysis-concavity:advanced:0",
+      "analysis-concavity:advanced:11",
+      "analysis-concavity:expert:0",
+      "analysis-concavity:expert:11",
+      "analysis-lhospital-infinity:expert:0",
+      "analysis-lhospital-infinity:expert:1",
+      "analysis-lhospital:expert:0",
+      "analysis-lhospital:expert:11",
+      "analysis-log-exp-derivative:hard:0",
+      "analysis-log-exp-derivative:hard:1",
+      "analysis-study-polynomial:advanced:0",
+      "analysis-study-polynomial:advanced:11",
+      "analysis-study-rational:advanced:0",
+      "analysis-study-rational:advanced:11",
+      "derivative-absolute-one-sided:hard:0",
+      "derivative-absolute-one-sided:hard:1",
+      "derivative-extrema:expert:0",
+      "derivative-extrema:expert:1",
+      "derivative-log-quadratic:expert:0",
+      "derivative-log-quadratic:expert:1",
+      "derivative-piecewise-point:hard:1",
+      "derivative-piecewise-point:hard:2",
+      "derivative-product-point:hard:0",
+      "derivative-product-point:hard:1",
+      "derivative-quadratic-quotient:expert:0",
+      "derivative-quadratic-quotient:expert:1",
+      "derivative-sign-sketch:expert:0",
+      "derivative-sign-sketch:expert:16",
+      "derivative-trig-special-point:hard:0",
+      "derivative-trig-special-point:hard:1",
+      "derivative-vertical-cusp:expert:0",
+      "derivative-vertical-cusp:expert:3"
+    ],
+    "visualReview": [
+      "D09 EN 375px",
+      "D08 rational EN 1280px"
+    ]
+  },
+  "commands": [
+    "npm_config_cache=/tmp/math-tutor-npm npm ci",
+    "npm run test:batch-f -- --reporter=default --reporter=json --outputFile=test-results/batch-f-unit-results.json",
+    "npm run build",
+    "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e:batch-f",
+    "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e:batch-f -- --grep derivative-sign-sketch",
+    "npx vitest run src/university/derivativeFollowup.test.ts src/university/productQuotient.test.ts src/university/trigDerivatives.test.ts src/university/nondifferentiability.test.ts src/university/edgeLimits.test.ts src/university/advancedCalculus.test.ts src/university/functionStudy.test.ts src/university/derivativeSketch.test.ts src/university/derivatives.test.ts --reporter=default --reporter=json --outputFile=test-results/batch-f-regression-results.json",
+    "npm test -- --reporter=default --reporter=json --outputFile=test-results/batch-f-full-unit-results.json"
+  ],
+  "testedFileSha256": {
+    ".github/workflows/ci.yml": "d7bffd9c757059411e8cdd3ee846aa35f1e25bfb4e49d91be34bf5b19b05c77a",
+    "e2e/batchFAcceptance.spec.ts": "4290d6cfcc4e22c75001203c1de0567def302f0c371a5736f184c685aeed0cc8",
+    "e2e/helpers/acceptance.ts": "9407c68aff63f6a1ad857e0cdce064ad15d1ef1428f6023c572a1ede1a80d757",
+    "e2e/helpers/localization.ts": "2ed5673589da5831568133fc2d1b203f8704a331c8ddddf311e79d4bf16cd9e3",
+    "package.json": "369247e72babe0ee713f8569d1091745a57fabfbe8069d7637effa0f56ad36f9",
+    "playwright.batch-b.config.ts": "72c960d49583865bc1b03d63242f1413261b4b29ffc336bbc9f0553502c971f4",
+    "playwright.batch-f.config.ts": "aba4cd3914febbe7d3c38b2bf51d9c9121978f29f6eb3d70450a9761fe4b4aae",
+    "playwright.config.ts": "1266cbe08b05a0cb65e2eed188b5316048e866f34b415fec7e2c81c9840bb817",
+    "src/DerivativeSketchDisplay.tsx": "15ca3db6ab75d29299acd13192499aecf69097a7c61d539e4f1cfdc5b6201f32",
+    "src/answers.ts": "2cf91a211217e11199c7a7c4815c85899c981444f9c76e2bc6ca0f67b1ffa0b9",
+    "src/qa/batchF.ts": "b3396d5d3d9eaf9ad1c6c74f83e247140b97080ba2cb906a0e843b217da67ff9",
+    "src/qa/batchFAcceptance.test.ts": "26b405b269caa095f869e4624ef8c0765adf4cfe842540b5ae851b2653778a33",
+    "src/qa/batchFMath.ts": "e56b2ede049250e106392576450bfe583c7960f5ddbaeb85ae0719564b7532bf",
+    "src/rational.ts": "bfbf34f7d6acd2942e8089b2aff214865689d07cb9b6a638c974975c4c3c41a3",
+    "src/university/catalog.ts": "7fdae70383e548ea6175e929b58776f7f594ab11e383acedab5641c2ce154bf3",
+    "src/university/derivativeFollowup.ts": "1fa8b65a4df09abbc46362ccdc1d344bed5a790c2137083e5877d168298f6441",
+    "src/university/functions-audit.ts": "55702c3f0c464ea9a07521101e03869798b34ca4f3332666e31ab6842acd3f51",
+    "tsconfig.node.json": "13deed113302c0d379d2f39cff7dfe7cac228362c261b94005cc768301ee3ef1"
+  },
+  "bundleSha256": {
+    "dist/assets/index-BU5FPu3K.js": "5efc8af007fdb305f6ba59677b5a024c1824fac27900f57843c9512b6076aa77",
+    "dist/assets/index-Cyp6kSf3.css": "d7de1284128a0208fa3ed4bd6d4bf0ccf811f89c27c0e61efacfbd79d5fa909c",
+    "dist/assets/react-vendor-DPWBTFcE.js": "6989d54c795d694bb0fd5d038161cb5cd121a31fc81ffae6b849082e41dbd513",
+    "dist/assets/rolldown-runtime-WkwZ5CU-.js": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e",
+    "dist/favicon.svg": "201f34726fb82d03a8fef5dd028ebe62692e77b6d4b2f1f036dbc3dbef245d84",
+    "dist/index.html": "8f13a74110c1d0da3a5b1e42ec09ba6e51b494296eda749c4f1ecd567cd94859"
+  },
+  "rawReportSha256": {
+    "test-results/batch-f-initial-results.json": "ed448290a8de85add206321028b5f522ed3e0a101216c2133c9a36c32e6ef2ac",
+    "test-results/batch-f-results.json": "308ae444d698df80a42660614873449b5b1ebae1ba676c0d9043561f2c1b7e4c",
+    "test-results/batch-f-unit-results.json": "e6bf176ca63f04f35bb14f7e812f30fd2251c9e45976d3269ec1aa5748120ac4",
+    "test-results/batch-f-regression-results.json": "01d9a3e5378b0734853ee9e9218ff6a744ecc0c5ab0b622974092857f69a32ca",
+    "test-results/batch-f-full-unit-results.json": "e4da0b02208421d891bd7b93f5b37d6913dbcd05eb017817dc2e921af69db3eb"
+  },
+  "sourceGate": "BLOCKED_SOURCE for D02-D09; no private original read; zero SOURCE_PASS",
+  "finalCi": "Exact final delivery SHA and immutable terminal run URL are paired in the Draft PR validation section."
+}
