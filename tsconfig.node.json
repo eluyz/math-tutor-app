@@ -11,5 +11,5 @@
     "strict": true,
     "types": ["node"]
   },
-  "include": ["vite.config.ts", "playwright.config.ts", "playwright.batch-b.config.ts", "playwright.batch-c.config.ts", "playwright.batch-e.config.ts"]
+  "include": ["vite.config.ts", "playwright.config.ts", "playwright.batch-b.config.ts", "playwright.batch-c.config.ts", "playwright.batch-d.config.ts", "playwright.batch-e.config.ts"]
 }

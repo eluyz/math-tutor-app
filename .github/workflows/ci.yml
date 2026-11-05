@@ -2,7 +2,7 @@ name: CI
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, qa/batch-c-controlled-acceptance]
   push:
     branches: [main]
 
@@ -44,6 +44,21 @@ jobs:
 
       - name: Run Batch C acceptance against the production bundle
         run: npm run test:e2e:batch-c
+
+      - name: Run Batch D acceptance against the production bundle
+        run: npm run test:e2e:batch-d
+
+      - name: Save Batch D browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: batch-d-browser-evidence
+          path: |
+            test-results/batch-d-results.json
+            test-results/batch-d/
+            playwright-report/batch-d/
+          if-no-files-found: warn
+          retention-days: 14
 
       - name: Run Batch E acceptance against the production bundle
         run: npm run test:e2e:batch-e
