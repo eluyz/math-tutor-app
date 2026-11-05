@@ -1,6 +1,6 @@
 {
   "recordedAtUtc": "2026-11-05T07:31:50.735717+00:00",
-  "implementationHead": "594b55b0deba2a0fa2076bf7f7c94bfa22bd55bd",
+  "implementationHead": "fb297ab690b58fd69f63e23592d93ee6c83f28fe",
   "baselineMain": "fd2db7855e35bece7925412f9742d76e6e3b39c3",
   "scope": {
     "skills": 8,
@@ -36,7 +36,8 @@
     "numPassedTests": 1597,
     "numFailedTests": 0,
     "numPendingTests": 0,
-    "success": true
+    "success": true,
+    "implementationHead": "594b55b0deba2a0fa2076bf7f7c94bfa22bd55bd"
   },
   "productionBuild": {
     "status": "PASS",
@@ -45,8 +46,8 @@
   },
   "browser": {
     "stats": {
-      "startTime": "2026-11-05T07:23:25.551Z",
-      "duration": 222621.612,
+      "startTime": "2026-11-05T07:34:27.896Z",
+      "duration": 225223.042,
       "expected": 64,
       "skipped": 0,
       "unexpected": 0,
@@ -121,24 +122,28 @@
     "npm test -- --reporter=default --reporter=json --outputFile=test-results/batch-e-full-unit-results.json"
   ],
   "testedFileSha256": {
-    ".github/workflows/ci.yml": "39e79674881d3c1869e2cf8a20bf0ba31d5481a9aa984b2913d29e5547d0ebb8",
+    ".github/workflows/ci.yml": "25e408fc544c90381f46224bac33bdd2fdd2218d154257eca1180a5189247f47",
     "e2e/batchEAcceptance.spec.ts": "f4a4cc03ed5ed50734fc2c77c311a6f598aef983adf5e8967c66fe1f0ecdae37",
-    "e2e/helpers/acceptance.ts": "cbc4c592d10390757c81498e21629ef25571a1d887ef262400bb83818f5dfd7f",
+    "e2e/helpers/acceptance.ts": "6810576487598ffd5645dad4e276800705b6ad218079f7caf23de2363e070b85",
     "e2e/helpers/localization.ts": "2ed5673589da5831568133fc2d1b203f8704a331c8ddddf311e79d4bf16cd9e3",
-    "package.json": "392841f65f87ce616d65c7157850eca3c903befa704f4152dcea60d2c1ebb94b",
+    "package.json": "3fb5749902c311e19ae1079a0a128cc42b3b8eae7bf0b275b88952f814f2c523",
     "playwright.batch-b.config.ts": "72c960d49583865bc1b03d63242f1413261b4b29ffc336bbc9f0553502c971f4",
     "playwright.batch-e.config.ts": "2658fd4e72e54c014071e26fa0817004cc5465503953c74bb77c83cca3057563",
-    "playwright.config.ts": "76243af51830a826db7c1501acb81a0660301fe0779282bf4c3b1ad53c6432c6",
+    "playwright.config.ts": "75c24fd44661b54df99bc41ba6507dda4655a35f8edb996a29df1048557f2c44",
     "src/answers.ts": "2cf91a211217e11199c7a7c4815c85899c981444f9c76e2bc6ca0f67b1ffa0b9",
+    "src/qa/batchD.ts": "779e3f9e212bddf532a21faf44b07fd56bc1fe35f17a76dc3280ad239da1fa75",
+    "src/qa/batchDAcceptance.test.ts": "279c40c774b3d7ec3e49ef99dcd1d4d1a3e4ce1bf18a33e3c3fa04aaa8544b17",
+    "src/qa/batchDMath.ts": "f36e4d87f1fc4563690f9cfc0269f908898c0d0639e545990c39ca5442d7e111",
+    "src/qa/batchDSteps.ts": "31ed69490fe9c8b333c5f6c9567e30d87b0644313d6d52c0d2d3e19769b69eea",
     "src/qa/batchE.ts": "e045ab6cefbad60e8564dd306a68cb7f85942290e03329caf231e3f22697474e",
-    "src/qa/batchEAcceptance.test.ts": "dc6e06d2e55d445ac27ff237678aabffa2dbe3f83c54e3a9c9cee84e30b8ca99",
+    "src/qa/batchEAcceptance.test.ts": "40ab79b1e9c9d161fe65b63eac1c508fd90e7327a09775b07ead42d5253285e9",
     "src/rational.ts": "bfbf34f7d6acd2942e8089b2aff214865689d07cb9b6a638c974975c4c3c41a3",
     "src/university/areaArc.ts": "380b5ef84c27f48f331c22cd81c3ca295077135e5964622edcfc8e46f10e84e0",
     "src/university/catalog.ts": "7fdae70383e548ea6175e929b58776f7f594ab11e383acedab5641c2ce154bf3",
     "src/university/gauss-rectangular-regression.test.ts": "d6c65ac9decadc9a5417fdeec0915778571ecbc597596ee3b44980d0e262ab1e",
     "src/university/integrals.ts": "6a7efb31676a0399d5447bbadd0d99f4eaa54c2780ee9aad260f40bfe1bb5338",
     "src/university/twoParabolasArea.ts": "be00baa88381738820412cbdc71b41b442252811f21c330679e45cd03c52732c",
-    "tsconfig.node.json": "18508c6ab0e337c318535ea85d86817c08e66667e1dd60b20a74a14bb55df1b7"
+    "tsconfig.node.json": "40a3a75286f9052bf522e891254037884419544d40fc8ff9c13ba2606ea88976"
   },
   "productionBundleSha256": {
     "dist/assets/index-B-0PXe5M.js": "0bb00c8a9e673fd485e28fe99ec358a367856f425eedfaf28aa3c5c3c03b1194",
@@ -149,11 +154,43 @@
     "dist/index.html": "4e7212d83845ecb08d792eaab64677d8fb0c992b08aaa31c48aac021b388057c"
   },
   "rawReportSha256": {
-    "test-results/batch-e-results.json": "7028da4fc4e8dfbd3d8179fa8fee3a4c775bb634d7002f6a84105f3e136ba2f4",
+    "test-results/batch-e-results.json": "cd2050a9de74fca5d70681596c878cb437ad2a0058fd4500a21658d4ed44f40a",
     "test-results/batch-e-unit-results.json": "73cf503c2bdc87708a0e0b9098410ef99401d78e3887f8ce9df8894b7f2d444d",
     "test-results/batch-e-regression-results.json": "4743ab03b4ef5d2d40dc2aa92e5763b319f5b1f23bdd5365d4f201248c422d09",
-    "test-results/batch-e-full-unit-results.json": "026494980f87f005f7c0b943ed0b7e02dfceeaadcfd13881edb37487a0bb0f20"
+    "test-results/batch-e-full-unit-results.json": "026494980f87f005f7c0b943ed0b7e02dfceeaadcfd13881edb37487a0bb0f20",
+    "test-results/batch-e-integration-unit-results.json": "99532420319580f8ed51f04e558e474c0e6a775b8047f59d825f5cb0f6099726"
   },
   "sourceEvidence": "BLOCKED_SOURCE for I01-I08; no private PDF read; zero SOURCE_PASS",
-  "finalCi": "Final delivery SHA and immutable terminal CI run URL are paired in the Draft PR validation section."
+  "finalCi": "Final delivery SHA and immutable terminal CI run URL are paired in the Draft PR validation section.",
+  "preIntegration": {
+    "implementationHead": "594b55b0deba2a0fa2076bf7f7c94bfa22bd55bd",
+    "browserStats": {
+      "startTime": "2026-11-05T07:23:25.551Z",
+      "duration": 222621.612,
+      "expected": 64,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "fullUnits": {
+      "numTotalTestSuites": 253,
+      "numPassedTestSuites": 253,
+      "numTotalTests": 1597,
+      "numPassedTests": 1597,
+      "numFailedTests": 0,
+      "numPendingTests": 0,
+      "success": true,
+      "implementationHead": "594b55b0deba2a0fa2076bf7f7c94bfa22bd55bd"
+    },
+    "note": "1597 full units before D landed; final integrated full CI result is paired with delivery SHA in PR validation."
+  },
+  "integratedMain": "cdb0ab76b20c5f176153593507cd7b9171f67cc4",
+  "integrationUnits": {
+    "numTotalTests": 43,
+    "numPassedTests": 43,
+    "numFailedTests": 0,
+    "success": true,
+    "command": "npx vitest run src/qa/batchDAcceptance.test.ts src/qa/batchEAcceptance.test.ts --reporter=default --reporter=json --outputFile=test-results/batch-e-integration-unit-results.json"
+  },
+  "integrationRecordedAtUtc": "2026-11-05T07:38:21.485803+00:00"
 }

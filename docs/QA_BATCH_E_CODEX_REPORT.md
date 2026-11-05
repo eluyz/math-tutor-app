@@ -1,6 +1,6 @@
 # Batch E — independent integral QA
 
-Execution: 2026-11-05 (UTC). Independent branch `qa/batch-e-integral-acceptance`, based on main `fd2db7855e35bece7925412f9742d76e6e3b39c3`. Batch C #171 is merged. Batch D #172 was Draft/unmerged at `924358c5513f2accd83c4c8e977e66be4591ee6e`; its branch, contents and base were not changed.
+Execution: 2026-11-05 (UTC). Independent branch `qa/batch-e-integral-acceptance`, based on main `fd2db7855e35bece7925412f9742d76e6e3b39c3`. Batch C #171 is merged. Batch D #172 was Draft/unmerged at `924358c5513f2accd83c4c8e977e66be4591ee6e` at task start. The owner merged it during this task as main `cdb0ab76b20c5f176153593507cd7b9171f67cc4`. This session did not merge or modify #172; only the E branch was updated with that new main, resolving additive integration conflicts.
 
 **Tested implementation HEAD: 594b55b0deba2a0fa2076bf7f7c94bfa22bd55bd.** The subsequent documentation-only commit supplies this report and the [compact evidence ledger](qa-batch-e/local-results.json). The exact final delivery HEAD and immutable final CI run URL are recorded together in the Draft PR validation section. This avoids a self-referential report SHA and avoids rerunning full CI just to insert its URL into itself. Resolve the delivery HEAD with `git rev-parse HEAD`; [Actions for this branch](https://github.com/eluyz/math-tutor-app/actions?query=branch%3Aqa%2Fbatch-e-integral-acceptance) supplies the associated run.
 
@@ -93,16 +93,19 @@ Formal syllabus acceptance still needs the owner's direct private-original compa
 
 - E1 checkpoint `fa224e6`: 192 distinct tasks × PL/EN; targeted tests passed.
 - E2 checkpoint `96a31c5`: all 384 tasks × PL/EN; targeted tests and affected-generator regressions passed.
-- Final local results: **18/18 Batch E tests, 61/61 integral regression tests, 1,597/1,597 full unit tests in 125 files, production build PASS, 64/64 production Chromium tests (128 witnesses, 222.6 s), zero browser errors**. See the committed evidence ledger for exact commands, counts, source/test SHA-256 values and bundle hashes. The existing >500 kB bundle warning remains unchanged.
+- Pre-integration local results: **18/18 Batch E tests, 61/61 integral regression tests, 1,597/1,597 full unit tests in 125 files, production build PASS, 64/64 production Chromium tests (128 witnesses, 222.6 s), zero browser errors**. See the committed evidence ledger for exact commands, counts, source/test SHA-256 values and bundle hashes. The existing >500 kB bundle warning remains unchanged.
 - Baseline main CI: [41984039327](https://github.com/eluyz/math-tutor-app/actions/runs/41984039327), **completed SUCCESS** for `fd2db7855e35bece7925412f9742d76e6e3b39c3`.
 - Baseline Pages: [41986023372](https://github.com/eluyz/math-tutor-app/actions/runs/41986023372), **completed SUCCESS**, same SHA.
+- After the owner merged D: D+E targeted units **43/43 PASS**, production build **PASS** (identical app bundle), repeated E production browser tests **64/64 PASS**, 128 witnesses, zero browser errors on the integrated implementation; new hashes and results are in the ledger. The final full CI additionally exercises B/C/D/E.
 - Final delivery: run full existing CI once on the Draft PR's final HEAD, including all units, build, existing browser suite, Batch B/C and Batch E. A queued/in-progress run is not PASS. Its verified terminal result and immutable link belong to the Draft PR validation record.
 - CI adds only the Batch E production step and 14-day `batch-e-browser-evidence` upload to the existing workflow; no timeout increase. Raw local results remain in ignored `test-results/` and `playwright-report/`; durable compact results and hashes are committed.
 
 Reproduce with `npm ci`, `npm run test:batch-e`, `npm run build`, `npm run test:e2e:batch-e`, then the regression command in the ledger. In this cloud environment set `PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium`. The production config inherits that executable setting. The full default browser command deliberately excludes dedicated production batches to avoid accidental duplicate execution.
 
-## Later integration with Batch D
+## Integration with Batch D
 
-This PR targets main and has no dependency on #172. After either PR merges, rebase **only the remaining PR with its owner's authorization**. Resolve additive conflicts in `package.json`, `playwright.config.ts`, `tsconfig.node.json` and `.github/workflows/ci.yml` by preserving both batches' scripts, dedicated exclusions/configs, CI steps and evidence uploads. In `e2e/helpers/acceptance.ts`, preserve D's additional answer/category support alongside E's optional adapter, exact-title selection and whitespace normalization. Keep all existing B/C calls valid; rerun the shared-runner regressions plus D/E acceptance on the integrated HEAD. This session does not rebase, retarget or modify #172.
+This PR was created independently from main while #172 was unmerged. Its owner subsequently merged D, making #173 temporarily conflict and preventing pull-request CI from starting. Merge commit `093191c` updates only E with main `cdb0ab76b20c5f176153593507cd7b9171f67cc4`; no force push or action on #172 was needed.
+
+The five additive conflicts in `package.json`, `playwright.config.ts`, `tsconfig.node.json`, `.github/workflows/ci.yml` and `e2e/helpers/acceptance.ts` preserve both batches' scripts, dedicated exclusions/configs, CI steps and evidence uploads. D's answer/category support and matrix/radical variant identification remain intact alongside E's optional adapter, exact-title selection and whitespace normalization. Existing B/C calls remain valid. D source/test/report files have no changes against the new main. The final CI runs the existing B/C/D/E packages on the integrated delivery HEAD. No later D rebase is required; keep these additive settings when resolving future main changes.
 
 Recommended next work: owner-led original comparison for these eight competencies, then a small bounded follow-up for excluded existing integral forms and the remaining area-template EN phrase. Do not add a general integral engine or start the next batch automatically.
