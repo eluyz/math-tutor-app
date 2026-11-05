@@ -90,6 +90,21 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Run Batch G acceptance against the production bundle
+        run: npm run test:e2e:batch-g
+
+      - name: Save Batch G browser evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: batch-g-browser-evidence
+          path: |
+            test-results/batch-g-results.json
+            test-results/batch-g/
+            playwright-report/batch-g/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Save Batch C browser evidence
         if: always()
         uses: actions/upload-artifact@v7
