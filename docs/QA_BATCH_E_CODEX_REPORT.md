@@ -23,7 +23,7 @@ Read: curriculum coverage and syllabus V2, Batch B/C manifests, independent test
 | I04 | METHOD_PASS | METHOD_PARTIAL | BLOCKED_SOURCE | 48 |
 | I05 | METHOD_PASS | METHOD_PARTIAL | BLOCKED_SOURCE | 24 |
 | I06 | METHOD_PASS | METHOD_PARTIAL | BLOCKED_SOURCE | 72 |
-| I07 | METHOD_PASS | METHOD_PARTIAL; additional unselected-template language gap below | BLOCKED_SOURCE | 48 |
+| I07 | METHOD_PASS | METHOD_PARTIAL; previously noted unselected-template language gap fixed in post-review follow-up | BLOCKED_SOURCE | 48 |
 | I08 | METHOD_PASS | METHOD_PARTIAL | BLOCKED_SOURCE | 48 |
 
 I06 additionally reuses the 24 proper definite-substitution tasks counted under I03; they are not counted twice.
@@ -84,7 +84,7 @@ Initial browser harness failures were test infrastructure issues, not mathematic
 | I04 | `integral-parts`, `integral-parts-definite`, `integral-parts-trig-linear`: hard/advanced/expert | Existing definite-by-parts and lower polynomial degrees are outside this slice; general products are not validated. |
 | I05 | `integral-recurring`: advanced/expert | Only exponential×trigonometric recurrence, no claim about all recurring integrals. |
 | I06 | `integral-definite`: all five levels; infinity/endpoint/interior-power/interior-PV: hard/advanced/expert; definite followups: hard/advanced/expert | Existing endpoint-singularity and direct-polynomial families are not additional independent rows. No arbitrary singularity detector/general integral engine. |
-| I07 | area-between: easy/medium/hard; parabolas/horizontal-slices: hard/advanced/expert | No arbitrary curve pairs. **NEEDS_FIX outside the selected matrix:** read-only inspection shows `integral-area-between` still has Polish `od … do …` in an EN area-bound action (`areaArc.ts`, area branch). Its numerical method was not independently audited here; leave this additional template correction for the next bounded patch rather than expand this package's fixes. |
+| I07 | area-between: easy/medium/hard; parabolas/horizontal-slices: hard/advanced/expert | No arbitrary curve pairs. **Post-review RESOLVED (localization only):** the previously identified Polish `od … do …` within the English `integral-area-between` bounds display was corrected in `areaArc.ts`. A new regression in `batchEAcceptance.test.ts` checks the exact localized bounds across all 24 variants at easy/medium/hard (72 distinct tasks, PL and EN). These checks are a supplementary localization regression, **not** new independent numerical I07 acceptance witnesses. The mathematical method for this unselected family remains outside Batch E's bounded independent oracle matrix. |
 | I08 | graph arc: easy/medium/hard; parametric arc: hard/advanced/expert | Only the controlled power graph / polynomial parametric curves, no general curves or speed sign changes. |
 
 Formal syllabus acceptance still needs the owner's direct private-original comparison and final source review for every I01–I08. Do not infer a missing generator from an excluded test row or from a broader mathematical possibility.
@@ -109,3 +109,8 @@ This PR was created independently from main while #172 was unmerged. Its owner s
 The five additive conflicts in `package.json`, `playwright.config.ts`, `tsconfig.node.json`, `.github/workflows/ci.yml` and `e2e/helpers/acceptance.ts` preserve both batches' scripts, dedicated exclusions/configs, CI steps and evidence uploads. D's answer/category support and matrix/radical variant identification remain intact alongside E's optional adapter, exact-title selection and whitespace normalization. Existing B/C calls remain valid. D source/test/report files have no changes against the new main. The final CI runs the existing B/C/D/E packages on the integrated delivery HEAD. No later D rebase is required; keep these additive settings when resolving future main changes.
 
 Recommended next work: owner-led original comparison for these eight competencies, then a small bounded follow-up for excluded existing integral forms and the remaining area-template EN phrase. Do not add a general integral engine or start the next batch automatically.
+
+
+## Post-review localization closure (supplement to the original Batch E report)
+
+The owner requested that the residual `integral-area-between` English-language issue be resolved before merger. A surgical localization-only change preserves Polish wording and renders the integral bounds as `from … to …` in English, rather than Polish `od … do …`. An explicit regression samples every existing variant for all three supported difficulty levels (72 task IDs × 2 locales). This is an additional regression beyond the original 384 independently audited Batch E tasks; do **not** add these to the 384 or to the 32 pinned original Batch E browser variants. The original QA ledger and final CI #41988669134 describe the earlier delivery, not the post-review commit. The **new final HEAD must independently complete full GitHub CI** before merge approval; no formal SOURCE_PASS is assigned by localization. This report does not assert a PASS for an incomplete run.
