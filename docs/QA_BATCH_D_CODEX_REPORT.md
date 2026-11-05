@@ -132,3 +132,10 @@ CI adds a dedicated D production step and `batch-d-browser-evidence` artifact (J
 4. Recommended **next** bounded package, only if the owner requests it: **I01–I04** on existing integral families, using independent differentiation of candidate primitives and domain/constant checks. Start with at most six combinations and sixteen UI variants after inspecting original requirements. It is not started here.
 
 This completes the bounded D implementation. #106 remains paused and no subsequent batch is launched.
+
+
+## Post-merge rebase / PR #171 dependency closure — 2026-11-05
+
+Owner explicitly authorized **only PR #171**, which was squash-merged as `main@fd2db7855e35bece7925412f9742d76e6e3b39c3`. The Git tree of this squash commit is byte-for-byte identical to the original Batch C branch HEAD `befc5ab6abaa6f2fe7a432e999da14dbbe854499` (tree `40bbfe1324361ebd9a227487d5a7a2fe8718c930`). This allowed Batch D to be rebased **without changing its file tree**: the pre-rebase Batch D tree `5f09bd19123e14e17e98fbcb16510ff3dadfba87` became a commit with the new main as its sole parent (`93a5b706806c863e8e51a3b4b4507a5ecc95d0b3`). PR #172 now targets `main` and contains exactly the original 14 Batch D changed files; none of the Batch C changes are duplicated in the PR diff.
+
+The original [CI #41934503152](https://github.com/eluyz/math-tutor-app/actions/runs/41934503152) remains a valid PASS for the **identical application/test file tree**, but is attached to the **old commit SHA**. A new exact-HEAD GitHub CI run plus owner's separate permission are required for PR #172 before merge. PR #172 remains Draft and is **not merged**. The `main` post-merge CI/Pages verification for PR #171 is a separate release gate; its status must be re-read from GitHub, not inferred from the prior Batch C branch CI. No `SOURCE_PASS` checklist or private-source status changed.
