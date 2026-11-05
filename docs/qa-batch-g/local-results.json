@@ -1,0 +1,452 @@
+{
+  "recordedAtUtc": "2026-11-05T12:37:31.562074+00:00",
+  "implementationHead": "c3776c0a139129430217b829072c4c6a951039e5",
+  "baselineMain": "37617586563300787f1964932cbd38706f918865",
+  "scope": {
+    "skills": 8,
+    "combinations": 16,
+    "unitVariantsPerCombination": 24,
+    "distinctUnitTasks": 384,
+    "localizedInstances": 768,
+    "pinnedUiVariants": 32,
+    "uiWitnesses": 128
+  },
+  "manifest": [
+    {
+      "block": "G1",
+      "skills": [
+        "C05"
+      ],
+      "family": "sequence-euler-product",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G1",
+      "skills": [
+        "C06"
+      ],
+      "family": "sequence-monotonic-bounded",
+      "level": "advanced",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        2,
+        4
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F03"
+      ],
+      "family": "analysis-absolute",
+      "level": "medium",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F04"
+      ],
+      "family": "function-mixed-domain",
+      "level": "medium",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        4
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F04"
+      ],
+      "family": "function-mixed-domain",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        1,
+        3
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F06"
+      ],
+      "family": "function-parity",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        2
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F06"
+      ],
+      "family": "function-composition",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F06"
+      ],
+      "family": "function-mobius-inverse-point",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F07"
+      ],
+      "family": "analysis-power-law",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F07"
+      ],
+      "family": "analysis-elementary-equation",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G2",
+      "skills": [
+        "F07"
+      ],
+      "family": "analysis-log-inequality",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G3",
+      "skills": [
+        "G06"
+      ],
+      "family": "analysis-euler-function",
+      "level": "hard",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        11
+      ]
+    },
+    {
+      "block": "G3",
+      "skills": [
+        "G07"
+      ],
+      "family": "analysis-asymptote-vertical",
+      "level": "advanced",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G3",
+      "skills": [
+        "G07"
+      ],
+      "family": "analysis-asymptote-horizontal",
+      "level": "advanced",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G3",
+      "skills": [
+        "G07"
+      ],
+      "family": "analysis-asymptote-oblique",
+      "level": "advanced",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    },
+    {
+      "block": "G3",
+      "skills": [
+        "G07"
+      ],
+      "family": "analysis-asymptote-oblique",
+      "level": "expert",
+      "unitVariants": [
+        0,
+        23
+      ],
+      "uiVariants": [
+        0,
+        1
+      ]
+    }
+  ],
+  "pinnedIds": [
+    "analysis-absolute:medium:0",
+    "analysis-absolute:medium:1",
+    "analysis-asymptote-horizontal:advanced:0",
+    "analysis-asymptote-horizontal:advanced:1",
+    "analysis-asymptote-oblique:advanced:0",
+    "analysis-asymptote-oblique:advanced:1",
+    "analysis-asymptote-oblique:expert:0",
+    "analysis-asymptote-oblique:expert:1",
+    "analysis-asymptote-vertical:advanced:0",
+    "analysis-asymptote-vertical:advanced:1",
+    "analysis-elementary-equation:hard:0",
+    "analysis-elementary-equation:hard:1",
+    "analysis-euler-function:hard:0",
+    "analysis-euler-function:hard:11",
+    "analysis-log-inequality:hard:0",
+    "analysis-log-inequality:hard:1",
+    "analysis-power-law:hard:0",
+    "analysis-power-law:hard:1",
+    "function-composition:expert:0",
+    "function-composition:expert:1",
+    "function-mixed-domain:hard:1",
+    "function-mixed-domain:hard:3",
+    "function-mixed-domain:medium:0",
+    "function-mixed-domain:medium:4",
+    "function-mobius-inverse-point:expert:0",
+    "function-mobius-inverse-point:expert:1",
+    "function-parity:hard:0",
+    "function-parity:hard:2",
+    "sequence-euler-product:expert:0",
+    "sequence-euler-product:expert:1",
+    "sequence-monotonic-bounded:advanced:2",
+    "sequence-monotonic-bounded:advanced:4"
+  ],
+  "results": {
+    "batchG": {
+      "passed": 18,
+      "failed": 0,
+      "files": 1,
+      "report": "test-results/batch-g-unit-results.json",
+      "sha256": "a38645a4d1ef6f47a164cd416d33ee1687efaa546b4758244d77c05884b88008"
+    },
+    "regressions": {
+      "passed": 49,
+      "failed": 0,
+      "files": 8,
+      "report": "test-results/batch-g-regression-results.json",
+      "sha256": "9459d9f406a48a797cb98c6656123265f4f0ba33cc2234bac062cf90c6de9dd8"
+    },
+    "fullUnits": {
+      "passed": 1659,
+      "failed": 0,
+      "files": 128,
+      "report": "test-results/batch-g-full-unit-results.json",
+      "sha256": "2fd8f8dc4a6d808936fa9e656c3e5a53a418c8c0336824ba384d26358f74fdd3"
+    },
+    "chromium": {
+      "passed": 64,
+      "failed": 0,
+      "skipped": 0,
+      "flaky": 0,
+      "durationMs": 168157.278,
+      "distinctPins": 32,
+      "witnesses": 128,
+      "coverage": [
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnesses": 32,
+          "distinctIds": 32,
+          "errors": 0
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnesses": 32,
+          "distinctIds": 32,
+          "errors": 0
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnesses": 32,
+          "distinctIds": 32,
+          "errors": 0
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnesses": 32,
+          "distinctIds": 32,
+          "errors": 0
+        }
+      ],
+      "report": "test-results/batch-g-results.json",
+      "sha256": "4328d8968b5d174c730f55527d42c3c074297aecd51769e822dd8c22c98650c2"
+    }
+  },
+  "build": {
+    "status": "PASS",
+    "command": "npm run build",
+    "existingWarning": "chunk size over 500 kB"
+  },
+  "commands": {
+    "install": "npm_config_cache=/tmp/math-tutor-npm npm ci",
+    "batchG": "npm run test:batch-g -- --reporter=default --reporter=json --outputFile=test-results/batch-g-unit-results.json",
+    "regressions": "npx vitest run src/university/sequenceExtensions.test.ts src/university/sequenceFollowup.test.ts src/university/elementaryAnalysis.test.ts src/university/functionDomainsExtra.test.ts src/university/functions.test.ts src/university/functionExtensions.test.ts src/university/functionFollowup.test.ts src/university/analysisLimitsAsymptotes.test.ts --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/batch-g-regression-results.json",
+    "archive": "npx vitest run src/university/gauss-rectangular-regression.test.ts",
+    "fullUnits": "npm test -- --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/batch-g-full-unit-results.json",
+    "chromium": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npm run test:e2e:batch-g"
+  },
+  "sourceSha256": {
+    ".github/workflows/ci.yml": "fe621c35205e7e6105cd13c74f919ea10898bfe4d7e18e689aa9f99d4406e940",
+    "e2e/batchGAcceptance.spec.ts": "fb211447fd8288b80439d9dd9d73b870a9cedd65bd7a90b5619d616dc1a59cdb",
+    "e2e/helpers/acceptance.ts": "8bf4e807e8b729a5901584a2dbd5b02c5baae55c61893178b020514f879a04aa",
+    "e2e/helpers/localization.ts": "2ed5673589da5831568133fc2d1b203f8704a331c8ddddf311e79d4bf16cd9e3",
+    "package-lock.json": "593df17d1f722f189e6894e7df63f79d572a4b4d3791ffa50acfe49faf179f2f",
+    "package.json": "8677aeefd90531c144e4d99dc9ba60ff82d42943961d90450701e56573f18f54",
+    "playwright.batch-b.config.ts": "72c960d49583865bc1b03d63242f1413261b4b29ffc336bbc9f0553502c971f4",
+    "playwright.batch-g.config.ts": "5aff31b6c2c714483b46f46e75ec83b9f20ae7dc99541abec7eacbf8ea9e9adf",
+    "playwright.config.ts": "9e345154cb48375688d96cfb6506e82339399429b5ea96bd1bcb7293432101d5",
+    "src/answers.ts": "2cf91a211217e11199c7a7c4815c85899c981444f9c76e2bc6ca0f67b1ffa0b9",
+    "src/qa/acceptance.ts": "14cbc5742b8d7dcc8e2f7f1a9cdacb39208944128d3343c939695b386ce32ac6",
+    "src/qa/batchFMath.ts": "e56b2ede049250e106392576450bfe583c7960f5ddbaeb85ae0719564b7532bf",
+    "src/qa/batchG.ts": "7495701bb2650d6c9d22cbaa3e716f4d6c26e2043500aed3f7b0e1c041bf5574",
+    "src/qa/batchGAcceptance.test.ts": "f99a872684a2f5492cddef00ea167b672c2b46d445930c49dc5f8d136aa74223",
+    "src/qa/batchGMath.ts": "a151bd1e04877a7c329de9acd5f80030a276de4099cbd365a4a80e70ff33d59a",
+    "src/university/analysisLimitsAsymptotes.test.ts": "277175f2e24c094573514864df2f6fa04de2999b6600c7932b4282cb77494549",
+    "src/university/analysisLimitsAsymptotes.ts": "87dfd61b15fbdeaacc183f0cc07db36f7beddc3505c3fc26e5c0aa7985855161",
+    "src/university/catalog.ts": "7fdae70383e548ea6175e929b58776f7f594ab11e383acedab5641c2ce154bf3",
+    "src/university/elementaryAnalysis.test.ts": "a1f26a7a72cd1bce6a11772c76328e9652238282a11ee139e0851a8cb5dbdecb",
+    "src/university/elementaryAnalysis.ts": "17086bbf767a5afd37ba27c10bd9c9513e5b8152a8b904597031ef0233a4f64a",
+    "src/university/functionDomainsExtra.test.ts": "cc98159d49049d3e1ef1dd7b2754f9cd5a0dd6e1c37863e86b545d73d3a52be3",
+    "src/university/functionDomainsExtra.ts": "a98d58701ec7ff48bbc4b6a2d5402090944d51ad88af4b60242d6bd34afde79f",
+    "src/university/functionExtensions.test.ts": "bc9d3f4f3f1d953897658afd6d25e2a3409d7135b7e6d90d1999d1f3dc975cb7",
+    "src/university/functionExtensions.ts": "4c2f93f81869d514082966a15052b38bf3d7536f4d0d324ba6bdbd628cf814df",
+    "src/university/functionFollowup.test.ts": "66b047704555acc290216ce5a8160cace7ffa557e7790ad2853ff6e2946728e5",
+    "src/university/functionFollowup.ts": "59e5c6b7a9c126ce25a2ae0bdff1774e4b7f78718f86fa5e210312b5aa3a2e57",
+    "src/university/functions-audit.ts": "55702c3f0c464ea9a07521101e03869798b34ca4f3332666e31ab6842acd3f51",
+    "src/university/functions.test.ts": "5908b400ac148fdc490afeed2893ff40f1dbbd00b8487527fe02452bd77fd872",
+    "src/university/functions.ts": "c3d36db23354d7b6ceef8f58be18a02cb2846be2a8c42ff9fb41e5a5c3106112",
+    "src/university/gauss-rectangular-regression.test.ts": "3e948887f69929be76dc3eef028d2f879e67d4c7fb9a823a8721d67963e1c59d",
+    "src/university/sequenceExtensions.test.ts": "abe9e46f79d655c7097493eeb5208cf3ee0a54ceb1d95a78e05b2c685465c00a",
+    "src/university/sequenceExtensions.ts": "73c6b6b4335609221c8efcf07f0c61dbc364fc341cd5f24080abf07156d3e394",
+    "src/university/sequenceFollowup.test.ts": "df610a99f518b7cd8a1a093c0ec22f12785c2e795d0aff4aca104f7baa64e511",
+    "src/university/sequenceFollowup.ts": "01a6073c83f2bd82e053b3a19b2a100517464f7d833a67eaa725c82efa1f2f27",
+    "tsconfig.node.json": "ee193bc05c4a3e5da5d219b8bb104e85d5bed949750125a49b3de7eeb6822217"
+  },
+  "productionSha256": {
+    "dist/assets/index-Cyp6kSf3.css": "d7de1284128a0208fa3ed4bd6d4bf0ccf811f89c27c0e61efacfbd79d5fa909c",
+    "dist/assets/index-MC97T4_M.js": "cd2a44e70fe867b7370cfe001407675f6e6391ecc79b3485d4afc7e1b14df21d",
+    "dist/assets/react-vendor-DPWBTFcE.js": "6989d54c795d694bb0fd5d038161cb5cd121a31fc81ffae6b849082e41dbd513",
+    "dist/assets/rolldown-runtime-WkwZ5CU-.js": "2629f2ad3cb75a57d98de697127f5af7d777ef572bbcdfa6e3ce8f438cd4527e",
+    "dist/favicon.svg": "201f34726fb82d03a8fef5dd028ebe62692e77b6d4b2f1f036dbc3dbef245d84",
+    "dist/index.html": "67dea7678e58ff5fcc7fe445026ce6e116d03fd2839e1f4a9cffa551a2e92265"
+  },
+  "sourceGate": {
+    "C05": "BLOCKED_SOURCE",
+    "C06": "BLOCKED_SOURCE",
+    "F03": "BLOCKED_SOURCE",
+    "F04": "BLOCKED_SOURCE",
+    "F06": "BLOCKED_SOURCE",
+    "F07": "BLOCKED_SOURCE",
+    "G06": "BLOCKED_SOURCE",
+    "G07": "BLOCKED_SOURCE"
+  },
+  "ci": {
+    "baselineCi": "https://github.com/eluyz/math-tutor-app/actions/runs/42022441279",
+    "baselinePages": "https://github.com/eluyz/math-tutor-app/actions/runs/42025457341",
+    "finalRun": "Exact delivery HEAD, terminal immutable Actions URL and artifact are paired in the single Draft PR validation section.",
+    "artifactName": "batch-g-browser-evidence",
+    "retentionDays": 14
+  },
+  "notes": [
+    "Two production presentation fixes; no answer/domain/catalog changes.",
+    "Historical archive serializer normalizes only intentional fractional-base notation in four elementary families; original hashes unchanged.",
+    "Full units and Chromium ran serially; no timeout changes.",
+    "Initial archive hash failure corrected before final complete 1659/1659 run.",
+    "Raw local reports/screenshots ignored; hashes and coverage retained here."
+  ]
+}
