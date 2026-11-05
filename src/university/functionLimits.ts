@@ -481,8 +481,8 @@ export function presentFunctionLimit(p: FunctionLimitProblem, locale: Locale) {
     lesson.work(
       `M(${f(p.at)}) = ${f(dAt)} ≠ 0`,
       t(
-        "Mianownik jest niezerowy w punkcie. Iloraz wielomianów jest więc w nim ciągły i nie trzeba rozkładać ani skracać czynników.",
-        "The denominator is nonzero at this point. The quotient of polynomials is continuous here, so factoring and cancellation are unnecessary.",
+        "Mianownik jest niezerowy w punkcie. Iloraz wielomianów jest więc w nim ciągły, a granicę otrzymujemy bezpośrednio przez podstawienie.",
+        "The denominator is nonzero at this point. The quotient of polynomials is therefore continuous, and direct substitution gives the limit.",
       ),
     );
     lesson.work(
