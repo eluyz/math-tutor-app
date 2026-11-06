@@ -1,7 +1,7 @@
 import {test,expect} from "@playwright/test";
 import {runPinnedAcceptance} from "./helpers/acceptance";
 import {independentRational} from "../src/qa/w01Rational";
-const pins=[0,1,2,3,12,13,14,15,20,21,22,23];
+const pins=[0,1,2,3,8,9,10,11,12,13,14,15,20,21,22,23];
 for(const width of [375,1280])for(const locale of ["pl","en"] as const)
  test(`W01 rational partials ${locale} ${width}`,async({page},info)=>{
   await runPinnedAcceptance(page,info,{
