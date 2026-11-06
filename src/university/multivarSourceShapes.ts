@@ -112,10 +112,10 @@ export function presentW01SourceShape(p:W01SourceShapeProblem,locale:Locale){
     "Differentiate again. Mixed partial order does not matter for a polynomial."));
   const selected=p.target==="x"?fx:p.target==="y"?fy:p.target==="xx"?fxx:
     p.target==="yy"?fyy:fxy;
-  lesson.work(`${target}=${selected}`,
+  lesson.work(`${target}(x,y)=${selected}`,
    t("Wybierz wskazaną pochodną i sprawdź jej znaki oraz potęgi.",
     "Select the requested partial and check signs and exponents."));
-  lesson.work(`B=(${basis.join(", ")})`,
+  lesson.work(`B=(${basis.join(", ")}); ${target}=ΣᵢcᵢBᵢ`,
    t("Współczynniki podajemy w zadanej bazie funkcji; kolejność ma znaczenie.",
     "Enter the coefficients in the specified function basis, in the given order."));
  }else{
