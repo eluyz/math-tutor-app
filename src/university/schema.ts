@@ -1,4 +1,3 @@
-import type {BilinearProblem} from './bilinearExtrema';
 import type {W01SourceShapeProblem} from "./multivarSourceShapes";
 import type {MultivarRationalProblem} from "./multivarRational";
 import type { MultivarTrigProblem } from "./multivarTrig";
@@ -51,6 +50,7 @@ import type { MultivarDerivativeFollowupProblem } from "./multivarDerivativeFoll
 import type { MultivarLimitProblem } from "./multivarLimits";
 import type { PolarContinuityProblem } from "./polarContinuity";
 import type { RectangularPathProblem } from "./rectangularPaths";
+import type {W02CubicExtremaProblem} from "./w02CubicExtrema";
 import type { HessianProblem } from "./hessian";
 import type { MultivarExtremaProblem } from "./multivarExtrema";
 import type { DegenerateDiskProblem } from "./degenerateDisk";
@@ -306,8 +306,8 @@ export type UniversityProblem =
   | MultivarLimitProblem
   | PolarContinuityProblem
   | RectangularPathProblem
-  | BilinearProblem
   | HessianProblem
+  | W02CubicExtremaProblem
   | MultivarExtremaProblem
   | DegenerateDiskProblem
   | NegativePowerProblem

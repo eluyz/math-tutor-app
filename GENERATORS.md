@@ -1,6 +1,8 @@
+## W02 — complete source-shaped cubic stationary and local extrema
+
 | Family | Levels | Variants | Method |
 | --- | --- | ---: | --- |
-| multivar-bilinear-extrema | hard | 24 | Unique critical point, exact Hessian and graded saddle/no-local-extrema conclusion. |
+| multivar-cubic-extrema-full | hard | 24 | Nonlinear two-variable cubic source methods P43/2b and 2g; finds BOTH stationary points and explains origin saddle versus unique strict local extremum, exact coordinates and value. Candidate pending final CI. |
 
 ## W01 — polynomial/log/root source-shaped symbolic partials
 
@@ -165,9 +167,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **238 rodzin**, **18285 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 179 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **238 rodzin**, **18261 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 178 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **179**, L5: **163**.
+Łącznie rodziny L4: **178**, L5: **163**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -977,7 +979,7 @@ P1 dodaje 144 instancje do katalogu po #59: **143 rodzin / 12189 wariantów**. I
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
-| multivar-stationary-point | easy, medium, hard, advanced | 96 | Rozwiązywanie f_x=f_y=0 dla funkcji kwadratowych 2D z dokładnymi ułamkami |
+| multivar-stationary-point | easy, medium, hard | 72 | Rozwiązywanie f_x=f_y=0 dla funkcji kwadratowych 2D z dokładnymi ułamkami |
 | multivar-hessian-classify | easy, medium, hard | 72 | Test Hessiana: minimum, maksimum, punkt siodłowy i przypadek D=0, kiedy test nie rozstrzyga |
 
 P2 wnosi 144 zadania; razem z #59 oraz #60 katalog po scaleniu #61 będzie liczył **145 rodzin i 12333 warianty**. **Poziom Łatwy:** punkty stacjonarne mają całkowite współrzędne z przedziału [−2, 2], bez nadmiernie dużych współczynników liniowych. Poziom Średni: małe ułamki z mianownikiem 2; Trudny: ułamki z mianownikiem 3 i szerszy zakres współrzędnych. Przypadek D=0 nie oznacza automatycznie braku ekstremum; wygenerowany przykład z czwartą potęgą ma rzeczywiste minimum, którego sam test Hessiana nie potwierdza. Zakres W02 pozostaje częściowy.
