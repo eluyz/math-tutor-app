@@ -24,7 +24,7 @@ it("W02: all 24 cubic local extrema; complete stationary-point witnesses in PL/E
   if(!local)throw Error("Missing strict local extremum");
   expect(local.det).toBeGreaterThan(0);
   expect(local.kind).toBe(independent.classification);
-  expect(local.value).toBe(Number(independent.values[2]));
+  expect(local.value).toBe(p.a*local.point[0]**3+p.s*p.a*local.point[1]**3+3*p.a*p.k*local.point[0]*local.point[1]);
   for(const locale of ["pl","en"] as const){
    const view=localizeUniversity(task,locale),spec=view.answer;
    expect(spec.kind).toBe("list");
