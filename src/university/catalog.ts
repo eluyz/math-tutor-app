@@ -1,3 +1,4 @@
+import { multivarTrigFamilies, presentMultivarTrig } from "./multivarTrig";
 import {elementaryPartialFamilies,presentElementaryPartial} from './multivarElementary';
 import type { TypedExercise, CategoryId } from "../exercises";
 import type { Difficulty } from "../difficulty";
@@ -116,6 +117,7 @@ export const universityFamilies = [
   ...partialGradientFamilies,
   ...multivarDerivativeFollowupFamilies,
   ...elementaryPartialFamilies,
+  ...multivarTrigFamilies,
   ...multivarLimitFamilies,
   ...polarContinuityFamilies,
   ...rectangularPathFamilies,
@@ -226,6 +228,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentMultivarExtrema(problem, locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
     ? presentHessian(problem, locale)
+    : problem.kind === "multivar-trig-partial"
+    ? presentMultivarTrig(problem,locale)
     : problem.kind === "multivar-elementary-partial"
     ? presentElementaryPartial(problem,locale)
     : problem.kind === "multivar-cubic-partial" || problem.kind === "multivar-chain-gradient"
