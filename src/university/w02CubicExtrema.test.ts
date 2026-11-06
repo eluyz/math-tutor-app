@@ -46,7 +46,7 @@ it("W02: all 24 cubic local extrema; complete stationary-point witnesses in PL/E
    expect(steps[6].action).toContain("<0");
    expect(steps[7].action).toContain("det=");
    expect(steps[7].action).toContain(">0");
-   expect(steps[8].action).toContain(independent.classification);
+   expect(steps[8].action).toContain(locale==="pl"&&independent.classification==="maximum"?"maksimum":independent.classification);
    expect(view.hint.length).toBeGreaterThan(20);
    expect(view.nextHint.length).toBeGreaterThan(20);
    for(const step of steps){

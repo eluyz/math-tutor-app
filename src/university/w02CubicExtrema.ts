@@ -42,6 +42,7 @@ export function presentW02CubicExtrema(p:W02CubicExtremaProblem,locale:Locale){
  const expr=`(${a})x³+(${sy})y³+(${c})xy`;
  const x=-s*k,y=-k,D=27*a*a*k*k,D0=-9*a*a*k*k;
  const hxx=6*a*x,hyy=6*s*a*y;
+ const classText=ext.type==="minimum"?"minimum":t("maksimum","maximum");
  const labels=ext.type==="minimum"?["x_min","y_min","f_min"]:["x_max","y_max","f_max"];
  lesson.work(`f(x,y)=${expr}; D(f)=ℝ²; f∈C∞(ℝ²)`,
   t("Jest to wielomian, więc wszystkie pochodne i klasyczny test Hessiana istnieją wszędzie.",
@@ -64,10 +65,10 @@ export function presentW02CubicExtrema(p:W02CubicExtremaProblem,locale:Locale){
  lesson.work(`H(0,0): det=${D0}<0 ⇒ (0,0) ${t("siodło","saddle")}`,
   t("Ujemny wyznacznik Hessiana w zerze wyklucza ekstremum, mimo zerowania gradientu.",
     "The negative Hessian determinant at the origin excludes a local extremum despite zero gradient."));
- lesson.work(`H(${x},${y}): f_xx=${hxx}; f_yy=${hyy}; det=${D}>0 ⇒ ${ext.type}`,
+ lesson.work(`H(${x},${y}): f_xx=${hxx}; f_yy=${hyy}; det=${D}>0 ⇒ ${classText}`,
   t("Dodatni wyznacznik i znak f_xx dają ścisłe minimum albo maksimum lokalne.",
     "The positive determinant and the sign of f_xx prove a strict local minimum or maximum."));
- lesson.work(`f(${x},${y})=${s*a*k*k*k}; ${ext.type} (${x},${y})`,
+ lesson.work(`f(${x},${y})=${s*a*k*k*k}; ${classText} (${x},${y})`,
   t("Podstaw jedyny niezerowy punkt stacjonarny do funkcji i podaj wartość ekstremum.",
     "Substitute the unique nonzero stationary point into f and report the extremal value."));
  return lesson.finish(t("Znajdź wszystkie punkty stacjonarne i jedyne ekstremum lokalne funkcji ",
