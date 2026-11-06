@@ -1,0 +1,160 @@
+{
+  "implementation_head": "e19bc8fb6e111a584985f6349e5a21fe054ebdcb",
+  "starting_main": "90342d10118b2a66bc764cb3ebeba2b42fc1e99b",
+  "catalog_before": {
+    "families": 238,
+    "variants": 18261
+  },
+  "catalog_after": {
+    "families": 239,
+    "variants": 18285
+  },
+  "scope": {
+    "family": "multivar-quadratic-cubic-extrema",
+    "level": "hard",
+    "variants": "0..23",
+    "mathematical_tasks": 24,
+    "stationary_points": 48,
+    "locale_instances": 48
+  },
+  "local_results": {
+    "targeted_w02": {
+      "passed": 21,
+      "files": 5
+    },
+    "focused_locale_and_new_family": {
+      "passed": 255,
+      "files": 2
+    },
+    "full_unit": {
+      "command": "npm test -- --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/w02-batch3-unit.json",
+      "passed": 1715,
+      "failed": 0,
+      "files": 138
+    },
+    "production_build": {
+      "command": "npm run build",
+      "status": "PASS",
+      "note": "Existing bundle-size advisory only, no TypeScript error."
+    },
+    "production_chromium": {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npx playwright test --config playwright.w02-nonlinear.config.ts",
+      "passed": 4,
+      "failed": 0,
+      "witnesses": [
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-quadratic-cubic-extrema:hard:12",
+            "multivar-quadratic-cubic-extrema:hard:5",
+            "multivar-quadratic-cubic-extrema:hard:13",
+            "multivar-quadratic-cubic-extrema:hard:0",
+            "multivar-quadratic-cubic-extrema:hard:4",
+            "multivar-quadratic-cubic-extrema:hard:1",
+            "multivar-quadratic-cubic-extrema:hard:8",
+            "multivar-quadratic-cubic-extrema:hard:9"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-quadratic-cubic-extrema:hard:12",
+            "multivar-quadratic-cubic-extrema:hard:5",
+            "multivar-quadratic-cubic-extrema:hard:13",
+            "multivar-quadratic-cubic-extrema:hard:0",
+            "multivar-quadratic-cubic-extrema:hard:4",
+            "multivar-quadratic-cubic-extrema:hard:1",
+            "multivar-quadratic-cubic-extrema:hard:8",
+            "multivar-quadratic-cubic-extrema:hard:9"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-quadratic-cubic-extrema:hard:12",
+            "multivar-quadratic-cubic-extrema:hard:5",
+            "multivar-quadratic-cubic-extrema:hard:13",
+            "multivar-quadratic-cubic-extrema:hard:0",
+            "multivar-quadratic-cubic-extrema:hard:4",
+            "multivar-quadratic-cubic-extrema:hard:1",
+            "multivar-quadratic-cubic-extrema:hard:8",
+            "multivar-quadratic-cubic-extrema:hard:9"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-quadratic-cubic-extrema:hard:12",
+            "multivar-quadratic-cubic-extrema:hard:5",
+            "multivar-quadratic-cubic-extrema:hard:13",
+            "multivar-quadratic-cubic-extrema:hard:0",
+            "multivar-quadratic-cubic-extrema:hard:4",
+            "multivar-quadratic-cubic-extrema:hard:1",
+            "multivar-quadratic-cubic-extrema:hard:8",
+            "multivar-quadratic-cubic-extrema:hard:9"
+          ],
+          "errors": []
+        }
+      ],
+      "stats": {
+        "startTime": "2026-11-06T22:24:50.323Z",
+        "duration": 50866.503,
+        "expected": 4,
+        "skipped": 0,
+        "unexpected": 0,
+        "flaky": 0
+      }
+    }
+  },
+  "sympy": {
+    "followup_proposals": {
+      "three_point": {
+        "status": "PASS",
+        "critical_points": 3
+      },
+      "four_point": {
+        "status": "PASS",
+        "critical_points": 4
+      },
+      "source_alignment": "UNVERIFIED authored proposals, no original equation inferred"
+    },
+    "status": "PASS",
+    "sympy": "1.14.0",
+    "variants": 24,
+    "stationary_points": 48,
+    "counts": {
+      "minimum": 12,
+      "maximum": 12,
+      "saddle": 24,
+      "zero_coordinate_points": 10
+    }
+  },
+  "source_sha256": {
+    "src/university/w02NonlinearExtrema.ts": "8e7e5a91f9ff079baead8c09395d11c23498f9cdc34792f6b375b6ee7e805e2b",
+    "src/university/w02NonlinearExtrema.test.ts": "4e8128a3ec2ac2ed4a2ec78fcf15eba3e96eb9919b10e63b5e441502737a7ccb",
+    "src/qa/w02NonlinearOracle.ts": "329ed9e2b463db60a91963024d01944b338a8a11ebfafe8238f02809b8b80ef0",
+    "src/qa/batchH.ts": "df5a7e635183bc0b5ce41c1424d828dc0d34ce58299cad1bfb64c6d0d302c94a",
+    "src/qa/batchFMath.ts": "e56b2ede049250e106392576450bfe583c7960f5ddbaeb85ae0719564b7532bf",
+    "src/university/polynomial.ts": "c30bcf7b166af149538cc5e5eb1fbbc77b44409462c0a6dcccc7742eecfb648e",
+    "src/university/catalog.ts": "d04c951ad653d79540b2e27666da92e8606cbaf39bc226654341b2f2fbb33d16",
+    "src/university/schema.ts": "bb8212e72724342d085178b2587a5b87e456c63212e815fb045f5f4050dbf724",
+    "src/locales/lessons-en.ts": "028588a01d040f918f21064329ed52c5d10c1f2859c8be5796533047074e98aa",
+    "e2e/w02-nonlinear-extrema.spec.ts": "deaf4ebd14f6201463e80fcdb8f5578a06da3855a1053744088516c62ee6c72c",
+    "e2e/helpers/acceptance.ts": "8bf4e807e8b729a5901584a2dbd5b02c5baae55c61893178b020514f879a04aa",
+    "playwright.w02-nonlinear.config.ts": "a605ec02c61671504c499564295e0b16536a052cdb19f0a2b4816634b3fe59ff",
+    "scripts/qa/w02_batch3_sympy.py": "02b193779f676237268a4452658e59b5f085c72e2215cbb139d32bd653a996ac"
+  },
+  "raw_result_sha256": {
+    "test-results/w02-batch3-unit.json": "6ca70bfbab8cc56dcdfa7944357d837c72b7e26cb7004518673fbc20b2dce09f",
+    "test-results/w02-nonlinear-browser.json": "e2b9f5e0ae753b20ba54f9082e1c4258e9bb9c5365379cbe928d041af2d5515c"
+  },
+  "formal_source_acceptance": "BLOCKED_SOURCE; no original equations inspected, no SOURCE_PASS update",
+  "final_ci": "Exact delivery HEAD and terminal Actions result are recorded in the Draft PR validation section."
+}
