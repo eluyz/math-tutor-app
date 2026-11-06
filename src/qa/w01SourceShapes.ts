@@ -63,6 +63,7 @@ function basis(mode:string,target:string):readonly string[]{
   case "xy":case "yx":return ["u³⁄²:1,0"];
   case "yy":return ["u³⁄²:0,0"];
  }
+ throw new Error("Unknown W01 source basis: "+mode+"/"+target);
 }
 export function independentW01SourceShape(task:ReturnType<typeof makeUniversityTask>){
  const p=task.university;
