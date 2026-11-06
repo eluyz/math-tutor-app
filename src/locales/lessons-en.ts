@@ -264,7 +264,7 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
         if (/^[xyzwv]: t[12]$/.test(s)) return s;
         // Exact mathematical power labels are language-neutral; never treat them as Polish prose.
         if (/^x\^\([−-]?\d+(?:\/\d+)?\)$/.test(s)) return s;
-        if (["x/u","y/u","1/u","x²/u²","xy/u²","y²/u²","x/√u","y/√u","1/√u","x²/u^(3/2)","xy/u^(3/2)","y²/u^(3/2)","sin(2u)","cos(2u)","y²sin(u)","xysin(u)","y⁴cos(u)","ysin(u)","xy³cos(u)","xsin(u)","x²y²cos(u)","x/y³","x²/y⁴","1/y³","x/y⁴","x²/y⁵","y/v²","x/v²","y/v³","x/v³","y/x²","1/x","y/x³","1/x²","y²/v²","x²/v²","y²/v³","xy/v³","x²/v³"].includes(s)) return s;
+        if (["x/u","y/u","1/u","x²/u²","xy/u²","y²/u²","x/√u","y/√u","1/√u","x²/u^(3/2)","xy/u^(3/2)","y²/u^(3/2)","sin(2u)","cos(2u)","y²sin(u)","xysin(u)","y⁴cos(u)","ysin(u)","xy³cos(u)","xsin(u)","x²y²cos(u)","x/y³","x²/y⁴","1/y³","x/y⁴","x²/y⁵","y/v²","x/v²","y/v³","x/v³","y/x²","1/x","y/x³","1/x²","y²/v²","x²/v²","y²/v³","xy/v³","x²/v³","xy","y²","x/u^(3/2)","1/u^(3/2)"].includes(s)) return s;
         if (!fieldLabels[s])
           throw new Error(`Missing English answer label: ${s}`);
         return fieldLabels[s];

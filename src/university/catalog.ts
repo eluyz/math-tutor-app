@@ -1,3 +1,4 @@
+import {w01SourceShapeFamilies,presentW01SourceShape} from "./multivarSourceShapes";
 import {multivarRationalFamilies,presentMultivarRational} from "./multivarRational";
 import { multivarTrigFamilies, presentMultivarTrig } from "./multivarTrig";
 import {elementaryPartialFamilies,presentElementaryPartial} from './multivarElementary';
@@ -120,6 +121,7 @@ export const universityFamilies = [
   ...elementaryPartialFamilies,
   ...multivarTrigFamilies,
   ...multivarRationalFamilies,
+  ...w01SourceShapeFamilies,
   ...multivarLimitFamilies,
   ...polarContinuityFamilies,
   ...rectangularPathFamilies,
@@ -230,6 +232,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentMultivarExtrema(problem, locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
     ? presentHessian(problem, locale)
+    : problem.kind === "multivar-source-shape-partial"
+    ? presentW01SourceShape(problem,locale)
     : problem.kind === "multivar-rational-partial"
     ? presentMultivarRational(problem,locale)
     : problem.kind === "multivar-trig-partial"
