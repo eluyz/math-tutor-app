@@ -50,6 +50,7 @@ import type { MultivarDerivativeFollowupProblem } from "./multivarDerivativeFoll
 import type { MultivarLimitProblem } from "./multivarLimits";
 import type { PolarContinuityProblem } from "./polarContinuity";
 import type { RectangularPathProblem } from "./rectangularPaths";
+import type {W02CubicExtremaProblem} from "./w02CubicExtrema";
 import type { HessianProblem } from "./hessian";
 import type { MultivarExtremaProblem } from "./multivarExtrema";
 import type { DegenerateDiskProblem } from "./degenerateDisk";
@@ -306,6 +307,7 @@ export type UniversityProblem =
   | PolarContinuityProblem
   | RectangularPathProblem
   | HessianProblem
+  | W02CubicExtremaProblem
   | MultivarExtremaProblem
   | DegenerateDiskProblem
   | NegativePowerProblem
