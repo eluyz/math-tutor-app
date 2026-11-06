@@ -118,7 +118,7 @@ To jest **nowa, 64-wierszowa kolejka akceptacji**, scalająca aktualną mapę `C
 | I06 | Całka oznaczona | częściowo | P38/1a–n | P1 • oznaczone/niewłaściwe | Sprawdzić granice, osobliwości wewnątrz przedziału i nie mylić wartości głównej z całką niewłaściwą |
 | I07 | Pole między krzywymi | częściowo | P38/2a–j incl. 2i | P0 • obszar dy/dx | Sprawdzić oryginalne P38/2i (po dy, #120) i P38/2g (zmiana kolejności krzywych); brak metody tylko jeśli dowód |
 | I08 | Długość łuku | częściowo | P38/3a–c | P1 • sprawdzenie próbki | Sprawdzić ≥1 oryginalną formę na istniejącym wariancie; tylko potwierdzona różnica daje nowe zadanie programistyczne |
-| W01 | Pochodne cząstkowe I/II | częściowo | P43/1a–j | P1 • pochodne 2D | Porównać oryginalne P43/1a–j: pochodne mieszane, trig/log/pierwiastki, stopień zgodności generatorów |
+| W01 | Pochodne cząstkowe I/II | częściowo | P43/1a–j | P1 • pochodne 2D | Controlled symbolic log/root second partials added by `multivar-elementary-partial` on u>0. Original P43/1a–j comparison remains BLOCKED_SOURCE; trig, rational and variable-exponent methods remain open. |
 | W02 | Ekstrema 2D | częściowo | P43/2a–h | P1 • ekstrema 2D | Porównać P43/2a–h: równania stacjonarności i klasyfikację Hessianem; odróżnić degenerate/test inconclusive |
 | W03 | Granica i ciągłość 2D | częściowo | P41/2–5 (lecture) | P2 • zakres teorii | Ustalić, czy granice/ciągłość 2D są odrębnie egzaminowane; zachować metody po drogach i współrzędnych biegunowych |
 

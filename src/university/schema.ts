@@ -1,3 +1,4 @@
+import type {ElementaryPartialProblem} from './multivarElementary';
 import type { Matrix } from "../matrices";
 import type { Rational } from "../rational";
 import type { Difficulty } from "../difficulty";
@@ -293,6 +294,7 @@ export type UniversityProblem =
   | HigherRootDerivativeProblem
   | InfinityRootConjugationProblem
   | PartialGradientProblem
+  | ElementaryPartialProblem
   | MultivarDerivativeFollowupProblem
   | MultivarLimitProblem
   | PolarContinuityProblem
