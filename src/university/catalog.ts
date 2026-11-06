@@ -36,6 +36,7 @@ import { multivarDerivativeFollowupFamilies, presentMultivarDerivativeFollowup }
 import { multivarLimitFamilies, presentMultivarLimit } from "./multivarLimits";
 import { polarContinuityFamilies, presentPolarContinuity } from "./polarContinuity";
 import { rectangularPathFamilies, presentRectangularPath } from "./rectangularPaths";
+import {bilinearFamilies,presentBilinear} from "./bilinearExtrema";
 import {w02CubicExtremaFamilies,presentW02CubicExtrema} from "./w02CubicExtrema";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { multivarExtremaFamilies, presentMultivarExtrema } from "./multivarExtrema";
@@ -128,6 +129,7 @@ export const universityFamilies = [
   ...rectangularPathFamilies,
   ...hessianFamilies,
   ...w02CubicExtremaFamilies,
+  ...bilinearFamilies,
   ...multivarExtremaFamilies,
   ...degenerateDiskFamilies,
   ...negativePowerFamilies,
@@ -232,6 +234,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentDegenerateDisk(problem, locale)
     : problem.kind === "multivar-rectangle-extrema" || problem.kind === "multivar-disk-linear-extrema"
     ? presentMultivarExtrema(problem, locale)
+    : problem.kind === "multivar-bilinear-extrema"
+    ? presentBilinear(problem,locale)
     : problem.kind === "multivar-cubic-extrema-full"
     ? presentW02CubicExtrema(problem,locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
