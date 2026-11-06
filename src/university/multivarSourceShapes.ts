@@ -120,7 +120,7 @@ export function presentW01SourceShape(p:W01SourceShapeProblem,locale:Locale){
     "Enter the coefficients in the specified function basis, in the given order."));
  }else{
   lesson.work(p.mode==="log-positive"
-   ? "D(f)=ℝ²; u>0 for all (x,y); D(C²)=ℝ²"
+   ? "D(f)=ℝ²; u>0 ∀(x,y); D(C²)=ℝ²"
    : "D(f)={u≥0}; D(C²)={u>0}",
    p.mode==="log-positive"
     ?t("Dodatnie współczynniki przy x² i y² oraz dodatnia stała zapewniają u>0 wszędzie.",

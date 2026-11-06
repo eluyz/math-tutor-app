@@ -1,3 +1,4 @@
+import type {W01SourceShapeProblem} from "./multivarSourceShapes";
 import type {MultivarRationalProblem} from "./multivarRational";
 import type { MultivarTrigProblem } from "./multivarTrig";
 import type {ElementaryPartialProblem} from './multivarElementary';
@@ -299,6 +300,7 @@ export type UniversityProblem =
   | ElementaryPartialProblem
   | MultivarTrigProblem
   | MultivarRationalProblem
+  | W01SourceShapeProblem
   | MultivarDerivativeFollowupProblem
   | MultivarLimitProblem
   | PolarContinuityProblem
