@@ -67,7 +67,7 @@ export function batchHCertificate(task:Task,locale:'pl'|'en'='en'):HCertificate{
    demand(sign(A)!==0&&sign(D)!==0,'Unique stationary system');
    const factor=div(B,A),y=div(sub(mul(factor,p.d),p.e),sub(C,mul(factor,B))),x=div(sub(sub(r(0),p.d),mul(B,y)),A);
    demand(sign(add(add(mul(A,x),mul(B,y)),p.d))===0&&sign(add(add(mul(B,x),mul(C,y)),p.e))===0,'Substitution into BOTH original gradient equations');
-   return {input:list([x,y]),facts:['independent row elimination, not stored h/k or Cramer helper','nonzero determinant gives the only stationary point'],anchors:[[`f_x=2(${f(p.a)})x+(${f(p.b)})y+(${f(p.d)})`],[`f_y=(${f(p.b)})x+2(${f(p.c)})y+(${f(p.e)})`],[`det=4ac−b²=${f(D)} ≠ 0`],[`x=${f(x)}; y=${f(y)}`]]};
+   return {input:list([x,y]),facts:['independent row elimination, not stored h/k or Cramer helper','nonzero determinant gives the only stationary point'],anchors:[[`f_x=2(${f(p.a)})x+(${f(p.b)})y+(${f(p.d)})`],[`f_y=(${f(p.b)})x+2(${f(p.c)})y+(${f(p.e)})`],[`det=4ac−b²=${f(D)} ≠ 0`],[`x=${f(x)}; y=${f(y)}`],[`H=[[${f(A)},${f(B)}],[${f(B)},${f(C)}]]; D=${f(D)}`],[`D=${f(D)}, f_xx=${f(A)} ⇒ ${sign(D)<0?'saddle':sign(A)>0?'minimum':'maximum'}`],[`f(${f(x)},${f(y)})=${f(add(add(add(mul(p.a,sq(x)),mul(p.b,mul(x,y))),mul(p.c,sq(y))),add(add(mul(p.d,x),mul(p.e,y)),p.offset)))}`]]};
   }
   const U:Poly=[[1,0,r(1)],[0,0,sub(r(0),p.h)]],V:Poly=[[0,1,r(1)],[0,0,sub(r(0),p.k)]];
   const P=plus(scale(power(U,2),p.a),scale(product(U,V),p.b),scale(power(V,2),p.c),p.degenerate?power(V,4):[]);

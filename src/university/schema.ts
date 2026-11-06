@@ -1,3 +1,4 @@
+import type {BilinearProblem} from './bilinearExtrema';
 import type {W01SourceShapeProblem} from "./multivarSourceShapes";
 import type {MultivarRationalProblem} from "./multivarRational";
 import type { MultivarTrigProblem } from "./multivarTrig";
@@ -305,6 +306,7 @@ export type UniversityProblem =
   | MultivarLimitProblem
   | PolarContinuityProblem
   | RectangularPathProblem
+  | BilinearProblem
   | HessianProblem
   | MultivarExtremaProblem
   | DegenerateDiskProblem
