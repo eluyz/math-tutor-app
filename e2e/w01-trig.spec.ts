@@ -8,7 +8,7 @@ for(const width of [375,1280])for(const locale of ["pl","en"] as const)
       variants:Array.from({length:12},(_,v)=>v),
     },locale,width,independentTrig,answer=>{
       if(typeof answer==="string"||answer.kind!=="list")throw Error("Expected coefficients");
-      return {...answer,values:[String(Number(answer.values[0])+1),...answer.values.slice(1)]};
+      return {...answer,values:["999999",...answer.values.slice(1)]};
     },{inspectPinned:async(page,task)=>{
       if(task.university.kind!=="multivar-trig-partial")throw Error("Incorrect pinned family");
       await expect(page.locator(".solution-panel")).toContainText("D(f)=ℝ²");

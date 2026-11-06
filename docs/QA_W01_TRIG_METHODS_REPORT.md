@@ -2,7 +2,7 @@
 
 ## Baseline and bounded original-method comparison
 
-Based on independently inspected, owner-provided private P43 (tasks) and P42 (answer-key file, source numbering unverified). The original worksheet includes **squared sine of a linear form** and **cosine of a bivariate product with a squared variable**. We verified the derivative rules and answer forms without copying original coefficients, scans or results into this repository. Private source material stays outside git.
+Based on independently inspected, owner-provided private P43 (tasks) and the associated private answer-key PDF. The original worksheet includes **squared sine of a linear form** and **cosine of a bivariate product with a squared variable**. We verified the derivative rules and answer forms without copying original coefficients, scans or results into this repository. Private source material stays outside git.
 
 The candidate implements two **synthetic source-shaped method classes** (not replicas of original worksheet numbers): `sin²(ax+by)` and `cos(kxy²)` with independently authored varying integer parameters. Each supports x, y, xx, xy, yx, yy symbolic partials. The selected answer is represented as coefficients of explicitly stated independent function basis terms rather than the value at a point. The family is bounded to 24 variants at the hard level.
 

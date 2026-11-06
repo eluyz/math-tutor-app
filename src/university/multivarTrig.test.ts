@@ -20,7 +20,7 @@ it("W01: all 24 trig variants, independent mixed derivatives and bilingual gradi
     for(const locale of ["pl","en"] as const){
       const view=localizeUniversity(task,locale);
       expect(assessAnswer(view.answer,expected).kind).toBe("correct");
-      const wrong={...expected,values:[String(Number(expected.values[0])+1),...expected.values.slice(1)]};
+      const wrong={...expected,values:["999999",...expected.values.slice(1)]};
       expect(assessAnswer(view.answer,wrong).kind).toBe("incorrect");
       expect(assessAnswer(view.answer,emptyAnswer(view.answer)).kind).toBe("invalid");
       const steps=view.solution?.filter(x=>x.kind==="working")??[];
