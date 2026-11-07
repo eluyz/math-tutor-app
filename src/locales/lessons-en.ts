@@ -234,6 +234,7 @@ function englishMonotonicityIntervals(label: string): string | null {
 export function englishAnswer(spec: AnswerSpec): AnswerSpec {
   if(spec.kind==="multi-choice"){
     const fieldNames:Record<string,string>={
+      "Wniosek":"Conclusion",
       "Dziedzina (D)":"Domain (D)","Zbiór wartości (W)":"Range (W)",
       "Ściśle rośnie":"Strictly increasing","Ściśle maleje":"Strictly decreasing",
       "Różnowartościowa?":"One-to-one?","Parzystość":"Parity",
@@ -241,6 +242,7 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
       "Liczba parametrów swobodnych":"Number of free parameters",
     };
     const optionNames:Record<string,string>={
+      "Punkt siodłowy; brak ekstremów lokalnych":"Saddle point; no local extrema", "Minimum lokalne":"Local minimum", "Maksimum lokalne":"Local maximum", "Test nierozstrzygający":"Inconclusive test",
       "Tak":"Yes","Nie":"No","Parzysta":"Even","Nieparzysta":"Odd",
       "Ani parzysta, ani nieparzysta":"Neither",
       "Jedno rozwiązanie":"Exactly one solution",

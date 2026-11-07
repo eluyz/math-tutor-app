@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "sympy": "1.14.0",
+  "records": 120,
+  "counts": {
+    "quadratic": 96,
+    "bilinear": 24,
+    "minimum": 60,
+    "maximum": 18,
+    "saddle": 42
+  }
+}

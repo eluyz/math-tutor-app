@@ -1,0 +1,176 @@
+{
+  "implementation_head": "1d943aebb21689990f5c44f58cafae3fc318fa36",
+  "base_main": "c206e8dcdf4ae4aeca9e2c0a1fbdd6e4f4b6f9c2",
+  "catalog_before": {
+    "families": 237,
+    "variants": 18237
+  },
+  "catalog_after": {
+    "families": 238,
+    "variants": 18285
+  },
+  "audited_tasks": 120,
+  "locale_instances": 240,
+  "scopes": [
+    {
+      "family": "multivar-stationary-point",
+      "levels": [
+        "easy",
+        "medium",
+        "hard",
+        "advanced"
+      ],
+      "variants": "0..23",
+      "count": 96
+    },
+    {
+      "family": "multivar-bilinear-extrema",
+      "levels": [
+        "hard"
+      ],
+      "variants": "0..23",
+      "count": 24
+    }
+  ],
+  "local_results": {
+    "unit": {
+      "command": "npm test -- --maxWorkers=1 --reporter=default --reporter=json --outputFile=test-results/w02-batch2-unit.json",
+      "files_passed": 137,
+      "tests_passed": 1711,
+      "tests_failed": 0,
+      "note": "Final additional assertions in the same audit test were subsequently checked with the 16-test targeted run; exact final source is tested again by remote full CI."
+    },
+    "final_targeted": {
+      "command": "npx vitest run src/university/w02Batch2.test.ts src/university/hessian.test.ts src/qa/batchHAcceptance.test.ts",
+      "files_passed": 3,
+      "tests_passed": 16,
+      "tests_failed": 0
+    },
+    "build": {
+      "command": "npm run build",
+      "status": "PASS",
+      "note": "Existing bundle-size advisory only; no TypeScript errors."
+    },
+    "production_browser": {
+      "command": "PLAYWRIGHT_CHROMIUM_EXECUTABLE=/usr/bin/chromium npx playwright test --config playwright.w02-batch2.config.ts",
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "witnesses": [
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-bilinear-extrema:hard:16",
+            "multivar-bilinear-extrema:hard:7",
+            "multivar-bilinear-extrema:hard:0",
+            "multivar-bilinear-extrema:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-stationary-point:advanced:3",
+            "multivar-stationary-point:advanced:0"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-bilinear-extrema:hard:16",
+            "multivar-bilinear-extrema:hard:7",
+            "multivar-bilinear-extrema:hard:0",
+            "multivar-bilinear-extrema:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-stationary-point:advanced:3",
+            "multivar-stationary-point:advanced:0"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-bilinear-extrema:hard:16",
+            "multivar-bilinear-extrema:hard:7",
+            "multivar-bilinear-extrema:hard:0",
+            "multivar-bilinear-extrema:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-stationary-point:advanced:3",
+            "multivar-stationary-point:advanced:0"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-bilinear-extrema:hard:16",
+            "multivar-bilinear-extrema:hard:7",
+            "multivar-bilinear-extrema:hard:0",
+            "multivar-bilinear-extrema:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-stationary-point:advanced:3",
+            "multivar-stationary-point:advanced:0"
+          ],
+          "errors": []
+        }
+      ]
+    }
+  },
+  "sympy": {
+    "status": "PASS",
+    "sympy": "1.14.0",
+    "records": 120,
+    "counts": {
+      "quadratic": 96,
+      "bilinear": 24,
+      "minimum": 60,
+      "maximum": 18,
+      "saddle": 42
+    }
+  },
+  "source_sha256": {
+    "src/university/hessian.ts": "efa96a0331e2a7fc7a37efbee377b40e1d082555a0408ccdd3f09ccbf54562af",
+    "src/university/bilinearExtrema.ts": "0632bcfa00a3190312eca672d3ab4b36c182adb314e247760d805cff19321ffc",
+    "src/qa/w02Batch2.ts": "eaf3cb27667e9e4d25589bab38095c725a51a0e8725b9470dbb792a2d1dc525f",
+    "src/university/w02Batch2.test.ts": "7ba6bf68d016b8930e7d75b1ed7422e618bbcf88f9c15f4edca648645067b2e2",
+    "src/qa/batchH.ts": "b3cadc3436a8542cf5a71c256ed48a7cba1def609321e64f9c1acf4a3e457b95",
+    "src/university/hessian.test.ts": "fbdd3fcaadd362eafc2ab55a4205bfe7508c80a6b9ce9c16abca752064b62c7d",
+    "src/university/catalog.ts": "0ba0ce4279cca36d2fff3e1488eb9621791b6b4049906b3bb77274c4739cb6d5",
+    "src/university/schema.ts": "aed4b4cab24e9a272cb69f1f87bb1c5d7cbe9b8746440bf911b0f4d50c5791d7",
+    "src/locales/lessons-en.ts": "3e466a8e24df2479d7f089ee4c3dfe905422e2714a38dd4183f74c97f81120f4",
+    "e2e/w02-batch2.spec.ts": "0f558767cc32ae87208d3a3803c88e66c833f069c691f2e2ee9487189720d976",
+    "e2e/helpers/acceptance.ts": "8bf4e807e8b729a5901584a2dbd5b02c5baae55c61893178b020514f879a04aa",
+    "playwright.w02-batch2.config.ts": "4ed4b038262f328a6e684d78d6fb9a4a6aee4f27e819ae5af835dca1e156dc70",
+    "scripts/qa/w02_batch2_sympy.py": "57eaa9ad81fda5c989dffe2d50439b99aa42311c5f651687afb123c94ea79694"
+  },
+  "raw_result_sha256": {
+    "test-results/w02-batch2-unit.json": "f63465986507debb98340a70ef1161c161c801846d10b07c188af09bce5eb904",
+    "test-results/w02-batch2-browser.json": "4038febb846905e9b2419d73c9729ccfac4a835fd6a362eb16c6657abb80cb21"
+  },
+  "source_acceptance": "BLOCKED_SOURCE: no private originals inspected; formal 14/64 unchanged",
+  "final_ci": "See the Draft PR validation section: exact delivery HEAD and terminal Actions URL."
+}
