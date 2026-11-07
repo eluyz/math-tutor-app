@@ -1,0 +1,106 @@
+{
+  "implementationHead": "4dddf50a3f075e3f6d6df569ea5a4179b5fc702a",
+  "base": "e2453fb8cab90426f1bcba6f3992347cbe7bbea0",
+  "method": "Controlled symbolic log/root first/second/mixed partials",
+  "sourceStatus": "BLOCKED_SOURCE",
+  "distinctTasks": 24,
+  "localizedInstances": 48,
+  "unitPassed": 1698,
+  "unitFiles": 132,
+  "targetedW01W02H": 42,
+  "build": "PASS",
+  "browserPassed": 4,
+  "uiWitnesses": [
+    {
+      "locale": "pl",
+      "width": 375,
+      "witnessed": [
+        "multivar-elementary-partial:hard:6",
+        "multivar-elementary-partial:hard:11",
+        "multivar-elementary-partial:hard:10",
+        "multivar-elementary-partial:hard:2",
+        "multivar-elementary-partial:hard:5",
+        "multivar-elementary-partial:hard:3",
+        "multivar-elementary-partial:hard:7",
+        "multivar-elementary-partial:hard:0",
+        "multivar-elementary-partial:hard:4",
+        "multivar-elementary-partial:hard:1",
+        "multivar-elementary-partial:hard:8",
+        "multivar-elementary-partial:hard:9"
+      ],
+      "errors": []
+    },
+    {
+      "locale": "en",
+      "width": 375,
+      "witnessed": [
+        "multivar-elementary-partial:hard:6",
+        "multivar-elementary-partial:hard:11",
+        "multivar-elementary-partial:hard:10",
+        "multivar-elementary-partial:hard:2",
+        "multivar-elementary-partial:hard:5",
+        "multivar-elementary-partial:hard:3",
+        "multivar-elementary-partial:hard:7",
+        "multivar-elementary-partial:hard:0",
+        "multivar-elementary-partial:hard:4",
+        "multivar-elementary-partial:hard:1",
+        "multivar-elementary-partial:hard:8",
+        "multivar-elementary-partial:hard:9"
+      ],
+      "errors": []
+    },
+    {
+      "locale": "pl",
+      "width": 1280,
+      "witnessed": [
+        "multivar-elementary-partial:hard:6",
+        "multivar-elementary-partial:hard:11",
+        "multivar-elementary-partial:hard:10",
+        "multivar-elementary-partial:hard:2",
+        "multivar-elementary-partial:hard:5",
+        "multivar-elementary-partial:hard:3",
+        "multivar-elementary-partial:hard:7",
+        "multivar-elementary-partial:hard:0",
+        "multivar-elementary-partial:hard:4",
+        "multivar-elementary-partial:hard:1",
+        "multivar-elementary-partial:hard:8",
+        "multivar-elementary-partial:hard:9"
+      ],
+      "errors": []
+    },
+    {
+      "locale": "en",
+      "width": 1280,
+      "witnessed": [
+        "multivar-elementary-partial:hard:6",
+        "multivar-elementary-partial:hard:11",
+        "multivar-elementary-partial:hard:10",
+        "multivar-elementary-partial:hard:2",
+        "multivar-elementary-partial:hard:5",
+        "multivar-elementary-partial:hard:3",
+        "multivar-elementary-partial:hard:7",
+        "multivar-elementary-partial:hard:0",
+        "multivar-elementary-partial:hard:4",
+        "multivar-elementary-partial:hard:1",
+        "multivar-elementary-partial:hard:8",
+        "multivar-elementary-partial:hard:9"
+      ],
+      "errors": []
+    }
+  ],
+  "sha256": {
+    "src/university/multivarElementary.ts": "e3bdc0dd802a7a8dc316757f6248325ed08917c1feaa9724c248536bec3f7881",
+    "src/university/multivarElementary.test.ts": "5c78cf62694dcb826c6ecc449b867691a4aecb91ac26d93bf00b130af676a561",
+    "src/qa/w01Elementary.ts": "7ff88279d7508feb92777b852b01a5c5eeb135360bf008db82d2115569e3e44d",
+    "e2e/w01-elementary.spec.ts": "a59d3aef7e65a9aa7893a3cd51f980ea9ba218d0840ed22517917c026f2b0fd4",
+    "playwright.w01.config.ts": "89ce063f693d477616e015370cdc160f377872b11e6d4df8b3fcbe52717b9130",
+    "src/locales/lessons-en.ts": "9ec7630e45298697151b90b1becc8f38200cfdaad6c81772ad4470dbed614ebe",
+    "src/university/catalog.ts": "01a19a0139c326d96b765ec5fa14bdafa0ba7c677134535b71bed359b54c24d2",
+    "src/university/schema.ts": "313579ec6a2fbd4f364e922f698919dc72b2638556f4f1d79997f63da6d30441"
+  },
+  "rawReports": {
+    "test-results/w01-unit.json": "c1273b9a9e6b97fedd9ac2faba946f2f989000bccb99b45f7f7aad580636e759",
+    "test-results/w01-browser.json": "b9ded444ed24eb485b3f166738671b3458ad1fe96153e8ad5f9d978673d6964f"
+  },
+  "ci": "Final delivery SHA and terminal Actions URL paired in Draft PR validation."
+}

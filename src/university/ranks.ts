@@ -70,7 +70,7 @@ export function presentRank(p:Extract<LinearAlgebraProblem,{kind:"linear-rank"|"
     lesson.work(kind==="system-none"?"rank(A) < rank([A|b])":kind==="system-one"?"rank(A) = rank([A|b]) = n":"rank(A) = rank([A|b]) < n",kind==="system-none"?t("Sprzeczny wiersz 0=c≠0 wyklucza rozwiązania.","An inconsistent row 0=c≠0 excludes all solutions."):kind==="system-one"?t("Pivot każdej niewiadomej daje dokładnie jedno rozwiązanie.","A pivot for every variable gives exactly one solution."):t("Brak sprzeczności i co najmniej jedna zmienna swobodna oznaczają nieskończenie wiele rozwiązań nad R.","Consistency and at least one free variable give infinitely many solutions over the reals."));
     if(p.sourceForm==="parameter-count"){
       const count=kind==="system-none"?"not-applicable":kind==="system-one"?"0":String(p.variables-p.rankA);
-      lesson.work(kind==="system-none"?"Parametry: nie dotyczy":
+      lesson.work(kind==="system-none"?t("Parametry: nie dotyczy","Parameters: not applicable"):
         "n − rank(A) = "+p.variables+" − "+p.rankA+" = "+count,
         kind==="system-none"
           ?t("Układ sprzeczny nie ma rozwiązań, więc nie opisujemy ich parametrami.",

@@ -19,7 +19,7 @@ const rankIndependent=(mat:readonly (readonly Rational[])[]):number=>{
  return 0;
 };
 describe("MT-EDU-019 P0B: independent Cramer decision and determinant audit",()=>{
- it.each(cramerDiagnosticFamilies)("$id: all 72 variants, rank and Cramer minors",family=>{
+ it.each(cramerDiagnosticFamilies.filter(family=>family.id!=="cramer-eligibility-solve-three"))("$id: all 72 legacy variants, rank and Cramer minors",family=>{
   const across=new Set<string>();
   for(const level of family.supportedDifficulties){
    const questions=new Set<string>(),modeCounts={"system-one":0,"system-none":0,"system-many":0};

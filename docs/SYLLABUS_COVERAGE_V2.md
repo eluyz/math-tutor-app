@@ -1,5 +1,16 @@
 # Math Tutor — sylabus: audyt pokrycia v2 (64 kompetencje)
 
+## Live progress checkpoint — 2026-11-04
+
+**Current deployed `main`:** `733fc73dac208016ffc4876c6798fbde723c11ac`, **226 families / 17,973 variants**; [main CI #41724981813 PASS](https://github.com/eluyz/math-tutor-app/actions/runs/41724981813) and [same-SHA Pages #41727742263 PASS](https://github.com/eluyz/math-tutor-app/actions/runs/41727742263). From historical v2 baseline 222 / 17,877 the catalog increased **+4 families / +96 variants**. This catalog change alone is not a SOURCE_PASS.
+
+**Stable denominators:** mapped skills **64/64**; generator coverage **14/64 bounded (21.9%)**, **50/64 partial (78.1%)**. Formally signed bounded **6/14 SOURCE_PASS** in [#151](https://github.com/eluyz/math-tutor-app/issues/151), all six Batch A; eight Batch B still NOT_VERIFIED (0/8). Original F05 source graph full matches 0/6; global independent #106 QA PAUSED, unrelated #142 Draft. See the [six-skill scope-specific sign-off](SOURCE_ACCEPTANCE_BATCH_A.md). SOURCE_PASS confirms tested representative source-method form, not complete every-PDF or every-variant examination.
+
+**Area counts (bounded/total):** matrices/determinants **4/14**, systems **2/8**, sequences **2/6**, functions **1/7**, function limits **4/8**, derivatives **1/10**, integrals **0/8**, two-variable functions **0/3**. Zero in the bounded column does NOT mean there are zero practice generators in that area.
+
+**The 2026-11-01 checkpoint immediately below is a historical baseline**, not the current deployed HEAD. The 64-skill table remains an acceptance queue, and each row still needs its own source witness.
+
+
 **Data:** 2026-11-01 · **Wersja bazowa `main`:** `410c484af47f2ce76d6c2ab2d25de2792128aff8` (owner-approved PR #147; [main CI #41240044320](https://github.com/eluyz/math-tutor-app/actions/runs/41240044320) i [Pages #41241290137](https://github.com/eluyz/math-tutor-app/actions/runs/41241290137) completed SUCCESS przy tym samym SHA). **Katalog:** 222 rodziny / 17 877 wariantów. PR #149 to **osobna, niescalona poprawka F05**.
 
 ## Cel i granice dowodów
@@ -107,8 +118,8 @@ To jest **nowa, 64-wierszowa kolejka akceptacji**, scalająca aktualną mapę `C
 | I06 | Całka oznaczona | częściowo | P38/1a–n | P1 • oznaczone/niewłaściwe | Sprawdzić granice, osobliwości wewnątrz przedziału i nie mylić wartości głównej z całką niewłaściwą |
 | I07 | Pole między krzywymi | częściowo | P38/2a–j incl. 2i | P0 • obszar dy/dx | Sprawdzić oryginalne P38/2i (po dy, #120) i P38/2g (zmiana kolejności krzywych); brak metody tylko jeśli dowód |
 | I08 | Długość łuku | częściowo | P38/3a–c | P1 • sprawdzenie próbki | Sprawdzić ≥1 oryginalną formę na istniejącym wariancie; tylko potwierdzona różnica daje nowe zadanie programistyczne |
-| W01 | Pochodne cząstkowe I/II | częściowo | P43/1a–j | P1 • pochodne 2D | Porównać oryginalne P43/1a–j: pochodne mieszane, trig/log/pierwiastki, stopień zgodności generatorów |
-| W02 | Ekstrema 2D | częściowo | P43/2a–h | P1 • ekstrema 2D | Porównać P43/2a–h: równania stacjonarności i klasyfikację Hessianem; odróżnić degenerate/test inconclusive |
+| W01 | Pochodne cząstkowe I/II | częściowo | P43/1a–j | P1 • pochodne 2D | Controlled symbolic log/root second partials added by `multivar-elementary-partial` on u>0. Original P43/1a–j comparison remains BLOCKED_SOURCE; controlled source-shaped trigonometric forms are added by `multivar-trig-partial` (pending independent CI). Four P43 source-shaped rational forms have a candidate `multivar-rational-partial` family (pending CI). Candidate `multivar-source-shape-partial` adds controlled symbolic polynomial (1a,1f), positive-log (1c) and root-with-linear-argument (1g) source-shaped witnesses (CI pending). W01 original-to-app acceptance remains open; variable exponents are not evidenced in P43. |
+| W02 | Ekstrema 2D | częściowo | P43/2a–h | P1 • ekstrema 2D | P43/2a–h key independently verified 8/8; candidate `multivar-cubic-extrema-full` models both stationary points and Hessian classification for P43/2b,2g (pending CI). Source W02 remains METHOD_PARTIAL / SOURCE_NOT_VERIFIED; other six source shapes require closure. |
 | W03 | Granica i ciągłość 2D | częściowo | P41/2–5 (lecture) | P2 • zakres teorii | Ustalić, czy granice/ciągłość 2D są odrębnie egzaminowane; zachować metody po drogach i współrzędnych biegunowych |
 
 ## Warunek zmiany statusu dla jednego wiersza

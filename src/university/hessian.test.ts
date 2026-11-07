@@ -4,7 +4,7 @@ import {formatRational as f,assessAnswer,emptyAnswer} from "../answers";
 import {makeUniversityTask,localizeUniversity} from "./catalog";
 import {hessianFamilies,stationaryCoordinates,determinantHessian,hessianClassification,type HessianProblem} from "./hessian";
 describe("MT-EDU-018 P2 Hessian and stationary points",()=>{
- it.each(hessianFamilies)("$id: 72 exact exercises and degenerate Hessians",family=>{
+ it.each(hessianFamilies)("$id: all supported exact exercises and degenerate Hessians",family=>{
   const keys=new Set<string>(),modes=new Set<string>();
   for(const level of family.supportedDifficulties)for(let v=0;v<24;v++){
    const task=makeUniversityTask(family.id,v,level),p=task.university as HessianProblem;
@@ -32,7 +32,7 @@ describe("MT-EDU-018 P2 Hessian and stationary points",()=>{
      expect(eq(add(add(mul(p.b,x),mul(mul(r(2),p.c),y)),p.e),r(0))).toBe(true);
      expect(task.answer.kind).toBe("list");
      if(task.answer.kind!=="list")throw Error("Expected pair");
-     expect(assessAnswer(task.answer,{kind:"list",values:[f(x),f(y)]}).kind).toBe("correct");
+     expect(assessAnswer(task.answer,{kind:"list",values:p.completeMinimum?[f(x),f(y),f(add(add(add(mul(p.a,mul(x,x)),mul(p.b,mul(x,y))),mul(p.c,mul(y,y))),add(add(mul(p.d,x),mul(p.e,y)),p.offset)))]:[f(x),f(y)]}).kind).toBe("correct");
    }else{
      const independent=D.numerator<0n?"saddle":D.numerator===0n?"inconclusive":p.a.numerator>0n?"minimum":"maximum";
      const result=hessianClassification(p);
@@ -63,7 +63,7 @@ describe("MT-EDU-018 P2 Hessian and stationary points",()=>{
    expect(task.solution?.length).toBeGreaterThanOrEqual(5);
    expect(en.solution?.length).toBe(task.solution?.length);
   }
-  expect(keys.size).toBe(72);
+  expect(keys.size).toBe(family.id==="multivar-stationary-point"?96:72);
   if(family.id==="multivar-hessian-classify")expect([...modes].sort()).toEqual(["inconclusive","maximum","minimum","saddle"]);
  });
 });

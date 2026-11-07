@@ -12,6 +12,8 @@ const pow = (a: Rational, exponent: number): Rational => {
   for (let i = 0; i < Math.abs(exponent); i++) value = mul(value, a);
   return exponent < 0 ? div(r(1), value) : value;
 };
+// Keep a fractional base together in plain-text log and power notation.
+const shownBase=(a:Rational)=>a.denominator===1n?f(a):`(${f(a)})`;
 const family = (id: string, category: "functions" | "algebra", titles: Record<Locale, string>, levels: readonly Difficulty[], create: UniversityFamily["create"]): UniversityFamily => ({ id, category, titles, supportedDifficulties: levels, create });
 
 export const elementaryAnalysisFamilies: readonly UniversityFamily[] = [
@@ -29,29 +31,29 @@ export function presentElementaryAnalysis(problem: ElementaryAnalysisProblem, lo
     const { p, base: a, mode } = problem, boundary = add(p, r(2));
     let domain: RealSet, expression: string;
     if (mode === "linear") {
-      expression = `log_${f(a)}(x−${f(p)})`;
+      expression = `log_${shownBase(a)}(x−${f(p)})`;
       domain = rightRay(p, false);
       work(`x−${f(p)}>0 ⇔ x>${f(p)}`, t("Argument logarytmu musi być ściśle dodatni.", "A logarithm requires a strictly positive argument."));
     } else if (mode === "ratio") {
-      expression = `log_${f(a)}((x−${f(p)})/(x−${f(boundary)}))`;
+      expression = `log_${shownBase(a)}((x−${f(p)})/(x−${f(boundary)}))`;
       domain = normalize([...leftRay(p, false), ...rightRay(boundary, false)]);
       work(`(x−${f(p)})/(x−${f(boundary)})>0; x≠${f(boundary)}`, t("Zaznacz zero licznika i biegun mianownika, a następnie sprawdź znak na każdym przedziale.", "Mark the numerator zero and denominator pole, then test the sign on each interval."));
       work(`${f(p)}<${f(boundary)}; x<${f(p)} lub x>${f(boundary)}`.replace(" lub ", t(" lub ", " or ")), t("Iloraz jest dodatni tylko wtedy, gdy licznik i mianownik mają ten sam znak; oba punkty brzegowe są wyłączone.", "The ratio is positive only when numerator and denominator share a sign; both boundary points are excluded."));
     } else {
-      expression = `√(x−${f(p)})/log_${f(a)}(x−${f(p)})`;
+      expression = `√(x−${f(p)})/log_${shownBase(a)}(x−${f(p)})`;
       domain = excludePoints(rightRay(p, false), [add(p, r(1))]);
       work(`x−${f(p)}≥0; x−${f(p)}>0`, t("Pierwiastek wymaga nieujemnego argumentu, logarytm dodatniego; przecięcie daje ostrą nierówność.", "The square root needs a nonnegative radicand and the logarithm a positive argument; their intersection is strict."));
-      work(`log_${f(a)}(x−${f(p)})≠0 ⇔ x≠${f(add(p, r(1)))}`, t("Mianownik nie może być zerem; log_a(1)=0 dla każdej dopuszczalnej podstawy.", "The denominator cannot vanish; log_a(1)=0 for every valid base."));
+      work(`log_${shownBase(a)}(x−${f(p)})≠0 ⇔ x≠${f(add(p, r(1)))}`, t("Mianownik nie może być zerem; log_a(1)=0 dla każdej dopuszczalnej podstawy.", "The denominator cannot vanish; log_a(1)=0 for every valid base."));
     }
     work(`D = ${setText(domain)}`, t("Łączymy wszystkie warunki dziedziny, zachowując otwarte końce i wyłączenia.", "Intersect every domain condition, keeping open endpoints and exclusions."));
     return lesson.finish(t(`Wyznacz dziedzinę f(x)=${expression}.`, `Find the domain of f(x)=${expression}.`), setAnswer(domain, p), t("Najpierw zapisz ścisły warunek dla argumentu logarytmu.", "First write the strict condition on the logarithm's argument."), t("Sprawdź osobno mianownik i pierwiastek, a potem przetnij warunki.", "Check denominator and square root separately, then intersect the conditions."));
   }
   if (problem.kind === "analysis-power-law") {
     const { base: a, exponent: k, argument: u, mode } = problem;
-    const expression = mode === "log-power" ? `log_${f(a)}(${f(a)}^(${k}))` : mode === "power-log" ? `${f(a)}^(log_${f(a)}(${f(u)}))` : `log_${f(a)}(${f(a)}^(${k}))+${f(a)}^(log_${f(a)}(${f(u)}))`;
+    const expression = mode === "log-power" ? `log_${shownBase(a)}(${shownBase(a)}^(${k}))` : mode === "power-log" ? `${shownBase(a)}^(log_${shownBase(a)}(${f(u)}))` : `log_${shownBase(a)}(${shownBase(a)}^(${k}))+${shownBase(a)}^(log_${shownBase(a)}(${f(u)}))`;
     work(`${f(a)}>0; ${f(a)}≠1; ${f(u)}>0`, t("Obie tożsamości wymagają dopuszczalnej podstawy, a druga także dodatniego argumentu logarytmu.", "Both identities require a valid base, and the second also needs a positive logarithm argument."));
-    if (mode !== "power-log") work(`log_${f(a)}(${f(a)}^(${k}))=${k}`, t("Logarytm o podstawie a odwraca potęgowanie o tej samej podstawie, także przy ujemnym wykładniku.", "The base-a logarithm reverses exponentiation with the same base, including negative exponents."));
-    if (mode !== "log-power") work(`${f(a)}^(log_${f(a)}(${f(u)}))=${f(u)}`, t("Potęgowanie o podstawie a odwraca logarytmowanie tylko dla dodatniego argumentu.", "Base-a exponentiation reverses the logarithm only for a positive argument."));
+    if (mode !== "power-log") work(`log_${shownBase(a)}(${shownBase(a)}^(${k}))=${k}`, t("Logarytm o podstawie a odwraca potęgowanie o tej samej podstawie, także przy ujemnym wykładniku.", "The base-a logarithm reverses exponentiation with the same base, including negative exponents."));
+    if (mode !== "log-power") work(`${shownBase(a)}^(log_${shownBase(a)}(${f(u)}))=${f(u)}`, t("Potęgowanie o podstawie a odwraca logarytmowanie tylko dla dodatniego argumentu.", "Base-a exponentiation reverses the logarithm only for a positive argument."));
     const value = mode === "log-power" ? r(k) : mode === "power-log" ? u : add(r(k), u);
     if (mode === "combined") work(`${k}+${f(u)}=${f(value)}`, t("Dodajemy dokładne wartości wymierne, bez przybliżania logarytmu.", "Add exact rational values without approximating the logarithm."));
     return lesson.finish(t(`Oblicz dokładnie ${expression}.`, `Evaluate ${expression} exactly.`), { kind: "scalar", value }, t("Sprawdź warunki na podstawę i argument logarytmu.", "Check the logarithm base and argument conditions."), t("Zastosuj odwrotność funkcji log_a i a^x.", "Use the inverse relation between log_a and a^x."));
@@ -61,18 +63,18 @@ export function presentElementaryAnalysis(problem: ElementaryAnalysisProblem, lo
     let expression: string, value: Rational;
     if (mode === "exponential") {
       value = div(sub(r(k), b), m);
-      expression = `${f(a)}^(${f(m)}x+${f(b)})=${f(a)}^(${k})`;
+      expression = `${shownBase(a)}^(${f(m)}x+${f(b)})=${shownBase(a)}^(${k})`;
       work(`${f(m)}x+${f(b)}=${k}`, t("Funkcja wykładnicza o podstawie a>0, a≠1 jest różnowartościowa.", "Exponential functions with a>0, a≠1 are injective."));
       work(`x=(${k}−${f(b)})/${f(m)}=${f(value)}`, t("Odejmujemy wyraz wolny i dzielimy przez niezerowy współczynnik.", "Subtract the constant and divide by the nonzero coefficient."));
     } else if (mode === "logarithmic") {
       value = add(p, pow(a, k));
-      expression = `log_${f(a)}(x−${f(p)})=${k}`;
+      expression = `log_${shownBase(a)}(x−${f(p)})=${k}`;
       work(`x−${f(p)}>0`, t("To warunek dziedziny, który musi spełniać każde rozwiązanie.", "This domain condition must hold for every solution."));
       work(`x−${f(p)}=${f(pow(a, k))}; x=${f(value)}`, t("Podnosimy podstawę a do obu stron; a^k jest dodatnie także dla k<0.", "Exponentiate both sides with base a; a^k remains positive even for k<0."));
     } else {
       const other = sub(p, r(1));
       value = add(p, r(1));
-      expression = `log_${f(a)}(x−${f(p)})+log_${f(a)}(x−${f(other)})=${k}`;
+      expression = `log_${shownBase(a)}(x−${f(p)})+log_${shownBase(a)}(x−${f(other)})=${k}`;
       work(`x>${f(p)}; (x−${f(p)})(x−${f(other)})=${f(pow(a, k))}=2`, t("Oba argumenty muszą być dodatnie; dopiero wtedy suma logarytmów jest logarytmem iloczynu.", "Both arguments must be positive before combining the logarithms into one product."));
       work(`y=x−${f(value)}; (y+1)(y+2)=2 ⇔ y(y+3)=0`, t("Przesunięcie zmiennej ujawnia dwa pierwiastki równania kwadratowego.", "A variable shift reveals both roots of the quadratic equation."));
       work(`x=${f(value)} lub x=${f(sub(value, r(3)))}`.replace(" lub ", t(" lub ", " or ")), t("Drugi kandydat nie spełnia x>p; odrzucamy go po sprawdzeniu dziedziny.", "The second candidate violates x>p, so reject it after checking the domain."));
@@ -89,12 +91,12 @@ export function presentElementaryAnalysis(problem: ElementaryAnalysisProblem, lo
       : increasing ? [{ lower: p, upper: threshold, lowerClosed: false, upperClosed: true }] : rightRay(threshold, true);
     const sign = greater ? ">" : "≤";
     work(`x−${f(p)}>0 ⇔ x>${f(p)}`, t("Logarytm jest określony tylko dla dodatniego argumentu.", "The logarithm is defined only for a positive argument."));
-    work(`${f(a)}^(${k})=${f(pow(a, k))}; x=${f(threshold)}`, t("Równość wyznacza punkt brzegowy w dziedzinie.", "Equality gives the boundary point inside the domain."));
+    work(`${shownBase(a)}^(${k})=${f(pow(a, k))}; x=${f(threshold)}`, t("Równość wyznacza punkt brzegowy w dziedzinie.", "Equality gives the boundary point inside the domain."));
     work(increasing
       ? t(`${f(a)}>1 ⇒ log_a jest rosnący`, `${f(a)}>1 ⇒ log_a is increasing`)
       : t(`0<${f(a)}<1 ⇒ log_a jest malejący`, `0<${f(a)}<1 ⇒ log_a is decreasing`), t("Przy podstawie między 0 i 1 kierunek nierówności odwraca się.", "For a base between 0 and 1, the inequality direction reverses."));
     work(`S=${setText(domain)}`, t("Przecinamy wynik nierówności z dziedziną x>p; domknięcie zależy od znaku ≤.", "Intersect the inequality result with x>p; endpoint closure follows from ≤."));
-    return lesson.finish(t(`Rozwiąż nierówność log_${f(a)}(x−${f(p)}) ${sign} ${k}.`, `Solve log_${f(a)}(x−${f(p)}) ${sign} ${k}.`), setAnswer(domain, threshold), t("Najpierw zapisz x>p.", "Start with x>p."), t("Sprawdź, czy podstawa jest większa od 1, czy leży między 0 a 1.", "Check whether the base exceeds 1 or lies between 0 and 1."));
+    return lesson.finish(t(`Rozwiąż nierówność log_${shownBase(a)}(x−${f(p)}) ${sign} ${k}.`, `Solve log_${shownBase(a)}(x−${f(p)}) ${sign} ${k}.`), setAnswer(domain, threshold), t("Najpierw zapisz x>p.", "Start with x>p."), t("Sprawdź, czy podstawa jest większa od 1, czy leży między 0 a 1.", "Check whether the base exceeds 1 or lies between 0 and 1."));
   }
   const { p, q: other, radius: h, mode } = problem;
   const low = sub(p, h), high = add(p, h), sumHigh = add(other, h);

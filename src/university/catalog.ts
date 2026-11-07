@@ -1,3 +1,7 @@
+import {w01SourceShapeFamilies,presentW01SourceShape} from "./multivarSourceShapes";
+import {multivarRationalFamilies,presentMultivarRational} from "./multivarRational";
+import { multivarTrigFamilies, presentMultivarTrig } from "./multivarTrig";
+import {elementaryPartialFamilies,presentElementaryPartial} from './multivarElementary';
 import type { TypedExercise, CategoryId } from "../exercises";
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
@@ -32,6 +36,9 @@ import { multivarDerivativeFollowupFamilies, presentMultivarDerivativeFollowup }
 import { multivarLimitFamilies, presentMultivarLimit } from "./multivarLimits";
 import { polarContinuityFamilies, presentPolarContinuity } from "./polarContinuity";
 import { rectangularPathFamilies, presentRectangularPath } from "./rectangularPaths";
+import {bilinearFamilies,presentBilinear} from "./bilinearExtrema";
+import {w02NonlinearFamilies,presentW02Nonlinear} from "./w02NonlinearExtrema";
+import {w02CubicExtremaFamilies,presentW02CubicExtrema} from "./w02CubicExtrema";
 import { hessianFamilies, presentHessian } from "./hessian";
 import { multivarExtremaFamilies, presentMultivarExtrema } from "./multivarExtrema";
 import { degenerateDiskFamilies, presentDegenerateDisk } from "./degenerateDisk";
@@ -43,6 +50,9 @@ import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFol
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
+import { fractionalPowerDerivativeFamilies, presentFractionalPowerDerivative } from "./fractionalPowerDerivatives";
+import { higherRootDerivativeFamilies, presentHigherRootDerivative } from "./higherRootDerivatives";
+import { infinityRootConjugationFamilies, presentInfinityRootConjugation } from "./infinityRootConjugation";
 import { determinantFamilies, presentDeterminant } from "./determinants";
 import { radicalDeterminantFamilies, presentRadicalDeterminant } from "./radicalDeterminants";
 import { determinantStrategyFamilies } from "./determinantStrategies";
@@ -111,10 +121,17 @@ export const universityFamilies = [
   ...derivativeFollowupFamilies,
   ...partialGradientFamilies,
   ...multivarDerivativeFollowupFamilies,
+  ...elementaryPartialFamilies,
+  ...multivarTrigFamilies,
+  ...multivarRationalFamilies,
+  ...w01SourceShapeFamilies,
   ...multivarLimitFamilies,
   ...polarContinuityFamilies,
   ...rectangularPathFamilies,
   ...hessianFamilies,
+  ...w02CubicExtremaFamilies,
+  ...bilinearFamilies,
+  ...w02NonlinearFamilies,
   ...multivarExtremaFamilies,
   ...degenerateDiskFamilies,
   ...negativePowerFamilies,
@@ -124,7 +141,10 @@ export const universityFamilies = [
   ...sequenceFollowupFamilies,
   ...functionLimitFamilies,
   ...limitFollowupFamilies,
+  ...infinityRootConjugationFamilies,
   ...derivativeFamilies,
+  ...fractionalPowerDerivativeFamilies,
+  ...higherRootDerivativeFamilies,
   ...determinantFamilies,
   ...radicalDeterminantFamilies,
   ...determinantStrategyFamilies,
@@ -216,8 +236,22 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentDegenerateDisk(problem, locale)
     : problem.kind === "multivar-rectangle-extrema" || problem.kind === "multivar-disk-linear-extrema"
     ? presentMultivarExtrema(problem, locale)
+    : problem.kind === "multivar-quadratic-cubic-extrema"
+    ? presentW02Nonlinear(problem,locale)
+    : problem.kind === "multivar-bilinear-extrema"
+    ? presentBilinear(problem,locale)
+    : problem.kind === "multivar-cubic-extrema-full"
+    ? presentW02CubicExtrema(problem,locale)
     : problem.kind === "multivar-stationary-point" || problem.kind === "multivar-hessian-classify"
     ? presentHessian(problem, locale)
+    : problem.kind === "multivar-source-shape-partial"
+    ? presentW01SourceShape(problem,locale)
+    : problem.kind === "multivar-rational-partial"
+    ? presentMultivarRational(problem,locale)
+    : problem.kind === "multivar-trig-partial"
+    ? presentMultivarTrig(problem,locale)
+    : problem.kind === "multivar-elementary-partial"
+    ? presentElementaryPartial(problem,locale)
     : problem.kind === "multivar-cubic-partial" || problem.kind === "multivar-chain-gradient"
     ? presentMultivarDerivativeFollowup(problem,locale)
     : problem.kind === "multivar-partial-point" || problem.kind === "multivar-gradient-point"
@@ -308,12 +342,18 @@ const present = (problem: UniversityProblem, locale: Locale) =>
           problem.kind === "sequence-geometric" ||
           problem.kind === "sequence-conjugate"
         ? presentSequence(problem, locale)
+        : problem.kind === "limit-root-infinity-conjugates"
+          ? presentInfinityRootConjugation(problem,locale)
         : problem.kind === "limit-radical-infinity" || problem.kind === "limit-piecewise-heine"
           ? presentLimitFollowup(problem, locale)
         : problem.kind === "limit-point" ||
             problem.kind === "limit-infinity" ||
             problem.kind === "limit-conjugate"
           ? presentFunctionLimit(problem, locale)
+          : problem.kind === "derivative-higher-root-powers"
+            ? presentHigherRootDerivative(problem,locale)
+          : problem.kind === "derivative-fractional-powers"
+            ? presentFractionalPowerDerivative(problem,locale)
           : problem.kind === "derivative" ||
               problem.kind === "derivative-analysis" ||
               problem.kind === "derivative-economics" ||

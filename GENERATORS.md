@@ -1,3 +1,81 @@
+## W02 — Batch 3: quadratic-cubic nonlinear elimination and full critical-point classification
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| multivar-quadratic-cubic-extrema | hard | 24 | P43/2f and 2h synthetic method: elimination of x, two critical points, exact coordinates/function values/Hessian determinants and minimum-or-maximum vs saddle. METHOD_PASS only; original-source review pending. |
+
+## W02 — complete source-shaped cubic stationary and local extrema
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| multivar-cubic-extrema-full | hard | 24 | Nonlinear two-variable cubic source methods P43/2b and 2g; finds BOTH stationary points and explains origin saddle versus unique strict local extremum, exact coordinates and value. Candidate pending final CI. |
+
+## W02 — Batch 2: positive quadratic extrema and bilinear saddles
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| multivar-stationary-point | advanced | +24 | Unique strictly-positive quadratic minimum: exact (x,y,value) grading. |
+| multivar-bilinear-extrema | hard | 24 | Unique saddle: exact critical point, Hessian determinant, and no-local-extrema classification. |
+
+## W01 — polynomial/log/root source-shaped symbolic partials
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| multivar-source-shape-partial | hard | 24 | Synthetic P43 cubic polynomial, mixed cubic, positive quadratic logarithm and square-root of quadratic-plus-linear; first/second/mixed **symbolic** derivative functions, exact coefficient grading. Candidate pending CI and source review. |
+
+## W01 — source-shaped symbolic rational partials
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| multivar-rational-partial | hard | 24 | Four synthetic P43 rational methods; first/second/mixed symbolic partials, domain exclusions, exact coefficient grader. Candidate only, pending CI and review. |
+
+## W01 — source-shaped symbolic trigonometric partials
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| multivar-trig-partial | hard | 24 | sin²(linear form), cos(product with squared variable); symbolic first/second/mixed partials and exact coefficient grading. Bounded METHOD_PASS pending CI, no global SOURCE_PASS. |
+
+## W01 — symbolic elementary partials
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| multivar-elementary-partial | hard | 24 | First/second/mixed partials of ln(u) and √u, controlled quadratic u; coefficients of functions, real/C² domains. METHOD_PASS bounded, BLOCKED_SOURCE. |
+
+## Batch B — direct private-source comparison (2026-11-04; candidate #169)
+
+| Family | Levels | Variants | Synthetic source-relevant method |
+| --- | --- | ---: | --- |
+| limit-quadratic-ratio-point | easy | 24 | G01 synthetic quadratic/quadratic finite point limit, denominator positive at the argument; independent substitution and PL/EN QA. SOURCE_PASS pending PR release. |
+| limit-cancelled-quadratic-ratio | medium | 24 | G02 synthetic rational 0/0 where one common x−a factor cancels but a nonconstant denominator remains; independent exact oracle and PL/EN QA. SOURCE_PASS pending PR release. |
+| limit-root-infinity-conjugates | advanced | 24 | Two quadratic radicals at ±∞ (conjugation and x/|x| sign); one quadratic radical plus cancelling linear term; two linear radicals at +∞. All finite, algebraic exact oracle and PL/EN. |
+| derivative-higher-root-powers | hard | 24 | Simplify sums containing 3rd/4th/5th roots and a quotient containing 6th roots into rational powers on x>0; exact derivative coefficients and PL/EN grading. |
+
+**Evidence:** the owner-supplied private ZIP (43 PDFs) was directly read on 2026-11-04. Four task/answer pairs for P15/P14, P17/P16, P26/P25 and P29/P27 were inspected visually. A private independent symbolic oracle agreed with their representative printed answer keys. **Original exercise coefficients, screenshots and answer-key text are deliberately excluded from this public repo.** Previously deployed G05 methods did not directly express the difference of two quadratic radicals at infinity; D01's existing methods did not express higher-index (3/4/5/6) radical/quotient formulas. These new families are **synthetic**, not exact transcriptions. Full source acceptance still requires exact-head CI/Chromium, review, and owner-approved release. Until then keep #151 Batch B 0/8.
+
+## MT-SYLLABUS D01 — rational powers and radicals (Draft PR #168)
+
+| Family | Levels | Candidate variants | Bounded mathematical method |
+| --- | --- | ---: | --- |
+| derivative-fractional-powers | medium | 24 | On x>0, rewrite √x, x√x, √(x³), 1/√x and reciprocal powers as rational exponents, then apply (c x^α)′=cαx^(α−1). Three independently graded coefficients for four synthetic expression forms. |
+
+**Candidate, not yet deployed:** historical P29/1g,h,i,s needs fractional/negative exponents; polynomial-only derivative-formula is not a source-shaped witness. Full original PDF/key recheck remains unavailable. This adds **0 SOURCE_PASS**, does not alter existing derivative tasks, and requires owner approval before merge.
+
+## MT-SYLLABUS G03 — cancelled simple pole source-shape (Draft)
+
+| Family | Level | Proposed variants | Exact source-relevant method |
+| --- | --- | ---: | --- |
+| limit-cancelled-pole | hard | 24 | Numerator has a single factor x−a, denominator has (x−a)². Cancel for x≠a, then prove opposite infinite one-sided limits and DNE for the two-sided limit. |
+
+**Not deployed:** This is a bounded synthetic method for the archived P26/1c topology, never a copy of private exercise coefficients or key. The prior `limit-point:hard:0` tests an uncancelled simple pole and does not demonstrate 0/0 cancellation. SOURCE_PASS remains 6/14 (#151); Batch B 0/8. A direct original PDF/key recheck is still missing.
+
+## MT-SYLLABUS F01 — bounded root/one-pole domain candidate (Draft PR #166)
+
+| Family | Levels | Candidate variants | Scope |
+| --- | --- | ---: | --- |
+| function-radical-over-linear-domain | medium | 24 | Square-root radicand of degree one over one distinct linear denominator; the pole may lie outside, at, or inside the radical ray; endpoint and hole tested independently PL/EN. |
+
+**Draft, not deployed:** one source-observed F01 shape from the archived P17 audit. The source/key have not been freshly read in this session. This is a method candidate, **not** an extra SOURCE_PASS: Batch B 0/8 and total 6/64 = 9.4%. Main remains at 226 / 17,973 until owner authorization and same-SHA CI/Pages.
+
 ## MT-SYLLABUS-P0 M01/M02 — source worksheet composites (Draft PR #152)
 
 | Family | Levels | Candidate variants | Scope |
@@ -78,11 +156,35 @@
 
 **Candidate only:** 215 families / 17,373 variants pending CI, independent review and explicit owner permission. The six source graphs remain private, and full F05 source-to-app acceptance remains partial.
 
+## MT-SYLLABUS M08 — third-column Laplace form (draft #156)
+The additive `determinant-laplace-column-three` family supplies 24 hard-level 4×4
+variants with exactly one nonzero in column three, at row four.
+The determinant is verified by an independent Gaussian oracle, the cofactor
+sign and steps by the Laplace teaching engine, and bilingual mobile/desktop
+test coverage. Old 4×4 variants and their deterministic identities remain
+unchanged. This matches the sparse-column topology, not the private PDF
+coefficients; full SOURCE_PASS in #151 requires separately pinned evidence.
+
+| determinant-laplace-column-three | determinants | hard (24) | column 3, row 4: one Laplace cofactor |
+
+## MT-SYLLABUS U02 — integrated Cramer source form (Draft #157)
+The additive `cramer-eligibility-solve-three` family contains 24 medium
+3×3 variants, with one combined answer: classify applicability (D≠0) and
+solve x,y,z only when the rule applies. Singular consistent and inconsistent
+variants require classification without division by zero.
+Existing Cramer and system variants remain immutable. Exact source PDF
+coefficients are not stored publicly, and SOURCE_PASS is separately gated
+in issue #151 after a pinned browser/source comparison.
+
+| cramer-eligibility-solve-three | systems | medium (24) | check D and solve same system when possible |
+
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **224 rodziny**, **17925 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 177 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **240 rodzin**, **18333 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 179 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **177**, L5: **163**.
+Łącznie rodziny L4: **179**, L5: **163**.
+
+Łącznie rodziny L4: **178**, L5: **163**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -892,7 +994,7 @@ P1 dodaje 144 instancje do katalogu po #59: **143 rodzin / 12189 wariantów**. I
 
 | Rodzina | Poziomy | Warianty | Zakres |
 | --- | --- | ---: | --- |
-| multivar-stationary-point | easy, medium, hard | 72 | Rozwiązywanie f_x=f_y=0 dla funkcji kwadratowych 2D z dokładnymi ułamkami |
+| multivar-stationary-point | easy, medium, hard, advanced | 96 | Rozwiązywanie f_x=f_y=0 dla funkcji kwadratowych 2D z dokładnymi ułamkami |
 | multivar-hessian-classify | easy, medium, hard | 72 | Test Hessiana: minimum, maksimum, punkt siodłowy i przypadek D=0, kiedy test nie rozstrzyga |
 
 P2 wnosi 144 zadania; razem z #59 oraz #60 katalog po scaleniu #61 będzie liczył **145 rodzin i 12333 warianty**. **Poziom Łatwy:** punkty stacjonarne mają całkowite współrzędne z przedziału [−2, 2], bez nadmiernie dużych współczynników liniowych. Poziom Średni: małe ułamki z mianownikiem 2; Trudny: ułamki z mianownikiem 3 i szerszy zakres współrzędnych. Przypadek D=0 nie oznacza automatycznie braku ekstremum; wygenerowany przykład z czwartą potęgą ma rzeczywiste minimum, którego sam test Hessiana nie potwierdza. Zakres W02 pozostaje częściowy.

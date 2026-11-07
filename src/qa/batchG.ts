@@ -1,0 +1,189 @@
+import type {makeUniversityTask} from "../university/catalog";
+import {formatRational as f,type AnswerInput} from "../answers";
+import {wrongAcceptanceAnswer} from "./acceptance";
+import {r,add,sub,mul,div,sign,cmp,demand,evaluate,convolution,polyEqual,type Rational} from "./batchFMath";
+import {cellDomain,abs,baseText,polyText,compose,signedPower} from "./batchGMath";
+
+export const batchG=[
+ {block:"G1",skills:["C05"],family:"sequence-euler-product",level:"expert",variants:[0,1]},
+ {block:"G1",skills:["C06"],family:"sequence-monotonic-bounded",level:"advanced",variants:[2,4]},
+ {block:"G2",skills:["F03"],family:"analysis-absolute",level:"medium",variants:[0,1]},
+ {block:"G2",skills:["F04"],family:"function-mixed-domain",level:"medium",variants:[0,4]},
+ {block:"G2",skills:["F04"],family:"function-mixed-domain",level:"hard",variants:[1,3]},
+ {block:"G2",skills:["F06"],family:"function-parity",level:"hard",variants:[0,2]},
+ {block:"G2",skills:["F06"],family:"function-composition",level:"expert",variants:[0,1]},
+ {block:"G2",skills:["F06"],family:"function-mobius-inverse-point",level:"expert",variants:[0,1]},
+ {block:"G2",skills:["F07"],family:"analysis-power-law",level:"hard",variants:[0,1]},
+ {block:"G2",skills:["F07"],family:"analysis-elementary-equation",level:"hard",variants:[0,1]},
+ {block:"G2",skills:["F07"],family:"analysis-log-inequality",level:"hard",variants:[0,1]},
+ {block:"G3",skills:["G06"],family:"analysis-euler-function",level:"hard",variants:[0,11]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-vertical",level:"advanced",variants:[0,1]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-horizontal",level:"advanced",variants:[0,1]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-oblique",level:"advanced",variants:[0,1]},
+ {block:"G3",skills:["G07"],family:"analysis-asymptote-oblique",level:"expert",variants:[0,1]},
+] as const;
+type Task=ReturnType<typeof makeUniversityTask>;
+export type GCertificate={input:AnswerInput;anchors:readonly (readonly string[])[];facts:readonly string[];choiceLabel?:string;critical?:readonly Rational[];contains?:(x:Rational)=>boolean;classes?:string;bounds?:{lower:Rational|null;upper:Rational|null}};
+const qkey=(x:Rational)=>`${x.numerator}/${x.denominator}`;
+type Line={a:Rational;b:Rational}|null;
+const lineKey=(v:Line)=>v===null?"none":`line:${qkey(v.a)}:${qkey(v.b)}`;
+const lineText=(v:Line)=>v===null?"∄":sign(v.a)===0?`y=${f(v.b)}`:`y=(${f(v.a)})x+(${f(v.b)})`;
+const pair=(plus:Line,minus:Line,anchors:GCertificate["anchors"],facts:readonly string[]):GCertificate=>({
+ input:{kind:"choice",value:`plus:${lineKey(plus)}|minus:${lineKey(minus)}`},choiceLabel:`+∞: ${lineText(plus)}; −∞: ${lineText(minus)}`,anchors,facts,
+});
+const exponent=(q:Rational):AnswerInput=>sign(q)===0?"1":{kind:"choice",value:"exp:"+qkey(q)};
+
+/** Parameters only. No production answer, hint, solution or solver is read. */
+export function batchGCertificate(task:Task,locale:"pl"|"en"="en"):GCertificate {
+ const p=task.university;
+ const t=(pl:string,en:string)=>locale==="pl"?pl:en;
+ switch(p.kind){
+  case "sequence-euler-product":{
+   const contributions=p.factors.map(t=>{
+    demand(sign(add(r(1),t.b))>0,"Positive shifted denominator for n>=1");
+    const lower=sign(t.a)<0?add(r(1),div(t.a,add(r(1),t.b))):r(1);
+    demand(sign(lower)>0&&sign(t.a)!==0&&sign(t.c)!==0,"Positive base and genuine 1^infinity factor");
+    // log factor = [log(1+u)/u] * a*(cn+d)/(n+b).
+    return mul(t.a,t.c);
+   });
+   const q=contributions.reduce(add,r(0));
+   return {input:exponent(q),choiceLabel:sign(q)===0?undefined:`e^(${f(q)})`,anchors:[[t("Sprawdzamy dodatniość wszystkich podstaw.","Verify positivity of all bases.")],...p.factors.map((t,i)=>[`F${i+1}: ln(1+(${f(t.a)})/(n+${f(t.b)}))·((${f(t.c)})·n+${f(t.d)}) → ${f(contributions[i])}`]),[`ln L = ${contributions.map(f).join(" + ")} = ${f(q)}`,`L=${sign(q)===0?"1":`e^(${f(q)})`}`]],facts:["each base tends to 1 and is positive for every n>=1","nonzero c gives signed infinite exponent; log(1+u)/u tends to 1","constant shifts disappear; product logarithms add"],classes:sign(q)<0?"exponent-negative":sign(q)>0?"exponent-positive":"exponent-zero"};
+  }
+  case "sequence-monotonic-bounded":{
+   demand(p.shift>=0&&Number.isInteger(p.shift)&&sign(p.amplitude)!==0,"Bounded catalog excludes constants");
+   const s=p.amplitude,c=p.offset,k=p.shift,positive=sign(s)>0;
+   const atOne=p.mode==="linear"?add(c,s):add(c,div(s,r(k+1)));
+   const absS=positive?s:sub(r(0),s);
+   const bounds=p.mode==="linear"?{lower:positive?atOne:null,upper:positive?null:atOne}:
+    p.mode==="reciprocal"?{lower:cmp(c,atOne)<0?c:atOne,upper:cmp(c,atOne)>0?c:atOne}:
+    {lower:sub(c,div(absS,r(k+1))),upper:add(c,div(absS,r(k+1)))};
+   const formula=f(c)+" + ("+f(s)+")"+(p.mode==="linear"?"·n":p.mode==="reciprocal"?"/(n+"+k+")":"·(−1)ⁿ/(n+"+k+")");
+   let value:string,step:string,bound:string;
+   if(p.mode==="linear"){
+    // Difference exactly s; n>=1 gives one finite endpoint bound and
+    // growth in the other direction. Two-sided boundedness is false.
+    value=positive?"increasing-unbounded":"decreasing-unbounded";step=`aₙ₊₁−aₙ=${f(s)}`;bound="|aₙ|→+∞";
+    demand(cmp(sub(add(c,mul(r(2),s)),add(c,s)),s)===0,"Linear difference identity");
+   }else if(p.mode==="reciprocal"){
+    // Cross multiplication: 1/(n+k+1)-1/(n+k)=-1/((n+k)(n+k+1)).
+    value=positive?"decreasing-bounded":"increasing-bounded";
+    step=`aₙ₊₁−aₙ=−(${f(s)})/((n+${k})(n+${k+1}))`;bound=`0<1/(n+${k})≤1/${k+1}`;
+   }else{
+    demand(positive,"Selected alternating factory has positive amplitude");
+    value="neither-bounded";
+    step=`a₁=${f(c)}−(${f(s)})/(1+${k}); a₂=${f(c)}+(${f(s)})/(2+${k}); a₃=${f(c)}−(${f(s)})/(3+${k})`;
+    bound=`|aₙ−(${f(c)})|≤|${f(s)}|/${k+1}`;
+    // Derive alternating difference for all n, not just sample terms:
+    // Δ = -s*(-1)^n*(2n+2k+1)/((n+k)(n+k+1)).
+    demand(sign(mul(s,r(2*k+3)))!==0,"Alternating differences change sign with parity");
+   }
+   const labels:Record<string,readonly [string,string]>={"increasing-bounded":["Rosnący, ograniczony","Increasing, bounded"],"decreasing-bounded":["Malejący, ograniczony","Decreasing, bounded"],"increasing-unbounded":["Rosnący, nieograniczony","Increasing, unbounded"],"decreasing-unbounded":["Malejący, nieograniczony","Decreasing, unbounded"],"neither-bounded":["Niemonotoniczny, ograniczony","Not monotonic, bounded"]};
+   return {input:{kind:"choice",value},choiceLabel:t(...labels[value]),anchors:[["n≥1; aₙ="+formula],[step],[bound]],facts:["exact difference identity for every n>=1",p.mode==="linear"?"a1 bounds one side only; other side unbounded":"explicit two-sided bound via reciprocal or absolute amplitude",p.mode==="alternating"?"alternating differences have both signs":"difference sign proves strict monotonicity"],classes:value,bounds};
+  }
+  case "analysis-absolute":{
+   demand(p.mode==="domain"&&sign(p.radius)>0,"Selected nonempty absolute-root domains");
+   const contains=(x:Rational)=>cmp(abs(sub(x,p.p)),p.radius)>=0;
+   const domain=cellDomain([sub(p.p,p.radius),p.p,add(p.p,p.radius)],contains);
+   return {input:{kind:"choice",value:domain.key},choiceLabel:domain.text,anchors:[[`|x−${f(p.p)}|−${f(p.radius)}≥0 ⇔ |x−${f(p.p)}|≥${f(p.radius)}`],[`D=${domain.text}`]],facts:["square root requires nonnegative absolute radicand","both boundary points included; interior excluded"],critical:domain.cuts,contains,classes:domain.intervals.length+"-intervals"};
+  }
+  case "function-mixed-domain":{
+   demand((p.mode==="product-root-log"||p.mode==="product-log")&&sign(p.base)>0&&cmp(p.base,r(1))!==0,"Selected root/log denominator");
+   const threshold=add(p.boundary,r(1)),increasing=cmp(p.base,r(1))>0;
+   const contains=(x:Rational)=>sign(mul(sub(x,p.p),sub(x,p.q)))>=0&&cmp(x,p.boundary)>0&&(p.mode==="product-log"?cmp(x,threshold)!==0:increasing?cmp(x,threshold)>0:cmp(x,threshold)<0);
+   const domain=cellDomain([p.p,p.q,p.boundary,threshold],contains);
+   return {input:{kind:"choice",value:domain.key},choiceLabel:domain.text,anchors:[[`(x−(${f(p.p)}))(x−(${f(p.q)})) ≥ 0`],[p.mode==="product-log"?`x>${f(p.boundary)}, x≠${f(threshold)}`:increasing?`x>${f(threshold)}`:`${f(p.boundary)}<x<${f(threshold)}`],[`D = ${domain.text}`]],facts:["nonnegative numerator radical, positive log argument",p.mode==="product-log"?"log denominator excludes argument 1":"denominator sqrt(log) needs log>0, not >=0","monotonicity of log reverses threshold for base<1; independent cell intersection"],critical:domain.cuts,contains,classes:domain.intervals.length===0?"empty":domain.intervals.length>1?"disconnected":"connected"};
+  }
+  case "function-parity":{
+   const reflected=p.coefficients.map((c,i)=>mul(c,r((-1)**i))),negated=p.coefficients.map(c=>sub(r(0),c));
+   const value=polyEqual(reflected,p.coefficients)?"even":polyEqual(reflected,negated)?"odd":"neither";
+   return {input:{kind:"choice",value},choiceLabel:t(value==="even"?"parzysta":value==="odd"?"nieparzysta":"ani parzysta, ani nieparzysta",value),anchors:[[`f(−x) = ${polyText(reflected)}`],[`−f(x) = ${polyText(negated)}`],[value==="even"?"f(−x)=f(x)":value==="odd"?"f(−x)=−f(x)":"f(−x)≠f(x), f(−x)≠−f(x)"]],facts:["polynomial domain R is symmetric","coefficient identities establish parity for every real x"],classes:value};
+  }
+  case "function-composition":{
+   demand(p.commutator,"Selected noncommutative composition");
+   const fg=compose(p.outer,p.inner),gf=compose(p.inner,p.outer),result=fg.map((c,i)=>sub(c,gf[i]??r(0)));
+   while(result.length>1&&sign(result.at(-1)!)===0)result.pop();
+   for(const x of [r(-2),r(0),r(3)])demand(cmp(evaluate(result,x),sub(evaluate(p.outer,evaluate(p.inner,x)),evaluate(p.inner,evaluate(p.outer,x))))===0,"Composition order/subtraction identity");
+   return {input:{kind:"list",values:[...result].reverse().map(f)},anchors:[[`(f ∘ g)(x) = ${polyText(fg)}`],[`(g ∘ f)(x) = ${polyText(gf)}`],[`(f ∘ g − g ∘ f)(x) = ${polyText(result)}`]],facts:["independent coefficient Horner/convolution for both compositions","polynomial domains R; nested point substitutions additionally verify order"]};
+  }
+  case "function-mobius-inverse-point":{
+   const det=sub(mul(p.a,p.d),mul(p.b,p.c));demand(sign(det)!==0&&sign(p.c)!==0,"Invertible genuine fractional-linear function");
+   const pole=div(sub(r(0),p.d),p.c),missing=div(p.a,p.c),den=sub(p.a,mul(p.c,p.image));demand(sign(den)!==0,"Image belongs to inverse domain");
+   // Cross-multiply the target equation, then verify both projective products
+   // M*adj(M)=adj(M)*M=det(M)I as coefficient identities.
+   const x=div(sub(mul(p.d,p.image),p.b),den);
+   const M=[[p.a,p.b],[p.c,p.d]],N=[[p.d,sub(r(0),p.b)],[sub(r(0),p.c),p.a]];
+   for(const [L,R] of [[M,N],[N,M]])for(let i=0;i<2;i++)for(let j=0;j<2;j++)demand(cmp(add(mul(L[i][0],R[0][j]),mul(L[i][1],R[1][j])),i===j?det:r(0))===0,"Both inverse compositions");
+   demand(cmp(x,pole)!==0&&cmp(div(add(mul(p.a,x),p.b),add(mul(p.c,x),p.d)),p.image)===0,"Exact substitution into original function");
+   return {input:f(x),anchors:[[`ad−bc = ${f(det)} ≠ 0`],[`D(f)=ℝ∖{${f(pole)}}`,`W(f)=ℝ∖{${f(missing)}}`],["y(cx+d)=ax+b ⇒ x=(dy−b)/(a−cy)"],[`y=${f(p.image)}`,`f⁻¹(y)=(${f(p.d)}·${f(p.image)}−${f(p.b)})/(${f(p.a)}−${f(p.c)}·${f(p.image)}) = ${f(x)}`]],facts:["nonzero determinant proves injective/bijective on excluded-point domains","original domain R minus -d/c; range R minus a/c","inverse swaps domain/range; both compositions are exact identities"]};
+  }
+  case "analysis-power-law":{
+   demand(p.mode==="combined"&&sign(p.base)>0&&cmp(p.base,r(1))!==0&&sign(p.argument)>0,"Real inverse log/exp laws");
+   const value=add(r(p.exponent),p.argument),a=baseText(p.base);
+   return {input:f(value),anchors:[`${f(p.base)}>0; ${f(p.base)}≠1; ${f(p.argument)}>0`].map(x=>[x]).concat([[`log_${a}(${a}^(${p.exponent}))=${p.exponent}`],[`${a}^(log_${a}(${f(p.argument)}))=${f(p.argument)}`],[`${p.exponent}+${f(p.argument)}=${f(value)}`]]),facts:["base positive and not 1; argument positive","log_a and a^x are inverses, also for decreasing base and negative exponent"]};
+  }
+  case "analysis-elementary-equation":{
+   demand(p.mode==="log-product"&&sign(p.base)>0&&cmp(p.base,r(1))!==0,"Selected logarithmic product equation");
+   const rhs=signedPower(p.base,p.exponent);demand(cmp(rhs,r(2))===0,"Controlled catalog equation has product 2");
+   // z=x-p>0: z(z+1)=2 => (z-1)(z+2)=0. Only z=1 allowed.
+   const value=add(p.p,r(1)),rejected=sub(p.p,r(2));
+   demand(cmp(mul(sub(value,p.p),sub(value,sub(p.p,r(1)))),rhs)===0&&cmp(rejected,p.p)<0,"Candidate and domain rejection");
+   return {input:f(value),anchors:[[`x>${f(p.p)}`,`(x−${f(p.p)})(x−${f(sub(p.p,r(1)))})=${f(rhs)}=2`],[`y=x−${f(value)}`,"(y+1)(y+2)=2 ⇔ y(y+3)=0"],[`x=${f(value)}`,`x=${f(rejected)}`],[`x=${f(value)}`]],facts:["combine logs only where both original arguments are positive","independent factored quadratic; reject second root by original log domain"]};
+  }
+  case "analysis-log-inequality":{
+   demand(p.relation==="at-most"&&sign(p.base)>0&&cmp(p.base,r(1))!==0,"Selected non-strict log inequality");
+   const power=signedPower(p.base,p.exponent),threshold=add(p.p,power),inc=cmp(p.base,r(1))>0;
+   const contains=(x:Rational)=>cmp(x,p.p)>0&&(inc?cmp(x,threshold)<=0:cmp(x,threshold)>=0);
+   const domain=cellDomain([p.p,threshold],contains),a=f(p.base);
+   return {input:{kind:"choice",value:domain.key},choiceLabel:domain.text,anchors:[[`x−${f(p.p)}>0 ⇔ x>${f(p.p)}`],[`${baseText(p.base)}^(${p.exponent})=${f(power)}`,`x=${f(threshold)}`],[t(inc?`${a}>1 ⇒ log_a jest rosnący`:`0<${a}<1 ⇒ log_a jest malejący`,inc?`${a}>1 ⇒ log_a is increasing`:`0<${a}<1 ⇒ log_a is decreasing`)],[`S=${domain.text}`]],facts:["positive original log argument","signed integer powers computed exactly","base monotonicity determines inequality direction; equality endpoint included"],critical:domain.cuts,contains,classes:inc?"base>1":"base<1"};
+  }
+  case "analysis-euler":{
+   demand(p.variable==="function"&&p.mode==="scaled"&&sign(p.a)!==0&&sign(p.b)>0,"Selected genuine scaled function Euler form");
+   const q=mul(p.a,p.b),epsilon=div(r(1),mul(r(2),abs(p.a)));
+   // |x|<epsilon gives |a*x|<1/2; no one-sided sign mistake or
+   // logarithm of a negative base is possible. ln(1+ax)/(ax)->1.
+   demand(sign(epsilon)>0,"Positive two-sided neighborhood");
+   return {input:exponent(q),choiceLabel:`e^(${f(q)})`,anchors:[[t("x→0: licznik i mianownik podstawy są dodatnie w małym otoczeniu","x→0: numerator and denominator of the base are positive nearby")],[`ln L=lim [E·t·ln(1+t)/t]=${f(q)}`],[`L=e^(${f(q)})`]],facts:[`base>1/2 for |x|<${f(epsilon)}`,"base tends to 1; b/x diverges with opposite signs on the two sides","logarithmic limit equals exact a*b on both sides; exponential limit is strictly positive"],classes:sign(q)>0?"exponent-positive":"exponent-negative"};
+  }
+  case "analysis-asymptote-vertical":{
+   demand(p.mode==="hole"||p.mode==="cancellation","Selected hole/simple-after-cancellation cases");
+   const at=f(p.at),c=f(p.coefficient),finite=add(p.at,p.coefficient),s=sign(p.coefficient);
+   demand(s!==0,"Nonzero remaining coefficient");
+   const left=s>0?"−∞":"+∞",right=s>0?"+∞":"−∞";
+   return p.mode==="hole"?{input:{kind:"choice",value:"asymptote-none"},choiceLabel:"∄",anchors:[[`x≠${at}`],[`f(x)=x+(${c}) (x≠${at})`,`lim₋f=lim₊f=${f(finite)}`],[t("brak asymptoty pionowej","no vertical asymptote")]],facts:["cancel common factor only off excluded x=a","both one-sided limits finite a+c; no vertical asymptote"],classes:"hole"}:
+    {input:{kind:"choice",value:`${left}:${right}`},choiceLabel:`x=${at}; lim₋=${left}, lim₊=${right}`,anchors:[[`x≠${at}`],[`f(x)=${c}/(x−(${at})) (x≠${at})`,`lim₋f=${left}`,`lim₊f=${right}`],[`x=${at}`]],facts:["original numerator has one zero, denominator two; one pole remains","sign of c/(x-a) differs on left and right; both one-sided limits infinite"],classes:`pole:${left}:${right}`};
+  }
+  case "analysis-asymptote-horizontal":{
+   if(p.mode==="linear"){
+    demand(sign(p.b)>0,"Positive nonzero linear slope");
+    return {...pair(null,null,[[`${f(p.b)}>0`,"f(x)→+∞", "f(x)→−∞"],["+∞: ∄; −∞: ∄"]],["linear function has no finite limit at either infinity","therefore no horizontal asymptote; this is not a claim of no linear graph"]),classes:"no-horizontal"};
+   }
+   demand(p.mode==="radical","Selected normalized root quotient");
+   const plus={a:r(0),b:add(p.a,p.b)},minus={a:r(0),b:sub(p.a,p.b)};
+   return {...pair(plus,minus,[["√(x²+1)=|x|√(1+1/x²)"],[`x→+∞: x/|x|→1, L₊=${f(plus.b)}`,`x→−∞: x/|x|→−1, L₋=${f(minus.b)}`],[`+∞: ${lineText(plus)}; −∞: ${lineText(minus)}`]],["x²+1>0 for every real x","divide by |x|; independent directions give a+b and a-b"]),classes:"two-horizontal"};
+  }
+  case "analysis-asymptote-oblique":{
+   if(p.mode==="rational"){
+    // Descending polynomial long division, independent of the production
+    // direct intercept/remainder formulas. Preserve the original hole/pole.
+    const n=[p.c,p.b,p.a],d=[sub(r(0),p.at),r(1)],rem=[...n],q=[r(0),r(0)];
+    for(let i=2;i>=1;i--){q[i-1]=div(rem[i],d[1]);rem[i]=sub(rem[i],mul(q[i-1],d[1]));rem[i-1]=sub(rem[i-1],mul(q[i-1],d[0]));}
+    const product=convolution(q,d);product[0]=add(product[0],rem[0]);
+    demand(polyEqual(n,product),"Exact polynomial division identity");
+    const line={a:q[1],b:q[0]},a=f(q[1]),b=f(q[0]),at=f(p.at),R=f(rem[0]);
+    return {...pair(line,line,[[`f(x)=(${a})x+(${b})+(${R})/(x−(${at}))`],[`lim f(x)/x=${a}`,`lim(f(x)−ax)=${b}`,"R/(x−d)→0"],[`+∞: ${lineText(line)}; −∞: ${lineText(line)}`]],["independent coefficient division certifies both slope and intercept","original domain excludes at even if remainder=0; no restored domain point","remainder divided by x-at tends to zero in both directions"]),classes:sign(rem[0])===0?"zero-remainder":"nonzero-remainder"};
+   }
+   if(p.mode==="radical"){
+    const plus={a:r(2),b:p.b},minus={a:r(0),b:p.b};
+    return {...pair(plus,minus,[["√(x²+1)−|x|=1/(√(x²+1)+|x|)→0"],[`x→+∞: |x|=x ⇒ y=2x+(${f(p.b)})`,`x→−∞: |x|=−x ⇒ y=${f(p.b)}`],[`+∞: ${lineText(plus)}; −∞: ${lineText(minus)}`]],["exact conjugate remainder tends to zero on both rays","slope/intercept +infinity: 2,b; -infinity: 0,b (horizontal)"]),classes:"oblique-plus-horizontal-minus"};
+   }
+   demand(p.mode==="quadratic","Controlled no-linear-asymptote case");
+   return {...pair(null,null,[[`f(x)/x=x+(${f(p.b)})+(${f(p.c)})/x`],["+∞: ∄; −∞: ∄"]],["quotient f(x)/x has no finite limit in either direction","no finite linear slope, hence no linear asymptote"]),classes:"no-linear-asymptote"};
+  }
+  default:throw Error("Outside Batch G matrix: "+p.kind);
+ }
+}
+export const batchGOracle=(task:Task)=>batchGCertificate(task).input;
+export function wrongBatchG(input:AnswerInput,task:Task):AnswerInput {
+ if(typeof input==="string")return input==="0"?"1":"0";
+ return wrongAcceptanceAnswer(input,task);
+}

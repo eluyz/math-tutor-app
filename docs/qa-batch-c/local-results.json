@@ -1,0 +1,321 @@
+{
+  "baseline": "376c1a31adbd05fbac3a75fb05f62b913b6e668d",
+  "scope": "C02/C04/F02/G04 synthetic methods only; no source acceptance",
+  "unit": {
+    "tests": 7,
+    "family_level_combinations": 6,
+    "variants": 144,
+    "localized_instances": 288,
+    "status": "PASS"
+  },
+  "build": "PASS",
+  "browser": {
+    "stats": {
+      "startTime": "2026-11-04T22:46:54.082Z",
+      "duration": 97738.232,
+      "expected": 24,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "distinct_variants": 16,
+    "localized_viewport_witnesses": 64,
+    "witnesses": [
+      {
+        "test": "C02 sequence-radical-ratio/expert pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "sequence-radical-ratio:expert:0",
+          "sequence-radical-ratio:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-exponential-ratio/expert pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "sequence-exponential-ratio:expert:6",
+          "sequence-exponential-ratio:expert:7"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-power-exponential/advanced pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "sequence-power-exponential:advanced:3",
+          "sequence-power-exponential:advanced:4",
+          "sequence-power-exponential:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F02 function-log-rational-domain/expert pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "function-log-rational-domain:expert:2",
+          "function-log-rational-domain:expert:0",
+          "function-log-rational-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-infinity/hard pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-infinity:hard:0",
+          "limit-infinity:hard:4",
+          "limit-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-radical-infinity/expert pl 375px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 375,
+        "witnessed": [
+          "limit-radical-infinity:expert:0",
+          "limit-radical-infinity:expert:4",
+          "limit-radical-infinity:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C02 sequence-radical-ratio/expert en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "sequence-radical-ratio:expert:0",
+          "sequence-radical-ratio:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-exponential-ratio/expert en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "sequence-exponential-ratio:expert:6",
+          "sequence-exponential-ratio:expert:7"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-power-exponential/advanced en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "sequence-power-exponential:advanced:3",
+          "sequence-power-exponential:advanced:4",
+          "sequence-power-exponential:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F02 function-log-rational-domain/expert en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "function-log-rational-domain:expert:2",
+          "function-log-rational-domain:expert:0",
+          "function-log-rational-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-infinity/hard en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-infinity:hard:0",
+          "limit-infinity:hard:4",
+          "limit-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-radical-infinity/expert en 375px",
+        "status": "passed",
+        "locale": "en",
+        "width": 375,
+        "witnessed": [
+          "limit-radical-infinity:expert:0",
+          "limit-radical-infinity:expert:4",
+          "limit-radical-infinity:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C02 sequence-radical-ratio/expert pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "sequence-radical-ratio:expert:0",
+          "sequence-radical-ratio:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-exponential-ratio/expert pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "sequence-exponential-ratio:expert:6",
+          "sequence-exponential-ratio:expert:7"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-power-exponential/advanced pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "sequence-power-exponential:advanced:3",
+          "sequence-power-exponential:advanced:4",
+          "sequence-power-exponential:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F02 function-log-rational-domain/expert pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "function-log-rational-domain:expert:2",
+          "function-log-rational-domain:expert:0",
+          "function-log-rational-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-infinity/hard pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-infinity:hard:0",
+          "limit-infinity:hard:4",
+          "limit-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-radical-infinity/expert pl 1280px",
+        "status": "passed",
+        "locale": "pl",
+        "width": 1280,
+        "witnessed": [
+          "limit-radical-infinity:expert:0",
+          "limit-radical-infinity:expert:4",
+          "limit-radical-infinity:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C02 sequence-radical-ratio/expert en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "sequence-radical-ratio:expert:0",
+          "sequence-radical-ratio:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-exponential-ratio/expert en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "sequence-exponential-ratio:expert:6",
+          "sequence-exponential-ratio:expert:7"
+        ],
+        "errors": []
+      },
+      {
+        "test": "C04 sequence-power-exponential/advanced en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "sequence-power-exponential:advanced:3",
+          "sequence-power-exponential:advanced:4",
+          "sequence-power-exponential:advanced:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "F02 function-log-rational-domain/expert en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "function-log-rational-domain:expert:2",
+          "function-log-rational-domain:expert:0",
+          "function-log-rational-domain:expert:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-infinity/hard en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-infinity:hard:0",
+          "limit-infinity:hard:4",
+          "limit-infinity:hard:1"
+        ],
+        "errors": []
+      },
+      {
+        "test": "G04 limit-radical-infinity/expert en 1280px",
+        "status": "passed",
+        "locale": "en",
+        "width": 1280,
+        "witnessed": [
+          "limit-radical-infinity:expert:0",
+          "limit-radical-infinity:expert:4",
+          "limit-radical-infinity:expert:1"
+        ],
+        "errors": []
+      }
+    ]
+  },
+  "regression": {
+    "files": 4,
+    "selected_tests_passed": 5,
+    "tests_intentionally_filtered_out": 33,
+    "status": "PASS"
+  },
+  "generator_fixes": 0,
+  "tested_file_sha256": {
+    "src/qa/batchC.ts": "77eb3538e6e4dee9c44059452581d5726998cf7e4d0df300b9f427531f7faf9e",
+    "src/qa/batchCAcceptance.test.ts": "49130d075581937f5ca0c38408615b2916d12e55236f937ef05adb77d6dcaa87",
+    "src/qa/acceptance.ts": "14cbc5742b8d7dcc8e2f7f1a9cdacb39208944128d3343c939695b386ce32ac6",
+    "e2e/helpers/acceptance.ts": "5d1d8637807a5ed864f79d306f802386ae162ff672fe38c69073882f00e88692",
+    "e2e/batchCAcceptance.spec.ts": "de35295a4bcbd98e3291428486cea1fea5856fb39a5a8424f03205c3face4560",
+    "playwright.batch-c.config.ts": "300304391ef00019e28bc56ad9b1f55cdf14ab2a7971fcd90691cc66e277afc1"
+  }
+}

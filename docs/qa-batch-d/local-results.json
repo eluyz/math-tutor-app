@@ -1,0 +1,460 @@
+{
+  "base_pr": 171,
+  "base_sha": "befc5ab6abaa6f2fe7a432e999da14dbbe854499",
+  "main_sha": "376c1a31adbd05fbac3a75fb05f62b913b6e668d",
+  "formal_source_acceptance": "BLOCKED_SOURCE; no SOURCE_PASS or counters changed",
+  "skills": 15,
+  "unit": {
+    "tests_passed": 25,
+    "combinations": 24,
+    "tasks": 576,
+    "localized_instances": 1152
+  },
+  "build": "PASS",
+  "browser": {
+    "stats": {
+      "startTime": "2026-11-04T23:23:23.484Z",
+      "duration": 330163.326,
+      "expected": 96,
+      "skipped": 0,
+      "unexpected": 0,
+      "flaky": 0
+    },
+    "unique_variants": 48,
+    "witnesses": 192,
+    "errors": 0,
+    "matrix": [
+      {
+        "block": "D1",
+        "skill": "M03",
+        "family": "matrix-rectangular-evaluation",
+        "level": "medium",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1,
+          2
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M03",
+        "family": "matrix-transpose-dimensions",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          4
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M04",
+        "family": "matrix-composite-operations",
+        "level": "advanced",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M04",
+        "family": "matrix-negative-square-three",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M05",
+        "family": "matrix-axb-three",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M05",
+        "family": "matrix-coupled-equations",
+        "level": "expert",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M06",
+        "family": "determinant-radical-two",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M11",
+        "family": "determinant-properties",
+        "level": "medium",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D1",
+        "skill": "M11",
+        "family": "determinant-properties",
+        "level": "expert",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1,
+          2
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M09",
+        "family": "determinant-gaussian-pivot-four",
+        "level": "advanced",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M10",
+        "family": "determinant-gaussian-pivot-five",
+        "level": "expert",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M10",
+        "family": "determinant-dense-five",
+        "level": "advanced",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M12",
+        "family": "inverse-four-gauss-jordan",
+        "level": "advanced",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M13",
+        "family": "inverse-four-xa-equation",
+        "level": "expert",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M13",
+        "family": "inverse-four-ax-equation",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M14",
+        "family": "matrix-rank-four-rectangular",
+        "level": "expert",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1,
+          4
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D2",
+        "skill": "M14",
+        "family": "matrix-rank-six-three",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          2
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D3",
+        "skill": "U01",
+        "family": "cramer-applicability",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1,
+          2
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D3",
+        "skill": "U03",
+        "family": "cramer-four-singular-minors",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1,
+          2
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D3",
+        "skill": "U03",
+        "family": "cramer-four-forced-pivot",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D3",
+        "skill": "U06",
+        "family": "gauss-four-dependent-diagnostic",
+        "level": "expert",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1,
+          2
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D3",
+        "skill": "U07",
+        "family": "gauss-four-forced-pivot",
+        "level": "hard",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D3",
+        "skill": "U08",
+        "family": "gauss-parameters-two",
+        "level": "expert",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0,
+          1
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      },
+      {
+        "block": "D3",
+        "skill": "U08",
+        "family": "gauss-rectangular-2x3-parameters",
+        "level": "advanced",
+        "unit_variants": "0..23",
+        "pinned_variants": [
+          0
+        ],
+        "conditions": {
+          "pl@375": "PASS",
+          "en@375": "PASS",
+          "pl@1280": "PASS",
+          "en@1280": "PASS"
+        }
+      }
+    ]
+  },
+  "initial_browser_attempt": {
+    "stats": {
+      "startTime": "2026-11-04T23:21:24.988Z",
+      "duration": 55459.677,
+      "expected": 10,
+      "skipped": 82,
+      "unexpected": 4,
+      "flaky": 0
+    },
+    "reason": "Stopped after table-only operands exposed ambiguous question matching in the test harness; corrected and reran entire matrix. Not a generator defect."
+  },
+  "generator_fixes": 0,
+  "tested_file_sha256": {
+    "src/qa/batchD.ts": "779e3f9e212bddf532a21faf44b07fd56bc1fe35f17a76dc3280ad239da1fa75",
+    "src/qa/batchDMath.ts": "f36e4d87f1fc4563690f9cfc0269f908898c0d0639e545990c39ca5442d7e111",
+    "src/qa/batchDSteps.ts": "31ed69490fe9c8b333c5f6c9567e30d87b0644313d6d52c0d2d3e19769b69eea",
+    "src/qa/batchDAcceptance.test.ts": "279c40c774b3d7ec3e49ef99dcd1d4d1a3e4ce1bf18a33e3c3fa04aaa8544b17",
+    "e2e/helpers/acceptance.ts": "1cf898396492467c1e0478c9fe6847769f184d10c027725fab504a198a60c148",
+    "e2e/batchDAcceptance.spec.ts": "ac1dd8823d4a76b60d49af399946132dead2301f1447b83acdc2cd4e92e82bfb",
+    "playwright.batch-d.config.ts": "6296831cde5c778f7e44e77c44ebb0e0b335c0642c2f430b02a2126a59819958",
+    ".github/workflows/ci.yml": "02822538eb703092cbde0da7608cd863028e006fcd40fd195bd6f17d31ef28e0",
+    "package.json": "b236b3ebfee1e8efc325cddead5e9b6d5aab95ac4f4dc4248c821dce99f0466a"
+  }
+}

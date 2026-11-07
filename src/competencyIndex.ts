@@ -87,7 +87,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "M08": {
     "coverage": "bounded",
     "familyIds": [
-      "determinant-laplace-four"
+      "determinant-laplace-four",
+      "determinant-laplace-column-three"
     ]
   },
   "M09": {
@@ -163,6 +164,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "U02": {
     "coverage": "bounded",
     "familyIds": [
+      "cramer-eligibility-solve-three",
       "system-cramer-three",
       "cramer-determinants-three"
     ]
@@ -332,13 +334,15 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "G01": {
     "coverage": "bounded",
     "familyIds": [
-      "limit-point"
+      "limit-point",
+      "limit-quadratic-ratio-point"
     ]
   },
   "G02": {
     "coverage": "bounded",
     "familyIds": [
-      "limit-point"
+      "limit-point",
+      "limit-cancelled-quadratic-ratio"
     ]
   },
   "G03": {

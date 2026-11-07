@@ -124,6 +124,19 @@ function domainProblem(v: number, level: Difficulty): FunctionProblem {
     sign: r(v % 2 ? -1 : 1),
   };
 }
+/** One square-root boundary and one independent simple denominator pole. */
+function rootPoleDomainProblem(v: number): FunctionProblem {
+  const p = fraction(v),
+    offset = v % 3 === 0 ? -2 - (v % 2) : v % 3 === 1 ? 0 : 1 + (v % 2);
+  return {
+    kind: "function-domain",
+    mode: "root-over-one",
+    p,
+    q: add(p, r(offset)),
+    r: p,
+    sign: r(1),
+  };
+}
 function zerosProblem(v: number, level: Difficulty): FunctionProblem {
   const i = levelIndex(level),
     x = fraction(v),
@@ -240,6 +253,16 @@ export const functionFamilies: readonly UniversityFamily[] = [
     create: domainProblem,
   },
   {
+    id: "function-radical-over-linear-domain",
+    category: "functions",
+    titles: {
+      pl: "Dziedzina pierwiastka podzielonego przez funkcję liniową",
+      en: "Domain of a square root divided by a linear factor",
+    },
+    supportedDifficulties: ["medium"],
+    create: (v) => rootPoleDomainProblem(v),
+  },
+  {
     id: "function-zeros",
     category: "functions",
     titles: {
@@ -321,6 +344,8 @@ export function domainFormula(
       return `1/(${quadratic})`;
     case "root-ray":
       return root;
+    case "root-over-one":
+      return `${root}/${linear(p.q)}`;
     case "root-over-linear":
       return `√(${quadratic})/${linear(p.r)}`;
     case "root-over-two":
@@ -343,6 +368,8 @@ export function functionDomain(
       return excludePoints(allReals, [p.p, p.q]);
     case "root-ray":
       return ray(p.p, true);
+    case "root-over-one":
+      return excludePoints(ray(p.p, true), [p.q]);
     case "root-over-linear":
       return excludePoints(outside(p.p, p.q, true), [p.r]);
     case "root-over-two":
@@ -446,7 +473,7 @@ export function presentFunction(p: FunctionProblem, locale: Locale) {
           "The ordered zeros split the line into three intervals. The product is positive outside and negative between them; endpoints are allowed in a numerator.",
         ),
       );
-    if (["root-ray", "root-over-two", "root-ratio"].includes(p.mode)) {
+    if (["root-ray", "root-over-one", "root-over-two", "root-ratio"].includes(p.mode)) {
       const at = p.mode === "root-ratio" ? p.r : p.p,
         strict = p.mode === "root-ratio";
       lesson.work(
@@ -462,18 +489,20 @@ export function presentFunction(p: FunctionProblem, locale: Locale) {
       );
     }
     if (
-      ["one-pole", "two-poles", "root-over-linear", "root-over-two"].includes(
+      ["one-pole", "two-poles", "root-over-linear", "root-over-one", "root-over-two"].includes(
         p.mode,
       )
     ) {
       const poles =
         p.mode === "one-pole"
           ? [p.p]
-          : p.mode === "two-poles"
-            ? [p.p, p.q]
-            : p.mode === "root-over-linear"
-              ? [p.r]
-              : [p.q, p.r];
+          : p.mode === "root-over-one"
+            ? [p.q]
+            : p.mode === "two-poles"
+              ? [p.p, p.q]
+              : p.mode === "root-over-linear"
+                ? [p.r]
+                : [p.q, p.r];
       lesson.work(
         `${t("Wykluczenia", "Excluded inputs")}: x ∉ {${poles.map(f).join("; ")}}`,
         t(

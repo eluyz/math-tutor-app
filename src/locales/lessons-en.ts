@@ -234,13 +234,18 @@ function englishMonotonicityIntervals(label: string): string | null {
 export function englishAnswer(spec: AnswerSpec): AnswerSpec {
   if(spec.kind==="multi-choice"){
     const fieldNames:Record<string,string>={
+      "Wniosek":"Conclusion",
       "Dziedzina (D)":"Domain (D)","Zbiór wartości (W)":"Range (W)",
       "Ściśle rośnie":"Strictly increasing","Ściśle maleje":"Strictly decreasing",
       "Różnowartościowa?":"One-to-one?","Parzystość":"Parity",
       "Liczba rozwiązań":"Number of solutions",
       "Liczba parametrów swobodnych":"Number of free parameters",
+      "P₁: rodzaj":"P₁: type","P₂: rodzaj":"P₂: type",
     };
     const optionNames:Record<string,string>={
+      "Punkt siodłowy; brak ekstremów lokalnych":"Saddle point; no local extrema", "Minimum lokalne":"Local minimum", "Maksimum lokalne":"Local maximum", "Test nierozstrzygający":"Inconclusive test",
+      "minimum lokalne":"local minimum","maksimum lokalne":"local maximum",
+      "punkt siodłowy":"saddle point","test nierozstrzygający":"inconclusive test",
       "Tak":"Yes","Nie":"No","Parzysta":"Even","Nieparzysta":"Odd",
       "Ani parzysta, ani nieparzysta":"Neither",
       "Jedno rozwiązanie":"Exactly one solution",
@@ -262,6 +267,9 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
         const constant = /^([xyzwv]): stała$/.exec(s);
         if (constant) return `${constant[1]}: constant`;
         if (/^[xyzwv]: t[12]$/.test(s)) return s;
+        // Exact mathematical power labels are language-neutral; never treat them as Polish prose.
+        if (/^x\^\([−-]?\d+(?:\/\d+)?\)$/.test(s)) return s;
+        if (["x/u","y/u","1/u","x²/u²","xy/u²","y²/u²","x/√u","y/√u","1/√u","x²/u^(3/2)","xy/u^(3/2)","y²/u^(3/2)","sin(2u)","cos(2u)","y²sin(u)","xysin(u)","y⁴cos(u)","ysin(u)","xy³cos(u)","xsin(u)","x²y²cos(u)","x/y³","x²/y⁴","1/y³","x/y⁴","x²/y⁵","y/v²","x/v²","y/v³","x/v³","y/x²","1/x","y/x³","1/x²","y²/v²","x²/v²","y²/v³","xy/v³","x²/v³","xy","y²","x/u^(3/2)","1/u^(3/2)"].includes(s)) return s;
         if (!fieldLabels[s])
           throw new Error(`Missing English answer label: ${s}`);
         return fieldLabels[s];

@@ -141,8 +141,8 @@ export function presentIntegral(p: IntegralProblem, locale: Locale) {
       "Wybieramy wielomian jako u: różniczkowanie zmniejsza jego stopień, a całkowanie wykładniczej dzieli przez niezerowe a.",
       "Choose the polynomial as u: differentiation lowers its degree, while integrating the exponential divides by nonzero a.");
     work(`∫u dv=uv−∫v du; F(x)=${expression(terms)}+C`,
-      "Powtarzamy całkowanie przez części, aż pochodna wielomianu zniknie; znaki współczynników zmieniają się naprzemiennie.",
-      "Repeat integration by parts until the polynomial derivative vanishes; coefficient signs alternate.");
+      "Powtarzamy całkowanie przez części, aż pochodna wielomianu zniknie; każdy kolejny współczynnik mnożymy przez −stopień/a, zachowując znak a.",
+      "Repeat integration by parts until the polynomial derivative vanishes; multiply each successive coefficient by −degree/a, preserving the sign of a.");
     work(`F'(x)=${integrand}`, "W pochodnej każdego składnika z e^(ax) wyrazy niższych stopni skracają się parami.",
       "When differentiating every e^(ax) term, lower-degree terms cancel in pairs.");
     return lesson.finish(t(`Oblicz ∫ ${integrand} dx przez części.`, `Find ∫ ${integrand} dx by parts.`), primitive(terms), hint, nextHint);

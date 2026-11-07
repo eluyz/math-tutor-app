@@ -120,6 +120,53 @@ function pointProblem(v: number, level: Difficulty): FunctionLimitProblem {
     definedAt: r(v - 11),
   };
 }
+/** G01: synthetic non-singular quadratic/quadratic rational limit.
+ * The positive quadratic denominator retains a genuine denominator under
+ * direct substitution, as required by the mapped source method. No private
+ * exercise coefficients or answer-key values are stored in this family.
+ */
+function quadraticRationalPoint(v: number): FunctionLimitProblem {
+  const at = r(v - 11, 1 + (v % 3));
+  const numerator = [r(v - 7), r((v % 5) - 2), r(v % 2 ? -2 : 3)];
+  const offset = r(2 + (v % 5));
+  // D(x)=(x-at)^2+offset>0 on R, hence D(at)>0.
+  const denominator = [add(mul(at, at), offset), mul(r(-2), at), r(1)];
+  return { kind: "limit-point", numerator: poly(numerator), denominator, at, side: "both", teachingMethod: "direct-substitution" };
+}
+
+/** G02: synthetic 0/0 rational limit with one cancellable factor and one
+ * nonzero residual denominator factor. Unlike the older medium point family,
+ * the denominator does not reduce to the constant 1 after cancellation.
+ */
+function cancelledRationalPoint(v: number): FunctionLimitProblem {
+  const at = r(v - 11, 1 + (v % 3)), root = [negative(at), r(1)];
+  const gap = r(1 + (v % 4)), other = v % 2 ? add(at, gap) : sub(at, gap);
+  const lead = r(v % 2 ? -2 : 3), residualAt = r((v % 3 ? -1 : 1) * (2 + (v % 5)));
+  const residualNumerator = [sub(residualAt, mul(lead, at)), lead];
+  return {
+    kind: "limit-point", numerator: poly(polynomialProduct(root, residualNumerator)),
+    denominator: polynomialProduct(root, [negative(other), r(1)]), at, side: "both",
+  };
+}
+
+/** G03 source-shaped (x−a)(mx−b)/(x−a)²: indeterminate 0/0
+ * with a simple pole after legitimate cancellation (x≠a). The private
+ * P26 exercise is not copied; all coefficients are synthetic.
+ */
+function cancelledPoleProblem(v: number): FunctionLimitProblem {
+  const at = r(v - 11, 1 + (v % 3)),
+    root = [negative(at), r(1)],
+    shift = r((v % 4) + 1),
+    other = v % 3 === 0 ? sub(at, shift) : add(at, shift),
+    leading = r(v % 2 ? -2 : 3, 1 + (v % 3));
+  return {
+    kind: "limit-point",
+    numerator: poly(polynomialProduct(root, [mul(negative(other), leading), leading])),
+    denominator: power(root, 2),
+    at,
+    side: "both",
+  };
+}
 export const functionLimitFamilies: readonly UniversityFamily[] = [
   {
     id: "limit-conjugate",
@@ -150,6 +197,36 @@ export const functionLimitFamilies: readonly UniversityFamily[] = [
               ? "second-order"
               : "two-roots",
     }),
+  },
+  {
+    id: "limit-quadratic-ratio-point",
+    category: "function-limits",
+    titles: {
+      pl: "Granica ilorazu dwóch wielomianów kwadratowych przy niezerowym mianowniku",
+      en: "Quadratic-over-quadratic point limit with a nonzero denominator",
+    },
+    supportedDifficulties: ["easy"],
+    create: (v) => quadraticRationalPoint(v),
+  },
+  {
+    id: "limit-cancelled-quadratic-ratio",
+    category: "function-limits",
+    titles: {
+      pl: "Granica 0/0 po skróceniu z pozostającym czynnikiem mianownika",
+      en: "Cancel a 0/0 factor while retaining a denominator factor",
+    },
+    supportedDifficulties: ["medium"],
+    create: (v) => cancelledRationalPoint(v),
+  },
+  {
+    id: "limit-cancelled-pole",
+    category: "function-limits",
+    titles: {
+      pl: "Skracanie 0/0 i granice jednostronne przy biegunie",
+      en: "Cancel 0/0 and compare one-sided pole limits",
+    },
+    supportedDifficulties: ["hard"],
+    create: (v) => cancelledPoleProblem(v),
   },
   {
     id: "limit-point",
@@ -388,11 +465,47 @@ export function presentFunctionLimit(p: FunctionLimitProblem, locale: Locale) {
   lesson.work(
     `N(x) = ${polynomialText(numerator)}; N(${f(p.at)}) = ${f(nAt)}; M(${f(p.at)}) = ${f(dAt)}`,
     t(
-      "Rozwijamy licznik i sprawdzamy podstawienie do oryginalnego ilorazu. Niezerowy mianownik pozwala użyć ciągłości, ale 0/0 jest postacią nieoznaczoną, a nie wynikiem granicy.",
-      "Expand the numerator and substitute into the original ratio. A nonzero denominator allows continuity, but 0/0 is an indeterminate form, never the limit itself.",
+      p.teachingMethod === "direct-substitution"
+        ? "Rozwijamy licznik i podstawiamy argument do licznika oraz mianownika. Niezerowy mianownik umożliwia bezpośrednie obliczenie granicy przez ciągłość."
+        : "Rozwijamy licznik i sprawdzamy podstawienie do oryginalnego ilorazu. Niezerowy mianownik pozwala użyć ciągłości, ale 0/0 jest postacią nieoznaczoną, a nie wynikiem granicy.",
+      p.teachingMethod === "direct-substitution"
+        ? "Expand the numerator and substitute into numerator and denominator. A nonzero denominator lets us evaluate the limit directly by continuity."
+        : "Expand the numerator and substitute into the original ratio. A nonzero denominator allows continuity, but 0/0 is an indeterminate form, never the limit itself.",
     ),
     ...trace.splice(0),
   );
+  if (p.teachingMethod === "direct-substitution") {
+    if (zero(dAt) || value.kind !== "finite" || p.definedAt !== undefined)
+      throw new Error("Direct substitution requires a continuous quotient with a nonzero denominator.");
+    const quotient = calculate("quotient", nAt, dAt);
+    lesson.work(
+      `M(${f(p.at)}) = ${f(dAt)} ≠ 0`,
+      t(
+        "Mianownik jest niezerowy w punkcie. Iloraz wielomianów jest więc w nim ciągły, a granicę otrzymujemy bezpośrednio przez podstawienie.",
+        "The denominator is nonzero at this point. The quotient of polynomials is therefore continuous, and direct substitution gives the limit.",
+      ),
+    );
+    lesson.work(
+      `lim f(x) = N(${f(p.at)})/M(${f(p.at)}) = (${f(nAt)})/(${f(dAt)}) = ${f(quotient.result)}`,
+      t(
+        "Podstawiamy do ciągłego ilorazu i dzielimy dokładne wartości licznika oraz mianownika.",
+        "Substitute into the continuous quotient and divide the exact numerator and denominator values.",
+      ),
+      quotient,
+    );
+    return lesson.finish(
+      `${t("Wyznacz granicę", "Find the limit")}: x→(${f(p.at)}).\nf(x) = (${formulaText(p.numerator)})/(${polynomialText(p.denominator)})`,
+      { kind: "limit", value },
+      t(
+        "Podstaw punkt do licznika i mianownika.",
+        "Substitute the point into the numerator and denominator.",
+      ),
+      t(
+        "Sprawdź, że mianownik nie jest zerem. Następnie zastosuj ciągłość ilorazu i oblicz wartość przez bezpośrednie podstawienie.",
+        "Check that the denominator is nonzero. Then use continuity of the quotient and evaluate by direct substitution.",
+      ),
+    );
+  }
   const n = removeAt(numerator, p.at, trace),
     den = removeAt(p.denominator, p.at, trace);
   if (Number.isFinite(n.order))

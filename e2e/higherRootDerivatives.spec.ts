@@ -1,0 +1,38 @@
+import {test,expect} from "@playwright/test";
+import {shownFraction} from "./helpers/functions";
+import {fractionText} from "./helpers/systems";
+import {q,m} from "../src/university/audit";
+import {polishLearningText} from "./helpers/localization";
+const button=(p:import("@playwright/test").Page,name:string)=>p.getByRole("button",{name,exact:true});
+for(const width of [375,1280])for(const en of [false,true])
+test("#151 D01 higher-index radicals UI witness "+width+"px "+(en?"EN":"PL"),async({page})=>{
+ test.setTimeout(90_000);const errors:string[]=[];page.on("pageerror",e=>errors.push(e.message));
+ await page.setViewportSize({width,height:900});await page.goto("/");
+ if(en)await button(page,"English").click();
+ await button(page,en?"University mathematics":"Matematyka na studia").click();
+ await button(page,en?"Derivatives":"Pochodne").click();
+ await button(page,en?"Hard":"Trudny").click();
+ await page.getByRole("button",{name:en?/Derivatives of higher-index radicals/:/Pochodne pierwiastków wyższych stopni/}).click();
+ await expect(page.locator(".question")).toHaveAttribute("data-template-id","derivative-higher-root-powers");
+ const shown=(await page.locator(".question").innerText()).split("\n")[1];
+ const numbers=[...shown.matchAll(/\(([-−]?\d+(?:\/\d+)?)\)/g)].map(x=>shownFraction(x[1]));
+ const quotient=shown.includes("⁶√");
+ const powers=quotient?[q(-1,2),q(-2,3)]:[q(2),q(1,3),q(8,5),q(-1,4)];
+ expect(numbers).toHaveLength(quotient?2:4);
+ const coeffs=quotient?[numbers[0],m(q(-1),numbers[1])]:numbers;
+ const result=coeffs.map((c,i)=>m(c,powers[i]));
+ const inputs=page.locator("form .coefficient-field input");
+ await expect(inputs).toHaveCount(result.length);
+ const check=button(page,en?"Check":"Sprawdź");
+ await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+ for(let i=0;i<result.length;i++)await inputs.nth(i).fill(fractionText(i===0?m(result[i],q(-1)):result[i]));
+ await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+ await inputs.first().fill(fractionText(result[0]));
+ await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+ await button(page,en?"Show solution":"Pokaż rozwiązanie").click();
+ await button(page,en?"Show all steps":"Pokaż wszystkie kroki").click();
+ await expect(page.locator(".solution-final")).toBeVisible();
+ if(en)expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
+ expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
+ expect(errors).toEqual([]);
+});

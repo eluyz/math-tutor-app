@@ -1,0 +1,8 @@
+# Batch D checkpoint ledger
+
+Base: Batch C `befc5ab6abaa6f2fe7a432e999da14dbbe854499`, PR #171 OPEN/Draft with CI PASS. Main `376c1a31adbd05fbac3a75fb05f62b913b6e668d` has CI/Pages PASS. Work is isolated on `qa/batch-d-linear-algebra-acceptance`; target PR base is `qa/batch-c-controlled-acceptance`. No changes to that base branch.
+
+- D1 PASS: 9 combinations, 216 synthetic tasks, PL/EN, independent outputs and correct/wrong/empty grading, both hints and full working arithmetic. `npm test -- src/qa/batchDAcceptance.test.ts -t D1`: 9 PASS. A wrong test import was corrected before this passing checkpoint; no generator defect or generator fix.
+- D2 PASS: 8 combinations, 192 synthetic tasks, PL/EN. Determinants use permutation expansion; adjugate inverses satisfy both identities; ranks use minors. Printed matrix-bearing elementary row operations are independently replayed. D1+D2 targeted integration: 17 PASS (408 tasks). Proof-only dependency statements are checked from the original rows rather than treated as matrix trace steps.
+- D3 PASS: 7 combinations, 168 synthetic tasks, PL/EN. Independent D and replaced-column determinants, ranks from minors, solution substitution and canonical affine basis checks. `npm test -- src/qa/batchDAcceptance.test.ts -t D3`: 7 PASS; 17 existing block tests intentionally filtered.
+- Integration PASS: all 25 unit tests (576 tasks × PL/EN), production build and 96 Chromium tests / 192 witnesses. Initial UI harness attempt was stopped to add visible operand-table matching; the complete corrected rerun passed. Full CI pending final HEAD; no SOURCE_PASS awarded, private originals unavailable.

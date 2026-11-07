@@ -19,10 +19,11 @@ const choices = (locale:Locale) => [
 
 /** Rank n−1 when singular; unlike a generic D=0 example this controls both
  * consistent and contradictory systems and keeps the teaching cases distinct. */
-export function createCramerDiagnostic(variant:number,level:Difficulty,target:"eligibility"|"minors"):Problem {
+export function createCramerDiagnostic(variant:number,level:Difficulty,target:"eligibility"|"minors"|"eligibility-solve"):Problem {
   if(!Number.isInteger(variant)||variant<0||variant>=24 || !["easy","medium","hard"].includes(level))
     throw Error("Unsupported Cramer diagnostic");
-  const n=target==="minors"?4:level==="easy"?2:level==="medium"?3:4;
+  if(target==="eligibility-solve"&&level!=="medium")throw Error("Integrated source form requires 3×3 medium");
+  const n=target==="minors"?4:target==="eligibility-solve"?3:level==="easy"?2:level==="medium"?3:4;
   const A:Rational[][]=Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>
     r(j<i?0:j===i?(i===0?1+variant%6:1+(variant+i)%3):
       i===0&&j===1?1+Math.floor(variant/6):(variant+2*i+j)%3-1)));
@@ -49,6 +50,10 @@ export function createCramerDiagnostic(variant:number,level:Difficulty,target:"e
 }
 
 export const cramerDiagnosticFamilies:readonly UniversityFamily[]=[
+  {id:"cramer-eligibility-solve-three",category:"systems",
+   titles:{pl:"Cramer 3×3: sprawdź metodę i rozwiąż",en:"Cramer 3×3: decide and solve"},
+   supportedDifficulties:["medium"],
+   create:(v,d)=>createCramerDiagnostic(v,d,"eligibility-solve")},
   {id:"cramer-applicability",category:"systems",
    titles:{pl:"Cramer: czy można zastosować metodę?",en:"Cramer's rule: can you apply it?"},
    supportedDifficulties:["easy","medium","hard"],
@@ -73,7 +78,38 @@ export function presentCramerDiagnostic(p:Problem,locale:Locale){
     t("Jeśli D≠0, można dzielić Dᵢ przez D. Jeśli D=0, nie wolno dzielić przez zero.",
       "When D≠0, Dᵢ/D is allowed. When D=0, dividing by D is forbidden."));
   let answer:AnswerSpec;
-  if(p.target==="minors"){
+  if(p.target==="eligibility-solve"){
+    // This source-form task grades the applicability decision AND the
+    // solution of the same 3×3 system, only when D is nonzero.
+    if(n!==3)throw Error("Integrated Cramer form requires three variables");
+    let values: Rational[]=[];
+    if(D.numerator!==0n){
+      const solved: Rational[]=[];
+      for(let j=0;j<3;j++){
+        const Aj=A.map((row,i)=>row.map((c,k)=>k===j?b[i]:c));
+        const Dj=exactDeterminant(Aj), xj=div(Dj,D);
+        solved.push(xj);
+        lesson.work("A"+(j+1)+" = "+show(Aj)+"; D"+(j+1)+" = "+f(Dj)+
+          "; "+["x","y","z"][j]+" = D"+(j+1)+"/D = "+f(xj),
+          t("Zamień kolumnę "+(j+1)+" na b, oblicz wyznacznik i podziel dopiero przez niezerowe D.",
+            "Replace column "+(j+1)+" with b, compute the determinant and divide only by nonzero D."));
+      }
+      for(let i=0;i<3;i++){
+        const actual=dot(A[i],solved);
+        if(actual.numerator*b[i].denominator!==b[i].numerator*actual.denominator)
+          throw Error("Integrated Cramer substitution failed");
+        lesson.work("R"+(i+1)+": "+f(actual)+" = "+f(b[i]),
+          t("Podstawienie otrzymanych x, y, z potwierdza oryginalne równanie.",
+            "Substitution of x, y, z verifies the original equation."));
+      }
+      values=solved;
+    }else{
+      lesson.work("D = 0: "+t("metoda Cramera nie jest stosowalna", "Cramer's rule is not applicable"),
+        t("Nie dziel przez D. Rozstrzygnij zgodność układu porównując rzędy macierzy.",
+          "Do not divide by D. Compare matrix ranks to classify consistency."));
+    }
+    answer={kind:"system",classification:result.kind,variables:["x","y","z"],values};
+  }else if(p.target==="minors"){
     const values:Rational[]=[D];
     for(let j=0;j<n;j++){
       const replaced=A.map((row,i)=>row.map((c,k)=>k===j?b[i]:c));
@@ -118,7 +154,12 @@ export function presentCramerDiagnostic(p:Problem,locale:Locale){
         "A free variable parametrizes the solutions; D=0 does not automatically mean inconsistency."));
   }
   return lesson.finish(
-    p.target==="eligibility"
+    p.target==="eligibility-solve"
+      ?t("Dla układu 3×3 Ax=b z A="+show(A)+", b="+show(b.map(v=>[v]))+
+          " sprawdź, czy to układ Cramera. Jeśli D≠0, wyznacz x, y, z; jeśli D=0, sklasyfikuj układ.",
+          "For the 3×3 system Ax=b with A="+show(A)+", b="+show(b.map(v=>[v]))+
+          ", decide if Cramer's rule applies. If D≠0 solve x, y, z; if D=0 classify the system.")
+      :p.target==="eligibility"
       ?t("Dla układu Ax=b z A="+show(A)+", b="+show(b.map(v=>[v]))+
           " zdecyduj, czy wolno użyć metody Cramera, i wskaż właściwą liczbę rozwiązań.",
          "For Ax=b with A="+show(A)+", b="+show(b.map(v=>[v]))+

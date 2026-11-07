@@ -8,7 +8,19 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
-    "test:e2e": "playwright test"
+    "test:e2e": "playwright test",
+    "test:batch-b": "vitest run src/qa/batchBAcceptance.test.ts src/qa/syllabusBatchBMethodWitness.test.ts src/university/sequences.test.ts src/university/functions.test.ts src/university/functionLimits.test.ts src/university/rootPoleDomain.test.ts src/university/cancelledPoleSource.test.ts src/university/limitFollowup.test.ts src/university/infinityRootConjugation.test.ts src/university/derivatives.test.ts src/university/fractionalPowerDerivatives.test.ts src/university/higherRootDerivatives.test.ts src/qa/g05MethodPair.test.ts",
+    "test:e2e:batch-b": "playwright test --config playwright.batch-b.config.ts",
+    "test:batch-c": "vitest run src/qa/batchCAcceptance.test.ts",
+    "test:e2e:batch-c": "playwright test --config playwright.batch-c.config.ts",
+    "test:batch-d": "vitest run src/qa/batchDAcceptance.test.ts",
+    "test:e2e:batch-d": "playwright test --config playwright.batch-d.config.ts",
+    "test:batch-e": "vitest run src/qa/batchEAcceptance.test.ts",
+    "test:e2e:batch-e": "playwright test --config playwright.batch-e.config.ts",
+    "test:batch-f": "vitest run src/qa/batchFAcceptance.test.ts",
+    "test:e2e:batch-f": "playwright test --config playwright.batch-f.config.ts",
+    "test:batch-g": "vitest run src/qa/batchGAcceptance.test.ts",
+    "test:e2e:batch-g": "playwright test --config playwright.batch-g.config.ts"
   },
   "dependencies": {
     "react": "19.3.1",

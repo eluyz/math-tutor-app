@@ -1,3 +1,7 @@
+import type {W01SourceShapeProblem} from "./multivarSourceShapes";
+import type {MultivarRationalProblem} from "./multivarRational";
+import type { MultivarTrigProblem } from "./multivarTrig";
+import type {ElementaryPartialProblem} from './multivarElementary';
 import type { Matrix } from "../matrices";
 import type { Rational } from "../rational";
 import type { Difficulty } from "../difficulty";
@@ -38,11 +42,17 @@ import type { EdgeLimitProblem } from "./edgeLimits";
 import type { TrigDerivativeProblem } from "./trigDerivatives";
 import type { ProductQuotientProblem } from "./productQuotient";
 import type { DerivativeFollowupProblem } from "./derivativeFollowup";
+import type { FractionalPowerDerivativeProblem } from "./fractionalPowerDerivatives";
+import type { HigherRootDerivativeProblem } from "./higherRootDerivatives";
+import type { InfinityRootConjugationProblem } from "./infinityRootConjugation";
 import type { PartialGradientProblem } from "./partialGradient";
 import type { MultivarDerivativeFollowupProblem } from "./multivarDerivativeFollowup";
 import type { MultivarLimitProblem } from "./multivarLimits";
 import type { PolarContinuityProblem } from "./polarContinuity";
 import type { RectangularPathProblem } from "./rectangularPaths";
+import type {W02NonlinearProblem} from "./w02NonlinearExtrema";
+import type {BilinearProblem} from "./bilinearExtrema";
+import type {W02CubicExtremaProblem} from "./w02CubicExtrema";
 import type { HessianProblem } from "./hessian";
 import type { MultivarExtremaProblem } from "./multivarExtrema";
 import type { DegenerateDiskProblem } from "./degenerateDisk";
@@ -74,6 +84,7 @@ export type FunctionProblem =
         | "two-poles"
         | "root-ray"
         | "root-over-linear"
+        | "root-over-one"
         | "root-over-two"
         | "root-ratio";
       p: Rational;
@@ -148,6 +159,8 @@ export type FunctionLimitProblem =
       at: Rational;
       side: "both" | "left" | "right";
       definedAt?: Rational;
+      /** Opt-in teaching path; preserve historical point-limit explanations. */
+      teachingMethod?: "direct-substitution";
     }>
   | Readonly<{
       kind: "limit-infinity";
@@ -205,7 +218,7 @@ export type RadicalDeterminantProblem = Readonly<{
 }>;
 export type DeterminantProblem = Readonly<{
   kind: "determinant";
-  method: "laplace-four" | "row-operations" | "laplace-five" | "properties" | "staged-four" | "staged-five" | "gaussian-four" | "gaussian-five";
+  method: "laplace-four" | "laplace-column-four" | "row-operations" | "laplace-five" | "properties" | "staged-four" | "staged-five" | "gaussian-four" | "gaussian-five";
   matrix: SquareDeterminantMatrix;
   /** Operations reduce the displayed matrix to an upper triangular matrix. */
   reductions?: readonly DeterminantRowOperation[];
@@ -228,7 +241,7 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" | "parameters" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
-  | Readonly<{ kind: "linear-cramer-diagnostic"; target: "eligibility" | "minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
+  | Readonly<{ kind: "linear-cramer-diagnostic"; target: "eligibility" | "minors" | "eligibility-solve"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-matrix-pair"; coefficients: readonly [Rational, Rational, Rational, Rational];
       first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-matrix-practice";
@@ -283,12 +296,22 @@ export type UniversityProblem =
   | TrigDerivativeProblem
   | ProductQuotientProblem
   | DerivativeFollowupProblem
+  | FractionalPowerDerivativeProblem
+  | HigherRootDerivativeProblem
+  | InfinityRootConjugationProblem
   | PartialGradientProblem
+  | ElementaryPartialProblem
+  | MultivarTrigProblem
+  | MultivarRationalProblem
+  | W01SourceShapeProblem
   | MultivarDerivativeFollowupProblem
   | MultivarLimitProblem
   | PolarContinuityProblem
   | RectangularPathProblem
   | HessianProblem
+  | W02CubicExtremaProblem
+  | BilinearProblem
+  | W02NonlinearProblem
   | MultivarExtremaProblem
   | DegenerateDiskProblem
   | NegativePowerProblem

@@ -103,7 +103,7 @@ export function presentDerivativeFollowup(p:DerivativeFollowupProblem,locale:Loc
  lesson.work("u′(x)=2("+f(p.a)+")x+("+f(p.b)+"); u′("+h+")="+f(du),
    t("Pochodna funkcji wewnętrznej wynika z reguły potęgowej.",
      "The derivative of the inner function follows from the power rule."));
- lesson.work("f′(x)=u′(x)/u(x), gdy u(x)>0",
+ lesson.work("f′(x)=u′(x)/u(x), "+t("gdy ","when ")+"u(x)>0",
    t("Stosujemy regułę łańcuchową: pochodna ln(u) to u′/u, a nie 1/u.",
      "Apply the chain rule: the derivative of ln(u) is u′/u, not simply 1/u."));
  lesson.work("f′("+h+")=("+f(du)+")/("+f(u)+")="+f(result),

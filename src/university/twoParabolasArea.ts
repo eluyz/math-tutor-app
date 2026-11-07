@@ -82,7 +82,7 @@ export function presentTwoParabolasArea(p:TwoParabolasAreaProblem,locale:Locale)
   work("f(x)−g(x)=("+delta+")[(x−("+h+"))²−("+rad+")²]",
     "Redukujemy wyrażenie różnicy, aby poprawnie ustalić punkty przecięcia.",
     "Simplify the difference to identify the intersection points.");
-  work("f(x)=g(x) ⇔ x="+left+" lub x="+right,
+  work("f(x)=g(x) ⇔ x="+left+t(" lub x="," or x=")+right,
     "Rozwiązujemy równanie kwadratowe i zachowujemy tylko przecięcia leżące wewnątrz przedziału całkowania.",
     "Solve the quadratic equality and retain only crossings within the integration interval.");
   work("A=∫_{"+low+"}^{"+up+"} |f(x)−g(x)| dx",

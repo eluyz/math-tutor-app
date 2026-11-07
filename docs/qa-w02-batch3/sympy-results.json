@@ -1,0 +1,23 @@
+{
+  "followup_proposals": {
+    "three_point": {
+      "status": "PASS",
+      "critical_points": 3
+    },
+    "four_point": {
+      "status": "PASS",
+      "critical_points": 4
+    },
+    "source_alignment": "UNVERIFIED authored proposals, no original equation inferred"
+  },
+  "status": "PASS",
+  "sympy": "1.14.0",
+  "variants": 24,
+  "stationary_points": 48,
+  "counts": {
+    "minimum": 12,
+    "maximum": 12,
+    "saddle": 24,
+    "zero_coordinate_points": 10
+  }
+}
