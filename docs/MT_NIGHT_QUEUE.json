@@ -1,0 +1,40 @@
+{
+  "schema_version": 1,
+  "mode": "REPORT_ONLY",
+  "max_active": 3,
+  "queue": [
+    {
+      "issue": 195,
+      "code": "QA-10",
+      "scope": [
+        "scripts/qa-inventory",
+        "src/qa/inventory",
+        "docs/QA_INVENTORY.md"
+      ],
+      "depends_on": [
+        {
+          "kind": "pr",
+          "number": 194
+        },
+        {
+          "kind": "pr",
+          "number": 192
+        }
+      ]
+    },
+    {
+      "issue": 196,
+      "code": "QA-11",
+      "scope": [
+        "src/qa/evidence",
+        "docs/QA_EVIDENCE_SCHEMA.md"
+      ],
+      "depends_on": [
+        {
+          "kind": "issue",
+          "number": 195
+        }
+      ]
+    }
+  ]
+}
