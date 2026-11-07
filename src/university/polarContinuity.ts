@@ -123,7 +123,8 @@ export function presentPolarContinuity(p:PolarContinuityProblem,locale:Locale){
      "Check whether simplification leaves a vanishing r² factor or an angular dependence."));
  }
  const classification=angularContinuityClass(p),[onU,onV]=angularAxisValues(p);
- lesson.work(angularExpression(p)+"; (u,v)≠(0,0); f"+at+"="+f(p.valueAt),
+ const definition="f(x,y)=g(x,y)"+t(" dla "," for ")+"(x,y)≠"+at+t(", oraz ",", and ")+"f"+at+"="+f(p.valueAt);
+ lesson.work(angularExpression(p)+"; "+definition,
    t("Najpierw badaj granicę wzoru w otoczeniu, dopiero potem wartość przypisaną w punkcie.",
      "Analyze the punctured formula before comparing the assigned point value."));
  lesson.work("v=0: g="+f(onU)+"; u=0: g="+f(onV),
@@ -149,12 +150,12 @@ export function presentPolarContinuity(p:PolarContinuityProblem,locale:Locale){
     t(classification==="continuous"?"Równość oznacza ciągłość.":"Zmiana jednej wartości usuwa nieciągłość.",
       classification==="continuous"?"Equality establishes continuity.":"Changing one value removes the discontinuity."));
  }
- lesson.work(t("Klasyfikacja: ","Classification: ")+classification,
+ lesson.work(t("Klasyfikacja: ","Classification: ")+options(locale).find(option=>option.value===classification)!.label,
    t("Klasyfikacja zależy od istnienia granicy oraz jej zgodności z f w punkcie.",
      "Classification depends on both limit existence and agreement with the point value."));
  return lesson.finish(
   t("Sklasyfikuj ciągłość funkcji dwóch zmiennych w punkcie ","Classify continuity at ")+at+
-   ".\n"+coordinates(p)+"; "+angularExpression(p)+t(" dla "," for ")+"(x,y)≠"+at+"; f"+at+"="+f(p.valueAt),
+   ".\n"+coordinates(p)+"; "+angularExpression(p)+"; "+definition,
   {kind:"choice",value:classification,options:options(locale)},
   t("Porównaj granice wzdłuż u=0 i v=0.","Compare limits along u=0 and v=0."),
   t("Jeśli granice drogowe się zgadzają, sprawdź f w punkcie.","If the path limits agree, check the function value at the point."));

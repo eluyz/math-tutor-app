@@ -1,0 +1,282 @@
+{
+  "revision": "review2-explicit-function-definition",
+  "implementation_sha": "ce151089c6b46c1b078b4014833a8c79af968312",
+  "previous_review": {
+    "head": "ace2e815b33320c60dc6e1573c9ad927000f11c2",
+    "work_verdict": "NEEDS_FIXES / NOT_READY",
+    "semantic_pass": "WITHDRAWN for under-defined angular questions in both languages",
+    "known_underdefined_tasks": 72,
+    "known_underdefined_localized_questions": 144,
+    "full_sample_corrected_assessment": {
+      "PASS": 13,
+      "NEEDS_FIXES": 5
+    },
+    "numeric_g_calculations": "Correct but insufficient to establish f classification"
+  },
+  "cohort": {
+    "mathematical_tuples": 288,
+    "localized_views": 576,
+    "grading_scenarios": 3456,
+    "numeric_path_steps": 336,
+    "semantic_tuples": 18,
+    "semantic_localized_views": 36,
+    "semantic_working_steps": 230,
+    "semantic_final_steps": 36,
+    "additional_independent_tasks_in_this_repeat": 0
+  },
+  "invariants": {
+    "task_ids_parameters_and_pl_en_answer_specs": "72/72 match frozen pre-review hashes",
+    "contentKey": "Intentionally changes with the corrected question; it is not the stable task ID"
+  },
+  "local_results": {
+    "focused_regressions": {
+      "files": 4,
+      "passed": 20
+    },
+    "explicit_audit_driver": {
+      "passed": 1,
+      "task_count": 288,
+      "repeat_not_added_to_coverage": true
+    },
+    "old_visible_questions": "TS rejects all 6 captured PL/EN examples; independent SymPy rejects actual old dataset with expected missing-definition failure",
+    "definition_mutations_rejected_by_sympy": 1152,
+    "full_unit": {
+      "files": 142,
+      "passed": 1723,
+      "failed": 0
+    },
+    "build": "PASS; existing bundle-size advisory only",
+    "production_browser": {
+      "passed": 24,
+      "failed": 0,
+      "witness_count": 56,
+      "distinct_pins": 14,
+      "witnesses": [
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        }
+      ]
+    }
+  }
+}

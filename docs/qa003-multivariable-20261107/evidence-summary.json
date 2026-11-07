@@ -1,0 +1,366 @@
+{
+  "revision": "review2-explicit-function-definition",
+  "main_sha": "11d80cc022b30e0be8381fe712392f14d0769590",
+  "implementation_sha": "ce151089c6b46c1b078b4014833a8c79af968312",
+  "previous_review": {
+    "head": "ace2e815b33320c60dc6e1573c9ad927000f11c2",
+    "work_verdict": "NEEDS_FIXES / NOT_READY",
+    "semantic_pass": "WITHDRAWN for under-defined angular questions in both languages",
+    "known_underdefined_tasks": 72,
+    "known_underdefined_localized_questions": 144,
+    "full_sample_corrected_assessment": {
+      "PASS": 13,
+      "NEEDS_FIXES": 5
+    },
+    "numeric_g_calculations": "Correct but insufficient to establish f classification"
+  },
+  "inventory": {
+    "families": 240,
+    "variants": 18333,
+    "changed": false
+  },
+  "cohort": {
+    "mathematical_tuples": 288,
+    "localized_views": 576,
+    "grading_scenarios": 3456,
+    "numeric_path_steps": 336,
+    "semantic_tuples": 18,
+    "semantic_localized_views": 36,
+    "semantic_working_steps": 230,
+    "semantic_final_steps": 36,
+    "additional_independent_tasks_in_this_repeat": 0
+  },
+  "historical_counters_unchanged": {
+    "external_answers": 1434,
+    "external_full_pl_en_reviews": 75,
+    "grading_scenarios": 36472,
+    "signed_automated": 90,
+    "graph_automated": 144,
+    "formal_global_source_pass": 14
+  },
+  "statuses": {
+    "review2_defined_tasks_and_math": {
+      "PASS": 288,
+      "FAIL": 0,
+      "NEEDS_FIXES": 0,
+      "NOT_VERIFIED": 0
+    },
+    "main_and_review1_full_review_or_known_failure_both_languages": {
+      "PASS": 13,
+      "FAIL": 0,
+      "NEEDS_FIXES": 72,
+      "NOT_VERIFIED": 203
+    },
+    "review2_full_semantic_sample": {
+      "PASS": 18,
+      "FAIL": 0,
+      "NEEDS_FIXES": 0,
+      "NOT_VERIFIED": 270
+    },
+    "private_source_comparison": {
+      "BLOCKED_SOURCE": 288
+    },
+    "outside_this_cohort": 18045
+  },
+  "confirmed_findings": {
+    "QA003-MV-01": "localized conclusion fixed in Draft",
+    "QA003-MV-02": "Work finding: explicit f=g and assigned f target now required and displayed; fixed in Draft, not released"
+  },
+  "invariants": {
+    "task_ids_parameters_and_pl_en_answer_specs": "72/72 match frozen pre-review hashes",
+    "contentKey": "Intentionally changes with the corrected question; it is not the stable task ID"
+  },
+  "local_results": {
+    "focused_regressions": {
+      "files": 4,
+      "passed": 20
+    },
+    "explicit_audit_driver": {
+      "passed": 1,
+      "task_count": 288,
+      "repeat_not_added_to_coverage": true
+    },
+    "old_visible_questions": "TS rejects all 6 captured PL/EN examples; independent SymPy rejects actual old dataset with expected missing-definition failure",
+    "definition_mutations_rejected_by_sympy": 1152,
+    "full_unit": {
+      "files": 142,
+      "passed": 1723,
+      "failed": 0
+    },
+    "build": "PASS; existing bundle-size advisory only",
+    "production_browser": {
+      "passed": 24,
+      "failed": 0,
+      "witness_count": 56,
+      "distinct_pins": 14,
+      "witnesses": [
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-path-limit:hard:0",
+            "multivar-path-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-continuity-point:hard:2",
+            "multivar-continuity-point:hard:0",
+            "multivar-continuity-point:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-polar-homogeneous-limit:hard:2",
+            "multivar-polar-homogeneous-limit:hard:3",
+            "multivar-polar-homogeneous-limit:hard:0",
+            "multivar-polar-homogeneous-limit:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:hard:2",
+            "multivar-angular-continuity:hard:0",
+            "multivar-angular-continuity:hard:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:advanced:1"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 375,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "pl",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        },
+        {
+          "locale": "en",
+          "width": 1280,
+          "witnessed": [
+            "multivar-angular-continuity:expert:5"
+          ],
+          "errors": []
+        }
+      ]
+    }
+  },
+  "source_sha256": {
+    "src/university/multivarLimits.ts": "6b22623257ebb710d522b2bf302a1841aec24af3b850ae0eb92e9e01b188a94c",
+    "src/university/polarContinuity.ts": "5becddbbbc5b11a835c62c5814077602ffb5061913d36964d421ec3da244e9d1",
+    "src/qa/qa003MultivariableOracle.ts": "9ca117470277771e5baea45fc9100011c4a659675b8a8591c387834f87599db4",
+    "src/qa/qa003Multivariable.audit.ts": "656a4c508b9387e0c8ea8ca49106864226e37a63022566e028afc2cb5721c009",
+    "src/qa/qa003AngularLocalization.test.ts": "ba68cec80d18f71d833075813b27e195b47c4d52ffa7e9e2092466623d93d353",
+    "src/qa/qa003FunctionDefinition.test.ts": "81bd446e0da61226d233d42ac1967c93603a67d329999b947e711f8aa920ac68",
+    "scripts/qa/qa003_multivariable_sympy.py": "bf6a7b467008689183236b7b59c96548d1346b01cf473bb15218e264358cbcad",
+    "e2e/qa003Multivariable.audit.ts": "75535b20833d604606348263c4a7a62e957c51556ef824ee9cdf9a32dc1dd53e",
+    "e2e/helpers/acceptance.ts": "8bf4e807e8b729a5901584a2dbd5b02c5baae55c61893178b020514f879a04aa",
+    "vitest.qa003.config.ts": "c783391c9b327652798511ded4af55ef7f74dbf5bc4a495aca63b5a92a9f53fd",
+    "playwright.qa003.config.ts": "1e4bd4b2c314b048cb4fbafe62bd426e4f32f3c2ec825f536f3bb4c263efbd31",
+    "docs/qa003-multivariable-20261107/review2/pre-review-invariants.json": "c13631be6221ce91e1c5a0b6d2083b599c8ade59a32dd72b7c03cbae84828a05",
+    "docs/qa003-multivariable-20261107/review2/finding-definition-before.json": "ac59a123b77969b84e342bf6f9fd1705ba514ff4a893afad7d1ad0f28e499fa0"
+  },
+  "raw_result_sha256": {
+    "test-results/qa003-full-unit.json": "2915b2c0fe4c15fa1a2e14e02a14621cfdfdb618abb16d1439d310c5b7a66c3a",
+    "test-results/qa003-multivariable-browser.json": "4f4854862201e5a873adc3ead5f54bf2be19d09c8e4ba9b83b9c1bac11c6270b",
+    "test-results/qa003-multivariable-export.json": "c20498521234f27bd0ddb958c89ecebe661922a282d6d356a127d51d34488008",
+    "test-results/qa003-sympy-results.json": "e48070563f081c9156b9ab339b9e44d126db5fb10babeba61f7c5d59044d22b4"
+  },
+  "sympy": {
+    "main_sha": "11d80cc022b30e0be8381fe712392f14d0769590",
+    "revision": "review2-explicit-function-definition",
+    "status": "PASS",
+    "visible_definition_checks": 576,
+    "definition_mutations_rejected": 1152,
+    "sympy": "1.14.0",
+    "distinct_tasks": 288,
+    "localized_presentations": 576,
+    "grading_scenarios": 3456,
+    "numeric_path_steps_checked": 336,
+    "localized_classifications": {
+      "finite": 144,
+      "does-not-exist": 144,
+      "continuous": 96,
+      "removable": 96,
+      "nonremovable": 96
+    },
+    "export_sha256": "c20498521234f27bd0ddb958c89ecebe661922a282d6d356a127d51d34488008"
+  },
+  "final_ci": "Final revised delivery HEAD and terminal Actions evidence recorded in existing Draft PR #191. Old CI at ace2e815 is historical execution, not semantic acceptance."
+}

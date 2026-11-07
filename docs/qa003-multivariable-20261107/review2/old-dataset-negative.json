@@ -1,0 +1,9 @@
+{
+  "head": "ace2e815b33320c60dc6e1573c9ad927000f11c2",
+  "oracle": "strengthened independent SymPy visible-definition validation",
+  "expected": "FAIL",
+  "observed": "FAIL",
+  "exit_code": 1,
+  "reason": "Missing explicit off-point relation f=g",
+  "counts": "Same 288-task dataset; this negative run is not additional coverage"
+}
