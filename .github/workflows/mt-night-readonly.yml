@@ -1,0 +1,53 @@
+name: MT Night QA — read-only morning report
+
+# Phase 1: observe only. Never dispatch Copilot, approve CI, change issues, or merge.
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '15 6 * * *' # 07:15 CET / 08:15 CEST; fixed UTC
+
+permissions:
+  contents: read
+  actions: read
+  issues: read
+  pull-requests: read
+
+concurrency:
+  group: mt-night-readonly-report
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    if: github.repository == 'eluyz/math-tutor-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out trusted main only
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Safety checks (no network or credentials)
+        run: |
+          node --check .github/scripts/mt-night-audit.mjs
+          node --test .github/scripts/mt-night-audit.test.mjs
+          node .github/scripts/mt-night-audit.mjs --check
+      - name: Collect read-only GitHub evidence
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: node .github/scripts/mt-night-audit.mjs
+      - name: Upload morning evidence
+        if: success()
+        uses: actions/upload-artifact@v7
+        with:
+          name: mt-night-readonly-report
+          path: |
+            .night/report.json
+            .night/summary.md
+          if-no-files-found: error
+          retention-days: 7
