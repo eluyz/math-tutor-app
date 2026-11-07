@@ -10,12 +10,37 @@ data=json.loads(src.read_text());u,v,t=S.symbols('u v t',real=True)
 q=lambda x:S.Rational(x.replace('−','-').strip())
 # Uniform bound proof: 4u²v² <= (u²+v²)² everywhere, by a nonnegative square.
 assert S.expand((u*u+v*v)**2-4*u*u*v*v-(u*u-v*v)**2)==0
-results=[];classes={};numeric_steps=0
+def visible_definition(text):
+ origin=re.search(r'u=x−\(([^)]+)\), v=y−\(([^)]+)\)',text)
+ if not origin:raise ValueError('Missing translation')
+ target=tuple(map(q,origin.groups()))
+ header=re.search(r'\(([^,()]+),\s*([^()]+)\)\.$',text.split('\n')[0])
+ if not header or tuple(map(q,header.groups()))!=target:raise ValueError('Question target mismatch')
+ continuity=bool(re.search(r'ciągłość|continuity',text.split('\n')[0],re.I))
+ assigned=re.search(r'f\(([−+\-\d./]+),\s*([−+\-\d./]+)\)=([^;\n]+)$',text)
+ links=re.findall(r'f\(x,y\)=g\(x,y\)\s+(?:dla|for)\s+\(x,y\)≠\(([^,()]+),\s*([^()]+)\)',text)
+ if continuity or assigned or links:
+  if len(links)!=1:raise ValueError('Missing explicit off-point relation f=g')
+  if tuple(map(q,links[0]))!=target:raise ValueError('Off-point definition target mismatch')
+  if not assigned:raise ValueError('Missing assigned value of f at target')
+  if tuple(map(q,assigned.groups()[:2]))!=target:raise ValueError('Assigned function value target mismatch')
+ if '(x,y)≠('+origin[1]+', '+origin[2]+')'not in text:raise ValueError('Missing punctured domain')
+ return (q(assigned[3])if assigned else None),continuity
+results=[];classes={};numeric_steps=0;negative_definitions=0
 for record in data['records']:
  for view in record['views']:
   text=view['question'];angular=re.search(r'g\(x,y\)=\(([^)]+)\)\+\(\(([^)]+)\)u²\+\(([^)]+)\)v²\)\/\(u²\+v²\)',text)
-  assigned=re.search(r'; f\([^)]*\)=([^;\n]+)$',text)
-  point=q(assigned[1])if assigned else None
+  point,continuity=visible_definition(text)
+  if continuity:
+   mutations=[text.replace('f(x,y)=g(x,y)',''),
+    re.sub(r'(f\(x,y\)=g\(x,y\) (?:dla|for) \(x,y\)≠)\([^)]*\)',r'\g<1>(999, 999)',text),
+    re.sub(r'f\([−+\-\d./]+,\s*[−+\-\d./]+\)=([^;\n]+)$',r'f(999, 999)=\1',text),
+    re.sub(r'(?:;|, oraz|, and) f\([−+\-\d./]+,\s*[−+\-\d./]+\)=[^;\n]+$','',text)]
+   for mutated in mutations:
+    assert mutated!=text
+    try:visible_definition(mutated)
+    except ValueError:negative_definitions+=1
+    else:raise AssertionError('Incomplete/inconsistent definition was accepted')
   k=None
   if angular:
    b,a,c=map(q,angular.groups());F=b+(a*u*u+c*v*v)/(u*u+v*v)
@@ -52,7 +77,7 @@ for record in data['records']:
    if m:assert q(m[1])==S.limit(F.subs(v,0),u,0) and q(m[2])==S.limit(F.subs(u,0),v,0);numeric_steps+=1
   classes[expected]=classes.get(expected,0)+1
   results.append({'id':f"{record['family_id']}:{record['difficulty']}:{record['variant_index']}",'locale':view['locale'],'result':'PASS','classification':expected,'proof':proof})
-assert len(results)==576 and len({r['id']for r in results})==288
-out={'main_sha':data['main_sha'],'status':'PASS','sympy':S.__version__,'distinct_tasks':288,'localized_presentations':576,'grading_scenarios':data['grading'],'numeric_path_steps_checked':numeric_steps,'localized_classifications':classes,'export_sha256':hashlib.sha256(src.read_bytes()).hexdigest(),'rows':results}
+assert len(results)==576 and len({r['id']for r in results})==288 and negative_definitions==1152
+out={'main_sha':data['main_sha'],'revision':'review2-explicit-function-definition','status':'PASS','visible_definition_checks':576,'definition_mutations_rejected':negative_definitions,'sympy':S.__version__,'distinct_tasks':288,'localized_presentations':576,'grading_scenarios':data['grading'],'numeric_path_steps_checked':numeric_steps,'localized_classifications':classes,'export_sha256':hashlib.sha256(src.read_bytes()).hexdigest(),'rows':results}
 Path('test-results/qa003-sympy-results.json').write_text(json.dumps(out,indent=2)+'\n')
 print(json.dumps({k:v for k,v in out.items()if k!='rows'},indent=2))

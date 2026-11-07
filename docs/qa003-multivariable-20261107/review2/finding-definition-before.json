@@ -1,0 +1,762 @@
+{
+  "head": "ace2e815b33320c60dc6e1573c9ad927000f11c2",
+  "finding": "QA003-MV-02",
+  "status": "NEEDS_FIXES",
+  "tasks": 72,
+  "localized_questions": 144,
+  "reason": "No explicit off-point relation f(x,y)=g(x,y); former semantics PASS withdrawn",
+  "rows": [
+    {
+      "id": "multivar-angular-continuity:hard:0",
+      "locale": "pl",
+      "question_sha256": "d0c0e7343cb8ba9ce5320c587e620917759ca74902220da9527dbcc630b3094e"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:0",
+      "locale": "en",
+      "question_sha256": "f8a140d2c6d42900d26063266db954e6ed0e38cb58e654ef403a618e8fedef79"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:1",
+      "locale": "pl",
+      "question_sha256": "dce53285decb7960c669512c1609e85dace1276c2971969d1bae8580077e34a7"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:1",
+      "locale": "en",
+      "question_sha256": "9579668aaff2e22e58592d7bcd3bab801014c13798206bcfc5d81f0952c673d0"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:2",
+      "locale": "pl",
+      "question_sha256": "bc16e8de8da3ed7d4f18979b3baec8f2f38608ab33cde937d313460dec5b5d0b"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:2",
+      "locale": "en",
+      "question_sha256": "30bf62dc127ccbd5dc9702d5f7fd943fa42e05c79aa6ea381ecf917b3abf5754"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:3",
+      "locale": "pl",
+      "question_sha256": "97f59cff9c3fe0b8ca1fa0a7b33195e345d639b9c1d661e5ba61884cfee9c54a"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:3",
+      "locale": "en",
+      "question_sha256": "8eaf9ee59370af7fb6883de29fcfe2604f9600c4a5e65fb80494a2bd09c0a3fd"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:4",
+      "locale": "pl",
+      "question_sha256": "52c6359d88fb9a8f54910f87284c9996e886ad4943976fa38fec764cc3aabcf7"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:4",
+      "locale": "en",
+      "question_sha256": "99a369ae4e9892fdb5ece16cff296ddca732f7ff9d873f000fc344ffa0a14c1a"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:5",
+      "locale": "pl",
+      "question_sha256": "2f6d44cc2843bd123197c24e5766f7e4409b1005b5fdc07ac2685579c6fd7901"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:5",
+      "locale": "en",
+      "question_sha256": "9947de6c477a1b517f0d0c940ef0b22bdd0aaf480d542d7a7262d1cad3072f96"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:6",
+      "locale": "pl",
+      "question_sha256": "db924ceecdfb7721f9e5e6191b138f09f0142022d72e51a541a3400345ca63e8"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:6",
+      "locale": "en",
+      "question_sha256": "1a59da29cde83dbfd3dcf67aab25ae3b6c2811f381c63e36a59f65e0c6bc9d54"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:7",
+      "locale": "pl",
+      "question_sha256": "e814dd3c820b51deb09270762267294717b55ebbab690aa4420d59bff9198239"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:7",
+      "locale": "en",
+      "question_sha256": "4c3a113dbf826a9654e2b2536681ad6250c5ce487797a6386760e5a6600a5f9d"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:8",
+      "locale": "pl",
+      "question_sha256": "ad71b4446f7494059206d841f9654400c8d0bb639578ecb324620669b1fddd19"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:8",
+      "locale": "en",
+      "question_sha256": "818b5e2ff60e2e5963f9fe0d250b97cc7d24080c38f08a085fa3abc677e89061"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:9",
+      "locale": "pl",
+      "question_sha256": "d4fa7f1b950400bc28da3a870e26a6b46dd5fc93d16a05080b3bf9d0afcd93b7"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:9",
+      "locale": "en",
+      "question_sha256": "a662e6d077be5940a79760d7e431725c22547f79562578f525aadb058434cbfb"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:10",
+      "locale": "pl",
+      "question_sha256": "c88657d4071ee273c5e1cabd82a65b1ddf0aee6c551c3bd7d00667ac4ca85778"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:10",
+      "locale": "en",
+      "question_sha256": "beccb05d314d5a14d7339474551092498cbb1ff7b2b37880ea4f6a2d46cf5a09"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:11",
+      "locale": "pl",
+      "question_sha256": "063f3682104a23ffbb08e34c4081aa78d49523be078636f849ca1e7ee572bbe8"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:11",
+      "locale": "en",
+      "question_sha256": "49e54fe2d21b06b5c52a650531c64e36aee2be955644239d64827fba4c560b2b"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:12",
+      "locale": "pl",
+      "question_sha256": "008e490206493be93c3a0ad1ba7e2e5dee2398830a5f7d352fe65136082a9a5f"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:12",
+      "locale": "en",
+      "question_sha256": "e06e57e3f1b126c638752f5c736df29c4fe73703cc6fdc5b739a12335782a6be"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:13",
+      "locale": "pl",
+      "question_sha256": "aa2e363c98adf9d08c2600fd2fb5666a9e1dae6fd6f76f43d62d7461c2c46c87"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:13",
+      "locale": "en",
+      "question_sha256": "865fa13e6d5b145770fe0d54ecc4b6054ffb2cdb452008ef9a7f961292d593e7"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:14",
+      "locale": "pl",
+      "question_sha256": "e920c5a8f04f39a9bb9cba2ae043ea7725e5c94b83349366288de98016ed5bb3"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:14",
+      "locale": "en",
+      "question_sha256": "a786f61680693e4d55a848430e8df9e7bae7970f3e191b8fc579f6c16791f5d4"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:15",
+      "locale": "pl",
+      "question_sha256": "189844659a5f4e6a4dead81c72bd031bdedc50ddae2e26acc8a562949bd4a778"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:15",
+      "locale": "en",
+      "question_sha256": "89ca61b55fc6bae4925eca0b4a20908e38ea1bce4e490fe1440d28076c4fc295"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:16",
+      "locale": "pl",
+      "question_sha256": "81bd57ffde9f8bcec461d9a92d1540ab8b1bacaabd0e0b43aef9dc727b3cac5c"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:16",
+      "locale": "en",
+      "question_sha256": "de09fa7a792695d33c4c8b90978e072756ed630d7dfe874f366de4c8460c52a3"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:17",
+      "locale": "pl",
+      "question_sha256": "40dbee683a2175e8e167c97e4b0b5aba76b55b8c99f8ae972c8f0c3762e9e36e"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:17",
+      "locale": "en",
+      "question_sha256": "ab9ede99a434d71a83a9a5066e72b39ab5e25c733e2d5b432155762b621c765f"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:18",
+      "locale": "pl",
+      "question_sha256": "8865857dae6b2c887ca3cfd7d378b47a78eadbb56b4f639251e509d4b187a895"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:18",
+      "locale": "en",
+      "question_sha256": "c6d69e51bb44ac21e5fa8f5b60e677e0cb336f9684e9b03ea6a0adf52b9acdef"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:19",
+      "locale": "pl",
+      "question_sha256": "c73f34852168ff716d68aed2272062a6987a793bf83912a0c1311b5a1bb0a8f5"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:19",
+      "locale": "en",
+      "question_sha256": "c3653b8c9c618aa2e381703885f16fadb3b079b6685deebcf27093a07e561c1b"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:20",
+      "locale": "pl",
+      "question_sha256": "bf993cf480abbcd7a0eea54b7940ed244b6e24f51d1305d00e062768b8ab4a78"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:20",
+      "locale": "en",
+      "question_sha256": "b10635b0d8d147f0679df3ea0e8ad6dec4542c598d0c8ece127d244a3e106b45"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:21",
+      "locale": "pl",
+      "question_sha256": "cd067bca4620961b4d934335fdec24bf09247a118eb7c91dd67ecf2196fec0eb"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:21",
+      "locale": "en",
+      "question_sha256": "f8a50869c5d5a16dfd507a8ee1540041f69008730800589c4d618eee82faafdb"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:22",
+      "locale": "pl",
+      "question_sha256": "bec83ee8d5796ecd2dffbbeade18fc3a34cf4bdd90995de81970adaf9c9e6ee1"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:22",
+      "locale": "en",
+      "question_sha256": "787e3a09b2bcc447b871ca2f617cb2ec6363c1bb3801b701aa5d609581d0a92e"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:23",
+      "locale": "pl",
+      "question_sha256": "0d668a5500f9f74c62850d1a70d1e23915b15f3072f824f42fd620f2cbfb80e6"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:23",
+      "locale": "en",
+      "question_sha256": "0418818789a4a099d379d5ef10d84cda82537234d686f9650a2a4d4809e98dab"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:0",
+      "locale": "pl",
+      "question_sha256": "b1e73be84329f73d9e154d2c7458fff5a1956cf00ffa9058b8a296df7c196788"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:0",
+      "locale": "en",
+      "question_sha256": "471e679544347e27c9bc719c96ab068316177b582cee81a19c248e8bdb3eb975"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:1",
+      "locale": "pl",
+      "question_sha256": "04476fca729c2dd00033b64a85e4f9ee98ee2362b7acc44d1712e3d26ad58d13"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:1",
+      "locale": "en",
+      "question_sha256": "a31ebf38f31f804ad8595c7bcbcf76b44414c33ec0b9fe53c638396632fc5599"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:2",
+      "locale": "pl",
+      "question_sha256": "ccaaa37029b0d4d91d36a954d764c08c5da5ff648137a560e622b0db1a880a5c"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:2",
+      "locale": "en",
+      "question_sha256": "67dda09e238426a130229bcfc53af2c5a0ab98e3436483d27e0c523189b2bfd8"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:3",
+      "locale": "pl",
+      "question_sha256": "554e7e76218ecdb1f3834b30b6ecafffe82716db21b9933ef433d5cafd1f0412"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:3",
+      "locale": "en",
+      "question_sha256": "443f3fc8e75f968873f2af082eccff03f14cd096e68601b3a02339ad43b96ca7"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:4",
+      "locale": "pl",
+      "question_sha256": "4062b2fac8aab9590eae52e06791e07e8eef3607bc08e4a2b5d5b252babe15ec"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:4",
+      "locale": "en",
+      "question_sha256": "e6e3ad37cd0d83972282c873384843e8bd7cee7152179d9e18044dd09025e524"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:5",
+      "locale": "pl",
+      "question_sha256": "15b40d833de5c2a010a125ebb06a39744becdb7a360089251f810751546bcb95"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:5",
+      "locale": "en",
+      "question_sha256": "47aca9005c5433aed774c4e621ffc8a33e6bc02cc6e187aad8eb16cabf1426d3"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:6",
+      "locale": "pl",
+      "question_sha256": "8ac5717608b8ed62f4dd6da57b514cb6e99344a248b799408fb8eda071eb8d04"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:6",
+      "locale": "en",
+      "question_sha256": "4821fc089470d9db25d08ff78811e1b20424d17558723cbc8d34e0df1faa6450"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:7",
+      "locale": "pl",
+      "question_sha256": "9270d6a591910eddfcd1c30de9c02ce87e77181bccbff9e49c36e60397ac490f"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:7",
+      "locale": "en",
+      "question_sha256": "1e296a75820195645523bfdea17584ce2ca694eaa6095e9e814e835b092e7f9b"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:8",
+      "locale": "pl",
+      "question_sha256": "5a5185c6e59c94441a1d303101b28a061d27f782efb98271565a11d9a0616fae"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:8",
+      "locale": "en",
+      "question_sha256": "29b8ed7bc1ad5843ae115f7e94855c6e3cbf7e75e7bd21abb3256c615addbebf"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:9",
+      "locale": "pl",
+      "question_sha256": "71c4fcc9820637295d0457146d190e37e66a0e545a207ea93786afd22540e27c"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:9",
+      "locale": "en",
+      "question_sha256": "d0204ddb77b6bb66e3a252fd26637e6a9a0385a05ddfc676ceb88413b94f76fd"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:10",
+      "locale": "pl",
+      "question_sha256": "005bb1415335661f61a7d285c7b4d3ab4d59233bafc01661f3c84263b82b885f"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:10",
+      "locale": "en",
+      "question_sha256": "cd1467e33be0d249d6989df5d45dfce439a170bd32397b73eb81c125ac8b39aa"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:11",
+      "locale": "pl",
+      "question_sha256": "6fd44775f21e46ce8830c27c44710bde7ba0ca88a84f4ecfdd77b9547427124e"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:11",
+      "locale": "en",
+      "question_sha256": "45f3d168ca30892927f9fde3888fede72530df6c5871fbf63985058ca5010711"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:12",
+      "locale": "pl",
+      "question_sha256": "f00e39a80d2344b59c64de7bbedb7dcdf5fb3755728722eebe8f181fd0abb7b3"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:12",
+      "locale": "en",
+      "question_sha256": "a63848fa6c19d985c048d0fa540e85ddea3d9bbe225ed1e12bb5a7cc46b553ca"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:13",
+      "locale": "pl",
+      "question_sha256": "1d9c548f6f6ef27c00eb4ee4cca4343f5185a8d06b00c5d7f53aa1ab95023fc7"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:13",
+      "locale": "en",
+      "question_sha256": "ead8ce667b8e4b685f5e9bbbf3560702f302190a13c3e0c0f38a57f96000aaf5"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:14",
+      "locale": "pl",
+      "question_sha256": "dd70388ffb644500f3ef99bad02fd76d5fb403bc56e78544e9e423d18dc427df"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:14",
+      "locale": "en",
+      "question_sha256": "7b7edf5dae587405e8326e015df6c3da3fc38962e6e8872e0b57a2fcfe1090b8"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:15",
+      "locale": "pl",
+      "question_sha256": "9fc29247436b13f77296351734303e34b5960aad5b3ecd7194dd1270a6691510"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:15",
+      "locale": "en",
+      "question_sha256": "a0e99c5ebafe25318cbd9e333df54fbbc09fd0d1e8d0f6d96f9d7ac40dca91cd"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:16",
+      "locale": "pl",
+      "question_sha256": "7cb0b78e1f8413c98e5249caa2d7ae29d8a7764ee8db2ca066b6aaa1b90dbf2e"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:16",
+      "locale": "en",
+      "question_sha256": "6e554eed5cd524eea845c829ccea276bb9debe25f09df049aaa49402edd6c6a6"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:17",
+      "locale": "pl",
+      "question_sha256": "197fb43fc1b4e68694610b8b2dacb78f3201011ea4cf47cea6c68a6cbf36b1fa"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:17",
+      "locale": "en",
+      "question_sha256": "0012535b5ebe0e08678680c7c96f529c4c17b9768d8955c21f551563f9e5f0ab"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:18",
+      "locale": "pl",
+      "question_sha256": "04f14e1ab86ae78c5b59151c0d2353028f0654575f834b022610cae34291cc31"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:18",
+      "locale": "en",
+      "question_sha256": "ea914c09586a736a5ea1833b059641c3192eecf841d46c9ede77b1aa8f08f8bb"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:19",
+      "locale": "pl",
+      "question_sha256": "d109164b7d135bd4de9665dc3f2bfcdb0c57a53eebd280a06b2c022016e6c3d8"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:19",
+      "locale": "en",
+      "question_sha256": "04d8ac532ff5323ee67ac3e8a2c944a52e267bd9cf0229bf19fcbcbc220dab0a"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:20",
+      "locale": "pl",
+      "question_sha256": "4415e379abd23690f6b31d4641c86d73766dabd7aaea3659c394d1298f68ab37"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:20",
+      "locale": "en",
+      "question_sha256": "0d69b3a50417657a9db494acd3911ad24fceadda92b6fc1f93d2b6dad5794dc0"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:21",
+      "locale": "pl",
+      "question_sha256": "4b2253547071423955adcc33127f3f95bd3226a706f48fe9f94a2dafc595ef28"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:21",
+      "locale": "en",
+      "question_sha256": "56df25198e35090ca98363f456db3a5b3a1f82c774c4304754ed625c756fde43"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:22",
+      "locale": "pl",
+      "question_sha256": "b08d73018aeda0d15aa219cd3703d51181fdf7625795d57e2460393b283725f0"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:22",
+      "locale": "en",
+      "question_sha256": "810a6d3697d2a159c332943379ee28702251d32aad5c887a5ae1ebf2c185e439"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:23",
+      "locale": "pl",
+      "question_sha256": "e908dc639358c1675c7db64f0d7eae46b7eedcd15dedeed4fd915efe332ea3d2"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:23",
+      "locale": "en",
+      "question_sha256": "a65cb0b9ae6455eee349e2e9dacc332f3fad1e76f20daca008c6d54d3b617ef5"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:0",
+      "locale": "pl",
+      "question_sha256": "2b2af558dc666cc09b611d6474f0f85e8290e710dab78ad13ede219d16856268"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:0",
+      "locale": "en",
+      "question_sha256": "04569830bdc70d69ca60932ea4280a68d77c6a8174ca2b4eca3f5f4787671534"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:1",
+      "locale": "pl",
+      "question_sha256": "6c7052917ea9373f9acdfc02875cf8aef95ddb1cdb98fc58e21d41cb94eacbf0"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:1",
+      "locale": "en",
+      "question_sha256": "be85dcf48d923e5b8b8762f2a563d48452c9b0e42dc2c38ee8419a6abb9d9842"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:2",
+      "locale": "pl",
+      "question_sha256": "96954f438793e0c375b2abdd0d6155fcf30262f7c36d31b3d9ac67e264a8c85b"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:2",
+      "locale": "en",
+      "question_sha256": "fd6211c768809acae0374db893e7989327d3f702c0ce1479f4fa9998294b7129"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:3",
+      "locale": "pl",
+      "question_sha256": "fd472d384186a693ff0a927d8d8b63a1093c6900130d3e5354fd8f352e60f7c6"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:3",
+      "locale": "en",
+      "question_sha256": "677dc55c98c06195dbbce37391f2d9391029a3b6414b00f53032a1a5c47d17ad"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:4",
+      "locale": "pl",
+      "question_sha256": "05f7e6be0246e0a42841792cfc9cf046f56d9e277a7f0cdbe73ca0c4ba31bd81"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:4",
+      "locale": "en",
+      "question_sha256": "3b752bab83f029584b08b37cbc5fca7084b1bfa99606600bdfd76326a2e66fd7"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:5",
+      "locale": "pl",
+      "question_sha256": "f0afbd6eb5d1ec637fc76e206c587383825f35c96c06ee78357f98261864fc25"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:5",
+      "locale": "en",
+      "question_sha256": "db431270702da1b4d34d24f6918994a8c3e9455e58247030fe92afa624262092"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:6",
+      "locale": "pl",
+      "question_sha256": "e8b2f56928c8b6e5c2afb1b0ba0c03bf2a73814159e81bf80fd8d36f356dbb8d"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:6",
+      "locale": "en",
+      "question_sha256": "d59ead67995f19a53d8d9fa2e47b4619b8941fafd3cae3c3770e63c3cccef465"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:7",
+      "locale": "pl",
+      "question_sha256": "ae02edd6fdf85a3450517e0c4373f72d5f1bbd331facbc65696c7e8ed311e414"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:7",
+      "locale": "en",
+      "question_sha256": "477fbe1527cd60325e8ee9ee15710f332826e11d59f25d4b142cb918b1d562f7"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:8",
+      "locale": "pl",
+      "question_sha256": "047f219b58ed31767d41e5999459c621e80944f24b8e5348cfa2c71ec6aeb82b"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:8",
+      "locale": "en",
+      "question_sha256": "50bf63b110ab138ad494cffb1db181156752e3acc88c6408a15ce3834498f5de"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:9",
+      "locale": "pl",
+      "question_sha256": "eb7c2ce9c96d83bd53854d15eddc28a84e88fd8ed1ff916df1c0dbfcf1e8b2c3"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:9",
+      "locale": "en",
+      "question_sha256": "a43eaad22dd704e06348c799c4f47625c725310c895665b1fb0f8a249e908101"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:10",
+      "locale": "pl",
+      "question_sha256": "3ee27738ee7e1f484f4f540475e5ed8e102445eed6bd2200411b7392ca5737d9"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:10",
+      "locale": "en",
+      "question_sha256": "85827ffbad36a80034cfff1cd47bf7d6fe27e8d485d4f9cd8b80584bc3de601c"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:11",
+      "locale": "pl",
+      "question_sha256": "5b5c535c6c375ae157633199ad1a173c60dd0ede430419933f35faaacbcd790d"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:11",
+      "locale": "en",
+      "question_sha256": "9e3d2a7fdb98e0c06d48c7954325d0e6d19b0022b74554de1131344a51242869"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:12",
+      "locale": "pl",
+      "question_sha256": "d090f01e189e16b234baa930b11702d0064104d3aaebbd1ba2b0e9d3031d59b5"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:12",
+      "locale": "en",
+      "question_sha256": "401251bd2bf6d1907ccb240a2613d9750402ddbdbb050acae5eebc5cab1552c1"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:13",
+      "locale": "pl",
+      "question_sha256": "92e8ff7f8581e5484c784ef5b4ad0bed0746e581b8f001e83dd43742cbe00d4e"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:13",
+      "locale": "en",
+      "question_sha256": "14fb76402d05ed1dae46827897503904f0cd342a0c7151c2c31bc6eb2b4816fc"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:14",
+      "locale": "pl",
+      "question_sha256": "6710ac0cf648cc1a27ec17dc1f3fd947e5cac0dbce03ea4b34bdf009fa2217b8"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:14",
+      "locale": "en",
+      "question_sha256": "fa271280f661e5a77a954d15ebb0e79112b4188b0dcf4dea584f006f2e3fc6cc"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:15",
+      "locale": "pl",
+      "question_sha256": "5b253ef4a1cc7903cf268ef903149adcc4cdd701bf1a174e64f9fdfadfbaa388"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:15",
+      "locale": "en",
+      "question_sha256": "7ea70374e08a259e51ece79056608e244ab4b8e8ba87ece9295b00aac765035a"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:16",
+      "locale": "pl",
+      "question_sha256": "ecd4b5b3870eef75952c90d5fafeb7385fff10d070aa2e2474cdbef264d79ad5"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:16",
+      "locale": "en",
+      "question_sha256": "1f30b4e238427ca1a264b6566fc91c8159068b9e68c30752fb5025482b4701cb"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:17",
+      "locale": "pl",
+      "question_sha256": "7b1235cc9bbe7162582be67b3611fe8ab4cd96cf7aded286a27e1ef7eb72ec76"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:17",
+      "locale": "en",
+      "question_sha256": "91bf585c15560f4004859ea5d953e9309bf988e131a217cc4ad1b1dd430600b9"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:18",
+      "locale": "pl",
+      "question_sha256": "ffa918286faec27c191687542344b09d6ac29f603055ade79fdb19fb02ff6138"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:18",
+      "locale": "en",
+      "question_sha256": "e300b87a5e5e01d1eb66f337fdb382eecc4781692d5c87a222e6beaad9a8dd7b"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:19",
+      "locale": "pl",
+      "question_sha256": "e1b8c5b69e0601cb4bc244da1a3b09fbaa4a17c8cf24aa220c2ee3ae9c70e0c4"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:19",
+      "locale": "en",
+      "question_sha256": "3486b553adda42aec625ef33bc886bc22bcb5567f703651e1f551fc412f60e36"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:20",
+      "locale": "pl",
+      "question_sha256": "9d948b70dbe44db4f739cf34cbbd052ab125ae071689040146fbaff7cc9683f3"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:20",
+      "locale": "en",
+      "question_sha256": "c99d95c84be5ba21fb6a171bcaeef985d07b51dfe7941fcbb71a6417663b7717"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:21",
+      "locale": "pl",
+      "question_sha256": "cd18e2cb1cb587aa89958f9184c19a6b0591b65f59b57f1f751d14a16ee52cc2"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:21",
+      "locale": "en",
+      "question_sha256": "8add69b93c736ede145683f1a5bbdfb44218b0bb00b3eb35c2e0a9df533ff953"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:22",
+      "locale": "pl",
+      "question_sha256": "f3ef53fddf9ad7c3dd597025bf87c65d986e16ca441e05d80f038785c0dd5fc9"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:22",
+      "locale": "en",
+      "question_sha256": "0cf81bb3db8f4e833fa0a554817ec07325e200a77666410ab9a642e475774d21"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:23",
+      "locale": "pl",
+      "question_sha256": "ec48060a46da4abd917c252ab96c1a62142ddd7a9b58927ce33483b1812c59f3"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:23",
+      "locale": "en",
+      "question_sha256": "657f103cbf07c206ec9ddd26a1fc1e4e5e3a8f63ee14e137bdcfde39ad411ad3"
+    }
+  ],
+  "examples": [
+    {
+      "id": "multivar-angular-continuity:hard:0",
+      "locale": "pl",
+      "question": "Sklasyfikuj ciągłość funkcji dwóch zmiennych w punkcie (−3, −3).\nu=x−(−3), v=y−(−3); g(x,y)=(−4)+((1)u²+(1)v²)/(u²+v²) dla (x,y)≠(−3, −3); f(−3, −3)=−3"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:0",
+      "locale": "en",
+      "question": "Classify continuity at (−3, −3).\nu=x−(−3), v=y−(−3); g(x,y)=(−4)+((1)u²+(1)v²)/(u²+v²) for (x,y)≠(−3, −3); f(−3, −3)=−3"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:1",
+      "locale": "pl",
+      "question": "Sklasyfikuj ciągłość funkcji dwóch zmiennych w punkcie (−2, −3).\nu=x−(−2), v=y−(−3); g(x,y)=(−3)+((−2)u²+(−2)v²)/(u²+v²) dla (x,y)≠(−2, −3); f(−2, −3)=−4"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:1",
+      "locale": "en",
+      "question": "Classify continuity at (−2, −3).\nu=x−(−2), v=y−(−3); g(x,y)=(−3)+((−2)u²+(−2)v²)/(u²+v²) for (x,y)≠(−2, −3); f(−2, −3)=−4"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:2",
+      "locale": "pl",
+      "question": "Sklasyfikuj ciągłość funkcji dwóch zmiennych w punkcie (−1, −3).\nu=x−(−1), v=y−(−3); g(x,y)=(−2)+((3)u²+(4)v²)/(u²+v²) dla (x,y)≠(−1, −3); f(−1, −3)=−4"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:2",
+      "locale": "en",
+      "question": "Classify continuity at (−1, −3).\nu=x−(−1), v=y−(−3); g(x,y)=(−2)+((3)u²+(4)v²)/(u²+v²) for (x,y)≠(−1, −3); f(−1, −3)=−4"
+    }
+  ]
+}

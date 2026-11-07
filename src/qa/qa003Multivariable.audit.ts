@@ -34,5 +34,5 @@ it('QA-003: 4 previously unlisted families, every level/variant and independent 
  }
  expect(keys.size).toBe(288);expect(localized).toBe(576);expect(grading).toBe(3456);
  mkdirSync('test-results',{recursive:true});
- writeFileSync('test-results/qa003-multivariable-export.json',JSON.stringify({main_sha:main,tuples:288,localized,grading,records},(_,v)=>typeof v==='bigint'?v.toString():v,2));
+ writeFileSync('test-results/qa003-multivariable-export.json',JSON.stringify({main_sha:main,revision:'review2-explicit-function-definition',supersedes:'ace2e815b33320c60dc6e1573c9ad927000f11c2',tuples:288,localized,grading,records},(_,v)=>typeof v==='bigint'?v.toString():v,2));
 });
