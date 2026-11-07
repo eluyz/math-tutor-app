@@ -1,10 +1,16 @@
 name: MT Night QA — read-only morning report
 
-# Phase 1: observe only. Never dispatch Copilot, approve CI, change issues, or merge.
+# Phase 1 only. No Copilot dispatch, workflow approvals, issue writes or merge.
 on:
   workflow_dispatch:
   schedule:
-    - cron: '15 6 * * *' # 07:15 CET / 08:15 CEST; fixed UTC
+    - cron: '15 6 * * *' # 07:15 CET / 08:15 CEST
+  pull_request:
+    paths:
+      - '.github/scripts/mt-night-audit.mjs'
+      - '.github/scripts/mt-night-audit.test.mjs'
+      - '.github/workflows/mt-night-readonly.yml'
+      - 'docs/MT_NIGHT_QUEUE.json'
 
 permissions:
   contents: read
@@ -13,12 +19,33 @@ permissions:
   pull-requests: read
 
 concurrency:
-  group: mt-night-readonly-report
+  group: mt-night-${{ github.event_name }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
+  preflight:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Check out PR for offline tests, with no persisted credentials
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Offline-only audit safety tests
+        run: |
+          node --check .github/scripts/mt-night-audit.mjs
+          node --test .github/scripts/mt-night-audit.test.mjs
+          node .github/scripts/mt-night-audit.mjs --check
+
   audit:
-    if: github.repository == 'eluyz/math-tutor-app'
+    if: github.event_name != 'pull_request' && github.repository == 'eluyz/math-tutor-app'
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
