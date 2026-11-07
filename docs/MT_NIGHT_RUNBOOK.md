@@ -14,7 +14,7 @@
 Offline commands (do not require tokens):
 
     node --check .github/scripts/mt-night-audit.mjs
-    node --test .github/scripts/mt-night-audit.test.mjs
+    node --test .github/scripts/mt-night-audit.check.mjs
     node .github/scripts/mt-night-audit.mjs --check
 
 ## Dependency and concurrency gates
