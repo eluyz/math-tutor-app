@@ -149,7 +149,7 @@ export function presentPolarContinuity(p:PolarContinuityProblem,locale:Locale){
     t(classification==="continuous"?"Równość oznacza ciągłość.":"Zmiana jednej wartości usuwa nieciągłość.",
       classification==="continuous"?"Equality establishes continuity.":"Changing one value removes the discontinuity."));
  }
- lesson.work(t("Klasyfikacja: ","Classification: ")+classification,
+ lesson.work(t("Klasyfikacja: ","Classification: ")+options(locale).find(option=>option.value===classification)!.label,
    t("Klasyfikacja zależy od istnienia granicy oraz jej zgodności z f w punkcie.",
      "Classification depends on both limit existence and agreement with the point value."));
  return lesson.finish(
