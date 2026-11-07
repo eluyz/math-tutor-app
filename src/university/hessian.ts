@@ -7,27 +7,27 @@ import {teaching} from "./teaching";
 
 type HessianProblemData=Readonly<{
  a:Rational;b:Rational;c:Rational;d:Rational;e:Rational;offset:Rational;
- h:Rational;k:Rational;degenerate:boolean;
+ h:Rational;k:Rational;degenerate:boolean;completeMinimum?:true;
 }>;
 export type HessianProblem=HessianProblemData & (Readonly<{kind:"multivar-stationary-point"}> | Readonly<{kind:"multivar-hessian-classify"}>);
 const neg=(x:Rational)=>sub(r(0),x);
 const index=(d:Difficulty)=>d==="easy"?0:d==="medium"?1:2;
 function create(v:number,level:Difficulty,kind:HessianProblem["kind"]):HessianProblem{
- const n=index(level),den=n===0?1:n===1?2:3;
- const mode=kind==="multivar-stationary-point"&&v%4===3?0:v%4;
+ const n=index(level),complete=kind==="multivar-stationary-point"&&level==="advanced",den=complete?4:n===0?1:n===1?2:3;
+ const mode=complete?0:kind==="multivar-stationary-point"&&v%4===3?0:v%4;
  const lead=r(1+v%3,den),other=r(1+(v+1)%3,den);
  const a=mode===1?neg(lead):lead;
  const c=mode===1?neg(other):mode===2?neg(other):mode===3?r(0):other;
  const b=mode===3?r(0):r(v%2,den);
  // Keep easy exercises readable: small integer stationary points, not ±11/large linear coefficients.
- const h=n===0?r(v%5-2):n===1?r(v%9-4,2):r(v-11,3);
- const k=n===0?r(Math.floor(v/5)-2):n===1?r((2*v)%9-4,2):r(v%7-3,3);
+ const h=n===0?r(v%5-2):n===1?r(v%9-4,2):r(v-11,den);
+ const k=n===0?r(Math.floor(v/5)-2):n===1?r((2*v)%9-4,2):r(v%7-3,den);
  const d=neg(add(mul(mul(r(2),a),h),mul(b,k)));
  const e=neg(add(mul(b,h),mul(mul(r(2),c),k)));
- return {kind,a,b,c,d,e,offset:r(v%5-2,den),h,k,degenerate:mode===3};
+ return {kind,...(complete?{completeMinimum:true as const}:{}),a,b,c,d,e,offset:r(v%5-2,den),h,k,degenerate:mode===3};
 }
 export const hessianFamilies:readonly UniversityFamily[]=[
- {id:"multivar-stationary-point",category:"derivatives",titles:{pl:"Punkty stacjonarne funkcji dwóch zmiennych",en:"Stationary points of a two-variable function"},supportedDifficulties:["easy","medium","hard"],create:(v,d)=>create(v,d,"multivar-stationary-point")},
+ {id:"multivar-stationary-point",category:"derivatives",titles:{pl:"Punkty stacjonarne funkcji dwóch zmiennych",en:"Stationary points of a two-variable function"},supportedDifficulties:["easy","medium","hard","advanced"],create:(v,d)=>create(v,d,"multivar-stationary-point")},
  {id:"multivar-hessian-classify",category:"derivatives",titles:{pl:"Hessian i klasyfikacja punktu krytycznego",en:"Hessian test at a critical point"},supportedDifficulties:["easy","medium","hard"],create:(v,d)=>create(v,d,"multivar-hessian-classify")}
 ];
 export function determinantHessian(p:HessianProblem):Rational{
@@ -72,8 +72,16 @@ export function presentHessian(p:HessianProblem,locale:Locale){
   lesson.work(t("Współrzędne: ","Coordinates: ")+"x="+f(x)+"; y="+f(y),
     t("Rozwiąż układ Cramera bez zaokrąglania współczynników.",
       "Solve the 2×2 system by Cramer's rule without rounding."));
-  return lesson.finish(t("Wyznacz punkt stacjonarny (x,y) funkcji","Find the stationary point (x,y) of")+
-    " f(x,y)="+standard(p),{kind:"list",labels:["x","y"],values:[x,y]},
+  const classification=hessianClassification(p);
+  const value=add(add(add(mul(p.a,mul(x,x)),mul(p.b,mul(x,y))),mul(p.c,mul(y,y))),add(add(mul(p.d,x),mul(p.e,y)),p.offset));
+  lesson.work("H=[["+f(mul(r(2),p.a))+","+f(p.b)+"],["+f(p.b)+","+f(mul(r(2),p.c))+"]]; D="+f(D),
+    t("Hessian jest stały. Niezerowy wyznacznik układu dowodzi kompletności: znaleziono jedyny punkt stacjonarny.","The Hessian is constant. The nonzero system determinant proves completeness: this is the only stationary point."));
+  lesson.work("D="+f(D)+", f_xx="+f(mul(r(2),p.a))+" ⇒ "+classification,
+    t("D>0 i f_xx>0 daje minimum; D>0 i f_xx<0 maksimum; D<0 oznacza siodło i brak ekstremów lokalnych.","D>0 and f_xx>0 gives a minimum; D>0 and f_xx<0 a maximum; D<0 means a saddle and no local extrema."));
+  lesson.work("f_* = f("+f(x)+","+f(y)+")="+f(value),
+    t("Podstaw punkt do oryginalnej funkcji. Dla minimum lub maksimum jest to wartość ekstremum, dla siodła tylko wartość funkcji.","Substitute into the original function. This is an extremum value for a minimum or maximum, but only a function value for a saddle."));
+  return lesson.finish((p.completeMinimum?t("Wyznacz jedyne minimum lokalne; podaj x_min, y_min, f_min funkcji","Find the unique local minimum; enter x_min, y_min, f_min of"):t("Wyznacz punkt stacjonarny (x,y) funkcji","Find the stationary point (x,y) of"))+
+    " f(x,y)="+standard(p),{kind:"list",labels:p.completeMinimum?["x_min","y_min","f_min"]:["x","y"],values:p.completeMinimum?[x,y,value]:[x,y]},
     t("Wyznacz pochodne f_x, f_y i przyrównaj je do zera.",
       "Find f_x and f_y, then set both to zero."),
     t("Rozwiąż układ dwóch równań liniowych; sprawdź wyznacznik.",

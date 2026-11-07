@@ -57,9 +57,9 @@ describe("catalog search and selection", () => {
     const categories = new Set(allTemplates.map((family) => family.category));
     expect(categories.size).toBe(14);
     expect([...categories].reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(18285);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(18309);
     expect([...categories].filter((category) => category !== "integrals").reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(16773);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(16797);
   });
 
   it("preserves supported level or chooses nearest available level without changing the family", () => {
