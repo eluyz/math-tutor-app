@@ -1,6 +1,9 @@
 {
   "main_sha": "11d80cc022b30e0be8381fe712392f14d0769590",
+  "revision": "review2-explicit-function-definition",
   "status": "PASS",
+  "visible_definition_checks": 576,
+  "definition_mutations_rejected": 1152,
   "sympy": "1.14.0",
   "distinct_tasks": 288,
   "localized_presentations": 576,
@@ -13,5 +16,5 @@
     "removable": 96,
     "nonremovable": 96
   },
-  "export_sha256": "9ae61acfef138e418e7bd4face7558d3af5019568e0201f40b59eb5a023ec340"
+  "export_sha256": "c20498521234f27bd0ddb958c89ecebe661922a282d6d356a127d51d34488008"
 }

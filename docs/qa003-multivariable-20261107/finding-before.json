@@ -295,5 +295,6 @@
       "id": "multivar-angular-continuity:expert:23",
       "before_pl_action": "Klasyfikacja: nonremovable"
     }
-  ]
+  ],
+  "scope_note": "This records MV-01 localization only. It is not a complete semantics certificate: Work found MV-02 (missing f=g) in the same questions and the former semantic PASS is withdrawn."
 }

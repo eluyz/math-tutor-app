@@ -1,32 +1,34 @@
-# Agent semantic review — 18 paired PL/EN tuples
+# Revision 2 agent semantic re-review — same 18 paired PL/EN tuples
 
 Protocol: all visible questions, both hints, each working action and reason, and final localized answers were reviewed. Repeated prose was inspected by shared template; every listed case’s numeric actions were checked individually against exact visible-formula certificates and the SymPy proof. This is not an external-human study or an automatic addition to the historic 75.
 
-36 localized presentations; 230 working steps + 36 final steps = 266 displayed steps. All PASS in the candidate after QA003-MV-01. On main, the five sampled angular-continuity PL views contain the confirmed enum-label defect. The other 67 affected PL views are template-confirmed localization failures, not additional full semantic reviews.
+36 localized presentations; 230 working steps + 36 final steps = 266 displayed steps. The former unconditional PASS at ace2e815 is withdrawn: five sampled angular tasks were under-defined in BOTH languages (QA003-MV-02), independently confirmed by Work. At review 1 the full sample is 13 PASS / 5 NEEDS_FIXES, not 18 PASS. This record is a new re-review after explicit f=g repair: the SAME 18 tasks now PASS; no coverage counter is increased. Main retains MV-01 and MV-02 until an authorized release.
 
 | Tuple | Independent conclusion / limit | Paths from independent certificate | Both hints / all steps / final PL+EN |
 | --- | --- | --- | --- |
-| `multivar-path-limit:medium:0` | finite; L=-3; f(point)=— | -3 | PASS (candidate) |
-| `multivar-path-limit:medium:1` | does-not-exist; L=—; f(point)=— | -2, -3 | PASS (candidate) |
-| `multivar-path-limit:hard:1` | does-not-exist; L=—; f(point)=— | -1, -3/2 | PASS (candidate) |
-| `multivar-path-limit:advanced:0` | finite; L=-1; f(point)=— | -1 | PASS (candidate) |
-| `multivar-continuity-point:medium:0` | continuous; L=-3; f(point)=-3 | -3 | PASS (candidate) |
-| `multivar-continuity-point:medium:1` | removable; L=-2; f(point)=0 | -2 | PASS (candidate) |
-| `multivar-continuity-point:medium:2` | nonremovable; L=—; f(point)=-1 | -1, 1/2 | PASS (candidate) |
-| `multivar-continuity-point:hard:1` | removable; L=-1; f(point)=0 | -1 | PASS (candidate) |
-| `multivar-continuity-point:advanced:2` | nonremovable; L=—; f(point)=-1/3 | -1/3, 1/6 | PASS (candidate) |
-| `multivar-polar-homogeneous-limit:hard:0` | finite; L=-5; f(point)=— | -5 | PASS (candidate) |
-| `multivar-polar-homogeneous-limit:hard:1` | does-not-exist; L=—; f(point)=— | -4, -15/4 | PASS (candidate) |
-| `multivar-polar-homogeneous-limit:advanced:2` | finite; L=-3/2; f(point)=— | -3/2 | PASS (candidate) |
-| `multivar-polar-homogeneous-limit:expert:3` | does-not-exist; L=—; f(point)=— | -2/3, -5/6 | PASS (candidate) |
-| `multivar-angular-continuity:hard:0` | continuous; L=-3; f(point)=-3 | -3, -3 | PASS (candidate) |
-| `multivar-angular-continuity:hard:1` | removable; L=-5; f(point)=-4 | -5, -5 | PASS (candidate) |
-| `multivar-angular-continuity:hard:2` | nonremovable; L=—; f(point)=-4 | 1, 2 | PASS (candidate) |
-| `multivar-angular-continuity:advanced:1` | removable; L=-5/2; f(point)=-2 | -5/2, -5/2 | PASS (candidate) |
-| `multivar-angular-continuity:expert:5` | nonremovable; L=—; f(point)=-1 | -5/3, -1 | PASS (candidate) |
+| `multivar-path-limit:medium:0` | finite; L=-3; f(point)=— | -3 | PASS (review 2) |
+| `multivar-path-limit:medium:1` | does-not-exist; L=—; f(point)=— | -2, -3 | PASS (review 2) |
+| `multivar-path-limit:hard:1` | does-not-exist; L=—; f(point)=— | -1, -3/2 | PASS (review 2) |
+| `multivar-path-limit:advanced:0` | finite; L=-1; f(point)=— | -1 | PASS (review 2) |
+| `multivar-continuity-point:medium:0` | continuous; L=-3; f(point)=-3 | -3 | PASS (review 2) |
+| `multivar-continuity-point:medium:1` | removable; L=-2; f(point)=0 | -2 | PASS (review 2) |
+| `multivar-continuity-point:medium:2` | nonremovable; L=—; f(point)=-1 | -1, 1/2 | PASS (review 2) |
+| `multivar-continuity-point:hard:1` | removable; L=-1; f(point)=0 | -1 | PASS (review 2) |
+| `multivar-continuity-point:advanced:2` | nonremovable; L=—; f(point)=-1/3 | -1/3, 1/6 | PASS (review 2) |
+| `multivar-polar-homogeneous-limit:hard:0` | finite; L=-5; f(point)=— | -5 | PASS (review 2) |
+| `multivar-polar-homogeneous-limit:hard:1` | does-not-exist; L=—; f(point)=— | -4, -15/4 | PASS (review 2) |
+| `multivar-polar-homogeneous-limit:advanced:2` | finite; L=-3/2; f(point)=— | -3/2 | PASS (review 2) |
+| `multivar-polar-homogeneous-limit:expert:3` | does-not-exist; L=—; f(point)=— | -2/3, -5/6 | PASS (review 2) |
+| `multivar-angular-continuity:hard:0` | continuous; L=-3; f(point)=-3 | -3, -3 | PASS (review 2) |
+| `multivar-angular-continuity:hard:1` | removable; L=-5; f(point)=-4 | -5, -5 | PASS (review 2) |
+| `multivar-angular-continuity:hard:2` | nonremovable; L=—; f(point)=-4 | 1, 2 | PASS (review 2) |
+| `multivar-angular-continuity:advanced:1` | removable; L=-5/2; f(point)=-2 | -5/2, -5/2 | PASS (review 2) |
+| `multivar-angular-continuity:expert:5` | nonremovable; L=—; f(point)=-1 | -5/3, -1 | PASS (review 2) |
 
 ## Reasoning decisions
 
+- Review 2 checks that every continuity question explicitly defines f=g off the translated target and assigns f at that same target. These facts are never inferred from solutions or the requested answer. Both TS and SymPy reject the actual old questions and relation-deletion mutations.
+- The other three families were checked: multivar-continuity-point already defines f=g; the two limit families directly ask about the only displayed function g and need no separate extension f.
 - Translation keeps the punctured approach set and does not use the assigned central value to infer a limit. Denominator sums of even powers vanish only at the origin.
 - Bounded branches use a uniform square/squeeze bound. Absolute values handle negative factors; the polar bound is independent of angle.
 - Nonexistence branches retain nonzero path parameters before cancellation. Different line/parabola or axis/diagonal limits suffice; matching axes alone would not establish existence.
@@ -63,13 +65,13 @@ Protocol: all visible questions, both hints, each working action and reason, and
 - `multivar-polar-homogeneous-limit:advanced:2` en: `90e903c387bdd41489db6ed46df5fae8fa426a79c8fdfec942a74969098c7077`
 - `multivar-polar-homogeneous-limit:expert:3` pl: `4ef3d40dad8d6d866744baa14149b34316f2502e17048a4e1183bffe464e95a1`
 - `multivar-polar-homogeneous-limit:expert:3` en: `0c12a449f264d6ce44e19e5deae30b569d6a2fdb3a5a7da63c949e46c6971550`
-- `multivar-angular-continuity:hard:0` pl: `5641b7675e5cf0092190a37ab7f61b0a480624d6ed553d69483fd03142ba579f`
-- `multivar-angular-continuity:hard:0` en: `c07e25f735c5e4c9003e9fe8613fda7a730f65c76173fc2f23603004fdf64ec7`
-- `multivar-angular-continuity:hard:1` pl: `334ea3a98179527a8812697c3e7a71d7115ab62f872e0cd88a06268000507406`
-- `multivar-angular-continuity:hard:1` en: `6f7b8dde955be05672758e7f8e82e1b928a0c33bfb52a8dec5a76136e94012ab`
-- `multivar-angular-continuity:hard:2` pl: `c22d139fe312dcd6b67adb36db70e952119626a0ac244f6c23e9d0c0c0b11b3c`
-- `multivar-angular-continuity:hard:2` en: `71f6f79da755547919d1eb61640d4e90b9a08d46f56c6f8c732de915e9b06539`
-- `multivar-angular-continuity:advanced:1` pl: `77ea1b4519e30ce53de4d72dc9314d175ebc1dee22738c210c6445aa1216770b`
-- `multivar-angular-continuity:advanced:1` en: `6fe94752ba05a076a00b11059c6b61fe7839b73921e4be4dfa62505a4e3f8f2d`
-- `multivar-angular-continuity:expert:5` pl: `42fa4333f84bb6bd33ba23fddcd6d18640a413413053b66b2fd0e05cb2671330`
-- `multivar-angular-continuity:expert:5` en: `1083921ab1d55c67270ab241f5af3469c896b764432495d2b1b56b8772c333eb`
+- `multivar-angular-continuity:hard:0` pl: `041092252f46731458e496336106d9602fd3efe1c339c09fa7b03a24856ebd64`
+- `multivar-angular-continuity:hard:0` en: `cb510d276e0185dee6dc58d75367a74e96e0b6abc2c64367b373213e213ebf22`
+- `multivar-angular-continuity:hard:1` pl: `6bb32caef12057896d861b8213defea816f31ccef2b81e348ce7753cd9a5c461`
+- `multivar-angular-continuity:hard:1` en: `992dccfa4bafdf6839f110eb554e1fd4467b96e24ddb7bd38cec5379920f63a9`
+- `multivar-angular-continuity:hard:2` pl: `388b9eb00710064aa37d5bffdc68c39c9b670929fcb7575973b3df0209567c9f`
+- `multivar-angular-continuity:hard:2` en: `7cb81b4adecb08f83bc8dd5e4d6d0fd5ddd3b2f176bf15e7d1468f5cd1894983`
+- `multivar-angular-continuity:advanced:1` pl: `6f3f27660a4605b15e80b2893784b06bef639e2a49b9476c63bd4dcb23a4fd4e`
+- `multivar-angular-continuity:advanced:1` en: `1bd165089c1a34897431e44f93047ee808621427b2577777df42e334924f98ce`
+- `multivar-angular-continuity:expert:5` pl: `52dad575188d19126a381f1fe95a03737cea13f0ce18a7e842e7e404f8d6fcd6`
+- `multivar-angular-continuity:expert:5` en: `602e8d60d5136da5b0153ae81e2eedbda18716205e8cf685ee261ec6af4b629b`
