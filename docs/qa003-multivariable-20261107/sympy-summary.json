@@ -1,0 +1,17 @@
+{
+  "main_sha": "11d80cc022b30e0be8381fe712392f14d0769590",
+  "status": "PASS",
+  "sympy": "1.14.0",
+  "distinct_tasks": 288,
+  "localized_presentations": 576,
+  "grading_scenarios": 3456,
+  "numeric_path_steps_checked": 336,
+  "localized_classifications": {
+    "finite": 144,
+    "does-not-exist": 144,
+    "continuous": 96,
+    "removable": 96,
+    "nonremovable": 96
+  },
+  "export_sha256": "9ae61acfef138e418e7bd4face7558d3af5019568e0201f40b59eb5a023ec340"
+}

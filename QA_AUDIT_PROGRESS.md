@@ -1,12 +1,51 @@
 # QA-003 — independent audit coverage and evidence register
 
-**Last evidence update:** 2026-10-30 (Europe/Warsaw), following the owner-authorized merge of PR #141; post-merge CI/Pages verification remains a separate gate. **Tracking issue:** [#106](https://github.com/eluyz/math-tutor-app/issues/106). **Proposed documentation PR:** separate; not a production release certificate.
+## Current checkpoint — 7 November 2026 (Europe/Warsaw)
+
+Baseline **main `11d80cc022b30e0be8381fe712392f14d0769590`**, **240 families / 18,333 variants**. [CI #42367570846](https://github.com/eluyz/math-tutor-app/actions/runs/42367570846) and [Pages #42369602621](https://github.com/eluyz/math-tutor-app/actions/runs/42369602621) completed SUCCESS on this exact SHA. No PRs were open at task start. PRs #186/#189/#190 and #142 are merged. Issues #106/#108/#122 remain OPEN; #151 is CLOSED with its 14/14 source batch, global formal count 14/64 unchanged. This explicit owner-requested batch resumes bounded #106 work; older PAUSED notes in other issues are historical, not permission to expand the whole audit.
+
+### Evidence classes — never add these columns together
+
+| Class | Cases / current 18,333 | What is actually established |
+| --- | ---: | --- |
+| Historical external independent answers | **1,434 (7.82%)** | Retained historical evidence; original per-case archive is not imported or fully revalidated at this main. Historical count unchanged; 16,899 current tasks lie outside this evidence class |
+| Historical complete PL/EN reviews | **75 (0.41%)** | Unchanged original review protocol/IDs; not converted into current-main certificates |
+| Historical grading scenarios | **36,472** | Scenarios, not distinct tasks; unchanged |
+| Released signed-arithmetic independent regression (#141) | **90 (0.49%)** | Separate in-repository visible-question arithmetic tier |
+| Released graph witness (#142) | **144 (0.79%)** | Separate automated independent geometry tier; not 144 new external or complete pedagogical reviews |
+| NEW QA-003 visible-formula + symbolic audit | **288 (1.57%)** | Four previously unlisted QA-003 families, every supported level/variant; 576 localized views, 3,456 grading scenarios and 336 displayed numeric path calculations. Exact all-path bounds/counterexamples; candidate data and source hashes recorded |
+| NEW agent semantic-review cohort | **18 (0.10%)** | 36 PL/EN presentations, all 230 working steps + 36 final steps, questions and both hints, reviewed using shared-template reasoning plus per-case exact calculations. Separate from the historic 75 external reviews |
+| NEW production browser audit | **48 witnesses / 12 distinct tasks** | PL/EN × 375/1280; a UI witness is not an additional independent task. Terminal result recorded in the batch report/PR |
+| Private originals for the new four families | **0 checked — BLOCKED_SOURCE** | No original worksheet/key inspected, no SOURCE_PASS inference |
+
+The fresh answer cohort has **288 PASS / 0 FAIL**. **18,045** current tasks are NOT_VERIFIED *by this new run*, not mathematical failures. The fresh candidate semantic cohort has **18 PASS / 270 NOT_VERIFIED** within the 288 tasks; the remaining current catalogue was not semantically reviewed in this run. Existing method-specific B–H/W01/W02 packages remain their own evidence; no global union/deduplicated total is invented across different protocols. In particular **do not relabel 1,434 as 1,722**, or 75 as 93, merely because this audit ran.
+
+### New batch and confirmed finding
+
+| Family | Levels | Variants | Fresh mathematical result |
+| --- | --- | ---: | --- |
+| `multivar-path-limit` | medium, hard, advanced | 0..23 each = 72 | PASS: uniform bound or line/parabola counterexample |
+| `multivar-continuity-point` | medium, hard, advanced | 0..23 each = 72 | PASS: punctured limit plus comparison to assigned point value |
+| `multivar-polar-homogeneous-limit` | hard, advanced, expert | 0..23 each = 72 | PASS: uniform angular bound or axis/diagonal counterexample |
+| `multivar-angular-continuity` | hard, advanced, expert | 0..23 each = 72 | PASS: unequal axes, or exact constant quotient then point-value comparison |
+
+**QA003-MV-01 — confirmed PL teaching/localization defect:** all 72 angular-continuity variants print an English internal code in the last Polish working step (`continuous`, `removable`, `nonremovable`). Final answer keys and calculations are correct. Baseline proof and exact affected IDs are preserved in `docs/qa003-multivariable-20261107/finding-before.json`. A one-line presenter correction uses the existing localized option label; independent 72-variant PL/EN regression checks it. **FIXED_IN_DRAFT, not yet released**; production main still has the defect until separately approved merge + same-SHA CI/Pages. The historical three released teaching defects remain three released defects; this is one additional candidate correction.
+
+No new numerical/key defect was found. Difficulty progression (mostly coefficient changes) and potentially ambiguous generic coefficient notation remain **NOT_VERIFIED educational/usability follow-ups**, not invented answer-key failures. See [full report](docs/QA003_MULTIVARIABLE_20261107_REPORT.md), the 288-row ledger and 18-case semantic review record under `docs/qa003-multivariable-20261107/`. Rerun instructions and source SHA-256 are retained; exact final delivery HEAD/CI live in the Draft PR validation section.
+
+Next action: owner reviews the narrow correction and evidence; merge/deploy require separate authorization. Afterwards consider a bounded independent audit of `multivar-anisotropic-limit` and a separate difficulty-calibration rubric. Do not close #106/#108/#122 or unlock custom input. No next batch starts automatically.
+
+## Historical register — 30 October snapshot retained below
+
+The following denominators and release-status notes describe their original checkpoint; use the current section above for current inventory and release evidence.
+
+**Historical checkpoint update:** 2026-10-30 (Europe/Warsaw), following the owner-authorized merge of PR #141; post-merge CI/Pages verification remains a separate gate. **Tracking issue:** [#106](https://github.com/eluyz/math-tutor-app/issues/106). **Proposed documentation PR:** separate; not a production release certificate.
 
 ## Explicit, non-interchangeable denominators
 
 | Metric | Confirmed / total | Definition and evidence |
 |---|---:|---|
-| Current main catalogue at `01ea8ad2989ca05b539354064eeeca417a8d077f` | **220 families / 17,733 distinct task instances** | Generator catalogue on `main`; *inventory*, not correctness certification |
+| Historical main catalogue at `01ea8ad2989ca05b539354064eeeca417a8d077f` | **220 families / 17,733 distinct task instances** | Generator catalogue on `main`; *inventory*, not correctness certification |
 | Independently checked answer/classification tuples | **1,434 / 17,733 (8.09%)** | QA-003 pilot and expansion, issue [#106](https://github.com/eluyz/math-tutor-app/issues/106#issuecomment-6495501846); executed on a previously pinned main plus QA patch, **not fully rerun on this latest main** |
 | Families with bounded independent answer coverage | **19 / 220 (8.64%)** | All documented supported variants of these 19 families were enumerated in the reported QA runs |
 | Task tuples not covered by that independent answer audit | **16,299** | Explicit **NOT_VERIFIED**, not FAIL |

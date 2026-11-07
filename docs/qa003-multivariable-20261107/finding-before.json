@@ -1,0 +1,299 @@
+{
+  "main_sha": "11d80cc022b30e0be8381fe712392f14d0769590",
+  "finding": "QA003-MV-01",
+  "result": "NEEDS_FIXES",
+  "affected_pl_variants": 72,
+  "math_keys": "PASS unchanged",
+  "baseline_polar_source_sha256": "ddb0f1b9007c82b796682c4685d9bd9f8f0ec4284ab5e64c4714fede8228572f",
+  "before_export_sha256": "da1ed3e37d6b9e3b7cd4ec9ec74a4fbaebfb70f56e43ca2c748af1b233f25dfc",
+  "rows": [
+    {
+      "id": "multivar-angular-continuity:hard:0",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:1",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:2",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:3",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:4",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:5",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:6",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:7",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:8",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:9",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:10",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:11",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:12",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:13",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:14",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:15",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:16",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:17",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:18",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:19",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:20",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:21",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:22",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:hard:23",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:0",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:1",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:2",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:3",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:4",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:5",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:6",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:7",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:8",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:9",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:10",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:11",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:12",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:13",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:14",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:15",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:16",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:17",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:18",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:19",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:20",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:21",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:22",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:advanced:23",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:0",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:1",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:2",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:3",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:4",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:5",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:6",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:7",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:8",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:9",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:10",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:11",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:12",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:13",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:14",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:15",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:16",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:17",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:18",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:19",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:20",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:21",
+      "before_pl_action": "Klasyfikacja: continuous"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:22",
+      "before_pl_action": "Klasyfikacja: removable"
+    },
+    {
+      "id": "multivar-angular-continuity:expert:23",
+      "before_pl_action": "Klasyfikacja: nonremovable"
+    }
+  ]
+}
