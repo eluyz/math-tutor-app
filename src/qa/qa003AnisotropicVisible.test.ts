@@ -129,7 +129,7 @@ describe("QA-003: independent anisotropic two-variable visible-question audit",(
     counts.set(c.classification,(counts.get(c.classification)??0)+1);
     // Negative checks ensure the prompt is self-contained, not only the answer key.
     expect(()=>fromQuestion(view.question.replace(/;\s*g\([^)]*\)=[−+\-\d/]+\.$/,"."))).toThrow();
-    expect(()=>fromQuestion(view.question.replace(/;\s*g\([^)]*\)=/,"; g(999, 999)="))).toThrow("Point-value coordinates mismatch");
+    expect(()=>fromQuestion(view.question.replace(/(\(u,v\)≠\(0,0\);\s*g\()[^()]+(\)=)/,(_match,prefix:string,suffix:string)=>prefix+"999, 999"+suffix))).toThrow("Point-value coordinates mismatch");
     expect(()=>fromQuestion(view.question.replace(/\(u,v\)≠\(0,0\)/,"(u,v)≠(999,999)"))).toThrow();
     expect(()=>fromQuestion(view.question.replace(/u=x−\([^)]+\)/,"u=x−(999)"))).toThrow("Target/coordinate mismatch");
    }
