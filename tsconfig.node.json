@@ -11,5 +11,5 @@
     "strict": true,
     "types": ["node"]
   },
-  "include": ["vite.config.ts", "playwright.config.ts", "playwright.batch-b.config.ts", "playwright.batch-c.config.ts", "playwright.batch-d.config.ts", "playwright.batch-e.config.ts", "playwright.batch-f.config.ts", "playwright.batch-g.config.ts", "playwright.f05-d.config.ts", "playwright.w01.config.ts", "playwright.w01-trig.config.ts", "playwright.w01-rational.config.ts", "playwright.w01-source-shape.config.ts", "playwright.w02-cubic.config.ts", "playwright.w02-batch2.config.ts"]
+  "include": ["vite.config.ts", "playwright.config.ts", "playwright.batch-b.config.ts", "playwright.batch-c.config.ts", "playwright.batch-d.config.ts", "playwright.batch-e.config.ts", "playwright.batch-f.config.ts", "playwright.batch-g.config.ts", "playwright.f05-d.config.ts", "playwright.w01.config.ts", "playwright.w01-trig.config.ts", "playwright.w01-rational.config.ts", "playwright.w01-source-shape.config.ts", "playwright.w02-cubic.config.ts", "playwright.w02-batch2.config.ts", "playwright.w02-nonlinear.config.ts"]
 }

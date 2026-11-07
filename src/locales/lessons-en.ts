@@ -243,6 +243,8 @@ export function englishAnswer(spec: AnswerSpec): AnswerSpec {
     };
     const optionNames:Record<string,string>={
       "Punkt siodłowy; brak ekstremów lokalnych":"Saddle point; no local extrema", "Minimum lokalne":"Local minimum", "Maksimum lokalne":"Local maximum", "Test nierozstrzygający":"Inconclusive test",
+      "minimum lokalne":"local minimum","maksimum lokalne":"local maximum",
+      "punkt siodłowy":"saddle point","test nierozstrzygający":"inconclusive test",
       "Tak":"Yes","Nie":"No","Parzysta":"Even","Nieparzysta":"Odd",
       "Ani parzysta, ani nieparzysta":"Neither",
       "Jedno rozwiązanie":"Exactly one solution",
