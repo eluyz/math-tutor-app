@@ -162,7 +162,8 @@ async function liveReport(cfg) {
         ci.status === "PASS" ? "REVIEW_REQUIRED" :
         ci.status === "APPROVAL_REQUIRED" ? "CI_APPROVAL_REQUIRED" :
         ci.status === "FAIL" ? "CI_FAILURE" : "CI_NOT_READY";
-    } else if (isCopilotAssigned(i)) state = "COPILOT_ASSIGNED";
+      if (blocked) state = "BLOCKED_DEPENDENCY_ACTIVE_PR";
+    } else if (isCopilotAssigned(i)) state = blocked ? "BLOCKED_DEPENDENCY_ASSIGNED" : "COPILOT_ASSIGNED";
     else if (!blocked) state = "READY_FOR_MANUAL_DISPATCH";
     else state = "BLOCKED_DEPENDENCY";
     rows.push({issue:t.issue,code:t.code,state,dependencies:deps,
