@@ -231,6 +231,7 @@ Bieżący katalog UI i sesji: **240 rodzin**, **18333 instancji**. (Liczby dotyc
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | determinant-radical-two | hard, advanced, expert | 72 | Exact algebra in Q(√d), d∈{2,3,5,7}, two-by-two matrix with radical coefficients and rational final answer. Hard: conjugate products; advanced/expert: invertible row/column additions requiring radical terms to cancel across ad−bc. |
+| determinant-radical-mixed-two | hard, advanced, expert | 72 | Two distinct square roots within one 2×2 determinant, paired separately in each diagonal product; exact results, PL/EN steps and grading. |
 
 **Deployed** +72 exercises in one new family, reaching **209 families / 16,941 tasks** at main commit `55cdb973`. This does not change the existing `Rational` or determinant 2×2–5×5 APIs. A separate independent pair-ring oracle checks all 72 variants; classroom witness still needs an explicit source-fidelity sign-off.
 
