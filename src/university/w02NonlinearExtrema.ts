@@ -160,11 +160,14 @@ function presentAdvancedW02(p:W02NonlinearProblem,locale:Locale){
  for(const [i,z] of pts.entries()){
   const name=['P₁','P₂','P₃','P₄'][i];
   lesson.work(`${name}=${point(z)}; f_xx=${f(z.xx)}; f_xy=${f(z.xy)}; f_yy=${f(z.yy)}; D=${f(z.D)} ⇒ ${label(z.kind)}`,
-   t('D=f_xx·f_yy−f_xy²; dodatni D i f_xx daje minimum, ujemny D oznacza siodło.',
-     'D=f_xx·f_yy−f_xy²; positive D and f_xx give a minimum; negative D is a saddle.'));
+   t('D=f_xx·f_yy−f_xy²; D<0 oznacza siodło; D>0 i f_xx>0 minimum, a D>0 i f_xx<0 maksimum.',
+     'D=f_xx·f_yy−f_xy²; D<0 is a saddle; D>0 with f_xx>0 is a minimum, and D>0 with f_xx<0 is a maximum.'));
   lesson.work(`f${point(z)}=${f(z.value)}; ${name}: ${label(z.kind)}`,
-   t('Wartość w siodle nie jest wartością ekstremum.',
-     'A saddle-point value is not a local extremum.'));
+   z.kind==='saddle'
+   ?t('Wartość funkcji w siodle nie jest wartością ekstremum lokalnego.',
+      'The function value at a saddle is not a local-extremum value.')
+   :t('Wartość funkcji w minimum lokalnym jest wartością ekstremum; znak D i f_xx potwierdza typ.',
+      'The function value at a local minimum is an extremum value; the signs of D and f_xx confirm its type.'));
   for(const [j,[key,val]] of ([['x',z.x],['y',z.y],['f',z.value],['fxx',z.xx],['D',z.D]] as const).entries()){
    const variants=[val,add(val,r(1)),sub(val,r(1))].map(v=>({value:f(v),label:f(v)})),shift=(i+j)%3;
    fields.push({id:`p${i+1}-${key}`,label:`${name}: ${key}`,value:f(val),
