@@ -43,6 +43,16 @@ function archivedGaussOneQuestion(question:string, locale:"pl"|"en") {
   expect(question.split(current)).toHaveLength(2);
   return question.replace(current,historical);
 }
+// contentKey is derived from the Polish question at task creation, then
+// reused for EN. This identity changes with the corrected wording too.
+// Reconstruct only this known historic question-derived key for archive SHA.
+function archivedGaussOneContentKey(contentKey:string) {
+  const current="np. x=c+at1.",historical="np. x=c+at1+bt2.";
+  expect(contentKey).toMatch(/^university:Rozwiąż metodą Gaussa:/);
+  expect(contentKey).not.toContain(historical);
+  expect(contentKey.split(current)).toHaveLength(2);
+  return contentKey.replace(current,historical);
+}
 it("preserves all 10389 previously published PL/EN exercises and complete solutions", () => {
   expect(baseline.source).toBe("f585218e3ce87bcf963a725aabbf056ba1e486fa");
   expect(baseline.families).toHaveLength(118);
@@ -66,7 +76,9 @@ it("preserves all 10389 previously published PL/EN exercises and complete soluti
         // Only reconstruct a known historical question example for the
         // frozen hash. All other fields and all other families stay untouched.
         const archivedTask=saved.id==="gauss-parameters-one"
-          ? {...localized,question:archivedGaussOneQuestion(localized.question,locale)}
+          ? {...localized,
+              question:archivedGaussOneQuestion(localized.question,locale),
+              contentKey:archivedGaussOneContentKey(localized.contentKey)}
           : localized;
         if(saved.id==="gauss-parameters-one")migratedQuestions++;
         return { task: archivedTask, solution: solutionFor(localized) };
