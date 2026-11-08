@@ -1,3 +1,9 @@
+## F05/e — synthetic six-field single excluded x with two recovered hollow heights (stacked integration, NOT deployed)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| function-single-hole-recovery | hard, advanced, expert | 72 | One excluded argument with two distinct open limiting heights **both reached elsewhere**, rising unbounded left tail, right attained maximum and closed right endpoint; six separately graded graph properties in PL/EN. Public synthetic proxy; exact original P21/e witness remains unaccepted. |
+
 ## F05/b — synthetic six-field even graph with two excluded inputs (Draft #243; not deployed)
 
 | Family | Levels | Variants | Scope |
@@ -186,9 +192,11 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **241 rodzin**, **18405 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 179 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **242 rodziny**, **18477 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 179 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **180**, L5: **164**. (stan kandydackiej gałęzi integracyjnej #243; historyczne liczby poniżej)
+Łącznie rodziny L4: **181**, L5: **165**. (stan skumulowanej kandydackiej gałęzi F05/b+F05/e; NIE main)
+
+Łącznie rodziny L4: **180**, L5: **164**. (poprzedni kandydat #243; historyczne liczby poniżej)
 
 Łącznie rodziny L4: **179**, L5: **163**.
 
