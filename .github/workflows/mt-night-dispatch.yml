@@ -1,0 +1,89 @@
+name: MT-NIGHT-02 — safe Copilot queue dispatcher
+
+# Trusted-main only for live operation. PR execution is OFFLINE verification only.
+on:
+  schedule:
+    - cron: '7,22,37,52 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/scripts/mt-night-dispatch.mjs'
+      - '.github/scripts/mt-night-dispatch.check.mjs'
+      - '.github/workflows/mt-night-dispatch.yml'
+      - 'docs/MT_NIGHT_02_QUEUE.json'
+
+permissions:
+  contents: read
+  issues: read
+  pull-requests: read
+  actions: read
+
+concurrency:
+  group: mt-night-02-dispatch
+  cancel-in-progress: false
+
+jobs:
+  offline-preflight:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout PR without credentials
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Run offline, negative safety tests
+        run: |
+          node --check .github/scripts/mt-night-dispatch.mjs
+          node --test .github/scripts/mt-night-dispatch.check.mjs
+          node .github/scripts/mt-night-dispatch.mjs --check
+
+  dispatch:
+    if: github.event_name != 'pull_request' && github.repository == 'eluyz/math-tutor-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+      actions: read
+    steps:
+      - name: Checkout trusted main without credentials
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Set up Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Verify trusted dispatcher before network access
+        run: |
+          node --check .github/scripts/mt-night-dispatch.mjs
+          node --test .github/scripts/mt-night-dispatch.check.mjs
+          node .github/scripts/mt-night-dispatch.mjs --check
+      - name: Read queue; dispatch only after explicit repository opt-in
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          MT_DISPATCH_LIVE: ${{ vars.MT_DISPATCH_LIVE }}
+          MT_COPILOT_DISPATCH_PAT: ${{ secrets.MT_COPILOT_DISPATCH_PAT }}
+        run: node .github/scripts/mt-night-dispatch.mjs
+      - name: Retain status report (no secrets)
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: mt-night-02-dispatch-report
+          path: |
+            .night02/report.json
+            .night02/summary.md
+          if-no-files-found: warn
+          retention-days: 7
