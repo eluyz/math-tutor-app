@@ -85,6 +85,17 @@ describe('W02 advanced source-shaped stationarity: three and four complete point
     expect(steps[2].action).toContain('y=0');
     expect(steps[4].action).toContain('∇f=0');
     expect(steps[5].action).toContain('f_xy=f_yx');
+    for(const [i,pt] of points.entries()){
+      const hessian=steps[6+2*i],valueStep=steps[7+2*i];
+      expect(hessian.reason).toContain('D>0');
+      if(pt.kind==='minimum'){
+        expect(valueStep.reason).not.toMatch(locale==='pl'?/siodle/i:/saddle/i);
+        expect(valueStep.reason).toMatch(locale==='pl'?/minimum lokalnym/i:/local minimum/i);
+      }else{
+        expect(valueStep.reason).toMatch(locale==='pl'?/siodle/i:/saddle/i);
+        expect(valueStep.reason).not.toMatch(locale==='pl'?/minimum lokalnym/i:/local minimum/i);
+      }
+    }
     for(const step of steps)expect(step.reason.length).toBeGreaterThan(20);
     const final=view.solution?.at(-1);
     if(final?.kind!=='answer')throw Error('missing final');
