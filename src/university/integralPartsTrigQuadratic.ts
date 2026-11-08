@@ -1,5 +1,5 @@
 import {
-  rational as r, addRational as add, subtractRational as sub,
+  rational as r, subtractRational as sub,
   multiplyRational as mul, divideRational as div, type Rational,
 } from "../rational";
 import {formatRational as fmt} from "../answers";
