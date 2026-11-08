@@ -35,7 +35,7 @@ describe("F05/e-like isolated bilingual SVG",()=>{
           expect(html).toContain('class="function-graph-text"');
           if(locale==="pl"){
             expect(html).toContain("Opis wykresu w tekście");
-            expect(html).toContain("dwie");
+            expect(html).toContain("Obie puste wysokości");
           }else{
             expect(html).toContain("Graph described in text");
             expect(html).toContain("hollow");
