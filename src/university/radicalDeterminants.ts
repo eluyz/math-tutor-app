@@ -165,18 +165,30 @@ export function presentRadicalDeterminant(p: RadicalDeterminantProblem, locale: 
   );
   lesson.work(
     "a₁₁a₂₂ = " + productText(a, e) + " = " + formatRadical(ad, diagonalRoot),
-    t("Rozwiń oba nawiasy: √d·√d=d. Zbierz oddzielnie wyrazy wymierne i współczynniki przy √d.",
-      "Expand both factors: √d·√d=d. Collect rational terms and coefficients of √d separately."),
+    t(mixed
+      ? "Rozwiń pierwszy iloczyn: √" + diagonalRoot + "·√" + diagonalRoot + "=" + diagonalRoot + ". Wyrazy z pierwiastkiem znoszą się już w tym iloczynie."
+      : "Rozwiń oba nawiasy: √d·√d=d. Zbierz oddzielnie wyrazy wymierne i współczynniki przy √d.",
+      mixed
+      ? "Expand the first product: √" + diagonalRoot + "·√" + diagonalRoot + "=" + diagonalRoot + ". Its radical terms cancel within this product."
+      : "Expand both factors: √d·√d=d. Collect rational terms and coefficients of √d separately."),
   );
   lesson.work(
     "a₁₂a₂₁ = " + productText(b, c2) + " = " + formatRadical(bc, otherRoot),
-    t("Tak samo oblicz drugi iloczyn. Wyrazy z pierwiastkiem mogą występować również przed odejmowaniem.",
-      "Expand the second product the same way. Radical terms may remain until the final subtraction."),
+    t(mixed
+      ? "Drugi iloczyn oblicz osobno: √" + otherRoot + "·√" + otherRoot + "=" + otherRoot + ". Także tutaj wyrazy z pierwiastkiem znoszą się przed odejmowaniem."
+      : "Tak samo oblicz drugi iloczyn. Wyrazy z pierwiastkiem mogą występować również przed odejmowaniem.",
+      mixed
+      ? "Evaluate the second product separately: √" + otherRoot + "·√" + otherRoot + "=" + otherRoot + ". Its radical terms also cancel before subtraction."
+      : "Expand the second product the same way. Radical terms may remain until the final subtraction."),
   );
   lesson.work(
     "det(A) = (" + formatRadical(ad, diagonalRoot) + ") − (" + formatRadical(bc, otherRoot) + ") = " + formatRadical(det, d),
-    t("Odejmij także współczynniki przy √d: w tych zadaniach zerują się dokładnie, bez przybliżeń dziesiętnych.",
-      "Subtract the coefficients of √d as well: here they cancel exactly, without decimal approximations."),
+    t(mixed
+      ? "Oba iloczyny są już liczbami wymiernymi. Odejmij drugi od pierwszego, zachowując właściwy znak."
+      : "Odejmij także współczynniki przy √d: w tych zadaniach zerują się dokładnie, bez przybliżeń dziesiętnych.",
+      mixed
+      ? "Both products are already rational. Subtract the second from the first, preserving its sign."
+      : "Subtract the coefficients of √d as well: here they cancel exactly, without decimal approximations."),
   );
   return lesson.finish(
     t(mixed
