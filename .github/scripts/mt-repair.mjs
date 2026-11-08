@@ -126,6 +126,17 @@ export function activeCount(tasks){
   if(!Array.isArray(tasks)||tasks.length>=100)throw Error("AGENT_TASK_LIST_TRUNCATED");
   return tasks.filter(x=>{if(!KNOWN.has(x.state))throw Error("UNKNOWN_AGENT_TASK_STATE");return ACTIVE.has(x.state);}).length;
 }
+export function activePRConflict(tasks,pr){
+  if(!Array.isArray(tasks)||tasks.length>=100)throw Error("AGENT_TASK_LIST_TRUNCATED");
+  for(const task of tasks){
+    if(!KNOWN.has(task.state))throw Error("UNKNOWN_AGENT_TASK_STATE");
+    if(!ACTIVE.has(task.state))continue;
+    const ids=(task.artifacts||[]).filter(a=>a.provider==="github"&&a.type==="pull").map(a=>a.data?.id);
+    if(ids.length!==1||!isInt(ids[0]))throw Error("UNMAPPED_ACTIVE_AGENT_TASK");
+    if(ids[0]===pr.id||ids[0]===pr.number)return true;
+  }
+  return false;
+}
 export function mainRelease(runs,sha){
   if(!Array.isArray(runs))throw Error("MAIN_CI_RESPONSE");
   const get=(name,event)=>runs.filter(x=>x.name===name&&x.event===event&&x.head_sha===sha)
@@ -206,6 +217,7 @@ async function dispatch(c,s,read,pat){
   if(!first){s.global_blockers.push("NO_NEEDS_FIXES");return s;}
   const p=await getPR(first,read);
   if(p.head.sha!==first.head||!eligiblePR(p,c))throw Error("PR_CHANGED_BEFORE_POST");
+  if(activePRConflict(agent.tasks,p)){s.global_blockers.push("PR_ALREADY_HAS_ACTIVE_AGENT");return s;}
   const comments=await commentsFor(p,read),paths=await changedPaths(p,read),logs=parseRepairs(comments,p);
   const diff=logs.length&&logs.at(-1).sha!==p.head.sha?await afterRepair(p,logs.at(-1).sha,read):[];
   const result=evaluatePR(p,comments,await ciRuns(p,read),c,{changed_files:paths,afterRepairFiles:diff});
