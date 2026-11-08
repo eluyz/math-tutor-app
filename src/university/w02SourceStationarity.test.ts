@@ -1,6 +1,6 @@
 import {describe,it,expect} from 'vitest';
 import {makeUniversityTask} from './catalog';
-import {w02NonlinearFamilies,presentW02Nonlinear,sourceStationaryPoints} from './w02NonlinearExtrema';
+import {w02NonlinearFamilies,presentW02Nonlinear,sourceStationaryPoints,nonlinearCriticalPoints,nonlinearValue} from './w02NonlinearExtrema';
 import {rational as r} from '../rational';
 import {assessAnswer,emptyAnswer,formatRational as f} from '../answers';
 import {polishLearningText} from '../../e2e/helpers/localization';
@@ -111,5 +111,9 @@ describe('W02 advanced source-shaped stationarity: three and four complete point
   if(q.kind!=='multivar-quadratic-cubic-extrema')throw Error('scope');
   expect(()=>sourceStationaryPoints({...q,d:r(0)})).toThrow('Positive');
   expect(()=>sourceStationaryPoints({...q,b:r(1)})).toThrow('exact');
+  expect(()=>nonlinearCriticalPoints(p)).toThrow('Use sourceStationaryPoints');
+  expect(()=>nonlinearValue(p,r(0),r(0))).toThrow('Use sourceStationaryPoints');
+  expect(()=>w02NonlinearFamilies[0].create(-1,'advanced')).toThrow('Invalid advanced W02 variant');
+  expect(()=>w02NonlinearFamilies[0].create(24,'advanced')).toThrow('Invalid advanced W02 variant');
  });
 });
