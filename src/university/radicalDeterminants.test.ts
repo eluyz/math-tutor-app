@@ -155,7 +155,12 @@ describe("M06: two distinct radical types per determinant (bounded source form)"
           expect(assessAnswer(view.answer, String(expected + 1)).kind).toBe("incorrect");
           expect(assessAnswer(view.answer, "1/0").kind).toBe("invalid");
           expect(assessAnswer(view.answer, emptyAnswer(view.answer)).kind).toBe("invalid");
-          expect(view.solution!.filter(step => step.kind === "working")).toHaveLength(4);
+          const working = view.solution!.filter(step => step.kind === "working");
+          expect(working).toHaveLength(4);
+          expect(working[1].reason).toContain("√" + p.matrix[0][0].radicand);
+          expect(working[2].reason).toContain("√" + p.matrix[0][1].radicand);
+          expect(working[3].reason).not.toContain("√d");
+          expect(working.map(step => step.reason).join(" ")).not.toContain("√d");
           for (const cell of [p.matrix[0][0], p.matrix[0][1]])
             expect(view.solution!.some(step => step.action.includes("√" + cell.radicand))).toBe(true);
           expect(view.question).toContain(locale === "pl" ? "dwoma różnymi pierwiastkami" : "two distinct radicals");
