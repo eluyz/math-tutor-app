@@ -15,6 +15,7 @@ export const w02NonlinearFamilies:readonly UniversityFamily[]=[{
  titles:{pl:'Ekstrema kwadratowo-sześcienne — eliminacja i dwa punkty',en:'Quadratic-cubic extrema — elimination and two points'},
  supportedDifficulties:['hard'],create:(v,level):W02NonlinearProblem=>{
   if(level==='advanced'){
+   if(!Number.isInteger(v)||v<0||v>=24)throw Error('Invalid advanced W02 variant');
    const n=Math.floor(v/2),offset=r(n-5,3);
    if(v%2===0){
     const p=1+n%3,q=2+Math.floor(n/3)%2,c=1+n%4;
@@ -31,9 +32,11 @@ export const w02NonlinearFamilies:readonly UniversityFamily[]=[{
  }
 }];
 export function nonlinearValue(p:W02NonlinearProblem,x:Rational,y:Rational){
+ if(p.mode)throw Error('Use sourceStationaryPoints for advanced W02 modes');
  return add(add(add(mul(p.a,sq(x)),mul(p.b,mul(x,y))),mul(p.c,mul(sq(y),y))),add(add(mul(p.d,sq(y)),mul(p.e,y)),p.offset));
 }
 export function nonlinearCriticalPoints(p:W02NonlinearProblem){
+ if(p.mode)throw Error('Use sourceStationaryPoints for advanced W02 modes');
  if([p.a,p.b,p.c].some(x=>x.numerator===0n))throw Error('Expected nonzero a, b, c in controlled family');
  const A=mul(r(3),p.c),B=sub(mul(r(2),p.d),div(sq(p.b),mul(r(2),p.a))),C=p.e;
  const delta=sub(sq(B),mul(r(4),mul(A,C)));
@@ -177,8 +180,8 @@ function presentAdvancedW02(p:W02NonlinearProblem,locale:Locale){
  return lesson.finish(
   t('Wyznacz wszystkie punkty stacjonarne i ekstrema lokalne funkcji ',
     'Find all stationary points and local extrema of ')+`f(x,y)=${expr}. `+
-  t('Uporządkuj punkty według y, przy remisie według x. Dla każdego podaj x, y, f, f_xx, D i rodzaj.',
-    'Order points by y then x. For each give x, y, f, f_xx, D and type.'),
+  t('Uporządkuj punkty według y, przy remisie według x. Dla każdego podaj x, y, f, f_xx, D i K (rodzaj punktu).',
+    'Order points by y then x. For each give x, y, f, f_xx, D and K (point type).'),
   {kind:'multi-choice',fields},
   t('Rozłóż f_y na czynniki i zacznij od y=0.', 'Factor f_y and start from y=0.'),
   t('Nie pomijaj siodeł; w tym zadaniu są trzy albo cztery punkty stacjonarne.',
