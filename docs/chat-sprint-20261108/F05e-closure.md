@@ -1,5 +1,7 @@
 # F05/e — synthetic single excluded argument with two recovered heights
 
+> **Stacked integration update (2026-11-08):** This file originally documented the isolated Draft #246. A separate descendant branch `chat/integrate-f05e-on-b-20261108` now registers this family in the model, catalog, app SVG and F05 search, adds an exact PL/EN mobile/desktop browser witness, and updates **candidate-only** totals to 242 families and 18,477 variants. That branch is explicitly *stacked on* integrated F05/b Draft #243; it is **not merged** or deployed and original source acceptance is still 0/6. The staging limitations and integration checklist below describe the isolated precursor, not the later stacked candidate.
+
 Date: 2026-11-08 (Europe/Warsaw). Branch: `chat/closure-f05e-20261108`. Base: `main@c44ef85531906c9179c529fdfc852eb0035a13b7`.
 
 ## Purpose / source privacy
