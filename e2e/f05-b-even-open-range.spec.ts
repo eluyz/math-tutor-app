@@ -25,7 +25,7 @@ for (const width of [375, 1280]) for (const locale of ["pl", "en"] as const) {
     await button(page, pl ? "Trudny" : "Hard").click();
 
     const title = pl
-      ? "Sześć właściwości parzystego wykresu z dziurami i otwartym zbiorem wartości"
+      ? "Sześć własności parzystego wykresu z dziurami i otwartym zbiorem wartości"
       : "Six properties of an even graph with holes and an open range";
     await page.locator("button.exercise-item").filter({ has: page.getByText(title, { exact: true }) }).click();
 
