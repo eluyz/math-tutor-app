@@ -33,6 +33,16 @@ const interval = (lo: string, hi: string, lc = false, rc = false) =>
   (lc ? "[" : "(") + lo + "; " + hi + (rc ? "]" : ")");
 const union = (...pieces: string[]) => pieces.join(" ∪ ");
 
+/** Show witnesses as exact simplified rational numbers, never rounded decimals. */
+function exactRatio(n: number, d: number): string {
+  if (!Number.isSafeInteger(n) || !Number.isSafeInteger(d) || d <= 0)
+    throw Error("Invalid exact witness fraction");
+  let a = Math.abs(n), b = d;
+  while (b !== 0) [a, b] = [b, a % b];
+  const gcd = a || 1, numerator = n / gcd, denominator = d / gcd;
+  return denominator === 1 ? fmt(numerator) : fmt(numerator) + "/" + denominator;
+}
+
 export function singleHoleGeometry(p: SingleHoleRecoveryProblem) {
   if (p.kind !== "function-single-hole-recovery" ||
     ![p.hole, p.base, p.separation, p.rise, p.leftSlope,
@@ -159,7 +169,12 @@ export function singleHoleRecoveryAnswer(p: SingleHoleRecoveryProblem, locale: L
 export function presentSingleHoleRecovery(p: SingleHoleRecoveryProblem, locale: Locale) {
   const lesson = teaching(locale), {t} = lesson;
   const g = singleHoleGeometry(p), o = singleHoleRecoveryOracle(p);
-  const w = singleHoleRecoveryWitnesses(p);
+  const {c, B} = g, span = p.separation + p.rise;
+  const xAtB = exactRatio(c * p.leftSlope - p.separation, p.leftSlope);
+  const xAtA = exactRatio(c * span + p.upSpan * p.separation, span);
+  const nonInjectiveLeft = exactRatio(2 * c * p.leftSlope - p.separation, 2 * p.leftSlope);
+  const nonInjectiveRight = exactRatio(2 * c * span + p.upSpan * p.separation, 2 * span);
+  const sharedHeight = exactRatio(2 * B + p.separation, 2);
   lesson.work(t("Dziedzina", "Domain") + ": " + o.domain,
     t("Argument x=", "Input x=") + fmt(g.c) +
     t(" jest całkowicie wykluczony: dwie różne puste wysokości nie definiują wartości funkcji.",
@@ -168,7 +183,7 @@ export function presentSingleHoleRecovery(p: SingleHoleRecoveryProblem, locale: 
     t("Lewa gałąź biegnie do −∞, a prawa osiąga pełny szczyt y=", 
       "The left tail tends to −∞ and the right branch attains its filled maximum y=") + fmt(g.H) +
     ". " + t("Obie puste wysokości występują ponownie: ", "Both hollow heights are recovered: ") +
-    "y=" + fmt(g.B) + " (" + fmt(w.xForB) + "), y=" + fmt(g.A) + " (" + fmt(w.xForA) + ").");
+    "y=" + fmt(g.B) + " (x=" + xAtB + "), y=" + fmt(g.A) + " (x=" + xAtA + ").");
   lesson.work(t("Ścisły wzrost", "Strict increase") + ": " + o.increasing,
     t("Obie pierwsze gałęzie rosną, ale nie wolno połączyć przedziałów przez wyłączone x.",
       "Both first branches increase, but cannot be joined across the excluded x."));
@@ -178,7 +193,7 @@ export function presentSingleHoleRecovery(p: SingleHoleRecoveryProblem, locale: 
   lesson.work(t("Różnowartościowość", "Injectivity") + ": " + t("nie", "no"),
     t("Ta sama wysokość występuje na dwóch gałęziach: ", 
       "The same height is reached on both branches: ") +
-    "f(" + fmt(w.leftX) + ")=f(" + fmt(w.rightX) + ")=" + fmt(w.yShared) + ".");
+    "f(" + nonInjectiveLeft + ")=f(" + nonInjectiveRight + ")=" + sharedHeight + ".");
   lesson.work(t("Parzystość", "Parity") + ": " + t("żadna", "neither"),
     t("Dziedzina ma nieograniczoną lewą i ograniczoną prawą stronę, więc nie jest symetryczna względem zera.",
       "The domain is unbounded left but bounded right, so it is not symmetric around zero."));
