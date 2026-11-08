@@ -84,7 +84,7 @@ export function presentEulerInfinity(problem: EulerInfinityProblem, locale: Loca
       t("Ponieważ ln(1+u)/u→1, granica logarytmu jest dokładnym wykładnikiem wyniku.",
         "Because ln(1+u)/u→1, the logarithm tends to the exact exponent in the answer."));
   }
-  lesson.work(`L=${coefficient.numerator === 0n ? "1" : `e^(${fmt(coefficient)}${pi ? "π" : ""})`}`,
+  lesson.work(`lim_(x→+∞) B(x)^E(x)=${coefficient.numerator === 0n ? "1" : `e^(${fmt(coefficient)}${pi ? "π" : ""})`}`,
     t("Zachowujemy wynik w postaci dokładnej; nie zamieniamy liczby e ani π na przybliżenia.",
       "Keep the exact symbolic answer; do not replace e or π with decimal approximations."));
   return lesson.finish(
