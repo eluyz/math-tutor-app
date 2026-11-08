@@ -2,8 +2,8 @@
   "schema_version": 1,
   "repository": "eluyz/math-tutor-app",
   "mode": "DRY_RUN_BY_DEFAULT",
-  "max_active": 3,
-  "max_assignments_per_tick": 3,
+  "max_active": 1,
+  "max_assignments_per_tick": 1,
   "lanes": [
     "QA",
     "SYLLABUS",
@@ -22,150 +22,10 @@
   },
   "queue": [
     {
-      "issue": 209,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QM06.test.ts"
-      ]
-    },
-    {
-      "issue": 210,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QU03.test.ts"
-      ]
-    },
-    {
-      "issue": 211,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QC04.test.ts"
-      ]
-    },
-    {
-      "issue": 212,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QF02.test.ts"
-      ]
-    },
-    {
-      "issue": 213,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QG04.test.ts"
-      ]
-    },
-    {
-      "issue": 214,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QD02.test.ts"
-      ]
-    },
-    {
-      "issue": 215,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QI07.test.ts"
-      ]
-    },
-    {
-      "issue": 216,
-      "lane": "QA",
-      "scope": [
-        "src/qa/day20261108QW02.test.ts"
-      ]
-    },
-    {
-      "issue": 201,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-M.md"
-      ]
-    },
-    {
-      "issue": 202,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-U.md"
-      ]
-    },
-    {
-      "issue": 203,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-C.md"
-      ]
-    },
-    {
-      "issue": 204,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-F.md"
-      ]
-    },
-    {
-      "issue": 205,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-G.md"
-      ]
-    },
-    {
-      "issue": 206,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-D.md"
-      ]
-    },
-    {
-      "issue": 207,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-I.md"
-      ]
-    },
-    {
-      "issue": 208,
-      "lane": "SYLLABUS",
-      "scope": [
-        "docs/day20261108/syllabus-W.md"
-      ]
-    },
-    {
       "issue": 217,
       "lane": "NEW",
       "scope": [
         "docs/day20261108/f05-pole-open-contract.md"
-      ]
-    },
-    {
-      "issue": 220,
-      "lane": "NEW",
-      "scope": [
-        "src/qa/day20261108NThreeCritical.test.ts"
-      ]
-    },
-    {
-      "issue": 222,
-      "lane": "NEW",
-      "scope": [
-        "src/qa/day20261108NFourCritical.test.ts"
-      ]
-    },
-    {
-      "issue": 224,
-      "lane": "NEW",
-      "scope": [
-        "docs/day20261108/f05-open-range-witness.md"
-      ]
-    },
-    {
-      "issue": 218,
-      "lane": "NEW",
-      "scope": [
-        "src/university/graphIntegratedAsymptotes.ts"
       ]
     }
   ],
@@ -176,5 +36,30 @@
     223
   ],
   "paused_on_quota": true,
-  "automatic_merge": false
+  "automatic_merge": false,
+  "budget_mode": "MANUAL_MONTHLY_GATE",
+  "monthly_gate_variable": "MT_CREDIT_MONTH_OK",
+  "pilot_batch_max": 3,
+  "parked_issues": [
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    220,
+    222,
+    224,
+    218
+  ]
 }
