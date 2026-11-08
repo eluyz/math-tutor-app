@@ -31,6 +31,18 @@ const baseline = JSON.parse(
 const archiveBaseNotation=(text:string,family:string)=>
   ["analysis-log-domain","analysis-power-law","analysis-elementary-equation","analysis-log-inequality"].includes(family)
     ? text.replaceAll("log_(1/2)","log_1/2").replaceAll("(1/2)^","1/2^") : text;
+// U08 teaching-text migration, version 1 (2026-11-08): only the example
+// in the QUESTION for the published gauss-parameters-one family changed.
+// Reconstruct the original question before comparing against the immutable
+// f585218 archive. Keep every original SHA-256 and all solution/grading bytes.
+// Fail closed if the corrected phrase is absent, duplicated or already legacy.
+function archivedGaussOneQuestion(question:string, locale:"pl"|"en") {
+  const current=locale==="pl"?"np. x=c+at1.":"e.g. x=c+at1.";
+  const historical=locale==="pl"?"np. x=c+at1+bt2.":"e.g. x=c+at1+bt2.";
+  expect(question).not.toContain(historical);
+  expect(question.split(current)).toHaveLength(2);
+  return question.replace(current,historical);
+}
 it("preserves all 10389 previously published PL/EN exercises and complete solutions", () => {
   expect(baseline.source).toBe("f585218e3ce87bcf963a725aabbf056ba1e486fa");
   expect(baseline.families).toHaveLength(118);
@@ -47,12 +59,20 @@ it("preserves all 10389 previously published PL/EN exercises and complete soluti
         ),
       )
       .sort((a, b) => a.id.localeCompare(b.id));
+    let migratedQuestions=0;
     const contents = tasks.map((task) =>
       (["pl", "en"] as const).map((locale) => {
         const localized = localizeTask(task, locale);
-        return { task: localized, solution: solutionFor(localized) };
+        // Only reconstruct a known historical question example for the
+        // frozen hash. All other fields and all other families stay untouched.
+        const archivedTask=saved.id==="gauss-parameters-one"
+          ? {...localized,question:archivedGaussOneQuestion(localized.question,locale)}
+          : localized;
+        if(saved.id==="gauss-parameters-one")migratedQuestions++;
+        return { task: archivedTask, solution: solutionFor(localized) };
       }),
     );
+    expect(migratedQuestions).toBe(saved.id==="gauss-parameters-one"?saved.count*2:0);
     const hash = createHash("sha256")
       .update(
         JSON.stringify(contents, (_, v) =>
