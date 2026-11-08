@@ -1,5 +1,7 @@
 # Math Tutor
 
+**Draft #243 (integration candidate, not deployed):** one bounded synthetic F05/b-like graph family (+72 variants), with six graded fields, two symmetric excluded inputs, open range lower bound and unbounded outer branches. Counts under the catalog introduction describe this candidate branch; the public main/Pages release remains unchanged until an owner-approved merge. Original P21 source acceptance remains 0/6. The isolated preparatory Draft #240 must not be merged as a second independent delivery.
+
 **Syllabus coverage:** the [64-skill source-to-app closure audit v2](docs/SYLLABUS_COVERAGE_V2.md) is the current work queue; generator variants and successful CI are **not** certificates that 64 source exercise forms have passed independently.
 
 ## Latest released source — 31 October 2026 (CI and Pages PASS)
@@ -53,7 +55,7 @@ MT-EDU-025 P2G-D (PR #91 scalony, przed merge pełne CI PASS): W02 — klasyfika
 
 MT-EDU-025 P2G-C (PR #89 scalony, CI przed merge PASS): W03 — granice funkcji dwóch zmiennych przy użyciu współrzędnych biegunowych, także przykład zależny od kąta, oraz klasyfikacja ciągłości funkcji z ilorazem form kwadratowych na podstawie dwóch osi. Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty, dokładne odpowiedzi i rozwiązania PL/EN. Po osobno zatwierdzonym merge: 192 rodziny / 15 717 wariantów. Pokrycie W03 nadal częściowe.
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **240 rodzin** i **18333 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **241 rodzin** i **18405 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-025 P2G-B (PR #87 scalony, CI i Pages PASS): W02 — ekstrema globalne funkcji kwadratowej na domkniętym prostokącie (wnętrze, krawędzie, narożniki i remisy) oraz funkcji liniowej na kole (ograniczenie kołowe, punkty brzegowe i mnożniki Lagrange'a). Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty z dokładnymi ułamkami i rozwiązaniami PL/EN. Po osobno zatwierdzonym scaleniu: 190 rodzin / 15 573 warianty; W02 nadal częściowe.
 
