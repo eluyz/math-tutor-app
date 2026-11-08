@@ -37,7 +37,7 @@ describe("C02 isolated quartic-radical method (not yet catalog-registered)",()=>
     expect(assessAnswer(task.answer,{kind:"limit",classification:"finite",value:"1/0"}).kind).toBe("invalid");
     if(locale==="en")expect(task.question).not.toMatch(/[ąćęłńóśźż]/i);
    }
-   seen.add(level+"/"+v);
+   seen.add(presentQuarticRootSequence(p,"pl").question);
   }
   expect(seen.size).toBe(96);
  });
