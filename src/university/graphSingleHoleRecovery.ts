@@ -1,6 +1,7 @@
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import type { AnswerSpec } from "../answers";
+import type { UniversityFamily } from "./schema";
 import { teaching } from "./teaching";
 
 /**
@@ -165,6 +166,18 @@ export function singleHoleRecoveryAnswer(p: SingleHoleRecoveryProblem, locale: L
     }),
   };
 }
+
+/** Bounded synthetic source-method proxy; not an original P21 source witness. */
+export const singleHoleRecoveryFamilies: readonly UniversityFamily[] = [{
+  id: "function-single-hole-recovery",
+  category: "functions",
+  titles: {
+    pl: "Sześć własności wykresu z dwiema pustymi kropkami przy jednym x",
+    en: "Six properties of a graph with two hollow points at one x",
+  },
+  supportedDifficulties: ["hard", "advanced", "expert"],
+  create: makeSingleHoleRecovery,
+}];
 
 export function presentSingleHoleRecovery(p: SingleHoleRecoveryProblem, locale: Locale) {
   const lesson = teaching(locale), {t} = lesson;
