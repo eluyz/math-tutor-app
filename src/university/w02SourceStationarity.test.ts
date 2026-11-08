@@ -1,8 +1,8 @@
 import {describe,it,expect} from 'vitest';
-import {makeUniversityTask,localizeUniversity} from './catalog';
-import {sourceStationaryPoints} from './w02NonlinearExtrema';
+import {makeUniversityTask} from './catalog';
+import {w02NonlinearFamilies,presentW02Nonlinear,sourceStationaryPoints} from './w02NonlinearExtrema';
 import {rational as r} from '../rational';
-import {assessAnswer,emptyAnswer} from '../answers';
+import {assessAnswer,emptyAnswer,formatRational as f} from '../answers';
 import {polishLearningText} from '../../e2e/helpers/localization';
 
 const num=(z:{numerator:bigint;denominator:bigint})=>Number(z.numerator)/Number(z.denominator);
@@ -12,11 +12,10 @@ describe('W02 advanced source-shaped stationarity: three and four complete point
  it('24 authored cases; independent gradient, Hessian and answer/grading PL/EN',()=>{
   const ids=new Set<string>(),counts=new Map<number,number>(),zeroX= new Set<number>();
   for(let v=0;v<24;v++){
-   const task=makeUniversityTask('multivar-quadratic-cubic-extrema',v,'advanced');
-   const p=task.university;
+   const p=w02NonlinearFamilies[0].create(v,'advanced');
    if(p.kind!=='multivar-quadratic-cubic-extrema')throw Error('wrong generator');
    expect(p.mode).toBe(v%2===0?'three':'four');
-   ids.add(task.contentKey);
+   ids.add([p.mode,f(p.a),f(p.b),f(p.c),f(p.d),f(p.offset)].join(':'));
    const points=sourceStationaryPoints(p),three=p.mode==='three',count=three?3:4;
    counts.set(count,(counts.get(count)??0)+1);
    expect(points).toHaveLength(count);
@@ -46,7 +45,7 @@ describe('W02 advanced source-shaped stationarity: three and four complete point
     expect(z.kind).toBe(D<0?'saddle':D>0&&xx>0?'minimum':'inconclusive');
    }
    for(const locale of ['pl','en'] as const){
-    const view=localizeUniversity(task,locale),spec=view.answer;
+    const view=presentW02Nonlinear(p,locale),spec=view.answer;
     expect(view.question).toContain('f(x,y)=');
     expect(view.question).toContain('x');
     expect(view.hint.length).toBeGreaterThan(20);
@@ -104,11 +103,11 @@ describe('W02 advanced source-shaped stationarity: three and four complete point
    if(p.kind!=='multivar-quadratic-cubic-extrema')throw Error('legacy regression');
    expect(p.mode).toBeUndefined();
   }
-  const p=makeUniversityTask('multivar-quadratic-cubic-extrema',0,'advanced').university;
+  const p=w02NonlinearFamilies[0].create(0,'advanced');
   if(p.kind!=='multivar-quadratic-cubic-extrema')throw Error('scope');
   expect(()=>sourceStationaryPoints({...p,a:r(0)})).toThrow('Positive');
   expect(()=>sourceStationaryPoints({...p,b:r(-1)})).toThrow('Positive');
-  const q=makeUniversityTask('multivar-quadratic-cubic-extrema',1,'advanced').university;
+  const q=w02NonlinearFamilies[0].create(1,'advanced');
   if(q.kind!=='multivar-quadratic-cubic-extrema')throw Error('scope');
   expect(()=>sourceStationaryPoints({...q,d:r(0)})).toThrow('Positive');
   expect(()=>sourceStationaryPoints({...q,b:r(1)})).toThrow('exact');
