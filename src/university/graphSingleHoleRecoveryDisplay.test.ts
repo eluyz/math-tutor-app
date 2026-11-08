@@ -43,3 +43,32 @@ describe("F05/e-like isolated bilingual SVG",()=>{
         });
       }
 });
+
+
+/** Independent pixel-space spacing gate across the whole 72-profile pack.
+ * This is a structural clearance check, not a substitute for human screenshots.
+ */
+describe("F05/e: all 72 SVG profiles keep required axis labels readable",()=>{
+  for(const level of ["hard","advanced","expert"] as const)
+    for(let variant=0;variant<24;variant++)
+      it(level+":"+variant+" labels both hollow limits and the maximum without overlap",()=>{
+        const problem=makeSingleHoleRecovery(variant,level);
+        const g=singleHoleGeometry(problem);
+        const html=renderToStaticMarkup(createElement(SingleHoleRecoveryDisplay,{
+          problem,locale:"pl",
+        }));
+        const shown=[...html.matchAll(
+          /<text data-testid="single-hole-y-label" data-y="([^"]+)" x="18" y="([^"]+)"/g,
+        )].map(m=>({value:Number(m[1]),pixel:Number(m[2])}));
+        expect(shown.length).toBeGreaterThanOrEqual(3);
+        expect(shown.length).toBeLessThanOrEqual(4);
+        for(const essential of [g.B,g.A,g.H])
+          expect(shown.map(t=>t.value)).toContain(essential);
+        for(let a=0;a<shown.length;a++)
+          for(let b=a+1;b<shown.length;b++)
+            expect(Math.abs(shown[a].pixel-shown[b].pixel),
+              "Axis labels collide at "+level+":"+variant).toBeGreaterThanOrEqual(16);
+        expect(html).toContain('data-role="endpoint"');
+        expect(html).toContain('data-y="'+g.E+'"');
+      });
+});
