@@ -2,6 +2,7 @@ import { rational as r, addRational as add, subtractRational as sub, multiplyRat
 import { formatRational as fmt, type AnswerSpec } from "../answers";
 import type { Locale } from "../locales/types";
 import { teaching } from "./teaching";
+import type { UniversityFamily } from "./schema";
 
 /** G06: new, synthetic x→+∞ forms. Deliberately does not change the archived x→0 Euler family. */
 export type EulerInfinityProblem = Readonly<
@@ -29,12 +30,12 @@ export function makeEulerInfinity(variant: number): EulerInfinityProblem {
   }
 }
 
-export const eulerInfinityFamilies = [{
+export const eulerInfinityFamilies: readonly UniversityFamily[] = [{
   id: "analysis-euler-function-infinity", category: "function-limits",
   titles: { pl: "Granica Eulera funkcji przy +∞", en: "Euler-type function limits at +∞" },
   supportedDifficulties: ["hard"],
   create: (variant: number) => makeEulerInfinity(variant),
-}] as const;
+}];
 
 /** The limit is exp(coefficient·π) when pi=true, or exp(coefficient) otherwise. */
 export function eulerInfinityExponent(problem: EulerInfinityProblem): { coefficient: Rational; pi: boolean } {
