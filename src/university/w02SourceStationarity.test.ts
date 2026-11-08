@@ -6,7 +6,7 @@ import {assessAnswer,emptyAnswer} from '../answers';
 import {polishLearningText} from '../../e2e/helpers/localization';
 
 const num=(z:{numerator:bigint;denominator:bigint})=>Number(z.numerator)/Number(z.denominator);
-const numeric=(s:string)=>s.includes('/')?Number(s.split('/')[0])/Number(s.split('/')[1]):Number(s);
+const numeric=(s:string)=>{const t=s.replace(/−/g,'-');return t.includes('/')?Number(t.split('/')[0])/Number(t.split('/')[1]):Number(t);};
 
 describe('W02 advanced source-shaped stationarity: three and four complete points',()=>{
  it('24 authored cases; independent gradient, Hessian and answer/grading PL/EN',()=>{
