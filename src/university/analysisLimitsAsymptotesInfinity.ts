@@ -32,7 +32,7 @@ export function makeEulerInfinity(variant: number): EulerInfinityProblem {
 
 export const eulerInfinityFamilies: readonly UniversityFamily[] = [{
   id: "analysis-euler-function-infinity", category: "function-limits",
-  titles: { pl: "Granica Eulera funkcji przy +∞", en: "Euler-type function limits at +∞" },
+  titles: { pl: "Granica funkcji typu Eulera przy +∞", en: "Euler-type function limits at +∞" },
   supportedDifficulties: ["hard"],
   create: (variant: number) => makeEulerInfinity(variant),
 }];

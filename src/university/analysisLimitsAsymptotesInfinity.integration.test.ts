@@ -13,7 +13,7 @@ describe("G06 catalog integration (24 synthetic x→+∞ Euler variants)", () =>
     expect(family[0].category).toBe("function-limits");
     expect(family[0].supportedDifficulties).toEqual(["hard"]);
     expect(searchCatalog("G06").map(item => item.id)).toContain(id);
-    expect(searchCatalog("granica eulera funkcji przy").map(item => item.id)).toContain(id);
+    expect(searchCatalog("granica funkcji typu eulera").map(item => item.id)).toContain(id);
     expect(taskPool("function-limits", "hard").filter(item => item.templateId === id)).toHaveLength(24);
     expect(taskPool("function-limits", "medium").some(item => item.templateId === id)).toBe(false);
     expect(() => makeUniversityTask(id, 0, "medium")).toThrow();

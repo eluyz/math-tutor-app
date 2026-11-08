@@ -35,7 +35,7 @@ for (const width of [375, 1280]) for (const locale of ["pl", "en"] as const) {
     );
     const results = page.locator(".catalog-search-list button");
     await expect(results).toHaveCount(2);
-    const name = locale === "pl" ? "Granica Eulera funkcji przy +∞" : "Euler-type function limits at +∞";
+    const name = locale === "pl" ? "Granica funkcji typu Eulera przy +∞" : "Euler-type function limits at +∞";
     await results.filter({ hasText: name }).click();
     await expect(page.locator(".question")).toHaveAttribute("data-template-id", familyId);
     await expect(page.locator(".question")).toHaveAttribute("data-difficulty", "hard");
