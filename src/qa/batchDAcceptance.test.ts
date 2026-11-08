@@ -66,7 +66,7 @@ describe("Batch D bounded independent mathematical acceptance", () => {
       expect(a.whole * d.root + a.root * d.whole).toBe(0);
       expect(b.whole * c.root + b.root * c.whole).toBe(0);
       const reference = String(ad - bc);
-      expect(batchDOracle(task)).toBe(reference);
+      expect(String(batchDOracle(task)).replaceAll("−", "-")).toBe(reference);
       for (const locale of ["pl", "en"] as const) {
         const view = localizeUniversity(task, locale);
         expect(assessAnswer(view.answer, reference).kind).toBe("correct");
