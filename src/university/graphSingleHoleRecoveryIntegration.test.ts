@@ -30,7 +30,7 @@ describe("F05/e single-hole six-field catalog integration", () => {
       expect(view.answer.kind).toBe("multi-choice");
       if(view.answer.kind === "multi-choice")
         expect(view.answer.fields.map(f=>f.id)).toEqual(singleHoleRecoveryFields);
-      expect(view.solution.length).toBeGreaterThanOrEqual(7);
+      expect(view.solution?.length ?? 0).toBeGreaterThanOrEqual(7);
     }
   });
   it("keeps 72 distinct, index-stable profiles after catalog registration",()=>{
