@@ -129,7 +129,7 @@ function presentAdvancedW02(p:W02NonlinearProblem,locale:Locale){
   `3(${f(p.a)})x²+2(${f(p.b)})x−(${f(p.d)})y²`;
  const fy=three?`2y((${f(p.b)})−(${f(p.c)})x)`:`2y((${f(p.c)})−(${f(p.d)})x)`;
  const label=(k:W02SourcePoint['kind'])=>k==='minimum'?t('minimum lokalne','local minimum'):
-  k==='maximum'?t('maksimum lokalne','local maximum'):k==='saddle'?t('punkt siodłowy','saddle point'):t('nierozstrzygające','inconclusive');
+  k==='maximum'?t('maksimum lokalne','local maximum'):k==='saddle'?t('punkt siodłowy','saddle point'):t('test nierozstrzygający','inconclusive test');
  const point=(z:W02SourcePoint)=>`(${f(z.x)},${f(z.y)})`;
  lesson.work(`f(x,y)=${expr}; D(f)=ℝ²; f∈C∞(ℝ²)`,
   t('Wszystkie ekstrema lokalne wielomianu leżą wśród punktów stacjonarnych.',
@@ -155,11 +155,11 @@ function presentAdvancedW02(p:W02NonlinearProblem,locale:Locale){
     'Compute the Hessian as a function of x,y before substitution.'));
  const fields:Extract<AnswerSpec,{kind:'multi-choice'}>['fields'][number][]=[];
  for(const [i,z] of pts.entries()){
-  const name=`P${i+1}`;
+  const name=['P₁','P₂','P₃','P₄'][i];
   lesson.work(`${name}=${point(z)}; f_xx=${f(z.xx)}; f_xy=${f(z.xy)}; f_yy=${f(z.yy)}; D=${f(z.D)} ⇒ ${label(z.kind)}`,
    t('D=f_xx·f_yy−f_xy²; dodatni D i f_xx daje minimum, ujemny D oznacza siodło.',
      'D=f_xx·f_yy−f_xy²; positive D and f_xx give a minimum; negative D is a saddle.'));
-  lesson.work(`f${point(z)}=${f(z.value)}`,
+  lesson.work(`f${point(z)}=${f(z.value)}; ${name}: ${label(z.kind)}`,
    t('Wartość w siodle nie jest wartością ekstremum.',
      'A saddle-point value is not a local extremum.'));
   for(const [j,[key,val]] of ([['x',z.x],['y',z.y],['f',z.value],['fxx',z.xx],['D',z.D]] as const).entries()){
@@ -167,7 +167,7 @@ function presentAdvancedW02(p:W02NonlinearProblem,locale:Locale){
    fields.push({id:`p${i+1}-${key}`,label:`${name}: ${key}`,value:f(val),
     options:[...variants.slice(shift),...variants.slice(0,shift)]});
   }
-  fields.push({id:`p${i+1}-kind`,label:`${name}: ${t('rodzaj','type')}`,value:z.kind,
+  fields.push({id:`p${i+1}-kind`,label:`${name}: K`,value:z.kind,
    options:(['minimum','maximum','saddle','inconclusive'] as const).map(k=>({value:k,label:label(k)}))});
  }
  lesson.work(t(`Wszystkie ${pts.length} punkty: jedno minimum i ${pts.length-1} siodeł.`,
