@@ -41,7 +41,9 @@ for (const width of [375, 1280]) for (const locale of ["pl", "en"] as const) {
         const x1 = Number(await outer.first().getAttribute("x1"));
         const y2 = Number(await outer.first().getAttribute("y2"));
         const y1 = Number(await outer.first().getAttribute("y1"));
-        if (x2 > x1 && y2 < y1) { selected = true; break; }
+        // In SVG coordinates y increases DOWN, so a decreasing mathematical
+        // left branch has y2 > y1 in pixels.
+        if (x2 > x1 && y2 > y1) { selected = true; break; }
       }
       await button(page, pl ? "Nowy przykład" : "New example").click();
     }
