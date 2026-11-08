@@ -11,17 +11,17 @@
 - On baseline main, W01 has 10/10 source method shapes represented (formal runtime/source QA pending).
 - On baseline main, W02 has 6/8 source method shapes represented. The remaining two require finding **all 3 or all 4 real stationary points**. Their source answer key specifies extrema only, which does not invalidate omitted non-extremal saddle points.
 - Existing registered family `multivar-quadratic-cubic-extrema` previously served 24 `hard` two-point variants. This PR preserves them and adds 24 **advanced** variants: 12 three-point forms (one minimum, two saddles) and 12 four-point forms (one minimum, three saddles).
-- Advanced mode is **already registered by the existing family spread in `catalog.ts`**; no new family or registry edits are needed.
+- Advanced cases are **implemented and unit-tested but deliberately not enabled in `supportedDifficulties`**. The global catalog and common count assertions remain unchanged. A separately authorized integration PR must enable the level and update shared counts and docs.
 - All points derived from the gradient's complete branching, including `y=0` and both nonzero roots; no divide-by-variable step drops solutions.
 - Explicit exact `f`, `f_xx`, `D=det(H)`, type and ordered point coordinates, with six scored entries per point. Complete PL/EN hints and worked steps.
-- Tests: all 24 advanced variants; independent gradient, Hessian and function-value substitutions; negative grading for each field, omissions, swapping; PL/EN and legacy `hard` smoke assertions.
+- Tests: all 24 staged advanced variants via the existing family's factory and presentation functions (without catalog exposure); independent gradient, Hessian and function-value substitutions; negative grading for each field, omissions, swapping; PL/EN and legacy `hard` smoke assertions.
 
 ## Verification and release constraints
 - Independent offline SymPy reconstruction of all 24 authored cases: **PASS 24/24**, complete critical point sets and Hessian classifications.
 - GitHub Actions targeted Vitest/build/Playwright: **not asserted as PASS until the exact PR HEAD checks complete**.
 - Independent Math QA should additionally inspect a 3-point case, a 4-point case and the `y=0` branch in both locales, with correct/wrong/empty browser grading.
 - Public `SOURCE_PASS`: **NOT GRANTED**. The private originals and answer key were independently checked, but end-to-end source-to-app acceptance needs exact-HEAD release evidence.
-- This PR is **Draft**, with no merge approval and no auto-merge.
+- This PR is **Draft**, with no merge approval and no auto-merge; **not STUDENT_READY until the follow-up integration is merged and verified**.
 
 ## Honest syllabus accounting
 - Historical 64-skill map: 64/64 mapped = **100% mapping**, NOT completion. It labels 14/64 bounded and 50/64 partial generator coverage.
@@ -30,4 +30,4 @@
 - W03 has working limit/continuity generators but lecture-only exam requirement is **LECTURE_SCOPE_UNCERTAIN**. Never convert that ambiguity into completed exam tasks or a fictitious numerical syllabus percentage.
 
 ## Single next gate
-Independent review of this Draft PR at its final HEAD, then full GitHub CI/Playwright, owner approval to merge, post-merge main CI and Pages. After that, complete private-source-to-application QA for W01/W02 before any SOURCE_PASS.
+Independent review of this Draft PR at its final HEAD, then full GitHub CI/Playwright and owner approval to merge. **Next separate integration**: enable advanced difficulty for the existing family, update pinned global counts/README and complete browser evidence with owner approval; post-merge main CI and Pages. Complete private-source-to-application QA for W01/W02 before any SOURCE_PASS.
