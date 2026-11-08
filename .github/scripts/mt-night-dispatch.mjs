@@ -62,7 +62,13 @@ export function liveSessionSummary(tasks, prs, knownIssues) {
     return ACTIVE_STATES.has(t.state);
   });
   const laneOf=new Map(knownIssues.map(x=>[x.issue,x.lane]));
-  const byPrId=new Map(prs.map(p=>[p.id,p]));
+  const byPrId=new Map();
+  for (const p of prs) for (const k of [p.id,p.number]) {
+    if (!positive(k)) continue;
+    if (byPrId.has(k) && byPrId.get(k)!==p)
+      throw Error("Ambiguous PR artifact id");
+    byPrId.set(k,p);
+  }
   const lanes=new Set();
   for (const t of active) {
     const artifacts=(t.artifacts||[]).filter(a=>a.provider==="github" && a.type==="pull");
