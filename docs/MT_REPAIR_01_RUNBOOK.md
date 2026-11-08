@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **2026-11-08 CREDIT-SAVER OVERRIDE (pending separate PR release):** the older **two automatic repairs** and **three active agents** below are historical. See [MT-CREDIT-SAVER-01](./MT_CREDIT_SAVER_01.md): **one shared active agent slot**, **one automatic repair per PR**, and manual month-scoped Actions variable `MT_CREDIT_MONTH_OK=YYYY-MM`. Keep `MT_REPAIR_LIVE=false` until controlled live pilot and confirmed AI-credit allowance; the dispatcher/repair scripts cannot read actual AI Credits automatically.
+
 # MT-REPAIR-01 — bounded autonomous QA repair loop
 
 Parent [Issue #229](https://github.com/eluyz/math-tutor-app/issues/229). Follows [MT-NIGHT-02 PR #228](https://github.com/eluyz/math-tutor-app/pull/228). **DRY_RUN by default. No autonomous merging.**
