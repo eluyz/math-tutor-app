@@ -1,6 +1,7 @@
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import type { AnswerSpec } from "../answers";
+import type { UniversityFamily } from "./schema";
 import { teaching } from "./teaching";
 
 /**
@@ -147,6 +148,17 @@ export function evenOpenRangeAnswer(p: EvenOpenRangeProblem, locale: Locale): An
     }),
   };
 }
+
+export const graphEvenOpenRangeFamilies: readonly UniversityFamily[] = [{
+  id: "function-even-open-range",
+  category: "functions",
+  titles: {
+    pl: "Sześć własności parzystego wykresu z dziurami i otwartym zbiorem wartości",
+    en: "Six properties of an even graph with holes and an open range",
+  },
+  supportedDifficulties: ["hard", "advanced", "expert"],
+  create: makeEvenOpenRange,
+}];
 
 export function presentEvenOpenRange(p: EvenOpenRangeProblem, locale: Locale) {
   const lesson = teaching(locale), { t } = lesson;
