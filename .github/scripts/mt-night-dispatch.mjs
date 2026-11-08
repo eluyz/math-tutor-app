@@ -54,6 +54,9 @@ export function validateConfig(cfg) {
     throw Error("Blocked dependency appeared in dispatch queue");
   return cfg;
 }
+export function creditMonthApproved(approved,utcMonth) {
+  return typeof approved==="string" && /^\d{4}-\d{2}$/.test(approved) && approved===utcMonth;
+}
 export function quotaBlocked(prs) {
   return prs.some(p=>p.state==="open" &&
     /(?:quota exhausted|quota limits|session quota|usage limit|limit reached|credits exhausted)/i
@@ -153,7 +156,7 @@ async function evaluate(cfg, env) {
   if (!branch.protected) overview.blockers.push("MAIN_NOT_PROTECTED");
   if (!release.pass) overview.blockers.push("MAIN_CI_OR_PAGES_NOT_PASS");
   if (quota) overview.blockers.push("COPILOT_QUOTA_WARNING_IN_OPEN_PR");
-  if (env.creditMonth!==new Date().toISOString().slice(0,7))
+  if (!creditMonthApproved(env.creditMonth,new Date().toISOString().slice(0,7)))
     overview.blockers.push("MONTHLY_AI_CREDIT_BUDGET_NOT_APPROVED");
   if (!live) {
     overview.blockers.push("DRY_RUN_NO_ASSIGNMENT");
