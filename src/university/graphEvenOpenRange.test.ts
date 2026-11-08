@@ -7,7 +7,7 @@ import {
 
 const fmt = (n: number) => String(n).replace(/-/g, "−");
 const iv = (a: string, b: string, left = false, right = false) =>
-  (left ? "[" : "(") + a + "; " + b + (right ? "]" : ")";
+  (left ? "[" : "(") + a + "; " + b + (right ? "]" : ")");
 
 function independentlyExpected(h: number, lower: number) {
   const minus = fmt(-h), plus = fmt(h);
