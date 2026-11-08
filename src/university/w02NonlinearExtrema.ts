@@ -13,7 +13,7 @@ const sq=(x:Rational)=>mul(x,x),neg=(x:Rational)=>sub(r(0),x);
 export const w02NonlinearFamilies:readonly UniversityFamily[]=[{
  id:'multivar-quadratic-cubic-extrema',category:'derivatives',
  titles:{pl:'Ekstrema kwadratowo-sześcienne — eliminacja i dwa punkty',en:'Quadratic-cubic extrema — elimination and two points'},
- supportedDifficulties:['hard','advanced'],create:(v,level):W02NonlinearProblem=>{
+ supportedDifficulties:['hard'],create:(v,level):W02NonlinearProblem=>{
   if(level==='advanced'){
    const n=Math.floor(v/2),offset=r(n-5,3);
    if(v%2===0){
