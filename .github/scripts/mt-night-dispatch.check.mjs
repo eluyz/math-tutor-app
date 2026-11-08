@@ -56,6 +56,11 @@ test("known active Copilot task linked to explicit issue occupies its lane",()=>
   const tasks=[{state:"in_progress",artifacts:[{provider:"github",type:"pull",data:{id:7}}]}];
   assert.deepEqual(liveSessionSummary(tasks,prs,config.queue),{count:1,lanes:["QA"]});
 });
+test("task artifacts may identify pull requests by PR number rather than database id",()=>{
+  const prs=[{id:12345,number:307,state:"open",body:"Fixes #209"}];
+  const tasks=[{state:"queued",artifacts:[{provider:"github",type:"pull",data:{id:307}}]}];
+  assert.deepEqual(liveSessionSummary(tasks,prs,config.queue),{count:1,lanes:["QA"]});
+});
 test("unknown task state and unmapped active tasks fail closed",()=>{
   const p=[{id:7,state:"open",body:"Fixes #209"}];
   assert.throws(()=>liveSessionSummary([{state:"working",artifacts:[]}],p,config.queue),/Unknown/);
