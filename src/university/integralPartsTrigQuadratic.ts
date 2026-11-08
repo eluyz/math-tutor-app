@@ -5,15 +5,14 @@ import {
 import {formatRational as fmt} from "../answers";
 import type {Difficulty} from "../difficulty";
 import type {Locale} from "../locales/types";
+import type {UniversityFamily} from "./schema";
 import {teaching} from "./teaching";
 
 /**
  * I04: two integrations by parts for k*x^2*sin(ax+b) and k*x^2*cos(ax+b).
  *
- * Staged on purpose: this self-contained module is NOT in the university
- * catalog yet. Registration requires a separate, serialized integration PR
- * touching schema.ts, catalog.ts, competencyIndex.ts and count baselines.
- * Existing I04 families and their tuple IDs remain unchanged.
+ * Registered through the separately reviewed I04 integration PR.
+ * Existing I04 families, their grading rules, IDs and tuple keys are unchanged.
  */
 export type IntegralPartsTrigQuadraticProblem=Readonly<{
   kind:"integral-parts-trig-quadratic";
@@ -41,16 +40,16 @@ export function makeQuadraticTrigParts(variant:number,difficulty:Difficulty):Int
 
 // Descriptor ready for later catalog registration; intentionally not spread
 // into universityFamilies until the shared-file owner integrates it.
-export const integralPartsTrigQuadraticFamily={
+export const integralPartsTrigQuadraticFamily:UniversityFamily={
   id:"integral-parts-trig-quadratic",
   category:"integrals",
   titles:{
     pl:"Dwukrotne całkowanie przez części — x² razy sinus lub cosinus",
-    en:"Two integrations by parts — x² times sine or cosine",
+    en:"Integration by parts twice — x² times sine or cosine",
   },
   supportedDifficulties:difficulties,
   create:makeQuadraticTrigParts,
-} as const;
+};
 
 export function quadraticTrigPartsCoefficients(p:IntegralPartsTrigQuadraticProblem):
   {first:Rational;second:Rational;third:Rational}{
