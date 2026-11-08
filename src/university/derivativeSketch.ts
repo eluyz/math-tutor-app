@@ -59,6 +59,13 @@ export function presentDerivativeSketch(p: DerivativeSketchProblem, locale: Loca
   const sign = e === 1 ? "+" : "−", reverse = e === 1 ? "−" : "+";
   const expression = (e === 1 ? "" : "−") +
     "[(x−(" + a + ")) + " + (s * s) + "/(x−(" + a + "))] + (" + v + ")";
+  // The student needs the sign chart before revealing the worked solution.
+  const signChart = [
+    t("Tabela znaków f′ i f″:", "Sign chart for f′ and f″:"),
+    `f′: (−∞,${g.leftX}): ${sign}; (${g.leftX},${a}): ${reverse}; (${a},${g.rightX}): ${reverse}; (${g.rightX},+∞): ${sign}`,
+    `f′=0: x=${g.leftX}, x=${g.rightX}; x=${a} ${t("wyłączone", "excluded")}`,
+    `f″: (−∞,${a}): ${reverse}; (${a},+∞): ${sign}`,
+  ].join("\n");
   lesson.work("D = ℝ \\ {" + a + "}; x = " + a,
     t("Mianownik wyklucza x=a. Prosta x=a jest asymptotą pionową, nie punktem przegięcia.",
       "The denominator excludes x=a. The line x=a is a vertical asymptote, not an inflection point."));
@@ -85,7 +92,7 @@ export function presentDerivativeSketch(p: DerivativeSketchProblem, locale: Loca
   return lesson.finish(
     t("Na kartce naszkicuj funkcję na podstawie tabeli znaków f′ i f″ poniżej. Zaznacz obie asymptoty i ekstrema. Rysunek oceniasz samodzielnie; aplikacja sprawdza tylko współrzędne obu ekstremów. Wpisz kolejno x₁,y₁,x₂,y₂ od lewej do prawej.",
       "Sketch the function on paper from the f′ and f″ sign chart below. Mark both asymptotes and extrema. You assess the drawing yourself; the app checks only the coordinates of both extrema. Enter x₁,y₁,x₂,y₂ from left to right.") +
-    "\nf(x) = " + expression,
+    "\nf(x) = " + expression + "\n" + signChart,
     { kind: "list", labels: ["x₁", "y₁", "x₂", "y₂"],
       values: [r(g.leftX), r(g.leftY), r(g.rightX), r(g.rightY)] },
     t("Tabela f′ określa wzrost i spadek, a tabela f″ wklęsłość. Pamiętaj o pionowej asymptocie.",
