@@ -48,7 +48,7 @@ export function makeEvenOpenRange(variant: number, difficulty: Difficulty): Even
   return {
     kind: "function-even-open-range",
     hole: 3 + level + variant % 2,
-    floor: -5 + variant % 5,
+    floor: -5 + variant % 5 + 5 * level,
     lift: 2 + Math.floor(variant / 2) % 3,
     slope: 1 + (variant + level) % 3,
   };
