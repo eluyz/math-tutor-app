@@ -123,8 +123,8 @@ export function presentSmoothRationalStudy(p:SmoothRationalStudyProblem,locale:L
     "Na domkniętym przedziale sprawdzamy obie wartości brzegowe i jedyny punkt stacjonarny.",
     "On the closed interval check both endpoints and the only stationary point.");
   return lesson.finish(t(
-    "Zbadaj f(x)="+expr+" i naszkicuj wykres na kartce. Znajdź globalne max f oraz min f na ["+f(start)+", "+f(end)+"], uwzględniając pochodne i przegięcia.",
-    "Study f(x)="+expr+" and sketch on paper. Find global max f and min f on ["+f(start)+", "+f(end)+"], including derivatives and inflections."),
+    "Zbadaj f(x)="+expr+" i naszkicuj wykres na kartce. Znajdź globalne max f oraz min f na ["+f(start)+", "+f(end)+"], uwzględniając znaki f′ i f″, ekstrema i przegięcia.",
+    "Study f(x)="+expr+" and sketch on paper. Find global max f and min f on ["+f(start)+", "+f(end)+"], including signs of f′ and f″, extrema and inflections."),
     {kind:"list",labels:["max f","min f"],values:[maximum,minimum]},
     t("Porównaj f w punktach końcowych z f(a).","Compare endpoint values with f(a)."),
     t("Końce odpowiadają t=±2q, punkt stacjonarny t=0.",
