@@ -55,9 +55,10 @@ function sameMatrix(actual: Matrix, expected: Matrix) {
 }
 
 describe("MT-EDU-014 P2 rectangular full solutions", () => {
-  it("preserves published square Gauss examples and uses matching parameters for rectangular families", () => {
+  it("preserves two-parameter examples and uses corrected one-parameter prompts for square and rectangular families", () => {
     const cases = [
-      ["gauss-parameters-one", "hard", "x=c+at1+bt2"],
+      // U08 v2 teaching correction: one free variable is described by t1 only.
+      ["gauss-parameters-one", "hard", "x=c+at1"],
       ["gauss-parameters-two", "advanced", "x=c+at1+bt2"],
       ["gauss-rectangular-3x2-parameters", "hard", "x=c+at1"],
       ["gauss-rectangular-4x3-parameters", "advanced", "x=c+at1"],
