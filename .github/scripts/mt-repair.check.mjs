@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {policyCheck,isProtected,matchesQuota,eligiblePR,parseRepairs,readTrustedQA,latestCI,
-  evaluatePR,repairPrompt,activeCount,mainRelease} from "./mt-repair.mjs";
+  evaluatePR,repairPrompt,activeCount,activePRConflict,mainRelease} from "./mt-repair.mjs";
 const cfg=policyCheck(JSON.parse(readFileSync(new URL("../../docs/MT_REPAIR_01_POLICY.json",import.meta.url),"utf8")));
 const a="a".repeat(40),b="b".repeat(40),c="c".repeat(40);
 const pr=(sha=a,number=250)=>({number,state:"open",merged_at:null,base:{ref:"main"},head:{sha,repo:{full_name:"eluyz/math-tutor-app"}},user:{login:"Copilot"},body:"Fixes #209",title:"Independent math tests"});
@@ -101,4 +101,12 @@ test("CI and Pages need success on same main SHA",()=>{
   const x={id:1,status:"completed",conclusion:"success",head_sha:a};
   assert.equal(mainRelease([{...x,name:"CI",event:"push"},{...x,id:2,name:"Deploy Pages",event:"workflow_run"}],a),true);
   assert.equal(mainRelease([{...x,name:"CI",event:"push"},{...x,id:2,name:"Deploy Pages",event:"workflow_run",head_sha:b}],a),false);
+});
+
+test("never start a second Copilot session on a PR with a running task",()=>{
+  const p={...pr(),id:909};
+  const tasks=[{state:"in_progress",artifacts:[{provider:"github",type:"pull",data:{id:909}}]}];
+  assert.equal(activePRConflict(tasks,p),true);
+  assert.equal(activePRConflict([{state:"completed",artifacts:[]}],p),false);
+  assert.throws(()=>activePRConflict([{state:"queued",artifacts:[]}],p),/UNMAPPED/);
 });
