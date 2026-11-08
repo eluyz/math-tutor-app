@@ -142,7 +142,7 @@ function presentAdvancedW02(p:W02NonlinearProblem,locale:Locale){
     'Never divide by y: the y=0 branch contains important stationary points.'));
  lesson.work(three
    ?'y=0 ⇒ x=0; y≠0 ⇒ x=b/c, y²=2ab/c²'
-   :'y=0 ⇒ x=0 lub x=−2b/(3a); y≠0 ⇒ x=c/d, y²=(3ax²+2bx)/d',
+   :t('y=0 ⇒ x=0 lub x=−2b/(3a); y≠0 ⇒ x=c/d, y²=(3ax²+2bx)/d', 'y=0 ⇒ x=0 or x=−2b/(3a); y≠0 ⇒ x=c/d, y²=(3ax²+2bx)/d'),
   t('Zachowaj oba znaki pierwiastka i wszystkie zerowe czynniki.',
     'Keep both square-root signs and every zero-factor branch.'));
  lesson.work(`∇f=0 ⇔ {${pts.map(point).join('; ')}}`,
