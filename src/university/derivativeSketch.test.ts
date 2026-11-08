@@ -57,6 +57,12 @@ describe("MT-SYLLABUS-D09: guided paper sketch from derivative sign charts", () 
           expect(assessAnswer(view.answer,{kind:"list",values:["1/0",...correct.values.slice(1)]}).kind).toBe("invalid");
           expect(view.question).toContain(locale==="pl"?"kartce":"on paper");
           expect(view.question).toContain(locale==="pl"?"samodzielnie":"yourself");
+          // The sign chart must be visible before opening the worked solution.
+          const outer = e === 1 ? "+" : "−", inner = e === 1 ? "−" : "+";
+          expect(view.question).toContain(locale==="pl" ? "Tabela znaków f′ i f″" : "Sign chart for f′ and f″");
+          expect(view.question).toContain(`f′: (−∞,${g.leftX}): ${outer}; (${g.leftX},${a}): ${inner}; (${a},${g.rightX}): ${inner}; (${g.rightX},+∞): ${outer}`);
+          expect(view.question).toContain(`f′=0: x=${g.leftX}, x=${g.rightX}; x=${a} ${locale==="pl"?"wyłączone":"excluded"}`);
+          expect(view.question).toContain(`f″: (−∞,${a}): ${inner}; (${a},+∞): ${outer}`);
           expect(view.solution!.filter(s=>s.kind==="working")).toHaveLength(7);
           expect(view.explanation).toContain("f″");
           expect(view.explanation).toContain("x=");
