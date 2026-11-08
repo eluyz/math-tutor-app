@@ -119,6 +119,7 @@ export function repairPrompt(pr,result){
     "Evidence: "+evidence,
     "Scope: minimal production-code correction only. Do NOT edit tests, independent QA oracles, fixtures, GitHub workflows, repository policy, package files or test configuration. If needed, STOP and explain BLOCKED instead of bypassing checks.",
     "Do NOT add unrelated variants or weaken acceptance. Ensure correct mathematical answers and steps in PL/EN. Run targeted tests and build when possible. Summarize changed files and actual results.",
+    "Work in a bounded 25-35 minute scope; do not use the full 59-minute session. If correctness cannot be established, stop and report BLOCKED instead of guessing.",
     "NOT approved to merge. Exact-head CI and independent QA must run again. If quota, permissions, or source are missing, report BLOCKED and stop."
   ].join("\n\n");
 }
