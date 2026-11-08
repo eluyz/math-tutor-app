@@ -94,7 +94,7 @@ describe("I04 staged two-pass quadratic trigonometric integrals",()=>{
       expect(seen.size).toBe(24);
       expect([...modes].sort()).toEqual(["cos","sin"]);
     },35000);
-  });
+  }
 
   it("hand-derived positive, negative and borderline controls",()=>{
     const sin=makeQuadraticTrigParts(0,"hard");
