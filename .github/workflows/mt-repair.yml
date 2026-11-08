@@ -1,0 +1,89 @@
+name: MT-REPAIR-01 — bounded Copilot repair loop
+
+on:
+  schedule:
+    - cron: '12,27,42,57 * * * *'
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - '.github/scripts/mt-repair.mjs'
+      - '.github/scripts/mt-repair.check.mjs'
+      - '.github/workflows/mt-repair.yml'
+      - 'docs/MT_REPAIR_01_POLICY.json'
+
+permissions:
+  contents: read
+  actions: read
+  issues: read
+  pull-requests: read
+
+# Same lock as MT-NIGHT-02. Never race assignment against repair dispatch.
+concurrency:
+  group: mt-night-02-dispatch
+  cancel-in-progress: false
+
+jobs:
+  offline-pr-safety:
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout PR without credentials
+        uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - name: Use Node 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Offline negative/positive tests — zero tokens, zero API writes
+        run: |
+          node --check .github/scripts/mt-repair.mjs
+          node --test .github/scripts/mt-repair.check.mjs
+          node .github/scripts/mt-repair.mjs --check
+
+  trusted-main-repair:
+    if: github.event_name != 'pull_request' && github.repository == 'eluyz/math-tutor-app'
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    permissions:
+      contents: read
+      actions: read
+      issues: read
+      pull-requests: read
+    steps:
+      - name: Checkout trusted main without persisted credentials
+        uses: actions/checkout@v7
+        with:
+          ref: main
+          persist-credentials: false
+      - name: Use Node 24
+        uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - name: Recheck offline safety tests before all API calls
+        run: |
+          node --check .github/scripts/mt-repair.mjs
+          node --test .github/scripts/mt-repair.check.mjs
+          node .github/scripts/mt-repair.mjs --check
+      - name: Read QA and CI state; write only with explicit owner opt-in
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_REF: ${{ github.ref }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          MT_REPAIR_LIVE: ${{ vars.MT_REPAIR_LIVE }}
+          MT_COPILOT_DISPATCH_PAT: ${{ secrets.MT_COPILOT_DISPATCH_PAT }}
+        run: node .github/scripts/mt-repair.mjs
+      - name: Archive audit report, without secrets
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: mt-repair-01-report
+          path: |
+            .repair01/report.json
+            .repair01/summary.md
+          if-no-files-found: warn
+          retention-days: 7
