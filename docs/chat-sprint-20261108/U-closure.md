@@ -14,15 +14,16 @@
 | U01 | Cramer applicability and D=0 | `cramer-applicability`, `cramer-four-forced-pivot` | BOUNDED_METHOD, SOURCE_REVIEW_PENDING | Compare all source input shapes; do not infer inconsistency solely from D=0 |
 | U02 | Cramer 3×3 | `system-cramer-three`, `cramer-eligibility-solve-three` | IMPLEMENTED, HISTORICAL_SCOPED_SOURCE_PASS | No duplicate generator; any additional full-form audit later |
 | U03 | Cramer 4×4, D and D1–D4, D=0 | `cramer-four`, `cramer-four-singular-minors`, `cramer-four-forced-pivot` | BOUNDED_METHOD, SOURCE_REVIEW_PENDING | Independent source sample 4×4 D and four column minors cross-checked; full source QA later |
-| U04 | Five equalities, requested unknown | `system-chain-five`, `system-substitution` | BOUNDED_METHOD, SOURCE_REVIEW_PENDING | Confirm source-to-generator breadth; nonlinear forms not generalized |
+| U04 | Five equalities, requested unknown | `system-chain-five`, `system-substitution` | PARTIAL, CONFIRMED_SOURCE_SHAPE_GAP | Source chain uses five unknowns; generator models six expressions with only x and y. Requires a future separate integration |
 | U05 | Solution count from supplied ranks | `capelli-given-ranks`, `capelli-free-parameters` | IMPLEMENTED, HISTORICAL_SCOPED_SOURCE_PASS | No duplicate generator |
 | U06 | Calculate ranks and classify | `capelli-matrices`, `gauss-four-dependent-diagnostic`, `gauss-five-3x5` | PARTIAL, CONFIRMED_SOURCE_GAP | A source 5-unknown consistent rank-2 example requires counting 3 parameters |
-| U07 | Gauss, unique solution and row swaps | `gauss-unique`, `gauss-four-forced-pivot` | BOUNDED_METHOD, SOURCE_REVIEW_PENDING | Source examples of unique solutions checked independently, but not all grading cases |
+| U07 | Gauss, unique solution and row swaps | `gauss-unique`, `gauss-four-forced-pivot` | PARTIAL, CONFIRMED_SOURCE_SHAPE_GAP | Source has a 4-equation/3-unknown unique solution. Existing square Gauss grades full values, but 4×3 rectangular family grades classification only |
 | U08 | Gauss: 1–2 parameters and contradiction | `gauss-parameters-one`, `gauss-parameters-two`, `gauss-five-4x5` | BOUNDED_METHOD, ONE-PARAMETER_TEXT_FIX, CONFIRMED_SOURCE_GAP | A source 5-unknown consistent rank-2 example needs **three** full affine parameters |
 
 ### Independent math checks
 - U03: a 4×4 Cramer source representative independently solved with exact SymPy determinants, all four replacement determinants and residuals; matches the privately supplied answer.
-- U07: source unique-solution representatives independently solved using exact SymPy ranks and direct solutions; matches the supplied answers.
+- U07: source unique-solution representatives independently solved using exact SymPy ranks and direct solutions; matches the supplied answers. The full-answer 4×3 source shape is not implemented by the rectangular classifier.
+- U04: the original five-equality chain has five unknowns; the registered `system-chain-five` produces a two-variable chain, which is a genuine source-form coverage gap.
 - U06 and U08: two different source examples are each 5 unknowns with rank(A)=rank([A|b])=2, hence three free parameters; result checked against the private official answer key.
 - Production tests read (not executed): `cramerFour.test.ts`, `cramerDiagnostics.test.ts`, `gaussCramerFollowup.test.ts`, `gaussParameters.test.ts`, `gaussFive.test.ts`. The available test suites cover independently calculated 4×4 minors, ranks, substitution, negative grading, parameter-coefficient residuals and PL/EN.
 
