@@ -1,0 +1,58 @@
+{
+  "schema_version": 1,
+  "repository": "eluyz/math-tutor-app",
+  "mode": "DRY_RUN_BY_DEFAULT",
+  "automatic_merge": false,
+  "max_active_agent_sessions": 3,
+  "max_repairs_per_pr": 2,
+  "max_new_repairs_per_tick": 1,
+  "trusted_qa_reviewers": [
+    "eluyz"
+  ],
+  "allowed_issue_numbers": [
+    195,
+    201,
+    202,
+    203,
+    204,
+    205,
+    206,
+    207,
+    208,
+    209,
+    210,
+    211,
+    212,
+    213,
+    214,
+    215,
+    216,
+    217,
+    218,
+    220,
+    222,
+    224
+  ],
+  "blocked_issue_numbers": [
+    196,
+    219,
+    221,
+    223
+  ],
+  "allowed_copilot_authors": [
+    "Copilot",
+    "copilot-swe-agent[bot]"
+  ],
+  "max_changed_files": 12,
+  "protected_paths": [
+    ".github/",
+    "package.json",
+    "package-lock.json",
+    "src/qa/",
+    "e2e/"
+  ],
+  "stop_if_quota_reported": true,
+  "require_protected_main": true,
+  "require_night_02_released": true,
+  "require_main_ci_pages_pass": true
+}
