@@ -35,6 +35,14 @@ export function SingleHoleRecoveryDisplay({
     "), then falls to an included endpoint (" + fmt(R) + ", " + fmt(E) + "). " +
     "Both missing endpoint heights are attained elsewhere on the graph.";
   const levels = [...new Set([B, A, H, E])].sort((a, b) => a - b);
+  // The two missing limits (B,A) and reached maximum (H) are essential.
+  // The finite endpoint E is still marked and described in text, but its
+  // axis label is omitted if it would collide with another label.
+  const essentialLevels = [...new Set([B, A, H])];
+  const labelLevels = essentialLevels.concat(
+    !essentialLevels.includes(E) &&
+    essentialLevels.every(y => Math.abs(py(y) - py(E)) >= 16) ? [E] : [],
+  );
   const left = {x1:leftStart, y1:leftValue, x2:c, y2:A};
   const rise = {x1:c,y1:B,x2:t,y2:H};
   const fall = {x1:t,y1:H,x2:R,y2:E};
@@ -49,8 +57,9 @@ export function SingleHoleRecoveryDisplay({
         {levels.map(y => <g key={y}>
           <line x1="20" x2="380" y1={py(y)} y2={py(y)}
             stroke="currentColor" strokeOpacity="0.12"/>
-          <text x="18" y={py(y)+4} fontSize="10" textAnchor="end"
-            fill="currentColor">{fmt(y)}</text>
+          {labelLevels.includes(y) && <text data-testid="single-hole-y-label"
+            data-y={y} x="18" y={py(y)+4} fontSize="10" textAnchor="end"
+            fill="currentColor">{fmt(y)}</text>}
         </g>)}
         {minY < 0 && maxY > 0 &&
           <line x1="20" x2="381" y1={py(0)} y2={py(0)}
