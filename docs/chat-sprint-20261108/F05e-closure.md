@@ -1,5 +1,7 @@
 # F05/e — synthetic single excluded argument with two recovered heights
 
+> **CI execution decision for #247:** GitHub's `.github/workflows/ci.yml` responds to pull requests targeting `main` only. To run real GitHub Actions, Draft #247 was retargeted from #243's branch to `main` on 2026-11-08. Its review diff temporarily includes both **b+e**; it remains *dependent on #243* and must NOT be merged ahead of #243. After #243 is merged, synchronize the candidate to fresh main, rerun all checks, then review/merge e separately with owner approval. This update records the integration QA trigger; it is not a release certificate.
+
 > **Stacked integration update (2026-11-08):** This file originally documented the isolated Draft #246. A separate descendant branch `chat/integrate-f05e-on-b-20261108` now registers this family in the model, catalog, app SVG and F05 search, adds an exact PL/EN mobile/desktop browser witness, and updates **candidate-only** totals to 242 families and 18,477 variants. That branch is explicitly *stacked on* integrated F05/b Draft #243; it is **not merged** or deployed and original source acceptance is still 0/6. The staging limitations and integration checklist below describe the isolated precursor, not the later stacked candidate.
 
 Date: 2026-11-08 (Europe/Warsaw). Branch: `chat/closure-f05e-20261108`. Base: `main@c44ef85531906c9179c529fdfc852eb0035a13b7`.
