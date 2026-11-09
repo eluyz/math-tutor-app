@@ -1,3 +1,4 @@
+import type { CoupledCoefficientProblem } from "./matrixPairCoefficientStage";
 import type {W01SourceShapeProblem} from "./multivarSourceShapes";
 import type {MultivarRationalProblem} from "./multivarRational";
 import type { QuarticRootSequence } from "./sequenceExtensionsQuartic";
@@ -266,6 +267,7 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-diagnostic"; target: "eligibility" | "minors" | "eligibility-solve"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
+  | (Readonly<{ kind: "linear-matrix-coefficient-pair" }> & CoupledCoefficientProblem)
   | Readonly<{ kind: "linear-matrix-pair"; coefficients: readonly [Rational, Rational, Rational, Rational];
       first: readonly (readonly Rational[])[]; second: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-matrix-practice";
