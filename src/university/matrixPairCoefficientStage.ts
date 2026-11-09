@@ -6,6 +6,8 @@ import { formatRational as fmt } from "../answers";
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import { product, inverse, identity, type ExactMatrix } from "./linearAlgebraMath";
+import { teaching } from "./teaching";
+import type { UniversityFamily } from "./schema";
 
 /** Isolated synthetic M05 source-form candidate; NOT registered in the student catalog. */
 export type CoupledCoefficientProblem = Readonly<{
@@ -93,4 +95,38 @@ export function acceptsCoupledCoefficientAnswer(problem: CoupledCoefficientProbl
   const { x, y } = solveCoupledCoefficientProblem(problem);
   return [...x.flat(), ...y.flat()].every((expected, i) =>
     cells[i] !== null && eq(expected, cells[i]!));
+}
+
+
+/** Student-visible adapter; keeps the original synthetic stage oracle unchanged. */
+export const matrixCoefficientPairFamilies: readonly UniversityFamily[] = [{
+  id: "matrix-coefficient-coupled-equations",
+  category: "matrices",
+  titles: {
+    pl: "Układ równań z macierzami przy X i Y",
+    en: "Coupled equations with matrix coefficients",
+  },
+  supportedDifficulties: ["medium", "hard", "advanced", "expert"],
+  create: (variant, level) => ({
+    kind: "linear-matrix-coefficient-pair" as const,
+    ...makeCoupledCoefficientProblem(variant, level),
+  }),
+}];
+
+export function presentCoupledCoefficientTask(problem: CoupledCoefficientProblem, locale: Locale) {
+  const stage = presentCoupledCoefficientStage(problem, locale);
+  const lesson = teaching(locale), { t } = lesson;
+  const explanations: readonly [string, string][] = [
+    ["Przenosimy BX, zachowując kolejność mnożenia.", "Move BX and keep matrix multiplication order."],
+    ["Podstawiamy Y; rozdzielność mnożenia daje ABX, nie BAX.", "Substitute Y; distributivity gives ABX, not BAX."],
+    ["Macierz I−AB jest odwracalna, obliczamy jej dokładną odwrotność.", "I−AB is invertible; compute its exact inverse."],
+    ["Mnożymy przez odwrotność z lewej strony, nie przestawiając czynników.", "Multiply on the left by the inverse without swapping factors."],
+    ["Podstawiamy obliczone X do drugiego równania.", "Substitute the computed X in the second equation."],
+    ["Sprawdzamy oba pierwotne równania element po elemencie.", "Check both original matrix equations entry by entry."],
+  ];
+  stage.steps.forEach((step, i) => lesson.work(step, t(...explanations[i])));
+  const labels = ["X[1,1]", "X[1,2]", "X[2,1]", "X[2,2]",
+    "Y[1,1]", "Y[1,2]", "Y[2,1]", "Y[2,2]"];
+  return lesson.finish(stage.question, {kind: "list", values: stage.answer, labels},
+    stage.hints[0], stage.hints[1]);
 }
