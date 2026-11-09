@@ -28,7 +28,7 @@ export function makeTallFiveThree(variant:number,level:Difficulty):Problem {
     r((variant+2)%7-3,level==="advanced"?2:1),
     r((variant+5)%11-5,level==="expert"?3:1),
   ];
-  const scales=[r(1),r(-2),r(3,level==="expert"?2:1),r(-1),r(2)];
+  const scales=[r(1),r(-2),r(3,level==="expert"?2:1),r(-1),r(2+variant)];
   const scaled=rows.map((row,i)=>row.map(value=>mul(value,scales[i])));
   const rhs=scaled.map(row=>dot(row,target));
   if(kind===1)rhs[4]=add(rhs[4],r(1)); // inconsistent only in the extra equation
@@ -94,7 +94,7 @@ export function presentTallFiveThree(p:Problem,locale:Locale) {
   if(result.kind==="system-none"){
     const bad=result.reduction.matrix.find(row=>row.slice(0,3).every(zero)&&!zero(row[3]));
     if(!bad)throw Error("Inconsistent 5x3 result lacks contradiction");
-    lesson.work(`0=${f(bad[3])}`,t("Sprzeczne równanie oznacza brak rozwiązań.","The contradiction proves there is no solution."));
+    lesson.work(t(`Sprzeczność w wierszu: 0 = ${f(bad[3])}`,`Contradiction in row: 0 = ${f(bad[3])}`),t("Sprzeczne równanie oznacza brak rozwiązań.","The contradiction proves there is no solution."));
   }else if(result.kind==="system-many") {
     lesson.work(parameterization(result,["x","y","z"]).join("; "),t("Wspólny rząd jest mniejszy od trzech, dlatego występuje zmienna swobodna.","The common rank is below three, so a free variable exists."));
   }else {
