@@ -31,6 +31,7 @@ import { GraphGapDisplay } from "./GraphGapDisplay";
 import { PuncturedSymmetryDisplay } from "./PuncturedSymmetryDisplay";
 import { AsymptoteRangeDisplay } from "./AsymptoteRangeDisplay";
 import { IntegratedAsymptoteDisplay } from "./IntegratedAsymptoteDisplay";
+import { EvenOpenRangeDisplay } from "./university/graphEvenOpenRangeDisplay";
 import { DerivativeSketchDisplay } from "./DerivativeSketchDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
@@ -49,6 +50,7 @@ import { completedSession } from "./progress/model";
 import { useProgress } from "./progress/useProgress";
 import { ProgressDashboard } from "./progress/ProgressDashboard";
 import { categoryTitle, resolveCatalogCompetency, searchCatalog, selectCatalogFamily } from "./catalogSearch";
+import { displayedMatrixNextHint } from "./education/matrixHintDisplay";
 import { ExamMode } from "./exam/ExamMode";
 import { examCopy } from "./exam/copy";
 
@@ -643,6 +645,9 @@ export default function App() {
                   {isUniversityTask(active) && active.university.kind === "function-integrated-asymptotes" && (
                     <IntegratedAsymptoteDisplay problem={active.university} locale={locale} />
                   )}
+                  {isUniversityTask(active) && active.university.kind === "function-even-open-range" && (
+                    <EvenOpenRangeDisplay problem={active.university} locale={locale} />
+                  )}
                   {isUniversityTask(active) && active.university.kind === "function-asymptote-range" && (
                     <AsymptoteRangeDisplay problem={active.university} locale={locale} />
                   )}
@@ -790,7 +795,7 @@ export default function App() {
                                 ? result.diagnosis.hint
                                 : result.diagnosis.kind === "hypotheses" && !result.diagnosis.ambiguous
                                   ? result.diagnosis.candidates[0].hint
-                                  : active.nextHint}
+                                  : displayedMatrixNextHint(active, locale)}
                             </p>
                           )}
                           {stepVisible && active.step && (

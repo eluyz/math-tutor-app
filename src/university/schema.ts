@@ -25,6 +25,7 @@ import type { HorizontalSliceAreaProblem } from "./horizontalSliceArea";
 import type { TwoParabolasAreaProblem } from "./twoParabolasArea";
 import type { ParametricArcProblem } from "./parametricArc";
 import type { IntegralBasicsFollowupProblem } from "./integralBasicsFollowup";
+import type { I02TableStageProblem } from "./integralTableI02Stage";
 import type { IntegralMethodsFollowupProblem } from "./integralMethodsFollowup";
 import type { IntegralPartsTrigQuadraticProblem } from "./integralPartsTrigQuadratic";
 import type { FunctionExtensionProblem } from "./functionExtensions";
@@ -41,6 +42,7 @@ import type { GraphIntegratedProblem } from "./graphIntegratedProperties";
 import type { IntegratedJumpProblem } from "./graphIntegratedJump";
 import type { IntegratedPuncturesProblem } from "./graphIntegratedPunctures";
 import type { IntegratedAsymptoteProblem } from "./graphIntegratedAsymptotes";
+import type { EvenOpenRangeProblem } from "./graphEvenOpenRange";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { GraphInjectivityProblem } from "./graphInjectivity";
@@ -303,6 +305,7 @@ export type UniversityProblem =
   | IntegratedJumpProblem
   | IntegratedPuncturesProblem
   | IntegratedAsymptoteProblem
+  | EvenOpenRangeProblem
   | DerivativeSketchProblem
   | GraphPropertyProblem
   | GraphInjectivityProblem
@@ -357,6 +360,7 @@ export type UniversityProblem =
   | TwoParabolasAreaProblem
   | ParametricArcProblem
   | IntegralBasicsFollowupProblem
+  | I02TableStageProblem
   | IntegralMethodsFollowupProblem
   | IntegralPartsTrigQuadraticProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
