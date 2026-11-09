@@ -10,3 +10,9 @@
 ## CI scheduler follow-up — 2026-11-09
 
 After the first integrated CI failed on four stale inventory/doc assertions (since fixed), the reconciled exact-head `47c75b3b16d0b264e35111ebd52a854347f26ac3` produced [GitHub CI #42671507893](https://github.com/eluyz/math-tutor-app/actions/runs/42671507893): conclusion FAILURE, but **zero jobs were created** according to both the Actions run jobs endpoint and attempt 1 jobs endpoint. It elapsed exactly 60,000 ms, with no Vitest, build, Playwright or Batch B–G attempts; therefore it is **NOT a project-test verdict**. GitHub rejected rerun-failed-jobs with 403 "This workflow run cannot be retried". This documentation update creates a new SHA to request a clean GitHub Actions run. Until a full run reaches terminal SUCCESS, the PR remains Draft and not merge-ready.
+
+## 2026-11-09 latest-main reconciliation and CI retry
+
+- Previous exact HEAD `ac45be2821c5642a2eab228b0b0e98ca482553ac`: CI [#42672381358](https://github.com/eluyz/math-tutor-app/actions/runs/42672381358) concluded failure **without creating any verify job** (Actions jobs endpoint returned `total_count: 0`). GitHub rejected rerun-failed-jobs with HTTP 403. Therefore its conclusion does **not** demonstrate code/test failure.
+- Merged current `main@91f77b8ffb1298e0ccbe51b7008ae5712bb5e1b8` (includes F05/e) without losing other lanes, rechecked 14 G04-related file changes and clean mergeability. Updated expected catalog inventory to **254 families / 19,245 tasks**; outside integral category **231 families / 17,637 tasks**. Kept historical MT-EDU-005 and integral baseline exclusions scoped to `limit-mixed-fractional-roots`.
+- This documentation commit is intended to trigger a **fresh actual test run** on the latest integrated code. Retain Draft and block merge until exact SHA unit/build/Chromium/Batch B–G SUCCESS, independent code review, then owner authorization. Do not infer this from the staged PR #268 PASS.
