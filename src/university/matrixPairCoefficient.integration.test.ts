@@ -33,7 +33,7 @@ describe("M05 matrix-coefficient source-form: student catalog integration", () =
           expect(localized.hint.length).toBeGreaterThan(20);
           expect(localized.nextHint).toContain("(I−AB)");
           expect(localized.solution).toHaveLength(7);
-          expect(localized.solution.at(-1)?.kind).toBe("answer");
+          expect(localized.solution?.at(-1)?.kind).toBe("answer");
           expect(localized.title).toBe(matrixCoefficientPairFamilies[0].titles[locale]);
           expect(localized.answer.kind).toBe("list");
           if (localized.answer.kind !== "list") throw Error("Missing eight-field list");
