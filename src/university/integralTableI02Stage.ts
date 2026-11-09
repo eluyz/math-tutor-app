@@ -63,10 +63,10 @@ export function presentI02TableStage(p:I02TableStageProblem,locale:Locale){
   if(p.mode==="tan-square"||p.mode==="cot-square"){
     const isTan=p.mode==="tan-square";
     const trig=isTan?t("tg","tan"):t("ctg","cot");
-    const basis=isTan?"tan("+u+")":"cot("+u+")";
+    const basis=trig+"("+u+")";
     const integrand=kText+trig+"²("+u+")";
-    const identity=isTan?"tan²(u)=1/cos²(u)−1":"cot²(u)=1/sin²(u)−1";
-    const antiderivative=isTan?"tan(u)":"−cot(u)";
+    const identity=trig+"²(u)="+(isTan?"1/cos²(u)−1":"1/sin²(u)−1");
+    const antiderivative=(isTan?"":"−")+trig+"(u)";
     const terms=[{basis,coefficient:coef[0]},{basis:"x",coefficient:coef[1]}];
     work("u="+u+"; du/dx="+a,
       "Sprawdź pochodną argumentu i przedział ciągłości funkcji trygonometrycznej.",
@@ -74,7 +74,7 @@ export function presentI02TableStage(p:I02TableStageProblem,locale:Locale){
     work(identity,
       "Zastosuj tożsamość, by rozdzielić kwadrat na funkcję z prostą pierwotną i stałą.",
       "Use the identity to split the squared function into an integrable term and a constant.");
-    work("∫"+(isTan?"tan²":"cot²")+"(u)du="+antiderivative+"−u+C",
+    work("∫"+trig+"²(u)du="+antiderivative+"−u+C",
       "Współczynnik przy funkcji trygonometrycznej podziel przez a, a składnik stały zachowaj.",
       "Divide the trigonometric coefficient by a, preserving the constant term.");
     work("F(x)=("+fmt(coef[0])+")"+basis+"+("+fmt(coef[1])+")x+C",
