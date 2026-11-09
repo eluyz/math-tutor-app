@@ -2,6 +2,7 @@ import { rational as r, addRational as add, subtractRational as sub, multiplyRat
 import { formatRational as fmt, type AnswerSpec } from "../answers";
 import type { Locale } from "../locales/types";
 import { teaching } from "./teaching";
+import type { UniversityFamily } from "./schema";
 
 /** G06: new, synthetic x→+∞ forms. Deliberately does not change the archived x→0 Euler family. */
 export type EulerInfinityProblem = Readonly<
@@ -29,12 +30,12 @@ export function makeEulerInfinity(variant: number): EulerInfinityProblem {
   }
 }
 
-export const eulerInfinityFamilies = [{
+export const eulerInfinityFamilies: readonly UniversityFamily[] = [{
   id: "analysis-euler-function-infinity", category: "function-limits",
-  titles: { pl: "Granica Eulera funkcji przy +∞", en: "Euler-type function limits at +∞" },
+  titles: { pl: "Granica funkcji typu Eulera przy +∞", en: "Euler-type function limits at +∞" },
   supportedDifficulties: ["hard"],
   create: (variant: number) => makeEulerInfinity(variant),
-}] as const;
+}];
 
 /** The limit is exp(coefficient·π) when pi=true, or exp(coefficient) otherwise. */
 export function eulerInfinityExponent(problem: EulerInfinityProblem): { coefficient: Rational; pi: boolean } {
@@ -84,7 +85,7 @@ export function presentEulerInfinity(problem: EulerInfinityProblem, locale: Loca
       t("Ponieważ ln(1+u)/u→1, granica logarytmu jest dokładnym wykładnikiem wyniku.",
         "Because ln(1+u)/u→1, the logarithm tends to the exact exponent in the answer."));
   }
-  lesson.work(`L=${coefficient.numerator === 0n ? "1" : `e^(${fmt(coefficient)}${pi ? "π" : ""})`}`,
+  lesson.work(`lim_(x→+∞) B(x)^E(x)=${coefficient.numerator === 0n ? "1" : `e^(${fmt(coefficient)}${pi ? "π" : ""})`}`,
     t("Zachowujemy wynik w postaci dokładnej; nie zamieniamy liczby e ani π na przybliżenia.",
       "Keep the exact symbolic answer; do not replace e or π with decimal approximations."));
   return lesson.finish(
