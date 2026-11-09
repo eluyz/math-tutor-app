@@ -457,7 +457,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "analysis-study-polynomial",
-      "analysis-study-rational"
+      "analysis-study-rational",
+      "analysis-study-smooth-rational"
     ]
   },
   "D09": {
