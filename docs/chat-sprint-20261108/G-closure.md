@@ -30,3 +30,12 @@ This stage intentionally does **not** register the new kind, because catalog and
 ## Student-ready until integration
 
 Use existing `analysis-euler-function` for x→0 Euler limits; for the x→+∞ source form the new family is **staged only**. Existing G01–G05 and G07–G08 families remain unmodified. Priority after integration: private-source-to-UI witness and correct/wrong/empty grading check for G06, without publishing originals.
+
+## Addendum — G04 mixed fractional powers, 2026-11-09
+
+- Branch: `chat/closure-g04-fractional-roots-20261109`, baseline `main@dfdb8cca1d962fc9838a7d1c201d8da9faf84f44`, Refs #108.
+- Private source method gap verified: comparison of square-root and cube-root growth in a quotient at positive infinity. No original question, numerical coefficients, result, scan or key are reproduced in public files.
+- Stage-only files: `functionLimitsFractionalRoots.ts` and its targeted `.test.ts`. The 24 synthetic cases classify limits as zero, positive infinity, or negative infinity, with PL/EN steps, hints and grading specs.
+- Independent numerical cross-check (outside the app): 24/24 cases PASS; exactly 8 finite, 8 positive-infinite and 8 negative-infinite. Regression test authored, but project Vitest/build/Playwright and exact-HEAD CI **NOT_RUN/NOT_VERIFIED** at this checkpoint.
+- No shared catalog/schema/competency edits. The stage is **not available to students** until a future serialized integration PR and browser QA.
+- Remaining work: verify exact-head CI, independent QA, owner review; later integrate G04 and separately examine the source's exponential-ratio growth method. No `SOURCE_PASS` claim.
