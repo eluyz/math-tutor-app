@@ -34,7 +34,7 @@ describe("D08 isolated full study: distinct removable hole and genuine pole",()=
   for(const level of ["hard","advanced","expert"] as const)
     it(level+": all 24 variants, mathematical checks, two languages, hints, steps and grading",()=>{
       const keys=new Set<string>();
-      let signs=new Set<number>(), holesLeft=0,holesRight=0,zeroShift=0;
+      let signs=new Set<number>(), holesLeft=0,holesRight=0,zeroShift=0,zeroAsymptoteWithYIntercept=0;
       for(let variant=0;variant<24;variant++){
         const p=makeHolePoleStudy(variant,level);
         const h=n(p.hole),pole=n(p.pole),m=n(p.coefficient),k=n(p.shift);
@@ -44,6 +44,11 @@ describe("D08 isolated full study: distinct removable hole and genuine pole",()=
         signs.add(sign(m));
         if(h<pole) holesLeft++;else holesRight++;
         if(k===0)zeroShift++;
+        if(k===0 && pole!==0 && h!==0){
+          zeroAsymptoteWithYIntercept++;
+          expect(()=>holePoleStudyValue(p,r(0))).not.toThrow();
+          expect(presentHolePoleStudy(p,"en").explanation).toContain("f(0)=");
+        }
         const holeY=holePoleStudyHoleLimit(p);
         expect(eq(holeY,add(p.shift,div(p.coefficient,sub(p.hole,p.pole))))).toBe(true);
         expect(n(holeY)).toBeCloseTo(k+m/(h-pole),12);
@@ -94,6 +99,7 @@ describe("D08 isolated full study: distinct removable hole and genuine pole",()=
       expect(holesLeft).toBeGreaterThan(0);
       expect(holesRight).toBeGreaterThan(0);
       expect(zeroShift).toBeGreaterThan(0);
+      expect(zeroAsymptoteWithYIntercept).toBeGreaterThan(0);
     },30000);
 
   it("rejects a cancelled algebraic zero at a hole, rather than counting an intercept",()=>{
