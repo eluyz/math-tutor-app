@@ -53,28 +53,33 @@ function independentCoefficients(A: Matrix, rhs: readonly Rational[]) {
   return { coefficients, pivots, free };
 }
 
-describe("U06/U08 isolated 4x5 / rank-two / three-parameter method", () => {
+describe("U06/U08 isolated 3x5 and 4x5 / rank-two / three-parameter methods", () => {
   it("stages one candidate family and rejects invalid variants/levels", () => {
-    expect(gaussThreeParameterFamilies).toHaveLength(1);
-    expect(gaussThreeParameterFamilies[0].id).toBe("gauss-five-three-parameters");
-    expect(gaussThreeParameterFamilies[0].supportedDifficulties).toEqual(["hard", "advanced", "expert"]);
+    expect(gaussThreeParameterFamilies).toHaveLength(2);
+    expect(gaussThreeParameterFamilies.map(f => f.id)).toEqual([
+      "gauss-three-by-five-three-parameters", "gauss-five-three-parameters"]);
+    for (const family of gaussThreeParameterFamilies)
+      expect(family.supportedDifficulties).toEqual(["hard", "advanced", "expert"]);
     for (const bad of [-1, 24, 0.5, Number.NaN, Number.POSITIVE_INFINITY])
       expect(() => constructGaussThreeParameters(bad, "hard")).toThrow();
     expect(() => constructGaussThreeParameters(0, "easy")).toThrow();
     expect(() => constructGaussThreeParameters(0, "medium")).toThrow();
+    expect(() => constructGaussThreeParameters(0, "hard", 2 as 3)).toThrow();
+    expect(() => constructGaussThreeParameters(0, "hard", 5 as 4)).toThrow();
   });
 
-  for (const level of ["hard", "advanced", "expert"] as const satisfies readonly Difficulty[])
-    it(level + ": independently checks all 24 variants, 20 fields, every equation, and PL/EN grading", () => {
+  for (const equations of [3, 4] as const)
+    for (const level of ["hard", "advanced", "expert"] as const satisfies readonly Difficulty[])
+    it(`${equations}x5/${level}: independently checks all 24 variants, 20 fields, every equation, and PL/EN grading`, () => {
       const unique = new Set<string>();
       let fractional = false, negative = false, pivotAfterFree = false, swapped = false;
       for (let variant = 0; variant < 24; variant++) {
-        const p = constructGaussThreeParameters(variant, level);
+        const p = constructGaussThreeParameters(variant, level, equations);
         expect(p.kind).toBe("linear-system");
         expect(p.method).toBe("parameters");
-        expect(p.matrix).toHaveLength(4);
+        expect(p.matrix).toHaveLength(equations);
         expect(p.matrix.every(row => row.length === 5)).toBe(true);
-        expect(p.rhs).toHaveLength(4);
+        expect(p.rhs).toHaveLength(equations);
         const augmented = p.matrix.map((row, i) => [...row, p.rhs[i]]);
         // Explicitly prove rank(A)=rank([A|b])=2 by nonzero 2x2 and zero 3x3+ minors.
         expect(independentRank(p.matrix)).toBe(2);
@@ -95,7 +100,7 @@ describe("U06/U08 isolated 4x5 / rank-two / three-parameter method", () => {
           const expected = oracle.coefficients.flat();
           answer.values.forEach((value, i) =>
             expect(eq(value, expected[i]), `${level}/${variant}/${locale}/field-${i}`).toBe(true));
-          for (let i = 0; i < 4; i++)
+          for (let i = 0; i < equations; i++)
             for (let k = 0; k <= 3; k++) {
               const lhs = p.matrix[i].map((c, j) => m(c, answer.values[j * 4 + k])).reduce(a, q(0));
               expect(eq(lhs, k === 0 ? p.rhs[i] : q(0)),
@@ -106,7 +111,7 @@ describe("U06/U08 isolated 4x5 / rank-two / three-parameter method", () => {
           for (const term of ["t1", "t2", "t3", "x=c+at1+bt2+dt3"])
             expect(view.question).toContain(term);
           expect(view.solution.some(step => step.action.startsWith("RREF"))).toBe(true);
-          expect(view.solution.filter(step => /^R\d+: /.test(step.action))).toHaveLength(4);
+          expect(view.solution.filter(step => /^R\d+: /.test(step.action))).toHaveLength(equations);
           swapped ||= view.solution.some(step => step.action.includes("↔"));
           const right = { kind: "list" as const, values: answer.values.map(fmt) };
           expect(assessAnswer(answer, right).kind).toBe("correct");
