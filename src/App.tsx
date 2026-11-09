@@ -31,6 +31,7 @@ import { GraphGapDisplay } from "./GraphGapDisplay";
 import { PuncturedSymmetryDisplay } from "./PuncturedSymmetryDisplay";
 import { AsymptoteRangeDisplay } from "./AsymptoteRangeDisplay";
 import { IntegratedAsymptoteDisplay } from "./IntegratedAsymptoteDisplay";
+import { EvenOpenRangeDisplay } from "./university/graphEvenOpenRangeDisplay";
 import { DerivativeSketchDisplay } from "./DerivativeSketchDisplay";
 import { isUniversityTask } from "./university/catalog";
 import { LinearAlgebraDisplay } from "./LinearAlgebraDisplay";
@@ -642,6 +643,9 @@ export default function App() {
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-integrated-asymptotes" && (
                     <IntegratedAsymptoteDisplay problem={active.university} locale={locale} />
+                  )}
+                  {isUniversityTask(active) && active.university.kind === "function-even-open-range" && (
+                    <EvenOpenRangeDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-asymptote-range" && (
                     <AsymptoteRangeDisplay problem={active.university} locale={locale} />

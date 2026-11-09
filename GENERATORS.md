@@ -1,3 +1,9 @@
+## F05/b — even open-range synthetic graph (PR #243)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| function-even-open-range | hard, advanced, expert | 72 | Two symmetric excluded inputs, 4 hollow endpoints, unbounded tails, open range floor and 6 graded PL/EN fields; synthetic METHOD_PROXY only, original P21/b unaccepted. |
+
 ## D08 — study of a pole-free rational function (PR #245 integration)
 
 | Family | Levels | Variants | Method |
