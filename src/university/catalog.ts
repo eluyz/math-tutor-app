@@ -105,6 +105,7 @@ import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabola
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
 import {i02TableFamilies,presentI02TableStage} from "./integralTableI02Stage";
+import {makeI03LogPowerStage,presentI03LogPowerStage} from "./integralLogPowerI03Stage";
 import { integralMethodsFollowupFamilies, presentIntegralMethodsFollowup } from "./integralMethodsFollowup";
 import { integralPartsTrigQuadraticFamily, presentQuadraticTrigParts } from "./integralPartsTrigQuadratic";
 
@@ -221,6 +222,9 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
   ...i02TableFamilies,
+  {id:"integral-log-power-i03-stage",category:"integrals",
+    titles:{pl:"Podstawienie logarytmiczne — potęgi ln(ax+b)",en:"Logarithmic substitution — powers of ln(ax+b)"},
+    supportedDifficulties:["hard"],create:makeI03LogPowerStage},
   ...integralMethodsFollowupFamilies,
   integralPartsTrigQuadraticFamily,
 ];
@@ -237,6 +241,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentSmoothRationalStudy(problem, locale)
     : problem.kind === "integral-table-i02-stage"
     ? presentI02TableStage(problem,locale)
+    : problem.kind === "integral-log-power-i03-stage"
+    ? presentI03LogPowerStage(problem,locale)
     : problem.kind === "integral-parts-trig-quadratic"
     ? presentQuadraticTrigParts(problem,locale)
     : problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"

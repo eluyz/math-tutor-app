@@ -29,6 +29,7 @@ import type { TwoParabolasAreaProblem } from "./twoParabolasArea";
 import type { ParametricArcProblem } from "./parametricArc";
 import type { IntegralBasicsFollowupProblem } from "./integralBasicsFollowup";
 import type { I02TableStageProblem } from "./integralTableI02Stage";
+import type { I03LogPowerStageProblem } from "./integralLogPowerI03Stage";
 import type { IntegralMethodsFollowupProblem } from "./integralMethodsFollowup";
 import type { IntegralPartsTrigQuadraticProblem } from "./integralPartsTrigQuadratic";
 import type { FunctionExtensionProblem } from "./functionExtensions";
@@ -369,6 +370,7 @@ export type UniversityProblem =
   | ParametricArcProblem
   | IntegralBasicsFollowupProblem
   | I02TableStageProblem
+  | I03LogPowerStageProblem
   | IntegralMethodsFollowupProblem
   | IntegralPartsTrigQuadraticProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
