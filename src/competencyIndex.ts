@@ -233,7 +233,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "C01": {
     "coverage": "bounded",
     "familyIds": [
-      "sequence-rational"
+      "sequence-rational",
+      "sequence-polynomial-source-shapes"
     ]
   },
   "C02": {
@@ -248,7 +249,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "C03": {
     "coverage": "bounded",
     "familyIds": [
-      "sequence-conjugate"
+      "sequence-conjugate",
+      "sequence-conjugate-source-shapes"
     ]
   },
   "C04": {
