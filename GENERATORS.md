@@ -866,6 +866,7 @@ MT-EDU-009: **216** nowych instancji; łącznie **9237**. Nowe rodziny: **3**. P
 | Rodzina | Poziomy | Zakres |
 | --- | --- | --- |
 | matrix-coupled-equations | medium, hard, advanced, expert | Dwa równania aX+bY=A oraz cX+dY=B, niewiadome 2×2, osiem dokładnych pól odpowiedzi |
+| matrix-coefficient-coupled-equations | medium, hard, advanced, expert | 96 autorskich przykładów 2×2: X+AY=C, BX+Y=D, nieprzemienne AB, dokładne osiem pól X/Y, PL/EN; wyłącznie proxy metody M05, SOURCE_PASS niepotwierdzony. |
 | determinant-dense-four | hard, advanced, expert | Pełny Laplace dla 4×4 bez zer, znaki i minory |
 | determinant-dense-five | advanced, expert | Pełny Laplace dla 5×5 bez zer, minory 4×4/3×3 |
 
