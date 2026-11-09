@@ -36,6 +36,7 @@ describe("G04 mixed fractional roots — catalog integration", () => {
         expect(shown.question).toContain("x→+∞");
         expect(shown.hint.length).toBeGreaterThan(10);
         expect(shown.nextHint.length).toBeGreaterThan(10);
+        if (!shown.solution) throw Error("Missing G04 worked solution");
         expect(shown.solution.length).toBeGreaterThanOrEqual(4);
         if (shown.answer.kind !== "limit") throw Error("Expected limit answer");
         expect(shown.answer.value.kind).toBe(expected);
