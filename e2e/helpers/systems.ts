@@ -1,6 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 import { parseAnswer, rational, type Rational } from "../../src/rational";
-import { a, m, s, d, q, laplace } from "../../src/university/audit";
+import { a, m, s, d, q, eq, laplace } from "../../src/university/audit";
 const parse = (text: string) => {
   const p = parseAnswer(text.trim());
   if (p.kind !== "valid")
@@ -170,4 +170,46 @@ export function readChain(question:string) {
     throw Error("Unverified remaining chain equalities");
   const target=/^(?:Oblicz|Find) x\b/.test(question)?"x":"y";
   return {x,y,target,answer:target==="x"?x:y};
+}
+
+
+/** Independent VISIBLE-QUESTION-ONLY exact Cramer oracle for a six-expression
+ * equality chain in five unknowns. Never reads production answers/solver. */
+export function readFiveUnknownChain(question: string) {
+  const start = question.lastIndexOf(": ");
+  if (start === -1) throw Error("Missing visible equality chain");
+  const chain = question.slice(start + 2).replace(/\.$/, "");
+  const parts = chain.split(" = ");
+  if (parts.length !== 6) throw Error("Expected five equality signs and six expressions");
+  const names = ["x", "y", "z", "u", "v"] as const;
+  const expressions = parts.map(text => {
+    const tokens = text.split(" + ");
+    const constant = parse(tokens[0]);
+    const coefficients: Rational[] = names.map(() => q(0));
+    const seen = new Set<string>();
+    for (const term of tokens.slice(1)) {
+      const match = /^\(([^()]+)\)·([xyzuv])$/.exec(term);
+      if (!match || seen.has(match[2])) throw Error("Invalid or repeated five-unknown coefficient: " + term);
+      seen.add(match[2]);
+      coefficients[names.indexOf(match[2] as typeof names[number])] = parse(match[1]);
+    }
+    return { coefficients, constant };
+  });
+  const last = expressions[5];
+  const A = expressions.slice(0, 5).map(row => row.coefficients.map((coefficient, j) =>
+    s(coefficient, last.coefficients[j])));
+  const rhs = expressions.slice(0, 5).map(row => s(last.constant, row.constant));
+  const D = laplace(A);
+  if (D.numerator === 0n) throw Error("Displayed five-unknown chain is singular");
+  const values = names.map((_, col) =>
+    d(laplace(A.map((row, i) => row.map((v, j) => j === col ? rhs[i] : v))), D));
+  const common = a(
+    last.coefficients.map((coefficient, j) => m(coefficient, values[j])).reduce(a, q(0)),
+    last.constant,
+  );
+  for (const row of expressions) {
+    const value = a(row.coefficients.map((c, j) => m(c, values[j])).reduce(a, q(0)), row.constant);
+    if (!eq(value, common)) throw Error("Original displayed equality chain has an inconsistent row");
+  }
+  return { answer: values[0], values, determinant: D, expressions, rhs };
 }
