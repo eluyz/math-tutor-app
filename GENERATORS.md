@@ -1,10 +1,10 @@
-## MT-SYLLABUS G06 — granice Eulera przy x→+∞ (integracja PR #244)
+## G06 — granice Eulera przy x→+∞ (kandydat integracji PR #244)
 
 | Family | Levels | Variants | Method |
 | --- | --- | ---: | --- |
-| analysis-euler-function-infinity | hard | 24 | Syntetyczne granice typu Eulera przy +∞: 1+a/x albo iloraz funkcji liniowych; dokładne e^(q) / e^(qπ), podstawa równa 1, kroki logarytmiczne PL/EN. |
+| analysis-euler-function-infinity | hard | 24 | Syntetyczne granice funkcji Eulera przy +∞: 1+a/x, iloraz liniowy, dokładne e^(q) / e^(qπ), przypadek podstawy równej 1 i dwujęzyczne kroki logarytmiczne. |
 
-**Status:** źródłowy generator #235 scalony; rejestracja G06 +24 przypadki w PR #244 wymaga pełnego CI i postmerge Pages. Historyczne 96 zadań x→0 nienaruszone.
+**Stan:** #235 scalony; #244 wymaga pełnego nowego CI i niezależnej weryfikacji wdrożenia. Wcześniejsze 96 zadań Eulera przy x→0 pozostaje bez zmian.
 
 ## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
 
@@ -196,9 +196,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **242 rodziny**, **18453 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **243 rodziny**, **18525 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 182 rodziny wspierają advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **181**, L5: **164**.
+Łącznie rodziny L4: **182**, L5: **165**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -245,6 +245,7 @@ Bieżący katalog UI i sesji: **242 rodziny**, **18453 instancji**. (Liczby doty
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | determinant-radical-two | hard, advanced, expert | 72 | Exact algebra in Q(√d), d∈{2,3,5,7}, two-by-two matrix with radical coefficients and rational final answer. Hard: conjugate products; advanced/expert: invertible row/column additions requiring radical terms to cancel across ad−bc. |
+| determinant-radical-mixed-two | hard, advanced, expert | 72 | Two distinct radicals in the same 2×2 matrix, each product rational by conjugation; exact integer results and PL/EN teaching. |
 
 **Deployed** +72 exercises in one new family, reaching **209 families / 16,941 tasks** at main commit `55cdb973`. This does not change the existing `Rational` or determinant 2×2–5×5 APIs. A separate independent pair-ring oracle checks all 72 variants; classroom witness still needs an explicit source-fidelity sign-off.
 

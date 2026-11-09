@@ -1,31 +1,26 @@
-# G06 — integracja po I04 i W02
+# G06 — integracja do katalogu po I04, W02 i M06
 
-Data: 2026-11-09. Rodzic PR #235 został zatwierdzony i scalony w `main@982960b5fe256564c05a741942c0335a91401d9c`. Następnie scalenie W02 PR #248 dało `main@374b50db1552776521f9f0a3b24af932299c728f`. PR #244 pozostaje osobnym kandydatem do scalenia.
+2026-11-09. Izolowany PR #235 (24 warianty) został scalony do main pod SHA `982960b5fe256564c05a741942c0335a91401d9c` i ma **full main CI + Pages PASS**. Po scaleniu I04 #239, W02 #248 oraz M06 #251 bieżąca baza wynosi `main@7f2cd91ec916ac595ca86d05d22aa66eeb60a2d4`. PR #244 jest nadal osobnym kandydatem integracji.
 
-## Zmiany
+## Funkcje
 
-- G06 x→+∞: jedna nowa rodzina `analysis-euler-function-infinity`, 24 warianty poziomu hard, podstawa typu (1+a/x) lub iloraz liniowy, dokładne wyniki z e/π. Stara rodzina x→0 i 96 historycznych wariantów pozostają bez zmian.
-- Zarejestrowano `EulerInfinityProblem` w schemacie, `eulerInfinityFamilies` w katalogu, presenter z pierwszeństwem przed ogólnym `isElementaryAnalysis` oraz rodzinę w wyszukiwarce kompetencji G06 (nadal `partial`).
-- Niezależne testy granic, PL/EN, poprawnych/błędnych/pustych odpowiedzi, 375 px i 1280 px, oraz testy bezpośredniego wyszukiwania rodziny w interfejsie.
-- Zachowano kompletną integrację I04 (PR #239) i W02 (PR #248), bez zastąpienia ich generatorów, testów, dopasowań w katalogu czy wartości liczników.
+- `analysis-euler-function-infinity` = +1 rodzina / +24 warianty tylko hard, granice Eulera przy x→+∞, dwie formy podstawy, e oraz π, szczegółowy dowód z logarytmem, autorskie zadania PL/EN i wielokrotny wybór dokładnej postaci.
+- `EulerInfinityProblem` w unii `UniversityProblem`, wyszukiwanie kompetencji G06 nadal `partial`, priorytet prezentera przed ogólnym `isElementaryAnalysis`.
+- 24/24 niezależnych porównań matematycznych, 24×2 testów logicznych oceniania, browser PL/EN × 375/1280 px: wyszukanie, odpowiedź pusta/błędna/poprawna, rozwiązanie.
+- Wcześniejsze 96 historycznych przypadków x→0 pozostają bez zmian; I04, W02 i M06 oraz ich testy/inventory zachowane.
 
-## Kumulacyjne liczniki
+## Liczniki
 
-| Wskaźnik | Main po W02 | Kandydat po G06 |
+| Miara | Main przed G06 | G06 candidate |
 | --- | ---: | ---: |
-| Rodziny | 241 | 242 |
-| Rodziny poza całkami | 219 | 220 |
-| Warianty | 18 429 | 18 453 |
-| Warianty poza całkami | 16 845 | 16 869 |
+| Rodziny | 242 | 243 |
+| Rodziny poza całkami | 220 | 221 |
+| Warianty | 18 501 | 18 525 |
+| Warianty poza całkami | 16 917 | 16 941 |
 
-Jeśli przed scaleniem pojawi się inna integracja, ponownie sprawdzić liczniki i pełny diff.
+## Warunki końcowe
 
-## Walidacja i bramki wydania
-
-1. Kod źródłowy rodzica #235: CI na HEAD przed scaleniem PASS; po scaleniu main CI oraz GitHub Pages na dokładnym SHA PASS.
-2. Poprzedni kandydat #244 miał pełny PASS na SHA `63e3d5b4d915f63c1c92d659626ffbdde796631c`, lecz jego CI nie wystarcza do akceptacji obecnej wersji po I04 i W02.
-3. Nowy exact-HEAD wymaga `npm test`, produkcyjnego buildu, Playwright oraz akceptacji Batch B–G.
-4. Właściciel projektu musi wyrazić zgodę na scalenie integracji. Po merge wymagane osobne main CI i Pages PASS na tym samym SHA.
-5. Cztery prywatne oryginalne P26/3a–d były niezależnie porównane matematycznie, ale `SOURCE_FORM_MATCH 4/4` nie oznacza formalnego `SOURCE_PASS`, ani identycznej treści w przeglądarce. Żadnych prywatnych danych źródłowych nie publikować.
-
-**NIE oznaczać jako SOURCE_PASS przed niezależnym świadkiem źródło→wdrożona aplikacja.**
+1. Po kolejnym scaleniu integracji do main zawsze odbudować konfliktujące liczniki, wykonać świeży CI na nowym SHA i upewnić się, że żadne z poprzednich ćwiczeń nie zostało nadpisane.
+2. Scalić PR #244 jedynie przy pełnym PASS unit, build, Playwright i Batch B–G na aktualnym SHA i po weryfikacji zgodności bazy main.
+3. Po scałeniu osobno potwierdzić CI i Pages na identycznym SHA.
+4. Prywatne cztery oryginalne zadania P26/3a–d: `SOURCE_FORM_MATCH 4/4` metodą logarytmiczną. To nie jest formalny `SOURCE_PASS` ani dosłowna transkrypcja. Nie publikować treści prywatnych zadań ani ich kluczy.
