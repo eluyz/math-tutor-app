@@ -41,7 +41,9 @@ describe("U04: five-unknown source-shaped equality chains, stage-only", () => {
     expect(published.university.expressions.every(e => "a" in e && "b" in e)).toBe(true);
     for (const locale of ["pl", "en"] as const)
       expect(localizeUniversity(published, locale).question).toContain("y");
-    expect(() => makeUniversityTask("system-chain-five-unknowns", 0, "medium")).toThrow();
+    const registered = makeUniversityTask("system-chain-five-unknowns", 0, "medium");
+    expect(registered.university.kind).toBe("linear-chain-five-unknowns");
+    expect(registered.id).not.toBe(published.id);
   });
   it("rejects unsupported levels and malformed variant IDs", () => {
     for (const variant of [-1, 24, 1.1, NaN, Infinity, -Infinity])

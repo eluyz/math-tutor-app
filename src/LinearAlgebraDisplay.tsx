@@ -3,7 +3,7 @@ import type { LinearAlgebraProblem } from "./university/schema";
 
 /** Read-only matrices are independent of the legacy 1–3 cell answer-grid limit. */
 export function LinearAlgebraDisplay({ problem }: { problem: LinearAlgebraProblem }) {
-  if (problem.kind === "linear-rank-given" || problem.kind === "linear-chain-five") return null;
+  if (problem.kind === "linear-rank-given" || problem.kind === "linear-chain-five" || problem.kind === "linear-chain-five-unknowns") return null;
   if (problem.kind === "linear-matrix-practice") return (
     <div className="given-matrices linear-algebra-matrices">
       {problem.matrices.map(m => <MatrixDisplay key={m.label} label={m.label} values={m.values} />)}
