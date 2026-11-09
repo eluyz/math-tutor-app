@@ -13,6 +13,7 @@ import type { IntegralProblem } from "./integrals";
 import type { DefiniteIntegralFollowupProblem } from "./definiteIntegralFollowup";
 import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
 import type { EulerInfinityProblem } from "./analysisLimitsAsymptotesInfinity";
+import type { CombinedAsymptoteProblem } from "./analysisCombinedAsymptotes";
 import type { ImproperIntegralProblem } from "./improperIntegrals";
 import type { InteriorImproperProblem } from "./interiorImproper";
 import type { AreaArcProblem } from "./areaArc";
@@ -337,6 +338,7 @@ export type UniversityProblem =
   | ElementaryAnalysisProblem
   | AsymptoteProblem
   | EulerInfinityProblem
+  | CombinedAsymptoteProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
   | FunctionStudyFollowupProblem

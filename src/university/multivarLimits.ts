@@ -63,6 +63,15 @@ const representation=(p:MultivarLimitProblem,divergent:boolean)=>
  "g(x,y)=("+f(p.base)+")+("+f(p.factor)+")"+(divergent?"u²v/(u⁴+v²)":"u²v²/(u²+v²)");
 export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
  const lesson=teaching(locale),{t}=lesson,point=coords(p),divergent=p.mode==="different-paths";
+ lesson.work("P="+point+"; Sδ(P)={Q:0<dist(Q,P)<δ}; Oδ(P)=Sδ(P)∪{P}",
+   t("Sąsiedztwo pomija badany punkt, a otoczenie go zawiera. Dla granicy analizujemy punkty dziedziny w dowolnie małym sąsiedztwie.",
+     "A punctured neighborhood excludes the target point, while a neighborhood includes it. Limits concern domain points arbitrarily close to the target."));
+ lesson.work("lim[n→∞](xₙ,yₙ)=P ⇔ lim xₙ=a ∧ lim yₙ=b",
+   t("Ciąg punktów zbiega do P=(a,b) dokładnie wtedy, gdy obie współrzędne zbiegają do odpowiednich wartości.",
+     "A sequence of points converges to P=(a,b) precisely when each coordinate converges to its target value."));
+ lesson.work("lim[Q→P]g(Q)=L ⇔ ∀(Qₙ∈D(g)\\{P}, Qₙ→P): g(Qₙ)→L",
+   t("Kryterium ciągowe wymaga tego samego wyniku dla każdego dopuszczalnego ciągu, nie tylko dwóch wybranych dróg. Dwie różne granice drogowe wystarczą jednak do obalenia istnienia granicy.",
+     "The sequential criterion requires the same limit along every valid sequence, not just two chosen paths. Two different path limits are nevertheless enough to disprove a limit."));
  const definition=representation(p,divergent);
  lesson.work("u=x−("+f(p.atX)+"), v=y−("+f(p.atY)+"); (x,y)→"+point+" ⇔ (u,v)→(0,0)",
   t("Przesuwamy badany punkt do (0,0). Wartość funkcji w tym punkcie nie wpływa na jej granicę.",
@@ -103,6 +112,9 @@ export function presentMultivarLimit(p:MultivarLimitProblem,locale:Locale){
      "Two distinct path limits disprove existence; a uniform bound covers all paths."));
  }
  const classification=continuityAtPoint(p),L=multivarLimitValue(p);
+ lesson.work("C(P) ⇔ lim[Q→P]f(Q)=f(P)",
+   t("Ciągłość wymaga zdefiniowanej wartości funkcji w punkcie i granicy równej tej wartości. To inny warunek niż samo istnienie granicy w sąsiedztwie.",
+     "Continuity requires an assigned function value at the point and a limit equal to that value. This is stronger than mere existence of a punctured limit."));
  if(L.kind==="finite"){
   lesson.work("lim[(x,y)→"+point+"]g(x,y)="+f(L.value)+"; f"+point+"="+f(p.valueAt),
    t("Porównujemy granicę w otoczeniu punktu z osobno przypisaną wartością funkcji.",
