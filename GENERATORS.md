@@ -6,11 +6,11 @@
 
 **Stan:** #235 scalony; #244 wymaga pełnego nowego CI i niezależnej weryfikacji wdrożenia. Wcześniejsze 96 zadań Eulera przy x→0 pozostaje bez zmian.
 
-## F05/b — public synthetic even graph (PR #243)
+## F05/b — synthetic six-field even graph (+72 variants; PR #243)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
-| function-even-open-range | hard, advanced, expert | 72 | Six graded PL/EN fields, two symmetric missing inputs, four hollow limits, open lower range bound, unbounded exterior. METHOD_PROXY only, original P21/b not source-certified. |
+| function-even-open-range | hard, advanced, expert | 72 | Two symmetric excluded arguments, four hollow endpoints, open lower range bound, exterior tails unbounded above; independent PL/EN grading. METHOD_PROXY only, original P21/b SOURCE_PASS is not verified. |
 
 ## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
 
@@ -202,9 +202,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **244 rodziny**, **18597 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 183 rodziny wspierają advanced, a 166 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **245 rodzin**, **18693 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 184 rodziny wspierają advanced, a 167 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **183**, L5: **166**.
+Łącznie rodziny L4: **184**, L5: **167**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -1046,3 +1046,11 @@ W każdym poziomie każdej rodziny jest dokładnie 8 układów jednoznacznych, 8
 | matrix-transpose-dimensions | easy, medium, hard | 72 | Wykonalność i wymiar `AᵀB`, `Aᵀ(B+C)`, `(AB)ᵀ+C`, `ABᵀ+C`, `(A+Bᵀ)C` |
 
 Generatory korzystają z macierzy 2×2, 2×3, 3×2 i 3×3. Poziom easy: małe liczby całkowite i co najwyżej dwa działania; medium: trzy macierze i nawiasy; hard: transpozycja, dodatkowe kroki i ułamki. W rodzinie wymiarów wszystkie poziomy mieszają zadania wykonalne i niewykonalne. Testy używają niezależnych obliczeń każdej komórki, osobnych reguł zgodności wymiarów i sprawdzają 144 unikalne warianty. **Po potencjalnym scaleniu** 151 rodzin / 12 765 wariantów; 149 poprzednich rodzin i 12 621 wariantów pozostaje dostępnych.
+
+## C02 — iloraz wielomianu kwadratowego i pierwiastka z wielomianu stopnia czwartego (PR #236 + #242)
+
+| Family | Levels | Variants | Method and limits |
+| --- | --- | ---: | --- |
+| sequence-root-quartic | medium, hard, advanced, expert | 96 | (A·n²+B·n+C)/√(d²·n⁴+e·n+g), d>0, e≥0, d²+g>0; wyłącz n⁴ i dziel przez n²; granica A/d, PL/EN |
+
+Nowa rodzina rozszerza C02 bez zastępowania poprzednich zadań; 96 syntetycznych wariantów obejmuje tylko wskazaną bezpieczną formę. Metoda #236 scalona; integracja #242 i pełne SOURCE_PASS wymagają osobnych bramek. Liczniki powyżej dotyczą gałęzi do czasu potwierdzenia wdrożenia na main.
