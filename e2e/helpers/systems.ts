@@ -1,6 +1,6 @@
 import { expect, type Page } from "@playwright/test";
 import { parseAnswer, rational, type Rational } from "../../src/rational";
-import { a, m, s, d, q, laplace } from "../../src/university/audit";
+import { a, m, s, d, q, eq, laplace } from "../../src/university/audit";
 const parse = (text: string) => {
   const p = parseAnswer(text.trim());
   if (p.kind !== "valid")
