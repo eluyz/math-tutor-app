@@ -238,6 +238,7 @@ export type DeterminantProblem = Readonly<{
 }>;
 export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-chain-five"; expressions: readonly { a:Rational; b:Rational; c:Rational; denominator:Rational }[]; target:"x"|"y" }>
+  | Readonly<{ kind: "linear-chain-five-unknowns"; expressions: readonly { coefficients: readonly [Rational,Rational,Rational,Rational,Rational]; constant: Rational }[]; target:"x" }>
   | Readonly<{ kind: "linear-rectangular"; matrix: readonly (readonly Rational[])[]; rhs:readonly Rational[] }>
   | Readonly<{ kind: "linear-inverse"; matrix: readonly (readonly Rational[])[]; method: "inverse" | "classification" }>
   | Readonly<{ kind: "linear-application"; matrix: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; method: "ax" | "xa" }>
