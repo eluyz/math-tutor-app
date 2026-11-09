@@ -5,7 +5,7 @@ Date: 2026-11-09. Source-method gap: a private G04 worksheet includes a ratio of
 ## Isolated implementation
 
 - `src/university/functionLimitsExponentialRatio.ts` exports a **stage-only** 24-variant hard-level family, discriminator `limit-exponential-function-ratio`.
-- Compare leading bases after exactly collecting equal-base coefficients. Denominator has positive coefficients and positive bases, so it is positive on all real x. Six modes include smaller leading numerator base (0), equal bases (nonzero rational), greater leading base (+∞ or −∞), and exact cancellation of two identical leading bases (0 or nonzero rational). Four coefficient families × six modes = **24 unique problems**.
+- Compare dominant bases after rewriting shifted powers A^(x+k)=A^k·A^x and collecting equal-base coefficients. One source-shaped mode has a positive dominant denominator term minus a smaller-base term; the denominator is then **eventually positive** for x→+∞, not necessarily positive for all real x. The remaining modes use strictly positive denominator coefficients. Six modes include smaller leading numerator base (0), equal bases (nonzero rational), greater leading base (+∞ or −∞), and exact cancellation of two identical leading bases (0 or nonzero rational). Four coefficient families × six modes = **24 unique problems**.
 - Outputs: 8 zero, 8 nonzero rational, 4 positive infinity, 4 negative infinity. PL/EN worked steps, two hints, exact rational grading-ready answer type.
 - `src/university/functionLimitsExponentialRatio.test.ts`: independent formula/oracle and large-x numerical checks for all 24; PL/EN, both hints, all steps, correct/wrong/blank grading, cancellation, malformed base/denominator checks.
 
