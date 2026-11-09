@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { taskPool } from "../src/generators";
 import { localizeTask } from "../src/locales/catalog";
 import { getAnswerSpec } from "../src/exercises";
+import { isUniversityTask } from "../src/university/catalog";
 import { polishLearningText } from "./helpers/localization";
 
 const familyId = "limit-mixed-fractional-roots";
@@ -40,7 +41,7 @@ for (const width of [375, 1280]) for (const locale of ["pl", "en"] as const) {
       .map(task => localizeTask(task, locale))
       .find(task => task.question === question);
     expect(matching).toBeDefined();
-    if (!matching || matching.university.kind !== "limit-mixed-fractional-roots") {
+    if (!matching || !isUniversityTask(matching) || matching.university.kind !== "limit-mixed-fractional-roots") {
       throw Error("Selected task was not the new G04 method");
     }
     const p = matching.university;
