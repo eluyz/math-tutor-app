@@ -40,6 +40,5 @@ describe("G07 source-shaped complete asymptote catalog integration",()=>{
    }
   }
   expect(ids.size).toBe(24);
-  // Catalog growth from independent sprint merges must not invalidate G07-specific checks.
  });
 });
