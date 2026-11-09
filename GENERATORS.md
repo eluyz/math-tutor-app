@@ -188,9 +188,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **241 rodzin**, **18405 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **242 rodziny**, **18477 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 181 rodzin wspiera advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **180**, L5: **164**.
+Łącznie rodziny L4: **181**, L5: **165**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -237,6 +237,7 @@ Bieżący katalog UI i sesji: **241 rodzin**, **18405 instancji**. (Liczby dotyc
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | determinant-radical-two | hard, advanced, expert | 72 | Exact algebra in Q(√d), d∈{2,3,5,7}, two-by-two matrix with radical coefficients and rational final answer. Hard: conjugate products; advanced/expert: invertible row/column additions requiring radical terms to cancel across ad−bc. |
+| determinant-radical-mixed-two | hard, advanced, expert | 72 | Two distinct radicals in the same 2×2 matrix, with separate conjugate cancellation in both diagonal products; exact integer results and PL/EN teaching. |
 
 **Deployed** +72 exercises in one new family, reaching **209 families / 16,941 tasks** at main commit `55cdb973`. This does not change the existing `Rational` or determinant 2×2–5×5 APIs. A separate independent pair-ring oracle checks all 72 variants; classroom witness still needs an explicit source-fidelity sign-off.
 
