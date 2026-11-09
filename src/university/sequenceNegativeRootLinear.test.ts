@@ -27,7 +27,7 @@ describe("C02 isolated negative-root-over-linear method (NOT catalog registered)
       const actual = negativeRootLinearSequenceLimit(p);
       expect(equal(actual.value, expected)).toBe(true);
       expect(actual.value.numerator).toBeLessThan(0n);
-      expect(Math.abs(calculate(p, 100000) - numeric(expected))).toBeLessThan(0.0001);
+      expect(Math.abs(calculate(p, 1000000) - numeric(expected))).toBeLessThan(0.0001);
       for (const locale of ["pl", "en"] as const) {
         const task = presentNegativeRootLinearSequence(p, locale);
         expect(task.question).toContain("n→+∞");
