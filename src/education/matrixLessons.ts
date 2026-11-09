@@ -45,9 +45,7 @@ export const matrixTemplates: EducationTemplate[] = [
       return shown(lesson({ rows, columns }, `Oblicz A ${sign} B. Wpisz całą macierz wynikową.`, { kind: "matrix", values: result },
         `Obie macierze mają wymiar ${rows} × ${columns}, więc działanie jest wykonalne. Łączymy elementy w tych samych pozycjach:\n` +
         entries(result, (i, j) => `${coordinate(i, j)} = (${f(a[i][j])}) ${sign} (${f(b[i][j])}) = ${f(result[i][j])}.`),
-        "Porównaj wymiary, a potem wykonaj działanie na odpowiadających sobie polach.", operation === "add"
-          ? "Przy dodawaniu liczby ujemnej uwzględnij jej znak: a + (−b) = a − b. Dodawaj elementy w tych samych pozycjach."
-          : "Przy odejmowaniu ujemnego elementu odejmujesz całą liczbę w nawiasie: minus ujemnej liczby daje plus."), a, b);
+        "Porównaj wymiary, a potem wykonaj działanie na odpowiadających sobie polach.", "Przy odejmowaniu ujemnego elementu odejmujesz całą liczbę w nawiasie: minus ujemnej liczby daje plus."), a, b);
     },
   })),
   { id: "matrix-scale", category: "matrices", title: "Macierz razy skalar", create: (v, level) => {
