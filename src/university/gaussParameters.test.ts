@@ -43,6 +43,7 @@ describe("MT-EDU-014 P0 full parametric Gaussian solutions",()=>{
             expect(answer.labels).toHaveLength(n*(free+1));
             expect(answer.values).toHaveLength(n*(free+1));
             expect(local.question).toContain("t1");
+            if(free===1)expect(local.question).not.toContain("t2");
             if(free===2)expect(local.question).toContain("t2");
             expect(local.solution).toBeDefined();
             expect(local.solution!.length).toBeGreaterThan(4);

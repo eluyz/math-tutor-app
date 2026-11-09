@@ -1,0 +1,44 @@
+import {test,expect} from "@playwright/test";
+import {taskPool} from "../src/generators";
+import {localizeTask} from "../src/locales/catalog";
+import {getAnswerSpec} from "../src/exercises";
+import {polishLearningText} from "./helpers/localization";
+const id="analysis-asymptotes-combined-rational";
+for(const width of [375,1280])for(const locale of ["pl","en"] as const){
+ test("G07 all asymptotes "+width+"px "+locale,async({page})=>{
+  test.setTimeout(120000);
+  const errs:string[]=[];page.on("pageerror",e=>errs.push(e.message));
+  await page.setViewportSize({width,height:900});await page.goto("/");
+  if(locale==="en")await page.getByRole("button",{name:"English",exact:true}).click();
+  const search=page.getByRole("searchbox",{name:locale==="pl"?"Szukaj rodziny zadań":"Search exercise families"});
+  await search.fill("G07");
+  await expect(page.locator("#catalog-search-competency")).toContainText("G07:");
+  const results=page.locator(".catalog-search-list button");
+  await expect(results).toHaveCount(4);
+  await results.filter({hasText:locale==="pl"?"Wszystkie asymptoty funkcji wymiernej":"All asymptotes of a rational function"}).click();
+  await expect(page.locator(".question")).toHaveAttribute("data-template-id",id);
+  await expect(page.locator(".question")).toHaveAttribute("data-difficulty","hard");
+  const question=await page.locator(".question").innerText();
+  const task=taskPool("function-limits","hard").filter(t=>t.templateId===id).map(t=>localizeTask(t,locale)).find(t=>t.question===question);
+  expect(task).toBeDefined();
+  const spec=getAnswerSpec(task!);
+  expect(spec.kind).toBe("multi-choice");
+  if(spec.kind!=="multi-choice")throw Error("Expected two-field answer");
+  const values=Object.fromEntries(spec.fields.map(f=>[f.id,f.value]));
+  const a=page.locator("#answer"),b=page.locator("#answer-linear");
+  await expect(a).toBeVisible();await expect(b).toBeVisible();
+  const check=page.getByRole("button",{name:locale==="pl"?"Sprawdź":"Check",exact:true});
+  await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+  await a.selectOption(values.vertical);await b.selectOption("line:none");
+  await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+  await b.selectOption(values.linear);
+  await check.click();await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+  await expect(page.locator('[data-field-result="correct"]')).toHaveCount(2);
+  await page.getByRole("button",{name:locale==="pl"?"Pokaż rozwiązanie":"Show solution",exact:true}).click();
+  await page.getByRole("button",{name:locale==="pl"?"Pokaż wszystkie kroki":"Show all steps",exact:true}).click();
+  await expect(page.locator(".solution-panel")).toContainText(locale==="pl"?"Końcowa odpowiedź":"Final answer");
+  if(locale==="en")expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
+  expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
+  expect(errs).toEqual([]);
+ });
+}
