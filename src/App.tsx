@@ -22,6 +22,7 @@ import {
 import { emptyAnswer, describeInput, type AnswerInput } from "./answers";
 import { IntegratedGraphDisplay } from "./IntegratedGraphDisplay";
 import { IntegratedJumpDisplay } from "./IntegratedJumpDisplay";
+import { JumpGapUnboundedDisplay } from "./university/graphJumpGapUnboundedDisplay";
 import { AnswerFields } from "./AnswerFields";
 import { MatrixDisplay } from "./MatrixDisplay";
 import { DeterminantDisplay } from "./DeterminantDisplay";
@@ -639,6 +640,9 @@ export default function App() {
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-integrated-jump" && (
                     <IntegratedJumpDisplay problem={active.university} locale={locale}/>
+                  )}
+                  {isUniversityTask(active) && active.university.kind === "function-jump-gap-unbounded" && (
+                    <JumpGapUnboundedDisplay problem={active.university} locale={locale} />
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-integrated-properties" && (
                     <IntegratedGraphDisplay problem={active.university} locale={locale}/>
