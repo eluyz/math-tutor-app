@@ -6,3 +6,7 @@
 - **Catalog gate:** CI must pass on the new integrated exact HEAD; stage CI is not proof of integrated CI. Independently validate real rendered problem, correct/wrong/blank choices, both hints and all steps in PL/EN 375px and 1280px.
 - **Coordination:** Other open PRs (#269 I02, #266 C01/C03, #262 U04) may also edit schema/catalog/competency. Check current main, reconcile conflicts without dropping other families, then run fresh exact-head CI.
 - **No auto-merge:** treat this as the combined integration candidate; do not merge both stage and integrated PR separately. Explicit owner approval, same-SHA postmerge CI and Pages required before claiming the new tasks are deployed. Refs #108.
+
+## CI scheduler follow-up — 2026-11-09
+
+After the first integrated CI failed on four stale inventory/doc assertions (since fixed), the reconciled exact-head `47c75b3b16d0b264e35111ebd52a854347f26ac3` produced [GitHub CI #42671507893](https://github.com/eluyz/math-tutor-app/actions/runs/42671507893): conclusion FAILURE, but **zero jobs were created** according to both the Actions run jobs endpoint and attempt 1 jobs endpoint. It elapsed exactly 60,000 ms, with no Vitest, build, Playwright or Batch B–G attempts; therefore it is **NOT a project-test verdict**. GitHub rejected rerun-failed-jobs with 403 "This workflow run cannot be retried". This documentation update creates a new SHA to request a clean GitHub Actions run. Until a full run reaches terminal SUCCESS, the PR remains Draft and not merge-ready.
