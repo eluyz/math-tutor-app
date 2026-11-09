@@ -212,6 +212,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "gauss-unique",
+      "gauss-overdetermined-4x3-unique",
       "gauss-four-forced-pivot"
     ]
   },
