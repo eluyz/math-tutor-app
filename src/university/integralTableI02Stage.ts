@@ -63,7 +63,9 @@ export function presentI02TableStage(p:I02TableStageProblem,locale:Locale){
   if(p.mode==="tan-square"||p.mode==="cot-square"){
     const isTan=p.mode==="tan-square";
     const trig=isTan?t("tg","tan"):t("ctg","cot");
-    const basis=trig+"("+u+")";
+    // The answer basis must stay identical in PL/EN when a session changes locale.
+    const basis=(isTan?"tan":"cot")+"("+u+")";
+    const displayBasis=trig+"("+u+")";
     const integrand=kText+trig+"²("+u+")";
     const identity=trig+"²(u)="+(isTan?"1/cos²(u)−1":"1/sin²(u)−1");
     const antiderivative=(isTan?"":"−")+trig+"(u)";
@@ -77,8 +79,8 @@ export function presentI02TableStage(p:I02TableStageProblem,locale:Locale){
     work("∫"+trig+"²(u)du="+antiderivative+"−u+C",
       "Współczynnik przy funkcji trygonometrycznej podziel przez a, a składnik stały zachowaj.",
       "Divide the trigonometric coefficient by a, preserving the constant term.");
-    work("F(x)=("+fmt(coef[0])+")"+basis+"+("+fmt(coef[1])+")x+C",
-      "Pochodna daje dokładnie k razy kwadrat funkcji; znak przy x jest ujemny.",
+    work("F(x)=("+fmt(coef[0])+")"+displayBasis+"+("+fmt(coef[1])+")x+C",
+      "Zapis tg(u)=tan(u), a ctg(u)=cot(u); w formularzu używamy nazw tan/cot. Pochodna daje k razy kwadrat funkcji, ze znakiem ujemnym przy x.",
       "Differentiation restores k times the squared function; the x term has a minus sign.");
     return lesson.finish(
       t("Oblicz całkę tablicową ∫ ","Find the table integral ∫ ")+integrand+" dx. "+
