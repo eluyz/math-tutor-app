@@ -241,7 +241,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "sequence-conjugate",
       "sequence-radical-ratio",
-      "sequence-root-quartic"
+      "sequence-root-quartic",
+      "sequence-negative-root-linear"
     ]
   },
   "C03": {
@@ -262,7 +263,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "analysis-euler-sequence",
-      "sequence-euler-product"
+      "sequence-euler-product",
+      "sequence-euler-quadratic"
     ]
   },
   "C06": {

@@ -213,9 +213,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **248 rodzin**, **18885 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 182 rodziny wspierają advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **250 rodzin**, **19077 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 182 rodziny wspierają advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **186**, L5: **169**.
+Łącznie rodziny L4: **188**, L5: **171**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -906,7 +906,7 @@ Zamiast oceniać jedynie „nieskończenie wiele rozwiązań”, formularz wymag
 | Rodzina | Poziomy | Cel |
 | --- | --- | --- |
 | system-chain-five | medium, hard, advanced, expert | Pięć znaków równości między sześcioma wyrażeniami wymiernymi w x,y; dwa niezależne równania; żądana jest tylko wskazana niewiadoma x lub y |
-| system-chain-five-unknowns | medium, hard, advanced, expert | U04: sześć wyrażeń, pięć znaków równości i pięć różnych niewiadomych x,y,z,u,v; oblicz wyłącznie x; 96 syntetycznych wariantów z dokładnym Cramerem 5×5 i kontrolą wszystkich równości |
+| system-chain-five-unknowns | medium, hard, advanced, expert | U04: sześć wyrażeń, pięć znaków równości i pięć niewiadomych x,y,z,u,v; rozwiązaniem do wpisania jest tylko x. Osobna rodzina z 96 syntetycznymi wariantami i dokładną kontrolą równań metodą Cramera 5×5 |
 | system-rectangular-3x2 | medium, hard | 3 równania / 2 niewiadome; przypadki dokładnie jednego, żadnego i nieskończenie wielu rozwiązań, uzasadnione rzędem |
 | system-rectangular-4x3 | advanced, expert | 4 równania / 3 niewiadome; obliczenie RREF i rzędu macierzy rozszerzonej, kontrolowane przypadki wszystkich trzech klas |
 
@@ -1066,3 +1066,12 @@ Generatory korzystają z macierzy 2×2, 2×3, 3×2 i 3×3. Poziom easy: małe li
 | sequence-root-quartic | medium, hard, advanced, expert | 96 | (A·n²+B·n+C)/√(d²·n⁴+e·n+g), d>0, e≥0, d²+g>0; wyłącz n⁴ i dziel przez n²; granica A/d, PL/EN |
 
 Nowa rodzina rozszerza C02 bez zastępowania poprzednich zadań; 96 syntetycznych wariantów obejmuje tylko wskazaną bezpieczną formę. Metoda #236 scalona; integracja #242 i pełne SOURCE_PASS wymagają osobnych bramek. Liczniki powyżej dotyczą gałęzi do czasu potwierdzenia wdrożenia na main.
+
+## C02/C05 — nowe syntetyczne metody granic (łączona integracja Draft)
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| sequence-negative-root-linear | medium, hard, advanced, expert | 96 | −√(a²n²+bn+c)/(dn+e), a,d>0, b,e≥0, a²+c>0, n≥1, granica −a/d, PL/EN |
+| sequence-euler-quadratic | medium, hard, advanced, expert | 96 | (1+a/(n²+b))^(c n²+d), b≥0, a≠0, 1+b+a>0, n≥1, granica e^(ac) (logarytm), PL/EN |
+
+Przyrost 2 rodzin i 192 wariantów, bez publikowania oryginalnych prywatnych zadań uczelni. Katalog kandydacki 249 rodzin / 18 981 wariantów; SOURCE_PASS C02/C05 nadal oddzielne. Metody pierwotne jako Draft PR #253 i #256; integracja wymaga własnego pełnego CI i zgody na merge.
