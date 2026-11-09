@@ -1,10 +1,10 @@
-import { rational as r, addRational as add, divideRational as div, type Rational } from "../rational";
+import { rational as r, addRational as add, multiplyRational as mul, divideRational as div, type Rational } from "../rational";
 import { formatRational as fmt, limitText, type LimitValue } from "../answers";
 import type { Locale } from "../locales/types";
 import { teaching, type Presentation } from "./teaching";
 
 /** G04 synthetic FUNCTION limit at x→+∞; deliberately not added to the shared catalog. */
-export type ExponentialFunctionTerm = Readonly<{ coefficient: Rational; base: Rational }>;
+export type ExponentialFunctionTerm = Readonly<{ coefficient: Rational; base: Rational; shift?: number }>;
 export type ExponentialFunctionRatioProblem = Readonly<{
   kind: "limit-exponential-function-ratio";
   numerator: readonly ExponentialFunctionTerm[];
@@ -25,10 +25,11 @@ export function createExponentialFunctionRatio(v: number): ExponentialFunctionRa
   const magnitude = 2 + group;
   const a = r(mode === 2 ? magnitude : mode === 3 ? -magnitude : [2, -3, 4, -5][group]);
   const b = r(1 + v % 7), c = r(2 + v % 5), d = r(1 + v % 3);
-  const term = (coefficient: Rational, powerBase: number): ExponentialFunctionTerm =>
-    ({ coefficient, base: r(powerBase) });
+  const term = (coefficient: Rational, powerBase: number, shift = 0): ExponentialFunctionTerm =>
+    ({ coefficient, base: r(powerBase), ...(shift ? { shift } : {}) });
+  // Source-shaped G04 method: A^(x+k) plus a competing power over C^x − D^x.
   const numerator = mode === 0
-    ? [term(a, base - 1), term(b, 1)]
+    ? [term(a, base, 2 + group % 2), term(b, base + 1)]
     : mode === 1 || mode === 2 || mode === 3
       ? [term(a, base + (mode === 1 ? 0 : 1)), term(b, 2)]
       : [term(a, base + 2), term(r(-a.numerator, a.denominator), base + 2),
@@ -36,7 +37,9 @@ export function createExponentialFunctionRatio(v: number): ExponentialFunctionRa
   return {
     kind: "limit-exponential-function-ratio",
     numerator,
-    denominator: [term(c, base), term(d, 2)],
+    denominator: mode === 0
+      ? [term(c, base + 3), term(r(-d.numerator, d.denominator), base)]
+      : [term(c, base), term(d, 2)],
   };
 }
 
@@ -46,8 +49,16 @@ const same = (a: Rational, b: Rational) =>
   a.numerator === b.numerator && a.denominator === b.denominator;
 const baseKey = (value: Rational) => `${value.numerator}/${value.denominator}`;
 const textTerm = (term: ExponentialFunctionTerm) =>
-  `(${fmt(term.coefficient)})·(${fmt(term.base)})^x`;
+  `(${fmt(term.coefficient)})·(${fmt(term.base)})^(x${term.shift ? "+" + term.shift : ""})`;
 const textSum = (terms: readonly ExponentialFunctionTerm[]) => terms.map(textTerm).join(" + ") || "0";
+
+function basePower(base: Rational, shift: number): Rational {
+  if (!Number.isInteger(shift) || shift < 0 || shift > 3)
+    throw new Error("Expected a bounded nonnegative integer exponent shift");
+  let result = r(1);
+  for (let i = 0; i < shift; i++) result = mul(result, base);
+  return result;
+}
 
 export function groupExponentials(terms: readonly ExponentialFunctionTerm[]): ExponentialFunctionTerm[] {
   const groups = new Map<string, ExponentialFunctionTerm>();
@@ -57,7 +68,8 @@ export function groupExponentials(terms: readonly ExponentialFunctionTerm[]): Ex
     const key = baseKey(term.base), prior = groups.get(key);
     groups.set(key, {
       base: term.base,
-      coefficient: add(prior?.coefficient ?? r(0), term.coefficient),
+      coefficient: add(prior?.coefficient ?? r(0),
+        mul(term.coefficient, basePower(term.base, term.shift ?? 0))),
     });
   }
   return [...groups.values()]
@@ -67,11 +79,11 @@ export function groupExponentials(terms: readonly ExponentialFunctionTerm[]): Ex
 
 /** Exact leading-base comparison after collecting equal-base terms. */
 export function exponentialFunctionRatioLimit(p: ExponentialFunctionRatioProblem): LimitValue {
-  if (!p.denominator.length || p.denominator.some(t => t.coefficient.numerator <= 0n))
-    throw new Error("All denominator coefficients must be strictly positive");
+  if (!p.denominator.length) throw new Error("Missing denominator");
   const bottom = groupExponentials(p.denominator)[0];
   const top = groupExponentials(p.numerator)[0];
-  if (!bottom) throw new Error("Missing denominator");
+  if (!bottom || bottom.coefficient.numerator <= 0n)
+    throw new Error("The dominant denominator coefficient must be strictly positive");
   if (!top || greater(bottom.base, top.base))
     return { kind: "finite", value: r(0) };
   if (same(top.base, bottom.base))
@@ -88,14 +100,14 @@ export function presentExponentialFunctionRatio(
   const value = exponentialFunctionRatioLimit(p);
   const dominant = bottom[0];
   lesson.work(
-    "x→+∞; A^x>0 (A>0)",
-    t("Dodatnie podstawy pozwalają rozważać wszystkie x rzeczywiste; mianownik jest dodatni, ponieważ jego współczynniki są dodatnie.",
-      "Positive bases define each power for real x. The denominator is strictly positive because its coefficients are positive."),
+    "x→+∞; A^(x+k)=A^k·A^x (A>0)",
+    t("Przesunięty wykładnik zamieniamy na współczynnik A^k. Mianownik może zawierać odejmowanie, lecz jego dominujący wyraz ma dodatni współczynnik, więc dla dużych x jest dodatni.",
+      "Rewrite a shifted power as A^k times A^x. The denominator may include subtraction, but its dominant coefficient is positive, so it is positive for sufficiently large x."),
   );
   lesson.work(
     `N(x)=${textSum(p.numerator)}; D(x)=${textSum(p.denominator)}`,
-    t("Przed porównaniem wzrostu zbierz współczynniki przy identycznych podstawach: dodatnie i ujemne składniki mogą się skrócić.",
-      "Collect coefficients with identical bases before comparing growth: opposite terms can cancel exactly."),
+    t("Najpierw użyj A^(x+k)=A^k·A^x, a następnie zbierz współczynniki przy identycznych podstawach; składniki mogą się skrócić.",
+      "First apply A^(x+k)=A^k·A^x, then collect equal-base coefficients; opposing terms may cancel exactly."),
   );
   lesson.work(
     `N(x)=${textSum(top)}; D(x)=${textSum(bottom)}`,
@@ -116,8 +128,8 @@ export function presentExponentialFunctionRatio(
     t("Wyznacz granicę przy x→+∞. ", "Find the limit as x→+∞. ") +
       `f(x)=(${textSum(p.numerator)})/(${textSum(p.denominator)})`,
     { kind: "limit", value },
-    t("Zbierz składniki o tej samej podstawie potęgi przed porównaniem tempa wzrostu.",
-      "Collect powers with the same base before comparing growth."),
+    t("Przekształć A^(x+k) do A^k·A^x; potem zbierz składniki o tej samej podstawie.",
+      "Rewrite A^(x+k) as A^k·A^x, then collect terms with the same base."),
     t("Podziel licznik i mianownik przez dominującą potęgę mianownika i sprawdź znak wyniku.",
       "Divide numerator and denominator by the dominant denominator power, then check the result's sign."),
   );
