@@ -111,11 +111,10 @@ function line(result: CombinedAsymptoteResult) {
 function lineKey(slope: Rational, intercept: Rational) {
   return "y:" + key(slope) + ":" + key(intercept);
 }
-function answer(result: CombinedAsymptoteResult, locale: Locale): AnswerSpec {
-  const t = (pl: string, en: string) => locale === "pl" ? pl : en;
+function answer(result: CombinedAsymptoteResult): AnswerSpec {
   const expectedVertical = result.vertical === null ? "none" : "x:" + key(result.vertical);
   const candidates = [
-    { value: "none", label: t("Brak asymptoty pionowej", "No vertical asymptote") },
+    { value: "none", label: "∄" },
     { value: "x:" + key(result.excluded ?? r(0)), label: "x=" + text(result.excluded ?? r(0)) },
     { value: "x:" + key(r(1)), label: "x=1" },
     { value: "x:" + key(r(-1)), label: "x=−1" }
@@ -125,12 +124,12 @@ function answer(result: CombinedAsymptoteResult, locale: Locale): AnswerSpec {
     { value: correctLine, label: line(result) },
     { value: lineKey(result.slope, add(result.intercept, r(1))), label: line({ ...result, intercept: add(result.intercept, r(1)) }) },
     { value: lineKey(add(result.slope, r(1)), result.intercept), label: line({ ...result, slope: add(result.slope, r(1)) }) },
-    { value: "line:none", label: t("Brak asymptoty poziomej/ukośnej", "No horizontal/oblique asymptote") }
+    { value: "line:none", label: "∄" }
   ];
   return { kind: "multi-choice", fields: [
-    { id: "vertical", label: t("Asymptota pionowa", "Vertical asymptote"), value: expectedVertical,
+    { id: "vertical", label: "x = ?", value: expectedVertical,
       options: [...new Map(candidates.map(o => [o.value, o])).values()] },
-    { id: "linear", label: t("Asymptota pozioma lub ukośna (w obu kierunkach)", "Horizontal or oblique asymptote (both directions)"),
+    { id: "linear", label: "y = ?",
       value: correctLine, options: [...new Map(alternatives.map(o => [o.value, o])).values()] }
   ] };
 }
@@ -140,7 +139,7 @@ export function presentCombinedAsymptote(p: CombinedAsymptoteProblem, locale: Lo
   const result = combinedAsymptoteResult(p);
   const expr = expression(p);
   lesson.work(
-    result.excluded === null ? "D=ℝ" : "D=ℝ\\{" + text(result.excluded) + "}",
+    result.excluded === null ? "D(f)=ℝ; x∈ℝ" : "D(f)=ℝ\\{" + text(result.excluded) + "}",
     t("Najpierw ustalamy miejsca zerowe mianownika w liczbach rzeczywistych.",
       "First find the real zeros of the denominator.")
   );
@@ -197,7 +196,7 @@ export function presentCombinedAsymptote(p: CombinedAsymptoteProblem, locale: Lo
   return lesson.finish(
     t("Wyznacz WSZYSTKIE asymptoty funkcji f(x)=" + expr + ".",
       "Find ALL asymptotes of f(x)=" + expr + "."),
-    answer(result, locale),
+    answer(result),
     t("Najpierw znajdź rzeczywiste zera mianownika. Dziura nie jest asymptotą.",
       "First find real denominator zeros. A hole is not an asymptote."),
     t("Wykonaj dzielenie wielomianów: sprawdź pionowe oraz granicę różnicy od prostej przy ±∞.",
