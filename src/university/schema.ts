@@ -43,6 +43,7 @@ import type { IntegratedJumpProblem } from "./graphIntegratedJump";
 import type { IntegratedPuncturesProblem } from "./graphIntegratedPunctures";
 import type { IntegratedAsymptoteProblem } from "./graphIntegratedAsymptotes";
 import type { EvenOpenRangeProblem } from "./graphEvenOpenRange";
+import type { SingleHoleRecoveryProblem } from "./graphSingleHoleRecovery";
 import type { DerivativeSketchProblem } from "./derivativeSketch";
 import type { GraphPropertyProblem } from "./functionGraphProperties";
 import type { GraphInjectivityProblem } from "./graphInjectivity";
@@ -306,6 +307,7 @@ export type UniversityProblem =
   | IntegratedPuncturesProblem
   | IntegratedAsymptoteProblem
   | EvenOpenRangeProblem
+  | SingleHoleRecoveryProblem
   | DerivativeSketchProblem
   | GraphPropertyProblem
   | GraphInjectivityProblem
