@@ -98,7 +98,7 @@ export async function fillSystem(page: Page) {
 }
 
 
-/** Independent exact RREF oracle for the fixed canonical t1/t2 answer convention.
+/** Independent exact RREF oracle for the fixed canonical t1/t2/t3 answer convention.
  * Normalization after every row operation prevents enormous unreduced fractions. */
 export function parametricCoefficients(augmented: Rational[][]) {
   const n=augmented[0].length-1;
