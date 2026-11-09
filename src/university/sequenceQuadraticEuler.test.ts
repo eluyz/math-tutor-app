@@ -32,15 +32,17 @@ describe("C05 isolated quadratic-scaling Euler limit (not catalog registered)", 
         expect(task.solution.some(x => x.kind === "working" && x.action.includes("ln(1+tₙ)/tₙ"))).toBe(true);
         expect(task.hint.length).toBeGreaterThan(15);
         expect(task.nextHint.length).toBeGreaterThan(15);
-        expect(task.answer.kind).toBe("choice");
-        if (task.answer.kind !== "choice") throw Error("Expected exact Euler choice");
-        expect(task.answer.value).toBe(`exp:${key(expected)}`);
-        expect(task.answer.options.some(x => x.value === task.answer.value)).toBe(true);
-        expect(assessAnswer(task.answer, {kind:"choice",value:task.answer.value}).kind).toBe("correct");
-        const wrong = task.answer.options.find(x => x.value !== task.answer.value);
+        const answer = task.answer;
+        expect(answer.kind).toBe("choice");
+        if (answer.kind !== "choice") throw Error("Expected exact Euler choice");
+        const expectedValue = answer.value;
+        expect(expectedValue).toBe(`exp:${key(expected)}`);
+        expect(answer.options.some(x => x.value === expectedValue)).toBe(true);
+        expect(assessAnswer(answer, {kind:"choice",value:expectedValue}).kind).toBe("correct");
+        const wrong = answer.options.find(x => x.value !== expectedValue);
         expect(wrong).toBeDefined();
-        expect(assessAnswer(task.answer, {kind:"choice",value:wrong!.value}).kind).toBe("incorrect");
-        expect(assessAnswer(task.answer, emptyAnswer(task.answer)).kind).toBe("invalid");
+        expect(assessAnswer(answer, {kind:"choice",value:wrong!.value}).kind).toBe("incorrect");
+        expect(assessAnswer(answer, emptyAnswer(answer)).kind).toBe("invalid");
         if (locale === "en") expect(task.question).not.toMatch(/[ąćęłńóśźż]/i);
       }
       seen.add(presentQuadraticEulerSequence(p, "pl").question);
