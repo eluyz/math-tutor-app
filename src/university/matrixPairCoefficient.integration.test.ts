@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { assessAnswer, emptyAnswer, formatRational as format } from "../answers";
+import { rational as r, addRational as add } from "../rational";
 import { taskPool } from "../generators";
 import { competencyIndex } from "../competencyIndex";
 import { makeUniversityTask, localizeUniversity } from "./catalog";
@@ -51,7 +52,7 @@ describe("M05 matrix-coefficient source-form: student catalog integration", () =
             kind: "list", values: correct.values.slice(0, 7),
           }).kind).toBe("invalid");
           expect(assessAnswer(localized.answer, {
-            kind: "list", values: [format(localized.answer.values[0]) + "0", ...correct.values.slice(1)],
+            kind: "list", values: [format(add(localized.answer.values[0], r(1))), ...correct.values.slice(1)],
           }).kind).not.toBe("correct");
           expect(assessAnswer(localized.answer, {
             kind: "list", values: ["1/0", ...correct.values.slice(1)],
