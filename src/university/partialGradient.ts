@@ -45,14 +45,14 @@ export function presentPartialGradient(p:PartialGradientProblem,locale:Locale){
  const lesson=teaching(locale),{t}=lesson;
  const [px,py]=gradient(p),point="("+f(p.x)+", "+f(p.y)+")";
  lesson.work("f(x,y)="+expression(p),
-   t("Traktuj drugą zmienną jako stałą, różniczkując po wybranej zmiennej.",
-     "Treat the other variable as constant when taking each partial derivative."));
+   t("D(f)=ℝ² dla tego wielomianu, a Γ(f)={(x,y,f(x,y)) : (x,y)∈ℝ²} jest jego wykresem w przestrzeni. Przy różniczkowaniu jedna współrzędna pozostaje stała.",
+     "This polynomial has D(f)=ℝ². Its 3D graph is Γ(f)={(x,y,f(x,y)) : (x,y)∈ℝ²}. Hold one coordinate constant when differentiating."));
  lesson.work("∂f/∂x=2("+f(p.a)+")x+("+f(p.b)+")y+("+f(p.d)+")",
-   t("Dla ∂/∂x wyrazy zawierające tylko y mają pochodną 0.",
-     "For ∂/∂x, terms involving only y have derivative 0."));
+   t("Z definicji f_x(a,b)=lim[h→0](f(a+h,b)−f(a,b))/h. Zmienna y pozostaje stała, dlatego jej wyrazy mają pochodną 0.",
+     "By definition f_x(a,b)=lim[h→0](f(a+h,b)−f(a,b))/h. Hold y fixed, so terms depending on y alone differentiate to 0."));
  lesson.work("∂f/∂y=("+f(p.b)+")x+2("+f(p.c)+")y+("+f(p.e)+")",
-   t("Dla ∂/∂y wyrazy zawierające tylko x mają pochodną 0.",
-     "For ∂/∂y, terms involving only x have derivative 0."));
+   t("Analogicznie f_y(a,b)=lim[h→0](f(a,b+h)−f(a,b))/h; x jest stałe, więc jego wyrazy mają pochodną 0.",
+     "Similarly f_y(a,b)=lim[h→0](f(a,b+h)−f(a,b))/h. Keep x constant; terms depending on x alone differentiate to 0."));
  if(p.kind==="multivar-gradient-point"){
    lesson.work("∇f"+point+"=("+f(px)+", "+f(py)+")",
      t("Gradient składa się z dwóch pochodnych cząstkowych I rzędu w punkcie.",
@@ -66,8 +66,8 @@ export function presentPartialGradient(p:PartialGradientProblem,locale:Locale){
  const answer=partial(p);
  const target=p.target==="x"?"f_x":p.target==="y"?"f_y":p.target==="xx"?"f_xx":p.target==="xy"?"f_xy":"f_yy";
  lesson.work("f_xx=2("+f(p.a)+"); f_xy="+f(p.b)+"; f_yy=2("+f(p.c)+")",
-   t("Pochodne II rzędu otrzymujemy, różniczkując pochodne I rzędu; f_xy=f_yx dla wielomianów.",
-     "Second partials come from differentiating first partials; f_xy=f_yx for polynomials."));
+   t("Pochodne II rzędu powstają z pochodnych I rzędu. Pochodne mieszane są równe, jeśli są ciągłe w otoczeniu punktu; dla tego wielomianu warunek jest spełniony.",
+     "Second partials come from first partials. Mixed partials agree when they are continuous near the point; this polynomial satisfies that condition."));
  lesson.work(target+point+"="+f(answer),
    t("Podstaw współrzędne tylko tam, gdzie w pochodnej pozostają zmienne.",
      "Substitute the point only where variables remain in the derivative."));
