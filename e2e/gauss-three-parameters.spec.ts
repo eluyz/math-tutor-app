@@ -81,14 +81,21 @@ const cases = [
 for (const width of [375, 1280])
   for (const en of [false, true])
     test(`U08 ${width}px ${en ? "EN" : "PL"}: student-visible 3x5 and 4x5 coefficient solutions`, async ({ page }) => {
+      // Six full 20-field browser answers; default 30s is not enough for this bounded audit.
+      test.setTimeout(150_000);
       await open(page, width, en);
       for (const level of ["hard", "advanced", "expert"] as const) {
         const levelLabel = level === "hard" ? en ? "Hard" : "Trudny" :
           level === "advanced" ? en ? "Advanced" : "Zaawansowany" : en ? "Expert" : "Ekspert";
         await page.getByRole("button", { name: levelLabel, exact: true }).click();
         for (const item of cases) {
-          const title = en ? "full solution with three parameters" : "pełne rozwiązanie z trzema parametrami";
-          await page.getByRole("button", { name: new RegExp(`^Gauss ${item.shape.replace("x", "×")}:.*${title}`) }).click();
+          const suffix = en ? "full solution with three parameters" : "pełne rozwiązanie z trzema parametrami";
+          const title = `Gauss ${item.shape.replace("x", "×")}: ${suffix}`;
+          // Catalog buttons have a leading ordinal (e.g. "01") in their accessible
+          // name, so an anchored ^Gauss role locator cannot match the real UI.
+          const family = page.locator(".exercise-list-items button.exercise-item").filter({ hasText: title });
+          await expect(family, `Exactly one visible family: ${title}`).toHaveCount(1);
+          await family.click();
           await expect(page.locator(".question")).toHaveAttribute("data-template-id", item.id);
           const augmented = await readVisible(page);
           expect(augmented).toHaveLength(Number(item.shape[0]));
