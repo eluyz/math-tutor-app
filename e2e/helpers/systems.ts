@@ -121,7 +121,7 @@ export function parametricCoefficients(augmented: Rational[][]) {
   if(rows.some(row=>row.slice(0,n).every(v=>v.numerator===0n)&&row[n].numerator!==0n))
     throw Error("Parametric system is inconsistent");
   const free=Array.from({length:n},(_,j)=>j).filter(j=>!pivots.includes(j));
-  if(free.length<1||free.length>2)throw Error("Expected 1-2 free variables");
+  if(free.length<1||free.length>3)throw Error("Expected 1-3 free variables");
   const coefficients=Array.from({length:n},(_,j)=>{
     const freeIndex=free.indexOf(j);
     if(freeIndex>=0)return [q(0),...free.map((_,k)=>q(k===freeIndex?1:0))];
