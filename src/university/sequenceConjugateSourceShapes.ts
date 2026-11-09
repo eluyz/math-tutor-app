@@ -19,8 +19,10 @@ export function createC03ConjugateGap(variant:number,level:Difficulty):C03Conjug
   const tier=levels.indexOf(level as typeof levels[number])+1;
   const i=Math.floor(variant/4);
   if(variant%4===0) {
-    const left=r(2+i+10*(tier-1)), right=add(left,r(1+i%3));
-    return {mode:"linear-root-pair",left,right};
+    const base=r(2+i+10*(tier-1)), delta=r(1+i%3);
+    return i%2===0
+      ? {mode:"linear-root-pair",left:add(base,delta),right:base}
+      : {mode:"linear-root-pair",left:base,right:add(base,delta)};
   }
   if(variant%4===1)
     return {mode:"reverse-quadratic",a:r(1+i+6*(tier-1),tier),b:r(1+(2*i)%5+8*(tier-1),tier)};
