@@ -89,7 +89,7 @@ export function presentTallFiveThree(p:Problem,locale:Locale) {
   lesson.work(`[A|b]=${compact(augmented)}`,t("Budujemy macierz rozszerzoną pięciu równań z trzema niewiadomymi.","Form the augmented matrix of five equations in three unknowns."));
   for(const step of result.reduction.steps)
     lesson.work(`${step.action}: ${compact(step.matrix)}`,t("Odwracalna operacja wierszowa zachowuje rozwiązania.","Reversible row operations preserve solutions."));
-  lesson.work(`RREF([A|b])=${compact(result.reduction.matrix)}`,t("Wskazujemy pivoty i wiersze sprzeczne.","Identify pivots and contradictory rows."));
+  lesson.work(t(`Macierz po redukcji [A|b] = ${compact(result.reduction.matrix)}`,`Reduced matrix [A|b] = ${compact(result.reduction.matrix)}`),t("Wskazujemy pivoty i wiersze sprzeczne.","Identify pivots and contradictory rows."));
   lesson.work(`rank(A)=${result.rankA}; rank([A|b])=${result.rankAugmented}; n=3`,t("Stosujemy twierdzenie Kroneckera–Capellego: porównujemy rzędy z liczbą niewiadomych.","Apply Rouché–Capelli: compare the two ranks and the number of unknowns."));
   if(result.kind==="system-none"){
     const bad=result.reduction.matrix.find(row=>row.slice(0,3).every(zero)&&!zero(row[3]));
