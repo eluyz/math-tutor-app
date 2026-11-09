@@ -37,7 +37,6 @@ export type FiveUnknownChainProblem = Readonly<{
   target: "x";
 }>;
 
-const zeros = (): [Rational, Rational, Rational, Rational, Rational] => [r(0), r(0), r(0), r(0), r(0)];
 const variables = ["x", "y", "z", "u", "v"] as const;
 const supported = ["medium", "hard", "advanced", "expert"] as const;
 
