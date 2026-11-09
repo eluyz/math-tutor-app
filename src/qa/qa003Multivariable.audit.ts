@@ -8,7 +8,7 @@ const main='11d80cc022b30e0be8381fe712392f14d0769590';
 const records:unknown[]=[];
 it('QA-003: 4 previously unlisted families, every level/variant and independent visible-formula grading',()=>{
  expect(allTemplates).toHaveLength(242);
- const cats=new Set(allTemplates.map(x=>x.category));expect([...cats].reduce((n,c)=>n+difficulties.reduce((m,d)=>m+taskPool(c,d).length,0),0)).toBe(18429);
+ const cats=new Set(allTemplates.map(x=>x.category));expect([...cats].reduce((n,c)=>n+difficulties.reduce((m,d)=>m+taskPool(c,d).length,0),0)).toBe(18453);
  const keys=new Set<string>();let grading=0,localized=0;
  for(const row of qa003Families)for(const level of row.levels)for(let v=0;v<24;v++){
   const task=makeUniversityTask(row.family,v,level);keys.add(task.id);const views=[];

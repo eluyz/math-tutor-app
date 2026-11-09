@@ -1,10 +1,10 @@
-## MT-SYLLABUS G06 — granice Eulera przy x→+∞ (kandydat integracji PR #244)
+## MT-SYLLABUS G06 — granice Eulera przy x→+∞ (integracja PR #244)
 
 | Family | Levels | Variants | Method |
 | --- | --- | ---: | --- |
-| analysis-euler-function-infinity | hard | 24 | Syntetyczne granice funkcji typu Eulera przy +∞: podstawa 1+a/x lub iloraz funkcji liniowych; dokładne e^(q) oraz e^(qπ), przypadek podstawy identycznie równej 1, kroki z logarytmem, PL/EN. |
+| analysis-euler-function-infinity | hard | 24 | Syntetyczne granice typu Eulera przy +∞: 1+a/x albo iloraz funkcji liniowych; dokładne e^(q) / e^(qπ), podstawa równa 1, kroki logarytmiczne PL/EN. |
 
-**Status:** generator PR #235 został scalony, ale rodzina nadal wymaga scalenia integracji PR #244, niezależnej akceptacji źródło→UI i wdrożenia. Bez zmian w 96 historycznych wariantach x→0.
+**Status:** źródłowy generator #235 scalony; rejestracja G06 +24 przypadki w PR #244 wymaga pełnego CI i postmerge Pages. Historyczne 96 zadań x→0 nienaruszone.
 
 ## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
 
@@ -18,7 +18,7 @@ Po zatwierdzeniu obu zależnych PR #234 → #239 katalog wzrasta z 240 rodzin / 
 
 | Family | Levels | Variants | Method |
 | --- | --- | ---: | --- |
-| multivar-quadratic-cubic-extrema | hard | 24 | P43/2f and 2h synthetic method: elimination of x, two critical points, exact coordinates/function values/Hessian determinants and minimum-or-maximum vs saddle. METHOD_PASS only; original-source review pending. |
+| multivar-quadratic-cubic-extrema | hard, advanced | 48 | Hard: two critical points by x-elimination (source-shaped 2f/2h). Advanced: 12 forms with 3 stationary points (one minimum, two saddles), 12 forms with 4 stationary points (one minimum, three saddles) via complete y=0/nonzero factor branches (source-shaped 2c/2d). Exact coordinates, values, Hessian and PL/EN grading; METHOD_CANDIDATE only, not formal SOURCE_PASS. |
 
 ## W02 — complete source-shaped cubic stationary and local extrema
 
@@ -196,9 +196,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **242 rodziny**, **18429 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **242 rodziny**, **18453 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **180**, L5: **164**.
+Łącznie rodziny L4: **181**, L5: **164**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 

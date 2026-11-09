@@ -12,8 +12,8 @@ export type W02NonlinearProblem=Readonly<{
 const sq=(x:Rational)=>mul(x,x),neg=(x:Rational)=>sub(r(0),x);
 export const w02NonlinearFamilies:readonly UniversityFamily[]=[{
  id:'multivar-quadratic-cubic-extrema',category:'derivatives',
- titles:{pl:'Ekstrema kwadratowo-sześcienne — eliminacja i dwa punkty',en:'Quadratic-cubic extrema — elimination and two points'},
- supportedDifficulties:['hard'],create:(v,level):W02NonlinearProblem=>{
+ titles:{pl:'Ekstrema kwadratowo-sześcienne — kompletna lista punktów',en:'Quadratic-cubic extrema — complete stationary-point set'},
+ supportedDifficulties:['hard','advanced'],create:(v,level):W02NonlinearProblem=>{
   if(level==='advanced'){
    if(!Number.isInteger(v)||v<0||v>=24)throw Error('Invalid advanced W02 variant');
    const n=Math.floor(v/2),offset=r(n-5,3);
