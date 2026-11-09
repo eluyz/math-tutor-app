@@ -6,7 +6,7 @@ import type { TypedExercise, CategoryId } from "../exercises";
 import type { Difficulty } from "../difficulty";
 import type { Locale } from "../locales/types";
 import type { GeneratedTask } from "../generators";
-import type { UniversityProblem, LinearAlgebraProblem, ElementaryAnalysisProblem, AsymptoteProblem, AdvancedCalculusProblem, FunctionStudyProblem } from "./schema";
+import type { UniversityProblem, UniversityFamily, LinearAlgebraProblem, ElementaryAnalysisProblem, AsymptoteProblem, AdvancedCalculusProblem, FunctionStudyProblem } from "./schema";
 import { systemFamilies, presentSystem } from "./systems";
 import { functionFamilies, presentFunction } from "./functions";
 import { functionExtensionFamilies, presentFunctionExtension } from "./functionExtensions";
@@ -90,6 +90,7 @@ import { combinedAsymptoteFamilies, presentCombinedAsymptote } from "./analysisC
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { functionStudyFollowupFamilies, presentFunctionStudyFollowup } from "./functionStudyFollowup";
+import { smoothRationalStudyStage, presentSmoothRationalStudy } from "./functionStudySmoothRational";
 import { integralFamilies, presentIntegral } from "./integrals";
 import { definiteIntegralFollowupFamilies, presentDefiniteIntegralFollowup } from "./definiteIntegralFollowup";
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
@@ -99,11 +100,12 @@ import { horizontalAreaFamilies, presentHorizontalSliceArea } from "./horizontal
 import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabolasArea";
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
+import {i02TableFamilies,presentI02TableStage} from "./integralTableI02Stage";
 import { integralMethodsFollowupFamilies, presentIntegralMethodsFollowup } from "./integralMethodsFollowup";
 import { integralPartsTrigQuadraticFamily, presentQuadraticTrigParts } from "./integralPartsTrigQuadratic";
 
 export const UNIVERSITY_VARIANTS = 24;
-export const universityFamilies = [
+export const universityFamilies: readonly UniversityFamily[] = [
   ...systemFamilies,
   ...functionFamilies,
   ...functionExtensionFamilies,
@@ -191,6 +193,7 @@ export const universityFamilies = [
   ...advancedCalculusFamilies,
   ...functionStudyFamilies,
   ...functionStudyFollowupFamilies,
+  smoothRationalStudyStage,
   ...integralFamilies,
   ...definiteIntegralFollowupFamilies,
   ...improperIntegralFamilies,
@@ -200,6 +203,7 @@ export const universityFamilies = [
   ...twoParabolasAreaFamilies,
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
+  ...i02TableFamilies,
   ...integralMethodsFollowupFamilies,
   integralPartsTrigQuadraticFamily,
 ];
@@ -212,6 +216,10 @@ const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraPro
 const present = (problem: UniversityProblem, locale: Locale) =>
   (problem.kind === "matrix-four-factor-dimensions" || problem.kind === "multivar-anisotropic-limit")
     ? presentRectangularPath(problem,locale)
+    : problem.kind === "analysis-study-smooth-rational"
+    ? presentSmoothRationalStudy(problem, locale)
+    : problem.kind === "integral-table-i02-stage"
+    ? presentI02TableStage(problem,locale)
     : problem.kind === "integral-parts-trig-quadratic"
     ? presentQuadraticTrigParts(problem,locale)
     : problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"

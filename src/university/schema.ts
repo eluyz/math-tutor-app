@@ -14,6 +14,7 @@ import type { Polynomial, PolynomialFormula } from "./polynomial";
 import type { IntegralProblem } from "./integrals";
 import type { DefiniteIntegralFollowupProblem } from "./definiteIntegralFollowup";
 import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
+import type { SmoothRationalStudyProblem } from "./functionStudySmoothRational";
 import type { EulerInfinityProblem } from "./analysisLimitsAsymptotesInfinity";
 import type { CombinedAsymptoteProblem } from "./analysisCombinedAsymptotes";
 import type { ImproperIntegralProblem } from "./improperIntegrals";
@@ -23,6 +24,7 @@ import type { HorizontalSliceAreaProblem } from "./horizontalSliceArea";
 import type { TwoParabolasAreaProblem } from "./twoParabolasArea";
 import type { ParametricArcProblem } from "./parametricArc";
 import type { IntegralBasicsFollowupProblem } from "./integralBasicsFollowup";
+import type { I02TableStageProblem } from "./integralTableI02Stage";
 import type { IntegralMethodsFollowupProblem } from "./integralMethodsFollowup";
 import type { IntegralPartsTrigQuadraticProblem } from "./integralPartsTrigQuadratic";
 import type { FunctionExtensionProblem } from "./functionExtensions";
@@ -347,6 +349,7 @@ export type UniversityProblem =
   | CombinedAsymptoteProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
+  | SmoothRationalStudyProblem
   | FunctionStudyFollowupProblem
   | IntegralProblem
   | ImproperIntegralProblem
@@ -357,6 +360,7 @@ export type UniversityProblem =
   | TwoParabolasAreaProblem
   | ParametricArcProblem
   | IntegralBasicsFollowupProblem
+  | I02TableStageProblem
   | IntegralMethodsFollowupProblem
   | IntegralPartsTrigQuadraticProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>

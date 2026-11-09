@@ -1,3 +1,31 @@
+## F05/e — single-hole recovery public synthetic graph (PR #247)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| function-single-hole-recovery | hard, advanced, expert | 72 | One excluded x, two hollow limit heights recovered elsewhere, left unbounded tail, attained right maximum and six graded PL/EN properties; METHOD_PROXY, P21/e exact SOURCE_PASS unverified. |
+
+## I02 — trig-square, arcsin and radical table methods (candidate PR #269)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| integral-table-i02-stage | hard | 24 | Synthetic tan²/cot² identity and arcsin/radical substitution practice (six each); PL/EN exact coefficient grading, mandatory +C, domain guards and 375/1280px browser QA. This is method coverage, not verified source-exact parity. |
+
+Only after independent full CI and merge does this candidate add one user-facing family; the previously staged source PR #267 alone did not change the student catalog.
+
+## F05/b — even open-range synthetic graph (PR #243)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| function-even-open-range | hard, advanced, expert | 72 | Two symmetric excluded inputs, 4 hollow endpoints, unbounded tails, open range floor and 6 graded PL/EN fields; synthetic METHOD_PROXY only, original P21/b unaccepted. |
+
+## D08 — study of a pole-free rational function (PR #245 integration)
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| analysis-study-smooth-rational | hard, advanced, expert | 72 | Smooth rational f(x)=k+m q²/((x-a)²+q²): real domain with no poles, one stationary extremum, two inflections, a horizontal asymptote; PL/EN f′/f″ explanations and exact stationary coordinates or interval-global values. Paper sketch is self-assessed. |
+
+D08 source #238 was merged separately. This integration preserves I04, W02, M06, G06, G07, C02/C05 and U06/U08. Formal original-source SOURCE_PASS remains pending.
+
 ## G07 — kompletne asymptoty funkcji wymiernej — PR #258 (integracja)
 
 | Family | Levels | Variants | Method |
@@ -22,18 +50,6 @@
 | analysis-euler-function-infinity | hard | 24 | Syntetyczne granice funkcji Eulera przy +∞: 1+a/x, iloraz liniowy, dokładne e^(q) / e^(qπ), przypadek podstawy równej 1 i dwujęzyczne kroki logarytmiczne. |
 
 **Stan:** #235 scalony; #244 wymaga pełnego nowego CI i niezależnej weryfikacji wdrożenia. Wcześniejsze 96 zadań Eulera przy x→0 pozostaje bez zmian.
-
-## F05/e — single-hole recovery public synthetic graph (PR #247)
-
-| Family | Levels | Variants | Scope |
-| --- | --- | ---: | --- |
-| function-single-hole-recovery | hard, advanced, expert | 72 | One excluded x, two distinct hollow limits recovered elsewhere, filled maximum, left lower-unbounded graph, six graded PL/EN fields; METHOD_PROXY not original P21 exact. |
-
-## F05/b — even open-range synthetic graph (PR #243)
-
-| Family | Levels | Variants | Scope |
-| --- | --- | ---: | --- |
-| function-even-open-range | hard, advanced, expert | 72 | Two symmetric excluded inputs, 4 hollow endpoints, unbounded tails, open range floor and 6 graded PL/EN fields; synthetic METHOD_PROXY only, original P21/b unaccepted. |
 
 ## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
 
@@ -225,9 +241,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **251 rodzin**, **19125 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 189 rodzin wspiera advanced, a 172 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **253 rodziny**, **19221 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 190 rodzin wspiera advanced, a 173 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **189**, L5: **172**.
+Łącznie rodziny L4: **190**, L5: **173**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
