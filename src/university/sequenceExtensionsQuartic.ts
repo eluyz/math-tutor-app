@@ -3,6 +3,7 @@ import {formatRational as f, type LimitValue} from "../answers";
 import type {Difficulty} from "../difficulty";
 import type {Locale} from "../locales/types";
 import {teaching} from "./teaching";
+import type {UniversityFamily} from "./schema";
 
 /** C02: independent, not-yet-registered quadratic / quartic-radical method. */
 export type QuarticRootSequence = Readonly<{
@@ -79,3 +80,11 @@ export function presentQuarticRootSequence(p:QuarticRootSequence,locale:Locale) 
       "Factor n⁴ out of the radical as n², then divide the fraction by n².")
   );
 }
+
+/** Registered only in the dependent integration PR; legacy C02 families remain unchanged. */
+export const quarticRootSequenceFamilies:readonly UniversityFamily[] = [{
+  id:"sequence-root-quartic", category:"sequence-limits",
+  titles:{pl:"Granice: pierwiastek z wielomianu czwartego stopnia",en:"Limits: square root of a quartic polynomial"},
+  supportedDifficulties:levels,
+  create:(variant,level)=>({kind:"sequence-root-quartic",...createQuarticRootSequence(variant,level)}),
+}];
