@@ -1,0 +1,8 @@
+# G04 fractional-root method — catalog integration candidate (2026-11-09)
+
+- **Stage parent:** Draft PR #268, exact head `45a3c95189c5ca8f66cef520ce4336c1dbc8b668`, full [CI #42661496237](https://github.com/eluyz/math-tutor-app/actions/runs/42661496237) SUCCESS (unit/build/Chromium/Batch B–G). Stage is NOT merged and is not yet student-visible.
+- **Integrated candidate:** standalone synthetic constructor/presenter and 24-case stage QA from #268 plus one `UniversityProblem` discriminator, catalog registration/dispatcher, G04 competence search entry, independent 24-case catalog test, and 4 PL/EN mobile/desktop browser checks. No original university questions or answer keys are committed.
+- **Bounded mathematics:** 24 hard variants; compare x^(1/2) with x^(1/3) in a quotient at +infinity; eight limits 0, eight +infinity and eight −infinity. Existing G04 families are preserved. This does not supply exponential-ratio limit methods or full SOURCE_PASS.
+- **Catalog gate:** CI must pass on the new integrated exact HEAD; stage CI is not proof of integrated CI. Independently validate real rendered problem, correct/wrong/blank choices, both hints and all steps in PL/EN 375px and 1280px.
+- **Coordination:** Other open PRs (#269 I02, #266 C01/C03, #262 U04) may also edit schema/catalog/competency. Check current main, reconcile conflicts without dropping other families, then run fresh exact-head CI.
+- **No auto-merge:** treat this as the combined integration candidate; do not merge both stage and integrated PR separately. Explicit owner approval, same-SHA postmerge CI and Pages required before claiming the new tasks are deployed. Refs #108.
