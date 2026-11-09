@@ -58,8 +58,8 @@ describe("U06/U08 three-parameter systems: catalog integration", () => {
         for (const variant of [0, 1, 2, 3]) {
           const task = makeUniversityTask(family.id, variant, difficulty);
           const oracle = batchDOracle(task);
-          expect(oracle.kind).toBe("list");
           if (typeof oracle === "string" || oracle.kind !== "list") throw Error("Expected a full coefficient list");
+          expect(oracle.kind).toBe("list");
           expect(oracle.values).toHaveLength(20);
           expect(assessAnswer(task.answer, oracle).kind).toBe("correct");
         }
