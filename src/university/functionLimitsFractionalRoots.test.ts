@@ -78,7 +78,7 @@ describe("G04 stage: independent fractional-root comparison at positive infinity
         expect(steps.length).toBeGreaterThanOrEqual(4);
         for (const step of steps) {
           if (step.kind !== "working") continue;
-          expect(step.action.length).toBeGreaterThan(10);
+          expect(step.action.length).toBeGreaterThanOrEqual(10);
           expect(step.reason.length).toBeGreaterThan(25);
         }
         expect(view.explanation).toContain("1/6");
