@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { addRational as add, equalRational as eq, rational as r, type Rational } from "../rational";
-import { assessAnswer, emptyAnswer } from "../answers";
+import { assessAnswer, emptyAnswer, formatRational as fmt } from "../answers";
 import {
   createExponentialFunctionRatio, exponentialFunctionRatioLimit,
   exponentialFunctionRatioStage, groupExponentials, presentExponentialFunctionRatio,
@@ -83,7 +83,7 @@ describe("G04 exponential function ratio — isolated stage QA", () => {
         const correct = {
           kind: "limit" as const,
           classification: oracle.kind,
-          value: oracle.kind === "finite" ? String(value(oracle.expected)) : "",
+          value: oracle.kind === "finite" ? fmt(oracle.expected) : "",
         };
         expect(assessAnswer(spec, correct).kind).toBe("correct");
         const wrong = {
@@ -93,7 +93,7 @@ describe("G04 exponential function ratio — isolated stage QA", () => {
         };
         expect(assessAnswer(spec, wrong).kind).toBe("incorrect");
         if (spec.value.kind === "finite") {
-          expect(assessAnswer(spec, { ...correct, value: String(value(add(spec.value.value, r(1)))) }).kind).toBe("incorrect");
+          expect(assessAnswer(spec, { ...correct, value: fmt(add(spec.value.value, r(1))) }).kind).toBe("incorrect");
         }
         if (locale === "pl") {
           expect(present.question).toContain("Wyznacz granicę");
