@@ -71,6 +71,7 @@ import { gaussRectangularParameterFamilies } from "./gaussRectangularParameters"
 import { gaussFiveFamilies } from "./gaussFive";
 import { gaussThreeParameterFamilies, presentGaussThreeParameters } from "./gaussThreeParameters";
 import { chainFamilies, presentChain } from "./chainEqualities";
+import { fiveUnknownChainStage, presentFiveUnknownChain } from "./chainFiveUnknowns";
 import { rectangularFamilies, presentRectangular } from "./rectangularSystems";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
 import { cramerIntermediateFamilies, presentCramerMinors } from "./cramerIntermediate";
@@ -168,6 +169,7 @@ export const universityFamilies = [
   ...gaussFiveFamilies,
   ...gaussThreeParameterFamilies,
   ...chainFamilies,
+  fiveUnknownChainStage,
   ...rectangularFamilies,
   ...cramerFourFamilies,
   ...cramerIntermediateFamilies,
@@ -330,6 +332,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentRank(problem, locale)
     : problem.kind === "linear-chain-five"
     ? presentChain(problem, locale)
+    : problem.kind === "linear-chain-five-unknowns"
+    ? presentFiveUnknownChain(problem, locale)
     : problem.kind === "linear-rectangular"
     ? presentRectangular(problem, locale)
     : problem.kind === "linear-system"
