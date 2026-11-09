@@ -3,7 +3,7 @@ import { assessAnswer, emptyAnswer } from "../answers";
 import { taskPool } from "../generators";
 import { eq, q } from "./audit";
 import { localizeUniversity, makeUniversityTask } from "./catalog";
-import { createRadicalDeterminant, radicalDeterminant, radicalDeterminantFamilies, radicalProduct, formatRadical } from "./radicalDeterminants";
+import { createRadicalDeterminant, createMixedRadicalDeterminant, radicalDeterminant, radicalDeterminantFamilies, radicalProduct, formatRadical } from "./radicalDeterminants";
 import type { RadicalCoefficient, RadicalDeterminantProblem } from "./schema";
 
 type Pair = readonly [number, number];
@@ -18,7 +18,7 @@ function reference(p: RadicalDeterminantProblem): Pair {
 }
 describe("MT-EDU-032: exact radical 2×2 determinants", () => {
   it("validates boundaries and keeps old rational determinant APIs isolated", async () => {
-    expect(radicalDeterminantFamilies).toHaveLength(1);
+    expect(radicalDeterminantFamilies).toHaveLength(2);
     for (const bad of [-1, 24, 1.2, NaN, Infinity])
       expect(() => createRadicalDeterminant(bad, "hard")).toThrow();
     expect(() => createRadicalDeterminant(0, "easy")).toThrow();
@@ -88,5 +88,92 @@ describe("MT-EDU-032: exact radical 2×2 determinants", () => {
     expect(radicalCells).toBeGreaterThan(100);
     expect(negatives).toBeGreaterThan(0);
     expect(zeros).toBeGreaterThan(0);
+  });
+});
+
+describe("M06: two distinct radical types per determinant (bounded source form)", () => {
+  /** Independent exact ring check, not derived from production radicalProduct. */
+  const oracle = (p: RadicalDeterminantProblem) => {
+    const [[a, b], [c, d]] = p.matrix;
+    const root = (x: RadicalCoefficient) => x.radicand ?? p.radicand;
+    const multiply = (x: RadicalCoefficient, y: RadicalCoefficient) => {
+      expect(root(x)).toBe(root(y));
+      return [x.whole * y.whole + root(x) * x.root * y.root,
+        x.whole * y.root + x.root * y.whole] as const;
+    };
+    const ad = multiply(a, d), bc = multiply(b, c);
+    expect(root(a)).not.toBe(root(b));
+    expect(ad[1]).toBe(0);
+    expect(bc[1]).toBe(0);
+    return ad[0] - bc[0];
+  };
+  it("rejects invalid inputs instead of silently merging unrelated radicals", () => {
+    for (const bad of [-1, 24, 1.5, NaN, Infinity])
+      expect(() => createMixedRadicalDeterminant(bad, "hard")).toThrow();
+    expect(() => createMixedRadicalDeterminant(0, "easy")).toThrow();
+    const p = createMixedRadicalDeterminant(2, "hard");
+    const invalidRoot = { ...p, matrix: [
+      [{ ...p.matrix[0][0], radicand: 11 }, p.matrix[0][1]], p.matrix[1],
+    ] } as unknown as RadicalDeterminantProblem;
+    expect(() => radicalDeterminant(invalidRoot)).toThrow();
+    const wrongPair = { ...p, matrix: [
+      [p.matrix[0][0], p.matrix[0][1]],
+      [p.matrix[1][0], { ...p.matrix[1][1], radicand: p.matrix[0][1].radicand }],
+    ] } as RadicalDeterminantProblem;
+    expect(() => radicalDeterminant(wrongPair)).toThrow();
+    const notRational = { ...p, matrix: [
+      [{ ...p.matrix[0][0], whole: 1, root: 1 }, { ...p.matrix[0][1], whole: 1, root: 1 }],
+      [{ ...p.matrix[1][0], whole: 1, root: 0 }, { ...p.matrix[1][1], whole: 1, root: 0 }],
+    ] } as RadicalDeterminantProblem;
+    expect(() => radicalDeterminant(notRational)).toThrow();
+  });
+  it("all 72 variants: independent arithmetic, bilingual steps, grading and distinct keys", () => {
+    const family = radicalDeterminantFamilies.find(f => f.id === "determinant-radical-mixed-two");
+    if (!family) throw Error("Missing M06 mixed-radical family");
+    expect(family.supportedDifficulties).toEqual(["hard", "advanced", "expert"]);
+    const seen = new Set<string>(), answers = new Set<number>();
+    let zeros = 0, negatives = 0, positives = 0;
+    for (const level of family.supportedDifficulties) {
+      const pool = taskPool("determinants", level).filter(x => x.templateId === family.id);
+      expect(pool).toHaveLength(24);
+      for (let v = 0; v < 24; v++) {
+        const p = createMixedRadicalDeterminant(v, level), expected = oracle(p);
+        expect(radicalDeterminant(p)).toEqual({ whole: expected, root: 0 });
+        const task = makeUniversityTask(family.id, v, level);
+        expect(task.university).toEqual(p);
+        seen.add(task.contentKey);
+        answers.add(expected);
+        if (expected === 0) zeros++;
+        if (expected < 0) negatives++;
+        if (expected > 0) positives++;
+        for (const locale of ["pl", "en"] as const) {
+          const view = localizeUniversity(task, locale);
+          expect(view.answer.kind).toBe("scalar");
+          if (view.answer.kind !== "scalar") throw Error("Expected scalar");
+          expect(eq(view.answer.value, q(expected))).toBe(true);
+          expect(assessAnswer(view.answer, String(expected)).kind).toBe("correct");
+          expect(assessAnswer(view.answer, String(expected + 1)).kind).toBe("incorrect");
+          expect(assessAnswer(view.answer, "1/0").kind).toBe("invalid");
+          expect(assessAnswer(view.answer, emptyAnswer(view.answer)).kind).toBe("invalid");
+          const working = view.solution!.filter(step => step.kind === "working");
+          expect(working).toHaveLength(4);
+          expect(working[1].reason).toContain("√" + p.matrix[0][0].radicand);
+          expect(working[2].reason).toContain("√" + p.matrix[0][1].radicand);
+          expect(working[3].reason).not.toContain("√d");
+          expect(working.map(step => step.reason).join(" ")).not.toContain("√d");
+          for (const cell of [p.matrix[0][0], p.matrix[0][1]])
+            expect(view.solution!.some(step => step.action.includes("√" + cell.radicand))).toBe(true);
+          expect(view.question).toContain(locale === "pl" ? "dwoma różnymi pierwiastkami" : "two distinct radicals");
+          expect(view.hint.length).toBeGreaterThan(20);
+          expect(view.nextHint.length).toBeGreaterThan(20);
+          if (locale === "en") expect(view.explanation).not.toMatch(/[ąćęłńóśźż]/i);
+        }
+      }
+    }
+    expect(seen.size).toBe(72);
+    expect(answers.size).toBeGreaterThan(25);
+    expect(zeros).toBeGreaterThan(0);
+    expect(negatives).toBeGreaterThan(0);
+    expect(positives).toBeGreaterThan(0);
   });
 });

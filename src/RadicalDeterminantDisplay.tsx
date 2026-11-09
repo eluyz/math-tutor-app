@@ -24,9 +24,9 @@ export function RadicalDeterminantDisplay({
                   key={j}
                   data-whole={cell.whole}
                   data-root={cell.root}
-                  data-radicand={problem.radicand}
+                  data-radicand={cell.radicand ?? problem.radicand}
                 >
-                  {formatRadical(cell, problem.radicand)}
+                  {formatRadical(cell, cell.radicand ?? problem.radicand)}
                 </td>
               ))}
             </tr>

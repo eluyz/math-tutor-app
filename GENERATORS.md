@@ -1,11 +1,11 @@
-## U06/U08 — 3-parametric Gauss integration candidate (Draft PR #252; not merged)
+## U06/U08 — trzy parametry swobodne, kontrolowana integracja (PR #252)
 
 | Family | Levels | Variants | Method |
 | --- | --- | --- | --- |
-| gauss-three-by-five-three-parameters | hard, advanced, expert | 72 | 3×5, rank(A)=rank([A|b])=2, 20 exact affine fields t1,t2,t3 |
-| gauss-five-three-parameters | hard, advanced, expert | 72 | 4×5, rank(A)=rank([A|b])=2, 20 exact affine fields t1,t2,t3 |
+| gauss-three-by-five-three-parameters | hard, advanced, expert | 72 | 3×5, rank(A)=rank([A|b])=2; 20 współczynników t1,t2,t3 |
+| gauss-five-three-parameters | hard, advanced, expert | 72 | 4×5, rank(A)=rank([A|b])=2; 20 współczynników t1,t2,t3 |
 
-**Candidate +2 families / +144 tasks only after owner-approved merge of #250 and #252.** Private worksheet contains 3×5 rank-two forms; 4×5 is additional synthetic method practice. Method correctness does not grant SOURCE_PASS; existing task IDs and frozen archival hashes remain unchanged.
+**+2 rodziny / +144 warianty dopiero po scaleniu PR #252.** Oryginalny prywatny arkusz potwierdza postać 3×5 rzędu 2; 4×5 to uzupełniający trening syntetyczny. Niezależne testy matematyczne nie stanowią automatycznie SOURCE_PASS. Poprzednio wydane zadania i skróty SHA pozostają niezmienione.
 
 ## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
 
@@ -197,9 +197,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **243 rodziny**, **18573 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **244 rodziny**, **18645 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 182 rodziny wspierają advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **183**, L5: **166**.
+Łącznie rodziny L4: **184**, L5: **167**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -246,6 +246,7 @@ Bieżący katalog UI i sesji: **243 rodziny**, **18573 instancji**. (Liczby doty
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | determinant-radical-two | hard, advanced, expert | 72 | Exact algebra in Q(√d), d∈{2,3,5,7}, two-by-two matrix with radical coefficients and rational final answer. Hard: conjugate products; advanced/expert: invertible row/column additions requiring radical terms to cancel across ad−bc. |
+| determinant-radical-mixed-two | hard, advanced, expert | 72 | Two distinct radicals in the same 2×2 matrix, each product rational by conjugation; exact integer results and PL/EN teaching. |
 
 **Deployed** +72 exercises in one new family, reaching **209 families / 16,941 tasks** at main commit `55cdb973`. This does not change the existing `Rational` or determinant 2×2–5×5 APIs. A separate independent pair-ring oracle checks all 72 variants; classroom witness still needs an explicit source-fidelity sign-off.
 

@@ -81,12 +81,25 @@ export function batchDOracle(task: Task): AnswerInput {
     return { kind: "list", values: [...X.flat(), ...Y.flat()].map(f) };
   }
   if (p.kind === "determinant-radical-two") {
-    const pair = (x: { whole: number; root: number }, y: { whole: number; root: number }) => [
-      add(mul(r(x.whole), r(y.whole)), mul(r(p.radicand), mul(r(x.root), r(y.root)))),
-      add(mul(r(x.whole), r(y.root)), mul(r(x.root), r(y.whole))),
-    ];
-    const ad = pair(p.matrix[0][0], p.matrix[1][1]), bc = pair(p.matrix[0][1], p.matrix[1][0]);
-    requireMath(sub(ad[1], bc[1]).numerator === 0n, "irrational parts cancel exactly");
+    // Independently evaluate each product using its own root. The original
+    // family has one global radicand; M06 mixed-root exercises supply entry-local
+    // radicands without changing this problem kind.
+    const effectiveRoot = (cell: { radicand?: number }) => cell.radicand ?? p.radicand;
+    const pair = (x: { whole: number; root: number; radicand?: number },
+      y: { whole: number; root: number; radicand?: number }) => {
+      requireMath(effectiveRoot(x) === effectiveRoot(y), "unmatched radical factors");
+      return [
+        add(mul(r(x.whole), r(y.whole)), mul(r(effectiveRoot(x)), mul(r(x.root), r(y.root)))),
+        add(mul(r(x.whole), r(y.root)), mul(r(x.root), r(y.whole))),
+      ];
+    };
+    const [[a, b], [c, d]] = p.matrix;
+    const ad = pair(a, d), bc = pair(b, c);
+    if (effectiveRoot(a) === effectiveRoot(b))
+      requireMath(sub(ad[1], bc[1]).numerator === 0n, "irrational parts cancel exactly");
+    else
+      requireMath(ad[1].numerator === 0n && bc[1].numerator === 0n,
+        "distinct radical coefficients must cancel separately");
     return f(sub(ad[0], bc[0]));
   }
   if (p.kind === "determinant") {
