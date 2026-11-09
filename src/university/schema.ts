@@ -16,6 +16,7 @@ import type { DefiniteIntegralFollowupProblem } from "./definiteIntegralFollowup
 import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
 import type { SmoothRationalStudyProblem } from "./functionStudySmoothRational";
 import type { EulerInfinityProblem } from "./analysisLimitsAsymptotesInfinity";
+import type { FractionalRootLimitProblem } from "./functionLimitsFractionalRoots";
 import type { CombinedAsymptoteProblem } from "./analysisCombinedAsymptotes";
 import type { ImproperIntegralProblem } from "./improperIntegrals";
 import type { InteriorImproperProblem } from "./interiorImproper";
@@ -341,6 +342,7 @@ export type UniversityProblem =
   | ElementaryAnalysisProblem
   | AsymptoteProblem
   | EulerInfinityProblem
+  | FractionalRootLimitProblem
   | CombinedAsymptoteProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
