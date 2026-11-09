@@ -10,7 +10,7 @@ Po zatwierdzeniu obu zależnych PR #234 → #239 katalog wzrasta z 240 rodzin / 
 
 | Family | Levels | Variants | Method |
 | --- | --- | ---: | --- |
-| multivar-quadratic-cubic-extrema | hard | 24 | P43/2f and 2h synthetic method: elimination of x, two critical points, exact coordinates/function values/Hessian determinants and minimum-or-maximum vs saddle. METHOD_PASS only; original-source review pending. |
+| multivar-quadratic-cubic-extrema | hard, advanced | 48 | Hard: two critical points by x-elimination (source-shaped 2f/2h). Advanced: 12 forms with 3 stationary points (one minimum, two saddles), 12 forms with 4 stationary points (one minimum, three saddles) via complete y=0/nonzero factor branches (source-shaped 2c/2d). Exact coordinates, values, Hessian and PL/EN grading; METHOD_CANDIDATE only, not formal SOURCE_PASS. |
 
 ## W02 — complete source-shaped cubic stationary and local extrema
 
@@ -188,9 +188,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **241 rodzin**, **18405 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **241 rodzin**, **18429 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **180**, L5: **164**.
+Łącznie rodziny L4: **181**, L5: **164**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
