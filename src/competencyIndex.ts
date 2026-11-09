@@ -372,7 +372,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
   "G06": {
     "coverage": "partial",
     "familyIds": [
-      "analysis-euler-function"
+      "analysis-euler-function",
+      "analysis-euler-function-infinity"
     ]
   },
   "G07": {
