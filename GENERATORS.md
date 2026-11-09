@@ -1,14 +1,14 @@
-## F05/e — public synthetic recovered-height graph (F05/e dependent candidate #247)
+## F05/e — one excluded input with two recovered hollow heights (public synthetic method)
 
-| Family | Levels | Variants | Scope |
+| Family | Levels | Variants | Coverage |
 | --- | --- | ---: | --- |
-| function-single-hole-recovery | hard, advanced, expert | 72 | Six separately graded PL/EN properties, a single excluded input with two different hollow branch heights which are both attained elsewhere, an unbounded left tail, filled maximum and finite endpoint; exact original P21/e not claimed. |
+| function-single-hole-recovery | hard, advanced, expert | 72 | Six-field PL/EN answer, one excluded input with two open one-sided heights recovered elsewhere, unbounded left tail, reached maximum and finite closed endpoint; METHOD_PROXY only, original P21/e source not certified. |
 
-## F05/b — public synthetic even graph, one six-property task (integration candidate #243)
+## F05/b — even graph with two missing inputs (public synthetic method)
 
-| Family | Levels | Variants | Scope |
+| Family | Levels | Variants | Coverage |
 | --- | --- | ---: | --- |
-| function-even-open-range | hard, advanced, expert | 72 | Six separately graded PL/EN properties; two symmetric missing inputs and four open ends, W open at its lower bound, two unbounded upper tails. Not a direct transcription of the original P21/b worksheet. |
+| function-even-open-range | hard, advanced, expert | 72 | Six-field PL/EN answer, two symmetric missing x, four hollow limits, open lower y-bound, infinite tails; METHOD_PROXY only, source-original P21/b remains unaccepted. |
 
 ## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
 
@@ -22,7 +22,7 @@ Po zatwierdzeniu obu zależnych PR #234 → #239 katalog wzrasta z 240 rodzin / 
 
 | Family | Levels | Variants | Method |
 | --- | --- | ---: | --- |
-| multivar-quadratic-cubic-extrema | hard | 24 | P43/2f and 2h synthetic method: elimination of x, two critical points, exact coordinates/function values/Hessian determinants and minimum-or-maximum vs saddle. METHOD_PASS only; original-source review pending. |
+| multivar-quadratic-cubic-extrema | hard, advanced | 48 | Hard: two critical points by x-elimination (source-shaped 2f/2h). Advanced: 12 forms with 3 stationary points (one minimum, two saddles), 12 forms with 4 stationary points (one minimum, three saddles) via complete y=0/nonzero factor branches (source-shaped 2c/2d). Exact coordinates, values, Hessian and PL/EN grading; METHOD_CANDIDATE only, not formal SOURCE_PASS. |
 
 ## W02 — complete source-shaped cubic stationary and local extrema
 
@@ -200,9 +200,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **243 rodziny**, **18549 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **243 rodziny**, **18573 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 183 rodziny wspierają advanced, a 166 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **182**, L5: **166**.
+Łącznie rodziny L4: **183**, L5: **166**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
