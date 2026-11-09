@@ -49,6 +49,7 @@ import { completedSession } from "./progress/model";
 import { useProgress } from "./progress/useProgress";
 import { ProgressDashboard } from "./progress/ProgressDashboard";
 import { categoryTitle, resolveCatalogCompetency, searchCatalog, selectCatalogFamily } from "./catalogSearch";
+import { displayedMatrixNextHint } from "./education/matrixHintDisplay";
 import { ExamMode } from "./exam/ExamMode";
 import { examCopy } from "./exam/copy";
 
@@ -790,7 +791,7 @@ export default function App() {
                                 ? result.diagnosis.hint
                                 : result.diagnosis.kind === "hypotheses" && !result.diagnosis.ambiguous
                                   ? result.diagnosis.candidates[0].hint
-                                  : active.nextHint}
+                                  : displayedMatrixNextHint(active, locale)}
                             </p>
                           )}
                           {stepVisible && active.step && (
