@@ -51,7 +51,7 @@ describe("C05 isolated quadratic-scaling Euler limit (not catalog registered)", 
     const p = createQuadraticEulerSequence(0,"medium");
     expect(quadraticEulerAnswer(r(0))).toEqual({kind:"scalar",value:r(1)});
     const zero = presentQuadraticEulerSequence({...p,c:r(0)},"pl");
-    expect(assessAnswer(zero.answer,{kind:"scalar",value:"1"}).kind).toBe("correct");
+    expect(assessAnswer(zero.answer,"1").kind).toBe("correct");
     expect(() => createQuadraticEulerSequence(-1,"medium")).toThrow();
     expect(() => createQuadraticEulerSequence(24,"medium")).toThrow();
     expect(() => createQuadraticEulerSequence(0.5,"medium")).toThrow();
