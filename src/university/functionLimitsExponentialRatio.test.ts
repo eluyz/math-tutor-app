@@ -102,10 +102,10 @@ describe("G04 exponential function ratio — isolated stage QA", () => {
         }
         if (locale === "pl") {
           expect(present.question).toContain("Wyznacz granicę");
-          expect(present.hint).toContain("Zbierz");
+          expect(present.hint).toContain("zbierz");
         } else {
           expect(present.question).toContain("Find the limit");
-          expect(present.hint).toContain("Collect");
+          expect(present.hint).toContain("collect");
           expect(present.explanation).not.toMatch(/[ąćęłńóśźż]/i);
         }
       }
