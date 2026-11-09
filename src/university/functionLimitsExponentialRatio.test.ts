@@ -9,7 +9,7 @@ import {
 
 const value = (a: Rational) => Number(a.numerator) / Number(a.denominator);
 const calc = (terms: readonly ExponentialFunctionTerm[], x: number) =>
-  terms.reduce((total, t) => total + value(t.coefficient) * value(t.base) ** x, 0);
+  terms.reduce((total, t) => total + value(t.coefficient) * value(t.base) ** (x + (t.shift ?? 0)), 0);
 const evaluate = (p: ExponentialFunctionRatioProblem, x: number) =>
   calc(p.numerator, x) / calc(p.denominator, x);
 const independent = (v: number) => {
@@ -46,8 +46,12 @@ describe("G04 exponential function ratio — isolated stage QA", () => {
       else if (result.kind === "negative-infinity") histogram.negative++;
       else throw Error("Unexpected limit class");
 
-      expect(p.denominator.every(t => t.coefficient.numerator > 0n)).toBe(true);
+      expect(groupExponentials(p.denominator)[0].coefficient.numerator).toBeGreaterThan(0n);
       expect(p.denominator.every(t => t.base.numerator > 0n)).toBe(true);
+      if (v % 6 === 0) {
+        expect(p.numerator[0].shift).toBeGreaterThanOrEqual(2);
+        expect(p.denominator[1].coefficient.numerator).toBeLessThan(0n);
+      }
       const near = evaluate(p, 20), far = evaluate(p, 100);
       expect(Number.isFinite(near) && Number.isFinite(far)).toBe(true);
       if (oracle.kind === "finite") {
@@ -72,6 +76,7 @@ describe("G04 exponential function ratio — isolated stage QA", () => {
         expect(spec.value.kind).toBe(oracle.kind);
         expect(present.question).toContain("x→+∞");
         expect(present.question).toContain("^x");
+        if (v % 6 === 0) expect(present.question).toContain("^(x+");
         expect(present.hint.length).toBeGreaterThan(30);
         expect(present.nextHint.length).toBeGreaterThan(30);
         expect(present.solution.filter(step => step.kind === "working")).toHaveLength(5);
