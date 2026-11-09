@@ -91,6 +91,8 @@ describe("I02 source-shaped table methods — stage-only bounded QA",()=>{
       if(pl.answer.kind!=="primitive"||en.answer.kind!=="primitive")
         throw Error("Expected same structured primitive answer");
       expect(pl.answer.terms).toEqual(en.answer.terms);
+      expect(pl.question).toContain("tg=tan i ctg=cot");
+      expect(en.question).not.toContain("tg=tan");
       expect(pl.solution.some(step=>step.reason.includes("tg(u)=tan(u)")&&
         step.reason.includes("ctg(u)=cot(u)"))).toBe(true);
       expect(pl.answer.terms.length).toBe(en.answer.terms.length);
