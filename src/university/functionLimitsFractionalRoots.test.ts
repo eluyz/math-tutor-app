@@ -20,7 +20,7 @@ function evaluate(p: FractionalRootLimitProblem, x: number) {
 }
 
 describe("G04 stage: independent fractional-root comparison at positive infinity", () => {
-  it("keeps 24 synthetic variants isolated from the shared catalog", () => {
+  it("provides 24 validated synthetic variants for the student catalog", () => {
     expect(fractionalRootLimitStage.id).toBe("limit-mixed-fractional-roots");
     expect(fractionalRootLimitStage.variantCount).toBe(24);
     expect(fractionalRootLimitStage.supportedDifficulties).toEqual(["hard"]);
