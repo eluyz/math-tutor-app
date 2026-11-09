@@ -17,7 +17,8 @@ for (const width of [375, 1280])
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", "matrix-add");
 
       // Any valid-but-wrong entry activates the learning hint panel.
-      await page.locator(".matrix-grid input").first().fill("999999");
+      for (const field of await page.locator(".matrix-grid input").all())
+        await field.fill("999999");
       await page.getByRole("button", { name: en ? "Check" : "Sprawdź", exact: true }).click();
       await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
       await page.getByRole("button", {
