@@ -66,8 +66,6 @@ async function complete(page: Page, values: readonly Rational[]) {
   await expect.poll(() => fields.evaluateAll(nodes =>
     nodes.map(node => (node as HTMLInputElement).value))).toEqual(values.map(fractionText));
 }
-const select = (page: Page, en: boolean, name: string) =>
-  page.getByRole("button", { name: en ? name : name, exact: true });
 async function open(page: Page, width: number, en: boolean) {
   await page.setViewportSize({ width, height: 950 });
   await page.goto("/");
