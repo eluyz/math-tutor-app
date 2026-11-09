@@ -7,7 +7,8 @@ import {teaching} from "./teaching";
 /** C03 source-shape proxies only. Not registered in the public catalog by this PR. */
 export type C03ConjugateGap =
   | Readonly<{mode:"linear-root-pair";left:Rational;right:Rational}>
-  | Readonly<{mode:"reverse-quadratic"|"positive-quadratic-sum";a:Rational;b:Rational}>
+  | Readonly<{mode:"reverse-quadratic";a:Rational;b:Rational}>
+  | Readonly<{mode:"positive-quadratic-sum";a:Rational;b:Rational}>
   | Readonly<{mode:"negative-constant-quadratic";k:Rational;a:Rational;b:Rational;nStart:number}>;
 
 const levels=["medium","hard","advanced","expert"] as const;
