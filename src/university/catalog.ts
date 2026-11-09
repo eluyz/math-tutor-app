@@ -46,6 +46,7 @@ import { negativePowerFamilies, presentNegativePower } from "./negativePower";
 import { triangularThreeFamilies, presentTriangularThree } from "./triangularThree";
 import { sequenceFamilies, presentSequence } from "./sequences";
 import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceExtensions";
+import { quarticRootSequenceFamilies, presentQuarticRootSequence } from "./sequenceExtensionsQuartic";
 import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFollowup";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
@@ -141,6 +142,7 @@ export const universityFamilies = [
   ...triangularThreeFamilies,
   ...sequenceFamilies,
   ...sequenceExtensionFamilies,
+  ...quarticRootSequenceFamilies,
   ...sequenceFollowupFamilies,
   ...functionLimitFamilies,
   ...limitFollowupFamilies,
@@ -345,6 +347,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
       : problem.kind === "sequence-power-exponential" ||
           problem.kind === "sequence-monotonic-bounded"
         ? presentSequenceFollowup(problem, locale)
+        : problem.kind === "sequence-root-quartic"
+        ? presentQuarticRootSequence(problem, locale)
         : problem.kind === "sequence-radical-ratio" ||
           problem.kind === "sequence-exponential-ratio" ||
           problem.kind === "sequence-euler-product"
