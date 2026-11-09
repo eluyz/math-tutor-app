@@ -3,6 +3,8 @@ import type {MultivarRationalProblem} from "./multivarRational";
 import type { QuarticRootSequence } from "./sequenceExtensionsQuartic";
 import type { NegativeRootLinearSequence } from "./sequenceNegativeRootLinear";
 import type { QuadraticEulerSequence } from "./sequenceQuadraticEuler";
+import type { C01Shape } from "./sequencePolynomialSourceShapes";
+import type { C03ConjugateGap } from "./sequenceConjugateSourceShapes";
 import type { MultivarTrigProblem } from "./multivarTrig";
 import type {ElementaryPartialProblem} from './multivarElementary';
 import type { Matrix } from "../matrices";
@@ -139,6 +141,8 @@ export type SequenceProblem =
   | (Readonly<{kind:"sequence-root-quartic"}> & QuarticRootSequence)
   | (Readonly<{kind:"sequence-negative-root-linear"}> & NegativeRootLinearSequence)
   | (Readonly<{kind:"sequence-euler-quadratic"}> & QuadraticEulerSequence)
+  | (Readonly<{kind:"sequence-polynomial-source-shapes"}> & C01Shape)
+  | (Readonly<{kind:"sequence-conjugate-source-shapes"}> & C03ConjugateGap)
   | Readonly<{kind:"sequence-radical-ratio";a:Rational;b:Rational;c:Rational;linear:Rational;e:Rational;offset:Rational;remainder:Rational;lowerLinear:Rational}>
   | Readonly<{kind:"sequence-exponential-ratio";numerator:readonly GeometricTerm[];denominator:readonly GeometricTerm[]}>
   | Readonly<{kind:"sequence-euler-product";factors:readonly {a:Rational;b:Rational;c:Rational;d:Rational}[]}>
