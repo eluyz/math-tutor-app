@@ -1,35 +1,32 @@
-# G06 — katalog i akceptacja integracji (2026-11-08)
+# G06 — scalone źródło matematyczne i kandydat integracji UI
 
-## Zakres, zależności
+Dzień: 2026-11-09. PR #235 został scalony metodą squash na main (`982960b5fe256564c05a741942c0335a91401d9c`). PR #244 to oddzielny **DRAFT** z integracją, **NIE** jest jeszcze zatwierdzony do merge.
 
-- PR rodzica: #235, HEAD `96290c84cd3cb08d8f89a811f42378b3e191f6a8`; własny kod matematyczny i testy samodzielne.
-- PR integracji: #244, gałąź `chat/closure-g06-integration-20261108` wyprowadzona z #235. PR tymczasowo ma bazę `main`, aby uruchomić istniejące GitHub Actions (`ci.yml` ogranicza `pull_request.branches` do `main` i `qa/batch-c-controlled-acceptance`). W tym stanie jego diff obejmuje również kod rodzica.
-- Nie scalać #244 przed zamknięciem zależności i kontrolą kolizji z #239 (I04), #199 (QA-10) i innymi równoległymi gałęziami.
+## Przegląd zakresu
 
-## Co zostało zintegrowane
+- Nowa `analysis-euler-function-infinity` zawiera 24 zadania typu `hard` z x→+∞; zachowuje 96 starych wariantów `analysis-euler-function` x→0.
+- `EulerInfinityProblem` w dyskryminowanej unii `UniversityProblem`, jeden wpis w katalogu, prezentacja `analysis-euler-infinity` przed ogólnym `isElementaryAnalysis`.
+- G06 ma dwie rodziny i pozostaje `coverage: partial`. Brak deklaracji pełnego `SOURCE_PASS`.
+- PL/EN, 375/1280 px, poprawna/błędna/pusta odpowiedź i rozwiązanie są kontrolowane przez testy integracyjne i przeglądarkowe.
+- Pierwotna gałąź #244 przeszła CI https://github.com/eluyz/math-tutor-app/actions/runs/42524843661 na swoim SHA. Po pogodzeniu z I04 wymagany jest **nowy** pełny PASS na nowym SHA.
 
-- `EulerInfinityProblem` w `src/university/schema.ts`.
-- Rodzina `analysis-euler-function-infinity` (24 przypadki na poziomie `hard`) w `src/university/catalog.ts`.
-- Dispatch `analysis-euler-infinity` PRZED ogólnym `isElementaryAnalysis`.
-- Kod kompetencji G06 znajduje teraz obecną rodzinę `analysis-euler-function` (x→0) oraz nową rodzinę `analysis-euler-function-infinity` (x→+∞), nadal z oznaczeniem `partial`.
-- Żaden kod z dotychczasowej rodziny x→0 ani historyczna paczka 96 wariantów nie są zmieniane.
-- Dołączono testy integracyjne generowania, oceniania i lokalizacji oraz testy PL/EN w przeglądarce na 375 i 1280 px.
+## Kumulacyjne liczniki po I04 #239 i G06 #244
 
-## Oczekiwane liczniki na izolowanej bazie main@c44ef85531906c9179c529fdfc852eb0035a13b7
-
-| Wskaźnik | Main przed zmianą | Po dodaniu G06 |
+| Wskaźnik | Main z I04 (przed G06) | Kandydat z G06 |
 | --- | ---: | ---: |
-| Rodziny | 240 | 241 |
+| Rodziny | 241 | 242 |
 | Rodziny poza całkami | 219 | 220 |
-| Warianty | 18 333 | 18 357 |
+| Warianty | 18 405 | 18 429 |
 | Warianty poza całkami | 16 821 | 16 845 |
 
-Te liczby nie pozostają prawidłowe po scaleniach innych gałęzi dodających rodziny. W szczególności integracja I04 (#239) musi zostać zserializowana, a globalne asercje przeliczone na aktualnym main; nie wolno na ślepo scalać stałych 241 / 18 357.
+Liczby ważne wyłącznie wobec main, na którym jest I04 i źródłowy generator G06. Jeśli kolejne integracje dodadzą rodziny, liczniki trzeba zaktualizować ponownie i wykonać niezależne testy.
 
-## Dowody i bramki
+## Warunki wydania
 
-- Niezależny przegląd matematyczny: 24/24 obliczeń granicy logarytmicznej pokrywa wyniki w generatorze, łącznie z przypadkiem podstawy równej 1; to nie jest test interfejsu ani SOURCE_PASS.
-- Testy jednostkowe i build PR #235: sukces we wczesnej części CI; cały CI wymaga końcowego `SUCCESS` na dokładnym SHA.
-- CI PR #244 wymaga pełnego `SUCCESS`, gdy ruszy po zdarzeniu `synchronize`. Bez tego oznaczyć `NOT_RUN` / `PENDING`.
-- Następny krok po CI: kontrola niezależna zmian wspólnych, akceptacja UI na prywatnych materiałach źródłowych bez publikowania ich treści, zgodny z uprawnieniami ownera merge, a potem post-merge main CI + Pages na tym samym SHA.
-- Do tego momentu `SOURCE_PASS=0` dla nowej rodziny, `PRODUCTION_DEPLOYED=false`; projekt i dział G **nie są ukończone**.
+1. Zakończyć CI i Pages na exact SHA po scaleniu #235.
+2. Uzyskać pełny CI na nowym HEAD #244, obejmujący B–G, oraz niezależną recenzję.
+3. W przypadku innych zmergowanych integracji: wykonać ponowny rebase oraz kontrolę liczników i formuł.
+4. Dopiero po osobnej zgodzie właściciela scalić #244.
+5. Potwierdzić post-merge CI + Pages na tym samym SHA; weryfikację źródło→opublikowany UI prowadzić bez publicznego kopiowania prywatnych zadań i kluczy.
+
+`SOURCE_FORM_MATCH 4/4` dla prywatnych P26/3a–d nie stanowi formalnego SOURCE_PASS.
