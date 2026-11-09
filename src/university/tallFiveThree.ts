@@ -83,7 +83,7 @@ export const tallFiveThreeFamilies:readonly UniversityFamily[]=[{
 }];
 
 export function presentTallFiveThree(p:Problem,locale:Locale) {
-  const {t,...lesson}=teaching(locale);
+  const lesson=teaching(locale),{t}=lesson;
   const result=classifyTallFiveThree(p);
   const augmented=p.matrix.map((row,i)=>[...row,p.rhs[i]]);
   lesson.work(`[A|b]=${compact(augmented)}`,t("Budujemy macierz rozszerzoną pięciu równań z trzema niewiadomymi.","Form the augmented matrix of five equations in three unknowns."));
