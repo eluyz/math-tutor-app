@@ -67,3 +67,62 @@ for (const width of [375, 1280])
         expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
         expect(errors).toEqual([]);
       });
+
+for (const width of [375, 1280])
+  for (const english of [false, true])
+    for (const level of ["hard", "advanced", "expert"] as const)
+      test(`M06 mixed radical determinant ${width}px ${english ? "EN" : "PL"} ${level}`, async ({ page }) => {
+        test.setTimeout(90_000);
+        await page.setViewportSize({ width, height: 900 });
+        const errors: string[] = [];
+        page.on("pageerror", error => errors.push(error.message));
+        await page.goto("/");
+        if (english) await button(page, "English").click();
+        await button(page, english ? "University mathematics" : "Matematyka na studia").click();
+        await button(page, english ? "Determinants" : "Wyznaczniki").click();
+        await button(page, english
+          ? ({ hard: "Hard", advanced: "Advanced", expert: "Expert" } as const)[level]
+          : ({ hard: "Trudny", advanced: "Zaawansowany", expert: "Ekspert" } as const)[level]).click();
+        await page.locator(".exercise-list-items .exercise-item")
+          .filter({ hasText: english
+            ? "2×2 determinant with two distinct radicals"
+            : "Wyznacznik 2×2 z dwoma różnymi pierwiastkami" }).click();
+        await expect(page.locator(".question"))
+          .toHaveAttribute("data-template-id", "determinant-radical-mixed-two");
+        const cells = await page.locator(".determinant-display.determinant-radical td").all();
+        expect(cells).toHaveLength(4);
+        const values: { whole: number; root: number; radicand: number }[] = [];
+        for (const cell of cells) {
+          const whole = Number(await cell.getAttribute("data-whole"));
+          const root = Number(await cell.getAttribute("data-root"));
+          const radicand = Number(await cell.getAttribute("data-radicand"));
+          expect(Number.isSafeInteger(whole) && Number.isSafeInteger(root)).toBe(true);
+          expect([2, 3, 5, 7]).toContain(radicand);
+          expect(await cell.innerText()).toContain("√" + radicand);
+          values.push({ whole, root, radicand });
+        }
+        expect(new Set(values.map(v => v.radicand)).size).toBe(2);
+        const multiply = (x: typeof values[number], y: typeof values[number]) => {
+          expect(x.radicand).toBe(y.radicand);
+          return [x.whole * y.whole + x.radicand * x.root * y.root,
+            x.whole * y.root + x.root * y.whole] as const;
+        };
+        const ad = multiply(values[0], values[3]), bc = multiply(values[1], values[2]);
+        expect(ad[1]).toBe(0);
+        expect(bc[1]).toBe(0);
+        const answer = ad[0] - bc[0];
+        const check = button(page, english ? "Check" : "Sprawdź");
+        await check.click(); await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+        await page.locator("#answer").fill(String(answer + 1));
+        await check.click(); await expect(page.locator(".feedback")).toHaveClass("feedback incorrect");
+        await page.locator("#answer").fill(String(answer));
+        await check.click(); await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+        await button(page, english ? "Show solution" : "Pokaż rozwiązanie").click();
+        await button(page, english ? "Show all steps" : "Pokaż wszystkie kroki").click();
+        const solution = await page.locator(".solution-panel").innerText();
+        for (const root of new Set(values.map(v => v.radicand)))
+          expect(solution).toContain("√" + root);
+        expect(solution).toContain("det(A)");
+        expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+        expect(errors).toEqual([]);
+      });
