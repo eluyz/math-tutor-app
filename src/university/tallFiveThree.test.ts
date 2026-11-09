@@ -1,10 +1,9 @@
 import { describe, expect, it } from "vitest";
 import { assessAnswer, emptyAnswer } from "../answers";
-import { difficulties } from "../difficulty";
 import { a, d, eq, laplace, m, q } from "./audit";
 import { allTemplates, taskPool } from "../generators";
 import { localizeUniversity, makeUniversityTask } from "./catalog";
-import { classifyTallFiveThree, makeTallFiveThree } from "./tallFiveThree";
+import { classifyTallFiveThree } from "./tallFiveThree";
 import type { Rational } from "../rational";
 
 const choose=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>
