@@ -88,7 +88,7 @@ export function presentExponentialFunctionRatio(
   const value = exponentialFunctionRatioLimit(p);
   const dominant = bottom[0];
   lesson.work(
-    "x→+∞; A^x>0 dla A>0 / A^x>0 for A>0",
+    "x→+∞; A^x>0 (A>0)",
     t("Dodatnie podstawy pozwalają rozważać wszystkie x rzeczywiste; mianownik jest dodatni, ponieważ jego współczynniki są dodatnie.",
       "Positive bases define each power for real x. The denominator is strictly positive because its coefficients are positive."),
   );
