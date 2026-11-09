@@ -94,6 +94,7 @@ import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabola
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
 import { integralMethodsFollowupFamilies, presentIntegralMethodsFollowup } from "./integralMethodsFollowup";
+import { integralPartsTrigQuadraticFamily, presentQuadraticTrigParts } from "./integralPartsTrigQuadratic";
 
 export const UNIVERSITY_VARIANTS = 24;
 export const universityFamilies = [
@@ -188,6 +189,7 @@ export const universityFamilies = [
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
   ...integralMethodsFollowupFamilies,
+  integralPartsTrigQuadraticFamily,
 ];
 const isElementaryAnalysis = (problem: UniversityProblem): problem is ElementaryAnalysisProblem => problem.kind.startsWith("analysis-");
 const isAsymptote = (problem: UniversityProblem): problem is AsymptoteProblem => problem.kind === "analysis-euler" || problem.kind.startsWith("analysis-asymptote-");
@@ -198,6 +200,8 @@ const isRank = (problem: UniversityProblem): problem is Extract<LinearAlgebraPro
 const present = (problem: UniversityProblem, locale: Locale) =>
   (problem.kind === "matrix-four-factor-dimensions" || problem.kind === "multivar-anisotropic-limit")
     ? presentRectangularPath(problem,locale)
+    : problem.kind === "integral-parts-trig-quadratic"
+    ? presentQuadraticTrigParts(problem,locale)
     : problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"
     ? presentIntegralMethodsFollowup(problem,locale)
     : problem.kind === "integral-improper-interior-power" || problem.kind === "integral-improper-interior-pv"
