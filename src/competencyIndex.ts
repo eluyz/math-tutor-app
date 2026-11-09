@@ -235,7 +235,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "sequence-conjugate",
-      "sequence-radical-ratio"
+      "sequence-radical-ratio",
+      "sequence-root-quartic"
     ]
   },
   "C03": {

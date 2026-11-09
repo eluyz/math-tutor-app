@@ -61,3 +61,7 @@ This is the sole proposed F05/b-like work unit. Other gaps (F05/e-like, the sepa
 - Status at authoring: `MATH_IMPLEMENTED; SVG_IMPLEMENTED; TESTS_WRITTEN; CATALOG_INTEGRATION_BLOCKED; BROWSER_QA_PENDING; SOURCE_NOT_VERIFIED`.
 
 Refs #108 (no auto-close).
+
+## Merged-main reconciliation checkpoint (2026-11-09)
+
+After unrelated #244 G06 reached main, the B catalog integration was reconciled with main `3a96dd5d32cc0293ab9952e228501a80fab5bfab` without force-push or discarding G06. The integrated *candidate* has 244 families and 18,597 variants (published main 243/18,525 before this PR). Exact P21 original-source witness acceptance is unchanged: 0/6. A new exact-head full GitHub Actions check is required before the owner-authorized merge; a successful run on a previous candidate SHA is not sufficient.
