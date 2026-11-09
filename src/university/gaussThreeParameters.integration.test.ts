@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { assessAnswer, emptyAnswer, formatRational as format } from "../answers";
 import { allTemplates, taskPool } from "../generators";
+import { batchDOracle } from "../qa/batchD";
 import { makeUniversityTask, localizeUniversity } from "./catalog";
 import { gaussThreeParameterFamilies, presentGaussThreeParameters } from "./gaussThreeParameters";
 
@@ -50,6 +51,19 @@ describe("U06/U08 three-parameter systems: catalog integration", () => {
           }
         }
       });
+
+  it("agrees with the separate exact Batch D minor/Cramer oracle for 24 edge variants", () => {
+    for (const family of gaussThreeParameterFamilies)
+      for (const difficulty of family.supportedDifficulties)
+        for (const variant of [0, 1, 2, 3]) {
+          const task = makeUniversityTask(family.id, variant, difficulty);
+          const oracle = batchDOracle(task);
+          expect(oracle.kind).toBe("list");
+          if (typeof oracle === "string" || oracle.kind !== "list") throw Error("Expected a full coefficient list");
+          expect(oracle.values).toHaveLength(20);
+          expect(assessAnswer(task.answer, oracle).kind).toBe("correct");
+        }
+  });
 
   it("preserves existing 3x5 and 4x5 two-parameter family routing", () => {
     for (const family of ["gauss-five-3x5", "gauss-five-4x5"] as const)
