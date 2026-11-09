@@ -23,17 +23,17 @@
 
 **Stan:** #235 scalony; #244 wymaga pełnego nowego CI i niezależnej weryfikacji wdrożenia. Wcześniejsze 96 zadań Eulera przy x→0 pozostaje bez zmian.
 
-## F05/e — recovered hollow heights synthetic graph
+## F05/e — single-hole recovery public synthetic graph (PR #247)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
-| function-single-hole-recovery | hard, advanced, expert | 72 | Six-field bilingual graph with one excluded input and two hollow heights both attained elsewhere, unbounded left tail and filled maximum. P21/e exact source still pending. |
+| function-single-hole-recovery | hard, advanced, expert | 72 | One excluded x, two distinct hollow limits recovered elsewhere, filled maximum, left lower-unbounded graph, six graded PL/EN fields; METHOD_PROXY not original P21 exact. |
 
-## F05/b — even open-range graph synthetic method
+## F05/b — even open-range synthetic graph (PR #243)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
-| function-even-open-range | hard, advanced, expert | 72 | Six graded PL/EN fields with symmetric excluded arguments, four hollow endpoints, open lower range bound and unbounded upper tails. Original source-graph match remains unverified. |
+| function-even-open-range | hard, advanced, expert | 72 | Two symmetric excluded inputs, 4 hollow endpoints, unbounded tails, open range floor and 6 graded PL/EN fields; synthetic METHOD_PROXY only, original P21/b unaccepted. |
 
 ## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
 
@@ -225,9 +225,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **249 rodzin**, **18933 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 187 rodzin wspiera advanced, a 170 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **251 rodzin**, **19125 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 189 rodzin wspiera advanced, a 172 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **187**, L5: **170**.
+Łącznie rodziny L4: **189**, L5: **172**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -1077,3 +1077,12 @@ Generatory korzystają z macierzy 2×2, 2×3, 3×2 i 3×3. Poziom easy: małe li
 | sequence-root-quartic | medium, hard, advanced, expert | 96 | (A·n²+B·n+C)/√(d²·n⁴+e·n+g), d>0, e≥0, d²+g>0; wyłącz n⁴ i dziel przez n²; granica A/d, PL/EN |
 
 Nowa rodzina rozszerza C02 bez zastępowania poprzednich zadań; 96 syntetycznych wariantów obejmuje tylko wskazaną bezpieczną formę. Metoda #236 scalona; integracja #242 i pełne SOURCE_PASS wymagają osobnych bramek. Liczniki powyżej dotyczą gałęzi do czasu potwierdzenia wdrożenia na main.
+
+## C02/C05 — nowe syntetyczne metody granic (łączona integracja Draft)
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| sequence-negative-root-linear | medium, hard, advanced, expert | 96 | −√(a²n²+bn+c)/(dn+e), a,d>0, b,e≥0, a²+c>0, n≥1, granica −a/d, PL/EN |
+| sequence-euler-quadratic | medium, hard, advanced, expert | 96 | (1+a/(n²+b))^(c n²+d), b≥0, a≠0, 1+b+a>0, n≥1, granica e^(ac) (logarytm), PL/EN |
+
+Przyrost 2 rodzin i 192 wariantów, bez publikowania oryginalnych prywatnych zadań uczelni. Katalog kandydacki 249 rodzin / 18 981 wariantów; SOURCE_PASS C02/C05 nadal oddzielne. Metody pierwotne jako Draft PR #253 i #256; integracja wymaga własnego pełnego CI i zgody na merge.
