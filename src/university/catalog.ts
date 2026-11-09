@@ -99,6 +99,7 @@ import { horizontalAreaFamilies, presentHorizontalSliceArea } from "./horizontal
 import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabolasArea";
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
+import {i02TableFamilies,presentI02TableStage} from "./integralTableI02Stage";
 import { integralMethodsFollowupFamilies, presentIntegralMethodsFollowup } from "./integralMethodsFollowup";
 import { integralPartsTrigQuadraticFamily, presentQuadraticTrigParts } from "./integralPartsTrigQuadratic";
 
@@ -200,6 +201,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...twoParabolasAreaFamilies,
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
+  ...i02TableFamilies,
   ...integralMethodsFollowupFamilies,
   integralPartsTrigQuadraticFamily,
 ];
@@ -214,6 +216,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentRectangularPath(problem,locale)
     : problem.kind === "analysis-study-smooth-rational"
     ? presentSmoothRationalStudy(problem, locale)
+    : problem.kind === "integral-table-i02-stage"
+    ? presentI02TableStage(problem,locale)
     : problem.kind === "integral-parts-trig-quadratic"
     ? presentQuadraticTrigParts(problem,locale)
     : problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"
