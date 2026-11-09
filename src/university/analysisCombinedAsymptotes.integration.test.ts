@@ -40,6 +40,6 @@ describe("G07 source-shaped complete asymptote catalog integration",()=>{
    }
   }
   expect(ids.size).toBe(24);
-  expect(allTemplates).toHaveLength(245);
+  expect(allTemplates).toHaveLength(247);
  });
 });

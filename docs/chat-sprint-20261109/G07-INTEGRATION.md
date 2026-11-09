@@ -1,33 +1,22 @@
-# G07: integration with published G07 stage, merged C02 and I04 QA
+# G07 integration — reconciliation with C02 and U06/U08 (#252)
 
-2026-11-09. Draft PR #258 is rebased by a merge-parent reconciliation on main@bf7367de143975ab01ce1dc56f8f05ff57aa71b2. Previous isolated G07 PR #257 has been owner-approved and merged (same main SHA); parent generator plus 24 synthetic variants are present but not yet registered.
+Date: 2026-11-09. Staged source module #257 was merged; catalog integration #258 now has this exact main parent: `9324d25c1b28741824abab845c653ccd229f194e`.
 
 ## Scope
+- One new hard-only G07 family `analysis-asymptotes-combined-rational` with 24 synthetic variants. From one rational function, learners determine both vertical and horizontal/oblique asymptotes.
+- Six method shapes, two answer fields, bilingual PL/EN steps, source-independent mathematical tests, Playwright 375/1280 px and batch B–G.
+- Preserve C02 #242 quartic-root family, I04 #255 regression, U06/U08 #252 two three-parameter Gauss families, M06, W02, G06 and all previously exposed exercises. Shared files rebuilt from current main, only G07 additions.
+- Register family and explicit presenter ahead of `isElementaryAnalysis`, keep G07 coverage `partial`.
 
-- New hard-only family `analysis-asymptotes-combined-rational` — 24 synthetic rational method cases asking for ALL vertical and horizontal/oblique asymptotes in one exercise.
-- Six deterministic method shapes, grading two answer fields separately, PL/EN authored hints and steps, independent math unit tests and responsive bilingual browser witnesses at 375/1280 px.
-- Preserves existing separate G07 families, all G06, M06, W02, C02 #242 and the I04 bilingual QA #255; no changes to their generator files or tests.
-- New discriminated problem type in schema, one family registration and explicit presenter dispatch ahead of generic elementary-analysis handler; new family searchable via G07, retains partial competency coverage.
-
-## Cumulative counts
-
-| Quantity | Main after C02 | After G07 |
+| Metric | Current main | G07 candidate |
 | --- | ---: | ---: |
-| Families | 244 | 245 |
-| Nonintegral families | 222 | 223 |
-| Variants | 18,621 | 18,645 |
-| Nonintegral variants | 17,037 | 17,061 |
+| Families | 246 | 247 |
+| Nonintegral families | 224 | 225 |
+| Variants | 18 765 | 18 789 |
+| Nonintegral variants | 17 181 | 17 205 |
 
-These counts are valid only for the pinned main. Every further catalog merge requires fresh reconciliation, code and CI check.
-
-## Source-bound limitation
-
-Nine original worksheet questions but eight answer-key entries; the unmatched ninth was independently solved, but no full answer-key verification or source→published UI acceptance is established. No original coefficients, scans or original answer-key data included in the public repository. SOURCE_PASS pending.
-
-## Release gates
-
-- [x] Source stage PR #257 merged with full exact-head unit/build/Playwright/Batch B–G PASS.
-- [ ] New exact-head #258 CI full unit/build/Playwright/Batch B–G PASS after this reconciliation.
-- [ ] Final mergeability and cumulative inventory preflight; owner-approved integration merge only if clean and tested.
-- [ ] Postmerge full main CI + same-SHA GitHub Pages PASS.
-- [ ] Independent source-to-deployed-UI witness before SOURCE_PASS.
+## Required gates
+1. Full exact-head CI unit/build/Playwright and Batch B–G PASS on this reconciled candidate.
+2. Check current main did not change in shared catalog files; otherwise reconcile and rerun CI.
+3. Conditional owner-approved Squash merge only after PASS; postmerge main CI and same-SHA Pages PASS.
+4. Nine private G07 examples, eight keyed solutions; remaining answer derived independently. No original material published, no SOURCE_PASS until source-to-deployed-UI independent verification.

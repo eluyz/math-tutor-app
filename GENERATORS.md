@@ -1,10 +1,19 @@
-## G07 — wyznaczanie wszystkich asymptot jednej funkcji wymiernej (integracja #258)
+## G07 — kompletne asymptoty funkcji wymiernej — PR #258 (integracja)
 
 | Family | Levels | Variants | Method |
 | --- | --- | ---: | --- |
-| analysis-asymptotes-combined-rational | hard | 24 | Syntetyczne zadania: pionowe i poziome/ukośne asymptoty wyznaczane łącznie z jednej funkcji, 6 trybów, dwa oceniane pola, pełne objaśnienia PL/EN, test dziury i mianownika bez rzeczywistych zer. |
+| analysis-asymptotes-combined-rational | hard | 24 | Syntetyczne zadania obejmujące pionową i poziomą/ukośną asymptotę w jednym zadaniu; sześć trybów, dwa oceniane pola, objaśnienia PL/EN, dziura, brak rzeczywistych biegunów. |
 
-**Stan:** generator #257 scalony z pełnym CI PASS; integracja #258 wymaga nowego CI, oddzielnego merge i wdrożenia. Prywatny arkusz zawiera 9 przykładów; klucz obejmuje 8, bez formalnego SOURCE_PASS.
+**Status:** Source-stage #257 scalony z CI PASS; integracja #258 wymaga pełnego nowego CI i wdrożenia. Materiały prywatne G07: 9 pytań i tylko 8 odpowiedzi w kluczu, brak formalnego SOURCE_PASS.
+
+## U06/U08 — Gauss 3-parametrowy: integracja PR #252
+
+| Family | Trudności | Warianty | Zakres |
+|---|---|---:|---|
+| gauss-three-by-five-three-parameters | hard, advanced, expert | 72 | 3×5; rank(A)=rank([A|b])=2; 20 dokładnych współczynników t1,t2,t3 |
+| gauss-five-three-parameters | hard, advanced, expert | 72 | 4×5; rank(A)=rank([A|b])=2; 20 dokładnych współczynników t1,t2,t3 |
+
+**+2 rodziny/+144 warianty tylko po odrębnym merge PR #252.** Prywatne materiały potwierdzają część form 3×5 rzędu 2; 4×5 to uzupełniający trening syntetyczny. Akceptacja SOURCE_PASS nadal wymaga oddzielnego audytu i nie wynika z poprawności metody. Zamrożone historyczne zadania pozostają bez zmian.
 
 ## G06 — granice Eulera przy x→+∞ (kandydat integracji PR #244)
 
@@ -204,9 +213,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **245 rodzin**, **18645 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 182 rodziny wspierają advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **247 rodzin**, **18789 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 182 rodziny wspierają advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **183**, L5: **166**.
+Łącznie rodziny L4: **185**, L5: **168**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 

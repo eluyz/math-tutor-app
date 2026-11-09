@@ -76,7 +76,7 @@ describe("U06/U08 isolated 3x5 and 4x5 / rank-two / three-parameter methods", ()
       for (let variant = 0; variant < 24; variant++) {
         const p = constructGaussThreeParameters(variant, level, equations);
         expect(p.kind).toBe("linear-system");
-        expect(p.method).toBe("parameters");
+        expect(p.method).toBe("parameters-three");
         expect(p.matrix).toHaveLength(equations);
         expect(p.matrix.every(row => row.length === 5)).toBe(true);
         expect(p.rhs).toHaveLength(equations);

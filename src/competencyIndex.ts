@@ -202,7 +202,9 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "system-rectangular-4x3",
       "gauss-four-dependent-diagnostic",
       "gauss-five-3x5",
-      "gauss-five-4x5"
+      "gauss-five-4x5",
+      "gauss-three-by-five-three-parameters",
+      "gauss-five-three-parameters"
     ]
   },
   "U07": {
@@ -222,6 +224,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "gauss-rectangular-3x2-parameters",
       "gauss-rectangular-4x3-parameters",
       "gauss-rectangular-2x3-parameters",
+      "gauss-three-by-five-three-parameters",
+      "gauss-five-three-parameters",
       "gauss-four-dependent-diagnostic"
     ]
   },

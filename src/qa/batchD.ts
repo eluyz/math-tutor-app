@@ -137,7 +137,7 @@ export function batchDOracle(task: Task): AnswerInput {
       if (p.kind === "linear-cramer-diagnostic" && p.target === "minors") return { kind: "list", values: [D, ...minors].map(f) };
       return { kind: "choice", value: result.classification };
     }
-    if (p.method === "parameters") {
+    if (p.method === "parameters" || p.method === "parameters-three") {
       requireMath(result.classification === "system-many", "parameter task is consistent and underdetermined");
       return { kind: "list", values: result.coefficients.flat().map(f) };
     }
