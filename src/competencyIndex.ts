@@ -492,7 +492,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "integral-parts",
       "integral-parts-definite",
-      "integral-parts-trig-linear"
+      "integral-parts-trig-linear",
+      "integral-parts-trig-quadratic"
     ]
   },
   "I05": {

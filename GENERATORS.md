@@ -1,8 +1,16 @@
-## F05/b — synthetic six-field even graph with two excluded inputs (Draft #243; not deployed)
+## F05/b — public synthetic even graph, one six-property task (integration candidate #243)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
-| function-even-open-range | hard, advanced, expert | 72 | Public synthetic even piecewise graph: two excluded symmetric arguments with four hollow limits, unbounded external branches and open lower range endpoint; all six properties independently graded in PL/EN. Original source P21/b exact acceptance is **NOT** claimed; current F05 source certificate remains 0/6. |
+| function-even-open-range | hard, advanced, expert | 72 | Six separately graded PL/EN properties; two symmetric missing inputs and four open ends, W open at its lower bound, two unbounded upper tails. Not a direct transcription of the original P21/b worksheet. |
+
+## I04 — dwukrotne całkowanie przez części, integracja PR #239 (Draft)
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| integral-parts-trig-quadratic | hard, advanced, expert | 72 | k x² sin(ax+b) / k x² cos(ax+b), a,k≠0; dwa kroki przez części, trzy dokładne współczynniki, PL/EN, wymagane +C. SOURCE_PASS pending. |
+
+Po zatwierdzeniu obu zależnych PR #234 → #239 katalog wzrasta z 240 rodzin / 18 333 instancji do 241 rodzin / 18 405 instancji. Do momentu zatwierdzenia, scalenia i weryfikacji GitHub Pages jest to wyłącznie kandydat, nie wdrożenie produkcyjne.
 
 ## W02 — Batch 3: quadratic-cubic nonlinear elimination and full critical-point classification
 
@@ -186,13 +194,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **241 rodzin**, **18405 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 179 rodzin wspiera advanced, a 163 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **242 rodziny**, **18477 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 180 rodzin wspiera advanced, a 164 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **180**, L5: **164**. (stan kandydackiej gałęzi integracyjnej #243; historyczne liczby poniżej)
-
-Łącznie rodziny L4: **179**, L5: **163**.
-
-Łącznie rodziny L4: **178**, L5: **163**.
+Łącznie rodziny L4: **181**, L5: **165**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
