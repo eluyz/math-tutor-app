@@ -23,6 +23,7 @@ import { graphIntegratedJumpFamilies, presentIntegratedJump } from "./graphInteg
 import { graphIntegratedPunctureFamilies, presentIntegratedPunctures } from "./graphIntegratedPunctures";
 import { integratedAsymptoteFamilies, presentIntegratedAsymptote } from "./graphIntegratedAsymptotes";
 import { graphEvenOpenRangeFamilies, presentEvenOpenRange } from "./graphEvenOpenRange";
+import { singleHoleRecoveryFamilies, presentSingleHoleRecovery } from "./graphSingleHoleRecovery";
 import { derivativeSketchFamilies, presentDerivativeSketch } from "./derivativeSketch";
 import { graphPropertyFamilies, presentGraphProperty } from "./functionGraphProperties";
 import { graphInjectivityFamilies, presentGraphInjectivity } from "./graphInjectivity";
@@ -121,6 +122,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...graphIntegratedPunctureFamilies,
   ...integratedAsymptoteFamilies,
   ...graphEvenOpenRangeFamilies,
+  ...singleHoleRecoveryFamilies,
   ...derivativeSketchFamilies,
   ...graphPropertyFamilies,
   ...graphInjectivityFamilies,
@@ -308,6 +310,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentIntegratedAsymptote(problem,locale)
     : problem.kind === "function-even-open-range"
     ? presentEvenOpenRange(problem,locale)
+    : problem.kind === "function-single-hole-recovery"
+    ? presentSingleHoleRecovery(problem,locale)
     : problem.kind === "function-integrated-punctures"
     ? presentIntegratedPunctures(problem,locale)
     : problem.kind === "function-integrated-jump"
@@ -453,7 +457,7 @@ export function makeUniversityTask(
     difficulty,
     parameters: { variant },
     university,
-    contentKey: `university:${presentation.question}${university.kind === "determinant-radical-two" ? JSON.stringify(university.matrix) : university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-disconnected-domain","function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry","function-graph-injectivity","function-disconnected-range","function-disconnected-injectivity","function-disconnected-monotonicity","function-punctured-symmetry","function-asymptote-range","function-integrated-properties","function-integrated-jump","function-integrated-punctures","function-integrated-asymptotes","function-even-open-range"].includes(university.kind) ? JSON.stringify(university) : ""}`,
+    contentKey: `university:${presentation.question}${university.kind === "determinant-radical-two" ? JSON.stringify(university.matrix) : university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-disconnected-domain","function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry","function-graph-injectivity","function-disconnected-range","function-disconnected-injectivity","function-disconnected-monotonicity","function-punctured-symmetry","function-asymptote-range","function-integrated-properties","function-integrated-jump","function-integrated-punctures","function-integrated-asymptotes","function-even-open-range","function-single-hole-recovery"].includes(university.kind) ? JSON.stringify(university) : ""}`,
     startingHint: presentation.hint,
     errorRules: [],
   };
