@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { assessAnswer, emptyAnswer, formatRational as fmt } from "../answers";
 import { allTemplates, taskPool } from "../generators";
+import { batchDOracle } from "../qa/batchD";
 import { localizeUniversity, makeUniversityTask } from "./catalog";
 import { fiveUnknownChainStage, presentFiveUnknownChain } from "./chainFiveUnknowns";
 
@@ -29,6 +30,9 @@ describe("U04 five-unknown chain: registered student catalog integration", () =>
         expect(task.id).toBe(`${id}:${difficulty}:${v}`);
         expect(task.parameters.variant).toBe(v);
         expect(task.university.kind).toBe("linear-chain-five-unknowns");
+        const independentAnswer = batchDOracle(task);
+        expect(typeof independentAnswer).toBe("string");
+        expect(assessAnswer(task.answer, independentAnswer).kind).toBe("correct");
         if (task.university.kind !== "linear-chain-five-unknowns")
           throw Error("Expected 5-variable exercise");
         for (const locale of ["pl", "en"] as const) {
