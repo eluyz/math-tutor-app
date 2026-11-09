@@ -77,7 +77,8 @@ describe("I02 source-shaped table methods — stage-only bounded QA",()=>{
         expect(shown.solution.some(step=>step.action.startsWith("∫"+fn+"²(u)du="))).toBe(true);
         expect(shown.answer.kind).toBe("primitive");
         if(shown.answer.kind!=="primitive")throw Error("Primitive required");
-        expect(shown.answer.terms[0].basis.startsWith(fn+"(")).toBe(true);
+        // Locale-invariant response basis is required for session switching.
+        expect(shown.answer.terms[0].basis.startsWith(enFn+"(")).toBe(true);
         expect(shown.solution.some(step=>step.action.includes("F(x)=")&&
           step.action.includes(fn+"("))).toBe(true);
       }
@@ -89,6 +90,9 @@ describe("I02 source-shaped table methods — stage-only bounded QA",()=>{
       expect(en.answer.kind).toBe("primitive");
       if(pl.answer.kind!=="primitive"||en.answer.kind!=="primitive")
         throw Error("Expected same structured primitive answer");
+      expect(pl.answer.terms).toEqual(en.answer.terms);
+      expect(pl.solution.some(step=>step.reason.includes("tg(u)=tan(u)")&&
+        step.reason.includes("ctg(u)=cot(u)"))).toBe(true);
       expect(pl.answer.terms.length).toBe(en.answer.terms.length);
       for(let i=0;i<pl.answer.terms.length;i++)
         expect(equal(pl.answer.terms[i].coefficient,en.answer.terms[i].coefficient)).toBe(true);
