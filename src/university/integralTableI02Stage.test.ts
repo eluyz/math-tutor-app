@@ -63,6 +63,38 @@ describe("I02 source-shaped table methods — stage-only bounded QA",()=>{
     expect(()=>makeI02TableStage(1.5)).toThrow();
   });
 
+  it("keeps PL tg/ctg and EN tan/cot consistent across the full displayed solution",()=>{
+    for(let variant=0;variant<24;variant++){
+      const p=makeI02TableStage(variant);
+      if(p.mode!=="tan-square"&&p.mode!=="cot-square")continue;
+      const pl=presentI02TableStage(p,"pl");
+      const en=presentI02TableStage(p,"en");
+      const plFn=p.mode==="tan-square"?"tg":"ctg";
+      const enFn=p.mode==="tan-square"?"tan":"cot";
+      for(const [shown,fn] of [[pl,plFn],[en,enFn]] as const){
+        expect(shown.question).toContain(fn+"²(");
+        expect(shown.solution.some(step=>step.action.startsWith(fn+"²(u)="))).toBe(true);
+        expect(shown.solution.some(step=>step.action.startsWith("∫"+fn+"²(u)du="))).toBe(true);
+        expect(shown.answer.kind).toBe("primitive");
+        if(shown.answer.kind!=="primitive")throw Error("Primitive required");
+        expect(shown.answer.terms[0].basis.startsWith(fn+"(")).toBe(true);
+        expect(shown.solution.some(step=>step.action.includes("F(x)=")&&
+          step.action.includes(fn+"("))).toBe(true);
+      }
+      expect(pl.solution.some(step=>step.action.includes("∫tan²")||
+        step.action.includes("∫cot²"))).toBe(false);
+      expect(en.solution.some(step=>step.action.includes("∫tg²")||
+        step.action.includes("∫ctg²"))).toBe(false);
+      expect(pl.answer.kind).toBe("primitive");
+      expect(en.answer.kind).toBe("primitive");
+      if(pl.answer.kind!=="primitive"||en.answer.kind!=="primitive")
+        throw Error("Expected same structured primitive answer");
+      expect(pl.answer.terms.length).toBe(en.answer.terms.length);
+      for(let i=0;i<pl.answer.terms.length;i++)
+        expect(equal(pl.answer.terms[i].coefficient,en.answer.terms[i].coefficient)).toBe(true);
+    }
+  });
+
   for(const variant of Array.from({length:24},(_,i)=>i)){
     it("variant "+variant+" independent calculus, locales and grading",()=>{
       const p=makeI02TableStage(variant);
