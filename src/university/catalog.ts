@@ -56,6 +56,7 @@ import { c03ConjugateSourceShapeFamilies, presentC03ConjugateGap } from "./seque
 import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFollowup";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
 import { createFractionalRootLimit, presentFractionalRootLimit } from "./functionLimitsFractionalRoots";
+import { createExponentialFunctionRatio, presentExponentialFunctionRatio } from "./functionLimitsExponentialRatio";
 import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { fractionalPowerDerivativeFamilies, presentFractionalPowerDerivative } from "./fractionalPowerDerivatives";
@@ -171,6 +172,17 @@ export const universityFamilies: readonly UniversityFamily[] = [
     },
     supportedDifficulties: ["hard"],
     create: (v) => createFractionalRootLimit(v),
+  },
+
+  {
+    id: "limit-exponential-function-ratio",
+    category: "function-limits",
+    titles: {
+      pl: "Porównywanie potęg wykładniczych w granicach przy +∞",
+      en: "Comparing exponential powers in function limits at +∞",
+    },
+    supportedDifficulties: ["hard"],
+    create: (v) => createExponentialFunctionRatio(v),
   },
   ...limitFollowupFamilies,
   ...infinityRootConjugationFamilies,
@@ -408,6 +420,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
           problem.kind === "sequence-geometric" ||
           problem.kind === "sequence-conjugate"
         ? presentSequence(problem, locale)
+        : problem.kind === "limit-exponential-function-ratio"
+          ? presentExponentialFunctionRatio(problem, locale)
         : problem.kind === "limit-mixed-fractional-roots"
           ? presentFractionalRootLimit(problem, locale)
         : problem.kind === "limit-root-infinity-conjugates"
