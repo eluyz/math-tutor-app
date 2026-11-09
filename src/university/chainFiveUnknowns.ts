@@ -155,6 +155,7 @@ export const fiveUnknownChainStage = {
     pl: "Pięć niewiadomych w łańcuchu pięciu równości — oblicz x",
     en: "Five unknowns in a five-equality chain — find x",
   },
-  supportedDifficulties: supported,
+  // Broad Difficulty[] type prevents catalogue-wide `.includes("easy")` narrowing.
+  supportedDifficulties: supported as readonly Difficulty[],
   create: constructFiveUnknownChain,
 } as const;

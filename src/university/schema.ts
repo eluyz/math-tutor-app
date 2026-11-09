@@ -7,6 +7,7 @@ import type { MultivarTrigProblem } from "./multivarTrig";
 import type {ElementaryPartialProblem} from './multivarElementary';
 import type { Matrix } from "../matrices";
 import type { Rational } from "../rational";
+import type { FiveUnknownChainProblem } from "./chainFiveUnknowns";
 import type { Difficulty } from "../difficulty";
 import type { CategoryId } from "../exercises";
 import type { Locale } from "../locales/types";
@@ -247,6 +248,7 @@ export type DeterminantProblem = Readonly<{
 }>;
 export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-chain-five"; expressions: readonly { a:Rational; b:Rational; c:Rational; denominator:Rational }[]; target:"x"|"y" }>
+  | FiveUnknownChainProblem
   | Readonly<{ kind: "linear-rectangular"; matrix: readonly (readonly Rational[])[]; rhs:readonly Rational[] }>
   | Readonly<{ kind: "linear-inverse"; matrix: readonly (readonly Rational[])[]; method: "inverse" | "classification" }>
   | Readonly<{ kind: "linear-application"; matrix: readonly (readonly Rational[])[]; rhs: readonly (readonly Rational[])[]; method: "ax" | "xa" }>

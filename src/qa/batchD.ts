@@ -120,6 +120,26 @@ export function batchDOracle(task: Task): AnswerInput {
     requireMath(same(p.method === "xa" ? product(x, p.matrix) : product(p.matrix, x), p.rhs), "original matrix equation and multiplication order");
     return matrixInput(x);
   }
+  if (p.kind === "linear-chain-five-unknowns") {
+    // Independently derive each of the five equations E_i = E_6 from the
+    // generated expression DATA only, not the published answer or chain solver.
+    const E = p.expressions, last = E[5];
+    requireMath(E.length === 6 && p.target === "x" &&
+      E.every(expr => expr.coefficients.length === 5), "five-unknown source-shaped equality chain");
+    const A = E.slice(0, 5).map(expr =>
+      expr.coefficients.map((coefficient, j) => sub(coefficient, last.coefficients[j])));
+    const rhs = E.slice(0, 5).map(expr => sub(last.constant, expr.constant));
+    const D = determinant(A);
+    requireMath(D.numerator !== 0n, "unique five-unknown chain solution");
+    const values = Array.from({ length: 5 }, (_, j) =>
+      div(determinant(A.map((row, i) => row.map((v, col) => col === j ? rhs[i] : v))), D));
+    const evaluated = E.map(expr => add(
+      expr.coefficients.reduce((acc, coefficient, j) =>
+        add(acc, mul(coefficient, values[j])), r(0)),
+      expr.constant));
+    requireMath(evaluated.every(x => eq(x, evaluated[0])), "all five original equality signs hold");
+    return f(values[0]);
+  }
   if (p.kind === "linear-rank") return f(r(rank(p.matrix)));
   if (p.kind === "linear-system" || p.kind === "linear-cramer-diagnostic" || p.kind === "linear-cramer-four") {
     const result = affineSystem(p.matrix, p.rhs), n = p.matrix[0].length;
