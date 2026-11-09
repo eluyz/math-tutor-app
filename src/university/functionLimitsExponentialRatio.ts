@@ -49,7 +49,7 @@ const same = (a: Rational, b: Rational) =>
   a.numerator === b.numerator && a.denominator === b.denominator;
 const baseKey = (value: Rational) => `${value.numerator}/${value.denominator}`;
 const textTerm = (term: ExponentialFunctionTerm) =>
-  `(${fmt(term.coefficient)})·(${fmt(term.base)})^(x${term.shift ? "+" + term.shift : ""})`;
+  `(${fmt(term.coefficient)})·(${fmt(term.base)})^${term.shift ? "(x+" + term.shift + ")" : "x"}`;
 const textSum = (terms: readonly ExponentialFunctionTerm[]) => terms.map(textTerm).join(" + ") || "0";
 
 function basePower(base: Rational, shift: number): Rational {
