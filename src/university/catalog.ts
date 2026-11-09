@@ -68,6 +68,7 @@ import { gaussCramerFollowupFamilies } from "./gaussCramerFollowup";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
 import { gaussRectangularParameterFamilies } from "./gaussRectangularParameters";
 import { gaussFiveFamilies } from "./gaussFive";
+import { gaussThreeParameterFamilies, presentGaussThreeParameters } from "./gaussThreeParameters";
 import { chainFamilies, presentChain } from "./chainEqualities";
 import { rectangularFamilies, presentRectangular } from "./rectangularSystems";
 import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
@@ -160,6 +161,7 @@ export const universityFamilies = [
   ...gaussParameterFamilies,
   ...gaussRectangularParameterFamilies,
   ...gaussFiveFamilies,
+  ...gaussThreeParameterFamilies,
   ...chainFamilies,
   ...rectangularFamilies,
   ...cramerFourFamilies,
@@ -317,7 +319,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     : problem.kind === "linear-rectangular"
     ? presentRectangular(problem, locale)
     : problem.kind === "linear-system"
-    ? problem.method === "parameters" ? presentGaussParameters(problem, locale) : presentGauss(problem, locale)
+    ? problem.method === "parameters-three" ? presentGaussThreeParameters(problem, locale)
+      : problem.method === "parameters" ? presentGaussParameters(problem, locale) : presentGauss(problem, locale)
     : problem.kind === "linear-cramer-diagnostic"
     ? presentCramerDiagnostic(problem, locale)
     : problem.kind === "linear-cramer-minors"
