@@ -487,7 +487,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "integral-table",
-      "integral-table-arctan"
+      "integral-table-arctan",
+      "integral-table-i02-stage"
     ]
   },
   "I03": {

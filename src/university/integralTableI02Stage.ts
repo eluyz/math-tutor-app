@@ -4,12 +4,12 @@ import {
 } from "../rational";
 import {formatRational as fmt, type AnswerSpec} from "../answers";
 import type {Locale} from "../locales/types";
+import type {UniversityFamily} from "./schema";
 import {teaching} from "./teaching";
 
 /**
- * Source-shaped I02 practice, deliberately NOT registered in the shared catalog.
- * Integration needs a separately coordinated schema/catalog/CI change.
- * Only synthetic parameter families: no private source questions or answer keys.
+ * Public synthetic I02 table methods. No private source tasks or answer keys.
+ * Registered as one bounded, hard-level family via the separately reviewed catalog integration.
  */
 export type I02TableMode = "tan-square" | "cot-square" | "arcsin" | "radical-x";
 export type I02TableStageProblem = Readonly<{
@@ -33,6 +33,12 @@ export function makeI02TableStage(variant:number):I02TableStageProblem{
     k:r((j%2?-1:1)*(1+Math.floor(j/2)),j%3===2?2:1),
   };
 }
+
+export const i02TableFamilies:readonly UniversityFamily[]=[{
+  id:"integral-table-i02-stage",category:"integrals",
+  titles:{pl:"Całki tablicowe — tg², ctg² i arcsin",en:"Table integrals — tan², cot² and arcsin"},
+  supportedDifficulties:["hard"],create:makeI02TableStage,
+}];
 
 export function i02TableStageCoefficients(p:I02TableStageProblem):readonly Rational[]{
   if(p.a.numerator===0n||p.k.numerator===0n)
