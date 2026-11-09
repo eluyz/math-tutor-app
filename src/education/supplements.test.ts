@@ -159,7 +159,7 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
   expect(doc).toContain("MT-EDU-010: **384** nowe instancje; łącznie **9621**.");
   expect(doc).toContain("MT-EDU-012: **120** nowych instancji; łącznie **9741**.");
   expect(doc).toContain(`Rodziny L4: **${advanced}**, L5: **${expert}**.`);
-  expect(all.filter(task => task.templateId === "multivar-quadratic-cubic-extrema")).toHaveLength(24);
+  expect(all.filter(task => task.templateId === "multivar-quadratic-cubic-extrema")).toHaveLength(48);
   expect(all.filter(task => task.templateId === "multivar-bilinear-extrema")).toHaveLength(24);
   expect(all.filter(task => task.templateId === "multivar-cubic-extrema-full")).toHaveLength(24);
   expect(all.filter(task => task.templateId === "multivar-source-shape-partial")).toHaveLength(24);
