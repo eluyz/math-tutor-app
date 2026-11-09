@@ -55,6 +55,7 @@ import { c01PolynomialSourceShapeFamilies, presentC01Shape } from "./sequencePol
 import { c03ConjugateSourceShapeFamilies, presentC03ConjugateGap } from "./sequenceConjugateSourceShapes";
 import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFollowup";
 import { functionLimitFamilies, presentFunctionLimit } from "./functionLimits";
+import { createFractionalRootLimit, presentFractionalRootLimit } from "./functionLimitsFractionalRoots";
 import { limitFollowupFamilies, presentLimitFollowup } from "./limitFollowup";
 import { derivativeFamilies, presentDerivative } from "./derivatives";
 import { fractionalPowerDerivativeFamilies, presentFractionalPowerDerivative } from "./fractionalPowerDerivatives";
@@ -161,6 +162,16 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...c03ConjugateSourceShapeFamilies,
   ...sequenceFollowupFamilies,
   ...functionLimitFamilies,
+  {
+    id: "limit-mixed-fractional-roots",
+    category: "function-limits",
+    titles: {
+      pl: "Porównywanie pierwiastków kwadratowych i sześciennych przy +∞",
+      en: "Square-root versus cube-root growth at +∞",
+    },
+    supportedDifficulties: ["hard"],
+    create: (v) => createFractionalRootLimit(v),
+  },
   ...limitFollowupFamilies,
   ...infinityRootConjugationFamilies,
   ...derivativeFamilies,
@@ -397,6 +408,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
           problem.kind === "sequence-geometric" ||
           problem.kind === "sequence-conjugate"
         ? presentSequence(problem, locale)
+        : problem.kind === "limit-mixed-fractional-roots"
+          ? presentFractionalRootLimit(problem, locale)
         : problem.kind === "limit-root-infinity-conjugates"
           ? presentInfinityRootConjugation(problem,locale)
         : problem.kind === "limit-radical-infinity" || problem.kind === "limit-piecewise-heine"
