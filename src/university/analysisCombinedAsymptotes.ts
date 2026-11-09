@@ -2,6 +2,7 @@ import { addRational as add, multiplyRational as mul, subtractRational as sub, d
 import { formatRational as fmt, type AnswerSpec } from "../answers";
 import type { Locale } from "../locales/types";
 import { teaching } from "./teaching";
+import type { UniversityFamily } from "./schema";
 
 /** One complete G07 task: detect ALL vertical and horizontal/oblique asymptotes. */
 export type CombinedAsymptoteProblem = Readonly<
@@ -54,7 +55,7 @@ export function makeCombinedAsymptote(variant: number): CombinedAsymptoteProblem
 export const combinedAsymptoteFamilies = [{
   id: "analysis-asymptotes-combined-rational", category: "function-limits",
   titles: { pl: "Wszystkie asymptoty funkcji wymiernej", en: "All asymptotes of a rational function" },
-  supportedDifficulties: ["hard"] as const,
+  supportedDifficulties: ["hard"] as UniversityFamily["supportedDifficulties"],
   create: (variant: number) => makeCombinedAsymptote(variant)
 }] as const;
 
