@@ -84,7 +84,7 @@ export function presentI02TableStage(p:I02TableStageProblem,locale:Locale){
       "Differentiation restores k times the squared function; the x term has a minus sign.");
     return lesson.finish(
       t("Oblicz całkę tablicową ∫ ","Find the table integral ∫ ")+integrand+" dx. "+
-      t("Pracuj na dowolnym spójnym przedziale dziedziny. ","Work on any connected domain interval. ")+plusC,
+      t("Pracuj na dowolnym spójnym przedziale dziedziny. W polach odpowiedzi: tg=tan i ctg=cot. ","Work on any connected domain interval. ")+plusC,
       primitive(terms),
       t("Zamień kwadrat funkcji na wyrażenie z 1/cos² lub 1/sin².",
         "Rewrite the square using 1/cos² or 1/sin²."),
