@@ -12,8 +12,8 @@ permissions:
 jobs:
   verify:
     runs-on: ubuntu-latest
-    # Browser installation and the full E2E suite can exceed 20 minutes.
-    timeout-minutes: 40
+    # Browser installation and full E2E plus sequential B–G acceptance can exceed 40 minutes.
+    timeout-minutes: 60
     steps:
       - name: Check out source
         uses: actions/checkout@v7
