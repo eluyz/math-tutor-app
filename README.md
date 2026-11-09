@@ -1,8 +1,8 @@
 # Math Tutor
 
-**F05/e:** `function-single-hole-recovery` adds 72 public synthetic six-field graph problems with one excluded input, distinct hollow one-sided heights, both attained elsewhere, left unbounded tail and filled maximum. F05/e depends on F05/b PR #243; not a formal original-source P21 exact reproduction (`SOURCE_PASS=0/6`). Deployment requires main CI/Pages checks.
+**F05/e** adds 72 additional six-field synthetic graph variants featuring a single missing input and two distinct open-limit heights both attained elsewhere; original source P21 acceptance remains 0/6, separate from method coverage. Depends on F05/b PR #243.
 
-**F05/b:** `function-even-open-range` adds 72 public synthetic six-field graph problems with symmetric excluded inputs and four hollow endpoints, open lower range bound, unbounded outer branches. This is method-level coverage, NOT an exact reproduction of the original university graph (source certificates remain 0/6). Public deployment requires new-main CI and Pages PASS.
+**F05/b** introduces 72 PL/EN synthetic six-field graph variants, with two symmetric excluded arguments, four hollow endpoints and an open lower range bound. Original P21 source-figure acceptance is pending; no source-exact certificate is claimed.
 
 **Syllabus coverage:** the [64-skill source-to-app closure audit v2](docs/SYLLABUS_COVERAGE_V2.md) is the current work queue; generator variants and successful CI are **not** certificates that 64 source exercise forms have passed independently.
 
@@ -57,7 +57,7 @@ MT-EDU-025 P2G-D (PR #91 scalony, przed merge pełne CI PASS): W02 — klasyfika
 
 MT-EDU-025 P2G-C (PR #89 scalony, CI przed merge PASS): W03 — granice funkcji dwóch zmiennych przy użyciu współrzędnych biegunowych, także przykład zależny od kąta, oraz klasyfikacja ciągłości funkcji z ilorazem form kwadratowych na podstawie dwóch osi. Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty, dokładne odpowiedzi i rozwiązania PL/EN. Po osobno zatwierdzonym merge: 192 rodziny / 15 717 wariantów. Pokrycie W03 nadal częściowe.
 
-Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **246 rodzin** i **18765 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
+Otwarta aplikacja do samodzielnej nauki matematyki dla dorosłych wracających do nauki po przerwie. Zawiera **248 rodzin** i **18909 instancji** w 14 kategoriach: podstawy, algebra, równania kwadratowe, macierze i wyznaczniki oraz układy równań, funkcje, granice ciągów, granice funkcji, pochodne i całki. Działy **Powtórka podstaw** i **Matematyka na studia** porządkują ofertę na telefonie i komputerze. Materiały są autorskie i przeznaczone do niezależnej nauki, bez powiązania z konkretną uczelnią.
 
 MT-EDU-025 P2G-B (PR #87 scalony, CI i Pages PASS): W02 — ekstrema globalne funkcji kwadratowej na domkniętym prostokącie (wnętrze, krawędzie, narożniki i remisy) oraz funkcji liniowej na kole (ograniczenie kołowe, punkty brzegowe i mnożniki Lagrange'a). Dwie rodziny × trzy poziomy × 24 zadania = +144 warianty z dokładnymi ułamkami i rozwiązaniami PL/EN. Po osobno zatwierdzonym scaleniu: 190 rodzin / 15 573 warianty; W02 nadal częściowe.
 

@@ -98,7 +98,7 @@ export async function fillSystem(page: Page) {
 }
 
 
-/** Independent exact RREF oracle for the fixed canonical t1/t2 answer convention.
+/** Independent exact RREF oracle for the fixed canonical t1/t2/t3 answer convention.
  * Normalization after every row operation prevents enormous unreduced fractions. */
 export function parametricCoefficients(augmented: Rational[][]) {
   const n=augmented[0].length-1;
@@ -121,7 +121,7 @@ export function parametricCoefficients(augmented: Rational[][]) {
   if(rows.some(row=>row.slice(0,n).every(v=>v.numerator===0n)&&row[n].numerator!==0n))
     throw Error("Parametric system is inconsistent");
   const free=Array.from({length:n},(_,j)=>j).filter(j=>!pivots.includes(j));
-  if(free.length<1||free.length>2)throw Error("Expected 1-2 free variables");
+  if(free.length<1||free.length>3)throw Error("Expected 1-3 free variables");
   const coefficients=Array.from({length:n},(_,j)=>{
     const freeIndex=free.indexOf(j);
     if(freeIndex>=0)return [q(0),...free.map((_,k)=>q(k===freeIndex?1:0))];
