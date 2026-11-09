@@ -1,6 +1,6 @@
 import {
   rational as r, addRational as add, subtractRational as sub,
-  multiplyRational as mul, divideRational as div, type Rational,
+  divideRational as div, type Rational,
 } from "../rational";
 import {formatRational as fmt, type AnswerSpec} from "../answers";
 import type {Difficulty} from "../difficulty";
