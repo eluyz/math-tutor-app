@@ -1,3 +1,11 @@
+## D08 — study of a pole-free rational function (PR #245 integration)
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| analysis-study-smooth-rational | hard, advanced, expert | 72 | Smooth rational f(x)=k+m q²/((x-a)²+q²): real domain with no poles, one stationary extremum, two inflections, a horizontal asymptote; PL/EN f′/f″ explanations and exact stationary coordinates or interval-global values. Paper sketch is self-assessed. |
+
+D08 source #238 was merged separately. This integration preserves I04, W02, M06, G06, G07, C02/C05 and U06/U08. Formal original-source SOURCE_PASS remains pending.
+
 ## G07 — kompletne asymptoty funkcji wymiernej — PR #258 (integracja)
 
 | Family | Levels | Variants | Method |
@@ -213,9 +221,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **250 rodzin**, **19077 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 182 rodziny wspierają advanced, a 165 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **251 rodzin**, **19149 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 188 rodzin wspiera advanced, a 171 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **188**, L5: **171**.
+Łącznie rodziny L4: **189**, L5: **172**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -906,7 +914,7 @@ Zamiast oceniać jedynie „nieskończenie wiele rozwiązań”, formularz wymag
 | Rodzina | Poziomy | Cel |
 | --- | --- | --- |
 | system-chain-five | medium, hard, advanced, expert | Pięć znaków równości między sześcioma wyrażeniami wymiernymi w x,y; dwa niezależne równania; żądana jest tylko wskazana niewiadoma x lub y |
-| system-chain-five-unknowns | medium, hard, advanced, expert | U04: sześć wyrażeń, pięć znaków równości i pięć niewiadomych x,y,z,u,v; rozwiązaniem do wpisania jest tylko x. Osobna rodzina z 96 syntetycznymi wariantami i dokładną kontrolą równań metodą Cramera 5×5 |
+| system-chain-five-unknowns | medium, hard, advanced, expert | U04: pięć znaków równości i pięć niewiadomych x,y,z,u,v; oblicz wyłącznie x. 96 syntetycznych wariantów, dokładna kontrola Cramera 5×5 oraz wszystkich równości |
 | system-rectangular-3x2 | medium, hard | 3 równania / 2 niewiadome; przypadki dokładnie jednego, żadnego i nieskończenie wielu rozwiązań, uzasadnione rzędem |
 | system-rectangular-4x3 | advanced, expert | 4 równania / 3 niewiadome; obliczenie RREF i rzędu macierzy rozszerzonej, kontrolowane przypadki wszystkich trzech klas |
 
