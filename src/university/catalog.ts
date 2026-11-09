@@ -79,6 +79,7 @@ import { matrixPracticeFamilies, presentMatrixPractice } from "./matrixPractice"
 import { matrixP0CFamilies, presentMatrixP0C } from "./matrixP0C";
 import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./elementaryAnalysis";
 import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
+import { eulerInfinityFamilies, presentEulerInfinity } from "./analysisLimitsAsymptotesInfinity";
 import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCalculus";
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { functionStudyFollowupFamilies, presentFunctionStudyFollowup } from "./functionStudyFollowup";
@@ -172,6 +173,7 @@ export const universityFamilies = [
   ...matrixP0CFamilies,
   ...elementaryAnalysisFamilies,
   ...asymptoteFamilies,
+  ...eulerInfinityFamilies,
   ...advancedCalculusFamilies,
   ...functionStudyFamilies,
   ...functionStudyFollowupFamilies,
@@ -224,6 +226,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentFunctionStudy(problem, locale)
     : isAdvancedCalculus(problem)
     ? presentAdvancedCalculus(problem, locale)
+    : problem.kind === "analysis-euler-infinity"
+    ? presentEulerInfinity(problem, locale)
     : isAsymptote(problem)
     ? presentAsymptote(problem, locale)
     : isElementaryAnalysis(problem)

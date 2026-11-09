@@ -11,6 +11,7 @@ import type { Polynomial, PolynomialFormula } from "./polynomial";
 import type { IntegralProblem } from "./integrals";
 import type { DefiniteIntegralFollowupProblem } from "./definiteIntegralFollowup";
 import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
+import type { EulerInfinityProblem } from "./analysisLimitsAsymptotesInfinity";
 import type { ImproperIntegralProblem } from "./improperIntegrals";
 import type { InteriorImproperProblem } from "./interiorImproper";
 import type { AreaArcProblem } from "./areaArc";
@@ -331,6 +332,7 @@ export type UniversityProblem =
   | LinearAlgebraProblem
   | ElementaryAnalysisProblem
   | AsymptoteProblem
+  | EulerInfinityProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
   | FunctionStudyFollowupProblem
