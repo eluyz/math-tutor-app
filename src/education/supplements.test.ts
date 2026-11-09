@@ -27,21 +27,24 @@ it("każda wspierana rodzina × poziom ma minimum dziesięć odmiennych treści 
   expect(new Set(all.map((t) => t.id)).size).toBe(all.length);
   expect(all.filter((t) => !isUniversityTask(t))).toHaveLength(3501);
   const added = all.filter(isUniversityTask);
-  expect(
-    new Set(added.map((t) => t.contentKey)).size,
-    added
-      .filter(
-        (t, i) =>
-          added.findIndex((other) => other.contentKey === t.contentKey) !== i,
-      )
-      .map((t) => t.id)
-      .join(", "),
-  ).toBe(added.length);
+  // O(n) duplicate identification: retain the same exhaustive contentKey/ID
+  // assertions without an O(n²) findIndex scan of 16k+ instances.
+  const uniqueContent = new Set<string>(), duplicateIds: string[] = [];
+  const byTemplateLevel = new Map<string, typeof all>();
+  for (const task of all) {
+    if (isUniversityTask(task)) {
+      if (uniqueContent.has(task.contentKey)) duplicateIds.push(task.id);
+      else uniqueContent.add(task.contentKey);
+    }
+    const key = task.templateId + ":" + task.difficulty;
+    const bucket = byTemplateLevel.get(key);
+    if (bucket) bucket.push(task);
+    else byTemplateLevel.set(key, [task]);
+  }
+  expect(uniqueContent.size, duplicateIds.join(", ")).toBe(added.length);
   for (const template of allTemplates)
     for (const level of difficulties) {
-      const pool = taskPool(template.category, level).filter(
-        (t) => t.templateId === template.id,
-      );
+      const pool = byTemplateLevel.get(template.id + ":" + level) ?? [];
       if (template.supportedDifficulties.includes(level)) {
         expect(pool.length, `${template.id}/${level}`).toBeGreaterThanOrEqual(
           10,
