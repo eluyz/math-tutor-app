@@ -63,10 +63,12 @@ export function presentI02TableStage(p:I02TableStageProblem,locale:Locale){
   if(p.mode==="tan-square"||p.mode==="cot-square"){
     const isTan=p.mode==="tan-square";
     const trig=isTan?t("tg","tan"):t("ctg","cot");
-    const basis=isTan?"tan("+u+")":"cot("+u+")";
+    // The answer basis must stay identical in PL/EN when a session changes locale.
+    const basis=(isTan?"tan":"cot")+"("+u+")";
+    const displayBasis=trig+"("+u+")";
     const integrand=kText+trig+"²("+u+")";
-    const identity=isTan?"tan²(u)=1/cos²(u)−1":"cot²(u)=1/sin²(u)−1";
-    const antiderivative=isTan?"tan(u)":"−cot(u)";
+    const identity=trig+"²(u)="+(isTan?"1/cos²(u)−1":"1/sin²(u)−1");
+    const antiderivative=(isTan?"":"−")+trig+"(u)";
     const terms=[{basis,coefficient:coef[0]},{basis:"x",coefficient:coef[1]}];
     work("u="+u+"; du/dx="+a,
       "Sprawdź pochodną argumentu i przedział ciągłości funkcji trygonometrycznej.",
@@ -74,15 +76,15 @@ export function presentI02TableStage(p:I02TableStageProblem,locale:Locale){
     work(identity,
       "Zastosuj tożsamość, by rozdzielić kwadrat na funkcję z prostą pierwotną i stałą.",
       "Use the identity to split the squared function into an integrable term and a constant.");
-    work("∫"+(isTan?"tan²":"cot²")+"(u)du="+antiderivative+"−u+C",
+    work("∫"+trig+"²(u)du="+antiderivative+"−u+C",
       "Współczynnik przy funkcji trygonometrycznej podziel przez a, a składnik stały zachowaj.",
       "Divide the trigonometric coefficient by a, preserving the constant term.");
-    work("F(x)=("+fmt(coef[0])+")"+basis+"+("+fmt(coef[1])+")x+C",
-      "Pochodna daje dokładnie k razy kwadrat funkcji; znak przy x jest ujemny.",
+    work("F(x)=("+fmt(coef[0])+")"+displayBasis+"+("+fmt(coef[1])+")x+C",
+      "Zapis tg(u)=tan(u), a ctg(u)=cot(u); w formularzu używamy nazw tan/cot. Pochodna daje k razy kwadrat funkcji, ze znakiem ujemnym przy x.",
       "Differentiation restores k times the squared function; the x term has a minus sign.");
     return lesson.finish(
       t("Oblicz całkę tablicową ∫ ","Find the table integral ∫ ")+integrand+" dx. "+
-      t("Pracuj na dowolnym spójnym przedziale dziedziny. ","Work on any connected domain interval. ")+plusC,
+      t("Pracuj na dowolnym spójnym przedziale dziedziny. W polach odpowiedzi: tg=tan i ctg=cot. ","Work on any connected domain interval. ")+plusC,
       primitive(terms),
       t("Zamień kwadrat funkcji na wyrażenie z 1/cos² lub 1/sin².",
         "Rewrite the square using 1/cos² or 1/sin²."),
