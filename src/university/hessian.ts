@@ -61,8 +61,8 @@ export function presentHessian(p:HessianProblem,locale:Locale){
  if(p.kind==="multivar-stationary-point"){
   const [x,y]=stationaryCoordinates(p);
   lesson.work("f_x=2("+f(p.a)+")x+("+f(p.b)+")y+("+f(p.d)+")",
-    t("Pochodna po x jest pierwszym równaniem warunku stacjonarności.",
-      "The x partial derivative is the first stationarity equation."));
+    t("W punkcie wewnętrznym gładkie ekstremum wymaga ∇f(P)=(f_x(P),f_y(P))=(0,0). To tylko warunek konieczny, nie wystarczający; brakujące pochodne bada się oddzielnie.",
+      "A smooth interior extremum requires ∇f(P)=(f_x(P),f_y(P))=(0,0). This is necessary, not sufficient; points without an existing partial derivative need separate analysis."));
   lesson.work("f_y=("+f(p.b)+")x+2("+f(p.c)+")y+("+f(p.e)+")",
     t("Pochodna po y daje drugie równanie układu liniowego.",
       "The y partial derivative gives the second linear equation."));
@@ -89,8 +89,8 @@ export function presentHessian(p:HessianProblem,locale:Locale){
  }
  const x=f(p.h),y=f(p.k),classification=hessianClassification(p);
  lesson.work("f_x("+x+","+y+")=0; f_y("+x+","+y+")=0",
-   t("Wskazany punkt jest stacjonarny, więc można zastosować test drugich pochodnych.",
-     "The given point is stationary, so the second-derivative test applies."));
+   t("Dla gładkiej funkcji ekstremum wewnętrzne wymaga ∇f(P)=(f_x(P),f_y(P))=(0,0). To warunek konieczny, nie wystarczający; tu punkt stacjonarny można zbadać Hessianem.",
+     "For a smooth function, an interior extremum requires ∇f(P)=(f_x(P),f_y(P))=(0,0). This is necessary, not sufficient; the Hessian can now test the stationary point."));
  lesson.work("f_xx="+f(mul(r(2),p.a))+"; f_xy="+f(p.b)+"; f_yy="+f(mul(r(2),p.c)),
    t("Oblicz Hessian w punkcie; składnik czwartego stopnia ma tam drugą pochodną równą zeru.",
      "Evaluate the Hessian at the point; the fourth-power term has zero second derivative there."));
