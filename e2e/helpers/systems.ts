@@ -30,9 +30,25 @@ export async function readSystem(page: Page) {
     const rhs = matrix.map(row => row[n]);
     const rankA = referenceRank(coefficients), rankAugmented = referenceRank(matrix);
     const classification = rankA < rankAugmented ? "system-none" : rankA === n ? "system-one" : "system-many";
-    const determinant = classification === "system-one" && coefficients.length === n ? laplace(coefficients) : null;
-    return { classification, values: determinant ? Array.from({ length: n }, (_, column) =>
-      d(laplace(coefficients.map((row, i) => row.map((v, j) => j === column ? rhs[i] : v))), determinant)) : [] };
+    // For a consistent overdetermined m×n system, solve any nonzero n×n
+    // displayed minor and independently verify *all* m displayed equations.
+    const independentRows = classification === "system-one"
+      ? subsets(coefficients.length,n).find(indices =>
+          laplace(indices.map(i => coefficients[i])).numerator !== 0n)
+      : undefined;
+    if(classification === "system-one" && !independentRows)
+      throw Error("Unique classification without invertible square minor");
+    const independentMatrix=independentRows?.map(i=>coefficients[i])??[];
+    const independentRhs=independentRows?.map(i=>rhs[i])??[];
+    const determinant=independentRows?laplace(independentMatrix):null;
+    const values=determinant?Array.from({length:n},(_,column)=>
+      d(laplace(independentMatrix.map((row,i)=>row.map((v,j)=>
+        j===column?independentRhs[i]:v))),determinant)):[];
+    if(classification === "system-one")
+      for(let i=0;i<coefficients.length;i++)
+        if(!eq(coefficients[i].map((v,j)=>m(v,values[j])).reduce(a,q(0)),rhs[i]))
+          throw Error("Displayed system has inconsistent extra equation "+(i+1));
+    return { classification, values };
   }
   const text = await page.locator(".question").innerText();
   const rows = text.split("\n").filter((line) => line.includes(" = "));
