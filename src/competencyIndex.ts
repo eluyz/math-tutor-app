@@ -75,7 +75,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "determinant-two",
-      "determinant-radical-two"
+      "determinant-radical-two",
+      "determinant-radical-mixed-two"
     ]
   },
   "M07": {

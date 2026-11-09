@@ -118,8 +118,13 @@ export async function runPinnedAcceptance(
             : { whole: 0, root: Number(prefix === "-" ? -1 : prefix === "" || prefix === "+" ? 1 : prefix), radicand: Number(radicand) };
         };
         const cells = shown.map(read);
-        matches = matches.filter(task => task.university.kind === "determinant-radical-two" && task.university.matrix.flat().length === cells.length && task.university.matrix.flat().every((value, i) =>
-          value.whole === cells[i].whole && value.root === cells[i].root && (value.root === 0 || cells[i].radicand === (task.university as Extract<Task["university"], { kind: "determinant-radical-two" }>).radicand)));
+        matches = matches.filter(task => {
+          if (task.university.kind !== "determinant-radical-two") return false;
+          const p = task.university;
+          return p.matrix.flat().length === cells.length && p.matrix.flat().every((value, i) =>
+            value.whole === cells[i].whole && value.root === cells[i].root &&
+            (value.root === 0 || cells[i].radicand === (value.radicand ?? p.radicand)));
+        });
       }
       expect(matches, "Rendered question must identify one exact variant").toHaveLength(1);
       const task = matches[0], variant = Number(task.id.split(":").at(-1));

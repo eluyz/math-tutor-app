@@ -49,4 +49,28 @@ describe("Batch D bounded independent mathematical acceptance", () => {
     }
     expect(keys.size).toBe(24);
   });
+
+  it("M06 mixed-root method: independent QA oracle agrees with 72 exact source-form constructions", () => {
+    const levels = ["hard", "advanced", "expert"] as const;
+    for (const level of levels) for (let variant = 0; variant < 24; variant++) {
+      const task = makeUniversityTask("determinant-radical-mixed-two", variant, level);
+      const p = task.university;
+      if (p.kind !== "determinant-radical-two") throw Error("Expected radical determinant");
+      const [[a, b], [c, d]] = p.matrix;
+      const rootOf = (x: typeof a) => x.radicand ?? p.radicand;
+      expect(rootOf(a)).toBe(rootOf(d));
+      expect(rootOf(b)).toBe(rootOf(c));
+      expect(rootOf(a)).not.toBe(rootOf(b));
+      const ad = a.whole * d.whole + rootOf(a) * a.root * d.root;
+      const bc = b.whole * c.whole + rootOf(b) * b.root * c.root;
+      expect(a.whole * d.root + a.root * d.whole).toBe(0);
+      expect(b.whole * c.root + b.root * c.whole).toBe(0);
+      const reference = String(ad - bc);
+      expect(String(batchDOracle(task)).replaceAll("−", "-")).toBe(reference);
+      for (const locale of ["pl", "en"] as const) {
+        const view = localizeUniversity(task, locale);
+        expect(assessAnswer(view.answer, reference).kind).toBe("correct");
+      }
+    }
+  });
 });
