@@ -44,6 +44,10 @@ export function constructGaussThreeParameters(variant: number, level: Difficulty
   ];
   rows[0] = combine(rows[0], rows[1], 1, 2);
   rows[1] = combine(rows[1], rows[0], 1, -1);
+  // In the [0,1] pivot profile, R1 <- R1+R2 eliminates the first pivot
+  // in R1 while R2 retains it, forcing an authentic Gaussian row swap.
+  // This is an invertible operation on the whole augmented equation.
+  if (variant % 4 === 0) rows[0] = combine(rows[0], rows[1], 1, 1);
   if (variant % 2) [rows[0], rows[3]] = [rows[3], rows[0]];
   const augmented = rows.map((row, i) => row.map(value =>
     mul(value, r((variant + i) % 2 ? -2 : 3, level === "expert" ? 2 : 1))));
