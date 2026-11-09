@@ -183,7 +183,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "system-substitution",
-      "system-chain-five"
+      "system-chain-five",
+      "system-chain-five-unknowns"
     ]
   },
   "U05": {
