@@ -15,13 +15,13 @@ const combine = (a: readonly Rational[], b: readonly Rational[], x: number, y: n
 const compact = (matrix: readonly (readonly Rational[])[]) =>
   "[" + matrix.map(row => "[" + row.map(fmt).join(", ") + "]").join("; ") + "]";
 
-/** U06/U08 candidate: 4 exact equations, 5 unknowns, rank(A)=rank([A|b])=2.
+/** U06/U08 candidate: 3 or 4 exact equations, 5 unknowns, rank(A)=rank([A|b])=2.
  * All 3 free parameters are required. Staged in isolation: do not register
  * in the shared student catalog without the separate integration review.
  * The augmented rows are exact invertible combinations of a rank-two basis. */
-export function constructGaussThreeParameters(variant: number, level: Difficulty): Linear {
+export function constructGaussThreeParameters(variant: number, level: Difficulty, equations: 3 | 4 = 4): Linear {
   if (!Number.isInteger(variant) || variant < 0 || variant >= 24 ||
-      !["hard", "advanced", "expert"].includes(level))
+      !["hard", "advanced", "expert"].includes(level) || (equations !== 3 && equations !== 4))
     throw Error("Unsupported three-parameter Gaussian variant");
   const pivots = pivotsByVariant[variant % pivotsByVariant.length];
   const free = Array.from({ length: 5 }, (_, i) => i).filter(i => !pivots.includes(i));
@@ -49,31 +49,44 @@ export function constructGaussThreeParameters(variant: number, level: Difficulty
   // This is an invertible operation on the whole augmented equation.
   if (variant % 4 === 0) rows[0] = combine(rows[0], rows[1], 1, 1);
   if (variant % 2) [rows[0], rows[3]] = [rows[3], rows[0]];
-  const augmented = rows.map((row, i) => row.map(value =>
+  const augmented = rows.slice(0, equations).map((row, i) => row.map(value =>
     mul(value, r((variant + i) % 2 ? -2 : 3, level === "expert" ? 2 : 1))));
   return { kind: "linear-system", method: "parameters",
     matrix: augmented.map(row => row.slice(0, 5)),
     rhs: augmented.map(row => row[5]) };
 }
 
-export const gaussThreeParameterFamilies: readonly UniversityFamily[] = [{
-  id: "gauss-five-three-parameters",
-  category: "systems",
-  titles: {
-    pl: "Gauss 4×5: pełne rozwiązanie z trzema parametrami",
-    en: "Gauss 4×5: full solution with three parameters",
+export const gaussThreeParameterFamilies: readonly UniversityFamily[] = [
+  {
+    id: "gauss-three-by-five-three-parameters",
+    category: "systems",
+    titles: {
+      pl: "Gauss 3×5: pełne rozwiązanie z trzema parametrami",
+      en: "Gauss 3×5: full solution with three parameters",
+    },
+    supportedDifficulties: ["hard", "advanced", "expert"],
+    create: (variant, level) => constructGaussThreeParameters(variant, level, 3),
   },
-  supportedDifficulties: ["hard", "advanced", "expert"],
-  create: constructGaussThreeParameters,
-}];
+  {
+    id: "gauss-five-three-parameters",
+    category: "systems",
+    titles: {
+      pl: "Gauss 4×5: pełne rozwiązanie z trzema parametrami",
+      en: "Gauss 4×5: full solution with three parameters",
+    },
+    supportedDifficulties: ["hard", "advanced", "expert"],
+    create: (variant, level) => constructGaussThreeParameters(variant, level, 4),
+  },
+];
 
 /** Complete affine answer for all five variables: c + a*t1 + b*t2 + d*t3.
  * Free variables are the left-to-right nonpivot columns of exact RREF.
- * Every original equation is checked against all four affine coefficients. */
+ * Every original 3x5 or 4x5 equation is checked against all four coefficients. */
 export function presentGaussThreeParameters(problem: Linear, locale: Locale): Presentation {
-  if (problem.method !== "parameters" || problem.matrix.length !== 4 ||
-      problem.matrix.some(row => row.length !== 5) || problem.rhs.length !== 4)
-    throw Error("Expected a parametric 4x5 system");
+  const equations = problem.matrix.length;
+  if (problem.method !== "parameters" || (equations !== 3 && equations !== 4) ||
+      problem.matrix.some(row => row.length !== 5) || problem.rhs.length !== equations)
+    throw Error("Expected a parametric 3x5 or 4x5 system");
   const lesson = teaching(locale), { t } = lesson;
   const result = classifySystem(problem.matrix, problem.rhs);
   if (result.kind !== "system-many" || result.rankA !== 2 ||
@@ -81,8 +94,8 @@ export function presentGaussThreeParameters(problem: Linear, locale: Locale): Pr
     throw Error("Expected exactly three independent free parameters");
   const augmented = problem.matrix.map((row, i) => [...row, problem.rhs[i]]);
   lesson.work(`[A|b] = ${compact(augmented)}`,
-    t("Zapisz cztery równania i pięć niewiadomych w macierzy rozszerzonej.",
-      "Write the four equations and five unknowns in an augmented matrix."));
+    t(`Zapisz ${equations} równania i pięć niewiadomych w macierzy rozszerzonej.`,
+      `Write ${equations} equations and five unknowns in an augmented matrix.`));
   const elimination = gaussianElimination(problem.matrix, problem.rhs);
   for (const step of elimination.steps) lesson.work(
     `${step.action}: ${compact(step.matrix)}`,
@@ -106,7 +119,7 @@ export function presentGaussThreeParameters(problem: Linear, locale: Locale): Pr
     return [result.reduction.matrix[row][5], ...result.freeColumns.map(j =>
       mul(r(-1), result.reduction.matrix[row][j]))];
   });
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < equations; i++) {
     const calculated = Array.from({ length: 4 }, (_, k) =>
       problem.matrix[i].reduce((acc, c, j) => add(acc, mul(c, coefficients[j][k])), zero));
     if (sub(calculated[0], problem.rhs[i]).numerator !== 0n ||
