@@ -28,7 +28,7 @@ export function makeTallFiveThree(variant:number,level:Difficulty):Problem {
     r((variant+2)%7-3,level==="advanced"?2:1),
     r((variant+5)%11-5,level==="expert"?3:1),
   ];
-  const scales=[r(1),r(-2),r(3,level==="expert"?2:1),r(-1),r(2+variant)];
+  const scales=[r(level==="hard"?1:level==="advanced"?2:3),r(-2),r(3,level==="expert"?2:1),r(-1),r(2+variant)];
   const scaled=rows.map((row,i)=>row.map(value=>mul(value,scales[i])));
   const rhs=scaled.map(row=>dot(row,target));
   if(kind===1)rhs[4]=add(rhs[4],r(1)); // inconsistent only in the extra equation
