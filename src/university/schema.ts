@@ -247,7 +247,7 @@ export type LinearAlgebraProblem =
   | Readonly<{ kind: "linear-rank"; matrix: readonly (readonly Rational[])[] }>
   | Readonly<{ kind: "linear-capelli"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-rank-given"; rankA: number; rankAugmented: number; variables: number; equations: number; sourceForm?: "parameter-count" }>
-  | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" | "parameters" }>
+  | Readonly<{ kind: "linear-system"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[]; method: "gauss" | "classification" | "parameters" | "parameters-three" }>
   | Readonly<{ kind: "linear-cramer-four"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-minors"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>
   | Readonly<{ kind: "linear-cramer-diagnostic"; target: "eligibility" | "minors" | "eligibility-solve"; matrix: readonly (readonly Rational[])[]; rhs: readonly Rational[] }>

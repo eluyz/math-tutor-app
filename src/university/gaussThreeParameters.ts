@@ -16,8 +16,8 @@ const compact = (matrix: readonly (readonly Rational[])[]) =>
   "[" + matrix.map(row => "[" + row.map(fmt).join(", ") + "]").join("; ") + "]";
 
 /** U06/U08 candidate: 3 or 4 exact equations, 5 unknowns, rank(A)=rank([A|b])=2.
- * All 3 free parameters are required. Staged in isolation: do not register
- * in the shared student catalog without the separate integration review.
+ * All 3 free parameters are required. The separate catalog integration
+ * explicitly routes method "parameters-three" to this full presenter.
  * The augmented rows are exact invertible combinations of a rank-two basis. */
 export function constructGaussThreeParameters(variant: number, level: Difficulty, equations: 3 | 4 = 4): Linear {
   if (!Number.isInteger(variant) || variant < 0 || variant >= 24 ||
@@ -51,7 +51,7 @@ export function constructGaussThreeParameters(variant: number, level: Difficulty
   if (variant % 2) [rows[0], rows[3]] = [rows[3], rows[0]];
   const augmented = rows.slice(0, equations).map((row, i) => row.map(value =>
     mul(value, r((variant + i) % 2 ? -2 : 3, level === "expert" ? 2 : 1))));
-  return { kind: "linear-system", method: "parameters",
+  return { kind: "linear-system", method: "parameters-three",
     matrix: augmented.map(row => row.slice(0, 5)),
     rhs: augmented.map(row => row[5]) };
 }
@@ -84,7 +84,7 @@ export const gaussThreeParameterFamilies: readonly UniversityFamily[] = [
  * Every original 3x5 or 4x5 equation is checked against all four coefficients. */
 export function presentGaussThreeParameters(problem: Linear, locale: Locale): Presentation {
   const equations = problem.matrix.length;
-  if (problem.method !== "parameters" || (equations !== 3 && equations !== 4) ||
+  if (problem.method !== "parameters-three" || (equations !== 3 && equations !== 4) ||
       problem.matrix.some(row => row.length !== 5) || problem.rhs.length !== equations)
     throw Error("Expected a parametric 3x5 or 4x5 system");
   const lesson = teaching(locale), { t } = lesson;
