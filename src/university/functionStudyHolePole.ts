@@ -45,7 +45,8 @@ export function makeHolePoleStudy(variant: number, level: Difficulty): HolePoleS
     pole,
     hole: add(pole, displacement),
     coefficient: r((variant % 2 === 0 ? 1 : -1) * (1 + variant % 4), den),
-    shift: r(variant % 7 - 3, den),
+    // Keep the horizontal asymptote independent of the pole's location.
+    shift: r((variant * 5 + 2) % 9 - 4, den),
   };
 }
 
