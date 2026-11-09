@@ -27,8 +27,31 @@ function create(v:number,d:Difficulty,method:"gauss"|"classification"):Extract<L
   }
   return {kind:"linear-system",matrix,rhs,method};
 }
+/** U07: four equations, three unknowns, rank(A)=rank([A|b])=3.
+ * A fourth *dependent* equation must be satisfied, not silently discarded.
+ * The leading zero forces a real row swap during forward elimination. */
+function createOverdetermined(v:number,d:Difficulty):Extract<LinearAlgebraProblem,{kind:"linear-system"}>{
+  const k=v%7-3,p=Math.floor(v/3)%7-3,q=Math.floor(v/5)%5-2;
+  const row0=[r(0),r(1),r(k)];
+  const row1=[r(v%2?-2:2),r(v%4-1),r(p)];
+  const row2=[r(0),r(q),r(1+q*k)];
+  const row3=row0.map((value,j)=>add(add(value,mul(r(2),row1[j])),mul(r(-1),row2[j])));
+  const factors=[r(1),r(d==="expert"?-1:1),r(d==="hard"?2:3,d==="expert"?2:1),r(-1)];
+  const matrix=[row0,row1,row2,row3].map((row,i)=>row.map(x=>mul(x,factors[i])));
+  if(v%2)[matrix[0],matrix[2]]=[matrix[2],matrix[0]];
+  const solution=[
+    r(v%9-4,d==="expert"?2:1),
+    r((v+3)%7-3,d==="advanced"?2:1),
+    r((v+5)%11-5,d==="expert"?3:1),
+  ];
+  const rhs=matrix.map(row=>dot(row,solution));
+  return {kind:"linear-system",matrix,rhs,method:"gauss"};
+}
 export const gaussFamilies:readonly UniversityFamily[]=[
   {id:"gauss-unique",category:"systems",titles:{pl:"Eliminacja Gaussa: wyznacz niewiadome",en:"Gaussian elimination: find the unknowns"},supportedDifficulties:["medium","hard","advanced","expert"],create:(v,d)=>create(v,d,"gauss")},
+  {id:"gauss-overdetermined-4x3-unique",category:"systems",
+   titles:{pl:"Gauss 4×3: oblicz x, y, z",en:"Gaussian elimination 4×3: find x, y, z"},
+   supportedDifficulties:["hard","advanced","expert"],create:createOverdetermined},
   {id:"gauss-classification",category:"systems",titles:{pl:"Eliminacja Gaussa: klasyfikacja",en:"Gaussian elimination: classify"},supportedDifficulties:["hard","advanced","expert"],create:(v,d)=>create(v,d,"classification")},
 ];
 export function presentGauss(p:Extract<LinearAlgebraProblem,{kind:"linear-system"}>,locale:Locale){
@@ -51,7 +74,11 @@ export function presentGauss(p:Extract<LinearAlgebraProblem,{kind:"linear-system
       const equation=row.slice(i,n).map((coefficient,j)=>`(${f(coefficient)})·${names[i+j]}`).join(" + ");
       lesson.work(t(`Podstawienie wsteczne w R${i+1}: ${equation} = ${f(row[n])} ⇒ ${names[i]} = ${f(values[i])}`,`Back substitution in R${i+1}: ${equation} = ${f(row[n])} ⇒ ${names[i]} = ${f(values[i])}`),t("Podstawiamy już wyznaczone niewiadome do równania schodkowego i dzielimy tylko przez niezerowy pivot.","Substitute the values already found into the echelon equation and divide only by a nonzero pivot."));
     }
-    for(let i=0;i<n;i++) lesson.work(`${p.matrix[i].map((c,j)=>`(${f(c)})·(${f(values[j])})`).join(" + ")} = ${f(dot(p.matrix[i],values))} = ${f(p.rhs[i])}`,t("Sprawdzenie przez podstawienie do oryginalnego równania, nie tylko do zredukowanej macierzy.","Verify by substitution into the original equation, not just the reduced matrix."));
+    for(let i=0;i<p.matrix.length;i++){
+      if(!p.rhs[i] || dot(p.matrix[i],values).numerator* p.rhs[i].denominator!==p.rhs[i].numerator*dot(p.matrix[i],values).denominator)
+        throw Error("Unique Gauss solution does not satisfy original row "+(i+1));
+      lesson.work(`${p.matrix[i].map((c,j)=>`(${f(c)})·(${f(values[j])})`).join(" + ")} = ${f(dot(p.matrix[i],values))} = ${f(p.rhs[i])}`,t("Sprawdzenie przez podstawienie do oryginalnego równania, nie tylko do zredukowanej macierzy.","Verify by substitution into the original equation, not just the reduced matrix."));
+    }
     answer=p.method==="gauss"?{kind:"system",classification:"system-one",variables:names,values}:{kind:"choice",value:"system-one",options:options(locale)};
   }else{
     if(result.kind==="system-many"){
@@ -61,6 +88,6 @@ export function presentGauss(p:Extract<LinearAlgebraProblem,{kind:"linear-system
     }
     answer={kind:"choice",value:result.kind,options:options(locale)};
   }
-  const question=p.method==="gauss"?t(`Rozwiąż układ ${names.join(", ")} metodą Gaussa: [A|b] = ${compact(augmented)}. Podaj klasyfikację i wszystkie niewiadome.`,`Solve the ${names.join(", ")} system by Gaussian elimination: [A|b] = ${compact(augmented)}. Give the classification and all unknowns.`):t(`Sklasyfikuj układ metodą Gaussa: [A|b] = ${compact(augmented)}. Formularz wymaga tylko liczby rozwiązań.`,`Classify the system by Gaussian elimination: [A|b] = ${compact(augmented)}. The form asks only for the number of solutions.`);
+  const question=p.method==="gauss"&&p.matrix.length!==n?t(`Rozwiąż metodą Gaussa układ ${p.matrix.length} równań z ${n} niewiadomymi ${names.join(", ")}: [A|b] = ${compact(augmented)}. Podaj klasyfikację oraz wszystkie trzy niewiadome; sprawdź także dodatkowe równanie.`,`Solve the ${p.matrix.length}-equation, ${n}-unknown ${names.join(", ")} system by Gaussian elimination: [A|b] = ${compact(augmented)}. Give the classification and all three unknowns; also verify the additional equation.`):p.method==="gauss"?t(`Rozwiąż układ ${names.join(", ")} metodą Gaussa: [A|b] = ${compact(augmented)}. Podaj klasyfikację i wszystkie niewiadome.`,`Solve the ${names.join(", ")} system by Gaussian elimination: [A|b] = ${compact(augmented)}. Give the classification and all unknowns.`):t(`Sklasyfikuj układ metodą Gaussa: [A|b] = ${compact(augmented)}. Formularz wymaga tylko liczby rozwiązań.`,`Classify the system by Gaussian elimination: [A|b] = ${compact(augmented)}. The form asks only for the number of solutions.`);
   return lesson.finish(question,answer,t("Szukaj niezerowego pivota; jeśli potrzeba, zamień wiersze. Uwzględnij kolumnę b.","Find a nonzero pivot; swap rows if needed. Include column b."),t("Po eliminacji szukaj sprzeczności 0=c; w przypadku jednoznacznym podstawiaj wstecz.","After elimination look for a contradiction 0=c; for a unique system, back-substitute."));
 }
