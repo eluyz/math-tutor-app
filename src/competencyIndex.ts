@@ -379,7 +379,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "analysis-asymptote-vertical",
       "analysis-asymptote-horizontal",
-      "analysis-asymptote-oblique"
+      "analysis-asymptote-oblique",
+      "analysis-asymptotes-combined-rational"
     ]
   },
   "G08": {
