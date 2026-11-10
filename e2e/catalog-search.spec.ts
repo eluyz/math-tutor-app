@@ -113,13 +113,21 @@ for (const width of [375, 768]) for (const en of [false, true])
     });
     await search.fill(en ? "calkowanie przez czesci" : "integration by parts");
     const results = page.locator(".catalog-search-list button");
-    await expect(results).toHaveCount(4);
+    await expect(results).toHaveCount(5);
     await expect(results).toContainText([
       en ? "Integration by parts" : "Całkowanie przez części",
       en ? "Definite integral by integration by parts" : "Całka oznaczona — całkowanie przez części",
+      en ? "Integration by parts with logarithms — x ln(x+b)" : "Całkowanie przez części z logarytmem — x ln(x+b)",
       en ? "Integration by parts — sine and cosine" : "Całkowanie przez części — sinus i cosinus",
       en ? "Integration by parts twice — x² times sine or cosine" : "Dwukrotne całkowanie przez części — x² razy sinus lub cosinus",
     ]);
+    const i04Result = results.filter({
+      has: page.locator("strong").getByText(
+        en ? "Integration by parts with logarithms — x ln(x+b)" : "Całkowanie przez części z logarytmem — x ln(x+b)",
+        { exact: true },
+      ),
+    });
+    await expect(i04Result).toHaveCount(1);
     const result = results.filter({
       has: page.locator("strong").getByText(en ? "Integration by parts" : "Całkowanie przez części", { exact: true }),
     });

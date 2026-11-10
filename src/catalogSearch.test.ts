@@ -86,12 +86,12 @@ describe("catalog search and selection", () => {
     expect(searchCatalog(" ")).toEqual([]);
     expect(searchCatalog("zzzz-no-such-family")).toEqual([]);
     expect(new Set(searchCatalog("rownan").map((family) => family.id)).size).toBe(searchCatalog("rownan").length);
-    expect(allTemplates).toHaveLength(264);
+    expect(allTemplates).toHaveLength(265);
     expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(240);
     const categories = new Set(allTemplates.map((family) => family.category));
     expect(categories.size).toBe(14);
     expect([...categories].reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(20013);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(20037);
     expect([...categories].filter((category) => category !== "integrals").reduce((total, category) => total +
       difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(18381);
   });
@@ -112,7 +112,7 @@ describe("catalog search and selection", () => {
   it("finds integral families across languages and selects a supported level", () => {
     for (const query of ["CALKOWANIE PRZEZ CZESCI", "integration by parts"]) {
       const matches = searchCatalog(query);
-      expect(matches.map((family) => family.id)).toEqual(["integral-parts","integral-parts-definite","integral-parts-trig-linear","integral-parts-trig-quadratic"]);
+      expect(matches.map((family) => family.id)).toEqual(["integral-parts","integral-parts-definite","integral-parts-log-i04-stage","integral-parts-trig-linear","integral-parts-trig-quadratic"]);
       expect(selectCatalogFamily(matches[0], "easy")).toEqual({
         category: "integrals", templateId: "integral-parts", difficulty: "hard", changedDifficulty: true,
       });

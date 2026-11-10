@@ -32,6 +32,7 @@ import type { ParametricArcProblem } from "./parametricArc";
 import type { IntegralBasicsFollowupProblem } from "./integralBasicsFollowup";
 import type { I02TableStageProblem } from "./integralTableI02Stage";
 import type { I03LogPowerStageProblem } from "./integralLogPowerI03Stage";
+import type { I04LogPartsStageProblem } from "./integralLogPartsI04Stage";
 import type { IntegralMethodsFollowupProblem } from "./integralMethodsFollowup";
 import type { IntegralPartsTrigQuadraticProblem } from "./integralPartsTrigQuadratic";
 import type { FunctionExtensionProblem } from "./functionExtensions";
@@ -377,6 +378,7 @@ export type UniversityProblem =
   | IntegralBasicsFollowupProblem
   | I02TableStageProblem
   | I03LogPowerStageProblem
+  | I04LogPartsStageProblem
   | IntegralMethodsFollowupProblem
   | IntegralPartsTrigQuadraticProblem;
 export const isFunctionProblem = (p: UniversityProblem): p is FunctionProblem =>
