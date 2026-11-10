@@ -552,7 +552,11 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "multivar-partial-point",
       "multivar-gradient-point",
       "multivar-cubic-partial",
-      "multivar-chain-gradient"
+      "multivar-chain-gradient",
+      "multivar-elementary-partial",
+      "multivar-trig-partial",
+      "multivar-rational-partial",
+      "multivar-source-shape-partial"
     ]
   },
   "W02": {
@@ -563,7 +567,10 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "multivar-rectangle-extrema",
       "multivar-disk-linear-extrema",
       "multivar-degenerate-quartic",
-      "multivar-diagonal-quadratic-disk"
+      "multivar-diagonal-quadratic-disk",
+      "multivar-bilinear-extrema",
+      "multivar-cubic-extrema-full",
+      "multivar-quadratic-cubic-extrema"
     ]
   },
   "W03": {
