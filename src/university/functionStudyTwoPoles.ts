@@ -157,8 +157,12 @@ export function presentTwoPoleStudy(p:TwoPoleStudyProblem,locale:Locale){
   }
   work(t("Szkic na kartce: trzy gałęzie rozdzielone dwoma biegunami.",
          "Sketch on paper: three branches separated by two poles."),
-    "Zaznacz asymptoty i punkt krytyczny; szkic porównaj samodzielnie z krokami.",
-    "Mark both asymptotes and the critical point; compare your sketch against the steps.");
+    even
+      ? "Zaznacz asymptoty i ekstremum lokalne; szkic porównaj samodzielnie z krokami."
+      : "Zaznacz asymptoty i punkt przegięcia; szkic porównaj samodzielnie z krokami.",
+    even
+      ? "Mark both asymptotes and the local extremum; compare your sketch against the steps."
+      : "Mark both asymptotes and the inflection point; compare your sketch against the steps.");
   const [xp,yp]=twoPoleStudyPoint(p);
   const answer:AnswerSpec={kind:"list",labels:["x₁","x₂","y₀","x₃","y₃"],
     values:[...twoPoleStudyPoles(p),even?p.k:r(0),xp,yp]};
