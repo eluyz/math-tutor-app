@@ -1,6 +1,6 @@
 import {
   rational as r, addRational as add, subtractRational as sub,
-  equalRational as equal, type Rational,
+  equalRational as equal,
 } from "../rational";
 import { formatRational as fmt } from "../answers";
 import { multiplyMatrices, subtractMatrices, type Matrix } from "../matrices";
