@@ -1,7 +1,7 @@
 import {expect,test,type Page} from "@playwright/test";
 import type {AnswerInput} from "../src/answers";
 import {formatRational as fmt} from "../src/answers";
-import {multiplyRational as mul,divideRational as div,subtractRational as sub} from "../src/rational";
+import {rational as r,multiplyRational as mul,divideRational as div,subtractRational as sub} from "../src/rational";
 import {makeUniversityTask} from "../src/university/catalog";
 import {runPinnedAcceptance} from "./helpers/acceptance";
 
