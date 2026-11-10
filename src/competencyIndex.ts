@@ -321,6 +321,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "function-asymptote-range",
       "function-integrated-properties",
       "function-integrated-jump",
+      "function-jump-gap-unbounded",
       "function-integrated-punctures",
       "function-integrated-asymptotes",
       "function-even-open-range",
@@ -465,7 +466,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "analysis-study-polynomial",
       "analysis-study-rational",
-      "analysis-study-smooth-rational"
+      "analysis-study-smooth-rational",
+      "analysis-study-hole-pole"
     ]
   },
   "D09": {
@@ -502,7 +504,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "integral-substitution",
       "integral-substitution-definite",
-      "integral-log-substitution"
+      "integral-log-substitution",
+      "integral-log-power-i03-stage"
     ]
   },
   "I04": {

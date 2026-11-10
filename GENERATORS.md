@@ -1,3 +1,9 @@
+## F05/c — synthetic jump + gap + unbounded y-image (Draft PR #291; issue #288)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| function-jump-gap-unbounded | hard, advanced, expert | 72 | Original public-synthetic jump with hollow+filled mark at shared x, separate hollow-bounded input gap, unbounded left/right tails, W=ℝ; six graded PL/EN properties and accessible browser SVG. SOURCE_PASS NOT VERIFIED. Existing jump family preserved. |
+
 ## G04 — mixed square/cube-root function limits (candidate PR #270)
 
 | Family | Levels | Variants | Bounded method |
@@ -29,19 +35,33 @@ Licznik integracyjny: 256 rodziny / 19 509 instancji (+192 zadania względem akt
 
 Only after independent full CI and merge does this candidate add one user-facing family; the previously staged source PR #267 alone did not change the student catalog.
 
-## I04 — shifted-log integration by parts (bounded public synthetic integration)
+## I03 — log-power substitution (public synthetic integration, PR #290)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
-| integral-parts-log-i04-stage | hard | 24 | kx ln(x+b), x+b>0, u=x+b and 2 uses of integration by parts; exact four coefficients [k/2,−k/4,−kb,kb], required +C, PL/EN solutions and hints, pinned 375/1280px browser QA. Not exact SOURCE_PASS of private I04 originals. |
+| integral-log-power-i03-stage | hard | 24 | Synthetic substitution u=ax+b>0 and powers ln(u)^m (m=1,2); exact k/(m+1) antiderivative coefficient, PL/EN, mandatory +C, domain guard, pinned 375/1280px browser QA. I03 coverage remains partial; no exact original SOURCE_PASS. |
 
-Catalog integration adds **+1 family / +24 variants** relative to the stage branch. The original I04 syllabus exercises and private answer key are not shipped.
+Adds +1 family / +24 variants on the current main without shipping private source sheets or answer keys.
+
+## I04 — logarithmic integration by parts (synthetic catalog integration, PR #296)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| integral-parts-log-i04-stage | hard | 24 | kx ln(x+b) with x+b>0; u=x+b, two integration-by-parts steps, four exact coefficients [k/2,−k/4,−kb,kb], required +C, PL/EN solution and grading, pinned 375/1280px UI QA. SOURCE_PASS(I04) still pending. |
+
+Adds +1 family / +24 variants on top of I03 integrated candidate. No original university worksheets or answer keys are included.
 
 ## F05/b — even open-range synthetic graph (PR #243)
 
 | Family | Levels | Variants | Scope |
 | --- | --- | ---: | --- |
 | function-even-open-range | hard, advanced, expert | 72 | Two symmetric excluded inputs, 4 hollow endpoints, unbounded tails, open range floor and 6 graded PL/EN fields; synthetic METHOD_PROXY only, original P21/b unaccepted. |
+
+## D08 — full study with a removable hole and a separate pole (candidate PR #283; staging PR #271 merged)
+
+| Family | Levels | Variants | Method |
+| --- | --- | ---: | --- |
+| analysis-study-hole-pole | hard, advanced, expert | 72 | Rational function with one removable hole and a distinct genuine vertical pole, horizontal asymptote, domain exclusions, derivatives f′/f″, monotonicity, no stationary or inflection points, bilingual worked study and four graded coordinates. Paper sketch is self-assessed. Synthetic METHOD_SHAPE_MATCH for P32/3e; full source SOURCE_PASS pending; not released until #283 is separately approved, merged and CI/Pages verified. |
 
 ## D08 — study of a pole-free rational function (PR #245 integration)
 
@@ -266,9 +286,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **259 rodzin**, **19653 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 194 rodziny wspierają advanced, a 177 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **262 rodzin**, **19821 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 196 rodzin wspiera advanced, a 179 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **194**, L5: **177**.
+Łącznie rodziny L4: **196**, L5: **179**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 

@@ -20,6 +20,7 @@ import { graphPuncturedSymmetryFamilies, presentGraphPuncturedSymmetry } from ".
 import { graphAsymptoteRangeFamilies, presentGraphAsymptoteRange } from "./graphAsymptoteRange";
 import { graphIntegratedFamilies, presentGraphIntegrated } from "./graphIntegratedProperties";
 import { graphIntegratedJumpFamilies, presentIntegratedJump } from "./graphIntegratedJump";
+import { jumpGapUnboundedFamilies, presentJumpGapUnbounded } from "./graphJumpGapUnbounded";
 import { graphIntegratedPunctureFamilies, presentIntegratedPunctures } from "./graphIntegratedPunctures";
 import { integratedAsymptoteFamilies, presentIntegratedAsymptote } from "./graphIntegratedAsymptotes";
 import { graphEvenOpenRangeFamilies, presentEvenOpenRange } from "./graphEvenOpenRange";
@@ -96,6 +97,7 @@ import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCal
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { functionStudyFollowupFamilies, presentFunctionStudyFollowup } from "./functionStudyFollowup";
 import { smoothRationalStudyStage, presentSmoothRationalStudy } from "./functionStudySmoothRational";
+import { holePoleStudyStage, presentHolePoleStudy } from "./functionStudyHolePole";
 import { integralFamilies, presentIntegral } from "./integrals";
 import { definiteIntegralFollowupFamilies, presentDefiniteIntegralFollowup } from "./definiteIntegralFollowup";
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
@@ -106,6 +108,7 @@ import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabola
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
 import {i02TableFamilies,presentI02TableStage} from "./integralTableI02Stage";
+import {makeI03LogPowerStage,presentI03LogPowerStage} from "./integralLogPowerI03Stage";
 import {makeI04LogPartsStage,presentI04LogPartsStage} from "./integralLogPartsI04Stage";
 import { integralMethodsFollowupFamilies, presentIntegralMethodsFollowup } from "./integralMethodsFollowup";
 import { integralPartsTrigQuadraticFamily, presentQuadraticTrigParts } from "./integralPartsTrigQuadratic";
@@ -125,6 +128,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...graphAsymptoteRangeFamilies,
   ...graphIntegratedFamilies,
   ...graphIntegratedJumpFamilies,
+  ...jumpGapUnboundedFamilies,
   ...graphIntegratedPunctureFamilies,
   ...integratedAsymptoteFamilies,
   ...graphEvenOpenRangeFamilies,
@@ -214,6 +218,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...functionStudyFamilies,
   ...functionStudyFollowupFamilies,
   smoothRationalStudyStage,
+  holePoleStudyStage,
   ...integralFamilies,
   ...definiteIntegralFollowupFamilies,
   ...improperIntegralFamilies,
@@ -224,6 +229,9 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
   ...i02TableFamilies,
+  {id:"integral-log-power-i03-stage",category:"integrals",
+    titles:{pl:"Podstawienie logarytmiczne — potęgi ln(ax+b)",en:"Logarithmic substitution — powers of ln(ax+b)"},
+    supportedDifficulties:["hard"],create:makeI03LogPowerStage},
   {id:"integral-parts-log-i04-stage",category:"integrals",
     titles:{pl:"Całkowanie przez części z logarytmem — x ln(x+b)",en:"Integration by parts with logarithms — x ln(x+b)"},
     supportedDifficulties:["hard"],create:makeI04LogPartsStage},
@@ -241,8 +249,12 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentRectangularPath(problem,locale)
     : problem.kind === "analysis-study-smooth-rational"
     ? presentSmoothRationalStudy(problem, locale)
+    : problem.kind === "analysis-study-hole-pole"
+    ? presentHolePoleStudy(problem, locale)
     : problem.kind === "integral-table-i02-stage"
     ? presentI02TableStage(problem,locale)
+    : problem.kind === "integral-log-power-i03-stage"
+    ? presentI03LogPowerStage(problem,locale)
     : problem.kind === "integral-parts-log-i04-stage"
     ? presentI04LogPartsStage(problem,locale)
     : problem.kind === "integral-parts-trig-quadratic"
@@ -341,6 +353,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentIntegratedPunctures(problem,locale)
     : problem.kind === "function-integrated-jump"
     ? presentIntegratedJump(problem,locale)
+    : problem.kind === "function-jump-gap-unbounded"
+    ? presentJumpGapUnbounded(problem,locale)
     : problem.kind === "function-integrated-properties"
     ? presentGraphIntegrated(problem,locale)
     : problem.kind === "function-asymptote-range"
@@ -492,7 +506,7 @@ export function makeUniversityTask(
     difficulty,
     parameters: { variant },
     university,
-    contentKey: `university:${presentation.question}${university.kind === "determinant-radical-two" ? JSON.stringify(university.matrix) : university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-disconnected-domain","function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry","function-graph-injectivity","function-disconnected-range","function-disconnected-injectivity","function-disconnected-monotonicity","function-punctured-symmetry","function-asymptote-range","function-integrated-properties","function-integrated-jump","function-integrated-punctures","function-integrated-asymptotes","function-even-open-range","function-single-hole-recovery"].includes(university.kind) ? JSON.stringify(university) : ""}`,
+    contentKey: `university:${presentation.question}${university.kind === "determinant-radical-two" ? JSON.stringify(university.matrix) : university.kind === "determinant" ? JSON.stringify(university.matrix, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : university.kind === "linear-matrix-practice" ? JSON.stringify(university.matrices, (_, value) => (typeof value === "bigint" ? value.toString() : value)) : ["function-disconnected-domain","function-graph-domain-range","function-graph-zeros","function-graph-monotonicity","function-graph-extrema","function-graph-symmetry","function-graph-injectivity","function-disconnected-range","function-disconnected-injectivity","function-disconnected-monotonicity","function-punctured-symmetry","function-asymptote-range","function-integrated-properties","function-integrated-jump","function-jump-gap-unbounded","function-integrated-punctures","function-integrated-asymptotes","function-even-open-range","function-single-hole-recovery"].includes(university.kind) ? JSON.stringify(university) : ""}`,
     startingHint: presentation.hint,
     errorRules: [],
   };

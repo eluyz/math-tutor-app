@@ -19,6 +19,7 @@ import type { IntegralProblem } from "./integrals";
 import type { DefiniteIntegralFollowupProblem } from "./definiteIntegralFollowup";
 import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
 import type { SmoothRationalStudyProblem } from "./functionStudySmoothRational";
+import type { HolePoleStudyProblem } from "./functionStudyHolePole";
 import type { EulerInfinityProblem } from "./analysisLimitsAsymptotesInfinity";
 import type { FractionalRootLimitProblem } from "./functionLimitsFractionalRoots";
 import type { CombinedAsymptoteProblem } from "./analysisCombinedAsymptotes";
@@ -30,6 +31,7 @@ import type { TwoParabolasAreaProblem } from "./twoParabolasArea";
 import type { ParametricArcProblem } from "./parametricArc";
 import type { IntegralBasicsFollowupProblem } from "./integralBasicsFollowup";
 import type { I02TableStageProblem } from "./integralTableI02Stage";
+import type { I03LogPowerStageProblem } from "./integralLogPowerI03Stage";
 import type { I04LogPartsStageProblem } from "./integralLogPartsI04Stage";
 import type { IntegralMethodsFollowupProblem } from "./integralMethodsFollowup";
 import type { IntegralPartsTrigQuadraticProblem } from "./integralPartsTrigQuadratic";
@@ -45,6 +47,7 @@ import type { GraphPuncturedSymmetryProblem } from "./graphPuncturedSymmetry";
 import type { GraphAsymptoteRangeProblem } from "./graphAsymptoteRange";
 import type { GraphIntegratedProblem } from "./graphIntegratedProperties";
 import type { IntegratedJumpProblem } from "./graphIntegratedJump";
+import type { JumpGapUnboundedProblem } from "./graphJumpGapUnbounded";
 import type { IntegratedPuncturesProblem } from "./graphIntegratedPunctures";
 import type { IntegratedAsymptoteProblem } from "./graphIntegratedAsymptotes";
 import type { EvenOpenRangeProblem } from "./graphEvenOpenRange";
@@ -313,6 +316,7 @@ export type UniversityProblem =
   | GraphAsymptoteRangeProblem
   | GraphIntegratedProblem
   | IntegratedJumpProblem
+  | JumpGapUnboundedProblem
   | IntegratedPuncturesProblem
   | IntegratedAsymptoteProblem
   | EvenOpenRangeProblem
@@ -361,6 +365,7 @@ export type UniversityProblem =
   | AdvancedCalculusProblem
   | FunctionStudyProblem
   | SmoothRationalStudyProblem
+  | HolePoleStudyProblem
   | FunctionStudyFollowupProblem
   | IntegralProblem
   | ImproperIntegralProblem
@@ -372,6 +377,7 @@ export type UniversityProblem =
   | ParametricArcProblem
   | IntegralBasicsFollowupProblem
   | I02TableStageProblem
+  | I03LogPowerStageProblem
   | I04LogPartsStageProblem
   | IntegralMethodsFollowupProblem
   | IntegralPartsTrigQuadraticProblem;
