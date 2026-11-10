@@ -106,6 +106,7 @@ import { twoParabolasAreaFamilies, presentTwoParabolasArea } from "./twoParabola
 import { parametricArcFamilies, presentParametricArc } from "./parametricArc";
 import { integralBasicsFollowupFamilies, presentIntegralBasicsFollowup } from "./integralBasicsFollowup";
 import {i02TableFamilies,presentI02TableStage} from "./integralTableI02Stage";
+import {makeI04LogPartsStage,presentI04LogPartsStage} from "./integralLogPartsI04Stage";
 import { integralMethodsFollowupFamilies, presentIntegralMethodsFollowup } from "./integralMethodsFollowup";
 import { integralPartsTrigQuadraticFamily, presentQuadraticTrigParts } from "./integralPartsTrigQuadratic";
 
@@ -223,6 +224,9 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...parametricArcFamilies,
   ...integralBasicsFollowupFamilies,
   ...i02TableFamilies,
+  {id:"integral-parts-log-i04-stage",category:"integrals",
+    titles:{pl:"Całkowanie przez części z logarytmem — x ln(x+b)",en:"Integration by parts with logarithms — x ln(x+b)"},
+    supportedDifficulties:["hard"],create:makeI04LogPartsStage},
   ...integralMethodsFollowupFamilies,
   integralPartsTrigQuadraticFamily,
 ];
@@ -239,6 +243,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentSmoothRationalStudy(problem, locale)
     : problem.kind === "integral-table-i02-stage"
     ? presentI02TableStage(problem,locale)
+    : problem.kind === "integral-parts-log-i04-stage"
+    ? presentI04LogPartsStage(problem,locale)
     : problem.kind === "integral-parts-trig-quadratic"
     ? presentQuadraticTrigParts(problem,locale)
     : problem.kind === "integral-log-substitution" || problem.kind === "integral-parts-trig-linear"

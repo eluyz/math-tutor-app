@@ -511,7 +511,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "integral-parts",
       "integral-parts-definite",
       "integral-parts-trig-linear",
-      "integral-parts-trig-quadratic"
+      "integral-parts-trig-quadratic",
+      "integral-parts-log-i04-stage"
     ]
   },
   "I05": {
