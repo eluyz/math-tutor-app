@@ -47,6 +47,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "matrix-add",
       "matrix-powers",
       "matrix-composite-operations",
+      "matrix-commutator-three",
       "matrix-rectangular-evaluation",
       "matrix-transpose-dimensions",
       "matrix-negative-square-two",
