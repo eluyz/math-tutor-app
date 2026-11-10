@@ -270,9 +270,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **263 rodziny**, **19989 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 199 rodzin wspiera advanced, a 180 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **264 rodziny**, **20061 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 200 rodzin wspiera advanced, a 181 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **199**, L5: **180**.
+Łącznie rodziny L4: **200**, L5: **181**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -815,7 +815,8 @@ MT-EDU-006B: **720** nowych instancji; łącznie **7365**. Jedenaście rodzin, 3
 | gauss-unique | medium, hard, advanced, expert | Układy 3×3/4×4, 3/4 pola x,y,z,w, zamiana zerowego pivota, podstawienie wsteczne |
 | gauss-classification | hard, advanced, expert | 3×3/4×4, jedno/brak/nieskończenie wiele, jawny wiersz sprzeczny i demonstracja parametrów |
 | cramer-four | advanced, expert | 4×4: D i D1…D4 przez Laplace’a, podstawienie czterech niewiadomych, przy D=0 klasyfikacja z rang |
-| inverse-right-applications | advanced, expert | XA=B, X=BA⁻¹; 2×2/3×3 i dokładne ułamki |
+| inverse-right-applications | advanced, expert | XA=B, X=BA⁻¹; A 2×2/3×3, X o dwóch wierszach; dokładne ułamki |
+| inverse-right-source-three | hard, advanced, expert | P05/2b source-form: A, B i X wszystkie 3×3; 72 autorskie warianty. Macierz odwracana z prawej strony, niezależne dopełnienia i Chromium PL/EN. SOURCE_PASS pending. |
 
 `linearAlgebraMath.ts` przechowuje wyłącznie dokładne `Rational`/BigInt, waliduje wymiary, wykonuje Gaussa–Jordana albo eliminację z osobnym podstawieniem wstecznym. Macierz 4×4 jest tylko danymi i tabelą: nie zmienia limitu starego formularza macierzy 3×3. Przy jednym rozwiązaniu formularz `system` wymaga wszystkich niewiadomych; zadanie klasyfikacyjne i przypadek osobliwy używają kontrolowanego `choice`, bez swobodnej oceny wzorów parametrycznych. Pierwsza nieważna odpowiedź nie zużywa samodzielnej próby sesji.
 
