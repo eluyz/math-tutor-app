@@ -11,7 +11,7 @@ Oryginalne prywatne materiały mają zadania z 4 równaniami i 3 niewiadomymi, w
 - Rozwiązanie exact; po wyznaczeniu niewiadomych weryfikacja **każdego z czterech oryginalnych równań**. Wariant ze sprzecznością nie jest tu generowany, bo obecna rodzina służy pełnemu ocenianiu unikalnego rozwiązania.
 - Dotychczasowe `gauss-unique`, `gauss-classification`, `system-rectangular-4x3` nie zmieniają ID, liczby wariantów ani schematów oceniania.
 - `gaussFamilies` było już rejestrowane w katalogu, więc dodanie rodziny nie wymaga edycji `src/university/catalog.ts` ani schematu.
-- Dokumenty i liczniki: z początkowych 260 rodzin / 19 773 wariantów do kandydata **260 rodzin / 19 773 wariantów**. U07 nadal `coverage:partial`; brak formalnego nowego SOURCE_PASS.
+- Dokumenty i liczniki: z początkowych 259 rodzin / 19 701 wariantów do kandydata **260 rodzin / 19 773 wariantów**. U07 nadal `coverage:partial`; brak formalnego nowego SOURCE_PASS.
 
 ## Niezależne testy
 - Jednostkowy oracle znajduje niezerowy minor 3×3 spośród wierszy wyświetlanej macierzy 4×3, stosuje dokładny Cramer do trzech niewiadomych i potwierdza **wszystkie cztery** oryginalne równania. Testowane 24 warianty × 3 poziomy, PL/EN oraz prawidłowe, błędne, puste i niepełne odpowiedzi.
@@ -20,6 +20,6 @@ Oryginalne prywatne materiały mają zadania z 4 równaniami i 3 niewiadomymi, w
 - Finalne CI, Batch B–G, Pages oraz niezależny review oznaczyć na dokładnym SHA. **Nie utożsamiać testu kandydata z wdrożeniem.**
 
 ## Release gate
-Jeden Draft PR, bez auto-merge. Przed scaleniem: pełny exact-HEAD CI SUCCESS i kontrola konfliktów z aktywnym main, niezależne QA oraz świadoma zgoda właściciela. Po merge: main CI i Pages na faktycznym scalonym SHA. Formalny U07 SOURCE_PASS wymaga osobnego source-to-app QA, nie jest przyznany za syntetyczne warianty.
+Jeden PR, bez auto-merge. Przed scaleniem: pełny exact-HEAD CI SUCCESS i kontrola konfliktów z aktywnym main, niezależne QA oraz świadoma zgoda właściciela. Po merge: main CI i Pages na faktycznym scalonym SHA. Formalny U07 SOURCE_PASS wymaga osobnego source-to-app QA, nie jest przyznany za syntetyczne warianty.
 
 Refs #108.
