@@ -151,6 +151,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "capelli-matrices",
       "matrix-rank-four-square",
       "matrix-rank-four-rectangular",
+      "matrix-rank-four-two",
+      "matrix-rank-four-three",
       "matrix-rank-five-four",
       "matrix-rank-six-three"
     ]
