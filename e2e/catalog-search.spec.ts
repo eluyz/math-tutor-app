@@ -121,6 +121,13 @@ for (const width of [375, 768]) for (const en of [false, true])
       en ? "Integration by parts — sine and cosine" : "Całkowanie przez części — sinus i cosinus",
       en ? "Integration by parts twice — x² times sine or cosine" : "Dwukrotne całkowanie przez części — x² razy sinus lub cosinus",
     ]);
+    const i04Result = results.filter({
+      has: page.locator("strong").getByText(
+        en ? "Integration by parts with logarithms — x ln(x+b)" : "Całkowanie przez części z logarytmem — x ln(x+b)",
+        { exact: true },
+      ),
+    });
+    await expect(i04Result).toHaveCount(1);
     const result = results.filter({
       has: page.locator("strong").getByText(en ? "Integration by parts" : "Całkowanie przez części", { exact: true }),
     });
