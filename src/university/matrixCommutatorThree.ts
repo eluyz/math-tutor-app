@@ -73,7 +73,7 @@ export function presentMatrixCommutatorThree(p: MatrixCommutatorPractice, locale
   lesson.work("AB−BA="+matrixText(result),
     t("Odejmujemy odpowiadające sobie elementy AB i BA; sprawdzamy wszystkie znaki.",
       "Subtract corresponding entries of AB and BA, checking every sign."));
-  lesson.work("AB≠BA",
+  lesson.work("AB≠BA ⇒ AB−BA≠0",
     t("Nie wolno zamieniać kolejności mnożenia macierzy. Nie zastępuj AB−BA zerem.",
       "Matrix multiplication is not commutative. Do not replace AB−BA by zero."));
   return lesson.finish(
