@@ -1,6 +1,6 @@
 import {describe,it,expect} from "vitest";
 import {rational as r, addRational as add, subtractRational as sub, multiplyRational as mul,
-  divideRational as div, equalRational as equal, type Rational} from "../rational";
+  equalRational as equal, type Rational} from "../rational";
 import {assessAnswer,emptyAnswer,formatRational as fmt} from "../answers";
 import {
   makeI04LogPartsStage,presentI04LogPartsStage,i04LogPartsCoefficients,
