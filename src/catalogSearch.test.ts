@@ -38,6 +38,38 @@ describe("catalog search and selection", () => {
     expect(searchCatalog("M03", limited).map((family) => family.id)).toEqual(["matrix-product"]);
   });
 
+  it("lists all released two-variable source-method families through W01/W02 codes and aliases", () => {
+    const w01 = [
+      "multivar-partial-point", "multivar-gradient-point", "multivar-cubic-partial",
+      "multivar-chain-gradient", "multivar-elementary-partial", "multivar-trig-partial",
+      "multivar-rational-partial", "multivar-source-shape-partial",
+    ];
+    const w02 = [
+      "multivar-stationary-point", "multivar-hessian-classify", "multivar-rectangle-extrema",
+      "multivar-disk-linear-extrema", "multivar-degenerate-quartic",
+      "multivar-diagonal-quadratic-disk", "multivar-bilinear-extrema",
+      "multivar-cubic-extrema-full", "multivar-quadratic-cubic-extrema",
+    ];
+    const w03 = [
+      "multivar-path-limit", "multivar-continuity-point",
+      "multivar-polar-homogeneous-limit", "multivar-angular-continuity",
+      "multivar-anisotropic-limit",
+    ];
+    for (const [code, ids] of [["W01", w01], ["W02", w02], ["W03", w03]] as const) {
+      const actual = searchCatalog(code).map((family) => family.id);
+      expect(new Set(actual)).toEqual(new Set(ids));
+      expect(actual).toHaveLength(ids.length);
+      expect(resolveCatalogCompetency(code)?.coverage).toBe("partial");
+    }
+    expect(new Set(searchCatalog("partial derivatives").map((family) => family.id))).toEqual(new Set(w01));
+    expect(new Set(searchCatalog("pochodne czastkowe").map((family) => family.id))).toEqual(new Set(w01));
+    expect(new Set(searchCatalog("two variable extrema").map((family) => family.id))).toEqual(new Set(w02));
+    expect(new Set(searchCatalog("ekstrema 2d").map((family) => family.id))).toEqual(new Set(w02));
+    const advanced = searchCatalog("W02").find((family) => family.id === "multivar-quadratic-cubic-extrema");
+    expect(advanced).toBeDefined();
+    expect(selectCatalogFamily(advanced!, "advanced").difficulty).toBe("advanced");
+  });
+
   it("normalizes Polish accents, Ł, case and whitespace", () => {
     expect(normalizeCatalogQuery("  RÓŻNE   ŹRÓDŁA  ")).toBe("rozne zrodla");
     expect(normalizeCatalogQuery("  ZaŻÓŁĆ  ")).toBe("zazolc");
@@ -54,14 +86,14 @@ describe("catalog search and selection", () => {
     expect(searchCatalog(" ")).toEqual([]);
     expect(searchCatalog("zzzz-no-such-family")).toEqual([]);
     expect(new Set(searchCatalog("rownan").map((family) => family.id)).size).toBe(searchCatalog("rownan").length);
-    expect(allTemplates).toHaveLength(261);
-    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(237);
+    expect(allTemplates).toHaveLength(264);
+    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(240);
     const categories = new Set(allTemplates.map((family) => family.category));
     expect(categories.size).toBe(14);
     expect([...categories].reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(19797);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(20013);
     expect([...categories].filter((category) => category !== "integrals").reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(18165);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(18381);
   });
 
   it("preserves supported level or chooses nearest available level without changing the family", () => {
