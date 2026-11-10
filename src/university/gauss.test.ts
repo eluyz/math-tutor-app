@@ -9,7 +9,32 @@ import type { ExactMatrix } from "./linearAlgebraMath";
 const subsets=(n:number,k:number):number[][]=>k===0?[[]]:Array.from({length:n},(_,i)=>subsets(n-i-1,k-1).map(rest=>[i,...rest.map(j=>j+i+1)])).flat();
 const oracleRank=(A:ExactMatrix)=>{for(let k=Math.min(A.length,A[0].length);k>=1;k--)for(const rows of subsets(A.length,k))for(const cols of subsets(A[0].length,k))if(laplace(rows.map(i=>cols.map(j=>A[i][j]))).numerator!==0n)return k;return 0;};
 describe("P2 exact Gaussian elimination",()=>{
-  it("audits each unique, inconsistent and infinite 3×3/4×4 variant in PL and EN",()=>{
+  it("U07 keeps legacy 3x3/4x4 exercises and explicitly requires a pivot swap in 4x3",()=>{
+    const baseline3=makeUniversityTask("gauss-unique",0,"hard").university;
+    const baseline4=makeUniversityTask("gauss-unique",0,"expert").university;
+    expect(baseline3.kind).toBe("linear-system");
+    expect(baseline4.kind).toBe("linear-system");
+    if(baseline3.kind!=="linear-system"||baseline4.kind!=="linear-system")throw Error("Legacy method changed");
+    expect(baseline3.matrix).toHaveLength(3);
+    expect(baseline3.matrix[0]).toHaveLength(3);
+    expect(baseline4.matrix).toHaveLength(4);
+    expect(baseline4.matrix[0]).toHaveLength(4);
+    for(const level of ["hard","advanced","expert"] as const) {
+      const keys=new Set<string>();
+      for(let variant=0;variant<24;variant++){
+        const exercise=makeUniversityTask("gauss-overdetermined-4x3-unique",variant,level);
+        const p=exercise.university;
+        if(p.kind!=="linear-system")throw Error("Wrong U07 kind");
+        expect(p.method).toBe("gauss");
+        expect(p.matrix).toHaveLength(4);
+        expect(p.matrix.every(row=>row.length===3)).toBe(true);
+        expect(p.matrix[0][0].numerator).toBe(0n); // forced pivot swap
+        keys.add(exercise.contentKey);
+      }
+      expect(keys.size).toBe(24);
+    }
+  });
+  it("audits 3×3/4×4 and overdetermined 4×3 Gauss solutions in PL and EN",()=>{
     const seenKinds=new Set<string>();
     for(const family of gaussFamilies)for(const level of difficulties){
       if(!family.supportedDifficulties.includes(level))continue;
@@ -23,10 +48,18 @@ describe("P2 exact Gaussian elimination",()=>{
         seenKinds.add(kind);
         let xs:ReturnType<typeof d>[]=[];
         if(kind==="system-one"){
-          const D=laplace(p.matrix);
+          // Pick independent source rows: Cramer's determinant is defined on n×n
+          // minors even when the original system has m>n equations.
+          const rows=subsets(p.matrix.length,n).find(picks=>
+            laplace(picks.map(i=>p.matrix[i])).numerator!==0n);
+          expect(rows,"A unique system must contain an invertible square minor").toBeDefined();
+          const chosen=rows!.map(i=>p.matrix[i]), rhs=rows!.map(i=>p.rhs[i]);
+          const D=laplace(chosen);
           expect(D.numerator).not.toBe(0n);
-          xs=Array.from({length:n},(_,j)=>d(laplace(p.matrix.map((row,i)=>row.map((c,k)=>k===j?p.rhs[i]:c))),D));
-          for(let i=0;i<n;i++)expect(eq(p.matrix[i].map((c,j)=>m(c,xs[j])).reduce(a,q(0)),p.rhs[i])).toBe(true);
+          xs=Array.from({length:n},(_,j)=>d(laplace(chosen.map((row,i)=>row.map((c,k)=>k===j?rhs[i]:c))),D));
+          for(let i=0;i<p.matrix.length;i++)
+            expect(eq(p.matrix[i].map((c,j)=>m(c,xs[j])).reduce(a,q(0)),p.rhs[i]),
+              `Must satisfy every original equation, including overdetermined row ${i+1}`).toBe(true);
         }
         for(const locale of ["pl","en"] as const){
           const lesson=localizeUniversity(task,locale);
