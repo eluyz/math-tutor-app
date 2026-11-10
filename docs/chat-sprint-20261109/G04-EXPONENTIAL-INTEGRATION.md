@@ -26,3 +26,7 @@ Date: 2026-11-09. Parent staged draft: PR #287, method-only source at `19b6a0d1b
 - PM explicit FINAL FREEZE overrides the earlier conditional owner approval: **DO NOT MERGE this PR as part of this chat's actions**, even after PASS. Leave Draft for PM independent source/PL-EN acceptance.
 - Parent PR #287 and earlier root stage #268 are redundant stages, **not automatically mergeable**; do not close without PM QA.
 - Original private worksheet exact coefficients and answer keys must remain private. No `SOURCE_PASS` for G01–G08 is asserted here.
+
+## Reconciliation after main #284 and #304 (2026-11-10)
+- New baseline `main@50e8259c9265e57776f4dc2e2bb12730592c5879`: 265 families / 20,133 variants. This PR adds solely the existing G04 family (+1/+24), expected candidate 266 families / 20,157 variants.
+- All original G04 generation, 24-case unit/catalog tests and PL/EN browser scenarios retained. SOURCE_PASS limited to the P26/2(f) source-form witness; other G04 forms NOT_VERIFIED. New exact-HEAD CI required; PM alone may authorize merge.

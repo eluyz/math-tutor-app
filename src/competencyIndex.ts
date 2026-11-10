@@ -134,6 +134,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "inverse-four-ax-equation",
       "inverse-applications",
       "inverse-right-applications",
+      "inverse-right-source-three",
       "matrix-ax-shift",
       "matrix-axb",
       "matrix-inverse-plus",
@@ -216,6 +217,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "coverage": "partial",
     "familyIds": [
       "gauss-unique",
+      "gauss-overdetermined-4x3-unique",
       "gauss-four-forced-pivot"
     ]
   },

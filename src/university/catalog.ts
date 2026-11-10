@@ -68,6 +68,7 @@ import { radicalDeterminantFamilies, presentRadicalDeterminant } from "./radical
 import { determinantStrategyFamilies } from "./determinantStrategies";
 import { gaussianPivotFamilies, presentGaussianPivot } from "./gaussianPivotDeterminants";
 import { inverseFamilies, presentInverse } from "./inverses";
+import { xaSourceThreeFamilies } from "./inverseXaThreeSource";
 import { inverseFourFamilies } from "./inverseFour";
 import { inverseFourFollowupFamilies } from "./inverseFourFollowup";
 import { rankFamilies, presentRank } from "./ranks";
@@ -199,6 +200,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...determinantStrategyFamilies,
   ...gaussianPivotFamilies,
   ...inverseFamilies,
+  ...xaSourceThreeFamilies,
   ...inverseFourFamilies,
   ...inverseFourFollowupFamilies,
   ...rankFamilies,

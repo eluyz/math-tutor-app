@@ -40,3 +40,7 @@ Scope: only G01–G08 (function limits), read-only source originals and existing
 - **Source parity**: NOT_VERIFIED; G04/G06/G07/G08 partial and P24/9 absent from official supplied key. No observed confirmed mathematical blocker in existing main.
 - **LEARNING_READY:** *bounded existing methods on main* are usable under current CI/Pages; **SOURCE_CERTIFIED/COMPLETE: NO**. The G04 optional queued integration is PM-controlled, not justification for additional generators.
 - **PM recommendation:** Freeze feature development and stop parallel G work. Receive or explicitly defer #289 after its fresh exact-HEAD CI and a brief independent PL/EN smoke QA; mark #268 and #287 as redundant staging candidates but do not close without verification. Document source gaps as acceptance exceptions. Do not merge automatically.
+
+## Post-#284/#304 reconciliation (2026-11-10)
+- #289 targets main `50e8259c9265e57776f4dc2e2bb12730592c5879`. Current main: 265 families / 20,133 variants; this G04 candidate would yield 266 families / 20,157 variants. Earlier counts remain historical checkpoints.
+- Scope unchanged: 24 synthetic exponential-ratio problems and existing bilingual QA. P26/2(f) has a source-form and answer witness; no blanket G04 SOURCE_PASS is claimed. Exact-HEAD CI and PM approval remain separate release gates; NO MERGE from this branch audit.

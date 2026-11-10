@@ -22,7 +22,7 @@ for (const width of [375, 1280]) for (const en of [false, true])
       const level = shape === "3x2" ? expert ? "advanced" : "hard" : expert ? "expert" : "advanced";
       const label = level === "hard" ? en ? "Hard" : "Trudny" : level === "expert" ? en ? "Expert" : "Ekspert" : en ? "Advanced" : "Zaawansowany";
       await button(page, label).click();
-      await page.getByRole("button", { name: new RegExp(`Gauss ${shape.replace("x", "×")}:`) }).click();
+      await page.getByRole("button", { name: new RegExp(`Gauss ${shape.replace("x", "×")}: ${en ? "full parametric solution" : "pełne rozwiązanie parametryczne"}`) }).click();
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", id(shape));
       const table = page.locator(".linear-algebra-matrices .given-matrix");
       const augmented = await Promise.all((await table.locator("tbody tr").all()).map(async row =>
