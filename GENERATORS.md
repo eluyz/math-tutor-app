@@ -49,6 +49,8 @@ Adds +1 family / +24 variants on the current main without shipping private sourc
 
 Adds +1 family / +24 variants on top of I03 candidate. No original university worksheets or answer keys are included.
 
+**FINAL FREEZE I (2026-11-10):** These I03/I04 families offer narrowly scoped method practice only. A passing GitHub CI is not independent mathematical source acceptance: both competencies remain `partial`; original-source equivalence and formal `SOURCE_PASS` remain NOT_VERIFIED. No further families are planned in this release candidate.
+
 Only after independent full CI and merge does this candidate add one user-facing family; the previously staged source PR #267 alone did not change the student catalog.
 
 ## F05/b — even open-range synthetic graph (PR #243)
