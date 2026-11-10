@@ -642,7 +642,7 @@ export default function App() {
                     <IntegratedJumpDisplay problem={active.university} locale={locale}/>
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-jump-gap-unbounded" && (
-                    <JumpGapUnboundedDisplay problem={active.university} locale={locale} />
+                    <JumpGapUnboundedDisplay problem={active.university} locale={locale}/>
                   )}
                   {isUniversityTask(active) && active.university.kind === "function-integrated-properties" && (
                     <IntegratedGraphDisplay problem={active.university} locale={locale}/>

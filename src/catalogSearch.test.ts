@@ -26,6 +26,7 @@ describe("catalog search and selection", () => {
     }
     expect(searchCatalog("D09").map((family) => family.id)).toContain("derivative-sign-sketch");
     expect(searchCatalog("D08").map((family) => family.id)).toContain("analysis-study-smooth-rational");
+    expect(searchCatalog("D08").map((family) => family.id)).toContain("analysis-study-hole-pole");
     expect(searchCatalog("W03").map((family) => family.id)).toContain("multivar-path-limit");
     expect(searchCatalog("partial derivatives").map((family) => family.id)).toContain("multivar-partial-point");
     expect(resolveCatalogCompetency("F05")?.coverage).toBe("partial");
@@ -53,14 +54,14 @@ describe("catalog search and selection", () => {
     expect(searchCatalog(" ")).toEqual([]);
     expect(searchCatalog("zzzz-no-such-family")).toEqual([]);
     expect(new Set(searchCatalog("rownan").map((family) => family.id)).size).toBe(searchCatalog("rownan").length);
-    expect(allTemplates).toHaveLength(259);
-    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(236);
+    expect(allTemplates).toHaveLength(260);
+    expect(allTemplates.filter((family) => family.category !== "integrals")).toHaveLength(237);
     const categories = new Set(allTemplates.map((family) => family.category));
     expect(categories.size).toBe(14);
     expect([...categories].reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(19701);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(19773);
     expect([...categories].filter((category) => category !== "integrals").reduce((total, category) => total +
-      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(18093);
+      difficulties.reduce((count, level) => count + taskPool(category, level).length, 0), 0)).toBe(18165);
   });
 
   it("preserves supported level or chooses nearest available level without changing the family", () => {
