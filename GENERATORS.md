@@ -258,9 +258,9 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **259 rodzin**, **19701 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 194 rodziny wspierają advanced, a 177 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **260 rodzin**, **19773 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 194 rodziny wspierają advanced, a 177 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
-Łącznie rodziny L4: **195**, L5: **178**.
+Łącznie rodziny L4: **196**, L5: **179**.
 
 ## MT-F05-P0B — bounded range of a disconnected, holey graph (Issue #125; separate unmerged PR)
 
@@ -956,6 +956,7 @@ Zamiast oceniać jedynie „nieskończenie wiele rozwiązań”, formularz wymag
 | gauss-overdetermined-4x3-unique | hard, advanced, expert | U07: 4 równania / 3 niewiadome; pełne ocenianie x,y,z, obowiązkowa zamiana wierszy, rozwiązanie dokładne i podstawienie do wszystkich czterech równań; 72 syntetyczne warianty PL/EN |
 | system-rectangular-3x2 | medium, hard | 3 równania / 2 niewiadome; przypadki dokładnie jednego, żadnego i nieskończenie wielu rozwiązań, uzasadnione rzędem |
 | system-rectangular-4x3 | advanced, expert | 4 równania / 3 niewiadome; obliczenie RREF i rzędu macierzy rozszerzonej, kontrolowane przypadki wszystkich trzech klas |
+| system-rectangular-5x3-classification | hard, advanced, expert | U06: 5 równań / 3 niewiadome, dokładna klasyfikacja przez r(A), r([A|b]) i eliminację wierszy, 72 syntetyczne przypadki: jedno, wiele lub brak rozwiązań; nie są to oryginalne zadania źródłowe |
 
 Zadania mają dokładne ułamki Rational, PL/EN i objaśnienia z operacjami Gaussa. Łańcuch wymaga wpisania pojedynczego wyniku; pozostałe trzy równości są weryfikowane przez podstawienie. Prostokątne układy wymagają **klasyfikacji**, a w krokach zawierają wyprowadzone wartości dla przypadku jednoznacznego, parametryzację dla nieskończenie wielu rozwiązań lub jawny wiersz sprzeczności. Nie twierdzimy, że aplikacja ocenia pełną parametryzację prostokątnych układów.
 
