@@ -466,7 +466,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "analysis-study-polynomial",
       "analysis-study-rational",
-      "analysis-study-smooth-rational"
+      "analysis-study-smooth-rational",
+      "analysis-study-hole-pole"
     ]
   },
   "D09": {
