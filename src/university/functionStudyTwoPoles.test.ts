@@ -103,6 +103,13 @@ describe("D08 two-pole synthetic full-study source shapes: stage only",()=>{
           expect(view.nextHint.length).toBeGreaterThan(25);
           expect(view.solution.filter(s=>s.kind==="working").length).toBeGreaterThanOrEqual(12);
           expect(view.explanation).toContain("f″(x)");
+          const sketchStep=view.solution.find(s=>s.action.includes(locale==="pl"?"Szkic na kartce":"Sketch on paper"));
+          expect(sketchStep).toBeDefined();
+          expect(sketchStep!.reason).toContain(p.mode==="even"
+            ? (locale==="pl"?"ekstremum lokalne":"local extremum")
+            : (locale==="pl"?"punkt przegięcia":"inflection point"));
+          if(p.mode==="odd")
+            expect(sketchStep!.reason).not.toMatch(/punkt krytyczny|critical point/);
           expect(spec.kind).toBe("list");
           if(spec.kind!=="list")throw Error("Expected list");
           expect(spec.labels).toEqual(["x₁","x₂","y₀","x₃","y₃"]);
