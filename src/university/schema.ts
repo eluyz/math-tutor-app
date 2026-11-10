@@ -19,6 +19,7 @@ import type { IntegralProblem } from "./integrals";
 import type { DefiniteIntegralFollowupProblem } from "./definiteIntegralFollowup";
 import type { FunctionStudyFollowupProblem } from "./functionStudyFollowup";
 import type { SmoothRationalStudyProblem } from "./functionStudySmoothRational";
+import type { HolePoleStudyProblem } from "./functionStudyHolePole";
 import type { EulerInfinityProblem } from "./analysisLimitsAsymptotesInfinity";
 import type { FractionalRootLimitProblem } from "./functionLimitsFractionalRoots";
 import type { CombinedAsymptoteProblem } from "./analysisCombinedAsymptotes";
@@ -360,6 +361,7 @@ export type UniversityProblem =
   | AdvancedCalculusProblem
   | FunctionStudyProblem
   | SmoothRationalStudyProblem
+  | HolePoleStudyProblem
   | FunctionStudyFollowupProblem
   | IntegralProblem
   | ImproperIntegralProblem

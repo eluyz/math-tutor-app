@@ -104,7 +104,7 @@ export function presentHolePoleStudy(p: HolePoleStudyProblem, locale: Locale) {
   work("f(x)=(" + k + ")+(" + m + ")/" + B + "; x∈D",
     "Wspólny czynnik skracamy wyłącznie na pierwotnej dziedzinie.",
     "Cancel the common factor only on the original domain.");
-  work("lim(x→" + h + ") f(x)=" + fmt(holeValue) + "; f(" + h + ") " + t("nie istnieje", "is undefined"),
+  work("lim(x→" + h + ") f(x)=" + fmt(holeValue) + "; f(" + h + ") " + t("nie istnieje", "is not defined"),
     "Skończona granica przy wyłączonym punkcie daje dziurę, a nie asymptotę pionową.",
     "A finite limit at an excluded input is a removable hole, not a vertical asymptote.");
   work("lim(x→" + b + "⁻)f(x)=" + leftInfinity + "; lim(x→" + b + "⁺)f(x)=" + rightInfinity,
@@ -128,9 +128,9 @@ export function presentHolePoleStudy(p: HolePoleStudyProblem, locale: Locale) {
   if (excluded(p, r(0))) {
     work("0∉D; " + t("brak przecięcia z OY", "no y-axis intercept"),
       "Wartość dla x=0 nie istnieje, więc nie ma przecięcia z osią OY.",
-      "The function is undefined at x=0, so it has no y-axis intercept.");
+      "The function is not defined at x=0, so it has no y-axis intercept.");
   } else {
-    work("f(0)=" + fmt(holePoleStudyValue(p, r(0))),
+    work(t("Przecięcie z osią OY: f(0)=", "Y-axis intercept: f(0)=") + fmt(holePoleStudyValue(p, r(0))),
       "Przecięcie z osią OY istnieje tylko, gdy zero należy do dziedziny.",
       "The y-axis intercept exists only if zero belongs to the domain.");
   }
