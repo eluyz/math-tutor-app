@@ -262,7 +262,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "sequence-geometric",
       "sequence-exponential-ratio",
-      "sequence-power-exponential"
+      "sequence-power-exponential",
+      "sequence-mixed-exponential-source-shape"
     ]
   },
   "C05": {

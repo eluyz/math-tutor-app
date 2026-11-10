@@ -52,6 +52,7 @@ import { sequenceExtensionFamilies, presentSequenceExtension } from "./sequenceE
 import { quarticRootSequenceFamilies, presentQuarticRootSequence } from "./sequenceExtensionsQuartic";
 import { negativeRootLinearSequenceFamilies, presentNegativeRootLinearSequence } from "./sequenceNegativeRootLinear";
 import { quadraticEulerSequenceFamilies, presentQuadraticEulerSequence } from "./sequenceQuadraticEuler";
+import { c04MixedExponentialFamilies, presentMixedExponentialSequence } from "./sequenceExponentialMixedSourceShape";
 import { c01PolynomialSourceShapeFamilies, presentC01Shape } from "./sequencePolynomialSourceShapes";
 import { c03ConjugateSourceShapeFamilies, presentC03ConjugateGap } from "./sequenceConjugateSourceShapes";
 import { sequenceFollowupFamilies, presentSequenceFollowup } from "./sequenceFollowup";
@@ -164,6 +165,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...quarticRootSequenceFamilies,
   ...negativeRootLinearSequenceFamilies,
   ...quadraticEulerSequenceFamilies,
+  ...c04MixedExponentialFamilies,
   ...c01PolynomialSourceShapeFamilies,
   ...c03ConjugateSourceShapeFamilies,
   ...sequenceFollowupFamilies,
@@ -414,6 +416,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
         ? presentNegativeRootLinearSequence(problem, locale)
         : problem.kind === "sequence-euler-quadratic"
         ? presentQuadraticEulerSequence(problem, locale)
+        : problem.kind === "sequence-mixed-exponential-source-shape"
+        ? presentMixedExponentialSequence(problem, locale)
         : problem.kind === "sequence-polynomial-source-shapes"
         ? presentC01Shape(problem, locale)
         : problem.kind === "sequence-conjugate-source-shapes"

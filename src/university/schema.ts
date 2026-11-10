@@ -4,6 +4,7 @@ import type {MultivarRationalProblem} from "./multivarRational";
 import type { QuarticRootSequence } from "./sequenceExtensionsQuartic";
 import type { NegativeRootLinearSequence } from "./sequenceNegativeRootLinear";
 import type { QuadraticEulerSequence } from "./sequenceQuadraticEuler";
+import type { MixedExponentialSequence } from "./sequenceExponentialMixedSourceShape";
 import type { C01Shape } from "./sequencePolynomialSourceShapes";
 import type { C03ConjugateGap } from "./sequenceConjugateSourceShapes";
 import type { MultivarTrigProblem } from "./multivarTrig";
@@ -146,6 +147,7 @@ export type SequenceProblem =
   | (Readonly<{kind:"sequence-root-quartic"}> & QuarticRootSequence)
   | (Readonly<{kind:"sequence-negative-root-linear"}> & NegativeRootLinearSequence)
   | (Readonly<{kind:"sequence-euler-quadratic"}> & QuadraticEulerSequence)
+  | (Readonly<{kind:"sequence-mixed-exponential-source-shape"}> & MixedExponentialSequence)
   | (Readonly<{kind:"sequence-polynomial-source-shapes"}> & C01Shape)
   | (Readonly<{kind:"sequence-conjugate-source-shapes"}> & C03ConjugateGap)
   | Readonly<{kind:"sequence-radical-ratio";a:Rational;b:Rational;c:Rational;linear:Rational;e:Rational;offset:Rational;remainder:Rational;lowerLinear:Rational}>
