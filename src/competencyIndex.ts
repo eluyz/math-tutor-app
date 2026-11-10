@@ -507,7 +507,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
     "familyIds": [
       "integral-substitution",
       "integral-substitution-definite",
-      "integral-log-substitution"
+      "integral-log-substitution",
+      "integral-log-power-i03-stage"
     ]
   },
   "I04": {

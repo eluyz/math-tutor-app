@@ -33,6 +33,14 @@ Licznik integracyjny: 256 rodziny / 19 509 instancji (+192 zadania względem akt
 | --- | --- | ---: | --- |
 | integral-table-i02-stage | hard | 24 | Synthetic tan²/cot² identity and arcsin/radical substitution practice (six each); PL/EN exact coefficient grading, mandatory +C, domain guards and 375/1280px browser QA. This is method coverage, not verified source-exact parity. |
 
+## I03 — log-power substitution (public synthetic integration, PR #290)
+
+| Family | Levels | Variants | Scope |
+| --- | --- | ---: | --- |
+| integral-log-power-i03-stage | hard | 24 | Synthetic substitution u=ax+b>0 and powers ln(u)^m (m=1,2); exact k/(m+1) antiderivative coefficient, PL/EN, mandatory +C, domain guard, pinned 375/1280px browser QA. I03 coverage remains partial; no exact original SOURCE_PASS. |
+
+Adds +1 family / +24 variants on the current main without shipping private source sheets or answer keys.
+
 Only after independent full CI and merge does this candidate add one user-facing family; the previously staged source PR #267 alone did not change the student catalog.
 
 ## F05/b — even open-range synthetic graph (PR #243)
@@ -270,7 +278,7 @@ in issue #151 after a pinned browser/source comparison.
 
 # Generatory zadań — katalog bieżący i rozwój historyczny
 
-Bieżący katalog UI i sesji: **263 rodziny**, **19989 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 199 rodzin wspiera advanced, a 180 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
+Bieżący katalog UI i sesji: **264 rodziny**, **20013 instancji**. (Liczby dotyczą tej kandydackiej gałęzi, a nie jeszcze opublikowanego main.) `allTemplates` i `taskPool` obejmują 51 rodzin po MT-EDU-004, 12 z MT-EDU-005, 4 rodziny wyznaczników MT-EDU-006A, 11 rodzin MT-EDU-006B, 16 rodzin P0–P3 MT-EDU-007 oraz 6 rodzin całek MT-EDU-008. 199 rodzin wspiera advanced, a 180 expert; dostępność niższych poziomów jest jawna w tabelach. Sekcje MT-003A/MT-EDU-001/MT-EDU-003 poniżej opisują fundament historyczny, a nowe rodziny mają osobne tabele. Dotychczasowe `templates` i `pool` zachowują 15 rodzin skalarnych w pięciu kategoriach do niezależnych regresji. `createGenerator(seed).next(category, difficulty, templateId?)` wybiera wyłącznie niewidzianą treść z odpowiedniego zakresu. Po wyczerpaniu usuwa klucze tej puli z pamięci, zwraca `repeated: true` i zaczyna nowy cykl. Nie ma losowania w pętli do skutku. Stan znika po odświeżeniu.
 
 Łącznie rodziny L4: **199**, L5: **180**.
 
