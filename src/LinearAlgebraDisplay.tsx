@@ -16,6 +16,14 @@ export function LinearAlgebraDisplay({ problem }: { problem: LinearAlgebraProble
       <MatrixDisplay label={problem.mode === "axb" ? "C" : "B"} values={problem.rhs} />
     </div>
   );
+  if (problem.kind === "linear-matrix-coefficient-pair") return (
+    <div className="given-matrices linear-algebra-matrices">
+      <MatrixDisplay label="A" values={problem.a} />
+      <MatrixDisplay label="B" values={problem.b} />
+      <MatrixDisplay label="C" values={problem.c} />
+      <MatrixDisplay label="D" values={problem.d} />
+    </div>
+  );
   if (problem.kind === "linear-matrix-pair") return (
     <div className="given-matrices linear-algebra-matrices">
       <MatrixDisplay label="A" values={problem.first} />
