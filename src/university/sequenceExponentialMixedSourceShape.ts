@@ -41,7 +41,7 @@ export function createMixedExponentialSequence(variant:number,level:Difficulty):
 
 export function mixedExponentialLimit(p:MixedExponentialSequence):LimitValue {
   if(p.numeratorLinear.numerator<=0n||p.numeratorConstant.numerator<0n||
-     p.numeratorBase.numerator<=0n||p.denominatorBase.numerator<=0n||
+     p.numeratorBase.numerator<=0n||cmp(p.denominatorBase,r(1))<=0n||
      p.denominatorConstant.numerator<0n)
     throw Error("Mixed exponential coefficients must preserve positive domain");
   const comparison=cmp(p.numeratorBase,p.denominatorBase);
