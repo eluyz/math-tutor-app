@@ -134,6 +134,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "inverse-four-ax-equation",
       "inverse-applications",
       "inverse-right-applications",
+      "inverse-right-source-three",
       "matrix-ax-shift",
       "matrix-axb",
       "matrix-inverse-plus",
