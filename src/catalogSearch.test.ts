@@ -112,7 +112,7 @@ describe("catalog search and selection", () => {
   it("finds integral families across languages and selects a supported level", () => {
     for (const query of ["CALKOWANIE PRZEZ CZESCI", "integration by parts"]) {
       const matches = searchCatalog(query);
-      expect(matches.map((family) => family.id)).toEqual(["integral-parts","integral-parts-definite","integral-parts-trig-linear","integral-parts-trig-quadratic"]);
+      expect(matches.map((family) => family.id)).toEqual(["integral-parts","integral-parts-definite","integral-parts-log-i04-stage","integral-parts-trig-linear","integral-parts-trig-quadratic"]);
       expect(selectCatalogFamily(matches[0], "easy")).toEqual({
         category: "integrals", templateId: "integral-parts", difficulty: "hard", changedDifficulty: true,
       });
