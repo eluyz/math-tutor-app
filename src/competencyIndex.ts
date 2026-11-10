@@ -202,6 +202,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "gauss-classification",
       "system-rectangular-3x2",
       "system-rectangular-4x3",
+      "system-rectangular-5x3-classification",
       "gauss-four-dependent-diagnostic",
       "gauss-five-3x5",
       "gauss-five-4x5",
