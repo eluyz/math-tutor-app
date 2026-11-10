@@ -10,7 +10,7 @@ export type NarrowRankProblem = Extract<LinearAlgebraProblem, {kind:"linear-rank
 export type NarrowColumns = 2 | 3;
 
 /** Bounded P07/1g,h exercise-shape proxy; no private worksheet coefficients.
- * This is only a staged family (NOT registered in catalog yet).
+ * Integrated as source-method proxy after independent stage checks.
  * Controlled echelon basis followed by invertible row operations.
  */
 export function makeFourNarrowRank(variant: number, level: Difficulty, columns: NarrowColumns): NarrowRankProblem {
@@ -40,7 +40,7 @@ export function makeFourNarrowRank(variant: number, level: Difficulty, columns: 
   return {kind:"linear-rank",matrix:matrix as ExactMatrix};
 }
 
-/** Source-shape stage only. Registration requires separate final CI and approval. */
+/** Source-method shape, with original PDF coefficients kept private. */
 export const fourNarrowRankStageFamilies: readonly UniversityFamily[] = [
   {id:"matrix-rank-four-two",category:"matrices",
    titles:{pl:"Rząd macierzy 4×2",en:"Rank of a 4×2 matrix"},
