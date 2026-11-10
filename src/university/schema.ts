@@ -46,6 +46,7 @@ import type { GraphPuncturedSymmetryProblem } from "./graphPuncturedSymmetry";
 import type { GraphAsymptoteRangeProblem } from "./graphAsymptoteRange";
 import type { GraphIntegratedProblem } from "./graphIntegratedProperties";
 import type { IntegratedJumpProblem } from "./graphIntegratedJump";
+import type { JumpGapUnboundedProblem } from "./graphJumpGapUnbounded";
 import type { IntegratedPuncturesProblem } from "./graphIntegratedPunctures";
 import type { IntegratedAsymptoteProblem } from "./graphIntegratedAsymptotes";
 import type { EvenOpenRangeProblem } from "./graphEvenOpenRange";
@@ -314,6 +315,7 @@ export type UniversityProblem =
   | GraphAsymptoteRangeProblem
   | GraphIntegratedProblem
   | IntegratedJumpProblem
+  | JumpGapUnboundedProblem
   | IntegratedPuncturesProblem
   | IntegratedAsymptoteProblem
   | EvenOpenRangeProblem
