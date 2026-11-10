@@ -5,10 +5,10 @@ import { formatRational as fmt } from "../src/answers";
 
 type M=Rational[][];
 function visibleMat(text:string):Record<"A"|"B",M>{
-  const matches=[...text.matchAll(/\\b([AB])=(\\[\\[[^\\]]+\\];\\s*\\[[^\\]]+\\];\\s*\\[[^\\]]+\\]\\])/g)];
+  const matches=[...text.matchAll(/\b([AB])=(\[\[[^\]]+\];\s*\[[^\]]+\];\s*\[[^\]]+\]\])/g)];
   expect(matches.map(m=>m[1])).toEqual(["A","B"]);
   return Object.fromEntries(matches.map(m=>[m[1],m[2].slice(2,-2)
-    .split(/\\];\\s*\\[/).map(row=>row.split(",").map(cell=>{
+    .split(/\];\s*\[/).map(row=>row.split(",").map(cell=>{
       const parsed=parseAnswer(cell.trim());
       if(parsed.kind!=="valid")throw Error("Unparseable displayed coefficient "+cell);
       return parsed.value;
