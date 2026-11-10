@@ -96,6 +96,7 @@ import { advancedCalculusFamilies, presentAdvancedCalculus } from "./advancedCal
 import { functionStudyFamilies, presentFunctionStudy } from "./functionStudy";
 import { functionStudyFollowupFamilies, presentFunctionStudyFollowup } from "./functionStudyFollowup";
 import { smoothRationalStudyStage, presentSmoothRationalStudy } from "./functionStudySmoothRational";
+import { holePoleStudyStage, presentHolePoleStudy } from "./functionStudyHolePole";
 import { integralFamilies, presentIntegral } from "./integrals";
 import { definiteIntegralFollowupFamilies, presentDefiniteIntegralFollowup } from "./definiteIntegralFollowup";
 import { improperIntegralFamilies, presentImproperIntegral } from "./improperIntegrals";
@@ -213,6 +214,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...functionStudyFamilies,
   ...functionStudyFollowupFamilies,
   smoothRationalStudyStage,
+  holePoleStudyStage,
   ...integralFamilies,
   ...definiteIntegralFollowupFamilies,
   ...improperIntegralFamilies,
@@ -237,6 +239,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentRectangularPath(problem,locale)
     : problem.kind === "analysis-study-smooth-rational"
     ? presentSmoothRationalStudy(problem, locale)
+    : problem.kind === "analysis-study-hole-pole"
+    ? presentHolePoleStudy(problem, locale)
     : problem.kind === "integral-table-i02-stage"
     ? presentI02TableStage(problem,locale)
     : problem.kind === "integral-parts-trig-quadratic"
