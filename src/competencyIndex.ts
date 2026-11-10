@@ -378,7 +378,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "analysis-asymptote-horizontal",
       "analysis-asymptote-oblique",
       "limit-radical-infinity",
-      "limit-mixed-fractional-roots"
+      "limit-mixed-fractional-roots",
+      "limit-exponential-function-ratio"
     ]
   },
   "G05": {

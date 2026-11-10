@@ -22,6 +22,7 @@ import type { SmoothRationalStudyProblem } from "./functionStudySmoothRational";
 import type { HolePoleStudyProblem } from "./functionStudyHolePole";
 import type { EulerInfinityProblem } from "./analysisLimitsAsymptotesInfinity";
 import type { FractionalRootLimitProblem } from "./functionLimitsFractionalRoots";
+import type { ExponentialFunctionRatioProblem } from "./functionLimitsExponentialRatio";
 import type { CombinedAsymptoteProblem } from "./analysisCombinedAsymptotes";
 import type { ImproperIntegralProblem } from "./improperIntegrals";
 import type { InteriorImproperProblem } from "./interiorImproper";
@@ -359,6 +360,7 @@ export type UniversityProblem =
   | AsymptoteProblem
   | EulerInfinityProblem
   | FractionalRootLimitProblem
+  | ExponentialFunctionRatioProblem
   | CombinedAsymptoteProblem
   | AdvancedCalculusProblem
   | FunctionStudyProblem
