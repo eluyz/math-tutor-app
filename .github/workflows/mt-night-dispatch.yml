@@ -75,6 +75,7 @@ jobs:
           GITHUB_REF: ${{ github.ref }}
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           MT_DISPATCH_LIVE: ${{ vars.MT_DISPATCH_LIVE }}
+          MT_CREDIT_MONTH_OK: ${{ vars.MT_CREDIT_MONTH_OK }}
           MT_COPILOT_DISPATCH_PAT: ${{ secrets.MT_COPILOT_DISPATCH_PAT }}
         run: node .github/scripts/mt-night-dispatch.mjs
       - name: Retain status report (no secrets)

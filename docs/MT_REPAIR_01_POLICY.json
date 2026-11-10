@@ -3,8 +3,8 @@
   "repository": "eluyz/math-tutor-app",
   "mode": "DRY_RUN_BY_DEFAULT",
   "automatic_merge": false,
-  "max_active_agent_sessions": 3,
-  "max_repairs_per_pr": 2,
+  "max_active_agent_sessions": 1,
+  "max_repairs_per_pr": 1,
   "max_new_repairs_per_tick": 1,
   "trusted_qa_reviewers": [
     "eluyz"
@@ -54,5 +54,7 @@
   "stop_if_quota_reported": true,
   "require_protected_main": true,
   "require_night_02_released": true,
-  "require_main_ci_pages_pass": true
+  "require_main_ci_pages_pass": true,
+  "credit_budget_mode": "MANUAL_MONTHLY_GATE",
+  "monthly_gate_variable": "MT_CREDIT_MONTH_OK"
 }
