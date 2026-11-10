@@ -85,6 +85,7 @@ import { cramerFourFamilies, presentCramerFour } from "./cramerFour";
 import { cramerIntermediateFamilies, presentCramerMinors } from "./cramerIntermediate";
 import { cramerDiagnosticFamilies, presentCramerDiagnostic } from "./cramerDiagnostics";
 import { matrixPairFamilies, presentMatrixPair } from "./matrixPair";
+import { matrixCoefficientPairFamilies, presentCoupledCoefficientTask } from "./matrixPairCoefficientStage";
 import { advancedMatrixEquationFamilies, presentAdvancedMatrixEquation } from "./matrixEquations";
 import { matrixPracticeFamilies, presentMatrixPractice } from "./matrixPractice";
 import { matrixP0CFamilies, presentMatrixP0C } from "./matrixP0C";
@@ -202,6 +203,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...cramerIntermediateFamilies,
   ...cramerDiagnosticFamilies,
   ...matrixPairFamilies,
+  ...matrixCoefficientPairFamilies,
   ...advancedMatrixEquationFamilies,
   ...matrixPracticeFamilies,
   ...matrixP0CFamilies,
@@ -361,6 +363,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentMatrixP0C(problem as Extract<LinearAlgebraProblem,{kind:"linear-matrix-practice"}> & {mode:"rectangular"|"transpose-dimensions"}, locale)
     : problem.kind === "linear-matrix-practice"
     ? presentMatrixPractice(problem, locale)
+    : problem.kind === "linear-matrix-coefficient-pair"
+    ? presentCoupledCoefficientTask(problem, locale)
     : problem.kind === "linear-matrix-pair"
     ? presentMatrixPair(problem, locale)
     : problem.kind === "linear-matrix-equation"
