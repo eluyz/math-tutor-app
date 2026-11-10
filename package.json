@@ -9,6 +9,7 @@
     "preview": "vite preview --host 0.0.0.0",
     "test": "vitest run",
     "test:e2e": "playwright test",
+    "qa:inventory": "tsx ./scripts/qa-inventory.ts",
     "test:batch-b": "vitest run src/qa/batchBAcceptance.test.ts src/qa/syllabusBatchBMethodWitness.test.ts src/university/sequences.test.ts src/university/functions.test.ts src/university/functionLimits.test.ts src/university/rootPoleDomain.test.ts src/university/cancelledPoleSource.test.ts src/university/limitFollowup.test.ts src/university/infinityRootConjugation.test.ts src/university/derivatives.test.ts src/university/fractionalPowerDerivatives.test.ts src/university/higherRootDerivatives.test.ts src/qa/g05MethodPair.test.ts",
     "test:e2e:batch-b": "playwright test --config playwright.batch-b.config.ts",
     "test:batch-c": "vitest run src/qa/batchCAcceptance.test.ts",
@@ -32,6 +33,7 @@
     "@types/react": "^19.0.0",
     "@types/react-dom": "^19.0.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "tsx": "^4.8.1",
     "typescript": "^5.9.0",
     "vite": "8.3.4",
     "vitest": "5.0.5"
