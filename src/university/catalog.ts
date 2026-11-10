@@ -73,6 +73,7 @@ import { inverseFourFollowupFamilies } from "./inverseFourFollowup";
 import { rankFamilies, presentRank } from "./ranks";
 import { rankExtensionFamilies } from "./rankExtensions";
 import { tallRankFamilies } from "./rankTall";
+import { fourNarrowRankStageFamilies } from "./rankFourNarrowStage";
 import { gaussFamilies, presentGauss } from "./gauss";
 import { gaussCramerFollowupFamilies } from "./gaussCramerFollowup";
 import { gaussParameterFamilies, presentGaussParameters } from "./gaussParameters";
@@ -89,6 +90,7 @@ import { matrixPairFamilies, presentMatrixPair } from "./matrixPair";
 import { matrixCoefficientPairFamilies, presentCoupledCoefficientTask } from "./matrixPairCoefficientStage";
 import { advancedMatrixEquationFamilies, presentAdvancedMatrixEquation } from "./matrixEquations";
 import { matrixPracticeFamilies, presentMatrixPractice } from "./matrixPractice";
+import { matrixCommutatorThreeFamilies, presentMatrixCommutatorThree } from "./matrixCommutatorThree";
 import { matrixP0CFamilies, presentMatrixP0C } from "./matrixP0C";
 import { elementaryAnalysisFamilies, presentElementaryAnalysis } from "./elementaryAnalysis";
 import { asymptoteFamilies, presentAsymptote } from "./analysisLimitsAsymptotes";
@@ -177,7 +179,6 @@ export const universityFamilies: readonly UniversityFamily[] = [
     supportedDifficulties: ["hard"],
     create: (v) => createFractionalRootLimit(v),
   },
-
   {
     id: "limit-exponential-function-ratio",
     category: "function-limits",
@@ -203,6 +204,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...rankFamilies,
   ...rankExtensionFamilies,
   ...tallRankFamilies,
+  ...fourNarrowRankStageFamilies,
   ...gaussFamilies,
   ...gaussCramerFollowupFamilies,
   ...gaussParameterFamilies,
@@ -219,6 +221,7 @@ export const universityFamilies: readonly UniversityFamily[] = [
   ...matrixCoefficientPairFamilies,
   ...advancedMatrixEquationFamilies,
   ...matrixPracticeFamilies,
+  ...matrixCommutatorThreeFamilies,
   ...matrixP0CFamilies,
   ...elementaryAnalysisFamilies,
   ...asymptoteFamilies,
@@ -377,6 +380,8 @@ const present = (problem: UniversityProblem, locale: Locale) =>
     ? presentFunctionExtension(problem, locale)
     : problem.kind === "linear-matrix-practice" && (problem.mode === "rectangular" || problem.mode === "transpose-dimensions")
     ? presentMatrixP0C(problem as Extract<LinearAlgebraProblem,{kind:"linear-matrix-practice"}> & {mode:"rectangular"|"transpose-dimensions"}, locale)
+    : problem.kind === "linear-matrix-practice" && problem.expression === "AB−BA"
+    ? presentMatrixCommutatorThree(problem, locale)
     : problem.kind === "linear-matrix-practice"
     ? presentMatrixPractice(problem, locale)
     : problem.kind === "linear-matrix-coefficient-pair"

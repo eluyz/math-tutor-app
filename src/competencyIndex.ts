@@ -47,6 +47,7 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "matrix-add",
       "matrix-powers",
       "matrix-composite-operations",
+      "matrix-commutator-three",
       "matrix-rectangular-evaluation",
       "matrix-transpose-dimensions",
       "matrix-negative-square-two",
@@ -150,6 +151,8 @@ export const competencyIndex: Readonly<Record<string, CompetencyDefinition>> = {
       "capelli-matrices",
       "matrix-rank-four-square",
       "matrix-rank-four-rectangular",
+      "matrix-rank-four-two",
+      "matrix-rank-four-three",
       "matrix-rank-five-four",
       "matrix-rank-six-three"
     ]
