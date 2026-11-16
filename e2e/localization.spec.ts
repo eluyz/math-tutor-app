@@ -58,16 +58,16 @@ for (const viewport of [
       ).toBe(false);
       await expectOnlyProgressStorage(page);
     });
-    test("slogan hero zmienia się z polskiego na angielski i z powrotem", async ({
+    test("nagłówek wyboru tematu zmienia się z polskiego na angielski i z powrotem", async ({
       page,
     }) => {
-      const slogan = page.locator(".hero .eyebrow");
-      await expect(slogan).toHaveText("BEZ PRESJI. KROK PO KROKU.");
+      const slogan = page.locator(".practice .section-heading .eyebrow");
+      await expect(slogan).toHaveText("UCZ SIĘ KROK PO KROKU");
       await english(page);
-      await expect(slogan).toHaveText("NO PRESSURE. STEP BY STEP.");
+      await expect(slogan).toHaveText("LEARN STEP BY STEP");
       await noPolish(page);
       await page.getByRole("button", { name: "Polski", exact: true }).click();
-      await expect(slogan).toHaveText("BEZ PRESJI. KROK PO KROKU.");
+      await expect(slogan).toHaveText("UCZ SIĘ KROK PO KROKU");
     });
     test("zmiana języka zachowuje odpowiedź, diagnozę, częściowe kroki i natywne Undo brudnopisu", async ({
       page,

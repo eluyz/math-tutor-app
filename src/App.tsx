@@ -198,11 +198,6 @@ export default function App() {
     showExercise(next);
   }
 
-  function startExercises() {
-    newPracticeExample();
-    document.getElementById("practice")?.scrollIntoView({ behavior: "smooth" });
-  }
-
   function newPracticeExample(level = difficulty) {
     setSearchLevelChange(null);
     newExercise(
@@ -344,53 +339,6 @@ export default function App() {
 
       <main>
         <div hidden={view !== "learn"}>
-        <section className="hero" aria-labelledby="hero-title">
-          <div className="hero-copy">
-            <span className="eyebrow">
-              <span className="eyebrow-line" /> {a.eyebrow}
-            </span>
-            <h1 id="hero-title">
-              {a.hero1}
-              <br />
-              <em>{a.hero2}</em>
-              <br />
-              {a.hero3}
-            </h1>
-            <p>{a.heroText}</p>
-            <button
-              className="primary-button"
-              type="button"
-              onClick={startExercises}
-            >
-              {ui.start} <span aria-hidden="true">↗</span>
-            </button>
-            <div className="hero-meta">
-              <span>
-                {allTemplates.length} {a.families}
-              </span>
-              <span>{a.basicStudy}</span>
-            </div>
-          </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="art-grid" />
-            <span className="art-spark art-spark-one">✳</span>
-            <span className="art-spark art-spark-two">✦</span>
-            <div className="art-card">
-              <span className="art-label">{a.smallSteps}</span>
-              <span className="art-equation">
-                2x <span>+</span> 3 <span>=</span> 11
-              </span>
-              <span className="art-answer">
-                x = <strong>4</strong>
-                <span className="art-check">✓</span>
-              </span>
-            </div>
-            <div className="art-bottom">
-              {a.understanding} <span>›</span> {a.confidence}
-            </div>
-          </div>
-        </section>
-
         <section
           className="practice"
           id="practice"
@@ -399,10 +347,10 @@ export default function App() {
           <div className="section-heading">
             <div>
               <span className="eyebrow">{a.learnSteps}</span>
-              <h2 id="practice-title" tabIndex={-1}>
+              <h1 id="practice-title" tabIndex={-1}>
                 {a.chooseTopic}
                 <span className="period">.</span>
-              </h2>
+              </h1>
             </div>
             <p>{a.chooseDescription}</p>
           </div>
