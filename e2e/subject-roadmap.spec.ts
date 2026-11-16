@@ -24,7 +24,7 @@ for (const { name, viewport } of [
       await expect(page.getByText("Planowane").last()).toBeVisible();
 
       await subjects.getByRole("button", { name: /Matematyka Dostępne/ }).click();
-      await expect(page.getByRole("heading", { name: /Matematyka/ }).first()).toBeVisible();
+      await expect(page.getByRole("heading", { name: /Wybierz temat/ }).first()).toBeVisible();
       await expect(page.getByRole("navigation", { name: "Działy Math Tutor" }).getByRole("button", { name: /Matematyka Dostępne/ })).toHaveAttribute("aria-current", "page");
       expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
     });
