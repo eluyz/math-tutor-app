@@ -1,5 +1,21 @@
 # Math Tutor
 
+**Open-source university learning roadmap — 16 November 2026**
+
+Math Tutor provides bilingual (Polish / English) mathematics practice today. We are expanding the learning platform responsibly with visible subject navigation:
+
+| Subject | Status | Currently available |
+| --- | --- | --- |
+| Mathematics | **Available** | Existing practice exercises, feedback and session modes |
+| Statistics & Probability | **Work in progress** | Roadmap and subject placeholder only; **no exercises yet** |
+| Econometrics | **Planned** | Roadmap and subject placeholder only; **no exercises yet** |
+| Financial Mathematics | **Planned** | Roadmap and subject placeholder only; **no exercises yet** |
+
+See the [subject expansion plan](docs/SUBJECT_EXPANSION_PLAN.md), including planned topics, QA gates and the first statistics pilot. Planned subjects are not included in the current exercise-family and variant counts.
+
+## Existing mathematics release history
+
+
 **C01/C03:** 192 public synthetic PL/EN sequence-limit exercises: polynomial/source shapes and conjugate-radical forms; P15 source-exact acceptance unverified.
 
 **F05/e:** 72 public synthetic PL/EN graph tasks with one excluded x, two different hollow limit heights both recovered elsewhere, and six graded properties. METHOD_PROXY; P21/e source-exact acceptance remains unverified.
