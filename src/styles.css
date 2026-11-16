@@ -79,18 +79,6 @@ input:focus-visible {
   color: #d48657;
   padding: 0 8px;
 }
-.hero {
-  min-height: 620px;
-  display: grid;
-  grid-template-columns: 52% 48%;
-  border-bottom: 1px solid #d9dfd6;
-}
-.hero-copy {
-  padding: 65px 50px 40px clamp(24px, 7vw, 112px);
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-}
 .eyebrow {
   font-size: 11px;
   font-weight: 700;
@@ -100,12 +88,6 @@ input:focus-visible {
   gap: 12px;
   align-items: center;
 }
-.eyebrow-line {
-  width: 22px;
-  height: 1px;
-  background: #ba744d;
-}
-.hero h1,
 .empty-panel h3 {
   font-family: Georgia, serif;
   font-size: clamp(52px, 5.5vw, 88px);
@@ -114,144 +96,15 @@ input:focus-visible {
   font-weight: 500;
   margin: 24px 0;
 }
-.hero h1 em,
 .empty-panel h3 em {
   color: #d48657;
   font-weight: 500;
 }
-.hero-copy > p {
-  max-width: 480px;
-  line-height: 1.75;
-  color: #53665d;
-  font-size: 16px;
-  margin: 0 0 28px;
-}
-.primary-button {
-  background: #1e4937;
-  color: white;
-  border: 0;
-  padding: 18px 23px;
-  font-size: 14px;
-  font-weight: 700;
-  display: flex;
-  gap: 35px;
-  align-items: center;
-  transition: background 0.15s;
-}
-.primary-button:hover,
 .check-button:hover {
   background: #2e684e;
 }
-.primary-button span {
-  font-size: 20px;
-}
-.hero-meta {
-  display: flex;
-  gap: 22px;
-  align-items: center;
-  margin-top: auto;
-  padding-top: 34px;
-  font-size: 10px;
-  color: #899990;
-  letter-spacing: 2px;
-  font-weight: 700;
-}
-.hero-meta span:first-child {
-  color: #d48657;
-}
-.hero-art {
-  background: #dce8dc;
-  position: relative;
-  overflow: hidden;
-  min-height: 540px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.art-grid {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(#c7d8c8 1px, transparent 1px),
-    linear-gradient(90deg, #c7d8c8 1px, transparent 1px);
-  background-size: 64px 64px;
-  opacity: 0.55;
-}
-.art-card {
-  position: relative;
-  width: min(76%, 470px);
-  aspect-ratio: 1.12;
-  background: #fbfaf4;
-  border: 1px solid #d3ddd2;
-  box-shadow: 22px 22px 0 #bed3bf;
-  transform: rotate(-5deg);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 35px;
-}
-.art-label,
-.art-bottom {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #708b77;
-}
-.art-equation {
-  font-family: Georgia, serif;
-  color: #173e30;
-  font-size: clamp(32px, 4vw, 62px);
-  white-space: nowrap;
-}
-.art-equation span {
-  color: #d48657;
-}
-.art-answer {
-  font-family: Georgia, serif;
-  font-size: 32px;
-  color: #173e30;
-}
-.art-answer strong {
-  color: #d48657;
-  font-weight: 500;
-}
-.art-check {
-  display: inline-grid;
-  place-items: center;
-  width: 33px;
-  height: 33px;
-  margin-left: 18px;
-  border-radius: 50%;
-  background: #2d6b4d;
-  color: white;
-  font: 700 19px Arial;
-}
-.art-spark {
-  position: absolute;
-  color: #d48657;
-  font-size: 42px;
-  z-index: 2;
-}
-.art-spark-one {
-  top: 12%;
-  left: 13%;
-}
-.art-spark-two {
-  right: 12%;
-  bottom: 21%;
-  font-size: 30px;
-}
-.art-bottom {
-  position: absolute;
-  bottom: 30px;
-}
-.art-bottom span {
-  color: #d48657;
-  padding: 0 8px;
-}
 .practice {
-  padding: 88px clamp(24px, 7vw, 112px) 110px;
+  padding: 36px clamp(24px, 7vw, 112px) 90px;
 }
 .section-heading {
   display: flex;
@@ -260,7 +113,7 @@ input:focus-visible {
   gap: 30px;
   margin-bottom: 38px;
 }
-.section-heading h2 {
+.section-heading h1 {
   font-family: Georgia, serif;
   font-size: clamp(42px, 4vw, 62px);
   font-weight: 500;
@@ -507,20 +360,8 @@ footer p {
   color: #718276;
 }
 @media (max-width: 800px) {
-  .hero {
-    grid-template-columns: 1fr;
-  }
-  .hero-copy {
-    padding: 55px 32px 35px;
-  }
-  .hero-art {
-    min-height: 400px;
-  }
-  .hero-meta {
-    margin-top: 25px;
-  }
   .practice {
-    padding: 65px 25px;
+    padding: 32px 25px 70px;
   }
   .section-heading {
     display: block;
@@ -551,29 +392,8 @@ footer p {
     height: 75px;
     padding: 0 22px;
   }
-  .hero-copy {
-    padding: 45px 24px 30px;
-  }
-  .hero h1 {
-    font-size: 52px;
-  }
-  .hero-art {
-    min-height: 330px;
-  }
-  .art-card {
-    gap: 22px;
-  }
-  .art-equation {
-    font-size: 32px;
-  }
-  .art-answer {
-    font-size: 25px;
-  }
-  .art-label {
-    font-size: 8px;
-  }
   .practice {
-    padding: 55px 20px 70px;
+    padding: 24px 20px 60px;
   }
   .exercise-item {
     padding: 18px 20px;
