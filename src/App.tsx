@@ -55,6 +55,8 @@ import { categoryTitle, resolveCatalogCompetency, searchCatalog, selectCatalogFa
 import { displayedMatrixNextHint } from "./education/matrixHintDisplay";
 import { ExamMode } from "./exam/ExamMode";
 import { examCopy } from "./exam/copy";
+import { PlannedSubjectPanel, SubjectNavigation } from "./SubjectNavigation";
+import type { SubjectId } from "./subjectRoadmap";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
@@ -62,6 +64,7 @@ export default function App() {
   const a = copy.app;
   const progress = useProgress();
   const [view, setView] = useState<"learn" | "progress" | "exam">("learn");
+  const [subject, setSubject] = useState<SubjectId>("mathematics");
   const [examLocked, setExamLocked] = useState(false);
   const sessionId = useRef<string | null>(null);
   const previousView = useRef(view);
@@ -296,6 +299,11 @@ export default function App() {
           onClick={(event) => {
             event.preventDefault();
             if (examLocked) return;
+            if (subject !== "mathematics") {
+              setSubject("mathematics");
+              setView("learn");
+              return;
+            }
             if (view === "progress" || view === "exam") {
               setView("learn");
               return;
@@ -319,6 +327,9 @@ export default function App() {
         <LanguagePicker />
       </header>
 
+      <SubjectNavigation locale={locale} subject={subject} onSelect={setSubject} disabled={examLocked} />
+      {subject === "mathematics" ? (
+        <>
       <nav className="view-navigation" aria-label={copy.progress.navigation}>
         <button type="button" disabled={examLocked} aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
           {copy.progress.learn}
@@ -913,6 +924,10 @@ export default function App() {
         />
         {view === "exam" && <ExamMode onLockedChange={setExamLocked} />}
       </main>
+        </>
+      ) : (
+        <main><PlannedSubjectPanel locale={locale} subject={subject} /></main>
+      )}
       <footer>
         <span>
           math<span className="brand-accent">tutor</span>
