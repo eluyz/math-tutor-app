@@ -2,8 +2,8 @@ import { expect, test } from "@playwright/test";
 
 test("MT-002: poprawa odpowiedzi, hipoteza i pytanie pomocnicze w nowym wariancie", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: /Matematyka/ })).toBeVisible();
-  await page.getByRole("button", { name: /Rozpocznij ćwiczenia/ }).click();
+  await expect(page.getByRole("heading", { name: /Wybierz temat/ })).toBeVisible();
+  await expect(page.locator(".hero")).toHaveCount(0);
   await page.getByRole("button", { name: /Najpierw mnożenie/ }).click();
   const question = await page.locator(".question").innerText();
   const match = question.match(/^(\d+) \+ (\d+) × (\d+) = \?$/);
