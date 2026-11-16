@@ -1,4 +1,18 @@
-# Plan rozwoju
+# Development roadmap
+
+## Current direction — 2026-11-16
+
+The Math Tutor mathematics practice experience remains available. New bilingual subject tabs are being introduced without implying that unreleased exercise generators exist:
+
+- **Mathematics — Available**: maintain current tested learning workflows.
+- **Statistics & Probability — Work in progress**: syllabus design, first descriptive-statistics family, independent oracle and PL/EN/browser acceptance.
+- **Econometrics — Planned**: OLS and model interpretation after statistics fundamentals.
+- **Financial Mathematics — Planned**: interest, present value, annuities and NPV after preceding milestones.
+
+Canonical [subject expansion plan](docs/SUBJECT_EXPANSION_PLAN.md). This roadmap is not evidence of user adoption or a commitment to particular release dates.
+
+## Historical development log (retained for traceability)
+
 
 > **MT-F05-P0B / Issue #125 (separate Draft PR, NOT MERGED):** after direct visual review of six source graph/key pairs, implement one bounded exercise family testing full range W of a two-branch graph with an interior hole. Validate exact y-interval union, open/closed endpoint semantics, recovery of removed-point heights, flat sections, and disjoint y-ranges. 72 PL/EN variants (hard/advanced/expert) proposed; full CI and exact-HEAD owner permission required before merge. Full six-figure acceptance remains PARTIAL, not complete; no private source geometry copied to GitHub. Candidate 214 / 17,301, deployed main 213 / 17,229.
 
