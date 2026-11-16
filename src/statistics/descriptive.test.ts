@@ -39,12 +39,12 @@ describe("statistics S1: independently specified descriptive examples", () => {
   });
 
   it.each([
-    [] as number[],
-    [1, 1.5],
-    [Number.NaN],
-    [Number.POSITIVE_INFINITY],
-    [Number.MAX_SAFE_INTEGER + 1],
-  ])("rejects invalid or empty data %j", (values) => {
+    { values: [] as number[] },
+    { values: [1, 1.5] },
+    { values: [Number.NaN] },
+    { values: [Number.POSITIVE_INFINITY] },
+    { values: [Number.MAX_SAFE_INTEGER + 1] },
+  ])("rejects invalid or empty data $values", ({ values }) => {
     expect(() => summarizeIntegerDataset(values)).toThrow();
   });
 
