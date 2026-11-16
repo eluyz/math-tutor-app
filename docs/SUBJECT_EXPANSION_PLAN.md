@@ -17,6 +17,14 @@ Math Tutor currently offers deterministic mathematics exercises, guided solution
 | Econometrics | PLANNED | Future scope after statistics foundations. |
 | Financial Mathematics | PLANNED | Future scope after statistics/econometrics priorities. |
 
+## Statistics S1 implementation checkpoint (2026-11-16)
+
+- [Detailed specification and hand-checkable examples](STATISTICS_S1_SPEC.md)
+- [Umbrella issue #306](https://github.com/eluyz/math-tutor-app/issues/306)
+- Delivery tickets: [generator #308](https://github.com/eluyz/math-tutor-app/issues/308), [independent QA #309](https://github.com/eluyz/math-tutor-app/issues/309), [PL/EN pedagogy #310](https://github.com/eluyz/math-tutor-app/issues/310), [UI and release #311](https://github.com/eluyz/math-tutor-app/issues/311).
+- A pure, exact-arithmetic descriptive-statistics calculation helper and unit fixtures are being developed in a separate branch. **These are internal foundations, not published exercise generators.**
+- Do not update the Statistics tab to Available or count new families/variants before a tested, published subject integration exists.
+
 ## Planned scope, not yet shipped
 
 **Statistics & Probability**
