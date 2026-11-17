@@ -15,16 +15,21 @@ mutated. The ID `st102-<difficulty>-<seed>` identifies a replay request; it is n
 a claim that different seeds give different data. Seed validation and bounds are
 inherited unchanged from A. No global state, randomness or new grading logic.
 
-The order of observations is retained for the learner to sort. The underlying
-policy offers easy five-value cases, medium 6–8 observations with repeats, and
-hard 7–9 including negatives. Both odd/even lengths and fractional medians occur
-in the tested policy sample; not every generated list is guaranteed unsorted.
+FOLLOW-UP #330: For easy tasks, the five values are deterministically re-ordered
+by a median-specific seeded Fisher–Yates permutation. This preserves the multiset
+(and the median) but no longer always displays the answer in the third position.
+ST-101 mean datasets and ST-103 variance data remain entirely unchanged. Medium
+and hard median tasks preserve A's original generated order. Easy data may still
+contain equal values, including all-equal cases where no ordering can hide the median.
+Both odd/even lengths and fractional medians occur in the tested policy sample.
+Not every generated list is guaranteed unsorted.
 
 ## Independent literal witnesses
 
 | Level/seed | Observations | Ordered observations | Median |
 |---|---|---|---|
-| easy/0 | [3,2,2,1,2] | [1,2,2,2,3] | 2 |
+| easy/0 | [3,2,2,2,1] | [1,2,2,2,3] | 2 |
+| easy/1 | [1,6,9,4,5] | [1,4,5,6,9] | 5 |
 | medium/0 | [3,3,1,16,7,13] | [1,3,3,7,13,16] | (3+7)/2 = 5 |
 | medium/1 | [2,2,3,10,1,7] | [1,2,2,3,7,10] | (2+3)/2 = 5/2 |
 | medium/3 | [10,10,11,17,19,7] | [7,10,10,11,17,19] | (10+11)/2 = 21/2 |
@@ -50,3 +55,19 @@ Full `npm test`: **2531 passed**, 198 files. `npm run build`: **PASS**
 or run for this unintegrated task. Intermediate GitHub CI: **NOT RUN** because
 the PR base is `codex/st101-learning-copy`. Exact delivery SHA and PR URL are recorded in the PR
 description and final stack handoff; complete-stack CI is a separate gate.
+
+
+## Post-H teaching-quality fix (Issue #330)
+
+Review found that symmetric easy datasets from ST-101 put their common mean/median
+in displayed position three for every seed. That lets a learner shortcut the
+median calculation without ordering observations. The new ST-102-only deterministic
+permutation breaks that *universal* pattern while retaining the exact same values
+and difficulty limits. A regression test scans seeds 0..255, requires more than
+100 examples where display position three does **not** equal the median, and
+requires the earliest median position to vary. These are sampled pedagogy
+properties, not a promise that every observation list is unique or nontrivial.
+
+The original Task D test count above is **historical**. Follow-up #330 needs its
+own exact-HEAD CI before any integration. No student-facing Statistics lesson exists
+yet; owner review, UX implementation and browser acceptance remain outstanding.
