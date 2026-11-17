@@ -68,7 +68,8 @@ describe("Statistics S1 extended independent oracle", () => {
       const mean = generateMeanDataset(difficulty,seed);
       const median = generateMedianTask(difficulty,seed);
       const variance = generateVarianceTask(difficulty,seed);
-      expect(median.values).toEqual(mean.values);
+      // Median-only easy ordering is intentionally different; values must still be the same multiset.
+      expect([...median.values].sort((a, b) => a - b)).toEqual([...mean.values].sort((a, b) => a - b));
       expect(variance.values).toEqual(mean.values);
       const n=BigInt(mean.values.length);
       const sum=mean.values.reduce((s,x)=>s+BigInt(x),0n);
