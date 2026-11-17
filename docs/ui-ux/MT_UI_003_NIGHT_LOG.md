@@ -66,3 +66,16 @@ Nagłówek i przedmioty kompaktowe; bez sticky i bez nowych bibliotek.
 PASS: build/TypeScript. Dodano 12 scenariuszy layout PL/EN przy sześciu
 szerokościach. Wykonanie wizualne i zachowanie przy klawiaturze telefonu BLOCKED;
 nie ogłaszamy PASS kryterium wizualnego. Dotychczasowe selektory/funkcje zachowane.
+
+### C — formularze i ekran ćwiczenia
+
+Commit B: 2e0fa09. Formularze łączą pomoc z trwałym regionem feedback;
+aria-invalid znika podczas edycji, nie zmieniając oceny matematycznej.
+Formularze strukturalne oznaczają błąd grupy, bez fałszywego przypisywania go
+każdemu polu. Enter i dotychczasowe etykiety zachowane. Długie wzory przewijają
+się lokalnie; przyciski pomocy mają wspólną geometrię.
+
+PASS: 20 testów SSR komponentu (10 przypadków wcześniej RED, potem GREEN),
+20 testów wykrywania draftu; TypeScript/build. Cztery scenariusze E2E PL/EN
+powiązania feedback i przejść invalid/incorrect/correct dodano; runtime BLOCKED.
+Szybki start skupia nagłówek zadania, nie otwiera od razu klawiatury telefonu.

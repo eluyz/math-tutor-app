@@ -697,6 +697,8 @@ export default function App() {
                   <form onSubmit={submitAnswer}>
                     <AnswerFields
                       spec={getAnswerSpec(active)}
+                      invalid={result?.kind === "invalid" || result?.kind === "incorrect"}
+                      feedbackId="answer-feedback"
                       value={answer}
                       fractionInput={
                         active.category === "fractions" ||
@@ -715,8 +717,9 @@ export default function App() {
                       {functionZeros ? copy.answers.zeros.help : answerHints[getAnswerSpec(active).kind]}
                     </p>
                   </form>
+                  <div id="answer-feedback" role="status" aria-live="polite">
                   {result && (
-                    <div className={`feedback ${result.kind}`} role="status">
+                    <div className={`feedback ${result.kind}`}>
                       <strong>
                         {result.kind === "correct"
                           ? ui.correct
@@ -833,6 +836,7 @@ export default function App() {
                       )}
                     </div>
                   )}
+                  </div>
                   {result?.kind === "incorrect" && checkedInput !== null && (
                     <MistakeHelp key={`${active.id}-${run}`} task={active} answer={checkedInput} />
                   )}

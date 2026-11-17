@@ -8,11 +8,16 @@ type Props = {
   fractionInput?: boolean;
   showSubmit?: boolean;
   idPrefix?: string;
+  invalid?: boolean;
+  feedbackId?: string;
 };
 
-export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit = true, idPrefix = "" }: Props) {
+export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit = true, idPrefix = "", invalid = false, feedbackId }: Props) {
   const { copy } = useLocale();
   const fieldId = (name: string) => `${idPrefix}${name}`;
+  const describedBy = [fieldId("answer-help"), feedbackId].filter(Boolean).join(" ");
+  // A combined result does not identify which coefficient, root or cell is wrong.
+  const answerAccessibility = { "aria-describedby": describedBy, "aria-invalid": invalid || undefined };
   const ui = copy.ui,
     c = copy.answers;
   const check = showSubmit && (
@@ -24,7 +29,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
     const input = typeof value !== "string" && value.kind === "primitive"
       ? value : { coefficients: spec.terms.map(() => ""), hasConstant: false };
     return <div className="structured-answer">
-      <fieldset aria-describedby={fieldId("answer-help")}>
+      <fieldset {...answerAccessibility}>
         <legend>{c.primitive.title}</legend>
         <p>{c.primitive.instruction}</p>
         {spec.terms.map((term, i) => <div className="coefficient-field" key={i}>
@@ -48,7 +53,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
         : { classification: "", values: [] };
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby={fieldId("answer-help")}>
+        <fieldset {...answerAccessibility}>
           <legend>{ui.answer}</legend>
           <label htmlFor={fieldId("answer")}>{c.system.classification}</label>
           <select
@@ -108,7 +113,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
         : { classification: "", value: "" };
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby={fieldId("answer-help")}>
+        <fieldset {...answerAccessibility}>
           <legend>{ui.answer}</legend>
           <label htmlFor={fieldId("answer")}>{c.limit.classification}</label>
           <select
@@ -161,7 +166,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
         : { classification: "", values: [] as string[] };
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby={fieldId("answer-help")}>
+        <fieldset {...answerAccessibility}>
           <legend>{ui.answer}</legend>
           <label htmlFor={fieldId("answer")}>
             {spec.context === "zeros" ? c.zeros.count : c.roots}
@@ -225,7 +230,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
             type="text"
             inputMode={fractionInput ? "text" : "decimal"}
             autoComplete="off"
-            aria-describedby={fieldId("answer-help")}
+            {...answerAccessibility}
             value={typeof value === "string" ? value : ""}
             onChange={(event) => onChange(event.target.value)}
             placeholder={ui.answerPlaceholder}
@@ -241,7 +246,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
         <div className="answer-row">
           <select
             id={fieldId("answer")}
-            aria-describedby={fieldId("answer-help")}
+            {...answerAccessibility}
             value={
               typeof value !== "string" && value.kind === "choice"
                 ? value.value
@@ -265,7 +270,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
   if (spec.kind === "multi-choice") {
     const vals=typeof value!=="string"&&value.kind==="multi-choice"?value.values:{};
     return <div className="structured-answer graph-properties-answers">
-      <fieldset aria-describedby={fieldId("answer-help")}>
+      <fieldset {...answerAccessibility}>
         <legend>{ui.answer}</legend>
         {spec.fields.map((field,index)=><div className="coefficient-field" key={field.id}>
           <label htmlFor={fieldId(index===0?"answer":"answer-"+field.id)}>{field.label}</label>
@@ -288,7 +293,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
     );
     return (
       <div className="structured-answer">
-        <fieldset aria-describedby={fieldId("answer-help")}>
+        <fieldset {...answerAccessibility}>
           <legend>{ui.answer}</legend>
           {spec.unordered && <p>{c.order}</p>}
           {values.map((entry, index) => (
@@ -327,7 +332,7 @@ export function AnswerFields({ spec, value, onChange, fractionInput, showSubmit 
   );
   return (
     <div className="structured-answer">
-      <fieldset aria-describedby={fieldId("answer-help")}>
+      <fieldset {...answerAccessibility}>
         <legend>{ui.answer}</legend>
         <table className="matrix-grid">
           <caption>

@@ -155,3 +155,14 @@ button { touch-action: manipulation; }
   .learning-workspace .study-groups button { padding: 10px 8px; font-size: 14px; }
   .learning-workspace .exercise-panel { padding: 20px 16px; }
 }
+
+/* Preserve mathematical tokens; any long expression scrolls locally. */
+.learning-workspace .question { overflow-wrap: normal; word-break: normal; overflow-x: auto; max-width: 100%; }
+.learning-workspace .answer-row { align-items: stretch; }
+.learning-workspace :is(.check-button,.next-button,.hint-actions button,.solution-panel button) { min-height: 44px; line-height: 1.45; padding: 10px 16px; white-space: normal; }
+.learning-workspace .hint-actions { display: flex; flex-wrap: wrap; }
+.learning-workspace .hint-actions button { flex: 1 1 150px; }
+.learning-workspace [aria-invalid="true"] { border-color: #a3392d; }
+.learning-workspace fieldset[aria-invalid="true"] { border: 2px solid #a3392d; border-radius: 8px; }
+.learning-workspace .solution-panel { min-width: 0; overflow-wrap: break-word; }
+.learning-workspace .solution-calculation { overflow-x: auto; max-width: 100%; }
