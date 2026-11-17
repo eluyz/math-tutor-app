@@ -11,8 +11,8 @@ kolejnych pytań. Stash pusty; niezapisany audyt w głównym checkoutcie zachowa
   opuszczeniem dokumentu. Bez trwałego zapisu odpowiedzi. Testy powrotu i anulowania.
 - [x] B: kompaktowy start i zwijany wybór tematu/poziomu; zadanie przed katalogiem
   w aktywnym ćwiczeniu. 320/375/390/768/1280/1440, długie PL/EN.
-- [ ] C: semantyka formularzy, jawne wyniki, równy pasek akcji i odporne wzory.
-- [ ] D: numer pytania + jawny stan odpowiedzi; postępy z czytelną hierarchią.
+- [x] C: semantyka formularzy, jawne wyniki, równy pasek akcji i odporne wzory.
+- [x] D: numer pytania + jawny stan odpowiedzi; postępy z czytelną hierarchią.
 - [ ] E: wspólne tokeny i wzorce ćwiczenia Matematyki/Statystyki, bez nowych treści.
 - [ ] F: kontrast, focus, reduced motion, lokalizacja i kontrola wizualna.
 - [ ] G: niezależny review, maks. trzy cykle napraw, końcowe testy i istniejący CI.
@@ -79,3 +79,15 @@ PASS: 20 testów SSR komponentu (10 przypadków wcześniej RED, potem GREEN),
 20 testów wykrywania draftu; TypeScript/build. Cztery scenariusze E2E PL/EN
 powiązania feedback i przejść invalid/incorrect/correct dodano; runtime BLOCKED.
 Szybki start skupia nagłówek zadania, nie otwiera od razu klawiatury telefonu.
+
+### D — egzamin i postępy
+
+Commit C: 58d9500. Oddzielny komponent prezentacyjny nawigacji egzaminu pokazuje
+numer i stan „Wpisano odpowiedź / Brak odpowiedzi” w PL/EN, niezależnie od
+aria-current. Nie przyjmuje poprawności ani punktów, więc nie ujawnia oceny.
+Postępy i egzamin otrzymały tokeny Focus Studio, zawijanie filtrów i czytelną
+hierarchię wartości. Modele historii i egzaminu oraz usuwanie danych bez zmian.
+
+PASS: sześć SSR testów nawigacji PL/EN i istniejące testy historii/modelu;
+TypeScript/build. Cztery E2E scenariusze z włączonym sandboxem dodano, runtime
+BLOCKED. Dokładne końcowe liczby wspólnej regresji zapisane poniżej.
