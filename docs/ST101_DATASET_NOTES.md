@@ -69,13 +69,19 @@ and [Pages](https://github.com/eluyz/math-tutor-app/actions/runs/43954476522): s
 [Foundation CI](https://github.com/eluyz/math-tutor-app/actions/runs/43950973685):
 success on the foundation SHA, **not evidence for this task's new HEAD**.
 
-The unchanged `.github/workflows/ci.yml` only triggers for PR bases `main` and
-`qa/batch-c-controlled-acceptance`, and pushes to `main`. There is no manual dispatch
-for that workflow. The required Task A base is
-`feature/statistics-s1-foundation-20261116`, so the prescribed stack is outside its
-trigger filter. Other workflows neither run the full test/build CI for these files
-nor provide equivalent exact-HEAD verification. Do not change workflow files,
-retarget to main, merge the foundation, or manipulate unrelated PRs to bypass this.
+At the first handoff, `.github/workflows/ci.yml` only ran for PR bases
+`main` and `qa/batch-c-controlled-acceptance`, leaving stacked PR #319 untested
+by GitHub CI. This is a **historical stop condition**, not a continuing claim.
+
+On 2026-11-17 the maintainer separately verified and merged foundation PR #312
+into main via merge commit `73d5d68bf7941bedba1813161876d9fd6448f3e3`;
+the maintainer then retargeted Draft PR #319 to `main`. That permits GitHub's
+existing CI without weakening tests or modifying workflow files.
+This documentation-only follow-up commit deliberately triggers a new PR
+synchronize event. **Check the new exact HEAD CI before claiming CI PASS**.
+Any future stack based on Codex branches must not inherit a false CI requirement
+that the default workflow cannot satisfy: local tests are interim evidence,
+and combined/final PRs targeting main must receive full exact-head CI before merge.
 
 ## Local verification and handoff
 
@@ -102,3 +108,11 @@ the coordinator's CI gate; then resume from this Draft's exact HEAD. Do not chan
 the legacy Copilot queue. No quota counter is exposed, so no remaining-quota
 percentage is estimated. Work stops for the concrete CI limitation, not the clock.
 The preferred time cutoff is 2026-11-17 07:00 Europe/Warsaw (06:00 UTC).
+
+
+## Maintainer CI-unblock checkpoint (2026-11-17)
+- PR #312 foundation: merged, full PR CI PASS; `main` `73d5d68bf7941bedba1813161876d9fd6448f3e3`.
+- PR #319 base: changed from foundation branch to `main`, still Draft.
+- Production Statistics exercises: still 0; no changes to any public UI.
+- CI for this updated doc commit: **not yet verified at edit time**; review exact Actions result and use only its verified SHA.
+- Avoid claiming earlier `c704eab...` had GitHub CI: it had none. Original local tests/build remain reported for original code commit.
