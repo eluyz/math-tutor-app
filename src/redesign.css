@@ -166,3 +166,15 @@ button { touch-action: manipulation; }
 .learning-workspace fieldset[aria-invalid="true"] { border: 2px solid #a3392d; border-radius: 8px; }
 .learning-workspace .solution-panel { min-width: 0; overflow-wrap: break-word; }
 .learning-workspace .solution-calculation { overflow-x: auto; max-width: 100%; }
+
+/* Statistics reuses the same practice classes and Focus Studio tokens. */
+.statistics-practice.subject-roadmap-panel { margin: 20px 0 40px; padding: clamp(16px,3vw,32px); background: var(--ui-surface); border: 1px solid var(--ui-line); border-radius: 16px; }
+.statistics-practice .subject-roadmap-inner { max-width: 100%; min-width: 0; }
+.statistics-practice h1 { font-family: inherit; font-size: clamp(26px,3vw,36px); line-height: 1.3; letter-spacing: -.6px; }
+.statistics-practice h2 { font-family: inherit; color: var(--ui-text); font-size: 21px; }
+.statistics-practice .subject-roadmap-description { max-width: 75ch; color: var(--ui-muted); }
+.statistics-practice .difficulty-picker { grid-template-columns: repeat(3,minmax(0,1fr)); max-width: 440px; }
+.statistics-practice .exercise-panel { border: 1px solid var(--ui-line); border-radius: 12px; }
+.statistics-practice .solution-panel { background: var(--ui-surface); border-color: var(--ui-control); }
+.statistics-practice .hint-actions button { border: 1px solid var(--ui-control); background: var(--ui-surface); color: var(--ui-text); }
+.statistics-practice .subject-roadmap-disclaimer { font-size: 13px; color: var(--ui-muted); max-width: 75ch; }

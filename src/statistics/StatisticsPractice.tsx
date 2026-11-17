@@ -44,7 +44,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
       : equalRational(parsed.value,task.mean)?"correct":"incorrect");
   }
   return (
-    <section className="statistics-practice subject-roadmap-panel" aria-labelledby="st101-title">
+    <section className="statistics-practice subject-roadmap-panel learning-workspace" aria-labelledby="st101-title">
       <div className="subject-roadmap-inner">
         <span className="subject-status subject-status--in-progress">{subjects.status[subjectStatus.statistics]}</span>
         <h1 id="st101-title" ref={heading} tabIndex={-1}>{subjects.subjects.statistics.title}</h1>

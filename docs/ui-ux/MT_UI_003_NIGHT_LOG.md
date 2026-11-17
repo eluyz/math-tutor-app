@@ -13,7 +13,7 @@ kolejnych pytań. Stash pusty; niezapisany audyt w głównym checkoutcie zachowa
   w aktywnym ćwiczeniu. 320/375/390/768/1280/1440, długie PL/EN.
 - [x] C: semantyka formularzy, jawne wyniki, równy pasek akcji i odporne wzory.
 - [x] D: numer pytania + jawny stan odpowiedzi; postępy z czytelną hierarchią.
-- [ ] E: wspólne tokeny i wzorce ćwiczenia Matematyki/Statystyki, bez nowych treści.
+- [x] E: wspólne tokeny i wzorce ćwiczenia Matematyki/Statystyki, bez nowych treści.
 - [ ] F: kontrast, focus, reduced motion, lokalizacja i kontrola wizualna.
 - [ ] G: niezależny review, maks. trzy cykle napraw, końcowe testy i istniejący CI.
 
@@ -91,3 +91,15 @@ hierarchię wartości. Modele historii i egzaminu oraz usuwanie danych bez zmian
 PASS: sześć SSR testów nawigacji PL/EN i istniejące testy historii/modelu;
 TypeScript/build. Cztery E2E scenariusze z włączonym sandboxem dodano, runtime
 BLOCKED. Dokładne końcowe liczby wspólnej regresji zapisane poniżej.
+
+### E — spójność Matematyki i Statystyki
+
+Commit D: 66950d1. Statystyka korzysta z istniejących wspólnych klas nauki,
+kontrolek, feedbacku i tokenów Focus Studio. Własne warianty obejmują tylko
+układ pilotażu trzech poziomów. Bez zmian danych, generatorów, porównań wyników
+lub zakresu merytorycznego. Statusy planowanych działów pozostają bez zmian.
+
+PASS: 29 testów istniejącej Statystyki i draftów; build/TypeScript wspólnej
+integracji. Dodano 12 E2E kontroli wspólnego wyglądu/przycisków/feedbacku przy
+sześciu szerokościach PL/EN; wykonanie BLOCKED. Nie deklarujemy potwierdzenia
+wizualnego bez renderowania. W repo nie dodano nowych bibliotek.
