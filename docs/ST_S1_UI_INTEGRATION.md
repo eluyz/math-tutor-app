@@ -179,3 +179,20 @@ Full `npm test`: **2592 passed**, 201 files. `npm run build`: **PASS**
 or run for this unintegrated task. Intermediate GitHub CI: **NOT RUN** because
 the PR base is `codex/st102103-learning-copy`. Exact delivery SHA and PR URL are recorded in the PR
 description and final stack handoff; complete-stack CI is a separate gate.
+
+
+## Follow-up dependency discovered in independent owner review (#330)
+
+The initial H contract predates the median educational-QA finding: easy mean
+datasets always placed the median in displayed position three. Task ST-102 now has
+a separate draft fix that deterministically permutes **easy median display values**
+while retaining the underlying multiset, exact answer, seed and difficulty bounds.
+It does **not** modify the original mean data mapping or variance tasks. On a future
+authorized Statistics UI, show and grade the **median task's own displayed values**
+rather than regenerating raw ST-101 data. All-equivalent-data cases cannot hide
+their median and remain permitted. Verify exact commit CI, fixed-seed replay, and
+PL/EN teaching on the displayed sequence before enabling median lessons.
+
+Original A–H delivery SHA `438201b03b9b12ce04cbbab21c4464dac581a1ee`
+remains unchanged and verified by CI `44047197816`. This follow-up is a
+separate PR, not a retroactive rewrite of that evidence.
