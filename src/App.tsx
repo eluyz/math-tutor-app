@@ -1,3 +1,4 @@
+import { nightCopy } from "./locales/night";
 import { difficultyConfig } from "./difficulty";
 import { SolutionPanel } from "./solutions/SolutionPanel";
 import { MistakeHelp } from "./diagnostics/MistakeHelp";
@@ -65,6 +66,7 @@ export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
   const { categories, studyCategories, feedback, ui, answerHints } = copy;
   const a = copy.app;
+  const n = nightCopy[locale];
   const progress = useProgress();
   const [view, setView] = useState<"learn" | "progress" | "exam">("learn");
   const [subject, setSubject] = useState<SubjectId>("mathematics");
@@ -301,71 +303,10 @@ export default function App() {
     newPracticeExample();
   }
 
-  return (
-    <div className="site-shell">
-      <a className="skip-link" href="#main-content">{a.skipContent}</a>
-      <header className="topbar">
-        <a
-          className="brand"
-          href="/math-tutor-app/"
-          onClick={(event) => {
-            event.preventDefault();
-            if (examLocked) return;
-            if (subject !== "mathematics") {
-              selectSubject("mathematics");
-              setView("learn");
-              return;
-            }
-            if (view === "progress" || view === "exam") {
-              setView("learn");
-              return;
-            }
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-          aria-label={a.home}
-        >
-          <span className="brand-mark" aria-hidden="true">
-            ∑
-          </span>
-          <span>
-            math<span className="brand-accent">tutor</span>
-            <small>{a.tagline}</small>
-          </span>
-        </a>
-        <LanguagePicker />
-      </header>
-
-      <SubjectNavigation locale={locale} subject={subject} onSelect={selectSubject} disabled={examLocked} />
-      <main id="main-content" tabIndex={-1}>
-      <div hidden={subject !== "mathematics"}>
-      <nav className="view-navigation" aria-label={copy.progress.navigation}>
-        <button type="button" disabled={examLocked} aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
-          {copy.progress.learn}
-        </button>
-        <button type="button" disabled={examLocked} aria-current={view === "progress" ? "page" : undefined} onClick={() => setView("progress")}>
-          {copy.progress.title}
-        </button>
-        <button type="button" disabled={sessionNumber > 0} aria-current={view === "exam" ? "page" : undefined}
-          onClick={() => setView("exam")}>{examCopy[locale].navigation}</button>
-      </nav>
-      {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
-
-        <div className="learning-workspace" hidden={view !== "learn"}>
-        <section
-          className="practice"
-          id="practice"
-          aria-labelledby="practice-title"
-        >
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">{a.learnSteps}</span>
-              <h1 id="practice-title" tabIndex={-1}>
-                {a.chooseTopic}
-                <span className="period">.</span>
-              </h1>
-            </div>
-            <p>{a.chooseDescription}</p>
-          </div>
+  const catalog = (
+    <details className="catalog-config" open>
+      <summary>{n.choose}<span>{categoryTitle(selectedCategory, locale)} · {difficultyLabels[difficulty]}</span></summary>
+      <div className="catalog-config-body">
           <div className="catalog-search" role="search" aria-label={a.searchLabel}>
             <label htmlFor="catalog-search-input">{a.searchLabel}</label>
             <div className="catalog-search-controls">
@@ -512,32 +453,11 @@ export default function App() {
               </div>
             )}
           </div>
-          {sessionNumber > 0 && (
-            <p className="session-progress" role="status">
-              {a.progress(sessionNumber)}
-            </p>
-          )}
-          {searchLevelChange && sessionNumber === 0 && (
-            <p className="search-level-notice" role="status">
-              {a.searchLevelChanged(
-                difficultyLabels[searchLevelChange.from],
-                difficultyLabels[searchLevelChange.to],
-              )}
-            </p>
-          )}
-          {repeated && active && (
-            <p className="session-progress">{a.repeated}</p>
-          )}
-          {unavailable && (
-            <div className="unavailable" role="status">
-              <p>{a.unavailable(difficultyLabels[difficulty])}</p>
-              <button type="button" onClick={() => newExercise()}>
-                {a.availableTask}
-              </button>
-            </div>
-          )}
-          <div className="exercise-layout">
-            <div className="exercise-list">
+      </div>
+    </details>
+  );
+  const familyList = (
+            <aside className="exercise-list">
               <div className="exercise-list-heading">
                 <h3 id="category-families-title">{a.categoryFamilies(
                   categoryTitle(selectedCategory, locale), visibleTemplates.length,
@@ -581,8 +501,108 @@ export default function App() {
                 </button>
               ))}
               </div>
+            </aside>
+  );
+
+  return (
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">{a.skipContent}</a>
+      <header className="topbar">
+        <a
+          className="brand"
+          href="/math-tutor-app/"
+          onClick={(event) => {
+            event.preventDefault();
+            if (examLocked) return;
+            if (subject !== "mathematics") {
+              selectSubject("mathematics");
+              setView("learn");
+              return;
+            }
+            if (view === "progress" || view === "exam") {
+              setView("learn");
+              return;
+            }
+            window.scrollTo({ top: 0, behavior: "smooth" });
+          }}
+          aria-label={a.home}
+        >
+          <span className="brand-mark" aria-hidden="true">
+            ∑
+          </span>
+          <span>
+            math<span className="brand-accent">tutor</span>
+            <small>{a.tagline}</small>
+          </span>
+        </a>
+        <LanguagePicker />
+      </header>
+
+      <SubjectNavigation locale={locale} subject={subject} onSelect={selectSubject} disabled={examLocked} />
+      <main id="main-content" tabIndex={-1}>
+      <div hidden={subject !== "mathematics"}>
+      <nav className="view-navigation" aria-label={copy.progress.navigation}>
+        <button type="button" disabled={examLocked} aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
+          {copy.progress.learn}
+        </button>
+        <button type="button" disabled={examLocked} aria-current={view === "progress" ? "page" : undefined} onClick={() => setView("progress")}>
+          {copy.progress.title}
+        </button>
+        <button type="button" disabled={sessionNumber > 0} aria-current={view === "exam" ? "page" : undefined}
+          onClick={() => setView("exam")}>{examCopy[locale].navigation}</button>
+      </nav>
+      {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
+
+        <div className="learning-workspace" hidden={view !== "learn"}>
+        <section
+          className="practice"
+          id="practice"
+          aria-labelledby="practice-title"
+        >
+          <div className="section-heading">
+            <div>
+
+              <h1 id="practice-title" tabIndex={-1}>
+                {a.chooseTopic}
+                <span className="period">.</span>
+              </h1>
             </div>
-            <div className="exercise-panel">
+            <p>{n.chooseHelp}</p>
+          </div>
+          <div className="practice-entry">
+            <button type="button" className="primary-button" onClick={() => {
+              if (active) document.getElementById("exercise-title")?.focus();
+              else { searchFocusRequested.current = true; newPracticeExample(); }
+            }}>{active ? n.resume : n.start}</button>
+            {active && <p>{categoryTitle(selectedCategory, locale)} · {n.level}: {difficultyLabels[difficulty]}</p>}
+          </div>
+          {!active && catalog}
+          {sessionNumber > 0 && (
+            <p className="session-progress" role="status">
+              {a.progress(sessionNumber)}
+            </p>
+          )}
+          {searchLevelChange && sessionNumber === 0 && (
+            <p className="search-level-notice" role="status">
+              {a.searchLevelChanged(
+                difficultyLabels[searchLevelChange.from],
+                difficultyLabels[searchLevelChange.to],
+              )}
+            </p>
+          )}
+          {repeated && active && (
+            <p className="session-progress">{a.repeated}</p>
+          )}
+          {unavailable && (
+            <div className="unavailable" role="status">
+              <p>{a.unavailable(difficultyLabels[difficulty])}</p>
+              <button type="button" onClick={() => newExercise()}>
+                {a.availableTask}
+              </button>
+            </div>
+          )}
+          <div className={`exercise-layout ${active || summary ? "has-task" : "catalog-only"}`}>
+            {(active || summary) && <div className="exercise-panel">
               {active ? (
                 <>
                   <div className="panel-top">
@@ -854,25 +874,11 @@ export default function App() {
                   onStartSession={startSession}
                   onPractice={() => newExercise()}
                 />
-              ) : (
-                <div className="empty-panel">
-                  <span className="empty-symbol" aria-hidden="true">
-                    →
-                  </span>
-                  <span className="eyebrow">{a.emptyEyebrow}</span>
-                  <h3>
-                    {a.ready}
-                    <br />
-                    <em>{a.firstStep}</em>
-                  </h3>
-                  <p>{a.emptyDescription}</p>
-                  <button type="button" onClick={() => newExercise()}>
-                    {a.startFirst} <span aria-hidden="true">→</span>
-                  </button>
-                </div>
-              )}
-            </div>
+              ) : null}
+            </div>}
+            {familyList}
           </div>
+          {active && catalog}
         </section>
         </div>
         <ProgressDashboard

@@ -7,9 +7,9 @@ ocenianie, punktacja i format historii nie zmieniają się. Pracujemy wyłączni
 nad PR #337. Upoważnienie użytkownika obejmuje decyzje projektu i wykonanie bez
 kolejnych pytań. Stash pusty; niezapisany audyt w głównym checkoutcie zachowany.
 
-- [ ] A: zachować pracę przy logo/przedmiotach/widokach/PLEN; ostrzegać przed
+- [x] A: zachować pracę przy logo/przedmiotach/widokach/PLEN; ostrzegać przed
   opuszczeniem dokumentu. Bez trwałego zapisu odpowiedzi. Testy powrotu i anulowania.
-- [ ] B: kompaktowy start i zwijany wybór tematu/poziomu; zadanie przed katalogiem
+- [x] B: kompaktowy start i zwijany wybór tematu/poziomu; zadanie przed katalogiem
   w aktywnym ćwiczeniu. 320/375/390/768/1280/1440, długie PL/EN.
 - [ ] C: semantyka formularzy, jawne wyniki, równy pasek akcji i odporne wzory.
 - [ ] D: numer pytania + jawny stan odpowiedzi; postępy z czytelną hierarchią.
@@ -53,3 +53,16 @@ Bazowy pełny Vitest: 2602 PASS / 1 FAIL (history-regression przekroczył 5 s pr
 równoległym obciążeniu); izolowane powtórzenie i końcowa regresja poniżej.
 Standardowa instalacja przeglądarki Playwright nie pobrała Chrome for Testing;
 systemowy Chromium z włączonym sandboxem też jest zablokowany. Bez obejść.
+
+### B — zadanie przed katalogiem
+
+Commit A: 3189cd5. Izolowane powtórzenie history-regression: 2/2 PASS,
+bez zmian limitów testów. Pakiet B: szybki start/kontynuacja blisko tytułu,
+aktywne ćwiczenie przed konfiguracją w DOM, lista rodzin po panelu zadania,
+zwijany natywny details z konfiguracją. Domyślnie otwarty dla odkrywalności i
+zgodności dotychczasowych przepływów. Zrezygnowano z pustej karty marketingowej.
+Nagłówek i przedmioty kompaktowe; bez sticky i bez nowych bibliotek.
+
+PASS: build/TypeScript. Dodano 12 scenariuszy layout PL/EN przy sześciu
+szerokościach. Wykonanie wizualne i zachowanie przy klawiaturze telefonu BLOCKED;
+nie ogłaszamy PASS kryterium wizualnego. Dotychczasowe selektory/funkcje zachowane.

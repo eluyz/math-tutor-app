@@ -123,3 +123,35 @@ button { touch-action: manipulation; }
   .learning-workspace .difficulty-picker button { padding-inline: 6px; font-size: 12px; }
 }
 .learning-workspace .empty-panel p { color: var(--ui-muted); }
+
+/* MT-UI-003: task-first composition; the catalogue remains discoverable. */
+[hidden] { display: none !important; }
+.learning-workspace .practice { padding-top: 20px; }
+.learning-workspace .section-heading { margin-bottom: 16px; gap: 24px; align-items: start; }
+.practice-entry { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 0 0 20px; }
+.practice-entry .primary-button { min-height: 48px; padding: 12px 20px; border: 1px solid var(--ui-accent); border-radius: 8px; background: var(--ui-accent); color: white; font-weight: 650; }
+.practice-entry p { color: var(--ui-muted); font-size: 14px; margin: 0; }
+.catalog-config { margin: 0 0 20px; background: white; border: 1px solid var(--ui-line); border-radius: 12px; min-width: 0; }
+.catalog-config summary { min-height: 48px; padding: 14px 16px; cursor: pointer; font-weight: 650; color: var(--ui-text); }
+.catalog-config summary span { display: block; margin-top: 4px; font-size: 13px; color: var(--ui-muted); font-weight: 400; }
+.catalog-config-body { padding: 0 16px 16px; }
+.learning-workspace .catalog-config .catalog-search { padding: 0; border: 0; margin-bottom: 16px; }
+.learning-workspace .catalog-config .category-picker { margin-bottom: 16px; }
+.learning-workspace .catalog-config .practice-controls { margin-bottom: 0; flex-wrap: wrap; }
+.learning-workspace .exercise-layout { margin-bottom: 20px; box-shadow: none; overflow: visible; }
+.learning-workspace .exercise-layout.catalog-only { grid-template-columns: minmax(0,1fr); }
+.learning-workspace .exercise-list { border: 0; border-top: 1px solid var(--ui-line); min-width: 0; border-radius: 0 0 16px 16px; }
+.learning-workspace .exercise-item small { font-size: 12px; }
+.site-shell > .subject-navigation button { min-height: 64px; padding: 10px 12px; }
+.site-shell > .subject-navigation { padding-block: 12px; }
+@media (min-width: 900px) {
+  .learning-workspace .exercise-layout.has-task { grid-template-columns: minmax(0,1.7fr) minmax(0,.8fr); }
+  .learning-workspace .exercise-layout.has-task .exercise-list { border-top: 0; border-left: 1px solid var(--ui-line); border-radius: 0 16px 16px 0; }
+}
+@media (max-width: 599px) {
+  .brand small { display: none; }
+  .site-shell > .topbar { min-height: 68px; padding-block: 10px; }
+  .learning-workspace .section-heading p { margin-bottom: 0; }
+  .learning-workspace .study-groups button { padding: 10px 8px; font-size: 14px; }
+  .learning-workspace .exercise-panel { padding: 20px 16px; }
+}
