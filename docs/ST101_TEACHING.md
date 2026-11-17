@@ -1,6 +1,6 @@
 # ST-101 original PL/EN teaching — Task C
 
-**Status: NEEDS_FIXES / incomplete. The first full verification failed; see the stop record below.**
+**Status: TEST ASSERTION FIXED / awaiting complete verification. The first full verification failed; see the historical stop record and maintainer checkpoint below.**
 
 `meanCopy(values, locale)` produces a prompt, two hints, three ordered steps,
 conclusion and four feedback messages. Both languages use the same dataset-derived
@@ -56,3 +56,12 @@ format, retaining exact equality assertions; rerun full Vitest/build for C, then
 continue D–H only under the owner's resumed instruction. No Mathematics, A, B,
 foundation, UI, catalog, grading, storage, package or workflow changes are needed
 for that formatting correction.
+
+
+## Maintainer correction — 2026-11-17 (after stopped session)
+
+- Reviewed current Draft PR #321 head and exact failing test file; confirmed the established `formatRational` emits Unicode minus U+2212 for negative fractions.
+- Changed **one fixture literal only** in `src/statistics/st101Copy.test.ts`: expected mean `-3/5` → `−3/5`. Existing exact-equality tests and production formatter remain unchanged.
+- The first failure above is retained as historical evidence, not the current state of the source line.
+- No new `npm test`, `npm run build` or full GitHub CI success is claimed by this document. Run them on the latest HEAD before starting Task D.
+- The owner authorized tasks B–H only; I and all public UI integration are still forbidden in the resumed session. No merge or production deployment.
