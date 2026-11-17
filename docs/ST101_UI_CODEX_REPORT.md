@@ -102,3 +102,21 @@ Draft PR description after execution. Independent human mathematical/pedagogical
 and owner review remain release gates. The preview has one playable mean pilot;
 production still has **0 published Statistics lessons** until separately approved
 merge and same-SHA Pages verification. This task performs neither merge nor deploy.
+
+
+## Internal review follow-up
+
+The read-only review of the initial implementation found no Critical or Important
+runtime/mathematical issue. Its one placement suggestion was applied to honor
+AGENTS.md: the new, unchanged PL/EN UI table is now in `src/locales/statistics.ts`
+instead of inside the component. No existing shared translations or teaching
+math were rewritten. A follow-up full single-worker Vitest/build and targeted
+production browser check validate the extraction; final results are in the PR.
+The resulting scope is eight files. This internal AI review is not external human
+pedagogical approval. No unrelated reviews, branches or source counters changed.
+
+
+Final extraction verification: full `npm test -- --maxWorkers=1` **2603 PASS**,
+202 files, 114.29s; TypeScript/build **PASS**; production ST-101+roadmap browser
+recheck **20/20 PASS** (27.5s). New translation data are unchanged by extraction.
+Full normal-command exact-HEAD GitHub CI remains the final delivery gate.

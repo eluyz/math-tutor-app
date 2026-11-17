@@ -4,30 +4,11 @@ import { difficultyConfig, legacyDifficulties } from "../difficulty";
 import { formatRational } from "../answers";
 import { equalRational, parseAnswer } from "../rational";
 import { subjectCopy, subjectStatus } from "../subjectRoadmap";
+import { statisticsPracticeCopy } from "../locales/statistics";
 import { generateMeanDataset, type DatasetDifficulty } from "./datasets";
 import { meanCopy } from "./st101Copy";
 
 type Assessment = "correct" | "incorrect" | "empty" | "invalid";
-const pl = {
-  title: "ST-101 — Średnia arytmetyczna",
-  difficulty: "Poziom trudności", answer: "Twoja odpowiedź", check: "Sprawdź",
-  next: "Następne zadanie", hint1: "Pokaż podpowiedź", hint2: "Pokaż drugą podpowiedź",
-  hintsDone: "Obie podpowiedzi pokazane", show: "Pokaż rozwiązanie", hide: "Ukryj rozwiązanie",
-  solution: "Rozwiązanie krok po kroku",
-  format: "Podaj dokładny wynik: liczbę całkowitą, skończony zapis dziesiętny lub ułamek. Nie zaokrąglaj. Limit: 100 znaków.",
-  memory: "Te ćwiczenia nie zapisują postępów i nie zmieniają wyników Matematyki. Po wyjściu z działu lub odświeżeniu strony pilotaż zaczyna się od pierwszego zadania.",
-};
-const ui: Record<Locale, typeof pl> = {
-  pl,
-  en: {
-    title: "ST-101 — Arithmetic mean",
-    difficulty: "Difficulty", answer: "Your answer", check: "Check", next: "Next exercise",
-    hint1: "Show hint", hint2: "Show second hint", hintsDone: "Both hints shown",
-    show: "Show solution", hide: "Hide solution", solution: "Step-by-step solution",
-    format: "Enter an exact result: an integer, a finite decimal or a fraction. Do not round. Limit: 100 characters.",
-    memory: "These exercises do not save progress or change Mathematics results. Leaving this subject or refreshing the page restarts the pilot from its first exercise.",
-  },
-};
 
 /** Real next-task policy, shared by the click handler and its uint32-boundary test. */
 export function nextStatisticsSeed(seed: number): number {
@@ -37,7 +18,7 @@ export function nextStatisticsSeed(seed: number): number {
 
 /** Mean-only pilot. State never enters Mathematics sessions, grading or storage. */
 export function StatisticsPractice({locale}: {locale: Locale}) {
-  const c=ui[locale];
+  const c=statisticsPracticeCopy[locale];
   const subjects=subjectCopy[locale];
   const [difficulty,setDifficulty]=useState<DatasetDifficulty>("easy");
   const [seed,setSeed]=useState(0);
