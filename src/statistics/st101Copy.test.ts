@@ -5,7 +5,7 @@ const fixtures = [
   { values: [3, 2, 2, 1, 2], total: "10", count: "5", mean: "2" },
   { values: [3, 3, 1, 16, 7, 13], total: "43", count: "6", mean: "43/6" },
   { values: [-5, -1, -1, 3, 4], total: "0", count: "5", mean: "0" },
-  { values: [-2, -1, 0, 0, 0], total: "-3", count: "5", mean: "-3/5" },
+  { values: [-2, -1, 0, 0, 0], total: "-3", count: "5", mean: "−3/5" },
 ];
 
 describe("ST-101 original bilingual teaching", () => {
