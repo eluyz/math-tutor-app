@@ -48,9 +48,9 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statystyka i prawdopodobieństwo",
         title: "Statystyka i prawdopodobieństwo",
-        description: "Projektujemy nowy dział do samodzielnej nauki: jasne rozwiązania krok po kroku, zadania z kontrolą odpowiedzi i praktyczne przykłady. Pierwsze generatory nie są jeszcze opublikowane.",
+        description: "Pilotaż obejmuje wyłącznie średnią arytmetyczną z dokładnym sprawdzaniem odpowiedzi. Pozostałe lekcje nie są jeszcze udostępnione; to nie jest pełny kurs statystyki.",
         topics: ["Statystyka opisowa: średnia, mediana, wariancja", "Podstawy prawdopodobieństwa i kombinatoryka", "Rozkłady losowe i estymacja", "Przedziały ufności i testy hipotez"],
-        nextStep: "Zaprojektować i niezależnie zweryfikować pierwszą rodzinę zadań ze statystyki opisowej.",
+        nextStep: "Zweryfikować pilotaż średniej arytmetycznej przed osobną decyzją o kolejnych lekcjach.",
       },
       econometrics: {
         label: "Ekonometria",
@@ -81,9 +81,9 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statistics & Probability",
         title: "Statistics & Probability",
-        description: "We are designing a new self-paced subject with step-by-step explanations, checked answers and practical examples. Its first exercise generators have not been released.",
+        description: "This pilot covers arithmetic mean only, with exact answer checking. Other lessons are not available yet; this is not a complete statistics course.",
         topics: ["Descriptive statistics: mean, median and variance", "Probability basics and combinatorics", "Random variables, distributions and estimation", "Confidence intervals and hypothesis testing"],
-        nextStep: "Design and independently verify the first descriptive-statistics exercise family.",
+        nextStep: "Review the arithmetic-mean pilot before separately approving further lessons.",
       },
       econometrics: {
         label: "Econometrics",
