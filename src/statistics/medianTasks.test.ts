@@ -4,7 +4,8 @@ import { generateMeanDataset } from "./datasets";
 import { summarizeIntegerDataset } from "./descriptive";
 
 const fixtures = [
-  { difficulty: "easy", seed: 0, values: [3,2,2,1,2], numerator: 2n, denominator: 1n },
+  { difficulty: "easy", seed: 0, values: [3,2,2,2,1], numerator: 2n, denominator: 1n },
+  { difficulty: "easy", seed: 1, values: [1,6,9,4,5], numerator: 5n, denominator: 1n },
   { difficulty: "medium", seed: 0, values: [3,3,1,16,7,13], numerator: 5n, denominator: 1n },
   { difficulty: "medium", seed: 1, values: [2,2,3,10,1,7], numerator: 5n, denominator: 2n },
   { difficulty: "medium", seed: 3, values: [10,10,11,17,19,7], numerator: 21n, denominator: 2n },
@@ -46,6 +47,24 @@ describe("ST-102 median exercises", () => {
       );
     }
     expect([...parities].sort()).toEqual(difficulty === "easy" ? [1] : [0, 1]);
+  });
+
+  it("easy lessons do not systematically reveal the median as the third displayed value", () => {
+    let thirdPositionIsNotMedian = 0;
+    const medianPositions = new Set<number>();
+    for (let seed = 0; seed < 256; seed += 1) {
+      const source = generateMeanDataset("easy", seed);
+      const task = generateMedianTask("easy", seed);
+      expect([...task.values].sort((a, b) => a - b)).toEqual([...source.values].sort((a, b) => a - b));
+      expect(task.median).toEqual(summarizeIntegerDataset(source.values).median);
+      const median = Number(task.median.numerator) / Number(task.median.denominator);
+      if (task.values[2] !== median) thirdPositionIsNotMedian += 1;
+      medianPositions.add(task.values.indexOf(median));
+      expect(generateMeanDataset("easy", seed).values).toEqual(source.values);
+    }
+    // Pre-fixed center shortcuts would produce zero. The median also varies in position.
+    expect(thirdPositionIsNotMedian).toBeGreaterThan(100);
+    expect(medianPositions.size).toBeGreaterThan(2);
   });
 
   it("replays without mutating source data or sharing mutable results", () => {
