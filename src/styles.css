@@ -25,6 +25,7 @@ input:focus-visible {
   outline-offset: 3px;
 }
 .site-shell {
+  --navigation-gutter: clamp(24px, 6vw, 96px);
   max-width: 1600px;
   margin: auto;
 }
@@ -764,7 +765,7 @@ footer p {
   flex-wrap: wrap;
   gap: 8px;
   align-items: stretch;
-  padding: 16px clamp(24px, 6vw, 96px);
+  padding: 16px var(--navigation-gutter);
   border-bottom: 1px solid #d9dfd6;
   background: #f0f3eb;
 }
@@ -837,4 +838,18 @@ footer p {
 }
 @media (max-width: 360px) {
   .subject-navigation { grid-template-columns: 1fr; }
+}
+
+
+/* Issue #335: shared row insets and bounded Statistics curriculum wrapping. */
+.site-shell > .view-navigation { padding-inline: var(--navigation-gutter); }
+.statistics-practice.subject-roadmap-panel { padding-inline: var(--navigation-gutter); }
+.statistics-practice h1 { overflow-wrap: anywhere; }
+.statistics-practice .study-groups button { min-height: 44px; max-width: 100%; }
+.statistics-practice .category-picker { flex-wrap: wrap; overflow: visible; }
+.statistics-practice .category-picker button { max-width: 100%; white-space: normal; overflow-wrap: anywhere; }
+.statistics-practice .category-picker button:disabled { background: #fdfcf8; color: #315545; cursor: not-allowed; }
+@media (max-width: 700px) {
+  .site-shell { --navigation-gutter: 18px; }
+  .subject-navigation { padding-inline: var(--navigation-gutter); }
 }
