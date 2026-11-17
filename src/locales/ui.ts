@@ -17,6 +17,7 @@ const pl = {
   categories,
   studyCategories,
   app: {
+    skipContent: "Przejdź do treści",
     pageTitle: "Math Tutor — Matematyka krok po kroku",
     home: "Math Tutor — strona startowa",
     tagline: "UCZ SIĘ WE WŁASNYM TEMPIE",
@@ -272,6 +273,7 @@ const en: UiCopy = {
     )[c.id],
   })),
   app: {
+    skipContent: "Skip to content",
     pageTitle: "Math Tutor — Mathematics step by step",
     home: "Math Tutor — home",
     tagline: "LEARN AT YOUR OWN PACE",

@@ -288,6 +288,7 @@ export default function App() {
 
   return (
     <div className="site-shell">
+      <a className="skip-link" href="#main-content">{a.skipContent}</a>
       <header className="topbar">
         <a
           className="brand"
@@ -338,8 +339,8 @@ export default function App() {
       </nav>
       {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
 
-      <main>
-        <div hidden={view !== "learn"}>
+      <main id="main-content" tabIndex={-1}>
+        <div className="learning-workspace" hidden={view !== "learn"}>
         <section
           className="practice"
           id="practice"
@@ -581,7 +582,7 @@ export default function App() {
                         : a.exercise}{" "}
                       · {difficultyLabels[difficulty].toUpperCase()}
                     </span>
-                    <span>✳</span>
+                    <span aria-hidden="true">∑</span>
                   </div>
                   <h3 id="exercise-title" tabIndex={-1}>{active.title}</h3>
                   <p className="panel-intro">{a.intro}</p>
@@ -846,7 +847,7 @@ export default function App() {
               ) : (
                 <div className="empty-panel">
                   <span className="empty-symbol" aria-hidden="true">
-                    ↗
+                    →
                   </span>
                   <span className="eyebrow">{a.emptyEyebrow}</span>
                   <h3>
@@ -875,7 +876,7 @@ export default function App() {
       </main>
         </>
       ) : (
-        <main>{subject === "statistics" ? <StatisticsPractice locale={locale} /> : <PlannedSubjectPanel locale={locale} subject={subject} />}</main>
+        <main id="main-content" tabIndex={-1}>{subject === "statistics" ? <StatisticsPractice locale={locale} /> : <PlannedSubjectPanel locale={locale} subject={subject} />}</main>
       )}
       <footer>
         <span>
