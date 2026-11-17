@@ -43,7 +43,7 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         const before=await storage(page);
         await enter(page);
         const p=panel(page), input=p.getByLabel(c.answer,{exact:true});
-        await expect(p.getByText("Work in progress",{exact:true})).toBeVisible();
+        await expect(p.getByText(locale === "pl" ? "W rozwoju" : "Work in progress",{exact:true})).toBeVisible();
         await expect(p.getByRole("group",{name:locale==="pl"?"Poziom trudności":"Difficulty"}).getByRole("button")).toHaveCount(3);
         await expect(p.locator(".question")).toContainText("3, 2, 2, 1, 2");
         await expect(p.locator(".question")).toHaveAttribute("data-seed","0");

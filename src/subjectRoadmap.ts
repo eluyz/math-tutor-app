@@ -38,7 +38,7 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
   pl: {
     navigation: "Działy Math Tutor",
     eyebrow: "OTWARTA MAPA ROZWOJU",
-    status: { available: "Dostępne", "in-progress": "Work in progress", planned: "Planowane" },
+    status: { available: "Dostępne", "in-progress": "W rozwoju", planned: "Planowane" },
     topicsHeading: "Planowane zagadnienia",
     nextHeading: "Najbliższy krok",
     disclaimer: "Ten dział nie ma jeszcze opublikowanych zadań. Status oznacza etap planowania i rozwoju, a nie gotowy kurs. Matematyka pozostaje dostępna.",

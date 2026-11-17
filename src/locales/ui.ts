@@ -37,7 +37,7 @@ const pl = {
     chooseDescription:
       "Wyszukaj rodzinę w całym katalogu albo wybierz dział i temat. Po pomyłce możesz skorzystać ze wskazówek i spróbować ponownie.",
     searchLabel: "Szukaj rodziny zadań",
-    searchPlaceholder: "Np. M03, D09, W03 lub nazwa tematu",
+    searchPlaceholder: "Np. ułamki, granice lub macierze",
     searchClear: "Wyczyść wyszukiwanie",
     searchResults: "Wyniki wyszukiwania rodzin zadań",
     searchCount: (count: number) => `Znaleziono rodzin: ${count}`,
@@ -293,7 +293,7 @@ const en: UiCopy = {
     chooseDescription:
       "Search the full catalog or choose a subject and exercise family. After a mistake, use the hints and try again.",
     searchLabel: "Search exercise families",
-    searchPlaceholder: "E.g. M03, D09, W03, or a topic name",
+    searchPlaceholder: "E.g. fractions, limits or matrices",
     searchClear: "Clear search",
     searchResults: "Exercise family search results",
     searchCount: (count: number) => `Families found: ${count}`,

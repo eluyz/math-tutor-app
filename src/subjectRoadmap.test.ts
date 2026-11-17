@@ -12,7 +12,7 @@ describe("subject expansion roadmap", () => {
   it("provides complete Polish and English subject navigation", () => {
     for (const locale of ["pl", "en"] as const) {
       const copy = subjectCopy[locale];
-      expect(copy.status["in-progress"]).toBe("Work in progress");
+      expect(copy.status["in-progress"]).toBe(locale === "pl" ? "W rozwoju" : "Work in progress");
       for (const id of subjectOrder) {
         expect(copy.subjects[id].label.length).toBeGreaterThan(0);
         if (id !== "mathematics") {

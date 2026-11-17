@@ -1,3 +1,4 @@
+import type { MouseEvent as ReactMouseEvent } from "react";
 import { nightCopy } from "./locales/night";
 import { difficultyConfig } from "./difficulty";
 import { SolutionPanel } from "./solutions/SolutionPanel";
@@ -303,8 +304,21 @@ export default function App() {
     newPracticeExample();
   }
 
+  function protectDraft(event: ReactMouseEvent<HTMLElement>) {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const button = target.closest<HTMLButtonElement>("button");
+    if (!button || button.disabled) return;
+    const replacesTask = button.closest(".study-groups, .category-picker, .practice-controls, .exercise-list-items, #catalog-search-results");
+    const pending = (!!active && hasUnsubmittedAnswer(answer, checkedInput !== null)) ||
+      (checkedStep === null && stepAnswer.trim().length > 0);
+    if (replacesTask && pending && !window.confirm(n.discard)) {
+      event.preventDefault(); event.stopPropagation();
+    }
+  }
+
   const catalog = (
-    <details className="catalog-config" open>
+    <details className="catalog-config" open onClickCapture={protectDraft}>
       <summary>{n.choose}<span>{categoryTitle(selectedCategory, locale)} · {difficultyLabels[difficulty]}</span></summary>
       <div className="catalog-config-body">
           <div className="catalog-search" role="search" aria-label={a.searchLabel}>
@@ -457,7 +471,7 @@ export default function App() {
     </details>
   );
   const familyList = (
-            <aside className="exercise-list">
+            <aside className="exercise-list" onClickCapture={protectDraft}>
               <div className="exercise-list-heading">
                 <h3 id="category-families-title">{a.categoryFamilies(
                   categoryTitle(selectedCategory, locale), visibleTemplates.length,
@@ -523,7 +537,7 @@ export default function App() {
               setView("learn");
               return;
             }
-            window.scrollTo({ top: 0, behavior: "smooth" });
+            window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
           }}
           aria-label={a.home}
         >

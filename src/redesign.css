@@ -178,3 +178,23 @@ button { touch-action: manipulation; }
 .statistics-practice .solution-panel { background: var(--ui-surface); border-color: var(--ui-control); }
 .statistics-practice .hint-actions button { border: 1px solid var(--ui-control); background: var(--ui-surface); color: var(--ui-text); }
 .statistics-practice .subject-roadmap-disclaimer { font-size: 13px; color: var(--ui-muted); max-width: 75ch; }
+
+/* Accessibility and shared secondary surfaces. */
+.site-shell > .topbar { height: auto; }
+.site-shell > footer p { color: var(--ui-muted); }
+.site-shell :is(h1,h2,h3) { text-wrap: balance; }
+.learning-workspace .scratchpad, .learning-workspace .solution-panel { background: var(--ui-surface); border-color: var(--ui-control); border-radius: 10px; }
+.learning-workspace .scratchpad button, .learning-workspace .solution-panel button { min-height: 44px; border-radius: 8px; color: var(--ui-text); border-color: var(--ui-control); }
+.learning-workspace .solution-calculation, .learning-workspace .solution-answer { font-family: "Cambria Math",Georgia,serif; color: var(--ui-text); }
+.site-shell .view-navigation button:disabled { opacity: .65; }
+.catalog-config summary:focus-visible { outline-offset: -4px; }
+@media (max-width: 599px) {
+  .brand { font-size: 20px; gap: 8px; }
+  .brand-mark { flex: 0 0 36px; width: 36px; height: 36px; }
+  .site-shell .topbar { gap: 8px; flex-wrap: wrap; }
+  .language-picker { margin-left: auto; }
+  .practice-entry .primary-button { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .site-shell *, .site-shell *::before, .site-shell *::after { animation: none !important; transition: none !important; }
+}

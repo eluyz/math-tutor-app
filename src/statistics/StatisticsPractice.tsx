@@ -6,6 +6,7 @@ import { equalRational, parseAnswer } from "../rational";
 import { subjectCopy, subjectStatus } from "../subjectRoadmap";
 import { statisticsPracticeCopy } from "../locales/statistics";
 import { generateMeanDataset, type DatasetDifficulty } from "./datasets";
+import { nightCopy } from "../locales/night";
 import { meanCopy } from "./st101Copy";
 
 type Assessment = "correct" | "incorrect" | "empty" | "invalid";
@@ -53,7 +54,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
         <div className="practice-controls">
           <div className="difficulty-picker" role="group" aria-label={c.difficulty}>
             {legacyDifficulties.map(id=><button key={id} type="button" aria-pressed={difficulty===id} onClick={()=>{
-              if(id!==difficulty) {setDifficulty(id); setSeed(0); reset();}
+              if(id!==difficulty && (!(raw.trim() && assessment === null) || window.confirm(nightCopy[locale].discard))) {setDifficulty(id); setSeed(0); reset();}
             }}>{difficultyConfig.find(level=>level.id===id)!.labels[locale]}</button>)}
           </div>
         </div>
@@ -93,7 +94,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
               <p className="solution-answer">{teaching.conclusion}</p>
             </section>}
           </div>
-          <button className="next-button" type="button" onClick={()=>{setSeed(current=>nextStatisticsSeed(current));reset();}}>{c.next}</button>
+          <button className="next-button" type="button" onClick={()=>{if(raw.trim() && assessment === null && !window.confirm(nightCopy[locale].discard)) return; setSeed(current=>nextStatisticsSeed(current));reset();}}>{c.next}</button>
         </div>
         <p className="subject-roadmap-disclaimer">{c.memory}</p>
       </div>

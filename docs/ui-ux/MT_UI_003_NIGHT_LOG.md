@@ -14,7 +14,7 @@ kolejnych pytań. Stash pusty; niezapisany audyt w głównym checkoutcie zachowa
 - [x] C: semantyka formularzy, jawne wyniki, równy pasek akcji i odporne wzory.
 - [x] D: numer pytania + jawny stan odpowiedzi; postępy z czytelną hierarchią.
 - [x] E: wspólne tokeny i wzorce ćwiczenia Matematyki/Statystyki, bez nowych treści.
-- [ ] F: kontrast, focus, reduced motion, lokalizacja i kontrola wizualna.
+- [x] F: kontrast, focus, reduced motion, lokalizacja i kontrola wizualna.
 - [ ] G: niezależny review, maks. trzy cykle napraw, końcowe testy i istniejący CI.
 
 ## Decyzje
@@ -103,3 +103,24 @@ PASS: 29 testów istniejącej Statystyki i draftów; build/TypeScript wspólnej
 integracji. Dodano 12 E2E kontroli wspólnego wyglądu/przycisków/feedbacku przy
 sześciu szerokościach PL/EN; wykonanie BLOCKED. Nie deklarujemy potwierdzenia
 wizualnego bez renderowania. W repo nie dodano nowych bibliotek.
+
+### F — dostępność i dopracowanie
+
+Commit E: 2f72864. Stopka używa muted zamiast #718276 (obliczeniowo 5,81:1
+zamiast 3,79:1). JS przewijania respektuje reduced motion; focus globalny i
+regiony lokalnego scroll zachowane. Polski status „W rozwoju” zachowuje znaczenie
+in-progress, a placeholder podaje tematy zamiast kodów. Mały nagłówek ma miejsce
+na etykiety języków przy 320 px, bez obcinania funkcji. Brudnopis/rozwiązania
+korzystają ze wspólnych tokenów. Wymaga potwierdzenia w renderowaniu.
+
+Dodatkowa poprawka A: zmiana zadania z niewysłanym draftem w Matematyce lub
+Statystyce wymaga potwierdzenia; anulowanie zatrzymuje handler przed resetem.
+Notatki brudnopisu chronione przed opuszczeniem dokumentu. Nie zapisujemy ich
+trwale. Dodano E2E anulowania/akceptacji zmiany i anulowania reload.
+
+PASS: 42 ukierunkowane testy jednostkowe/SSR (w tym RED→GREEN lokalizacji),
+build/TypeScript. Dodano testy Tab/skip, obliczanego kontrastu, reduced motion,
+reflow i powiększenia tekstu. Test powiększenia tekstu nie zastępuje ręcznego
+zoomu przeglądarki 200%. Runtime i nowe screenshoty BLOCKED. Ponowna standardowa
+instalacja Chromium także z jawnym dostępem sieciowym nadal daje 403 Domain forbidden.
+Bez wyłączania sandboxa ani zmian polityki sieci.

@@ -89,3 +89,34 @@ for (const width of [1280, 375]) {
     });
   });
 }
+
+test('cancel replacing a free draft and deliberately accept a new task', async ({page})=>{
+  await page.goto('/');
+  await page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true}).click();
+  const answer=page.locator('.learning-workspace #answer'); await answer.fill('123');
+  const question=await page.locator('.learning-workspace .question').textContent();
+  page.once('dialog',dialog=>dialog.dismiss());
+  await page.locator('.learning-workspace .difficulty-picker').getByRole('button',{name:'Średni',exact:true}).click();
+  await expect(answer).toHaveValue('123'); await expect(page.locator('.learning-workspace .question')).toHaveText(question!);
+  page.once('dialog',dialog=>dialog.accept());
+  await page.locator('.learning-workspace .difficulty-picker').getByRole('button',{name:'Średni',exact:true}).click();
+  await expect(answer).toHaveValue('');
+});
+
+test('cancel replacing a Statistics draft',async({page})=>{
+  await page.goto('/'); await page.getByRole('button',{name:/Statystyka i prawdopodobieństwo/}).click();
+  const stats=page.locator('.statistics-practice'); await stats.locator('#st101-answer').fill('123');
+  page.once('dialog',dialog=>dialog.dismiss());
+  await stats.getByRole('button',{name:'Średni',exact:true}).click();
+  await expect(stats.locator('#st101-answer')).toHaveValue('123');
+  await expect(stats.getByRole('button',{name:'Łatwy',exact:true})).toHaveAttribute('aria-pressed','true');
+});
+
+test('native reload warning can be cancelled without losing the draft',async({page})=>{
+  await page.goto('/'); await page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true}).click();
+  await page.locator('.learning-workspace #answer').fill('123');
+  const dialog=page.waitForEvent('dialog');
+  const reload=page.reload().catch(()=>null);
+  const warning=await dialog; expect(warning.type()).toBe('beforeunload'); await warning.dismiss(); await reload;
+  await expect(page.locator('.learning-workspace #answer')).toHaveValue('123');
+});

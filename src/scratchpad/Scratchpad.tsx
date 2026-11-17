@@ -1,3 +1,4 @@
+import { useUnloadWarning } from "../navigation/useUnloadWarning";
 import { useLocale } from "../locales/LocaleProvider";
 import {
   useEffect,
@@ -31,6 +32,7 @@ export function Scratchpad({ run, active, idPrefix = "" }: { run: number; active
     undefined,
     createScratchpad,
   );
+  useUnloadWarning(!!state.present.text.trim() || state.present.strokes.length > 0);
   const [editorGeneration, setEditorGeneration] = useState(0);
   const [tool, setTool] = useState<"pen" | "eraser">("pen");
   const [expanded, setExpanded] = useState(false);
