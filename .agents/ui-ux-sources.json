@@ -1,0 +1,75 @@
+{
+  "schema": 1,
+  "hashAlgorithm": "skills CLI v2 normalized SHA-256 (path NUL byteLength NUL contents)",
+  "skills": {
+    "banner-design": {
+      "installedHash": "78c53d99e35bbb0140fa55e9909e78c28b9e02e46ea8ca7a2574b2906d2d9391",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "npmPackage": "ui-ux-pro-max-cli@2.15.0",
+      "method": "preserved byte-for-byte from PR #338, commit 82df363"
+    },
+    "brand": {
+      "installedHash": "b0b3a18a491d327e5655f069f0fdf85c3b60f8929e9ae98d5c03c69ed8bd8ade",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "npmPackage": "ui-ux-pro-max-cli@2.15.0",
+      "method": "preserved byte-for-byte from PR #338, commit 82df363"
+    },
+    "design": {
+      "installedHash": "f357dddfa742bd25ccea19556a4d7a31c3bf620bdbfe1998ebdd5cbfb9e49b7c",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "npmPackage": "ui-ux-pro-max-cli@2.15.0",
+      "method": "preserved byte-for-byte from PR #338, commit 82df363"
+    },
+    "design-system": {
+      "installedHash": "c30f4f976ec8caed7dd0074c7012b5f5e36cfd2c0a576fb04e7c10802305b86a",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "npmPackage": "ui-ux-pro-max-cli@2.15.0",
+      "method": "preserved byte-for-byte from PR #338, commit 82df363"
+    },
+    "design-taste-frontend": {
+      "installedHash": "2bdb036280e6a730e2463919cf4ea4f7cea512de1f7d8531ced7ba5ea593601d",
+      "source": "Leonxlnx/taste-skill",
+      "commit": "f6b76575f949707b4e3c37cd86cb44b0b98643e8",
+      "sourceType": "github",
+      "skillPath": "skills/taste-skill/SKILL.md",
+      "computedHash": "b10eab0a9684cd09cf34c31ef04a3bf530a5f4404422f9c520d42372d670c7fc",
+      "installMode": "copy",
+      "localPatch": "Removed hooks frontmatter only; no automatic command hooks. computedHash is upstream, installedHash is patched copy."
+    },
+    "impeccable": {
+      "installedHash": "077889e9782761360c17acbc2522af320d0dd0f928b09cd90884fa304f443a34",
+      "source": "pbakaus/impeccable",
+      "commit": "d41d9860b0094dcb68030657da63461212835aaa",
+      "version": "4.9.2",
+      "engine": "0.1.25",
+      "method": "official manual Codex copy"
+    },
+    "slides": {
+      "installedHash": "8ac362d2a8be33de40b24c9be971d486898ddd4156a73ee7a59e8b33e149512e",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "npmPackage": "ui-ux-pro-max-cli@2.15.0",
+      "method": "preserved byte-for-byte from PR #338, commit 82df363"
+    },
+    "ui-styling": {
+      "installedHash": "a7cfd22464e509ef8ea49a439ad1b9ec4a23673d5427e1d100055051df6dadc1",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "npmPackage": "ui-ux-pro-max-cli@2.15.0",
+      "method": "preserved byte-for-byte from PR #338, commit 82df363"
+    },
+    "ui-ux-pro-max": {
+      "installedHash": "a05da3ecc3f0388191425ae07bf4c796e5d500666b006954cb65f44f17f04622",
+      "source": "nextlevelbuilder/ui-ux-pro-max-skill",
+      "npmPackage": "ui-ux-pro-max-cli@2.15.0",
+      "method": "preserved byte-for-byte from PR #338, commit 82df363"
+    },
+    "web-design-guidelines": {
+      "installedHash": "4f68ae07187fb0d1fb78c88b503d089da4cf5a9d9625d1f2e425b1590bf96d92",
+      "source": "vercel-labs/agent-skills",
+      "commit": "1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62",
+      "sourceType": "github",
+      "skillPath": "skills/web-design-guidelines/SKILL.md",
+      "computedHash": "4f68ae07187fb0d1fb78c88b503d089da4cf5a9d9625d1f2e425b1590bf96d92",
+      "installMode": "copy"
+    }
+  }
+}
