@@ -26,16 +26,6 @@
       "npmPackage": "ui-ux-pro-max-cli@2.15.0",
       "method": "preserved byte-for-byte from PR #338, commit 82df363"
     },
-    "design-taste-frontend": {
-      "installedHash": "2bdb036280e6a730e2463919cf4ea4f7cea512de1f7d8531ced7ba5ea593601d",
-      "source": "Leonxlnx/taste-skill",
-      "commit": "f6b76575f949707b4e3c37cd86cb44b0b98643e8",
-      "sourceType": "github",
-      "skillPath": "skills/taste-skill/SKILL.md",
-      "computedHash": "b10eab0a9684cd09cf34c31ef04a3bf530a5f4404422f9c520d42372d670c7fc",
-      "installMode": "copy",
-      "localPatch": "Removed hooks frontmatter only; no automatic command hooks. computedHash is upstream, installedHash is patched copy."
-    },
     "impeccable": {
       "installedHash": "077889e9782761360c17acbc2522af320d0dd0f928b09cd90884fa304f443a34",
       "source": "pbakaus/impeccable",
