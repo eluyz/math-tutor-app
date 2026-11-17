@@ -58,6 +58,8 @@ import { examCopy } from "./exam/copy";
 import { PlannedSubjectPanel, SubjectNavigation } from "./SubjectNavigation";
 import type { SubjectId } from "./subjectRoadmap";
 import { StatisticsPractice } from "./statistics/StatisticsPractice";
+import { hasUnsubmittedAnswer } from "./navigation/unsavedWork";
+import { useUnloadWarning } from "./navigation/useUnloadWarning";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
@@ -66,6 +68,8 @@ export default function App() {
   const progress = useProgress();
   const [view, setView] = useState<"learn" | "progress" | "exam">("learn");
   const [subject, setSubject] = useState<SubjectId>("mathematics");
+  const [statisticsVisited, setStatisticsVisited] = useState(false);
+  const [statisticsDraft, setStatisticsDraft] = useState(false);
   const [examLocked, setExamLocked] = useState(false);
   const sessionId = useRef<string | null>(null);
   const previousView = useRef(view);
@@ -112,6 +116,11 @@ export default function App() {
   const [stepVisible, setStepVisible] = useState(false);
   const [stepAnswer, setStepAnswer] = useState("");
   const [checkedStep, setCheckedStep] = useState<string | null>(null);
+  useUnloadWarning(
+    sessionNumber > 0 || examLocked || statisticsDraft ||
+    (!!active && hasUnsubmittedAnswer(answer, checkedInput !== null)) ||
+    (checkedStep === null && stepAnswer.trim().length > 0),
+  );
   const stepResult =
     active?.step && checkedStep !== null
       ? checkStep(active, checkedStep, feedback)
@@ -141,12 +150,18 @@ export default function App() {
   }, [sessionDone]);
 
   useEffect(() => {
-    if (previousView.current !== view)
+    if (subject === "mathematics" && previousView.current !== view)
       document
         .getElementById(view === "progress" ? "progress-title" : view === "exam" ? "exam-title" : "practice-title")
         ?.focus();
     previousView.current = view;
-  }, [view]);
+  }, [view, subject]);
+
+  function selectSubject(next: SubjectId) {
+    if (examLocked) return;
+    if (next === "statistics") setStatisticsVisited(true);
+    setSubject(next);
+  }
 
   function resetAnswer(exercise: GeneratedTask | null = null) {
     setAnswer(exercise ? emptyAnswer(getAnswerSpec(exercise)) : "");
@@ -297,7 +312,7 @@ export default function App() {
             event.preventDefault();
             if (examLocked) return;
             if (subject !== "mathematics") {
-              setSubject("mathematics");
+              selectSubject("mathematics");
               setView("learn");
               return;
             }
@@ -305,10 +320,6 @@ export default function App() {
               setView("learn");
               return;
             }
-            setActive(null);
-            setUnavailable(null);
-            updateSession(null);
-            resetAnswer();
             window.scrollTo({ top: 0, behavior: "smooth" });
           }}
           aria-label={a.home}
@@ -324,9 +335,9 @@ export default function App() {
         <LanguagePicker />
       </header>
 
-      <SubjectNavigation locale={locale} subject={subject} onSelect={setSubject} disabled={examLocked} />
-      {subject === "mathematics" ? (
-        <>
+      <SubjectNavigation locale={locale} subject={subject} onSelect={selectSubject} disabled={examLocked} />
+      <main id="main-content" tabIndex={-1}>
+      <div hidden={subject !== "mathematics"}>
       <nav className="view-navigation" aria-label={copy.progress.navigation}>
         <button type="button" disabled={examLocked} aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
           {copy.progress.learn}
@@ -339,7 +350,6 @@ export default function App() {
       </nav>
       {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
 
-      <main id="main-content" tabIndex={-1}>
         <div className="learning-workspace" hidden={view !== "learn"}>
         <section
           className="practice"
@@ -661,7 +671,7 @@ export default function App() {
                   )}
                 </>
               ) : null}
-              <Scratchpad run={run} active={!!active && view === "learn"} />
+              <Scratchpad run={run} active={!!active && view === "learn" && subject === "mathematics"} />
               {active ? (
                 <>
                   <form onSubmit={submitAnswer}>
@@ -866,18 +876,19 @@ export default function App() {
         </section>
         </div>
         <ProgressDashboard
-          active={view === "progress"}
+          active={view === "progress" && subject === "mathematics"}
           history={progress.history}
           issue={progress.issue}
           onDelete={progress.clear}
           onLearn={() => setView("learn")}
         />
         {view === "exam" && <ExamMode onLockedChange={setExamLocked} />}
+      </div>
+      {statisticsVisited && <div hidden={subject !== "statistics"}>
+        <StatisticsPractice locale={locale} onDraftChange={setStatisticsDraft} />
+      </div>}
+      {subject !== "mathematics" && subject !== "statistics" && <PlannedSubjectPanel locale={locale} subject={subject} />}
       </main>
-        </>
-      ) : (
-        <main id="main-content" tabIndex={-1}>{subject === "statistics" ? <StatisticsPractice locale={locale} /> : <PlannedSubjectPanel locale={locale} subject={subject} />}</main>
-      )}
       <footer>
         <span>
           math<span className="brand-accent">tutor</span>

@@ -17,7 +17,7 @@ export function nextStatisticsSeed(seed: number): number {
 }
 
 /** Mean-only pilot. State never enters Mathematics sessions, grading or storage. */
-export function StatisticsPractice({locale}: {locale: Locale}) {
+export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onDraftChange?: (draft: boolean) => void}) {
   const c=statisticsPracticeCopy[locale];
   const subjects=subjectCopy[locale];
   const [difficulty,setDifficulty]=useState<DatasetDifficulty>("easy");
@@ -31,6 +31,7 @@ export function StatisticsPractice({locale}: {locale: Locale}) {
   const task=useMemo(()=>generateMeanDataset(difficulty,seed),[difficulty,seed]);
   const teaching=useMemo(()=>meanCopy(task.values,locale),[task,locale]);
   useEffect(()=>{ heading.current?.focus(); },[]);
+  useEffect(()=>{ onDraftChange?.(raw.trim().length > 0 && assessment === null); },[raw, assessment, onDraftChange]);
 
   function reset() {
     setRaw(""); setAssessment(null); setHints(0); setSolution(false);
