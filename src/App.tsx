@@ -57,6 +57,7 @@ import { ExamMode } from "./exam/ExamMode";
 import { examCopy } from "./exam/copy";
 import { PlannedSubjectPanel, SubjectNavigation } from "./SubjectNavigation";
 import type { SubjectId } from "./subjectRoadmap";
+import { StatisticsPractice } from "./statistics/StatisticsPractice";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
@@ -874,7 +875,7 @@ export default function App() {
       </main>
         </>
       ) : (
-        <main><PlannedSubjectPanel locale={locale} subject={subject} /></main>
+        <main>{subject === "statistics" ? <StatisticsPractice locale={locale} /> : <PlannedSubjectPanel locale={locale} subject={subject} />}</main>
       )}
       <footer>
         <span>
