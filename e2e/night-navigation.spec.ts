@@ -1,8 +1,87 @@
 import { expect, test, type Page } from "@playwright/test";
 import { numeric } from "./helpers/arithmetic";
 import { confirmTaskReplacement } from "./helpers/navigation";
+import { HISTORY_KEY } from "../src/progress/model";
 
 // Never disable Chromium sandbox for sprint evidence.
+
+async function chooseReplacement(page: Page, accept: boolean) {
+  await Promise.all([
+    page.waitForEvent("dialog").then(async dialog => {
+      expect(dialog.type()).toBe("confirm");
+      expect(dialog.message()).toMatch(/nie zostanie automatycznie oceniona|will not be assessed automatically/);
+      if (accept) await dialog.accept(); else await dialog.dismiss();
+    }),
+    page.locator(".next-button").click(),
+  ]);
+}
+
+for (const {width, en} of [{width:375,en:false},{width:1280,en:true}]) {
+  test(`Next preserves an unchecked session answer until explicit consent ${width}px ${en?'EN':'PL'}`, async ({page}) => {
+    await page.setViewportSize({width,height:900});
+    await page.goto("/");
+    const button = (name:string) => page.getByRole("button",{name,exact:true});
+    if (en) await button("English").click();
+    await button(en?"Start a session (10 exercises)":"Rozpocznij sesję (10 zadań)").click();
+    const answer = page.locator("#answer"), question = page.locator(".question");
+    await answer.fill("123");
+    await button(en?"Show scratchpad":"Pokaż brudnopis").click();
+    await button(en?"Write":"Pisz").click();
+    const notes = page.locator("#scratchpad-text");
+    await notes.fill("Keep my calculation");
+    const run = await question.getAttribute("data-exercise-run");
+    const text = await question.innerText();
+    const storage = () => page.evaluate(() => ({local:{...localStorage},session:{...sessionStorage}}));
+    const before = await storage();
+    await chooseReplacement(page,false);
+    await expect(question).toHaveAttribute("data-exercise-run",run!);
+    await expect(question).toHaveText(text);
+    await expect(answer).toHaveValue("123");
+    await expect(notes).toHaveValue("Keep my calculation");
+    await expect(page.locator(".session-progress")).toHaveText(en?"Session: exercise 1 of 10":"Sesja: zadanie 1 z 10");
+    expect(await storage()).toEqual(before);
+    await chooseReplacement(page,true);
+    await expect(question).not.toHaveAttribute("data-exercise-run",run!);
+    await expect(answer).toHaveValue("");
+    await expect(notes).toHaveValue("");
+    await expect(page.locator(".session-progress")).toHaveText(en?"Session: exercise 2 of 10":"Sesja: zadanie 2 z 10");
+    // Empty skips require no confirmation and retain the existing scoring rules.
+    for (let position=2;position<=10;position++) await page.locator(".next-button").click();
+    const history = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!),HISTORY_KEY);
+    expect(history.sessions).toHaveLength(1);
+    expect(history.sessions[0]).toMatchObject({shown:10,correct:0,incorrect:0,skipped:10});
+    expect(history.sessions[0].entries.every((entry:{outcome:string})=>entry.outcome==='skipped')).toBe(true);
+  });
+
+  test(`Next protects auto-clear notes after a correct free-practice answer ${width}px ${en?'EN':'PL'}`, async ({page}) => {
+    await page.setViewportSize({width,height:900});
+    await page.goto("/");
+    const button = (name:string) => page.getByRole("button",{name,exact:true});
+    if (en) await button("English").click();
+    await button(en?"Start practice":"Rozpocznij ćwiczenie").click();
+    const question=page.locator(".question"), answer=page.locator("#answer");
+    const expected=numeric(await question.innerText());
+    await answer.fill(`${expected.numerator}/${expected.denominator}`);
+    await button(en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(en?"Show scratchpad":"Pokaż brudnopis").click();
+    await button(en?"Write":"Pisz").click();
+    const notes=page.locator("#scratchpad-text");
+    await expect(page.locator(".scratchpad input[type=checkbox]")).toBeChecked();
+    await notes.fill("Keep this explanation");
+    const run=await question.getAttribute("data-exercise-run");
+    await chooseReplacement(page,false);
+    await expect(question).toHaveAttribute("data-exercise-run",run!);
+    await expect(notes).toHaveValue("Keep this explanation");
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await chooseReplacement(page,true);
+    await expect(question).not.toHaveAttribute("data-exercise-run",run!);
+    await expect(notes).toHaveValue("");
+    await expect(answer).toHaveValue("");
+    await expect(page.locator(".feedback")).toHaveCount(0);
+    expect(await page.evaluate(key=>localStorage.getItem(key),HISTORY_KEY)).toBeNull();
+  });
+}
 
 async function unloadIsProtected(page: Page) {
   return page.evaluate(() => {

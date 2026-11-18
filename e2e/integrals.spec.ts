@@ -86,6 +86,7 @@ test("MT-EDU-008: active integral session locks category/level and preserves not
   const sessionQuestions = new Set<string>();
   for (let i = 0; i < 10; i++) {
     sessionQuestions.add(await page.locator(".question").innerText());
+    if (i === 0) page.once("dialog", dialog => { expect(dialog.type()).toBe("confirm"); return dialog.accept(); });
     await page.getByRole("button", { name: i === 9 ? "Finish session" : "Next exercise" }).click();
   }
   expect(sessionQuestions.size).toBe(10);

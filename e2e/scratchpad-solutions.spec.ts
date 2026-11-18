@@ -214,7 +214,9 @@ for (const { name, viewport } of [
     await page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)", exact: true }).click();
     for (let i = 0; i < 10; i++) { await expect(notes).toHaveValue("zachowaj x²"); await page.getByRole("button", { name: i === 9 ? "Zakończ sesję" : "Następne zadanie", exact: true }).click(); }
     await page.getByRole("button", { name: "Rozpocznij sesję na obecnym poziomie", exact: true }).click(); await expect(notes).toHaveValue("zachowaj x²");
-    await auto.check(); await page.getByRole("button", { name: "Następne zadanie", exact: true }).click();
+    await auto.check();
+    page.once("dialog", dialog => { expect(dialog.type()).toBe("confirm"); return dialog.accept(); });
+    await page.getByRole("button", { name: "Następne zadanie", exact: true }).click();
     await expect(notes).toHaveValue(""); await expect(page.locator("[data-stroke]")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Cofnij", exact: true })).toBeDisabled();
   });
@@ -262,6 +264,7 @@ for (const { name, viewport } of [
     await expect(page.locator(".question")).toHaveText(question);
     await expect(notes).toHaveValue("poprzednie uruchomienie");
     await expect(page.locator(".solution-panel li")).toHaveCount(1);
+    page.once("dialog", dialog => { expect(dialog.type()).toBe("confirm"); return dialog.accept(); });
     await page.getByRole("button", { name: "Następne zadanie", exact: true }).click();
     await expect(notes).toHaveValue(""); await expect(page.locator(".solution-panel li")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Cofnij", exact: true })).toBeDisabled();

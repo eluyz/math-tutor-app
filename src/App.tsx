@@ -310,7 +310,7 @@ export default function App() {
     if (!(target instanceof Element)) return;
     const button = target.closest<HTMLButtonElement>("button");
     if (!button || button.disabled || button.hasAttribute("data-preserves-work")) return;
-    const replacesTask = button.closest(".study-groups, .category-picker, .practice-controls, .exercise-list-items, #catalog-search-results, .practice-entry");
+    const replacesTask = button.closest(".study-groups, .category-picker, .practice-controls, .exercise-list-items, #catalog-search-results, .practice-entry, .next-button");
     const pending = (!!active && hasUnsubmittedAnswer(answer, checkedInput !== null)) ||
       (checkedStep === null && stepAnswer.trim().length > 0) || scratchpadAtRisk;
     if (replacesTask && pending && !window.confirm(n.discard)) {

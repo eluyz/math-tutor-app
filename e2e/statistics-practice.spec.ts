@@ -158,7 +158,11 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         await expect(page.locator(".practice .question")).toHaveText(mathQuestion);
         await expect(page.locator("#answer")).toHaveValue("17");
         await expect(page.locator(".session-progress").first()).toHaveText(position);
-        for(let index=0;index<10;index++) await page.getByRole("button",{name:index===9?(locale==="pl"?"Zakończ sesję":"Finish session"):(locale==="pl"?"Następne zadanie":"Next exercise"),exact:true}).click();
+        for(let index=0;index<10;index++) {
+          // Deliberately discard the retained, unchecked Mathematics answer.
+          if (index === 0) page.once("dialog", dialog => { expect(dialog.type()).toBe("confirm"); return dialog.accept(); });
+          await page.getByRole("button",{name:index===9?(locale==="pl"?"Zakończ sesję":"Finish session"):(locale==="pl"?"Następne zadanie":"Next exercise"),exact:true}).click();
+        }
         const afterSession=await storage(page);
         expect(JSON.parse(afterSession.local[HISTORY_KEY]).sessions).toHaveLength(1);
         await enter(page); await submit(page,"2");

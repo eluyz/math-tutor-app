@@ -62,6 +62,9 @@ async function completeSession(page: Page, outcomes: Outcome[], stressRetries = 
       await page.getByLabel("Twoja odpowiedź").fill(right);
     }
     const next = page.getByRole("button", { name: index === 9 ? "Zakończ sesję" : "Następne zadanie" });
+    // These scenarios intentionally leave a newly edited answer unchecked.
+    if (stressRetries && (index === 0 || outcome === "skip"))
+      page.once("dialog", dialog => { expect(dialog.type()).toBe("confirm"); return dialog.accept(); });
     if (stressRetries && index === 1) await next.dblclick();
     else await next.click();
   }

@@ -38,6 +38,24 @@ disabled with explanations. The university track displays a roadmap with no
 hidden exercise fallback. Statistics does not write Mathematics history or exam
 scores.
 
+## Independent review correction
+
+The final reviewer confirmed a pre-existing UI-only safety gap: Mathematics
+`Next`/`Finish` bypassed the replacement guard, so an unchecked answer or
+auto-clear notes could be discarded immediately. The existing capture guard now
+also covers `.next-button`. Cancel preserves the run, answer, session position,
+notes and storage. Explicit consent uses the unchanged Next/session logic; an
+empty task can still be skipped without confirmation. PL/EN copy explains that an
+entered answer is not assessed automatically, existing session outcomes are kept,
+and notes are cleared only with auto-clear enabled. No first-valid-attempt or exam scoring rule changes.
+
+Four new PL/EN mobile/desktop regressions cover cancellation and consent for an
+unchecked session answer and notes after a correctly assessed free-practice
+answer. Session coverage completes ten deliberate skips and checks the exact
+stored outcomes. Existing tests that deliberately discard retained input or
+auto-clear notes now explicitly accept that single confirmation; their grading,
+progress and teaching assertions are retained.
+
 ## Verification checkpoint
 
 - Integrated full Vitest: **2665 PASS / 0 FAIL**. Production build: PASS.
@@ -48,8 +66,9 @@ scores.
   390 unique catalog variants.
 - Existing rank-counting oracle, literal odd/even/negative/fraction witnesses,
   PL/EN teaching and parser assertions remain in the full unit/browser suites.
-- Full browser inventory: **1228 cases**, including the integrated ST-102 tests
-  and twelve new draft/confirmation/native-reload cases. Discovery is not a pass.
+- Full browser inventory: **1232 cases**, including the integrated ST-102 tests,
+  twelve new Statistics draft/confirmation/native-reload cases and four
+  Mathematics Next-button protection cases. Discovery is not a pass.
 - New cases cover 375/390/768/1280/1440 px in PL/EN, retained median state across
   subjects/views/language, cancel/accept for four replacement actions, visible
   keyboard focus, unload protection and overflow. Native median reload
@@ -58,6 +77,15 @@ scores.
   keyboard/contrast/reflow and shared-layout suites before full Playwright and
   the unchanged production acceptance B–G gates. No assertion, retry or timeout
   is weakened.
+- The independent final review confirmed the Next-button safety gap and reviewed
+  its bounded fix. Its follow-up copy finding was also corrected: revealing a
+  solution can retain `solution-viewed`, so the prompt does not promise that every
+  ungraded task is recorded as skipped.
+- Vercel's current Web Interface Guidelines and UI UX Pro Max's accessibility,
+  touch, overflow and feedback rules guided the integration review. Impeccable
+  context and its audit reference were read; the mechanical changed-file detector
+  returned `[]`. No hooks or automatic agent/apply mode were enabled. This is not
+  a claim of a complete WCAG audit or a new design assessment.
 
 Local secure Chromium still aborts on the system's SUID/crashpad configuration:
 **0 PASS / 1 launch failure / 11 NOT RUN** in the bounded new-suite attempt.
