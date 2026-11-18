@@ -88,7 +88,7 @@ aria-current. Nie przyjmuje poprawności ani punktów, więc nie ujawnia oceny.
 Postępy i egzamin otrzymały tokeny Focus Studio, zawijanie filtrów i czytelną
 hierarchię wartości. Modele historii i egzaminu oraz usuwanie danych bez zmian.
 
-PASS: sześć SSR testów nawigacji PL/EN i istniejące testy historii/modelu;
+PASS: sześć SSR testów nawigacji PL/EN i osiem istniejących testów historii;
 TypeScript/build. Cztery E2E scenariusze z włączonym sandboxem dodano, runtime
 BLOCKED. Dokładne końcowe liczby wspólnej regresji zapisane poniżej.
 
@@ -159,3 +159,52 @@ będzie zapisana poniżej; do tego czasu status PARTIAL / NO-GO.
 Trzeci, końcowy przegląd: brak pozostałych problemów w zgłoszonych usterkach;
 46/46 testów trzech ukierunkowanych zestawów PASS. To akceptacja poprawek w
 kodzie, nie pełna akceptacja UI/UX. Nie nadano oceny 8–9/10 bez dowodów renderowania.
+
+
+## Końcowa walidacja kodu 8db7a35
+
+| Kontrola lokalna | Wynik |
+| --- | --- |
+| npm ci | PASS |
+| npm test | **2649 PASS / 0 FAIL, 205 plików** |
+| npm run build | PASS; istniejące ostrzeżenie o rozmiarze chunka |
+| Jednostkowe B / C / D / E / F / G | **87 / 7 / 26 / 19 / 18 / 18 PASS**, 0 FAIL |
+| Nowe scenariusze night-* | 48 odkrytych, runtime NOT RUN |
+| Pełny E2E lokalny | 1181 odkrytych: 1 błąd startu Chromium, 1180 NOT RUN |
+| E2E B / C / D / E / F / G | 72 / 24 / 96 / 64 / 64 / 64 odkrytych; po 1 błędzie startu, reszta NOT RUN |
+
+Jednostkowe B–G są podzbiorami pełnych 2649 testów, nie dodatkowymi unikatowymi
+przypadkami. Wszystkie 7 lokalnych prób przeglądarkowych zakończyło się przed
+asercjami aplikacji (SUID/crashpad). Łącznie 7 błędów środowiska i 1558 NOT RUN.
+Użyto tymczasowych konfiguracji poza repo, zachowując testMatch, webServer i
+jawne chromiumSandbox:true; zatrzymanie po pierwszym błędzie zapobiegało
+powtarzaniu tej samej awarii. Początkowy błąd adaptacji listy webServer w B–D
+skorygowano i wszystkie trzy próby powtórzono. Konfiguracja CI bez zmian.
+
+Impeccable: 5 istniejących warnings / 0 errors, exit 2; cztery obramowania i
+nadpisana deklaracja Arial w dawnym styles.css, bez nowego blockera. Nie zmieniano
+dobrych elementów tylko dla mechanicznego ostrzeżenia. Wyniki i snapshot CI dla
+kodu: [MT_UI_003_VALIDATION.json](MT_UI_003_VALIDATION.json). Szczegółowe lokalne
+logi pozostają w /workspace/mt-ui-003-results poza repozytorium.
+
+GitHub Actions 8db7a35: jednostkowe/build/instalacja przeglądarki PASS,
+pełne E2E w toku przy sprawdzeniu; B–G jeszcze bez wyniku.
+[Przebieg](https://github.com/eluyz/math-tutor-app/actions/runs/44251597661).
+Status CI na późniejszym commicie dokumentacji podaje opis PR i raport końcowy;
+nie utożsamiać wyników różnych SHA. Pełne wyniki końcowego HEAD sprawdzamy osobno.
+
+### Ograniczenia i kontynuacja
+
+**STATUS PARTIAL, gotowość NO-GO.** Kod pakietów A–F i poprawki G są zapisane;
+nie pozostał potwierdzony blocker z ograniczonego red teamu. Nadal P1:
+pełne zielone E2E/B–G na bieżącym HEAD oraz faktyczny przegląd widoków w
+bezpiecznej przeglądarce, w tym 200% zoom, klawiatura/czytnik i PL/EN.
+Nie ma nowych screenshotów; [zrzuty bazowe](screenshots/) dotyczą MT-UI-001,
+nie obecnej implementacji. Ocena 6,5/10 jest bazowa; nowej nie nadano.
+P2: duży chunk i konieczność dopracowania ewentualnych szczegółów ujawnionych
+przez przegląd renderowanego UI. Nie dodano zależności ani zmian matematycznych.
+
+Następny krok: uruchomić 48 nowych scenariuszy i pełne istniejące E2E w środowisku
+z działającym sandboxem, zebrać sześć reprezentatywnych ekranów oraz przeanalizować
+końcowy CI dokładnego SHA. Nie wprowadzać nowego stylu ani treści edukacyjnych.
+Stash i wcześniejsze materiały w głównym checkoutcie zachowane. Bez merge.

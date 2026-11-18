@@ -1,0 +1,110 @@
+{
+  "sourceHead": "8db7a355db057a074e9e4292bd63a355ad6fbdf6",
+  "npmCi": "PASS",
+  "unit": {
+    "passed": 2649,
+    "failed": 0,
+    "files": 205
+  },
+  "build": "PASS (existing bundle size advisory)",
+  "batchUnit": {
+    "B": 87,
+    "C": 7,
+    "D": 26,
+    "E": 19,
+    "F": 18,
+    "G": 18
+  },
+  "note": "Batch unit tests are subsets of the full unit suite, not extra unique tests.",
+  "browser": {
+    "default": {
+      "discovered": 1181,
+      "startupFailures": 1,
+      "notRun": 1180,
+      "signals": [
+        "SUID sandbox",
+        "chrome_crashpad_handler",
+        "browserType.launch"
+      ],
+      "status": "BLOCKED"
+    },
+    "b": {
+      "discovered": 72,
+      "startupFailures": 1,
+      "notRun": 71,
+      "signals": [
+        "SUID sandbox",
+        "chrome_crashpad_handler",
+        "browserType.launch"
+      ],
+      "status": "BLOCKED"
+    },
+    "c": {
+      "discovered": 24,
+      "startupFailures": 1,
+      "notRun": 23,
+      "signals": [
+        "SUID sandbox",
+        "chrome_crashpad_handler",
+        "browserType.launch"
+      ],
+      "status": "BLOCKED"
+    },
+    "d": {
+      "discovered": 96,
+      "startupFailures": 1,
+      "notRun": 95,
+      "signals": [
+        "SUID sandbox",
+        "chrome_crashpad_handler",
+        "browserType.launch"
+      ],
+      "status": "BLOCKED"
+    },
+    "e": {
+      "discovered": 64,
+      "startupFailures": 1,
+      "notRun": 63,
+      "signals": [
+        "SUID sandbox",
+        "chrome_crashpad_handler",
+        "browserType.launch"
+      ],
+      "status": "BLOCKED"
+    },
+    "f": {
+      "discovered": 64,
+      "startupFailures": 1,
+      "notRun": 63,
+      "signals": [
+        "SUID sandbox",
+        "chrome_crashpad_handler",
+        "browserType.launch"
+      ],
+      "status": "BLOCKED"
+    },
+    "g": {
+      "discovered": 64,
+      "startupFailures": 1,
+      "notRun": 63,
+      "signals": [
+        "SUID sandbox",
+        "chrome_crashpad_handler",
+        "browserType.launch"
+      ],
+      "status": "BLOCKED"
+    }
+  },
+  "newNightE2EScenarios": 48,
+  "newScreenshots": 0,
+  "browserSecurity": "Sandbox enabled; no bypass flags; local configs temporary outside repo.",
+  "ciSnapshot": {
+    "head": "8db7a355db057a074e9e4292bd63a355ad6fbdf6",
+    "url": "https://github.com/eluyz/math-tutor-app/actions/runs/44251597661",
+    "status": "IN_PROGRESS",
+    "unit": "PASS",
+    "build": "PASS",
+    "browser": "IN_PROGRESS",
+    "B-G": "PENDING"
+  }
+}
