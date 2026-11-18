@@ -50,6 +50,10 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+      - name: Summarize browser suite results
+        if: always()
+        run: node scripts/report-browser-results.mjs test-results/e2e-results.json
+
       - name: Run Batch B acceptance against the production bundle
         run: npm run test:e2e:batch-b
 
@@ -139,6 +143,10 @@ jobs:
             playwright-report/batch-b/
           if-no-files-found: warn
           retention-days: 14
+
+      - name: Summarize browser acceptance results
+        if: always()
+        run: node scripts/report-browser-results.mjs test-results/batch-{b,c,d,e,f,g}-results.json
 
       - name: Save Pages build from main
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'

@@ -1,6 +1,6 @@
 # MT-UI-002 — Focus Studio audit
 
-**Decision: IMPROVE. Expert assessment: 6,5/10. Retain Focus Studio, improve the hierarchy, and complete accessibility work before extending the prototype.**
+**Decision: IMPROVE. Expert assessment: 6.5/10. Retain Focus Studio, improve the hierarchy, and complete accessibility work before extending the prototype.**
 
 The assessment covers the available screens and code, with moderate confidence. It is not the result of user research, a WCAG certification, or approval of the entire application. No confirmed P0 was found; this does not rule out problems in untested flows. The largest obstacle is the dominance of catalog configuration over starting a short exercise, rather than the palette.
 
@@ -32,7 +32,7 @@ The assessment covers the available screens and code, with moderate confidence. 
 | # | Severity / evidence | Issue, impact, and specific recommendation |
 | --- | --- | --- |
 | 1 | **P1 · W/K + O** | **Starting an exercise loses out to the catalog.** At [375 px](screenshots/after-home-375.png), the family list begins around y1232 and the “Zacznij…” (“Start…”) CTA around y1905; on desktop, the panel begins around y763. The first phone screen mainly shows navigation and configuration. Place a clear action to start one exercise near the title; after an exercise is selected, collapse configuration to “Zmień temat/poziom” (“Change topic/level”). Keep buttons equal within groups. |
-| 2 | **P1 · W/K** | **Insufficient contrast in the small footer text.** `styles.css:358–360`: 12 px, `#718276` on `#f5f7f8` produces **3,79:1**, below 4,5:1 for normal text (WCAG 1.4.3). [View](screenshots/after-home-1440.png). This is an inherited color; the result is calculated from CSS, rather than measured from live pixels. Use a suitable muted token — here 5,81:1 — and check the result in the browser. |
+| 2 | **P1 · W/K** | **Insufficient contrast in the small footer text.** `styles.css:358–360`: 12 px, `#718276` on `#f5f7f8` produces **3.79:1**, below 4.5:1 for normal text (WCAG 1.4.3). [View](screenshots/after-home-1440.png). This is an inherited color; the result is calculated from CSS, rather than measured from live pixels. Use a suitable muted token — here 5.81:1 — and check the result in the browser. |
 | 3 | **P2 · K** | **The logo abandons the active learning session without warning.** `App.tsx:308–312` resets the exercise and answer and calls `updateSession(null)`. An accidental click may lose an unfinished session. Preserve current work or confirm abandonment. Existing behavior; the live scenario was not executed. |
 | 4 | **P2 · K** | **The exam communicates “answered” poorly.** `ExamMode.tsx:239–244` includes the exercise number in the accessible name, while `exam.css:30` changes only border thickness. Add a visible marker and answered/unanswered text to the accessible name. Keep the current-exercise state separate. Existing debt; no screen reader session was performed. |
 | 5 | **P2 · K** | **Reduced motion does not cover explicit JS smooth scrolling.** `App.tsx:312` sets `behavior: "smooth"`; the reduction in `redesign.css:106–107` covers CSS. Adapt this action to motion preferences. This is a remnant of an existing action, rather than a claim of an AA violation or a live observation of animation. |
@@ -98,7 +98,7 @@ Hierarchy acceptance criterion: a person starting to learn finds the first-exerc
 - **Impeccable:** read instructions, `context` for the PR checkout, critique/rubric and audit; independent Assessment A/B; source detector. **5 warnings, 0 errors**, exit 2: four `side-tab` findings and Arial in legacy `styles.css`. Arial is overridden, and question/feedback borders serve a purpose. These warnings are not considered evidence of “AI design” or a blocker. [Detector result](mt-ui-002-evidence/impeccable-detector.json).
 - **Vercel Web Design Guidelines:** read the skill and fetched [the current rules used for the audit](mt-ui-002-evidence/vercel-guidelines-used.md); applied them to contrast, navigation, state, motion, and forms.
 - **Superpowers:** available in the host; used `using-superpowers` and the verification-before-completion principle: independent evidence, separate scopes, and no claims for tests that were not run.
-- Token contrast was independently recalculated: text/white 14,65:1, muted/background 5,81:1, accent/white 7,18:1, focus/white 6,00:1. These are selected pairs, rather than an audit of all states.
+- Token contrast was independently recalculated: text/white 14.65:1, muted/background 5.81:1, accent/white 7.18:1, focus/white 6.00:1. These are selected pairs, rather than an audit of all states.
 
 The earlier 78+15 test results and 2603 unit tests in the PR description are the author's report; they are not presented as this audit's own run. This task performed installation, build, a sandboxed-browser launch test, an HTTP preview check, detector execution, and source/screenshot analysis. No new E2E test, overlay, or live measurements were performed. [Build](mt-ui-002-evidence/audit-build.log), [source PR screenshots](screenshots/).
 

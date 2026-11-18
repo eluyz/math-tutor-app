@@ -23,7 +23,7 @@ Scope: `src/App.tsx`, `src/styles.css`, progress/exam modules, localization, and
 
 ## Before / after
 
-Screenshots are in `screenshots/`. Measurements at four widths: [viewport-checks.json](viewport-checks.json). All reported no horizontal document scrolling in PL/EN, a working skip link and answer focus, and equal topic heights (59,69 px on mobile, 48 px on desktop). Formulas remain text and dedicated tables/SVG; the prototype does not migrate to LaTeX.
+Screenshots are in `screenshots/`. Measurements at four widths: [viewport-checks.json](viewport-checks.json). All reported no horizontal document scrolling in PL/EN, a working skip link and answer focus, and equal topic heights (59.69 px on mobile, 48 px on desktop). Formulas remain text and dedicated tables/SVG; the prototype does not migrate to LaTeX.
 
 ## Review material
 
@@ -48,4 +48,4 @@ An independent code review identified issues that were corrected: an insufficien
 - React duplicate-key warnings appeared during existing progress test scenarios; the tests pass. Progress logic was unchanged.
 - Initial full Vitest run: 2602/2603; `src/catalogSearch.test.ts:78` exceeded 5 s under concurrent load. An isolated rerun of that file passed 7/7. The final full run with one worker and a 30 s timeout is reported below. Repository timeout settings were unchanged.
 
-Final full Vitest run: **202/202 files, 2603/2603 tests** (`npm test -- --maxWorkers=1 --testTimeout=30000`, 217,54 s).
+Final full Vitest run: **202/202 files, 2603/2603 tests** (`npm test -- --maxWorkers=1 --testTimeout=30000`, 217.54 s).

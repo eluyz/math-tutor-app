@@ -6,6 +6,7 @@ static concept labels are preserved where they provide evidence.
 
 | Document | Purpose and historical scope |
 | --- | --- |
+| [UI/UX tool setup](../../.agents/UI-UX-SETUP.md) | Project skill installation, sources, verification, and historical setup limitations. |
 | [UI audit](UI_AUDIT.md) | MT-UI-001 prototype audit and the tests performed at that stage. |
 | [Design system](DESIGN_SYSTEM.md) | Focus Studio selection, tokens, accessibility goals, and MT-UI-003 refinements. |
 | [Redesign roadmap](REDESIGN_ROADMAP.md) | Prototype scope, deferred work, and continuation boundaries. |

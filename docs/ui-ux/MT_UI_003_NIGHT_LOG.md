@@ -1,5 +1,9 @@
 # MT-UI-003 — NIGHT BUILD
 
+> Historical implementation checkpoints. For the subsequent CI failure
+> investigation and English documentation migration, see
+> [MT-UI-004 CI recovery](MT_UI_004_CI_RECOVERY.md).
+
 ## Plan and boundaries
 
 Focus Studio; React/TypeScript and existing CSS, without new libraries.
@@ -29,7 +33,7 @@ multiple new sticky bars. Focus Studio and all features are retained.
 
 Main: 307276a. Pre-sprint PR: 61e5ad6. Synchronized through a regular merge of
 main, without conflicts; the merge SHA is in `git log`. Earlier audit: a
-conditional 6,5/10. Known blocker: system Chromium does not launch with the
+conditional 6.5/10. Known blocker: system Chromium does not launch with the
 sandbox (SUID/crashpad). Another standard Playwright attempt is planned;
 security safeguards will not be bypassed.
 
@@ -111,8 +115,8 @@ rendering. No new libraries were added to the repository.
 
 ### F — accessibility and refinement
 
-Commit E: 2f72864. The footer uses muted instead of #718276 (calculated 5,81:1
-instead of 3,79:1). JS scrolling respects reduced motion; global focus and local
+Commit E: 2f72864. The footer uses muted instead of #718276 (calculated 5.81:1
+instead of 3.79:1). JS scrolling respects reduced motion; global focus and local
 scroll regions are retained. The Polish status “W rozwoju” preserves the
 in-progress meaning, while the placeholder gives topics instead of codes.
 Small-header sizing was adjusted for 320 px; the rendered result is not yet
@@ -212,7 +216,7 @@ no confirmed blocker remains from the limited red team review. P1 items remain:
 a fully green E2E/B–G run on the current HEAD and an actual view review in a
 secure browser, including 200% zoom, keyboard/screen reader, and PL/EN.
 There are no new screenshots; [baseline screenshots](screenshots/) show
-MT-UI-001, rather than the current implementation. The 6,5/10 rating is the
+MT-UI-001, rather than the current implementation. The 6.5/10 rating is the
 baseline; no new rating was assigned. P2: large chunk and any refinements
 identified by reviewing the rendered UI. No dependencies or mathematical
 changes were added.

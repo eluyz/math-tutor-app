@@ -2,6 +2,9 @@
 
 Status: **IN PROGRESS / NO-GO**. This report supplements the historical
 [night log](MT_UI_003_NIGHT_LOG.md); it does not replace its results.
+This is the implementation/local-validation checkpoint. Later exact-HEAD CI
+results and any remaining acceptance blockers are recorded in the
+[PR description and checks](https://github.com/eluyz/math-tutor-app/pull/337).
 
 ## Starting evidence
 
@@ -17,7 +20,13 @@ Status: **IN PROGRESS / NO-GO**. This report supplements the historical
 - Diagnostic commit `8cf44a7` adds the supported GitHub reporter alongside the
   normal list reporter, exposing assertion details through the Checks API.
   [Diagnostic CI](https://github.com/eluyz/math-tutor-app/actions/runs/44258648039)
-  is still running at this checkpoint.
+  completed with a browser-stage failure. GitHub exposed only the first ten
+  error annotations: six distinct calculus scenarios and two distinct
+  rectangular-Gauss scenarios (two timeout annotations duplicate calculus
+  failures). These confirm retained-answer failures, including `correct` where
+  Gauss expected `invalid`; they do not expose all 63 original failures.
+  A separate bounded JSON-summary notice now makes final counts and grouped
+  failures inspectable without unrestricted log/artifact downloads.
 
 ## Browser configuration repair
 
@@ -41,7 +50,7 @@ Official references supporting this choice:
 
 These sources justify the configuration; only execution can confirm the profile
 works on the actual runner. CI retains every existing test and acceptance gate,
-adding only an evidence upload step. JSON results and selected current
+adding evidence upload and result-summary steps. JSON results and selected current
 screenshots are retained in the `ui-browser-validation` artifact for 14 days.
 
 ## Empty-answer investigation
@@ -65,8 +74,9 @@ are added rather than allowing blanket dialog acceptance:
 | Rank classifications | 2 | Replacing the first task would clear its notes. Explicitly confirm that replacement before collecting further classifications. |
 | Localization heading | 3 | The selector targets an eyebrow removed by Focus Studio. Check the actual localized heading and start action through PL → EN → PL instead. |
 
-These counts describe the affected parameterized tests in source. Mapping them
-to the original 15 CI failures still awaits the diagnostic run. In particular,
+These counts describe the affected parameterized tests in source. The diagnostic
+run confirms the calculus group and two Gauss cases; GitHub's annotation limit
+prevents an independent mapping of every original failure. In particular,
 the Gauss scenario must not be described as a confirmed blank-answer grader bug:
 the old test never established that the fields were blank after its canceled
 navigation. Two new PL/EN browser regressions separately verify cancellation
@@ -105,8 +115,9 @@ measured stability fix only if the timeout recurs. Main was not modified.
 
 ## Documentation and visual acceptance
 
-The five requested audit/design/night documents, concept explanations and the
-AGENTS UI/UX section are now English; links, numbers, code identifiers, evidence
+The five requested audit/design/night documents, concept explanations,
+`.agents/UI-UX-SETUP.md` and the AGENTS UI/UX section are now English; links,
+numbers, code identifiers, evidence
 and historical qualifications are preserved. Raw evidence and Polish concept
 labels remain unchanged. The [documentation index](README.md) explains scope.
 The application's PL/EN strings are untouched.

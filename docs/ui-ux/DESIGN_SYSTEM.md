@@ -40,7 +40,7 @@ No local UI UX Pro Max / Impeccable / Vercel skills were found during MT-UI-001.
 
 ## Token contrast checks
 
-Calculated using relative sRGB luminance: text on white 14,65:1; secondary text on the application background 5,81:1; accent on white 7,18:1; accent on the selected-state background 6,32:1; focus on white 6,00:1; control outline on white 3,43:1. These checks cover the specified token pairs, rather than automatically auditing every state in the application.
+Calculated using relative sRGB luminance: text on white 14.65:1; secondary text on the application background 5.81:1; accent on white 7.18:1; accent on the selected-state background 6.32:1; focus on white 6.00:1; control outline on white 3.43:1. These checks cover the specified token pairs, rather than automatically auditing every state in the application.
 
 
 ## MT-UI-003 — Focus Studio refinements
@@ -62,7 +62,7 @@ when it would replace an unsubmitted answer or notes subject to auto-clear.
 Reloading still loses work after the user knowingly accepts the native browser
 warning. No new data store was introduced.
 
-Footer: muted text on the background has a calculated contrast of 5,81:1. Long
+Footer: muted text on the background has a calculated contrast of 5.81:1. Long
 formulas have local scrolling; new screenshots and actual behavior at
 320–1440/PL–EN require verification in a browser with a working sandbox. Older
 screenshots are not evidence of the current appearance. Detailed results:
