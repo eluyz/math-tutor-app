@@ -92,6 +92,30 @@ Local secure Chromium still aborts on the system's SUID/crashpad configuration:
 No application assertion is reached and no sandbox bypass is used. Actual
 browser results must come from CI and be distinguished from this local limit.
 
+### First review-fix CI result
+
+At `0b591585d56dd0046e20fabd34d9e3f1e9517f38`,
+[CI #1022](https://github.com/eluyz/math-tutor-app/actions/runs/44309206356)
+passed all 2665 unit tests, the build and 111 targeted browser cases. Full
+Playwright reported **1229 PASS / 3 FAIL**; B–G were consequently not run.
+All three failures were the existing progress/history scenario at
+1280/375/768 px: it deliberately leaves answer 4 unchecked, then attempts to
+skip it without accepting the new confirmation. The browser cancels that
+replacement, so the test eventually waits for Finish at the wrong position.
+This is a test incompatibility with the intended safety behavior, not evidence
+of a grading or storage defect.
+
+That single deliberate skip now uses the existing confirmation helper, which
+requires a native confirmation and a new task run. All original exact history,
+privacy, reload, export and deletion assertions are preserved. The complete
+local-progress suite is also included in the targeted CI gate before full E2E.
+No assertion or timeout is weakened. Final-head results remain in the PR body.
+
+The earlier integration-only commit `50b2cf2f052ffeac789ca982f46f547a564d3605`
+passed [CI #1021](https://github.com/eluyz/math-tutor-app/actions/runs/44307116649):
+2665 unit, 107 targeted, 1228 full browser and B–G 72/24/96/64/64/64. These are
+historical results, not substitutes for validation of the subsequent fix.
+
 ## Current visual evidence and release gate
 
 The ten PL/EN validation journeys request ten representative captures of home,

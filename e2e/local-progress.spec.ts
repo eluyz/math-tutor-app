@@ -3,6 +3,7 @@ import { readFile } from "node:fs/promises";
 import { HISTORY_KEY, type History } from "../src/progress/model";
 import { numeric } from "./helpers/arithmetic";
 import { polishLearningText } from "./helpers/localization";
+import { confirmTaskReplacement } from "./helpers/navigation";
 
 const button = (page: Page, name: string) =>
   page.getByRole("button", { name, exact: true });
@@ -155,7 +156,10 @@ for (const viewport of [
             "PRIVATE NOTE",
           );
         }
-        await advance(page, i);
+        // The unchecked answer at position 4 is deliberately skipped. Keep the
+        // original outcome assertions and explicitly consent to discarding it.
+        if (i === 3) await confirmTaskReplacement(page, () => advance(page, i));
+        else await advance(page, i);
       }
       const saved = (await stored(page))!;
       expect(saved.sessions).toHaveLength(1);
