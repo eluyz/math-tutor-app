@@ -139,6 +139,7 @@ button { touch-action: manipulation; }
    Native keyboard scrolling and explicit exercise focus remain enabled. */
 .learning-workspace .catalog-config,
 .statistics-practice .subject-roadmap-inner { overflow-anchor: none; }
+.learning-workspace .study-groups button { scroll-margin-block: 8px; }
 .learning-workspace .catalog-config .catalog-search { padding: 0; border: 0; margin-bottom: 16px; }
 .learning-workspace .catalog-config .category-picker { margin-bottom: 16px; }
 .learning-workspace .catalog-config .practice-controls { margin-bottom: 0; flex-wrap: wrap; }

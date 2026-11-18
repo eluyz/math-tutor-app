@@ -119,6 +119,8 @@ for(const width of [375,390,768,1280]) for(const en of [false,true]) {
     const fundamentals=await settle(page);
     expect(Math.abs(fundamentals.y-Math.min(returnBefore.y,fundamentals.maxY))).toBeLessThanOrEqual(2);
     await page.keyboard.press('Tab');
+    await expectVisibleFocus(page,stats.university);
+    await page.keyboard.press('Tab');
     await expectVisibleFocus(page,page.locator('[data-topic=mean]'));
 
     const nextStats=page.locator('.statistics-practice').getByRole('button',{name:en?'Next exercise':'Następne zadanie',exact:true});

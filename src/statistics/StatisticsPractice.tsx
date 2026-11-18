@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useTrackScroll } from "../navigation/useTrackScroll";
 import type { Locale } from "../locales/types";
 import { difficultyConfig, isLegacyDifficulty } from "../difficulty";
 import { formatRational } from "../answers";
@@ -35,6 +36,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   const input=useRef<HTMLInputElement>(null);
   const focusRequested=useRef<"answer"|FocusOptions|null>(null);
   const trackControls=useRef<HTMLDivElement>(null);
+  const preserveTrackScroll=useTrackScroll();
   const task=useMemo(()=>lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null,[lesson,difficulty,seed]);
   const teaching=useMemo(()=>task?(task.lesson==="median"?medianCopy(task.values,locale):meanCopy(task.values,locale)):null,[task,locale]);
   const topics=statisticsCurriculum.find(t=>t.id===track)!.topics;
@@ -70,7 +72,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
         <p className="subject-roadmap-description">{subjects.subjects.statistics.description}</p>
         <div ref={trackControls} className="study-groups" role="group" aria-label={c.trackLabel}>
           {statisticsCurriculum.map(t=><button key={t.id} type="button" data-track={t.id} aria-pressed={track===t.id} onClick={event=>{
-            if(t.id!==track && canReplaceTask()) {setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals",{preventScroll:event.detail>0});}
+            if(t.id!==track && canReplaceTask()) {preserveTrackScroll(event.detail>0);setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals",{preventScroll:event.detail>0});}
           }}>{c.trackLabels[t.id]}</button>)}
         </div>
         <div className="category-picker" role="group" aria-label={c.topicLabel}>

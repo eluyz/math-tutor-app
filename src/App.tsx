@@ -1,5 +1,6 @@
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { nightCopy } from "./locales/night";
+import { useTrackScroll } from "./navigation/useTrackScroll";
 import { difficultyConfig } from "./difficulty";
 import { SolutionPanel } from "./solutions/SolutionPanel";
 import { MistakeHelp } from "./diagnostics/MistakeHelp";
@@ -91,6 +92,7 @@ export default function App() {
   const searchFocusRequested = useRef(false);
   const trackControls = useRef<HTMLDivElement>(null);
   const trackFocusRequested = useRef<FocusOptions | null>(null);
+  const preserveTrackScroll = useTrackScroll();
   const [session, setSession] = useState<SessionState | null>(null);
   const sessionRef = useRef<SessionState | null>(null);
   const sessionNumber =
@@ -396,6 +398,7 @@ export default function App() {
               disabled={sessionNumber > 0}
               aria-pressed={!studying}
               onClick={(event) => {
+                preserveTrackScroll(event.detail > 0);
                 setSearchLevelChange(null);
                 setSelectedCategory("order");
                 newExercise("order", difficulty, undefined, {preventScroll: event.detail > 0});
@@ -408,6 +411,7 @@ export default function App() {
               disabled={sessionNumber > 0}
               aria-pressed={studying}
               onClick={(event) => {
+                preserveTrackScroll(event.detail > 0);
                 setSearchLevelChange(null);
                 setSelectedCategory("quadratics");
                 newExercise("quadratics", difficulty, undefined, {preventScroll: event.detail > 0});

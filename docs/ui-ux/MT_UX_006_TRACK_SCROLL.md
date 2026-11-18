@@ -45,13 +45,35 @@ all confirmed Mathematics movement.
   to keep the focused selector visible after a layout change. This also avoids
   opening a mobile answer keyboard merely to change the track.
 - Only the changing Mathematics catalog and Statistics card contents opt out of
-  scroll anchoring. There is no global anchoring, focus or scrolling override.
+  scroll anchoring. Content outside the catalog can still be a native anchor.
+  A shared, pointer-only track transition snapshots the current offset, flushes
+  the committed layout, restores it before paint and checks it once in the next
+  animation frame. Cleanup cancels that frame on replacement/unmount. Keyboard
+  transitions clear the snapshot. There is no global policy or persistent scroll
+  lock; a shortened document still uses its native physical limit.
+- Track controls have 8 px scroll margins so native keyboard scrolling leaves
+  the focus outline clear of the viewport edge.
 - Explicit Start/Continue, New example, Next, lesson and level actions retain
   their existing exercise/answer focus policy. Tab and Shift+Tab remain native.
 - The existing Statistics navigation test now asserts selected-track focus after
   a pointer track switch. Separate keyboard cases verify actual answer focus and
   intentional scrolling after generating an exercise; no grading/history
   assertions were removed.
+
+## Follow-up validation
+
+The first application-fix run
+[CI](https://github.com/eluyz/math-tutor-app/actions/runs/44362019912) at
+`f2baeedbfec6e40b8e902354436d11e2a20371b3` passed unit/build and all eight
+Statistics pointer cases. Mathematics retained anchor adjustments outside the
+catalog (up to 365 px in that run), requiring the bounded viewport snapshot.
+The eight new keyboard journeys also exposed a test error (Tab from the first
+track reaches the second track before Mean) and fractional clipping at the
+viewport edge (720.3125 px). The test now asserts that real intermediate Tab
+stop, while scroll margins address clipping without loosening visibility or
+offset assertions. The gate reported 8 PASS / 16 FAIL; later gates were not run.
+The independent reviewer found no Important/Critical issue in the bounded
+follow-up; final browser results remain pending CI.
 
 ## Verification checkpoint
 
