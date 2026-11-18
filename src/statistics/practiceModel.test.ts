@@ -40,10 +40,10 @@ describe("Statistics playable lesson adapter",()=>{
    expect(mean.answer.numerator*BigInt(mean.values.length)).toBe(sum*mean.answer.denominator);
    const variance=createStatisticsPracticeTask("variance",difficulty,seed);
    expect(variance.values).toEqual(mean.values);
-   const count=BigInt(variance.values.length);
+   const populationCount=BigInt(variance.values.length);
    const sumSquares=variance.values.reduce((total,value)=>total+BigInt(value)*BigInt(value),0n);
    // Independent sum-of-squares oracle: population variance = (n*Σx² - (Σx)²)/n².
-   expect(variance.answer.numerator*count*count).toBe((count*sumSquares-sum*sum)*variance.answer.denominator);
+   expect(variance.answer.numerator*populationCount*populationCount).toBe((populationCount*sumSquares-sum*sum)*variance.answer.denominator);
    expect(variance.answer.numerator).toBeGreaterThanOrEqual(0n);
   }
  });
