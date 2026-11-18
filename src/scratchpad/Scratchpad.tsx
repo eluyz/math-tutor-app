@@ -23,7 +23,7 @@ type Gesture = {
   erased: Set<number>;
   erasing: boolean;
 };
-export function Scratchpad({ run, active, idPrefix = "" }: { run: number; active: boolean; idPrefix?: string }) {
+export function Scratchpad({ run, active, idPrefix = "", onReplaceRiskChange }: { run: number; active: boolean; idPrefix?: string; onReplaceRiskChange?: (atRisk: boolean) => void }) {
   const { copy } = useLocale();
   const fieldId = (name: string) => `${idPrefix}${name}`;
   const s = copy.scratchpad;
@@ -33,6 +33,9 @@ export function Scratchpad({ run, active, idPrefix = "" }: { run: number; active
     createScratchpad,
   );
   useUnloadWarning(!!state.present.text.trim() || state.present.strokes.length > 0);
+  useEffect(() => {
+    onReplaceRiskChange?.(state.autoClear && (!!state.present.text.trim() || state.present.strokes.length > 0));
+  }, [state.autoClear, state.present.text, state.present.strokes, onReplaceRiskChange]);
   const [editorGeneration, setEditorGeneration] = useState(0);
   const [tool, setTool] = useState<"pen" | "eraser">("pen");
   const [expanded, setExpanded] = useState(false);

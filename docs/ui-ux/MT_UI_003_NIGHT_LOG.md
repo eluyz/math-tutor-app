@@ -15,7 +15,7 @@ kolejnych pytań. Stash pusty; niezapisany audyt w głównym checkoutcie zachowa
 - [x] D: numer pytania + jawny stan odpowiedzi; postępy z czytelną hierarchią.
 - [x] E: wspólne tokeny i wzorce ćwiczenia Matematyki/Statystyki, bez nowych treści.
 - [x] F: kontrast, focus, reduced motion, lokalizacja i kontrola wizualna.
-- [ ] G: niezależny review, maks. trzy cykle napraw, końcowe testy i istniejący CI.
+- [x] G: niezależny review, maks. trzy cykle napraw, końcowe testy i istniejący CI.
 
 ## Decyzje
 
@@ -109,8 +109,8 @@ wizualnego bez renderowania. W repo nie dodano nowych bibliotek.
 Commit E: 2f72864. Stopka używa muted zamiast #718276 (obliczeniowo 5,81:1
 zamiast 3,79:1). JS przewijania respektuje reduced motion; focus globalny i
 regiony lokalnego scroll zachowane. Polski status „W rozwoju” zachowuje znaczenie
-in-progress, a placeholder podaje tematy zamiast kodów. Mały nagłówek ma miejsce
-na etykiety języków przy 320 px, bez obcinania funkcji. Brudnopis/rozwiązania
+in-progress, a placeholder podaje tematy zamiast kodów. Rozmiary małego nagłówka dostosowano
+z myślą o 320 px; nie potwierdzono jeszcze wyniku w renderowaniu. Brudnopis/rozwiązania
 korzystają ze wspólnych tokenów. Wymaga potwierdzenia w renderowaniu.
 
 Dodatkowa poprawka A: zmiana zadania z niewysłanym draftem w Matematyce lub
@@ -124,3 +124,38 @@ reflow i powiększenia tekstu. Test powiększenia tekstu nie zastępuje ręczneg
 zoomu przeglądarki 200%. Runtime i nowe screenshoty BLOCKED. Ponowna standardowa
 instalacja Chromium także z jawnym dostępem sieciowym nadal daje 403 Domain forbidden.
 Bez wyłączania sandboxa ani zmian polityki sieci.
+
+### G — red team i poprawki (maksymalnie trzy cykle)
+
+Commit F: 41f7cf8. Pierwsza niezależna recenzja wykryła utratę brudnopisu przy
+niedostępnym poziomie: warunkowe odmontowanie panelu usuwało notatki również przy
+wyłączonym auto-clear. Panel jest teraz stale zamontowany i tylko ukrywany.
+Potwierdzenie obejmuje notatki zagrożone automatycznym czyszczeniem; kontynuacja
+ćwiczenia nie uruchamia potwierdzenia. Dotychczasowa opcja auto-clear zachowana.
+
+Poprawiono testy zakładające kasowanie sesji przez logo, odmontowanie Statystyki
+oraz przejścia do innych zadań bez świadomej zgody. Rozróżniono selektory ukrytej
+Matematyki i Statystyki. Dopisano scenariusz zachowania notatek po niedostępnym
+poziomie. Drugi cykl wykrył jeszcze błędną próbę ponownego otwierania zachowanego
+brudnopisu i brak zgód w istniejącym teście; poprawiono. Trzeci cykl jest
+ostatnią recenzją tych samych usterek, bez rozszerzania funkcji.
+
+PASS: 50 testów pomocniczych/SSR/modelu brudnopisu; build. 48 nowych scenariuszy
+E2E odkryto, ale nie zaliczono runtime. Nie zmieniono modeli, generatorów,
+algorytmów oceniania, historii ani zależności. Nie usunięto danych postępów.
+
+### Wznowienie po odnowieniu limitu
+
+Zmiany lokalne po G zachowane; `main` nadal 307276a. CI 41f7cf8:
+[run 44189147021](https://github.com/eluyz/math-tutor-app/actions/runs/44189147021)
+FAIL w etapie przeglądarkowym, wcześniejsze jednostkowe/build/instalacja Chromium
+PASS; B–G SKIPPED. Szczegółowe logi blokuje domena results-receiver (403), także
+po standardowej próbie narzędzia z zatwierdzanym dostępem. Nie zakładamy, że same
+poprawki G rozwiązują wszystkie błędy CI. Powtórzona lokalna instalacja Playwright
+nadal jest blokowana przez politykę domen. Końcowa regresja na nowym commicie
+będzie zapisana poniżej; do tego czasu status PARTIAL / NO-GO.
+
+
+Trzeci, końcowy przegląd: brak pozostałych problemów w zgłoszonych usterkach;
+46/46 testów trzech ukierunkowanych zestawów PASS. To akceptacja poprawek w
+kodzie, nie pełna akceptacja UI/UX. Nie nadano oceny 8–9/10 bez dowodów renderowania.

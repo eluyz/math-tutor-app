@@ -17,7 +17,7 @@ for (const width of [1280, 375]) {
     test.beforeEach(async ({ page }) => { await page.goto("/"); });
 
     test("logo, progress, subjects and locale preserve an active session", async ({ page }) => {
-      const workspace = page.locator(".learning-workspace");
+      const workspace = page.locator(".learning-workspace:not(.statistics-practice)");
       await page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)", exact: true }).click();
       await page.getByLabel("Twoja odpowiedź", { exact: true }).fill("123");
       await page.getByRole("button", { name: "Pokaż brudnopis", exact: true }).click();
@@ -119,4 +119,22 @@ test('native reload warning can be cancelled without losing the draft',async({pa
   const reload=page.reload().catch(()=>null);
   const warning=await dialog; expect(warning.type()).toBe('beforeunload'); await warning.dismiss(); await reload;
   await expect(page.locator('.learning-workspace #answer')).toHaveValue('123');
+});
+
+test('unsupported difficulty retains scratchpad with auto-clear disabled',async({page})=>{
+  await page.goto('/');
+  await page.getByRole('button',{name:'Matematyka na studia',exact:true}).click();
+  await page.getByRole('button',{name:'Macierze',exact:true}).click();
+  await page.locator('.learning-workspace:not(.statistics-practice) .difficulty-picker').getByRole('button',{name:'Trudny',exact:true}).click();
+  await page.getByRole('button',{name:/Wymiar macierzy/}).click();
+  await page.getByRole('button',{name:'Pokaż brudnopis',exact:true}).click();
+  await page.getByRole('button',{name:'Pisz',exact:true}).click();
+  const scratch=page.locator('.learning-workspace:not(.statistics-practice) .scratchpad');
+  await scratch.getByRole('checkbox').uncheck();
+  await page.getByLabel('Notatki tekstowe').fill('Nie gub obliczeń');
+  await page.locator('.learning-workspace:not(.statistics-practice) .difficulty-picker').getByRole('button',{name:'Ekspert',exact:true}).click();
+  await expect(page.locator('.unavailable')).toBeVisible();
+  await page.getByRole('button',{name:'Wybierz dostępne zadanie',exact:true}).click();
+  await expect(page.getByLabel('Notatki tekstowe')).toHaveValue('Nie gub obliczeń');
+  await expect(scratch.getByRole('checkbox')).not.toBeChecked();
 });

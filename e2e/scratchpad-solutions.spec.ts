@@ -183,6 +183,7 @@ for (const { name, viewport } of [
     const auto = page.getByLabel("Czyść brudnopis przy nowym zadaniu");
     await expect(auto).toBeChecked();
     await page.getByRole("button", { name: "Pisz", exact: true }).click(); await notes.fill("poprzednie zadanie");
+    page.once("dialog", dialog => dialog.accept());
     await page.getByRole("button", { name: "Nowy przykład", exact: true }).click(); await expect(notes).toHaveValue("");
     await expect(page.getByRole("button", { name: "Cofnij", exact: true })).toBeDisabled();
     await notes.focus(); await notes.press("Control+z"); await expect(notes).toHaveValue("");
@@ -251,15 +252,17 @@ for (const { name, viewport } of [
       page.getByRole("button", { name: "Liczby dodatnie i ujemne", exact: true }),
       page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)", exact: true }),
     ]) {
-      await notes.fill("nie przywracaj"); await target.click();
+      await notes.fill("nie przywracaj"); page.once("dialog", dialog => dialog.accept()); await target.click();
       await expect(notes).toHaveValue(""); await expect(page.getByRole("button", { name: "Cofnij", exact: true })).toBeDisabled();
     }
     const question = await page.locator(".question").innerText();
     await page.getByRole("button", { name: "Pokaż rozwiązanie", exact: true }).click();
     await notes.fill("poprzednie uruchomienie");
     await page.getByRole("link", { name: "Math Tutor — strona startowa", exact: true }).click();
-    await page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)", exact: true }).click();
     await expect(page.locator(".question")).toHaveText(question);
+    await expect(notes).toHaveValue("poprzednie uruchomienie");
+    await expect(page.locator(".solution-panel li")).toHaveCount(1);
+    await page.getByRole("button", { name: "Następne zadanie", exact: true }).click();
     await expect(notes).toHaveValue(""); await expect(page.locator(".solution-panel li")).toHaveCount(0);
     await expect(page.getByRole("button", { name: "Cofnij", exact: true })).toBeDisabled();
     await notes.focus(); await notes.press("Control+z"); await expect(notes).toHaveValue("");

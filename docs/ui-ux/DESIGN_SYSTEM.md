@@ -41,3 +41,25 @@ Nie znaleziono lokalnych skilli UI UX Pro Max / Impeccable / Vercel. Niczego nie
 ## Kontrola kontrastu tokenów
 
 Obliczenie luminancji względnej sRGB: tekst na bieli 14,65:1; tekst pomocniczy na tle aplikacji 5,81:1; akcent na bieli 7,18:1; akcent na tle wybranego stanu 6,32:1; focus na bieli 6,00:1; obrys kontrolki na bieli 3,43:1. To kontrola wskazanych par tokenów, nie automatyczny audyt wszystkich stanów całej aplikacji.
+
+
+## MT-UI-003 — dopracowanie Focus Studio
+
+Aktywne zadanie poprzedza konfigurację w DOM i w układzie mobilnym. Szybki start
+przy tytule kieruje focus do treści zadania, bez natychmiastowego otwierania
+klawiatury. Natywny panel wyboru tematu/poziomu jest zwijany, domyślnie otwarty
+ze względu na odkrywalność. Pozostała lista rodzin jest drugorzędna względem zadania.
+
+Wspólne klasy nauki i tokeny obejmują teraz także pilotaż Statystyki; szczegółowe
+style postępów i egzaminu zostały dopasowane bez zmiany ich modeli. Liczniki i
+stany egzaminu odróżniają wpisaną odpowiedź od pustej, nigdy poprawność przed oddaniem.
+Formularze są powiązane z trwałym regionem feedback; błędy nie polegają tylko na kolorze.
+
+Logo i zmiana widoku zachowują pracę w pamięci. Zmiana zadania ostrzega, gdy
+zastępuje niewysłaną odpowiedź lub notatki objęte auto-clear. Odświeżenie nadal
+usuwa pracę po świadomej zgodzie na natywny komunikat przeglądarki. Bez nowego magazynu danych.
+
+Stopka: muted na tle daje obliczeniowo 5,81:1. Długie wzory mają lokalny scroll;
+nowe screenshoty i faktyczne zachowanie 320–1440/PL–EN wymagają weryfikacji w
+przeglądarce z działającym sandboxem. Nie uznajemy starszych zrzutów za dowód
+obecnego wyglądu. Szczegółowe wyniki: MT_UI_003_NIGHT_LOG.md.

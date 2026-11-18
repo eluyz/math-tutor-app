@@ -24,3 +24,12 @@ Długie nazwy działów PL/EN; siatki przy powiększeniu; tabele macierzy we wł
 2. Osobno zaprojektować postępy, egzamin, rozwiązania i notatnik według zatwierdzonych tokenów.
 3. Uporządkować długi katalog, rozważyć filtrowanie i adresowalne URL; wymaga osobnego zadania dotyczącego zachowania.
 4. Audyt wszystkich typów odpowiedzi, czytniki ekranu i testy użyteczności z dorosłymi uczącymi się.
+
+
+## Kontynuacja MT-UI-003
+
+Pakiety A–F zaimplementowane osobnymi commitami; G naprawia wykryte regresje.
+Akceptacja wizualna i pełny E2E pozostają bramą przed merge, niezależnie od
+zaliczonych testów jednostkowych. Nie rozpoczynać kolejnego kierunku wizualnego
+ani dodawania treści edukacyjnych. Kontynuację prowadzić z NIGHT_LOG i dokładnego
+HEAD PR #337. Brak zgody na merge w ramach sprintu.

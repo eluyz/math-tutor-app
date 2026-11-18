@@ -73,6 +73,7 @@ export default function App() {
   const [subject, setSubject] = useState<SubjectId>("mathematics");
   const [statisticsVisited, setStatisticsVisited] = useState(false);
   const [statisticsDraft, setStatisticsDraft] = useState(false);
+  const [scratchpadAtRisk, setScratchpadAtRisk] = useState(false);
   const [examLocked, setExamLocked] = useState(false);
   const sessionId = useRef<string | null>(null);
   const previousView = useRef(view);
@@ -308,17 +309,17 @@ export default function App() {
     const target = event.target;
     if (!(target instanceof Element)) return;
     const button = target.closest<HTMLButtonElement>("button");
-    if (!button || button.disabled) return;
-    const replacesTask = button.closest(".study-groups, .category-picker, .practice-controls, .exercise-list-items, #catalog-search-results");
+    if (!button || button.disabled || button.hasAttribute("data-preserves-work")) return;
+    const replacesTask = button.closest(".study-groups, .category-picker, .practice-controls, .exercise-list-items, #catalog-search-results, .practice-entry");
     const pending = (!!active && hasUnsubmittedAnswer(answer, checkedInput !== null)) ||
-      (checkedStep === null && stepAnswer.trim().length > 0);
+      (checkedStep === null && stepAnswer.trim().length > 0) || scratchpadAtRisk;
     if (replacesTask && pending && !window.confirm(n.discard)) {
       event.preventDefault(); event.stopPropagation();
     }
   }
 
   const catalog = (
-    <details className="catalog-config" open onClickCapture={protectDraft}>
+    <details className="catalog-config" open>
       <summary>{n.choose}<span>{categoryTitle(selectedCategory, locale)} · {difficultyLabels[difficulty]}</span></summary>
       <div className="catalog-config-body">
           <div className="catalog-search" role="search" aria-label={a.searchLabel}>
@@ -471,7 +472,7 @@ export default function App() {
     </details>
   );
   const familyList = (
-            <aside className="exercise-list" onClickCapture={protectDraft}>
+            <aside className="exercise-list">
               <div className="exercise-list-heading">
                 <h3 id="category-families-title">{a.categoryFamilies(
                   categoryTitle(selectedCategory, locale), visibleTemplates.length,
@@ -567,7 +568,7 @@ export default function App() {
       </nav>
       {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
 
-        <div className="learning-workspace" hidden={view !== "learn"}>
+        <div className="learning-workspace" hidden={view !== "learn"} onClickCapture={protectDraft}>
         <section
           className="practice"
           id="practice"
@@ -584,7 +585,7 @@ export default function App() {
             <p>{n.chooseHelp}</p>
           </div>
           <div className="practice-entry">
-            <button type="button" className="primary-button" onClick={() => {
+            <button type="button" className="primary-button" data-preserves-work={active ? true : undefined} onClick={() => {
               if (active) document.getElementById("exercise-title")?.focus();
               else { searchFocusRequested.current = true; newPracticeExample(); }
             }}>{active ? n.resume : n.start}</button>
@@ -616,7 +617,7 @@ export default function App() {
             </div>
           )}
           <div className={`exercise-layout ${active || summary ? "has-task" : "catalog-only"}`}>
-            {(active || summary) && <div className="exercise-panel">
+            <div className="exercise-panel" hidden={!active && !summary}>
               {active ? (
                 <>
                   <div className="panel-top">
@@ -705,7 +706,7 @@ export default function App() {
                   )}
                 </>
               ) : null}
-              <Scratchpad run={run} active={!!active && view === "learn" && subject === "mathematics"} />
+              <Scratchpad run={run} onReplaceRiskChange={setScratchpadAtRisk} active={!!active && view === "learn" && subject === "mathematics"} />
               {active ? (
                 <>
                   <form onSubmit={submitAnswer}>
@@ -893,7 +894,7 @@ export default function App() {
                   onPractice={() => newExercise()}
                 />
               ) : null}
-            </div>}
+            </div>
             {familyList}
           </div>
           {active && catalog}

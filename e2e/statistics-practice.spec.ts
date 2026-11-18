@@ -165,7 +165,7 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         await page.getByRole("button",{name:c.exam,exact:true}).click();
         await page.getByRole("button",{name:c.startExam,exact:true}).click();
         for (const subject of await page.locator(".subject-navigation").getByRole("button").all()) await expect(subject).toBeDisabled();
-        await expect(page.locator(".statistics-practice")).toHaveCount(0);
+        await expect(page.locator(".statistics-practice")).toBeHidden();
         const question=await page.locator(".exam-work .question").innerText();
         await page.getByRole("link",{name:locale==="pl"?"Math Tutor — strona startowa":"Math Tutor — home"}).click();
         await expect(page.locator(".exam-work .question")).toHaveText(question);

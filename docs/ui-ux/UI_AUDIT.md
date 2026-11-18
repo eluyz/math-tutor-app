@@ -1,5 +1,9 @@
 # MT-UI-001 — audyt UI/UX
 
+Dokument historyczny prototypu przed MT-UI-003. Zrzuty i wyniki poniżej dotyczą
+ówczesnej wersji. Aktualne zmiany i ograniczenia weryfikacji opisuje
+[MT_UI_003_NIGHT_LOG.md](MT_UI_003_NIGHT_LOG.md).
+
 Zakres: `src/App.tsx`, `src/styles.css`, moduły progress/exam, lokalizacja, istniejące testy. Baza końcowa: aktualny main `d62424a` (pobrany przed finalną implementacją). Audyt heurystyczny kodu i przeglądarki; nie badanie z użytkownikami.
 
 | Priorytet | Obszar / dowód | Problem i zalecenie |
