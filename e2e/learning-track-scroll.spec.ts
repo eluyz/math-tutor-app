@@ -34,6 +34,8 @@ async function settle(page: Page) {
 
 async function observeSwitch(page: Page, button: Locator) {
   await button.scrollIntoViewIfNeeded();
+  // Cover a nonzero offset even when the track is already visible near the top.
+  await page.evaluate(()=>window.scrollTo({top:Math.max(64,scrollY),behavior:"instant"}));
   await settle(page);
   const before=await settle(page);
   const box=await button.boundingBox();
@@ -52,6 +54,7 @@ for (const width of [375,390,768,1280]) for (const en of [false,true]) for (cons
     const buttons=trackButtons(page,subject,en);
     for (const [direction,button] of [['university',buttons.university],['basics',buttons.basics],['university-again',buttons.university]] as const) {
       const observation=await observeSwitch(page,button);
+      await expect(button).toBeFocused();
       console.log('TRACK_SCROLL_TRACE '+JSON.stringify({subject,width,en,direction,...observation}));
       await info.attach(direction,{body:JSON.stringify(observation),contentType:'application/json'});
       // A shorter document can clamp an old offset to its new physical maximum;
@@ -62,27 +65,70 @@ for (const width of [375,390,768,1280]) for (const en of [false,true]) for (cons
   });
 }
 
-// Temporary, read-only causal experiment. Each arm loads a fresh real page and
-// forwards focus to the native implementation; no application source changes.
-for(const subject of ['mathematics','statistics'] as const) test(`diagnose focus versus anchoring ${subject}`,async({page})=>{
-  await page.setViewportSize({width:390,height:720});
-  for(const mode of ['native','focus-without-scroll','no-anchoring','both'] as const) {
-    await open(page,subject,false);
-    await page.evaluate(mode=>{
-      const state={calls:[] as unknown[]};
-      (window as unknown as {trackTrace:typeof state}).trackTrace=state;
-      const native=HTMLElement.prototype.focus;
-      HTMLElement.prototype.focus=function(options){
-        state.calls.push({id:this.id,tag:this.tagName,y:scrollY,options});
-        return native.call(this,mode==='focus-without-scroll'||mode==='both'?{...options,preventScroll:true}:options);
-      };
-      if(mode==='no-anchoring'||mode==='both') document.documentElement.style.overflowAnchor='none';
-    },mode);
-    const buttons=trackButtons(page,subject,false);
-    for(const [direction,button] of [['university',buttons.university],['basics',buttons.basics]] as const){
-      const observation=await observeSwitch(page,button);
-      const calls=await page.evaluate(()=>(window as unknown as {trackTrace:{calls:unknown[]}}).trackTrace.calls.splice(0));
-      console.log('TRACK_SCROLL_CAUSE '+JSON.stringify({subject,mode,direction,...observation,calls}));
-    }
-  }
-});
+async function expectVisibleFocus(page: Page, element: Locator) {
+  await expect(element).toBeFocused();
+  const rect=await element.boundingBox();
+  expect(rect).not.toBeNull();
+  expect(rect!.y).toBeGreaterThanOrEqual(0);
+  expect(rect!.y+rect!.height).toBeLessThanOrEqual(720);
+  expect(await element.evaluate(el=>getComputedStyle(el).outlineStyle)).not.toBe('none');
+}
+
+for(const width of [375,390,768,1280]) for(const en of [false,true]) {
+  test(`keyboard track navigation and deliberate exercise focus ${width}px ${en?'EN':'PL'}`,async({page})=>{
+    await page.setViewportSize({width,height:720});
+    await open(page,'mathematics',en);
+    const math=trackButtons(page,'mathematics',en);
+    await math.basics.focus();
+    await page.keyboard.press('Tab');
+    await expectVisibleFocus(page,math.university);
+    await page.keyboard.press('Enter');
+    await expect(math.university).toHaveAttribute('aria-pressed','true');
+    await expectVisibleFocus(page,math.university);
+    // Keyboard activation may scroll if layout moves the focused selector;
+    // its focus must stay visible rather than being trapped offscreen.
+    await page.keyboard.press('Tab');
+    await expectVisibleFocus(page,page.locator('.practice .category-picker button').first());
+
+    // Explicitly generating another exercise must still bring its answer into
+    // view. The track fix must not become a global preventScroll policy.
+    const nextMath=page.getByRole('button',{name:en?'New example':'Nowy przykład',exact:true});
+    await nextMath.focus();
+    const configurationY=await page.evaluate(()=>scrollY);
+    await page.keyboard.press('Enter');
+    await expectVisibleFocus(page,page.locator('#answer'));
+    expect(await page.evaluate(()=>scrollY)).toBeLessThan(configurationY-20);
+
+    await open(page,'statistics',en);
+    const stats=trackButtons(page,'statistics',en);
+    await stats.basics.focus();
+    await page.keyboard.press('Tab');
+    await expectVisibleFocus(page,stats.university);
+    const statsBefore=await settle(page);
+    await page.keyboard.press('Enter');
+    await expect(stats.university).toHaveAttribute('aria-pressed','true');
+    await expectVisibleFocus(page,stats.university);
+    const university=await settle(page);
+    expect(Math.abs(university.y-Math.min(statsBefore.y,university.maxY))).toBeLessThanOrEqual(2);
+    await page.keyboard.press('Shift+Tab');
+    await expectVisibleFocus(page,stats.basics);
+    const returnBefore=await settle(page);
+    await page.keyboard.press('Enter');
+    await expect(stats.basics).toHaveAttribute('aria-pressed','true');
+    await expectVisibleFocus(page,stats.basics);
+    const fundamentals=await settle(page);
+    expect(Math.abs(fundamentals.y-Math.min(returnBefore.y,fundamentals.maxY))).toBeLessThanOrEqual(2);
+    await page.keyboard.press('Tab');
+    await expectVisibleFocus(page,page.locator('[data-topic=mean]'));
+
+    const nextStats=page.locator('.statistics-practice').getByRole('button',{name:en?'Next exercise':'Następne zadanie',exact:true});
+    await nextStats.focus();
+    // A user can scroll away from a focused action, then activate it with Enter.
+    // Arrange an offscreen answer so this proves actual intentional scrolling.
+    await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
+    expect((await page.locator('#statistics-answer').boundingBox())!.y).toBeGreaterThan(720);
+    await page.keyboard.press('Enter');
+    await expectVisibleFocus(page,page.locator('#statistics-answer'));
+    expect(await page.evaluate(()=>scrollY)).toBeGreaterThan(0);
+  });
+}

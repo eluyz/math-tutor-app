@@ -135,6 +135,10 @@ button { touch-action: manipulation; }
 .catalog-config summary { min-height: 48px; padding: 14px 16px; cursor: pointer; font-weight: 650; color: var(--ui-text); }
 .catalog-config summary span { display: block; margin-top: 4px; font-size: 13px; color: var(--ui-muted); font-weight: 400; }
 .catalog-config-body { padding: 0 16px 16px; }
+/* Changing track contents must not anchor the viewport to controls that move.
+   Native keyboard scrolling and explicit exercise focus remain enabled. */
+.learning-workspace .catalog-config,
+.statistics-practice .subject-roadmap-inner { overflow-anchor: none; }
 .learning-workspace .catalog-config .catalog-search { padding: 0; border: 0; margin-bottom: 16px; }
 .learning-workspace .catalog-config .category-picker { margin-bottom: 16px; }
 .learning-workspace .catalog-config .practice-controls { margin-bottom: 0; flex-wrap: wrap; }

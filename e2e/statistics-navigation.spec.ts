@@ -59,7 +59,7 @@ for(const width of [320,375,1280]) for(const en of [false,true]) {
   await expect(translatedLevels.locator("button:enabled")).toHaveCount(0);
   await p.locator("[data-track=fundamentals]").click();
   await expect(p.locator(".question")).toHaveAttribute("data-lesson","mean");
-  await expect(p.getByRole("textbox")).toBeFocused();
+  await expect(p.locator("[data-track=fundamentals]")).toBeFocused();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);
   expect(errors).toEqual([]);
  });

@@ -15,6 +15,7 @@ static concept labels are preserved where they provide evidence.
 | [MT-UI-003 night log](MT_UI_003_NIGHT_LOG.md) | Implementation checkpoints and historical validation, including browser blockers and pending acceptance work. |
 | [MT-UI-004 CI recovery](MT_UI_004_CI_RECOVERY.md) | Current failure investigation, secure browser configuration, English migration, and validation status. |
 | [MT-UI-005 integration](MT_UI_005_INTEGRATION.md) | Focus Studio + ST-102 merge decisions, retained drafts, independent math checks, and current validation gates. |
+| [MT-UX-006 track scrolling](MT_UX_006_TRACK_SCROLL.md) | Confirmed focus/anchoring causes, isolated navigation fix and scroll regression coverage. |
 
 Screenshots, raw logs, JSON validation records, and the captured vendor guidelines
 are evidence artifacts. They retain their original contents. Results belong to

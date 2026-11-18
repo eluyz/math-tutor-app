@@ -89,6 +89,8 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchLevelChange, setSearchLevelChange] = useState<{ from: Difficulty; to: Difficulty } | null>(null);
   const searchFocusRequested = useRef(false);
+  const trackControls = useRef<HTMLDivElement>(null);
+  const trackFocusRequested = useRef<FocusOptions | null>(null);
   const [session, setSession] = useState<SessionState | null>(null);
   const sessionRef = useRef<SessionState | null>(null);
   const sessionNumber =
@@ -143,10 +145,13 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (active) {
+    if (trackFocusRequested.current) {
+      trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.focus(trackFocusRequested.current);
+    } else if (active) {
       document.getElementById(searchFocusRequested.current ? "exercise-title" : "answer")?.focus();
-      searchFocusRequested.current = false;
     }
+    trackFocusRequested.current = null;
+    searchFocusRequested.current = false;
   }, [source]);
 
   useEffect(() => {
@@ -188,7 +193,8 @@ export default function App() {
     setSession(next);
   }
 
-  function showExercise(next: { exercise: GeneratedTask; repeated: boolean }) {
+  function showExercise(next: { exercise: GeneratedTask; repeated: boolean }, trackFocusOptions?: FocusOptions) {
+    trackFocusRequested.current = trackFocusOptions ?? null;
     setRun((current) => current + 1);
     setActive({ ...next.exercise });
     setRepeated(next.repeated);
@@ -199,6 +205,7 @@ export default function App() {
     category = selectedCategory,
     level = difficulty,
     templateId?: string,
+    trackFocusOptions?: FocusOptions,
   ) {
     if (
       (templateId && !supportsDifficulty(templateId, level)) ||
@@ -215,7 +222,7 @@ export default function App() {
     generator.current ??= createGenerator();
     const next = generator.current.next(category, level, templateId);
     updateSession(null);
-    showExercise(next);
+    showExercise(next, trackFocusOptions);
   }
 
   function newPracticeExample(level = difficulty) {
@@ -383,15 +390,15 @@ export default function App() {
               )}
             </div>
           </div>
-          <div className="study-groups" role="group" aria-label={a.groups}>
+          <div ref={trackControls} className="study-groups" role="group" aria-label={a.groups}>
             <button
               type="button"
               disabled={sessionNumber > 0}
               aria-pressed={!studying}
-              onClick={() => {
+              onClick={(event) => {
                 setSearchLevelChange(null);
                 setSelectedCategory("order");
-                newExercise("order");
+                newExercise("order", difficulty, undefined, {preventScroll: event.detail > 0});
               }}
             >
               {a.basic}
@@ -400,10 +407,10 @@ export default function App() {
               type="button"
               disabled={sessionNumber > 0}
               aria-pressed={studying}
-              onClick={() => {
+              onClick={(event) => {
                 setSearchLevelChange(null);
                 setSelectedCategory("quadratics");
-                newExercise("quadratics");
+                newExercise("quadratics", difficulty, undefined, {preventScroll: event.detail > 0});
               }}
             >
               {a.study}
