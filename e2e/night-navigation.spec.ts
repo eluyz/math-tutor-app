@@ -1,4 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
+import { numeric } from "./helpers/arithmetic";
+import { confirmTaskReplacement } from "./helpers/navigation";
 
 // Never disable Chromium sandbox for sprint evidence.
 
@@ -137,3 +139,44 @@ test('unsupported difficulty retains scratchpad with auto-clear disabled',async(
   await expect(page.getByLabel('Notatki tekstowe')).toHaveValue('Nie gub obliczeń');
   await expect(scratch.getByRole('checkbox')).not.toBeChecked();
 });
+
+for (const en of [false, true]) {
+  test(`cancel preserves the submitted answer; confirmed replacement validates a blank answer ${en ? "EN" : "PL"}`, async ({ page }) => {
+    await page.goto("/");
+    const button = (name: string) => page.getByRole("button", { name, exact: true });
+    if (en) await button("English").click();
+    await button(en ? "Start practice" : "Rozpocznij ćwiczenie").click();
+    const answer = page.locator("#answer");
+    const question = page.locator(".question");
+    const expected = numeric(await question.innerText());
+    expect(expected.denominator).toBe(1n);
+    const entered = String(expected.numerator);
+    await answer.fill(entered);
+    await button(en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(en ? "Show scratchpad" : "Pokaż brudnopis").click();
+    await button(en ? "Write" : "Pisz").click();
+    const notes = page.locator("#scratchpad-text");
+    await notes.fill("Ax=b");
+    const run = await question.getAttribute("data-exercise-run");
+    const next = button(en ? "New example" : "Nowy przykład");
+    await Promise.all([
+      page.waitForEvent("dialog").then(async dialog => {
+        expect(dialog.type()).toBe("confirm");
+        await dialog.dismiss();
+      }),
+      next.click(),
+    ]);
+    await expect(question).toHaveAttribute("data-exercise-run", run!);
+    await expect(answer).toHaveValue(entered);
+    await expect(notes).toHaveValue("Ax=b");
+    await button(en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+
+    await confirmTaskReplacement(page, () => next.click());
+    await expect(answer).toHaveValue("");
+    await expect(notes).toHaveValue("");
+    await button(en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+  });
+}

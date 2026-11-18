@@ -2,6 +2,7 @@ import { test, expect } from "@playwright/test";
 import { HISTORY_KEY, type History } from "../src/progress/model";
 import { expectOnlyProgressStorage } from "./helpers/progress";
 import { polishLearningText } from "./helpers/localization";
+import { confirmTaskReplacement } from "./helpers/navigation";
 for (const width of [375, 768, 1280])
   for (const limits of [true, false]) {
     test(`MT-EDU-005 ${limits ? "limits" : "derivatives"} ${width}px: PL/EN, notes, native Undo/Redo, session and history`, async ({
@@ -67,7 +68,9 @@ for (const width of [375, 768, 1280])
       await notes.press("ControlOrMeta+z");
       await expect(notes).toHaveValue("x + 1");
       await button("Hide scratchpad").click();
-      await button("Expert").click();
+      // The preserved 3/7 answer is intentionally discarded by changing level.
+      await confirmTaskReplacement(page, () => button("Expert").click());
+      await expect(question).toHaveAttribute("data-difficulty", "expert");
       await button("Start a session (10 exercises)").click();
       for (let i = 0; i < 10; i++) {
         await button("Check").click();

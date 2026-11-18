@@ -61,13 +61,18 @@ for (const viewport of [
     test("nagłówek wyboru tematu zmienia się z polskiego na angielski i z powrotem", async ({
       page,
     }) => {
-      const slogan = page.locator(".practice .section-heading .eyebrow");
-      await expect(slogan).toHaveText("UCZ SIĘ KROK PO KROKU");
+      // Focus Studio removed the decorative eyebrow; verify the visible heading
+      // and primary action in both languages instead of targeting removed markup.
+      const heading = page.locator("#practice-title");
+      await expect(heading).toHaveText("Wybierz temat.");
+      await expect(page.getByRole("button", { name: "Rozpocznij ćwiczenie", exact: true })).toBeVisible();
       await english(page);
-      await expect(slogan).toHaveText("LEARN STEP BY STEP");
+      await expect(heading).toHaveText("Choose a topic.");
+      await expect(page.getByRole("button", { name: "Start practice", exact: true })).toBeVisible();
       await noPolish(page);
       await page.getByRole("button", { name: "Polski", exact: true }).click();
-      await expect(slogan).toHaveText("UCZ SIĘ KROK PO KROKU");
+      await expect(heading).toHaveText("Wybierz temat.");
+      await expect(page.getByRole("button", { name: "Rozpocznij ćwiczenie", exact: true })).toBeVisible();
     });
     test("zmiana języka zachowuje odpowiedź, diagnozę, częściowe kroki i natywne Undo brudnopisu", async ({
       page,

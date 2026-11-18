@@ -4,6 +4,7 @@ import { HISTORY_KEY } from "../src/progress/model";
 import { shownFraction } from "./helpers/functions";
 import { fillParametricSystem, fractionText, parametricCoefficients } from "./helpers/systems";
 import { polishLearningText } from "./helpers/localization";
+import { confirmTaskReplacement } from "./helpers/navigation";
 
 const button = (page: Page, name: string) => page.getByRole("button", { name, exact: true });
 const shapes = ["3x2", "4x3", "2x3"] as const;
@@ -18,10 +19,15 @@ async function open(page: Page, width: number, en: boolean) {
 for (const width of [375, 1280]) for (const en of [false, true])
   test(`MT-EDU-014 P2 ${width}px ${en ? "EN" : "PL"}: all rectangular coefficient forms and levels`, async ({ page }) => {
     await open(page, width, en);
+    let replacesNotes = false;
     for (const shape of shapes) for (const expert of [false, true]) {
       const level = shape === "3x2" ? expert ? "advanced" : "hard" : expert ? "expert" : "advanced";
       const label = level === "hard" ? en ? "Hard" : "Trudny" : level === "expert" ? en ? "Expert" : "Ekspert" : en ? "Advanced" : "Zaawansowany";
-      await button(page, label).click();
+      if (replacesNotes) {
+        await confirmTaskReplacement(page, () => button(page, label).click());
+      } else {
+        await button(page, label).click();
+      }
       await page.getByRole("button", { name: new RegExp(`Gauss ${shape.replace("x", "×")}: ${en ? "full parametric solution" : "pełne rozwiązanie parametryczne"}`) }).click();
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", id(shape));
       const table = page.locator(".linear-algebra-matrices .given-matrix");
@@ -32,6 +38,7 @@ for (const width of [375, 1280]) for (const en of [false, true])
       const expected = parametricCoefficients(augmented);
       const fields = page.locator("form .coefficient-field input");
       await expect(fields).toHaveCount(Number(shape[2]) * (expected.free.length + 1));
+      await expect.poll(() => fields.evaluateAll(nodes => nodes.every(node => (node as HTMLInputElement).value === ""))).toBe(true);
       await button(page, en ? "Check" : "Sprawdź").click();
       await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
       await fillParametricSystem(page);
@@ -62,6 +69,7 @@ for (const width of [375, 1280]) for (const en of [false, true])
       await expect(page.locator(".solution-panel")).toContainText(en ? "constant terms satisfy Ax=b" : "wyrazy stałe spełniają Ax=b");
       if (en) expect(await page.locator("main").innerText()).not.toMatch(polishLearningText);
       expect(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth)).toBe(false);
+      replacesNotes = true;
     }
   });
 

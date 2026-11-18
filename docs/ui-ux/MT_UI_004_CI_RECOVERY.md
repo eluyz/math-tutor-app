@@ -54,6 +54,26 @@ changed. This is evidence about the grader, **not proof that the UI resets
 correctly**; browser failures still require investigation before assigning blame
 to tests or declaring the application safe.
 
+Source inspection identifies the following compatibility issues in existing
+browser scenarios. Their assertions are preserved; confirmation and reset checks
+are added rather than allowing blanket dialog acceptance:
+
+| Scenarios | Count | Cause and repair |
+| --- | ---: | --- |
+| Calculus state | 6 | Changing to Expert attempts to discard the retained `3/7` draft. Explicitly accept that action and verify the new run and level. |
+| Rectangular Gauss forms | 4 | Scratchpad notes trigger confirmation; Playwright's default dismissal leaves the previous task and correct input intact. Confirm intentional replacement and assert every coefficient field is empty before the existing `invalid` assertion. |
+| Rank classifications | 2 | Replacing the first task would clear its notes. Explicitly confirm that replacement before collecting further classifications. |
+| Localization heading | 3 | The selector targets an eyebrow removed by Focus Studio. Check the actual localized heading and start action through PL → EN → PL instead. |
+
+These counts describe the affected parameterized tests in source. Mapping them
+to the original 15 CI failures still awaits the diagnostic run. In particular,
+the Gauss scenario must not be described as a confirmed blank-answer grader bug:
+the old test never established that the fields were blank after its canceled
+navigation. Two new PL/EN browser regressions separately verify cancellation
+preserves the entered correct value and notes, whereas confirmed replacement
+clears both and makes blank submission invalid. Independent static code review
+found no actionable defect in these repairs; browser execution remains required.
+
 ## Local validation checkpoint
 
 - `npm ci`: PASS.
