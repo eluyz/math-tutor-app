@@ -84,6 +84,33 @@ preserves the entered correct value and notes, whereas confirmed replacement
 clears both and makes blank submission invalid. Independent static code review
 found no actionable defect in these repairs; browser execution remains required.
 
+## Issues exposed after sandbox recovery
+
+The subsequent secure-Chrome run at `a4a9d3b` reached the new browser tests.
+Its first error annotations no longer list the repaired calculus/Gauss cases;
+they expose incorrect EN selectors in `night-subjects` and a stalled canceled
+reload test. The application label is **Statistics & Probability**, whereas the
+new tests searched for **Statistics and Probability**. The selectors in both
+the shared-surface tests and new validation journeys now match the real label.
+Application localization is unchanged.
+
+The canceled-reload case awaited `page.reload()` after dismissing `beforeunload`,
+then suppressed its rejection. That waiter expects a new document, which should
+not arrive after cancellation; [Playwright #20624](https://github.com/microsoft/playwright/issues/20624)
+documents this exact hang. A timeout can leave the text matcher without a value,
+which it formats as an empty string; the annotation alone does not establish
+actual data loss. The test now follows the
+[official Playwright cancellation pattern](https://github.com/microsoft/playwright/blob/v1.64.1/tests/library/beforeunload.spec.ts):
+await native dismissal together with `window.location.reload()` evaluation,
+without swallowing errors. It verifies the original document marker, task run,
+question and draft survive and remain editable. A separate native acceptance
+case verifies a new document, fresh home, cleared draft and invalid blank input.
+No unload handler or application state code changed. Execution must still prove
+these strengthened assertions before cancellation is declared safe.
+
+CI now runs the targeted recovery scenarios before the unchanged full browser
+and B–G gates, providing earlier feedback without skipping or disabling tests.
+
 ## Local validation checkpoint
 
 - `npm ci`: PASS.

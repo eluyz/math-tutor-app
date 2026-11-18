@@ -36,6 +36,9 @@ jobs:
       - name: Install Chromium and system dependencies
         run: npx playwright install --with-deps chromium
 
+      - name: Run targeted UI recovery regressions
+        run: npx playwright test e2e/night-navigation.spec.ts e2e/night-subjects.spec.ts e2e/ui-validation.spec.ts --workers=2 --reporter=list,github
+
       - name: Run browser tests
         run: npm run test:e2e
 

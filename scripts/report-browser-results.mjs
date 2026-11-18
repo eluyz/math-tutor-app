@@ -24,7 +24,9 @@ for (const path of paths) {
     }
     visit(report.suites);
     const files = [...new Set(failures.map(failure => failure.file))];
-    summary = { path, stats: report.stats, failedFiles: files.map(file => ({
+    summary = { path, stats: report.stats,
+      globalErrors: (report.errors ?? []).slice(0, 3).map(error => (error.message ?? "").slice(0, 2000)),
+      failedFiles: files.map(file => ({
       file, count: failures.filter(failure => failure.file === file).length,
     })), failures: failures.slice(0, 60).map(({ file, title }) => ({ file, title })),
       omittedFailures: Math.max(0, failures.length - 60),

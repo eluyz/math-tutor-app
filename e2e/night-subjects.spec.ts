@@ -5,7 +5,7 @@ for(const width of [320,375,390,768,1280,1440]) for(const en of [false,true]) {
     if(en) await page.getByRole('button',{name:'English',exact:true}).click();
     await page.getByRole('button',{name:en?'Start practice':'Rozpocznij ćwiczenie',exact:true}).click();
     const math=await page.locator('.learning-workspace .check-button:visible').evaluate(el=>({bg:getComputedStyle(el).backgroundColor,h:el.getBoundingClientRect().height}));
-    await page.getByRole('navigation',{name:en?'Math Tutor subjects':'Działy Math Tutor'}).getByRole('button',{name:en?/Statistics and Probability/:/Statystyka i prawdopodobieństwo/}).click();
+    await page.getByRole('navigation',{name:en?'Math Tutor subjects':'Działy Math Tutor'}).getByRole('button',{name:en?/Statistics & Probability/:/Statystyka i prawdopodobieństwo/}).click();
     const stats=page.locator('.statistics-practice'); await expect(stats).toBeVisible();
     await expect(stats.locator('label[for="st101-answer"]')).toBeVisible();
     expect(await stats.locator('.check-button').evaluate(el=>getComputedStyle(el).backgroundColor)).toBe(math.bg);

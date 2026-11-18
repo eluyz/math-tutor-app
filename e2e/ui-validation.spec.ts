@@ -32,7 +32,7 @@ for (const width of [375, 390, 768, 1280, 1440]) for (const en of [false, true])
     await capture("mathematics", (width === 390 && !en) || (width === 768 && en));
 
     const subjects = page.getByRole("navigation", { name: en ? "Math Tutor subjects" : "Działy Math Tutor" });
-    await subjects.getByRole("button", { name: en ? /Statistics and Probability/ : /Statystyka i prawdopodobieństwo/ }).click();
+    await subjects.getByRole("button", { name: en ? /Statistics & Probability/ : /Statystyka i prawdopodobieństwo/ }).click();
     const stats = page.locator(".statistics-practice");
     await expect(stats.locator("#st101-answer")).toBeVisible();
     await stats.locator('button[type="submit"]').click();

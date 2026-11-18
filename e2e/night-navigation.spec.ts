@@ -115,11 +115,50 @@ test('cancel replacing a Statistics draft',async({page})=>{
 
 test('native reload warning can be cancelled without losing the draft',async({page})=>{
   await page.goto('/'); await page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true}).click();
-  await page.locator('.learning-workspace #answer').fill('123');
-  const dialog=page.waitForEvent('dialog');
-  const reload=page.reload().catch(()=>null);
-  const warning=await dialog; expect(warning.type()).toBe('beforeunload'); await warning.dismiss(); await reload;
-  await expect(page.locator('.learning-workspace #answer')).toHaveValue('123');
+  const answer = page.locator('.learning-workspace #answer');
+  await answer.fill('123');
+  const run = await page.locator('.question').getAttribute('data-exercise-run');
+  const question = await page.locator('.question').innerText();
+  const marker = await page.evaluate(() => {
+    const value = crypto.randomUUID();
+    document.documentElement.dataset.reloadMarker = value;
+    return value;
+  });
+  // Match Playwright's upstream beforeunload reload test. page.reload() waits
+  // for a new document, which must not arrive after the user cancels.
+  await Promise.all([
+    page.waitForEvent('dialog').then(async warning => {
+      expect(warning.type()).toBe('beforeunload');
+      await warning.dismiss();
+    }),
+    page.evaluate(() => window.location.reload()),
+  ]);
+  await expect(page.locator('html')).toHaveAttribute('data-reload-marker', marker);
+  await expect(page.locator('.question')).toHaveAttribute('data-exercise-run', run!);
+  await expect(page.locator('.question')).toHaveText(question);
+  await expect(answer).toHaveValue('123');
+  await answer.fill('456');
+  await expect(answer).toHaveValue('456');
+});
+
+test('explicitly accepting reload leaves the old document and clears its in-memory draft',async({page})=>{
+  await page.goto('/'); await page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true}).click();
+  await page.locator('#answer').fill('123');
+  await page.evaluate(() => { document.documentElement.dataset.reloadMarker = 'old-document'; });
+  await Promise.all([
+    page.waitForEvent('dialog').then(async warning => {
+      expect(warning.type()).toBe('beforeunload');
+      await warning.accept();
+    }),
+    page.reload(),
+  ]);
+  await expect(page.locator('html')).not.toHaveAttribute('data-reload-marker');
+  const start = page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true});
+  await expect(start).toBeVisible();
+  await start.click();
+  await expect(page.locator('#answer')).toHaveValue('');
+  await page.getByRole('button',{name:'Sprawdź',exact:true}).click();
+  await expect(page.locator('.feedback')).toHaveClass('feedback invalid');
 });
 
 test('unsupported difficulty retains scratchpad with auto-clear disabled',async({page})=>{
