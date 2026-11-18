@@ -1,5 +1,10 @@
 # Issue #335 — median UI, Statistics curriculum navigation and gutter alignment
 
+> Historical implementation and validation record. The later main integration,
+> release checks and comparison with Focus Studio are documented in
+> [ST-102 release preparation](ST102_RELEASE_PREPARATION.md). Exact final CI
+> evidence and current review readiness are maintained in PR #336's description.
+
 Spec: https://github.com/eluyz/math-tutor-app/issues/335 (owner taxonomy update).
 Base: `d62424a9b9693c6e78d459085f85dc81974433f5`, verified current main with
 [CI44088349286 SUCCESS](https://github.com/eluyz/math-tutor-app/actions/runs/44088349286)
