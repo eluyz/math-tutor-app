@@ -2,6 +2,8 @@ import { defineConfig } from '@playwright/test'
 
 export default defineConfig({
   testDir: './e2e',
+  // Keep failures inspectable through the Checks API when log downloads are unavailable.
+  reporter: process.env.CI ? [['list'], ['github']] : 'list',
   // Acceptance batches have separate production-preview configurations.
   testIgnore: ['**/batchBAcceptance.spec.ts', '**/batchCAcceptance.spec.ts', '**/batchDAcceptance.spec.ts', '**/batchEAcceptance.spec.ts', '**/batchFAcceptance.spec.ts', '**/batchGAcceptance.spec.ts'],
   use: {
