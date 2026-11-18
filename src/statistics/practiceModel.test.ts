@@ -8,6 +8,9 @@ const fixed = [
  {lesson:"median",difficulty:"medium",seed:0,values:[3,3,1,16,7,13],n:5n,d:1n},
  {lesson:"median",difficulty:"medium",seed:1,values:[2,2,3,10,1,7],n:5n,d:2n},
  {lesson:"median",difficulty:"hard",seed:0,values:[-16,-13,8,17,-1,14,-9],n:-1n,d:1n},
+ {lesson:"variance",difficulty:"easy",seed:0,values:[3,2,2,1,2],n:2n,d:5n},
+ {lesson:"variance",difficulty:"medium",seed:0,values:[3,3,1,16,7,13],n:1109n,d:36n},
+ {lesson:"variance",difficulty:"hard",seed:0,values:[-16,-13,8,17,-1,14,-9],n:1056n,d:7n},
 ] as const;
 
 describe("Statistics playable lesson adapter",()=>{
@@ -35,10 +38,17 @@ describe("Statistics playable lesson adapter",()=>{
    expect(mean.answer.denominator).toBeGreaterThan(0n);
    const sum=mean.values.reduce((s,x)=>s+BigInt(x),0n);
    expect(mean.answer.numerator*BigInt(mean.values.length)).toBe(sum*mean.answer.denominator);
+   const variance=createStatisticsPracticeTask("variance",difficulty,seed);
+   expect(variance.values).toEqual(mean.values);
+   const count=BigInt(variance.values.length);
+   const sumSquares=variance.values.reduce((total,value)=>total+BigInt(value)*BigInt(value),0n);
+   // Independent sum-of-squares oracle: population variance = (n*Σx² - (Σx)²)/n².
+   expect(variance.answer.numerator*count*count).toBe((count*sumSquares-sum*sum)*variance.answer.denominator);
+   expect(variance.answer.numerator).toBeGreaterThanOrEqual(0n);
   }
  });
  it("rejects unavailable lessons/levels without a fallback",()=>{
-  expect(()=>createStatisticsPracticeTask("variance" as "mean","easy",0)).toThrow(RangeError);
+  expect(()=>createStatisticsPracticeTask("mode" as "mean","easy",0)).toThrow(RangeError);
   for(const level of ["advanced","expert"] as const) expect(()=>createStatisticsPracticeTask("median",level,0)).toThrow(RangeError);
   expect(()=>createStatisticsPracticeTask("median","easy",-1)).toThrow(RangeError);
  });

@@ -77,7 +77,7 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         await submit(page,"1"); await expect(p.locator(".feedback")).toContainText(c.wrong);
         expect(await storage(page)).toEqual(before);
         await expect(p.locator("[data-topic=median]")).toBeEnabled();
-        await expect(p.locator("[data-topic=dispersion]")).toBeDisabled();
+        await expect(p.locator("[data-topic=dispersion]")).toBeEnabled();
         await expect(p.locator(".difficulty-picker button:enabled")).toHaveCount(3);
       });
 

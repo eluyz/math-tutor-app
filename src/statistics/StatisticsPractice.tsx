@@ -10,6 +10,7 @@ import type { DatasetDifficulty } from "./datasets";
 import { createStatisticsPracticeTask } from "./practiceModel";
 import { statisticsCurriculum, type StatisticsTrack, type StatisticsLesson } from "./curriculum";
 import { medianCopy } from "./st102Copy";
+import { varianceCopy } from "./st103Copy";
 import { meanCopy } from "./st101Copy";
 
 type Assessment = "correct" | "incorrect" | "empty" | "invalid";
@@ -20,7 +21,7 @@ export function nextStatisticsSeed(seed: number): number {
   return seed === 0xffffffff ? 0 : seed + 1;
 }
 
-/** Mean/median pilot. State never enters Mathematics sessions, grading or storage. */
+/** Mean, median and population-variance pilot. State is isolated from Mathematics. */
 export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onDraftChange?: (draft: boolean) => void}) {
   const c=statisticsPracticeCopy[locale];
   const subjects=subjectCopy[locale];
@@ -38,7 +39,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   const trackControls=useRef<HTMLDivElement>(null);
   const preserveTrackScroll=useTrackScroll();
   const task=useMemo(()=>lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null,[lesson,difficulty,seed]);
-  const teaching=useMemo(()=>task?(task.lesson==="median"?medianCopy(task.values,locale):meanCopy(task.values,locale)):null,[task,locale]);
+  const teaching=useMemo(()=>task?(task.lesson==="median"?medianCopy(task.values,locale):task.lesson==="variance"?varianceCopy(task.values,locale):meanCopy(task.values,locale)):null,[task,locale]);
   const topics=statisticsCurriculum.find(t=>t.id===track)!.topics;
   useEffect(()=>{ heading.current?.focus(); },[]);
   useEffect(()=>{ onDraftChange?.(raw.trim().length > 0 && assessment === null); },[raw, assessment, onDraftChange]);
@@ -87,7 +88,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
           })}
         </div>
         <p className="panel-intro" id="statistics-topic-unavailable">{c.topicsUnavailable}</p>
-        <h2>{lesson?lesson==="median"?c.medianTitle:c.title:c.plannedTitle}</h2>
+        <h2>{lesson?lesson==="median"?c.medianTitle:lesson==="variance"?c.varianceTitle:c.title:c.plannedTitle}</h2>
         <div className="practice-controls">
           <div className="difficulty-picker" role="group" aria-label={c.difficulty}>
             {difficultyConfig.map(level=><button key={level.id} type="button" data-level={level.id}

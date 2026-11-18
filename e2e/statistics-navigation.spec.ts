@@ -26,11 +26,13 @@ for(const width of [320,375,1280]) for(const en of [false,true]) {
   await expect(tracks.getByRole("button")).toHaveText(en?["Statistics fundamentals","University statistics"]:["Podstawy statystyki","Statystyka na studia"]);
   await expect(p.locator("[data-track=fundamentals]")).toHaveAttribute("aria-pressed","true");
   await expect(topics.getByRole("button")).toHaveCount(6);
-  await expect(topics.locator("button:enabled")).toHaveCount(2);
+  await expect(topics.locator("button:enabled")).toHaveCount(3);
   await expect(p.locator("[data-topic=mean]")).toHaveAttribute("aria-pressed","true");
   await expect(p.locator("[data-topic=median]")).toBeEnabled();
-  await expect(p.locator("[data-topic=dispersion]")).toBeDisabled();
-  await expect(p.locator("[data-topic=dispersion]")).toHaveAccessibleDescription(en?/not available/i:/niedostępne/i);
+  await expect(p.locator("[data-topic=dispersion]")).toBeEnabled();
+  await p.locator("[data-topic=dispersion]").click();
+  await expect(p.locator(".question")).toHaveAttribute("data-lesson","variance");
+  await expect(p.getByRole("heading",{name:en?"ST-103 — Population variance":"ST-103 — Wariancja populacyjna"})).toBeVisible();
   await expect(levels.getByRole("button")).toHaveText(en?["Easy","Medium","Hard","Advanced","Expert"]:["Łatwy","Średni","Trudny","Zaawansowany","Ekspert"]);
   await expect(levels.locator("button:enabled")).toHaveCount(3);
   await expect(levels.locator("[data-level=easy]")).toHaveAttribute("aria-pressed","true");
