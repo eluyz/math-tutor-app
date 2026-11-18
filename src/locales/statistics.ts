@@ -22,7 +22,8 @@ const pl = {
   hintsDone: "Obie podpowiedzi pokazane", show: "Pokaż rozwiązanie", hide: "Ukryj rozwiązanie",
   solution: "Rozwiązanie krok po kroku",
   format: "Podaj dokładny wynik: liczbę całkowitą, skończony zapis dziesiętny lub ułamek. Nie zaokrąglaj. Limit: 100 znaków.",
-  memory: "Te ćwiczenia nie zapisują postępów i nie zmieniają wyników Matematyki. Po wyjściu z działu lub odświeżeniu strony pilotaż zaczyna się od pierwszego zadania.",
+  discard: "Zmiana lekcji, ścieżki, poziomu lub zadania usunie bieżącą odpowiedź, podpowiedzi i rozwiązanie. Kontynuować?",
+  memory: "Te ćwiczenia nie zapisują postępów i nie zmieniają wyników Matematyki. Podczas przełączania działów zachowujemy bieżące zadanie i odpowiedź. Odświeżenie lub zamknięcie strony je usuwa.",
 };
 export const statisticsPracticeCopy: Record<Locale, typeof pl> = {
   pl,
@@ -46,6 +47,7 @@ export const statisticsPracticeCopy: Record<Locale, typeof pl> = {
     hint1: "Show hint", hint2: "Show second hint", hintsDone: "Both hints shown",
     show: "Show solution", hide: "Hide solution", solution: "Step-by-step solution",
     format: "Enter an exact result: an integer, a finite decimal or a fraction. Do not round. Limit: 100 characters.",
-    memory: "These exercises do not save progress or change Mathematics results. Leaving this subject or refreshing the page restarts the pilot from its first exercise.",
+    discard: "Changing the lesson, track, level or exercise clears the current answer, hints and solution. Continue?",
+    memory: "These exercises do not save progress or change Mathematics results. Switching subjects keeps the current task and answer. Refreshing or closing the page clears them.",
   },
 };

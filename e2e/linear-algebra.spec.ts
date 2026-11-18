@@ -1,4 +1,5 @@
 import { test, expect, type Page } from "@playwright/test";
+import { confirmTaskReplacement } from "./helpers/navigation";
 import { a,m,d,eq,laplace,q } from "../src/university/audit";
 import { shownFraction } from "./helpers/functions";
 import { fractionText, parametricCoefficients, readChain } from "./helpers/systems";
@@ -200,7 +201,12 @@ for(const en of [false,true])test(`MT-EDU-006B ${en?"EN":"PL"}: all rank classif
     const solution=await page.locator(".solution-panel").innerText();
     if(expected==="system-none")expect(solution).toContain("0 =");
     if(expected==="system-many")expect(solution).toContain("t1");
-    await button(page,en?"New example":"Nowy przykład").click();
+    if (i === 0) {
+      // This scenario deliberately replaces the scratchpad notes created above.
+      await confirmTaskReplacement(page, () => button(page,en?"New example":"Nowy przykład").click());
+    } else {
+      await button(page,en?"New example":"Nowy przykład").click();
+    }
   }
   expect(seen).toEqual(new Set(["system-one","system-none","system-many"]));
   expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);

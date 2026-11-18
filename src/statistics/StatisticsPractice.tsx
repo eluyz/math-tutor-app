@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
+import { useTrackScroll } from "../navigation/useTrackScroll";
 import type { Locale } from "../locales/types";
 import { difficultyConfig, isLegacyDifficulty } from "../difficulty";
 import { formatRational } from "../answers";
@@ -20,7 +21,7 @@ export function nextStatisticsSeed(seed: number): number {
 }
 
 /** Mean/median pilot. State never enters Mathematics sessions, grading or storage. */
-export function StatisticsPractice({locale}: {locale: Locale}) {
+export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onDraftChange?: (draft: boolean) => void}) {
   const c=statisticsPracticeCopy[locale];
   const subjects=subjectCopy[locale];
   const [track,setTrack]=useState<StatisticsTrack>("fundamentals");
@@ -33,20 +34,28 @@ export function StatisticsPractice({locale}: {locale: Locale}) {
   const [solution,setSolution]=useState(false);
   const heading=useRef<HTMLHeadingElement>(null);
   const input=useRef<HTMLInputElement>(null);
-  const focusRequested=useRef(false);
+  const focusRequested=useRef<"answer"|FocusOptions|null>(null);
+  const trackControls=useRef<HTMLDivElement>(null);
+  const preserveTrackScroll=useTrackScroll();
   const task=useMemo(()=>lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null,[lesson,difficulty,seed]);
   const teaching=useMemo(()=>task?(task.lesson==="median"?medianCopy(task.values,locale):meanCopy(task.values,locale)):null,[task,locale]);
   const topics=statisticsCurriculum.find(t=>t.id===track)!.topics;
   useEffect(()=>{ heading.current?.focus(); },[]);
+  useEffect(()=>{ onDraftChange?.(raw.trim().length > 0 && assessment === null); },[raw, assessment, onDraftChange]);
 
   useEffect(()=>{
-    if(focusRequested.current && task) input.current?.focus();
-    focusRequested.current=false;
+    if(focusRequested.current && focusRequested.current!=="answer") trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.focus(focusRequested.current);
+    else if(focusRequested.current==="answer" && task) input.current?.focus();
+    focusRequested.current=null;
   },[task]);
 
-  function reset(focusAnswer=true) {
+  function canReplaceTask() {
+    return !raw.trim() || assessment !== null || window.confirm(c.discard);
+  }
+
+  function reset(focusAnswer=true, trackFocusOptions?:FocusOptions) {
     setRaw(""); setAssessment(null); setHints(0); setSolution(false);
-    focusRequested.current=focusAnswer;
+    focusRequested.current=trackFocusOptions ?? (focusAnswer?"answer":null);
   }
   function submit(event:FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -56,14 +65,14 @@ export function StatisticsPractice({locale}: {locale: Locale}) {
       : equalRational(parsed.value,task.answer)?"correct":"incorrect");
   }
   return (
-    <section className="statistics-practice subject-roadmap-panel" aria-labelledby="statistics-title">
+    <section className="statistics-practice subject-roadmap-panel learning-workspace" aria-labelledby="statistics-title">
       <div className="subject-roadmap-inner">
         <span className="subject-status subject-status--in-progress">{subjects.status[subjectStatus.statistics]}</span>
         <h1 id="statistics-title" ref={heading} tabIndex={-1}>{subjects.subjects.statistics.title}</h1>
         <p className="subject-roadmap-description">{subjects.subjects.statistics.description}</p>
-        <div className="study-groups" role="group" aria-label={c.trackLabel}>
-          {statisticsCurriculum.map(t=><button key={t.id} type="button" data-track={t.id} aria-pressed={track===t.id} onClick={()=>{
-            if(t.id!==track) {setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals");}
+        <div ref={trackControls} className="study-groups" role="group" aria-label={c.trackLabel}>
+          {statisticsCurriculum.map(t=><button key={t.id} type="button" data-track={t.id} aria-pressed={track===t.id} onClick={event=>{
+            if(t.id!==track && canReplaceTask()) {preserveTrackScroll(event.detail>0);setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals",{preventScroll:event.detail>0});}
           }}>{c.trackLabels[t.id]}</button>)}
         </div>
         <div className="category-picker" role="group" aria-label={c.topicLabel}>
@@ -72,7 +81,7 @@ export function StatisticsPractice({locale}: {locale: Locale}) {
             return <button key={topic.id} type="button" data-topic={topic.id} disabled={!available}
               className={available===lesson && available?"active":""} aria-pressed={!!available && available===lesson}
               aria-describedby={!available?"statistics-topic-unavailable":undefined}
-              onClick={()=>{if(available && available!==lesson) {setLesson(available);setDifficulty("easy");setSeed(0);reset();}}}>
+              onClick={()=>{if(available && available!==lesson && canReplaceTask()) {setLesson(available);setDifficulty("easy");setSeed(0);reset();}}}>
               {c.topicLabels[topic.id]}
             </button>;
           })}
@@ -84,7 +93,7 @@ export function StatisticsPractice({locale}: {locale: Locale}) {
             {difficultyConfig.map(level=><button key={level.id} type="button" data-level={level.id}
               disabled={!lesson || !isLegacyDifficulty(level.id)} aria-pressed={!!lesson && difficulty===level.id}
               aria-describedby={!lesson || !isLegacyDifficulty(level.id)?"statistics-level-unavailable":undefined}
-              onClick={()=>{if(lesson && isLegacyDifficulty(level.id) && level.id!==difficulty) {setDifficulty(level.id);setSeed(0);reset();}}}>
+              onClick={()=>{if(lesson && isLegacyDifficulty(level.id) && level.id!==difficulty && canReplaceTask()) {setDifficulty(level.id);setSeed(0);reset();}}}>
               {level.labels[locale]}
             </button>)}
           </div>
@@ -126,7 +135,7 @@ export function StatisticsPractice({locale}: {locale: Locale}) {
               <p className="solution-answer">{teaching.conclusion}</p>
             </section>}
           </div>
-          <button className="next-button" type="button" onClick={()=>{setSeed(current=>nextStatisticsSeed(current));reset();}}>{c.next}</button>
+          <button className="next-button" type="button" onClick={()=>{if(!canReplaceTask()) return; setSeed(current=>nextStatisticsSeed(current));reset();}}>{c.next}</button>
         </div> : <p role="status" className="panel-intro">{c.plannedGuidance}</p>}
         <p className="subject-roadmap-disclaimer">{c.memory}</p>
       </div>

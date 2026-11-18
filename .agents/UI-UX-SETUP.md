@@ -1,113 +1,124 @@
-# MT-UI-SETUP-003 — projektowe narzędzia UI/UX
+# MT-UI-SETUP-003 — project UI/UX tools
 
-Konfiguracja do przyszłych zadań, bez uruchamiania redesignu. Skille są zapisane
-w Git w `.agents/skills/`. Po pobraniu gałęzi uruchom nową sesję Codex w katalogu
-repozytorium. Nie trzeba ponawiać instalatorów. Draft PR nie udostępnia skilli
-na `main` do czasu osobnej decyzji o scaleniu.
+> Historical installation and optimization record. The versions, probes and PR
+> observations below belong to MT-UI-SETUP-003. These skills are present on main
+> at `307276a7a4f3196f47633992b936704178d147c4`, the main revision checked during
+> MT-UI-004. The English migration does not reinstall or update the packages.
 
-## Stan instalacji
+Setup for future tasks, without starting a redesign. Skills are tracked in Git
+under `.agents/skills/`. After checking out the branch, start a new Codex session
+in the repository directory. There is no need to rerun installers. A Draft PR
+does not make the skills available on `main` before a separate merge decision.
 
-| Narzędzie | Instalacja i lokalizacja | Weryfikacja |
+## Installation status
+
+| Tool | Installation and location | Verification |
 | --- | --- | --- |
-| UI UX Pro Max | CLI 2.15.0, `.agents/skills/ui-ux-pro-max/` oraz sześć skilli towarzyszących | niezmienione pliki z #338; walidacja 12 domen/22 stosów, wyszukiwanie UX/React i rekomendacje |
-| Impeccable | skill 4.9.2, `.agents/skills/impeccable/`, oficjalna kopia Codex bez hooków | niezmieniony pakiet; silnik 0.1.25, `engine-probe` i lokalny `detect` |
-| Vercel Web Design Guidelines | `.agents/skills/web-design-guidelines/`, CLI `skills@1.9.0` | niezmieniony pakiet, pobranie aktualnych wytycznych |
-| Taste Skill | opcjonalny, usunięty w MT-UI-SETUP-003 | nie jest wykrywany; ponowna instalacja wymaga osobnego zadania |
-| Superpowers | dostępny w hoście rozmowy, brak lokalnego pluginu CLI | instrukcja instalacji przez Codex Plugins poniżej |
+| UI UX Pro Max | CLI 2.15.0, `.agents/skills/ui-ux-pro-max/` and six companion skills | unchanged files from #338; validation of 12 domains/22 stacks, UX/React search, and recommendations |
+| Impeccable | skill 4.9.2, `.agents/skills/impeccable/`, official Codex copy without hooks | unchanged package; engine 0.1.25, `engine-probe`, and local `detect` |
+| Vercel Web Design Guidelines | `.agents/skills/web-design-guidelines/`, CLI `skills@1.9.0` | unchanged package, retrieval of current guidelines |
+| Taste Skill | optional, removed in MT-UI-SETUP-003 | not detected; reinstalling requires a separate task |
+| Superpowers | available in the conversation host, no local CLI plugin | Codex Plugins installation instructions below |
 
-Środowisko instalacji: Codex CLI 0.159.2, Node.js 24.19.0, npm 11.9.0,
-Python 3.12.14. Python 3 z biblioteką standardową wystarcza do UI UX Pro Max.
-Silnik Impeccable jest samodzielnym plikiem wykonywalnym, bez zależności npm/pip.
+Installation environment: Codex CLI 0.159.2, Node.js 24.19.0, npm 11.9.0,
+Python 3.12.14. Python 3 with its standard library is sufficient for UI UX Pro Max.
+The Impeccable engine is a standalone executable, without npm/pip dependencies.
 
-## Optymalizacja i kompletność
+## Optimization and completeness
 
-Taste stanowił 1631 plików i 36 599 882 bajty, w tym lokalne zdjęcia, ikony,
-referencje i narzędzia. Żaden z zachowanych skilli nie wymaga jego plików.
-W UI UX Pro Max pozostał komentarz o inspiracji Taste; nie jest importem ani
-zależnością uruchomieniową. Usunięto cały opcjonalny skill, jego licencję i wpis
-manifestu. Taste już wcześniej nie należał do `skills-lock.json`.
+Taste comprised 1631 files and 36 599 882 bytes, including local photos, icons,
+references, and tools. None of the retained skills requires its files. A comment
+about Taste as an inspiration remains in UI UX Pro Max; it is neither an import
+nor a runtime dependency. The entire optional skill, its license, and its
+manifest entry were removed. Taste was already absent from `skills-lock.json`.
 
-| Pomiar | Przed (04fb91f) | Po optymalizacji |
+| Measurement | Before (04fb91f) | After optimization |
 | --- | ---: | ---: |
-| Pliki w różnicy PR względem bazy main | 1881 | 249 |
-| Dodane / usunięte linie w różnicy PR | +239808 / −0 | +110689 / −0 |
-| Pliki w `.agents/skills/` | 1873 | 242 |
-| Zasoby skilli — suma rozmiarów plików Git | 43 189 462 B | 6 589 580 B |
+| Files in the PR diff against the main baseline | 1881 | 249 |
+| Added / removed lines in the PR diff | +239808 / −0 | +110689 / −0 |
+| Files in `.agents/skills/` | 1873 | 242 |
+| Skill assets — total size of Git-tracked files | 43 189 462 B | 6 589 580 B |
 
-Oszczędność zasobów skilli: 84,7%. To rozmiary logiczne plików, nie rozmiar
-skompresowanych obiektów `.git`. Usunięcie w nowym commicie zmniejsza bieżący
-snapshot i różnicę PR; duże zasoby pozostają w poprzednim commicie gałęzi.
-Nie przepisywano historii. Jeśli celem jest również niedodawanie tych zasobów
-do historii `main`, przy późniejszym, ręcznym scalaniu wybierz squash merge.
+Skill asset savings: 84.7%. These are logical file sizes, rather than the size of
+compressed `.git` objects. Deletion in a new commit reduces the current snapshot
+and PR diff; large assets remain in the branch's previous commit. History was
+not rewritten. If the goal is also to keep those assets out of `main` history,
+choose squash merge when performing a later manual merge.
 
-Zachowano bajt w bajt wszystkie pliki pozostałych skilli, w tym dane CSV/JSON,
-metadane licencji, skrypty, testy, fixtures, referencje i szablony. Dane są
-używane przez wyszukiwarkę/rekomendacje UI UX Pro Max; Impeccable korzysta z
-referencji, metadanych poleceń, indeksu fontów, VERSION i manifestu checksum.
-Nie przycinano plików na podstawie samego rozszerzenia czy nazwy. Pakiet
-Vercel zawiera jeden `SKILL.md` i pobiera reguły audytu z sieci.
+Every file in the remaining skills was preserved byte for byte, including
+CSV/JSON data, license metadata, scripts, tests, fixtures, references, and
+templates. UI UX Pro Max uses the data for search/recommendations; Impeccable uses
+references, command metadata, a font index, VERSION, and a checksum manifest.
+Files were not trimmed solely on the basis of extension or name. The Vercel
+package contains one `SKILL.md` and fetches audit rules from the network.
 
-PR #339 w pełni zawiera instalację z PR #338: wszystkie 174 pliki tego PR
-zachowano bez zmian. Rekomendacja: zamknąć #338 jako zastąpiony przez #339,
-gdy właściciel potwierdzi tę konsolidację. Nie zamykano ani nie zmieniano #338.
+PR #339 fully includes the installation from PR #338: all 174 files from that PR
+were preserved unchanged. Recommendation: close #338 as superseded by #339 once
+the owner confirms this consolidation. #338 was neither closed nor modified.
 
-## Źródła, aktualizacje i trwałość
+## Sources, updates, and persistence
 
-Rewizje źródeł i hashe: `ui-ux-sources.json`. `skills-lock.json` przypina Vercel.
-Nie aktualizuj ani nie nadpisuj istniejących skilli bez przeglądu źródeł.
+Source revisions and hashes: `ui-ux-sources.json`. `skills-lock.json` pins Vercel.
+Do not update or overwrite existing skills without reviewing their sources.
 
 - [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill):
-  zachowana instalacja CLI 2.15.0; polecenie i ograniczenia w `README.md`.
+  retained CLI 2.15.0 installation; command and limitations in `README.md`.
 - [Impeccable](https://github.com/pbakaus/impeccable/blob/d41d9860b0094dcb68030657da63461212835aaa/README.md):
-  oficjalna metoda „Manual copy, no Node required”, kopia `.agents/skills/impeccable`.
-  Nie kopiowano `.codex/hooks.json` ani konfiguracji pluginu. Launcher sprawdza
-  SHA-256 pobranego silnika względem dołączonego manifestu.
+  official “Manual copy, no Node required” method, copied to `.agents/skills/impeccable`.
+  Neither `.codex/hooks.json` nor plugin configuration was copied. The launcher
+  checks the downloaded engine's SHA-256 against the bundled manifest.
 - [Vercel Agent Skills](https://github.com/vercel-labs/agent-skills/blob/1a2c79d4e6c4a2283dc2c614b6538cbe1ed5ca62/README.md):
   `npx --yes skills@1.9.0 add vercel-labs/agent-skills --skill web-design-guidelines --agent codex --copy --yes`.
 
-Przed instalacją CLI sprawdzono źródło `vercel-labs/skills`, zależności
-`tar`, `yaml`, `nostics` i uprawnienia. Użyto `npm_config_ignore_scripts=true`,
-`DISABLE_TELEMETRY=1` i cache `/tmp/math-tutor-npm`. Nie instalowano globalnie.
-Kopie w repozytorium nie zależą od symlinków do `/tmp`.
+Before installing the CLI, the `vercel-labs/skills` source, the `tar`, `yaml`, and
+`nostics` dependencies, and permissions were reviewed. Installation used
+`npm_config_ignore_scripts=true`, `DISABLE_TELEMETRY=1`, and the
+`/tmp/math-tutor-npm` cache. Nothing was installed globally. Repository copies do
+not depend on symlinks to `/tmp`.
 
-Licencja Impeccable jest w `licenses/impeccable.LICENSE`; licencje UI UX Pro Max
-zachowano w pierwotnych lokalizacjach. Sprawdzona rewizja Vercel nie dostarcza
-pliku LICENSE — nie dopisano własnej licencji.
+The Impeccable license is in `licenses/impeccable.LICENSE`; UI UX Pro Max licenses
+were retained in their original locations. The reviewed Vercel revision does
+not provide a LICENSE file — no license was invented for it.
 
-## Weryfikacja MT-UI-SETUP-003
+## MT-UI-SETUP-003 verification
 
-- Uruchomiono nowy proces Codex app-server, `thread/start` z `ephemeral: true`,
-  trybem read-only i katalogiem projektu, następnie `skills/list` z
-  `forceReload: true`. Wykryto 9 projektowych skilli, bez błędów, bez Taste.
-  Dodatkowo nowy `codex debug prompt-input` potwierdza katalog skilli w kontekście.
-  Nie wykonywano tury modelu, zmian UI ani hooków. Test używa tymczasowego
-  `CODEX_HOME`, ponieważ domyślny katalog konfiguracji jest tylko do odczytu.
-- Hashe wszystkich 9 zachowanych skilli zgadzają się z manifestem sprzed
-  optymalizacji. Skrypty użytkowe UI UX Pro Max i Impeccable działają.
-- Bieżący wynik CI sprawdzaj na konkretnym head PR #339 w zakładce Checks;
-  opis PR podaje sprawdzony SHA i link. Status wcześniejszego commitu nie
-  stanowi wyniku dla nowego head. Oczekującego CI nie traktuj jako zaliczonego.
-- W MT-UI-SETUP-002 zaliczono 2603 testy, build i 6 kontrolnych E2E przy
-  375/768/1280 px w PL/EN. Optymalizacja nie zmienia aplikacji ani tych testów;
-  pełny zestaw wymagany przed merge wykonuje workflow CI.
-- Nowa dokumentacja przechodzi diff whitespace check. Nie formatowano
-  zachowanych plików upstream; ich istniejące białe znaki pozostają bez zmian.
+- Started a new Codex app-server process, called `thread/start` with
+  `ephemeral: true`, read-only mode, and the project directory, then called
+  `skills/list` with `forceReload: true`. Detected 9 project skills, with no
+  errors and no Taste. A fresh `codex debug prompt-input` also confirms the
+  skills directory in context. No model turn, UI changes, or hooks were run.
+  The test uses a temporary `CODEX_HOME` because the default configuration
+  directory is read-only.
+- Hashes for all 9 retained skills match the pre-optimization manifest.
+  UI UX Pro Max and Impeccable utility scripts work.
+- Check current CI results for the specific head of PR #339 in the Checks tab;
+  the PR description gives the verified SHA and link. An earlier commit's
+  status does not establish the result for a new head. Pending CI must not be
+  treated as passed.
+- MT-UI-SETUP-002 passed 2603 tests, the build, and 6 E2E checks at
+  375/768/1280 px in PL/EN. Optimization changes neither the application nor
+  those tests; the CI workflow runs the full suite required before merging.
+- New documentation passes the diff whitespace check. Retained upstream files
+  were not reformatted; their existing whitespace is unchanged.
 
-Impeccable ma trwały launcher, lecz cache silnika w `/tmp` jest nietrwały.
-Nowe środowisko może wymagać pobrania silnika do zapisywalnego `IMPECCABLE_HOME`
-w ramach normalnych zgód. Vercel przy każdym audycie potrzebuje sieci do
+Impeccable has a persistent launcher, but its engine cache in `/tmp` is ephemeral.
+A new environment may require downloading the engine to a writable
+`IMPECCABLE_HOME` through the normal approval process. Vercel needs network
+access for each audit to fetch
 https://raw.githubusercontent.com/vercel-labs/web-interface-guidelines/main/command.md.
-Impeccable Live/Apply wymaga trybu `IMPECCABLE_LIVE_COPY_AGENT=off` lub `chat`
-zgodnie z `AGENTS.md`; nie uruchamiano trybu omijającego zatwierdzenia ani hooków.
+Impeccable Live/Apply requires `IMPECCABLE_LIVE_COPY_AGENT=off` or `chat`, as
+specified in `AGENTS.md`; neither an approval-bypassing mode nor hooks were run.
 
-## Superpowers przez Codex Plugins
+## Superpowers through Codex Plugins
 
-[Oficjalna instrukcja](https://github.com/obra/superpowers/blob/22f0b463e7a5e579904dd6211a520321035526f7/README.md#codex-app):
-w aplikacji Codex otwórz **Plugins**, znajdź **Superpowers** w **Coding**, kliknij
-**+** i rozpocznij nową sesję. W CLI: `/plugins` → `superpowers` → **Install Plugin**.
-Nie zastępuj pluginu skryptem/bootstrapem ani ręczną konfiguracją hooków.
-Dostępność w hoście rozmowy nie dowodzi lokalnej instalacji na komputerze
-użytkownika. W tym kontenerze CLI nie może odpytać zdalnego katalogu pluginów.
+[Official instructions](https://github.com/obra/superpowers/blob/22f0b463e7a5e579904dd6211a520321035526f7/README.md#codex-app):
+in the Codex app, open **Plugins**, find **Superpowers** under **Coding**, click
+**+**, and start a new session. In the CLI: `/plugins` → `superpowers` → **Install Plugin**.
+Do not replace the plugin with a script/bootstrap or manual hook configuration.
+Availability in the conversation host does not prove a local installation on
+the user's computer. In this container, the CLI cannot query the remote plugin
+catalog.
 
-Nie zmieniono aplikacji, bibliotek React, generatorów ani testów matematycznych.
-PR #337 pozostaje poza zakresem: bez edycji, zamykania i merge.
+The application, React libraries, generators, and mathematical tests were
+unchanged. PR #337 remains outside the setup task's scope: no editing, closing,
+or merging.

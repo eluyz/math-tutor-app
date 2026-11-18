@@ -43,7 +43,7 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         const before=await storage(page);
         await enter(page);
         const p=panel(page), input=p.getByLabel(c.answer,{exact:true});
-        await expect(p.getByText("Work in progress",{exact:true})).toBeVisible();
+        await expect(p.getByText(locale === "pl" ? "W rozwoju" : "Work in progress",{exact:true})).toBeVisible();
         await expect(p.getByRole("group",{name:locale==="pl"?"Poziom trudności":"Difficulty"}).getByRole("button")).toHaveCount(5);
         await expect(p.locator(".question")).toContainText("3, 2, 2, 1, 2");
         await expect(p.locator(".question")).toHaveAttribute("data-seed","0");
@@ -158,7 +158,11 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         await expect(page.locator(".practice .question")).toHaveText(mathQuestion);
         await expect(page.locator("#answer")).toHaveValue("17");
         await expect(page.locator(".session-progress").first()).toHaveText(position);
-        for(let index=0;index<10;index++) await page.getByRole("button",{name:index===9?(locale==="pl"?"Zakończ sesję":"Finish session"):(locale==="pl"?"Następne zadanie":"Next exercise"),exact:true}).click();
+        for(let index=0;index<10;index++) {
+          // Deliberately discard the retained, unchecked Mathematics answer.
+          if (index === 0) page.once("dialog", dialog => { expect(dialog.type()).toBe("confirm"); return dialog.accept(); });
+          await page.getByRole("button",{name:index===9?(locale==="pl"?"Zakończ sesję":"Finish session"):(locale==="pl"?"Następne zadanie":"Next exercise"),exact:true}).click();
+        }
         const afterSession=await storage(page);
         expect(JSON.parse(afterSession.local[HISTORY_KEY]).sessions).toHaveLength(1);
         await enter(page); await submit(page,"2");
@@ -167,7 +171,7 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         await page.getByRole("button",{name:c.exam,exact:true}).click();
         await page.getByRole("button",{name:c.startExam,exact:true}).click();
         for (const subject of await page.locator(".subject-navigation").getByRole("button").all()) await expect(subject).toBeDisabled();
-        await expect(page.locator(".statistics-practice")).toHaveCount(0);
+        await expect(page.locator(".statistics-practice")).toBeHidden();
         const question=await page.locator(".exam-work .question").innerText();
         await page.getByRole("link",{name:locale==="pl"?"Math Tutor — strona startowa":"Math Tutor — home"}).click();
         await expect(page.locator(".exam-work .question")).toHaveText(question);

@@ -17,6 +17,7 @@ import { FinalAnswer, SolutionPanel } from "../solutions/SolutionPanel";
 import { isUniversityTask } from "../university/catalog";
 import { isLinearAlgebraProblem } from "../university/schema";
 import { examCopy } from "./copy";
+import { ExamQuestionNavigation } from "./ExamQuestionNavigation";
 import { clearExamHistory, loadExamHistory, reportForExam,
   saveExamReport } from "./history";
 import { editExamAnswer, examCapacity, examConfigError, examLevels, examTotals, isBlankAnswer,
@@ -138,7 +139,7 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
     invalid: c.invalid, skipped: c.skipped };
 
   return <section className="exam-mode" aria-labelledby="exam-title">
-    <div className="section-heading"><div><span className="eyebrow">MT-EXAM-001</span>
+    <div className="section-heading"><div>
       <h2 id="exam-title" tabIndex={-1}>{c.title}</h2></div><p>{c.introduction}</p></div>
     {!exam && <>
       <div className="exam-setup">
@@ -235,14 +236,9 @@ export function ExamMode({ onLockedChange }: { onLockedChange: (locked: boolean)
           ? c.elapsed(timeText(Math.floor(Math.max(0, now - exam.startedAt) / 1000)))
           : c.remaining(timeText(Math.ceil(Math.max(0, exam.deadline - now) / 1000)))}</span></div>
       <p className="input-help">{c.refreshWarning}</p>
-      <nav className="exam-question-nav" aria-label={c.review}>
-        {exam.tasks.map((_, index) => <button type="button" key={index}
-          aria-current={exam.index === index ? "step" : undefined}
-          aria-label={c.question(index + 1, exam.tasks.length)}
-          className={isBlankAnswer(exam.answers[index]) ? "" : "answered"}
-          onClick={() => { commit(moveExam(examRef.current!, index, Date.now())); setConfirmSubmit(false); }}>
-          {index + 1}</button>)}
-      </nav>
+      <ExamQuestionNavigation currentIndex={exam.index}
+        answerPresence={exam.answers.map((answer) => !isBlankAnswer(answer))} copy={c}
+        onSelect={(index) => { commit(moveExam(examRef.current!, index, Date.now())); setConfirmSubmit(false); }} />
       <div className="exercise-panel">
         <h3 id="exam-question-title" tabIndex={-1}>{task.title}</h3>
         <ExamQuestion task={task} />

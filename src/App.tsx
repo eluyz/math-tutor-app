@@ -1,3 +1,6 @@
+import type { MouseEvent as ReactMouseEvent } from "react";
+import { nightCopy } from "./locales/night";
+import { useTrackScroll } from "./navigation/useTrackScroll";
 import { difficultyConfig } from "./difficulty";
 import { SolutionPanel } from "./solutions/SolutionPanel";
 import { MistakeHelp } from "./diagnostics/MistakeHelp";
@@ -58,14 +61,20 @@ import { examCopy } from "./exam/copy";
 import { PlannedSubjectPanel, SubjectNavigation } from "./SubjectNavigation";
 import type { SubjectId } from "./subjectRoadmap";
 import { StatisticsPractice } from "./statistics/StatisticsPractice";
+import { hasUnsubmittedAnswer } from "./navigation/unsavedWork";
+import { useUnloadWarning } from "./navigation/useUnloadWarning";
 
 export default function App() {
   const { copy, locale, difficultyLabels } = useLocale();
   const { categories, studyCategories, feedback, ui, answerHints } = copy;
   const a = copy.app;
+  const n = nightCopy[locale];
   const progress = useProgress();
   const [view, setView] = useState<"learn" | "progress" | "exam">("learn");
   const [subject, setSubject] = useState<SubjectId>("mathematics");
+  const [statisticsVisited, setStatisticsVisited] = useState(false);
+  const [statisticsDraft, setStatisticsDraft] = useState(false);
+  const [scratchpadAtRisk, setScratchpadAtRisk] = useState(false);
   const [examLocked, setExamLocked] = useState(false);
   const sessionId = useRef<string | null>(null);
   const previousView = useRef(view);
@@ -81,6 +90,9 @@ export default function App() {
   const [searchQuery, setSearchQuery] = useState("");
   const [searchLevelChange, setSearchLevelChange] = useState<{ from: Difficulty; to: Difficulty } | null>(null);
   const searchFocusRequested = useRef(false);
+  const trackControls = useRef<HTMLDivElement>(null);
+  const trackFocusRequested = useRef<FocusOptions | null>(null);
+  const preserveTrackScroll = useTrackScroll();
   const [session, setSession] = useState<SessionState | null>(null);
   const sessionRef = useRef<SessionState | null>(null);
   const sessionNumber =
@@ -112,6 +124,11 @@ export default function App() {
   const [stepVisible, setStepVisible] = useState(false);
   const [stepAnswer, setStepAnswer] = useState("");
   const [checkedStep, setCheckedStep] = useState<string | null>(null);
+  useUnloadWarning(
+    sessionNumber > 0 || examLocked || statisticsDraft ||
+    (!!active && hasUnsubmittedAnswer(answer, checkedInput !== null)) ||
+    (checkedStep === null && stepAnswer.trim().length > 0),
+  );
   const stepResult =
     active?.step && checkedStep !== null
       ? checkStep(active, checkedStep, feedback)
@@ -130,10 +147,13 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (active) {
+    if (trackFocusRequested.current) {
+      trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.focus(trackFocusRequested.current);
+    } else if (active) {
       document.getElementById(searchFocusRequested.current ? "exercise-title" : "answer")?.focus();
-      searchFocusRequested.current = false;
     }
+    trackFocusRequested.current = null;
+    searchFocusRequested.current = false;
   }, [source]);
 
   useEffect(() => {
@@ -141,12 +161,18 @@ export default function App() {
   }, [sessionDone]);
 
   useEffect(() => {
-    if (previousView.current !== view)
+    if (subject === "mathematics" && previousView.current !== view)
       document
         .getElementById(view === "progress" ? "progress-title" : view === "exam" ? "exam-title" : "practice-title")
         ?.focus();
     previousView.current = view;
-  }, [view]);
+  }, [view, subject]);
+
+  function selectSubject(next: SubjectId) {
+    if (examLocked) return;
+    if (next === "statistics") setStatisticsVisited(true);
+    setSubject(next);
+  }
 
   function resetAnswer(exercise: GeneratedTask | null = null) {
     setAnswer(exercise ? emptyAnswer(getAnswerSpec(exercise)) : "");
@@ -169,7 +195,8 @@ export default function App() {
     setSession(next);
   }
 
-  function showExercise(next: { exercise: GeneratedTask; repeated: boolean }) {
+  function showExercise(next: { exercise: GeneratedTask; repeated: boolean }, trackFocusOptions?: FocusOptions) {
+    trackFocusRequested.current = trackFocusOptions ?? null;
     setRun((current) => current + 1);
     setActive({ ...next.exercise });
     setRepeated(next.repeated);
@@ -180,6 +207,7 @@ export default function App() {
     category = selectedCategory,
     level = difficulty,
     templateId?: string,
+    trackFocusOptions?: FocusOptions,
   ) {
     if (
       (templateId && !supportsDifficulty(templateId, level)) ||
@@ -196,7 +224,7 @@ export default function App() {
     generator.current ??= createGenerator();
     const next = generator.current.next(category, level, templateId);
     updateSession(null);
-    showExercise(next);
+    showExercise(next, trackFocusOptions);
   }
 
   function newPracticeExample(level = difficulty) {
@@ -286,75 +314,23 @@ export default function App() {
     newPracticeExample();
   }
 
-  return (
-    <div className="site-shell">
-      <header className="topbar">
-        <a
-          className="brand"
-          href="/math-tutor-app/"
-          onClick={(event) => {
-            event.preventDefault();
-            if (examLocked) return;
-            if (subject !== "mathematics") {
-              setSubject("mathematics");
-              setView("learn");
-              return;
-            }
-            if (view === "progress" || view === "exam") {
-              setView("learn");
-              return;
-            }
-            setActive(null);
-            setUnavailable(null);
-            updateSession(null);
-            resetAnswer();
-            window.scrollTo({ top: 0, behavior: "smooth" });
-          }}
-          aria-label={a.home}
-        >
-          <span className="brand-mark" aria-hidden="true">
-            ∑
-          </span>
-          <span>
-            math<span className="brand-accent">tutor</span>
-            <small>{a.tagline}</small>
-          </span>
-        </a>
-        <LanguagePicker />
-      </header>
+  function protectDraft(event: ReactMouseEvent<HTMLElement>) {
+    const target = event.target;
+    if (!(target instanceof Element)) return;
+    const button = target.closest<HTMLButtonElement>("button");
+    if (!button || button.disabled || button.hasAttribute("data-preserves-work")) return;
+    const replacesTask = button.closest(".study-groups, .category-picker, .practice-controls, .exercise-list-items, #catalog-search-results, .practice-entry, .next-button");
+    const pending = (!!active && hasUnsubmittedAnswer(answer, checkedInput !== null)) ||
+      (checkedStep === null && stepAnswer.trim().length > 0) || scratchpadAtRisk;
+    if (replacesTask && pending && !window.confirm(n.discard)) {
+      event.preventDefault(); event.stopPropagation();
+    }
+  }
 
-      <SubjectNavigation locale={locale} subject={subject} onSelect={setSubject} disabled={examLocked} />
-      {subject === "mathematics" ? (
-        <>
-      <nav className="view-navigation" aria-label={copy.progress.navigation}>
-        <button type="button" disabled={examLocked} aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
-          {copy.progress.learn}
-        </button>
-        <button type="button" disabled={examLocked} aria-current={view === "progress" ? "page" : undefined} onClick={() => setView("progress")}>
-          {copy.progress.title}
-        </button>
-        <button type="button" disabled={sessionNumber > 0} aria-current={view === "exam" ? "page" : undefined}
-          onClick={() => setView("exam")}>{examCopy[locale].navigation}</button>
-      </nav>
-      {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
-
-      <main>
-        <div hidden={view !== "learn"}>
-        <section
-          className="practice"
-          id="practice"
-          aria-labelledby="practice-title"
-        >
-          <div className="section-heading">
-            <div>
-              <span className="eyebrow">{a.learnSteps}</span>
-              <h1 id="practice-title" tabIndex={-1}>
-                {a.chooseTopic}
-                <span className="period">.</span>
-              </h1>
-            </div>
-            <p>{a.chooseDescription}</p>
-          </div>
+  const catalog = (
+    <details className="catalog-config" open>
+      <summary>{n.choose}<span>{categoryTitle(selectedCategory, locale)} · {difficultyLabels[difficulty]}</span></summary>
+      <div className="catalog-config-body">
           <div className="catalog-search" role="search" aria-label={a.searchLabel}>
             <label htmlFor="catalog-search-input">{a.searchLabel}</label>
             <div className="catalog-search-controls">
@@ -416,15 +392,16 @@ export default function App() {
               )}
             </div>
           </div>
-          <div className="study-groups" role="group" aria-label={a.groups}>
+          <div ref={trackControls} className="study-groups" role="group" aria-label={a.groups}>
             <button
               type="button"
               disabled={sessionNumber > 0}
               aria-pressed={!studying}
-              onClick={() => {
+              onClick={(event) => {
+                preserveTrackScroll(event.detail > 0);
                 setSearchLevelChange(null);
                 setSelectedCategory("order");
-                newExercise("order");
+                newExercise("order", difficulty, undefined, {preventScroll: event.detail > 0});
               }}
             >
               {a.basic}
@@ -433,10 +410,11 @@ export default function App() {
               type="button"
               disabled={sessionNumber > 0}
               aria-pressed={studying}
-              onClick={() => {
+              onClick={(event) => {
+                preserveTrackScroll(event.detail > 0);
                 setSearchLevelChange(null);
                 setSelectedCategory("quadratics");
-                newExercise("quadratics");
+                newExercise("quadratics", difficulty, undefined, {preventScroll: event.detail > 0});
               }}
             >
               {a.study}
@@ -501,32 +479,11 @@ export default function App() {
               </div>
             )}
           </div>
-          {sessionNumber > 0 && (
-            <p className="session-progress" role="status">
-              {a.progress(sessionNumber)}
-            </p>
-          )}
-          {searchLevelChange && sessionNumber === 0 && (
-            <p className="search-level-notice" role="status">
-              {a.searchLevelChanged(
-                difficultyLabels[searchLevelChange.from],
-                difficultyLabels[searchLevelChange.to],
-              )}
-            </p>
-          )}
-          {repeated && active && (
-            <p className="session-progress">{a.repeated}</p>
-          )}
-          {unavailable && (
-            <div className="unavailable" role="status">
-              <p>{a.unavailable(difficultyLabels[difficulty])}</p>
-              <button type="button" onClick={() => newExercise()}>
-                {a.availableTask}
-              </button>
-            </div>
-          )}
-          <div className="exercise-layout">
-            <div className="exercise-list">
+      </div>
+    </details>
+  );
+  const familyList = (
+            <aside className="exercise-list">
               <div className="exercise-list-heading">
                 <h3 id="category-families-title">{a.categoryFamilies(
                   categoryTitle(selectedCategory, locale), visibleTemplates.length,
@@ -570,8 +527,108 @@ export default function App() {
                 </button>
               ))}
               </div>
+            </aside>
+  );
+
+  return (
+    <div className="site-shell">
+      <a className="skip-link" href="#main-content">{a.skipContent}</a>
+      <header className="topbar">
+        <a
+          className="brand"
+          href="/math-tutor-app/"
+          onClick={(event) => {
+            event.preventDefault();
+            if (examLocked) return;
+            if (subject !== "mathematics") {
+              selectSubject("mathematics");
+              setView("learn");
+              return;
+            }
+            if (view === "progress" || view === "exam") {
+              setView("learn");
+              return;
+            }
+            window.scrollTo({ top: 0, behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+          }}
+          aria-label={a.home}
+        >
+          <span className="brand-mark" aria-hidden="true">
+            ∑
+          </span>
+          <span>
+            math<span className="brand-accent">tutor</span>
+            <small>{a.tagline}</small>
+          </span>
+        </a>
+        <LanguagePicker />
+      </header>
+
+      <SubjectNavigation locale={locale} subject={subject} onSelect={selectSubject} disabled={examLocked} />
+      <main id="main-content" tabIndex={-1}>
+      <div hidden={subject !== "mathematics"}>
+      <nav className="view-navigation" aria-label={copy.progress.navigation}>
+        <button type="button" disabled={examLocked} aria-current={view === "learn" ? "page" : undefined} onClick={() => setView("learn")}>
+          {copy.progress.learn}
+        </button>
+        <button type="button" disabled={examLocked} aria-current={view === "progress" ? "page" : undefined} onClick={() => setView("progress")}>
+          {copy.progress.title}
+        </button>
+        <button type="button" disabled={sessionNumber > 0} aria-current={view === "exam" ? "page" : undefined}
+          onClick={() => setView("exam")}>{examCopy[locale].navigation}</button>
+      </nav>
+      {progress.issue && <p className="storage-notice" role="status">{copy.progress.issues[progress.issue]}</p>}
+
+        <div className="learning-workspace" hidden={view !== "learn"} onClickCapture={protectDraft}>
+        <section
+          className="practice"
+          id="practice"
+          aria-labelledby="practice-title"
+        >
+          <div className="section-heading">
+            <div>
+
+              <h1 id="practice-title" tabIndex={-1}>
+                {a.chooseTopic}
+                <span className="period">.</span>
+              </h1>
             </div>
-            <div className="exercise-panel">
+            <p>{n.chooseHelp}</p>
+          </div>
+          <div className="practice-entry">
+            <button type="button" className="primary-button" data-preserves-work={active ? true : undefined} onClick={() => {
+              if (active) document.getElementById("exercise-title")?.focus();
+              else { searchFocusRequested.current = true; newPracticeExample(); }
+            }}>{active ? n.resume : n.start}</button>
+            {active && <p>{categoryTitle(selectedCategory, locale)} · {n.level}: {difficultyLabels[difficulty]}</p>}
+          </div>
+          {!active && catalog}
+          {sessionNumber > 0 && (
+            <p className="session-progress" role="status">
+              {a.progress(sessionNumber)}
+            </p>
+          )}
+          {searchLevelChange && sessionNumber === 0 && (
+            <p className="search-level-notice" role="status">
+              {a.searchLevelChanged(
+                difficultyLabels[searchLevelChange.from],
+                difficultyLabels[searchLevelChange.to],
+              )}
+            </p>
+          )}
+          {repeated && active && (
+            <p className="session-progress">{a.repeated}</p>
+          )}
+          {unavailable && (
+            <div className="unavailable" role="status">
+              <p>{a.unavailable(difficultyLabels[difficulty])}</p>
+              <button type="button" onClick={() => newExercise()}>
+                {a.availableTask}
+              </button>
+            </div>
+          )}
+          <div className={`exercise-layout ${active || summary ? "has-task" : "catalog-only"}`}>
+            <div className="exercise-panel" hidden={!active && !summary}>
               {active ? (
                 <>
                   <div className="panel-top">
@@ -581,7 +638,7 @@ export default function App() {
                         : a.exercise}{" "}
                       · {difficultyLabels[difficulty].toUpperCase()}
                     </span>
-                    <span>✳</span>
+                    <span aria-hidden="true">∑</span>
                   </div>
                   <h3 id="exercise-title" tabIndex={-1}>{active.title}</h3>
                   <p className="panel-intro">{a.intro}</p>
@@ -660,12 +717,14 @@ export default function App() {
                   )}
                 </>
               ) : null}
-              <Scratchpad run={run} active={!!active && view === "learn"} />
+              <Scratchpad run={run} onReplaceRiskChange={setScratchpadAtRisk} active={!!active && view === "learn" && subject === "mathematics"} />
               {active ? (
                 <>
                   <form onSubmit={submitAnswer}>
                     <AnswerFields
                       spec={getAnswerSpec(active)}
+                      invalid={result?.kind === "invalid" || result?.kind === "incorrect"}
+                      feedbackId="answer-feedback"
                       value={answer}
                       fractionInput={
                         active.category === "fractions" ||
@@ -684,8 +743,9 @@ export default function App() {
                       {functionZeros ? copy.answers.zeros.help : answerHints[getAnswerSpec(active).kind]}
                     </p>
                   </form>
+                  <div id="answer-feedback" role="status" aria-live="polite">
                   {result && (
-                    <div className={`feedback ${result.kind}`} role="status">
+                    <div className={`feedback ${result.kind}`}>
                       <strong>
                         {result.kind === "correct"
                           ? ui.correct
@@ -802,6 +862,7 @@ export default function App() {
                       )}
                     </div>
                   )}
+                  </div>
                   {result?.kind === "incorrect" && checkedInput !== null && (
                     <MistakeHelp key={`${active.id}-${run}`} task={active} answer={checkedInput} />
                   )}
@@ -843,40 +904,27 @@ export default function App() {
                   onStartSession={startSession}
                   onPractice={() => newExercise()}
                 />
-              ) : (
-                <div className="empty-panel">
-                  <span className="empty-symbol" aria-hidden="true">
-                    ↗
-                  </span>
-                  <span className="eyebrow">{a.emptyEyebrow}</span>
-                  <h3>
-                    {a.ready}
-                    <br />
-                    <em>{a.firstStep}</em>
-                  </h3>
-                  <p>{a.emptyDescription}</p>
-                  <button type="button" onClick={() => newExercise()}>
-                    {a.startFirst} <span aria-hidden="true">→</span>
-                  </button>
-                </div>
-              )}
+              ) : null}
             </div>
+            {familyList}
           </div>
+          {active && catalog}
         </section>
         </div>
         <ProgressDashboard
-          active={view === "progress"}
+          active={view === "progress" && subject === "mathematics"}
           history={progress.history}
           issue={progress.issue}
           onDelete={progress.clear}
           onLearn={() => setView("learn")}
         />
         {view === "exam" && <ExamMode onLockedChange={setExamLocked} />}
+      </div>
+      {statisticsVisited && <div hidden={subject !== "statistics"}>
+        <StatisticsPractice locale={locale} onDraftChange={setStatisticsDraft} />
+      </div>}
+      {subject !== "mathematics" && subject !== "statistics" && <PlannedSubjectPanel locale={locale} subject={subject} />}
       </main>
-        </>
-      ) : (
-        <main>{subject === "statistics" ? <StatisticsPractice locale={locale} /> : <PlannedSubjectPanel locale={locale} subject={subject} />}</main>
-      )}
       <footer>
         <span>
           math<span className="brand-accent">tutor</span>

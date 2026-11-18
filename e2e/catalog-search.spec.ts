@@ -84,6 +84,7 @@ for (const viewport of [
       await search.fill(en ? "four unknowns" : "cztery niewiadome");
       const cramer = page.locator(".catalog-search-list button").filter({ hasText: en ? "Cramer's rule" : "Reguła Cramera" });
       await expect(cramer).toContainText(en ? "Advanced" : "Zaawansowany");
+      page.once("dialog", dialog => dialog.accept());
       await cramer.click();
       await expect(page.locator(".question")).toHaveAttribute("data-template-id", "cramer-four");
       await expect(page.locator(".question")).toHaveAttribute("data-difficulty", "advanced");

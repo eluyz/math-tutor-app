@@ -1,0 +1,303 @@
+import { expect, test, type Page } from "@playwright/test";
+import { numeric } from "./helpers/arithmetic";
+import { confirmTaskReplacement } from "./helpers/navigation";
+import { HISTORY_KEY } from "../src/progress/model";
+
+// Never disable Chromium sandbox for sprint evidence.
+
+async function chooseReplacement(page: Page, accept: boolean) {
+  await Promise.all([
+    page.waitForEvent("dialog").then(async dialog => {
+      expect(dialog.type()).toBe("confirm");
+      expect(dialog.message()).toMatch(/nie zostanie automatycznie oceniona|will not be assessed automatically/);
+      if (accept) await dialog.accept(); else await dialog.dismiss();
+    }),
+    page.locator(".next-button").click(),
+  ]);
+}
+
+for (const {width, en} of [{width:375,en:false},{width:1280,en:true}]) {
+  test(`Next preserves an unchecked session answer until explicit consent ${width}px ${en?'EN':'PL'}`, async ({page}) => {
+    await page.setViewportSize({width,height:900});
+    await page.goto("/");
+    const button = (name:string) => page.getByRole("button",{name,exact:true});
+    if (en) await button("English").click();
+    await button(en?"Start a session (10 exercises)":"Rozpocznij sesję (10 zadań)").click();
+    const answer = page.locator("#answer"), question = page.locator(".question");
+    await answer.fill("123");
+    await button(en?"Show scratchpad":"Pokaż brudnopis").click();
+    await button(en?"Write":"Pisz").click();
+    const notes = page.locator("#scratchpad-text");
+    await notes.fill("Keep my calculation");
+    const run = await question.getAttribute("data-exercise-run");
+    const text = await question.innerText();
+    const storage = () => page.evaluate(() => ({local:{...localStorage},session:{...sessionStorage}}));
+    const before = await storage();
+    await chooseReplacement(page,false);
+    await expect(question).toHaveAttribute("data-exercise-run",run!);
+    await expect(question).toHaveText(text);
+    await expect(answer).toHaveValue("123");
+    await expect(notes).toHaveValue("Keep my calculation");
+    await expect(page.locator(".session-progress")).toHaveText(en?"Session: exercise 1 of 10":"Sesja: zadanie 1 z 10");
+    expect(await storage()).toEqual(before);
+    await chooseReplacement(page,true);
+    await expect(question).not.toHaveAttribute("data-exercise-run",run!);
+    await expect(answer).toHaveValue("");
+    await expect(notes).toHaveValue("");
+    await expect(page.locator(".session-progress")).toHaveText(en?"Session: exercise 2 of 10":"Sesja: zadanie 2 z 10");
+    // Empty skips require no confirmation and retain the existing scoring rules.
+    for (let position=2;position<=10;position++) await page.locator(".next-button").click();
+    const history = await page.evaluate(key => JSON.parse(localStorage.getItem(key)!),HISTORY_KEY);
+    expect(history.sessions).toHaveLength(1);
+    expect(history.sessions[0]).toMatchObject({shown:10,correct:0,incorrect:0,skipped:10});
+    expect(history.sessions[0].entries.every((entry:{outcome:string})=>entry.outcome==='skipped')).toBe(true);
+  });
+
+  test(`Next protects auto-clear notes after a correct free-practice answer ${width}px ${en?'EN':'PL'}`, async ({page}) => {
+    await page.setViewportSize({width,height:900});
+    await page.goto("/");
+    const button = (name:string) => page.getByRole("button",{name,exact:true});
+    if (en) await button("English").click();
+    await button(en?"Start practice":"Rozpocznij ćwiczenie").click();
+    const question=page.locator(".question"), answer=page.locator("#answer");
+    const expected=numeric(await question.innerText());
+    await answer.fill(`${expected.numerator}/${expected.denominator}`);
+    await button(en?"Check":"Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(en?"Show scratchpad":"Pokaż brudnopis").click();
+    await button(en?"Write":"Pisz").click();
+    const notes=page.locator("#scratchpad-text");
+    await expect(page.locator(".scratchpad input[type=checkbox]")).toBeChecked();
+    await notes.fill("Keep this explanation");
+    const run=await question.getAttribute("data-exercise-run");
+    await chooseReplacement(page,false);
+    await expect(question).toHaveAttribute("data-exercise-run",run!);
+    await expect(notes).toHaveValue("Keep this explanation");
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await chooseReplacement(page,true);
+    await expect(question).not.toHaveAttribute("data-exercise-run",run!);
+    await expect(notes).toHaveValue("");
+    await expect(answer).toHaveValue("");
+    await expect(page.locator(".feedback")).toHaveCount(0);
+    expect(await page.evaluate(key=>localStorage.getItem(key),HISTORY_KEY)).toBeNull();
+  });
+}
+
+async function unloadIsProtected(page: Page) {
+  return page.evaluate(() => {
+    const event = new Event("beforeunload", { cancelable: true });
+    window.dispatchEvent(event);
+    return event.defaultPrevented;
+  });
+}
+
+for (const width of [1280, 375]) {
+  test.describe(`unfinished work navigation at ${width}px`, () => {
+    test.use({ viewport: { width, height: 900 } });
+    test.beforeEach(async ({ page }) => { await page.goto("/"); });
+
+    test("logo, progress, subjects and locale preserve an active session", async ({ page }) => {
+      const workspace = page.locator(".learning-workspace:not(.statistics-practice)");
+      await page.getByRole("button", { name: "Rozpocznij sesję (10 zadań)", exact: true }).click();
+      await page.getByLabel("Twoja odpowiedź", { exact: true }).fill("123");
+      await page.getByRole("button", { name: "Pokaż brudnopis", exact: true }).click();
+      await page.getByRole("button", { name: "Pisz", exact: true }).click();
+      await page.getByLabel("Notatki tekstowe").fill("Własny tok obliczeń");
+      await page.getByRole("button", { name: "Pokaż rozwiązanie", exact: true }).click();
+      const question = await workspace.locator(".question").textContent();
+      const run = await workspace.locator(".question").getAttribute("data-exercise-run");
+      await page.locator(".brand").click();
+      await expect(page.getByLabel("Twoja odpowiedź", { exact: true })).toHaveValue("123");
+      await page.getByRole("button", { name: "Moje postępy", exact: true }).click();
+      await page.getByRole("button", { name: "Ćwiczenia", exact: true }).click();
+      await page.getByRole("button", { name: /Statystyka i prawdopodobieństwo/ }).click();
+      await page.getByRole("button", { name: /Ekonometria/ }).click();
+      await page.locator(".brand").click();
+      await page.getByRole("button", { name: "English", exact: true }).click();
+      await expect(workspace.locator("#answer")).toHaveValue("123");
+      await expect(workspace.locator(".scratchpad textarea")).toHaveValue("Własny tok obliczeń");
+      await expect(workspace.locator(".solution-panel ol > li")).toHaveCount(1);
+      await expect(workspace.locator(".question")).toHaveText(question!);
+      await expect(workspace.locator(".question")).toHaveAttribute("data-exercise-run", run!);
+      await expect(workspace.locator(".session-progress")).toContainText("exercise 1 of 10");
+      await expect(workspace.locator(".category-picker button").first()).toBeDisabled();
+      await expect(workspace.locator(".difficulty-picker button").first()).toBeDisabled();
+      await expect(page.locator(".view-navigation button").last()).toBeDisabled();
+      expect(await unloadIsProtected(page)).toBe(true);
+      await expect(page.getByRole("main")).toHaveCount(1);
+      await expect(page.locator("#main-content")).toHaveCount(1);
+      await page.locator(".skip-link").focus();
+      await page.keyboard.press("Enter");
+      await expect(page.getByRole("main")).toBeFocused();
+    });
+
+    test("Statistics keeps draft, hints and task while hidden without stealing initial focus", async ({ page }) => {
+      await expect(page.locator("#statistics-answer")).toHaveCount(0);
+      await page.getByRole("button", { name: "Nowy przykład", exact: true }).click();
+      await expect(page.locator("#answer")).toBeFocused();
+      await page.getByRole("button", { name: /Statystyka i prawdopodobieństwo/ }).click();
+      const stats = page.locator(".statistics-practice");
+      await stats.getByLabel("Twoja odpowiedź", { exact: true }).fill("7/3");
+      await stats.getByRole("button", { name: "Pokaż podpowiedź", exact: true }).click();
+      const question = await stats.locator(".question").textContent();
+      await page.getByRole("button", { name: /Ekonometria/ }).click();
+      expect(await unloadIsProtected(page)).toBe(true);
+      await page.getByRole("button", { name: /Statystyka i prawdopodobieństwo/ }).click();
+      await expect(stats.getByLabel("Twoja odpowiedź", { exact: true })).toHaveValue("7/3");
+      await expect(stats.locator(".question")).toHaveText(question!);
+      await expect(stats.locator(".learning-hint")).toHaveCount(1);
+      await page.getByRole("button", { name: "English", exact: true }).click();
+      await expect(stats.getByLabel("Your answer", { exact: true })).toHaveValue("7/3");
+      await stats.getByRole("button", { name: "Check", exact: true }).click();
+      await expect(stats.locator('#statistics-feedback .feedback')).toBeVisible();
+      // Assessment clears the parent draft flag through a passive effect; the
+      // unload listener is removed by the following parent effect, not inline.
+      await expect.poll(() => unloadIsProtected(page)).toBe(false);
+      await expect(page.getByRole("main")).toHaveCount(1);
+      await expect(page.locator("#main-content")).toHaveCount(1);
+    });
+
+    test("free-practice draft warns on unload, clearing or submitting releases it", async ({ page }) => {
+      expect(await unloadIsProtected(page)).toBe(false);
+      await page.getByRole("button", { name: "Nowy przykład", exact: true }).click();
+      await page.locator("#answer").fill("0");
+      expect(await unloadIsProtected(page)).toBe(true);
+      await page.locator("#answer").fill("");
+      expect(await unloadIsProtected(page)).toBe(false);
+      await page.locator("#answer").fill("0");
+      await page.getByRole("button", { name: "Sprawdź", exact: true }).click();
+      expect(await unloadIsProtected(page)).toBe(false);
+      await page.locator("#answer").fill("1");
+      expect(await unloadIsProtected(page)).toBe(true);
+    });
+  });
+}
+
+test('cancel replacing a free draft and deliberately accept a new task', async ({page})=>{
+  await page.goto('/');
+  await page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true}).click();
+  const answer=page.locator('.learning-workspace #answer'); await answer.fill('123');
+  const question=await page.locator('.learning-workspace .question').textContent();
+  page.once('dialog',dialog=>dialog.dismiss());
+  await page.locator('.learning-workspace .difficulty-picker').getByRole('button',{name:'Średni',exact:true}).click();
+  await expect(answer).toHaveValue('123'); await expect(page.locator('.learning-workspace .question')).toHaveText(question!);
+  page.once('dialog',dialog=>dialog.accept());
+  await page.locator('.learning-workspace .difficulty-picker').getByRole('button',{name:'Średni',exact:true}).click();
+  await expect(answer).toHaveValue('');
+});
+
+test('cancel replacing a Statistics draft',async({page})=>{
+  await page.goto('/'); await page.getByRole('button',{name:/Statystyka i prawdopodobieństwo/}).click();
+  const stats=page.locator('.statistics-practice'); await stats.locator('#statistics-answer').fill('123');
+  page.once('dialog',dialog=>dialog.dismiss());
+  await stats.getByRole('button',{name:'Średni',exact:true}).click();
+  await expect(stats.locator('#statistics-answer')).toHaveValue('123');
+  await expect(stats.getByRole('button',{name:'Łatwy',exact:true})).toHaveAttribute('aria-pressed','true');
+});
+
+test('native reload warning can be cancelled without losing the draft',async({page})=>{
+  await page.goto('/'); await page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true}).click();
+  const answer = page.locator('.learning-workspace #answer');
+  await answer.fill('123');
+  const run = await page.locator('.question').getAttribute('data-exercise-run');
+  const question = await page.locator('.question').innerText();
+  const marker = await page.evaluate(() => {
+    const value = crypto.randomUUID();
+    document.documentElement.dataset.reloadMarker = value;
+    return value;
+  });
+  // Match Playwright's upstream beforeunload reload test. page.reload() waits
+  // for a new document, which must not arrive after the user cancels.
+  await Promise.all([
+    page.waitForEvent('dialog').then(async warning => {
+      expect(warning.type()).toBe('beforeunload');
+      await warning.dismiss();
+    }),
+    page.evaluate(() => window.location.reload()),
+  ]);
+  await expect(page.locator('html')).toHaveAttribute('data-reload-marker', marker);
+  await expect(page.locator('.question')).toHaveAttribute('data-exercise-run', run!);
+  await expect(page.locator('.question')).toHaveText(question);
+  await expect(answer).toHaveValue('123');
+  await answer.fill('456');
+  await expect(answer).toHaveValue('456');
+});
+
+test('explicitly accepting reload leaves the old document and clears its in-memory draft',async({page})=>{
+  await page.goto('/'); await page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true}).click();
+  await page.locator('#answer').fill('123');
+  await page.evaluate(() => { document.documentElement.dataset.reloadMarker = 'old-document'; });
+  await Promise.all([
+    page.waitForEvent('dialog').then(async warning => {
+      expect(warning.type()).toBe('beforeunload');
+      await warning.accept();
+    }),
+    page.reload(),
+  ]);
+  await expect(page.locator('html')).not.toHaveAttribute('data-reload-marker');
+  const start = page.getByRole('button',{name:'Rozpocznij ćwiczenie',exact:true});
+  await expect(start).toBeVisible();
+  await start.click();
+  await expect(page.locator('#answer')).toHaveValue('');
+  await page.getByRole('button',{name:'Sprawdź',exact:true}).click();
+  await expect(page.locator('.feedback')).toHaveClass('feedback invalid');
+});
+
+test('unsupported difficulty retains scratchpad with auto-clear disabled',async({page})=>{
+  await page.goto('/');
+  await page.getByRole('button',{name:'Matematyka na studia',exact:true}).click();
+  await page.getByRole('button',{name:'Macierze',exact:true}).click();
+  await page.locator('.learning-workspace:not(.statistics-practice) .difficulty-picker').getByRole('button',{name:'Trudny',exact:true}).click();
+  await page.getByRole('button',{name:/Wymiar macierzy/}).click();
+  await page.getByRole('button',{name:'Pokaż brudnopis',exact:true}).click();
+  await page.getByRole('button',{name:'Pisz',exact:true}).click();
+  const scratch=page.locator('.learning-workspace:not(.statistics-practice) .scratchpad');
+  await scratch.getByRole('checkbox').uncheck();
+  await page.getByLabel('Notatki tekstowe').fill('Nie gub obliczeń');
+  await page.locator('.learning-workspace:not(.statistics-practice) .difficulty-picker').getByRole('button',{name:'Ekspert',exact:true}).click();
+  await expect(page.locator('.unavailable')).toBeVisible();
+  await page.getByRole('button',{name:'Wybierz dostępne zadanie',exact:true}).click();
+  await expect(page.getByLabel('Notatki tekstowe')).toHaveValue('Nie gub obliczeń');
+  await expect(scratch.getByRole('checkbox')).not.toBeChecked();
+});
+
+for (const en of [false, true]) {
+  test(`cancel preserves the submitted answer; confirmed replacement validates a blank answer ${en ? "EN" : "PL"}`, async ({ page }) => {
+    await page.goto("/");
+    const button = (name: string) => page.getByRole("button", { name, exact: true });
+    if (en) await button("English").click();
+    await button(en ? "Start practice" : "Rozpocznij ćwiczenie").click();
+    const answer = page.locator("#answer");
+    const question = page.locator(".question");
+    const expected = numeric(await question.innerText());
+    expect(expected.denominator).toBe(1n);
+    const entered = String(expected.numerator);
+    await answer.fill(entered);
+    await button(en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+    await button(en ? "Show scratchpad" : "Pokaż brudnopis").click();
+    await button(en ? "Write" : "Pisz").click();
+    const notes = page.locator("#scratchpad-text");
+    await notes.fill("Ax=b");
+    const run = await question.getAttribute("data-exercise-run");
+    const next = button(en ? "New example" : "Nowy przykład");
+    await Promise.all([
+      page.waitForEvent("dialog").then(async dialog => {
+        expect(dialog.type()).toBe("confirm");
+        await dialog.dismiss();
+      }),
+      next.click(),
+    ]);
+    await expect(question).toHaveAttribute("data-exercise-run", run!);
+    await expect(answer).toHaveValue(entered);
+    await expect(notes).toHaveValue("Ax=b");
+    await button(en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback correct");
+
+    await confirmTaskReplacement(page, () => next.click());
+    await expect(answer).toHaveValue("");
+    await expect(notes).toHaveValue("");
+    await button(en ? "Check" : "Sprawdź").click();
+    await expect(page.locator(".feedback")).toHaveClass("feedback invalid");
+  });
+}

@@ -120,7 +120,11 @@ for(const width of [375,1280]) for(const locale of ["pl","en"] as const) {
    await expect(page.locator(".practice .question")).toHaveText(question);
    await expect(page.locator("#answer")).toHaveValue("17");
    await expect(page.locator(".session-progress").first()).toHaveText(position);
-   for(let i=0;i<10;i++) await page.getByRole("button",{name:i===9?(en?"Finish session":"Zakończ sesję"):(en?"Next exercise":"Następne zadanie"),exact:true}).click();
+   for(let i=0;i<10;i++) {
+          // Deliberately discard the retained, unchecked Mathematics answer.
+          if (i === 0) page.once("dialog", dialog => { expect(dialog.type()).toBe("confirm"); return dialog.accept(); });
+          await page.getByRole("button",{name:i===9?(en?"Finish session":"Zakończ sesję"):(en?"Next exercise":"Następne zadanie"),exact:true}).click();
+        }
    const after=await snapshot();expect(JSON.parse(after.local[HISTORY_KEY]).sessions).toHaveLength(1);
    await enter(page);await submit(page,"2");expect(await snapshot()).toEqual(after);
    await page.locator(".subject-navigation").getByRole("button",{name:en?/Mathematics Available/:/Matematyka Dostępne/}).click();

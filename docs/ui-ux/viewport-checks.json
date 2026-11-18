@@ -1,0 +1,150 @@
+[
+  {
+    "width": 375,
+    "skip": true,
+    "main": true,
+    "answerFocus": true,
+    "english": "en",
+    "englishOverflow": false,
+    "overflow": false,
+    "question": "(3 + 3) × 3 = ?",
+    "buttons": [
+      {
+        "height": 59.6875,
+        "width": 167.5
+      },
+      {
+        "height": 59.6875,
+        "width": 167.5
+      },
+      {
+        "height": 59.6875,
+        "width": 167.5
+      },
+      {
+        "height": 59.6875,
+        "width": 167.5
+      },
+      {
+        "height": 59.6875,
+        "width": 167.5
+      }
+    ],
+    "nav": [
+      44,
+      44,
+      44
+    ]
+  },
+  {
+    "width": 390,
+    "skip": true,
+    "main": true,
+    "answerFocus": true,
+    "english": "en",
+    "englishOverflow": false,
+    "overflow": false,
+    "question": "3 + 2 × 3 = ?",
+    "buttons": [
+      {
+        "height": 59.6875,
+        "width": 175
+      },
+      {
+        "height": 59.6875,
+        "width": 175
+      },
+      {
+        "height": 59.6875,
+        "width": 175
+      },
+      {
+        "height": 59.6875,
+        "width": 175
+      },
+      {
+        "height": 59.6875,
+        "width": 175
+      }
+    ],
+    "nav": [
+      44,
+      44,
+      44
+    ]
+  },
+  {
+    "width": 1280,
+    "skip": true,
+    "main": true,
+    "answerFocus": true,
+    "english": "en",
+    "englishOverflow": false,
+    "overflow": false,
+    "question": "4 + 3 × 3 = ?",
+    "buttons": [
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.8125
+      }
+    ],
+    "nav": [
+      44,
+      44,
+      44
+    ]
+  },
+  {
+    "width": 1440,
+    "skip": true,
+    "main": true,
+    "answerFocus": true,
+    "english": "en",
+    "englishOverflow": false,
+    "overflow": false,
+    "question": "3 + 3 × 3 = ?",
+    "buttons": [
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.796875
+      },
+      {
+        "height": 48,
+        "width": 236.8125
+      }
+    ],
+    "nav": [
+      44,
+      44,
+      44
+    ]
+  }
+]
