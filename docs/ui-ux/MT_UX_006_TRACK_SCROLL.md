@@ -51,7 +51,7 @@ all confirmed Mathematics movement.
   animation frame. Cleanup cancels that frame on replacement/unmount. Keyboard
   transitions clear the snapshot. There is no global policy or persistent scroll
   lock; a shortened document still uses its native physical limit.
-- Track controls have 8 px scroll margins so native keyboard scrolling leaves
+- Track and topic controls have 8 px scroll margins so native keyboard scrolling leaves
   the focus outline clear of the viewport edge.
 - Explicit Start/Continue, New example, Next, lesson and level actions retain
   their existing exercise/answer focus policy. Tab and Shift+Tab remain native.
@@ -74,6 +74,14 @@ stop, while scroll margins address clipping without loosening visibility or
 offset assertions. The gate reported 8 PASS / 16 FAIL; later gates were not run.
 The independent reviewer found no Important/Critical issue in the bounded
 follow-up; final browser results remain pending CI.
+
+The next run, [CI](https://github.com/eluyz/math-tutor-app/actions/runs/44363496980)
+at `6fc543a61736f4b97a7d988113a3c02639c0ef70`, passed all **16 pointer cases**
+and seven keyboard journeys (**23 PASS / 1 FAIL** overall). Its remaining
+visibility failure was the Mean topic button at 390 px PL (bottom 720.09375 px).
+The same 8 px native focus clearance now covers topic buttons as well as tracks;
+the strict visibility and scroll-offset assertions remain unchanged. Unit/build
+passed in that run; later gates were not run after the new gate failed.
 
 ## Verification checkpoint
 
