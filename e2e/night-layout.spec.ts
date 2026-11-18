@@ -1,7 +1,6 @@
 import { test, expect } from '@playwright/test';
 
 // Never disable Chromium sandbox for sprint evidence.
-test.use({launchOptions:{chromiumSandbox:true, executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined}});
 
 for (const width of [320,375,390,768,1280,1440]) for (const english of [false,true]) {
   test(`MT-UI-003 task-first ${width}px ${english?'EN':'PL'}`, async ({page}) => {

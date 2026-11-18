@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-test.use({launchOptions:{chromiumSandbox:true,executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined}});
 const contrast=(a:number[],b:number[])=>{
   const l=(v:number[])=>v.slice(0,3).map(x=>x/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4).reduce((sum,x,i)=>sum+x*[.2126,.7152,.0722][i],0);
   const x=l(a),y=l(b);return(Math.max(x,y)+.05)/(Math.min(x,y)+.05);

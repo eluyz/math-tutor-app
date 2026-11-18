@@ -1,10 +1,6 @@
 import { expect, test } from "@playwright/test";
 
 // Keep Chromium's sandbox enabled for every launch of this presentation suite.
-test.use({ launchOptions: {
-  chromiumSandbox: true,
-  executablePath: process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined,
-} });
 
 for (const width of [375, 1280]) for (const en of [false, true]) {
   test(`exam answer presence stays separate from scoring ${width}px ${en ? "EN" : "PL"}`, async ({ page }) => {

@@ -1,0 +1,100 @@
+# MT-UI-004 — CI recovery and English documentation
+
+Status: **IN PROGRESS / NO-GO**. This report supplements the historical
+[night log](MT_UI_003_NIGHT_LOG.md); it does not replace its results.
+
+## Starting evidence
+
+- Audited PR HEAD: `f399abc596d4c9ffbc8658a70df09d051c9d605f`.
+- [CI #1011](https://github.com/eluyz/math-tutor-app/actions/runs/44252835599):
+  unit tests, production build, and browser installation succeeded; browser
+  tests failed; browser acceptance batches B–G were skipped. Confirmed through
+  the Jobs API. The task reports 2649 unit passes, 1118 browser passes and 63
+  browser failures (48 new night tests and 15 existing tests).
+- Complete log downloads return HTTP 403 from Actions log-storage hosts.
+  Original annotations only expose the failed step, not individual assertions.
+  Consequently, the reported 63 failures are not yet independently classified.
+- Diagnostic commit `8cf44a7` adds the supported GitHub reporter alongside the
+  normal list reporter, exposing assertion details through the Checks API.
+  [Diagnostic CI](https://github.com/eluyz/math-tutor-app/actions/runs/44258648039)
+  is still running at this checkpoint.
+
+## Browser configuration repair
+
+The six `night-*` files overrode launch options with `chromiumSandbox: true`;
+older tests inherited Playwright's default without that flag. Removing the flag
+would silently disable Chromium's sandbox and is not an acceptable fix.
+
+The shared configuration now explicitly enables the sandbox for **every** suite.
+On CI it uses the supported `chrome` channel installed on GitHub's Ubuntu image;
+an explicit local executable override still takes precedence. Per-file launch
+overrides are removed. Acceptance configurations inherit the same settings.
+There are no sandbox-disabling flags or AppArmor/kernel changes.
+
+Official references supporting this choice:
+
+- [Playwright Chrome channel support](https://github.com/microsoft/playwright/blob/v1.64.1/docs/src/browsers.md#google-chrome--microsoft-edge).
+- [GitHub runner Chrome installation](https://github.com/actions/runner-images/blob/main/images/ubuntu/scripts/build/install-google-chrome.sh).
+- [Chromium: Ubuntu AppArmor user-namespace restrictions](https://github.com/chromium/chromium/blob/main/docs/security/apparmor-userns-restrictions.md).
+- [Canonical Chrome profile](https://github.com/canonical/apparmor/blob/5d448a0437c04cee437e76c820df8f38b558bdfc/profiles/apparmor.d/chrome),
+  permitting `userns` for `/opt/google/chrome/chrome`.
+
+These sources justify the configuration; only execution can confirm the profile
+works on the actual runner. CI retains every existing test and acceptance gate,
+adding only an evidence upload step. JSON results and selected current
+screenshots are retained in the `ui-browser-validation` artifact for 14 days.
+
+## Empty-answer investigation
+
+New regression coverage checks untouched answers for every task returned by
+`taskPool` across all difficulty levels in function limits, derivatives, systems,
+and matrices, in both PL and EN. **4/4 tests passed.** Empty values remain
+`invalid` through the existing `checkAnswer` path. No grader or generator was
+changed. This is evidence about the grader, **not proof that the UI resets
+correctly**; browser failures still require investigation before assigning blame
+to tests or declaring the application safe.
+
+## Local validation checkpoint
+
+- `npm ci`: PASS.
+- `npm test`: **2653 PASS / 0 FAIL**, including the four new regressions.
+- `npm run build`: PASS; existing large-chunk warning remains.
+- Supported Playwright browser installation with a writable cache: BLOCKED,
+  HTTP 403 `Domain forbidden` from `cdn.playwright.dev`.
+- Targeted system-Chromium run with sandbox enabled: **1 launch failure / 3
+  NOT RUN / 0 PASS**. Chromium aborts because the SUID helper is not owned by
+  root; crashpad also cannot initialize. No application assertion was reached.
+- Browser B–G and visual acceptance: NOT RUN locally; await CI evidence.
+
+## Separate main CI #1008
+
+[Run 44179774907](https://github.com/eluyz/math-tutor-app/actions/runs/44179774907)
+at `307276a7a4f3196f47633992b936704178d147c4` failed the historical regression
+at `src/university/history-regression.test.ts:30` after 5000 ms. The user reports
+2602 other passes; annotations independently confirm the timeout. Build and
+browser stages were skipped.
+
+Three isolated runs on unchanged main passed **2/2 each** with the existing
+5000 ms limit. Historical-test times were **4264.6 / 4378.0 / 3022.0 ms**;
+the second test took **549.1 / 686.4 / 587.3 ms**. Relevant test, fixture,
+generator, locale, solution, dependency and configuration sources match the PR.
+The slowest isolated run leaves only 622 ms of margin. Load sensitivity is
+plausible, but a runner fault is not proven and a whole-suite performance problem
+is not excluded. Observe/rerun unchanged CI first; investigate a separate,
+measured stability fix only if the timeout recurs. Main was not modified.
+
+## Documentation and visual acceptance
+
+The five requested audit/design/night documents, concept explanations and the
+AGENTS UI/UX section are now English; links, numbers, code identifiers, evidence
+and historical qualifications are preserved. Raw evidence and Polish concept
+labels remain unchanged. The [documentation index](README.md) explains scope.
+The application's PL/EN strings are untouched.
+
+Ten browser journeys cover 375/390/768/1280/1440 px in PL and EN. They exercise
+home/navigation, Mathematics, Statistics, exam and progress, including blank
+validation and document overflow checks. Eight representative captures are
+requested during those journeys; no new screenshot is claimed before execution.
+Automated rendering/geometry checks do not substitute for reviewing the images.
+Keep **NO-GO** until the exact final HEAD passes CI and current visual evidence
+has been inspected.

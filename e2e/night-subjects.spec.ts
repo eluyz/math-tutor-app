@@ -1,5 +1,4 @@
 import { expect, test } from '@playwright/test';
-test.use({launchOptions:{chromiumSandbox:true,executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined}});
 for(const width of [320,375,390,768,1280,1440]) for(const en of [false,true]) {
   test(`shared practice surfaces ${width} ${en?'EN':'PL'}`,async({page})=>{
     await page.setViewportSize({width,height:900}); await page.goto('/');

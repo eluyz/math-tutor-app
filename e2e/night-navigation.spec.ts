@@ -1,7 +1,6 @@
 import { expect, test, type Page } from "@playwright/test";
 
 // Never disable Chromium sandbox for sprint evidence.
-test.use({launchOptions:{chromiumSandbox:true, executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined}});
 
 async function unloadIsProtected(page: Page) {
   return page.evaluate(() => {

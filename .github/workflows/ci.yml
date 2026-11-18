@@ -39,6 +39,17 @@ jobs:
       - name: Run browser tests
         run: npm run test:e2e
 
+      - name: Save UI browser validation evidence
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: ui-browser-validation
+          path: |
+            test-results/e2e-results.json
+            test-results/ui-evidence/
+          if-no-files-found: warn
+          retention-days: 14
+
       - name: Run Batch B acceptance against the production bundle
         run: npm run test:e2e:batch-b
 

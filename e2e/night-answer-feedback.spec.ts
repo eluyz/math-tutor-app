@@ -1,7 +1,6 @@
 import { expect, test } from "@playwright/test";
 
 // Never disable Chromium sandbox for sprint evidence.
-test.use({launchOptions:{chromiumSandbox:true, executablePath:process.env.PLAYWRIGHT_CHROMIUM_EXECUTABLE || undefined}});
 import { numeric } from "./helpers/arithmetic";
 
 // NIGHT BUILD is the sprint name; these checks use the existing default theme.
