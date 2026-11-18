@@ -2,12 +2,20 @@ import { readFileSync } from "node:fs";
 
 // GitHub limits error annotations per step. A separate bounded notice keeps
 // aggregate results inspectable through the Checks API as well as artifacts.
+// Keep each notice small: GitHub can truncate long messages and sanitize ANSI.
+const short = (value, bytes) => Buffer.from(String(value ?? "")
+  .replace(/\x1b\[[0-?]*[ -/]*[@-~]/g, "")
+  .replace(/[\x00-\x08\x0b\x0c\x0e-\x1f\x7f]/g, ""))
+  .subarray(0, bytes).toString("utf8").replace(/\ufffd$/, "");
+function notice(value, title = "Browser validation results") {
+  const message = JSON.stringify(value).replaceAll("%", "%25").replaceAll("\r", "%0D").replaceAll("\n", "%0A");
+  console.log(`::notice title=${title}::${message}`);
+}
 const paths = process.argv.slice(2);
 if (!paths.length) paths.push("test-results/e2e-results.json",
   ...["b", "c", "d", "e", "f", "g"].map(batch => `test-results/batch-${batch}-results.json`));
 
 for (const path of paths) {
-  let summary;
   try {
     const report = JSON.parse(readFileSync(path, "utf8"));
     const failures = [];
@@ -24,19 +32,22 @@ for (const path of paths) {
     }
     visit(report.suites);
     const files = [...new Set(failures.map(failure => failure.file))];
-    summary = { path, stats: report.stats,
-      globalErrors: (report.errors ?? []).slice(0, 3).map(error => (error.message ?? "").slice(0, 2000)),
-      failedFiles: files.map(file => ({
-      file, count: failures.filter(failure => failure.file === file).length,
-    })), failures: failures.slice(0, 60).map(({ file, title }) => ({ file, title })),
-      omittedFailures: Math.max(0, failures.length - 60),
-      samples: files.slice(0, 8).map(file => ({ file, error: failures.find(failure => failure.file === file).error
-        .split("\n").filter(line => !line.includes("<launching>")).join("\n").slice(0, 2000) })),
-    };
+    notice({ path, stats: report.stats,
+      globalErrors: (report.errors ?? []).slice(0, 3).map(error => short(error.message, 200)),
+      failedFiles: files.slice(0, 12).map(file => ({
+        file: short(file, 120), count: failures.filter(failure => failure.file === file).length,
+      })), omittedFailedFiles: Math.max(0, files.length - 12),
+    });
+    for (const file of files.slice(0, 8)) {
+      const group = failures.filter(failure => failure.file === file);
+      notice({ path, file: short(file, 120), count: group.length,
+        titles: group.slice(0, 3).map(failure => short(failure.title, 120)),
+        omittedTitles: Math.max(0, group.length - 3),
+        error: short(group[0].error.split("\n").filter(line => !line.includes("<launching>")).join("\n"), 1100),
+      }, "Browser validation failure details");
+    }
   } catch (error) {
     if (error.code !== "ENOENT") throw error;
-    summary = { path, status: "UNAVAILABLE: report not produced" };
+    notice({ path, status: "UNAVAILABLE: report not produced" });
   }
-  const message = JSON.stringify(summary).replaceAll("%", "%25").replaceAll("\r", "%0D").replaceAll("\n", "%0A");
-  console.log(`::notice title=Browser validation results::${message}`);
 }

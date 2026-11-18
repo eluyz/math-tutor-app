@@ -70,7 +70,10 @@ for (const width of [1280, 375]) {
       await page.getByRole("button", { name: "English", exact: true }).click();
       await expect(stats.getByLabel("Your answer", { exact: true })).toHaveValue("7/3");
       await stats.getByRole("button", { name: "Check", exact: true }).click();
-      expect(await unloadIsProtected(page)).toBe(false);
+      await expect(stats.locator('#st101-feedback .feedback')).toBeVisible();
+      // Assessment clears the parent draft flag through a passive effect; the
+      // unload listener is removed by the following parent effect, not inline.
+      await expect.poll(() => unloadIsProtected(page)).toBe(false);
       await expect(page.getByRole("main")).toHaveCount(1);
       await expect(page.locator("#main-content")).toHaveCount(1);
     });

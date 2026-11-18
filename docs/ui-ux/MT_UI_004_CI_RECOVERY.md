@@ -27,6 +27,10 @@ results and any remaining acceptance blockers are recorded in the
   Gauss expected `invalid`; they do not expose all 63 original failures.
   A separate bounded JSON-summary notice now makes final counts and grouped
   failures inspectable without unrestricted log/artifact downloads.
+  The final built-in run-summary notice independently confirms **63 failures**
+  and lists all 15 legacy cases before truncating the night-test list. This
+  confirms the 6 calculus / 4 Gauss / 2 rank / 3 localization mapping below;
+  complete original night-test stack traces remain inaccessible.
 
 ## Browser configuration repair
 
@@ -74,9 +78,10 @@ are added rather than allowing blanket dialog acceptance:
 | Rank classifications | 2 | Replacing the first task would clear its notes. Explicitly confirm that replacement before collecting further classifications. |
 | Localization heading | 3 | The selector targets an eyebrow removed by Focus Studio. Check the actual localized heading and start action through PL → EN → PL instead. |
 
-These counts describe the affected parameterized tests in source. The diagnostic
-run confirms the calculus group and two Gauss cases; GitHub's annotation limit
-prevents an independent mapping of every original failure. In particular,
+These counts match the legacy cases listed in the diagnostic run summary.
+Detailed annotations cover the calculus group and two Gauss cases; the remaining
+causes are established by source inspection and subsequent regression results.
+In particular,
 the Gauss scenario must not be described as a confirmed blank-answer grader bug:
 the old test never established that the fields were blank after its canceled
 navigation. Two new PL/EN browser regressions separately verify cancellation
@@ -110,6 +115,37 @@ these strengthened assertions before cancellation is declared safe.
 
 CI now runs the targeted recovery scenarios before the unchanged full browser
 and B–G gates, providing earlier feedback without skipping or disabling tests.
+
+### Measured recovery checkpoint: `b54987c`
+
+[Run 44262408071](https://github.com/eluyz/math-tutor-app/actions/runs/44262408071)
+reports **1179 PASS / 14 FAIL / 0 SKIPPED / 0 FLAKY** across 1193 browser cases
+(1593149.623 ms). Failures are confined to `night-navigation` (3),
+`night-subjects` (6), and `ui-validation` (5). The original 15 calculus, Gauss,
+linear-algebra and localization scenarios no longer fail. B–G remain skipped
+because the full browser gate failed. This is a historical checkpoint, not a
+passing result for the subsequent revision.
+
+Eleven failures use the incorrect EN Statistics selector; one is the canceled
+reload waiter described above. Two Statistics scenarios assert unload-listener
+cleanup immediately after grading. That cleanup crosses the child draft-report
+effect and the parent unload effect. The assertions now await visible graded
+feedback and poll for the same required `false` state within the existing
+assertion timeout. A persistently active guard still fails; no handler, grading
+behavior or timeout is changed.
+
+[Targeted run at `9e63cf8`](https://github.com/eluyz/math-tutor-app/actions/runs/44266312965)
+then completed **33 PASS / 2 FAIL in 43.3 s**. Both native reload paths and all
+ten PL/EN visual journeys passed; only the two immediate Statistics cleanup
+assertions remained. The following revision adds the bounded cleanup polling.
+Eight current screenshots are produced by those journeys, but artifact download
+from GitHub's storage host returns HTTP 403 in this environment. Their existence
+and successful capture do not constitute a visual review.
+
+The result-summary notices are split into compact aggregate and per-file details,
+with ANSI removed: a single long notice was truncated/sanitized by GitHub and
+could not be parsed reliably. Counts and representative errors are now emitted
+in separately bounded messages; the full JSON report remains in the artifact.
 
 ## Local validation checkpoint
 
