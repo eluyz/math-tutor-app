@@ -14,6 +14,7 @@ static concept labels are preserved where they provide evidence.
 | [MT-UI-002 audit](MT_UI_002_AUDIT.md) | Independent assessment of PR #337 at `61e5ad6859e8707dab3116abe373a76074bc3733`, with explicit evidence limitations. |
 | [MT-UI-003 night log](MT_UI_003_NIGHT_LOG.md) | Implementation checkpoints and historical validation, including browser blockers and pending acceptance work. |
 | [MT-UI-004 CI recovery](MT_UI_004_CI_RECOVERY.md) | Current failure investigation, secure browser configuration, English migration, and validation status. |
+| [MT-UI-005 integration](MT_UI_005_INTEGRATION.md) | Focus Studio + ST-102 merge decisions, retained drafts, independent math checks, and current validation gates. |
 
 Screenshots, raw logs, JSON validation records, and the captured vendor guidelines
 are evidence artifacts. They retain their original contents. Results belong to

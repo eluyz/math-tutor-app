@@ -53,7 +53,7 @@ for (const width of [1280, 375]) {
     });
 
     test("Statistics keeps draft, hints and task while hidden without stealing initial focus", async ({ page }) => {
-      await expect(page.locator("#st101-answer")).toHaveCount(0);
+      await expect(page.locator("#statistics-answer")).toHaveCount(0);
       await page.getByRole("button", { name: "Nowy przykład", exact: true }).click();
       await expect(page.locator("#answer")).toBeFocused();
       await page.getByRole("button", { name: /Statystyka i prawdopodobieństwo/ }).click();
@@ -70,7 +70,7 @@ for (const width of [1280, 375]) {
       await page.getByRole("button", { name: "English", exact: true }).click();
       await expect(stats.getByLabel("Your answer", { exact: true })).toHaveValue("7/3");
       await stats.getByRole("button", { name: "Check", exact: true }).click();
-      await expect(stats.locator('#st101-feedback .feedback')).toBeVisible();
+      await expect(stats.locator('#statistics-feedback .feedback')).toBeVisible();
       // Assessment clears the parent draft flag through a passive effect; the
       // unload listener is removed by the following parent effect, not inline.
       await expect.poll(() => unloadIsProtected(page)).toBe(false);
@@ -109,10 +109,10 @@ test('cancel replacing a free draft and deliberately accept a new task', async (
 
 test('cancel replacing a Statistics draft',async({page})=>{
   await page.goto('/'); await page.getByRole('button',{name:/Statystyka i prawdopodobieństwo/}).click();
-  const stats=page.locator('.statistics-practice'); await stats.locator('#st101-answer').fill('123');
+  const stats=page.locator('.statistics-practice'); await stats.locator('#statistics-answer').fill('123');
   page.once('dialog',dialog=>dialog.dismiss());
   await stats.getByRole('button',{name:'Średni',exact:true}).click();
-  await expect(stats.locator('#st101-answer')).toHaveValue('123');
+  await expect(stats.locator('#statistics-answer')).toHaveValue('123');
   await expect(stats.getByRole('button',{name:'Łatwy',exact:true})).toHaveAttribute('aria-pressed','true');
 });
 

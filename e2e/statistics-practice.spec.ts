@@ -44,7 +44,7 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         await enter(page);
         const p=panel(page), input=p.getByLabel(c.answer,{exact:true});
         await expect(p.getByText(locale === "pl" ? "W rozwoju" : "Work in progress",{exact:true})).toBeVisible();
-        await expect(p.getByRole("group",{name:locale==="pl"?"Poziom trudności":"Difficulty"}).getByRole("button")).toHaveCount(3);
+        await expect(p.getByRole("group",{name:locale==="pl"?"Poziom trudności":"Difficulty"}).getByRole("button")).toHaveCount(5);
         await expect(p.locator(".question")).toContainText("3, 2, 2, 1, 2");
         await expect(p.locator(".question")).toHaveAttribute("data-seed","0");
         await expect(p.locator(".solution-calculation")).toHaveCount(0);
@@ -76,7 +76,9 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
         await submit(page,"0"); await expect(p.locator(".feedback")).toContainText(c.correct);
         await submit(page,"1"); await expect(p.locator(".feedback")).toContainText(c.wrong);
         expect(await storage(page)).toEqual(before);
-        await expect(p.getByRole("button",{name:/median|warianc|variance/i})).toHaveCount(0);
+        await expect(p.locator("[data-topic=median]")).toBeEnabled();
+        await expect(p.locator("[data-topic=dispersion]")).toBeDisabled();
+        await expect(p.locator(".difficulty-picker button:enabled")).toHaveCount(3);
       });
 
       test("reveals both original hints and every solution step, then resets with next/difficulty",async({page})=>{
@@ -114,7 +116,7 @@ for (const viewport of [{width:375,height:812},{width:1280,height:800}]) {
 
       test("keeps input/question/reveals across locale changes and supports keyboard submission",async({page})=>{
         await enter(page); const p=panel(page);
-        await expect(page.locator("#st101-title")).toBeFocused();
+        await expect(page.locator("#statistics-title")).toBeFocused();
         await p.getByRole("button",{name:c.medium,exact:true}).click();
         const input=p.getByLabel(c.answer,{exact:true});
         await input.fill("86/12");

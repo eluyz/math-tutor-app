@@ -34,10 +34,25 @@ for (const width of [375, 390, 768, 1280, 1440]) for (const en of [false, true])
     const subjects = page.getByRole("navigation", { name: en ? "Math Tutor subjects" : "Działy Math Tutor" });
     await subjects.getByRole("button", { name: en ? /Statistics & Probability/ : /Statystyka i prawdopodobieństwo/ }).click();
     const stats = page.locator(".statistics-practice");
-    await expect(stats.locator("#st101-answer")).toBeVisible();
+    await expect(stats.locator("#statistics-answer")).toBeVisible();
     await stats.locator('button[type="submit"]').click();
-    await expect(stats.locator("#st101-answer")).toHaveAttribute("aria-invalid", "true");
-    await capture("statistics", (width === 375 && !en) || (width === 1280 && en));
+    await expect(stats.locator("#statistics-answer")).toHaveAttribute("aria-invalid", "true");
+    await expect(stats.locator('.question')).toHaveAttribute('data-lesson', 'mean');
+    await capture("statistics-mean", (width === 375 && !en) || (width === 1280 && en));
+
+    await stats.locator('[data-topic="median"]').click();
+    await stats.locator('[data-level="medium"]').click();
+    await stats.getByRole('button', {name: en ? 'Next exercise' : 'Następne zadanie', exact: true}).click();
+    await expect(stats.locator('.question')).toHaveAttribute('data-lesson', 'median');
+    await expect(stats.locator('.question')).toContainText('2, 2, 3, 10, 1, 7');
+    await stats.locator('#statistics-answer').fill('10/4');
+    await stats.locator('button[type="submit"]').click();
+    await expect(stats.locator('.feedback')).toHaveClass('feedback correct');
+    await stats.getByRole('button', {name: en ? 'Show hint' : 'Pokaż podpowiedź', exact: true}).click();
+    await stats.getByRole('button', {name: en ? 'Show second hint' : 'Pokaż drugą podpowiedź', exact: true}).click();
+    await stats.getByRole('button', {name: en ? 'Show solution' : 'Pokaż rozwiązanie', exact: true}).click();
+    await expect(stats.locator('.solution-calculation').last()).toHaveText('Me = (x[3] + x[4])/2 = ((2) + (3))/2 = 5/2');
+    await capture('statistics-median', (width === 375 && !en) || (width === 1440 && en));
 
     await subjects.getByRole("button").filter({ has: page.getByText(en ? "Mathematics" : "Matematyka", { exact: true }) }).click();
     await button(en ? "Exam" : "Sprawdzian").click();

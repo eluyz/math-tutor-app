@@ -179,6 +179,16 @@ button { touch-action: manipulation; }
 .statistics-practice .hint-actions button { border: 1px solid var(--ui-control); background: var(--ui-surface); color: var(--ui-text); }
 .statistics-practice .subject-roadmap-disclaimer { font-size: 13px; color: var(--ui-muted); max-width: 75ch; }
 
+/* Keep ST-102's shared navigation alignment inside the Focus Studio card gutter. */
+.site-shell { --ui-workspace-inset: clamp(16px,3vw,32px); }
+.site-shell > .subject-navigation,
+.site-shell .view-navigation { padding-inline: calc(var(--ui-workspace-inset) + 1px); }
+.statistics-practice.subject-roadmap-panel { padding: var(--ui-workspace-inset); }
+.site-shell > .subject-navigation .subject-nav-label { overflow-wrap: anywhere; }
+@media (min-width: 900px) {
+  .statistics-practice .difficulty-picker { grid-template-columns: repeat(5,minmax(0,1fr)); max-width: 640px; }
+}
+
 /* Accessibility and shared secondary surfaces. */
 .site-shell > .topbar { height: auto; }
 .site-shell > footer p { color: var(--ui-muted); }
