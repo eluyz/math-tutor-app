@@ -1,210 +1,224 @@
 # MT-UI-003 — NIGHT BUILD
 
-## Plan i granice
+## Plan and boundaries
 
-Focus Studio; React/TypeScript i istniejący CSS, bez nowych bibliotek. Generatory,
-ocenianie, punktacja i format historii nie zmieniają się. Pracujemy wyłącznie
-nad PR #337. Upoważnienie użytkownika obejmuje decyzje projektu i wykonanie bez
-kolejnych pytań. Stash pusty; niezapisany audyt w głównym checkoutcie zachowany.
+Focus Studio; React/TypeScript and existing CSS, without new libraries.
+Generators, answer checking, scoring, and history format remain unchanged. Work
+is limited to PR #337. User authorization covers design decisions and execution
+without further questions. The stash is empty; the uncommitted audit in the main
+checkout is preserved.
 
-- [x] A: zachować pracę przy logo/przedmiotach/widokach/PLEN; ostrzegać przed
-  opuszczeniem dokumentu. Bez trwałego zapisu odpowiedzi. Testy powrotu i anulowania.
-- [x] B: kompaktowy start i zwijany wybór tematu/poziomu; zadanie przed katalogiem
-  w aktywnym ćwiczeniu. 320/375/390/768/1280/1440, długie PL/EN.
-- [x] C: semantyka formularzy, jawne wyniki, równy pasek akcji i odporne wzory.
-- [x] D: numer pytania + jawny stan odpowiedzi; postępy z czytelną hierarchią.
-- [x] E: wspólne tokeny i wzorce ćwiczenia Matematyki/Statystyki, bez nowych treści.
-- [x] F: kontrast, focus, reduced motion, lokalizacja i kontrola wizualna.
-- [x] G: niezależny review, maks. trzy cykle napraw, końcowe testy i istniejący CI.
+- [x] A: preserve work when using the logo/subjects/views/PLEN; warn before leaving
+  the document. No persistent answer storage. Return and cancellation tests.
+- [x] B: compact entry and collapsible topic/level selection; the active exercise
+  precedes the catalog. 320/375/390/768/1280/1440, long PL/EN copy.
+- [x] C: form semantics, explicit outcomes, an equal action bar, and robust formulas.
+- [x] D: question number + explicit answer state; clear progress hierarchy.
+- [x] E: shared Mathematics/Statistics exercise tokens and patterns, without new content.
+- [x] F: contrast, focus, reduced motion, localization, and visual checks.
+- [x] G: independent review, at most three fix cycles, final tests, and existing CI.
 
-## Decyzje
+## Decisions
 
-Zachowanie stanu w pamięci zamiast nowego magazynu danych; natywne ostrzeżenie
-przed reload/wyjściem informuje o utracie niedokończonej pracy. Nie implementujemy
-nowego routera/history. Kompaktowy panel konfiguracji zamiast wielu nowych
-sticky pasków. Focus Studio i wszystkie funkcje pozostają.
+Preserve state in memory rather than introducing a new data store; a native
+reload/exit warning communicates the loss of unfinished work. No new
+router/history implementation. A compact configuration panel rather than
+multiple new sticky bars. Focus Studio and all features are retained.
 
-## Bazowy stan
+## Baseline
 
-Main: 307276a. PR przed sprintem: 61e5ad6. Zsynchronizowano zwykłym merge main,
-bez konfliktów; SHA merge jest w `git log`. Wcześniejszy audyt: 6,5/10 warunkowo.
-Blokada znana: systemowy Chromium nie startuje z sandboxem (SUID/crashpad).
-Ponowna próba standardowego Playwright przewidziana; nie obchodzimy zabezpieczeń.
+Main: 307276a. Pre-sprint PR: 61e5ad6. Synchronized through a regular merge of
+main, without conflicts; the merge SHA is in `git log`. Earlier audit: a
+conditional 6,5/10. Known blocker: system Chromium does not launch with the
+sandbox (SUID/crashpad). Another standard Playwright attempt is planned;
+security safeguards will not be bypassed.
 
-## Checkpointy
+## Checkpoints
 
-Wyniki i SHA dopisywane po każdym pakiecie. PASS tylko po wykonanym teście;
-BLOCKED/NOT RUN nie oznacza zaliczenia. Log dotyczy punktów kontrolnych; dokładny
-końcowy HEAD i bieżący CI podaje opis PR/raport końcowy (bez samoodwołania SHA).
+Results and SHAs are appended after each package. PASS only follows an executed
+test; BLOCKED/NOT RUN does not mean passed. This log records checkpoints; the PR
+description/final report provides the exact final HEAD and current CI status
+(without a self-referential SHA).
 
-### A — nawigacja i sesje
+### A — navigation and sessions
 
-Logo zachowuje pracę; Matematyka i odwiedzona Statystyka pozostają zamontowane
-podczas zmiany przedmiotu. Jeden target main; stan odpowiedzi, wskazówek,
-rozwiązania i brudnopisu pozostaje w pamięci. Natywne beforeunload chroni aktywną
-sesję/egzamin i niesprawdzone odpowiedzi (także w ukrytych widokach). Nie dodano
-zapisu odpowiedzi ani routera. Świadomie zaakceptowany reload nadal traci pracę;
-komunikat jest natywny i zależy od przeglądarki. Wstecz nie zmienia wewnętrznego
-widoku; wyjście z dokumentu podlega ostrzeżeniu.
+The logo preserves work; Mathematics and previously visited Statistics remain
+mounted when switching subjects. One main target; answer, hint, solution, and
+scratchpad state remain in memory. Native beforeunload protects an active
+session/exam and unchecked answers (including hidden views). No answer storage
+or router was added. A knowingly accepted reload still loses work; the message
+is native and browser-dependent. Back does not change the internal view;
+leaving the document triggers the warning.
 
-PASS: 29 testów nawigacyjnego wykrywania draftu i istniejącej Statystyki; build.
-6 scenariuszy E2E dodano i odkryto przez --list, wykonanie BLOCKED.
-Bazowy pełny Vitest: 2602 PASS / 1 FAIL (history-regression przekroczył 5 s przy
-równoległym obciążeniu); izolowane powtórzenie i końcowa regresja poniżej.
-Standardowa instalacja przeglądarki Playwright nie pobrała Chrome for Testing;
-systemowy Chromium z włączonym sandboxem też jest zablokowany. Bez obejść.
+PASS: 29 navigation draft-detection and existing Statistics tests; build.
+6 E2E scenarios were added and discovered through --list; execution BLOCKED.
+Baseline full Vitest: 2602 PASS / 1 FAIL (history-regression exceeded 5 s under
+concurrent load); isolated rerun and final regression results appear below.
+Standard Playwright browser installation failed to download Chrome for Testing;
+system Chromium with the sandbox enabled is also blocked. No bypasses.
 
-### B — zadanie przed katalogiem
+### B — exercise before catalog
 
-Commit A: 3189cd5. Izolowane powtórzenie history-regression: 2/2 PASS,
-bez zmian limitów testów. Pakiet B: szybki start/kontynuacja blisko tytułu,
-aktywne ćwiczenie przed konfiguracją w DOM, lista rodzin po panelu zadania,
-zwijany natywny details z konfiguracją. Domyślnie otwarty dla odkrywalności i
-zgodności dotychczasowych przepływów. Zrezygnowano z pustej karty marketingowej.
-Nagłówek i przedmioty kompaktowe; bez sticky i bez nowych bibliotek.
+Commit A: 3189cd5. Isolated history-regression rerun: 2/2 PASS, without changing
+test timeouts. Package B: quick start/continue near the title, active exercise
+before configuration in the DOM, family list after the exercise panel, and
+collapsible native details for configuration. Open by default for
+discoverability and compatibility with existing flows. The empty marketing card
+was dropped. Compact header and subjects; no sticky elements or new libraries.
 
-PASS: build/TypeScript. Dodano 12 scenariuszy layout PL/EN przy sześciu
-szerokościach. Wykonanie wizualne i zachowanie przy klawiaturze telefonu BLOCKED;
-nie ogłaszamy PASS kryterium wizualnego. Dotychczasowe selektory/funkcje zachowane.
+PASS: build/TypeScript. Added 12 PL/EN layout scenarios at six widths. Visual
+execution and phone keyboard behavior BLOCKED; the visual criterion is not
+reported as PASS. Existing selectors/features are preserved.
 
-### C — formularze i ekran ćwiczenia
+### C — forms and exercise screen
 
-Commit B: 2e0fa09. Formularze łączą pomoc z trwałym regionem feedback;
-aria-invalid znika podczas edycji, nie zmieniając oceny matematycznej.
-Formularze strukturalne oznaczają błąd grupy, bez fałszywego przypisywania go
-każdemu polu. Enter i dotychczasowe etykiety zachowane. Długie wzory przewijają
-się lokalnie; przyciski pomocy mają wspólną geometrię.
+Commit B: 2e0fa09. Forms associate help with a persistent feedback region;
+aria-invalid clears during editing without changing mathematical grading.
+Structured forms mark a group error without incorrectly assigning it to every
+field. Enter behavior and existing labels are preserved. Long formulas scroll
+locally; help buttons share the same geometry.
 
-PASS: 20 testów SSR komponentu (10 przypadków wcześniej RED, potem GREEN),
-20 testów wykrywania draftu; TypeScript/build. Cztery scenariusze E2E PL/EN
-powiązania feedback i przejść invalid/incorrect/correct dodano; runtime BLOCKED.
-Szybki start skupia nagłówek zadania, nie otwiera od razu klawiatury telefonu.
+PASS: 20 component SSR tests (10 cases initially RED, then GREEN), 20
+draft-detection tests; TypeScript/build. Four PL/EN E2E scenarios for feedback
+association and invalid/incorrect/correct transitions were added; runtime
+BLOCKED. Quick start focuses the exercise heading without immediately opening
+the phone keyboard.
 
-### D — egzamin i postępy
+### D — exam and progress
 
-Commit C: 58d9500. Oddzielny komponent prezentacyjny nawigacji egzaminu pokazuje
-numer i stan „Wpisano odpowiedź / Brak odpowiedzi” w PL/EN, niezależnie od
-aria-current. Nie przyjmuje poprawności ani punktów, więc nie ujawnia oceny.
-Postępy i egzamin otrzymały tokeny Focus Studio, zawijanie filtrów i czytelną
-hierarchię wartości. Modele historii i egzaminu oraz usuwanie danych bez zmian.
+Commit C: 58d9500. A separate presentational exam navigation component shows the
+number and “Wpisano odpowiedź / Brak odpowiedzi” (“Answer entered / No answer”)
+state in PL/EN, independently of aria-current. It receives neither correctness
+nor points, so it cannot reveal the grade. Progress and exam received Focus
+Studio tokens, wrapping filters, and a clear hierarchy of values. History and
+exam models and data deletion are unchanged.
 
-PASS: sześć SSR testów nawigacji PL/EN i osiem istniejących testów historii;
-TypeScript/build. Cztery E2E scenariusze z włączonym sandboxem dodano, runtime
-BLOCKED. Dokładne końcowe liczby wspólnej regresji zapisane poniżej.
+PASS: six PL/EN navigation SSR tests and eight existing history tests;
+TypeScript/build. Four E2E scenarios with the sandbox enabled were added;
+runtime BLOCKED. Exact final combined regression counts are recorded below.
 
-### E — spójność Matematyki i Statystyki
+### E — Mathematics and Statistics consistency
 
-Commit D: 66950d1. Statystyka korzysta z istniejących wspólnych klas nauki,
-kontrolek, feedbacku i tokenów Focus Studio. Własne warianty obejmują tylko
-układ pilotażu trzech poziomów. Bez zmian danych, generatorów, porównań wyników
-lub zakresu merytorycznego. Statusy planowanych działów pozostają bez zmian.
+Commit D: 66950d1. Statistics uses the existing shared learning classes,
+controls, feedback, and Focus Studio tokens. Its own variants cover only the
+three-level pilot layout. No changes to data, generators, answer comparisons,
+or educational scope. Planned topic statuses remain unchanged.
 
-PASS: 29 testów istniejącej Statystyki i draftów; build/TypeScript wspólnej
-integracji. Dodano 12 E2E kontroli wspólnego wyglądu/przycisków/feedbacku przy
-sześciu szerokościach PL/EN; wykonanie BLOCKED. Nie deklarujemy potwierdzenia
-wizualnego bez renderowania. W repo nie dodano nowych bibliotek.
+PASS: 29 existing Statistics and draft tests; build/TypeScript for the shared
+integration. Added 12 E2E checks for shared appearance/buttons/feedback at six
+widths in PL/EN; execution BLOCKED. Visual confirmation is not claimed without
+rendering. No new libraries were added to the repository.
 
-### F — dostępność i dopracowanie
+### F — accessibility and refinement
 
-Commit E: 2f72864. Stopka używa muted zamiast #718276 (obliczeniowo 5,81:1
-zamiast 3,79:1). JS przewijania respektuje reduced motion; focus globalny i
-regiony lokalnego scroll zachowane. Polski status „W rozwoju” zachowuje znaczenie
-in-progress, a placeholder podaje tematy zamiast kodów. Rozmiary małego nagłówka dostosowano
-z myślą o 320 px; nie potwierdzono jeszcze wyniku w renderowaniu. Brudnopis/rozwiązania
-korzystają ze wspólnych tokenów. Wymaga potwierdzenia w renderowaniu.
+Commit E: 2f72864. The footer uses muted instead of #718276 (calculated 5,81:1
+instead of 3,79:1). JS scrolling respects reduced motion; global focus and local
+scroll regions are retained. The Polish status “W rozwoju” preserves the
+in-progress meaning, while the placeholder gives topics instead of codes.
+Small-header sizing was adjusted for 320 px; the rendered result is not yet
+confirmed. Scratchpad/solutions use shared tokens. Rendering verification is
+required.
 
-Dodatkowa poprawka A: zmiana zadania z niewysłanym draftem w Matematyce lub
-Statystyce wymaga potwierdzenia; anulowanie zatrzymuje handler przed resetem.
-Notatki brudnopisu chronione przed opuszczeniem dokumentu. Nie zapisujemy ich
-trwale. Dodano E2E anulowania/akceptacji zmiany i anulowania reload.
+Additional A fix: changing exercises with an unsubmitted draft in Mathematics or
+Statistics requires confirmation; cancellation stops the handler before reset.
+Scratchpad notes are protected when leaving the document. They are not stored
+persistently. Added E2E scenarios for cancelling/accepting a change and
+cancelling reload.
 
-PASS: 42 ukierunkowane testy jednostkowe/SSR (w tym RED→GREEN lokalizacji),
-build/TypeScript. Dodano testy Tab/skip, obliczanego kontrastu, reduced motion,
-reflow i powiększenia tekstu. Test powiększenia tekstu nie zastępuje ręcznego
-zoomu przeglądarki 200%. Runtime i nowe screenshoty BLOCKED. Ponowna standardowa
-instalacja Chromium także z jawnym dostępem sieciowym nadal daje 403 Domain forbidden.
-Bez wyłączania sandboxa ani zmian polityki sieci.
+PASS: 42 targeted unit/SSR tests (including localization RED→GREEN),
+build/TypeScript. Added tests for Tab/skip, calculated contrast, reduced motion,
+reflow, and enlarged text. Text enlargement testing does not replace manual
+200% browser zoom. Runtime and new screenshots BLOCKED. Another standard
+Chromium installation attempt, including explicit network access, still returns
+403 Domain forbidden. Neither the sandbox nor network policy was changed.
 
-### G — red team i poprawki (maksymalnie trzy cykle)
+### G — red team and fixes (at most three cycles)
 
-Commit F: 41f7cf8. Pierwsza niezależna recenzja wykryła utratę brudnopisu przy
-niedostępnym poziomie: warunkowe odmontowanie panelu usuwało notatki również przy
-wyłączonym auto-clear. Panel jest teraz stale zamontowany i tylko ukrywany.
-Potwierdzenie obejmuje notatki zagrożone automatycznym czyszczeniem; kontynuacja
-ćwiczenia nie uruchamia potwierdzenia. Dotychczasowa opcja auto-clear zachowana.
+Commit F: 41f7cf8. The first independent review found scratchpad loss at an
+unavailable level: conditional panel unmounting removed notes even with
+auto-clear disabled. The panel now remains mounted and is only hidden.
+Confirmation covers notes at risk of automatic clearing; continuing the
+exercise does not trigger confirmation. The existing auto-clear option is
+preserved.
 
-Poprawiono testy zakładające kasowanie sesji przez logo, odmontowanie Statystyki
-oraz przejścia do innych zadań bez świadomej zgody. Rozróżniono selektory ukrytej
-Matematyki i Statystyki. Dopisano scenariusz zachowania notatek po niedostępnym
-poziomie. Drugi cykl wykrył jeszcze błędną próbę ponownego otwierania zachowanego
-brudnopisu i brak zgód w istniejącym teście; poprawiono. Trzeci cykl jest
-ostatnią recenzją tych samych usterek, bez rozszerzania funkcji.
+Corrected tests that assumed the logo cleared sessions, Statistics unmounted,
+and navigation to other exercises proceeded without informed consent. Hidden
+Mathematics and Statistics selectors were distinguished. Added a scenario for
+preserving notes after an unavailable level. The second cycle also found an
+incorrect attempt to reopen a preserved scratchpad and missing confirmations
+in an existing test; these were fixed. The third cycle is the final review of
+the same defects, without expanding functionality.
 
-PASS: 50 testów pomocniczych/SSR/modelu brudnopisu; build. 48 nowych scenariuszy
-E2E odkryto, ale nie zaliczono runtime. Nie zmieniono modeli, generatorów,
-algorytmów oceniania, historii ani zależności. Nie usunięto danych postępów.
+PASS: 50 helper/SSR/scratchpad-model tests; build. 48 new E2E scenarios were
+discovered, but runtime was not passed. Models, generators, grading algorithms,
+history, and dependencies were unchanged. Progress data was not deleted.
 
-### Wznowienie po odnowieniu limitu
+### Resumption after the usage limit reset
 
-Zmiany lokalne po G zachowane; `main` nadal 307276a. CI 41f7cf8:
+Local changes after G are preserved; `main` remains 307276a. CI 41f7cf8:
 [run 44189147021](https://github.com/eluyz/math-tutor-app/actions/runs/44189147021)
-FAIL w etapie przeglądarkowym, wcześniejsze jednostkowe/build/instalacja Chromium
-PASS; B–G SKIPPED. Szczegółowe logi blokuje domena results-receiver (403), także
-po standardowej próbie narzędzia z zatwierdzanym dostępem. Nie zakładamy, że same
-poprawki G rozwiązują wszystkie błędy CI. Powtórzona lokalna instalacja Playwright
-nadal jest blokowana przez politykę domen. Końcowa regresja na nowym commicie
-będzie zapisana poniżej; do tego czasu status PARTIAL / NO-GO.
+FAIL at the browser stage; earlier unit/build/Chromium installation stages PASS;
+B–G SKIPPED. Detailed logs are blocked by the results-receiver domain (403),
+including after a standard tool attempt with approval-controlled access. The G
+fixes alone are not assumed to resolve all CI failures. Repeated local
+Playwright installation is still blocked by domain policy. Final regression
+results on a new commit will be recorded below; until then, status is
+PARTIAL / NO-GO.
 
 
-Trzeci, końcowy przegląd: brak pozostałych problemów w zgłoszonych usterkach;
-46/46 testów trzech ukierunkowanych zestawów PASS. To akceptacja poprawek w
-kodzie, nie pełna akceptacja UI/UX. Nie nadano oceny 8–9/10 bez dowodów renderowania.
+Third and final review: no remaining issues among the reported defects;
+46/46 tests across three targeted suites PASS. This accepts the code fixes,
+rather than granting full UI/UX approval. No 8–9/10 rating was assigned without
+rendering evidence.
 
 
-## Końcowa walidacja kodu 8db7a35
+## Final validation of code 8db7a35
 
-| Kontrola lokalna | Wynik |
+| Local check | Result |
 | --- | --- |
 | npm ci | PASS |
-| npm test | **2649 PASS / 0 FAIL, 205 plików** |
-| npm run build | PASS; istniejące ostrzeżenie o rozmiarze chunka |
-| Jednostkowe B / C / D / E / F / G | **87 / 7 / 26 / 19 / 18 / 18 PASS**, 0 FAIL |
-| Nowe scenariusze night-* | 48 odkrytych, runtime NOT RUN |
-| Pełny E2E lokalny | 1181 odkrytych: 1 błąd startu Chromium, 1180 NOT RUN |
-| E2E B / C / D / E / F / G | 72 / 24 / 96 / 64 / 64 / 64 odkrytych; po 1 błędzie startu, reszta NOT RUN |
+| npm test | **2649 PASS / 0 FAIL, 205 files** |
+| npm run build | PASS; existing chunk-size warning |
+| Unit B / C / D / E / F / G | **87 / 7 / 26 / 19 / 18 / 18 PASS**, 0 FAIL |
+| New night-* scenarios | 48 discovered, runtime NOT RUN |
+| Full local E2E | 1181 discovered: 1 Chromium launch error, 1180 NOT RUN |
+| E2E B / C / D / E / F / G | 72 / 24 / 96 / 64 / 64 / 64 discovered; 1 launch error each, remainder NOT RUN |
 
-Jednostkowe B–G są podzbiorami pełnych 2649 testów, nie dodatkowymi unikatowymi
-przypadkami. Wszystkie 7 lokalnych prób przeglądarkowych zakończyło się przed
-asercjami aplikacji (SUID/crashpad). Łącznie 7 błędów środowiska i 1558 NOT RUN.
-Użyto tymczasowych konfiguracji poza repo, zachowując testMatch, webServer i
-jawne chromiumSandbox:true; zatrzymanie po pierwszym błędzie zapobiegało
-powtarzaniu tej samej awarii. Początkowy błąd adaptacji listy webServer w B–D
-skorygowano i wszystkie trzy próby powtórzono. Konfiguracja CI bez zmian.
+Unit B–G are subsets of the full 2649 tests, rather than additional unique cases.
+All 7 local browser attempts ended before application assertions
+(SUID/crashpad). Total: 7 environment errors and 1558 NOT RUN. Temporary
+configurations outside the repository preserved testMatch, webServer, and
+explicit chromiumSandbox:true; stopping after the first error prevented
+repeating the same failure. The initial webServer list-adaptation error in B–D
+was corrected and all three attempts were repeated. CI configuration is unchanged.
 
-Impeccable: 5 istniejących warnings / 0 errors, exit 2; cztery obramowania i
-nadpisana deklaracja Arial w dawnym styles.css, bez nowego blockera. Nie zmieniano
-dobrych elementów tylko dla mechanicznego ostrzeżenia. Wyniki i snapshot CI dla
-kodu: [MT_UI_003_VALIDATION.json](MT_UI_003_VALIDATION.json). Szczegółowe lokalne
-logi pozostają w /workspace/mt-ui-003-results poza repozytorium.
+Impeccable: 5 existing warnings / 0 errors, exit 2; four borders and an overridden
+Arial declaration in legacy styles.css, with no new blocker. Working elements
+were not changed merely to satisfy a mechanical warning. Results and CI snapshot
+for this code: [MT_UI_003_VALIDATION.json](MT_UI_003_VALIDATION.json). Detailed
+local logs remain in /workspace/mt-ui-003-results outside the repository.
 
-GitHub Actions 8db7a35: jednostkowe/build/instalacja przeglądarki PASS,
-pełne E2E w toku przy sprawdzeniu; B–G jeszcze bez wyniku.
-[Przebieg](https://github.com/eluyz/math-tutor-app/actions/runs/44251597661).
-Status CI na późniejszym commicie dokumentacji podaje opis PR i raport końcowy;
-nie utożsamiać wyników różnych SHA. Pełne wyniki końcowego HEAD sprawdzamy osobno.
+GitHub Actions 8db7a35: unit/build/browser installation PASS; full E2E was in
+progress when checked; B–G had no result yet.
+[Run](https://github.com/eluyz/math-tutor-app/actions/runs/44251597661).
+The PR description and final report provide CI status for the later documentation
+commit; do not equate results from different SHAs. Full final-HEAD results are
+checked separately.
 
-### Ograniczenia i kontynuacja
+### Limitations and continuation
 
-**STATUS PARTIAL, gotowość NO-GO.** Kod pakietów A–F i poprawki G są zapisane;
-nie pozostał potwierdzony blocker z ograniczonego red teamu. Nadal P1:
-pełne zielone E2E/B–G na bieżącym HEAD oraz faktyczny przegląd widoków w
-bezpiecznej przeglądarce, w tym 200% zoom, klawiatura/czytnik i PL/EN.
-Nie ma nowych screenshotów; [zrzuty bazowe](screenshots/) dotyczą MT-UI-001,
-nie obecnej implementacji. Ocena 6,5/10 jest bazowa; nowej nie nadano.
-P2: duży chunk i konieczność dopracowania ewentualnych szczegółów ujawnionych
-przez przegląd renderowanego UI. Nie dodano zależności ani zmian matematycznych.
+**STATUS PARTIAL, readiness NO-GO.** Code for packages A–F and G fixes is saved;
+no confirmed blocker remains from the limited red team review. P1 items remain:
+a fully green E2E/B–G run on the current HEAD and an actual view review in a
+secure browser, including 200% zoom, keyboard/screen reader, and PL/EN.
+There are no new screenshots; [baseline screenshots](screenshots/) show
+MT-UI-001, rather than the current implementation. The 6,5/10 rating is the
+baseline; no new rating was assigned. P2: large chunk and any refinements
+identified by reviewing the rendered UI. No dependencies or mathematical
+changes were added.
 
-Następny krok: uruchomić 48 nowych scenariuszy i pełne istniejące E2E w środowisku
-z działającym sandboxem, zebrać sześć reprezentatywnych ekranów oraz przeanalizować
-końcowy CI dokładnego SHA. Nie wprowadzać nowego stylu ani treści edukacyjnych.
-Stash i wcześniejsze materiały w głównym checkoutcie zachowane. Bez merge.
+Next step: run the 48 new scenarios and the full existing E2E suite in an
+environment with a working sandbox, capture six representative screens, and
+analyze final CI for the exact SHA. Do not introduce a new style or educational
+content. The stash and earlier materials in the main checkout are preserved.
+No merge.

@@ -1,50 +1,51 @@
-# MT-UI-001 — audyt UI/UX
+# MT-UI-001 — UI/UX audit
 
-Dokument historyczny prototypu przed MT-UI-003. Zrzuty i wyniki poniżej dotyczą
-ówczesnej wersji. Aktualne zmiany i ograniczenia weryfikacji opisuje
-[MT_UI_003_NIGHT_LOG.md](MT_UI_003_NIGHT_LOG.md).
+Historical documentation of the prototype before MT-UI-003. The screenshots and
+results below describe that version. See
+[MT_UI_003_NIGHT_LOG.md](MT_UI_003_NIGHT_LOG.md) for subsequent changes and
+verification limitations.
 
-Zakres: `src/App.tsx`, `src/styles.css`, moduły progress/exam, lokalizacja, istniejące testy. Baza końcowa: aktualny main `d62424a` (pobrany przed finalną implementacją). Audyt heurystyczny kodu i przeglądarki; nie badanie z użytkownikami.
+Scope: `src/App.tsx`, `src/styles.css`, progress/exam modules, localization, and existing tests. Final baseline: the then-current main `d62424a` (fetched before the final implementation). A heuristic code and browser audit, rather than user research.
 
-| Priorytet | Obszar / dowód | Problem i zalecenie |
+| Priority | Area / evidence | Issue and recommendation |
 | --- | --- | --- |
-| P1 | Home: `.practice`, nagłówek i nawigacja | Aktualny main ma już kompaktowe wejście bez hero; zachować ten kierunek i poprawić hierarchię. |
-| P1 | Nawigacja: `App.tsx`, `.view-navigation` | Nagłówek i luźny pasek trybów nie tworzą jednej hierarchii; wyrównać do wspólnej osi. |
-| P1 | Przedmioty | Dostępne Matematyka i rozwijana Statystyka; Ekonometria i Matematyka finansowa prowadzą do roadmap. Zachować wszystkie cztery pozycje i jawne statusy. |
-| P1 | `.category-picker` | Jednorzędowa przewijana lista ukrywa działy; zawijana siatka, równa wysokość i odstępy. |
-| P1 | `.exercise-item` | Duże szeryfowe etykiety i 114 px wiersze ograniczają skanowanie; kompaktowy, czytelny katalog i wyraźny stan aktywny. |
-| P1 | Mobile | Kafelki przedmiotów i przewijane działy mają różne układy; uporządkować w równe kolumny i zachować kompaktowe wejście. |
-| P1 | Dostępność | Brak skip link, focus zdefiniowany tylko dla części kontrolek; uzupełnić globalny focus, w tym select/summary/textarea, i reduced motion. |
-| P2 | Typografia / przyciski | Mieszanka szeryfów, małych kapitalików i różnych promieni; systemowe tokeny i jedna skala. |
-| P2 | Formularze i podpowiedzi | Dobre etykiety, statusy, feedback i progresywne podpowiedzi już istnieją; zachować, poprawić wizualną hierarchię. |
-| P2 | Wzory | Natywny tekst, Unicode, osobne renderery tabel/SVG. Nie wprowadzać nowego silnika; sprawdzić długie treści i przewijanie lokalne. |
-| P2 | Postępy / egzamin | Istnieją osobne komponenty i blokady. Zachować funkcje i dane; pełny redesign dopiero po akceptacji prototypu. |
+| P1 | Home: `.practice`, heading and navigation | The then-current main already has a compact entry without a hero; retain this direction and improve the hierarchy. |
+| P1 | Navigation: `App.tsx`, `.view-navigation` | The header and detached mode bar do not form a unified hierarchy; align them along a common axis. |
+| P1 | Subjects | Mathematics and the Statistics pilot are available; Econometrics and Financial Mathematics lead to roadmaps. Retain all four entries and their explicit statuses. |
+| P1 | `.category-picker` | A single horizontally scrolling row hides topics; use a wrapping grid with equal heights and spacing. |
+| P1 | `.exercise-item` | Large serif labels and 114 px rows make scanning harder; use a compact, readable catalog with a clear active state. |
+| P1 | Mobile | Subject tiles and scrolling topics use different layouts; organize them into equal columns and retain a compact entry. |
+| P1 | Accessibility | No skip link; focus is defined for only some controls. Add global focus styles, including select/summary/textarea, and reduced motion support. |
+| P2 | Typography / buttons | A mixture of serifs, small caps, and different corner radii; introduce shared tokens and a single scale. |
+| P2 | Forms and hints | Good labels, statuses, feedback, and progressive hints already exist; retain them and improve the visual hierarchy. |
+| P2 | Formulas | Native text, Unicode, and dedicated table/SVG renderers. Do not introduce a new engine; check long content and local scrolling. |
+| P2 | Progress / exam | Separate components and safeguards already exist. Preserve features and data; undertake a full redesign only after prototype approval. |
 
-## Przed / po
+## Before / after
 
-Zrzuty w `screenshots/`. Pomiary czterech szerokości: [viewport-checks.json](viewport-checks.json). Wszystkie: bez poziomego przewijania PL/EN, działający skip link i focus odpowiedzi; równe wysokości działów (59,69 px mobile, 48 px desktop). Wzory pozostają tekstem i dedykowanymi tabelami/SVG; prototyp nie jest migracją do LaTeX.
+Screenshots are in `screenshots/`. Measurements at four widths: [viewport-checks.json](viewport-checks.json). All reported no horizontal document scrolling in PL/EN, a working skip link and answer focus, and equal topic heights (59,69 px on mobile, 48 px on desktop). Formulas remain text and dedicated tables/SVG; the prototype does not migrate to LaTeX.
 
-## Materiał do odbioru
+## Review material
 
-| Widok | Przed | Po |
+| View | Before | After |
 | --- | --- | --- |
-| Mobile 375 | [przed](screenshots/before-375.png) | [katalog](screenshots/after-home-375.png), [ćwiczenie](screenshots/after-exercise-375.png) |
-| Desktop 1440 | [przed](screenshots/before-1440.png) | [katalog](screenshots/after-home-1440.png), [ćwiczenie](screenshots/after-exercise-1440.png) |
-| Mobile 390 | — | [katalog](screenshots/after-home-390.png), [ćwiczenie](screenshots/after-exercise-390.png) |
-| Desktop 1280 | — | [katalog](screenshots/after-home-1280.png), [ćwiczenie](screenshots/after-exercise-1280.png) |
+| Mobile 375 | [before](screenshots/before-375.png) | [catalog](screenshots/after-home-375.png), [exercise](screenshots/after-exercise-375.png) |
+| Desktop 1440 | [before](screenshots/before-1440.png) | [catalog](screenshots/after-home-1440.png), [exercise](screenshots/after-exercise-1440.png) |
+| Mobile 390 | — | [catalog](screenshots/after-home-390.png), [exercise](screenshots/after-exercise-390.png) |
+| Desktop 1280 | — | [catalog](screenshots/after-home-1280.png), [exercise](screenshots/after-exercise-1280.png) |
 
-Zrzuty „przed” przedstawiają aktualną bazę main bez warstwy `redesign.css`; „po” — tę samą aplikację z prototypem. Dwie statyczne koncepcje: [CONCEPTS.html](CONCEPTS.html).
+The “before” screenshots show the then-current main baseline without the `redesign.css` layer; “after” shows the same application with the prototype. Two static concepts: [CONCEPTS.html](CONCEPTS.html).
 
-## Przegląd implementacji
+## Implementation review
 
-Niezależny przegląd kodu wykrył i skorygowano: zbyt słaby selektor focus (`:where` zastąpiono `:is`), możliwość przycięcia obrysu regionu listy (focus wewnętrzny) i nieprecyzyjny opis wpływu wspólnego shell na inne widoki. Zmiany React to skip link, kontener docelowy focusu, klasa zakresu i dekoracyjne symbole; bez zmian handlerów i stanu.
+An independent code review identified issues that were corrected: an insufficiently specific focus selector (`:where` replaced with `:is`), potential clipping of the list region outline (inset focus), and an imprecise description of the shared shell's effect on other views. React changes consist of a skip link, a focus target container, a scope class, and decorative symbols; handlers and state are unchanged.
 
-## Testy — zakres i ograniczenia
+## Tests — scope and limitations
 
-- Build produkcyjny przechodzi; pozostaje ostrzeżenie o dużym chunku (ponad 500 kB). Podział pakietu jest poza zakresem tego prototypu.
-- Playwright: 78/78 testów akceptacyjnych (`ui-redesign`, `compact-practice-entry`, `subject-roadmap`, `statistics-practice`, `practice-navigation`, `localization`, `local-progress`) oraz 15/15 `exam.spec.ts`, Chromium systemowy, jeden worker.
-- Pełny lokalny `npm run test:e2e` został rozpoczęty, ale przerwany z powodu współdzielenia 2 CPU z testami jednostkowymi; nie deklarujemy przejścia całego zestawu. Istniejący workflow CI uruchamia pełny zestaw na PR.
-- Podczas testów postępów pojawiały się ostrzeżenia React o powtórzonych kluczach w istniejących scenariuszach; testy przechodzą. Logika postępów nie była zmieniana.
-- Pierwszy pełny Vitest: 2602/2603; `src/catalogSearch.test.ts:78` przekroczył 5 s podczas równoległego obciążenia. Izolowane powtórzenie tego pliku: 7/7. Końcowy pełny przebieg z jednym workerem i limitem 30 s raportowany poniżej. Nie zmieniano limitów w repozytorium.
+- The production build passes; the large chunk warning remains (over 500 kB). Bundle splitting is outside this prototype's scope.
+- Playwright: 78/78 acceptance tests (`ui-redesign`, `compact-practice-entry`, `subject-roadmap`, `statistics-practice`, `practice-navigation`, `localization`, `local-progress`) and 15/15 `exam.spec.ts`, using system Chromium and one worker.
+- A full local `npm run test:e2e` was started but interrupted because unit tests were sharing 2 CPUs; no full-suite pass is claimed. The existing CI workflow runs the full suite on the PR.
+- React duplicate-key warnings appeared during existing progress test scenarios; the tests pass. Progress logic was unchanged.
+- Initial full Vitest run: 2602/2603; `src/catalogSearch.test.ts:78` exceeded 5 s under concurrent load. An isolated rerun of that file passed 7/7. The final full run with one worker and a 30 s timeout is reported below. Repository timeout settings were unchanged.
 
-Końcowy pełny Vitest: **202/202 pliki, 2603/2603 testy** (`npm test -- --maxWorkers=1 --testTimeout=30000`, 217,54 s).
+Final full Vitest run: **202/202 files, 2603/2603 tests** (`npm test -- --maxWorkers=1 --testTimeout=30000`, 217,54 s).

@@ -1,35 +1,34 @@
-# MT-UI-001 — plan i granice
+# MT-UI-001 — plan and boundaries
 
-## Cel i architektura
+## Goal and architecture
 
-Pierwszy prototyp premium dla dorosłych i studentów. React + istniejący CSS, bez nowych zależności. Design: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md). Zachować generatory, schematy, lokalizację, postępy, egzamin i istniejące komponenty.
+An initial premium prototype for adults and students. React and existing CSS, without new dependencies. Design: [DESIGN_SYSTEM.md](DESIGN_SYSTEM.md). Preserve generators, schemas, localization, progress, exam, and existing components.
 
-## Plan wykonania
+## Implementation plan
 
-- [x] Audyt kodu i materiałów, zrzuty przed zmianą 375/1440 dla aktualnej bazy.
-- [x] Porównanie dwóch kierunków i wybór Focus Studio.
-- [x] Nagłówek i nawigacja; skip link; style szczegółowe ograniczone do workspace nauki; wspólne tokeny i shell obejmują otoczenie innych widoków.
-- [x] Wybór istniejących poziomów i działów, równe siatki przycisków.
-- [x] Reprezentatywny ekran kolejności działań we wspólnym rendererze, bez zmian matematyki.
-- [x] Weryfikacja 375/390/1280/1440, PL/EN, focus, reflow, wzory, istniejące testy i build.
-- Dostarczenie: jeden Draft PR; bez merge i wdrożenia.
+- [x] Audit code and materials; capture before screenshots at 375/1440 for the then-current baseline.
+- [x] Compare two directions and select Focus Studio.
+- [x] Header and navigation; skip link; detailed styles limited to the learning workspace; shared tokens and shell also affect the surroundings of other views.
+- [x] Selection of existing levels and topics, with equal button grids.
+- [x] A representative order-of-operations screen using the shared renderer, without mathematical changes.
+- [x] Verify 375/390/1280/1440, PL/EN, focus, reflow, formulas, existing tests, and build.
+- Delivery: one Draft PR; no merge or deployment.
 
-## Punkty szczególnej kontroli
+## Areas requiring particular attention
 
-Długie nazwy działów PL/EN; siatki przy powiększeniu; tabele macierzy we własnym regionie; focus przy przejściu na zadanie; blokady sesji i egzaminu. Nie zmieniać stanu ani handlerów nawigacji.
+Long PL/EN topic names; grids at increased zoom; matrix tables within their own region; focus when entering an exercise; session and exam safeguards. Do not change navigation state or handlers.
 
-## Po akceptacji prototypu (nie wdrażać teraz)
+## After prototype approval (do not implement now)
 
-1. Zaplanować osobny redesign istniejącego ekranu Statystyki; Ekonometria i Matematyka finansowa pozostają jawnymi roadmapami.
-2. Osobno zaprojektować postępy, egzamin, rozwiązania i notatnik według zatwierdzonych tokenów.
-3. Uporządkować długi katalog, rozważyć filtrowanie i adresowalne URL; wymaga osobnego zadania dotyczącego zachowania.
-4. Audyt wszystkich typów odpowiedzi, czytniki ekranu i testy użyteczności z dorosłymi uczącymi się.
+1. Plan a separate redesign of the existing Statistics screen; Econometrics and Financial Mathematics remain explicit roadmaps.
+2. Separately design progress, exam, solutions, and scratchpad using the approved tokens.
+3. Organize the long catalog; consider filtering and addressable URLs, which require a separate behavior task.
+4. Audit all answer types; conduct screen reader checks and usability testing with adult learners.
 
 
-## Kontynuacja MT-UI-003
+## MT-UI-003 continuation
 
-Pakiety A–F zaimplementowane osobnymi commitami; G naprawia wykryte regresje.
-Akceptacja wizualna i pełny E2E pozostają bramą przed merge, niezależnie od
-zaliczonych testów jednostkowych. Nie rozpoczynać kolejnego kierunku wizualnego
-ani dodawania treści edukacyjnych. Kontynuację prowadzić z NIGHT_LOG i dokładnego
-HEAD PR #337. Brak zgody na merge w ramach sprintu.
+Packages A–F were implemented in separate commits; G fixes the regressions found.
+Visual approval and full E2E remain merge gates regardless of passing unit tests.
+Do not start another visual direction or add educational content. Resume from
+the NIGHT_LOG and the exact HEAD of PR #337. The sprint does not authorize a merge.

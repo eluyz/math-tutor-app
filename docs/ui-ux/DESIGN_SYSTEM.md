@@ -1,65 +1,69 @@
 # MT-UI-001 — design system
 
-[Zobacz dwie koncepcje wizualne](screenshots/concepts.png) · [wersja HTML](CONCEPTS.html).
+[View both visual concepts](screenshots/concepts.png) · [HTML version](CONCEPTS.html).
 
-## Dwie koncepcje
+## Two concepts
 
-| Kierunek | Charakter | Zalety | Koszt / kompromis |
+| Direction | Character | Benefits | Cost / tradeoff |
 | --- | --- | --- | --- |
-| Focus Studio (rekomendowany) | Białe powierzchnie, chłodne szarości, szmaragd, systemowy sans-serif | Szybkie skanowanie katalogu, spokojna praca z zadaniami, dobra gęstość | Mniej redakcyjnego charakteru |
-| Editorial Academy | Papierowe tło, atrament i terakota, szeryfowe nagłówki | Ciepły, książkowy charakter | Szeryfowe nazwy w gęstym katalogu skanuje się wolniej |
+| Focus Studio (recommended) | White surfaces, cool grays, emerald, system sans-serif | Quick catalog scanning, a calm exercise workspace, good information density | Less editorial character |
+| Editorial Academy | Paper background, ink and terracotta, serif headings | Warm, book-like character | Serif names take longer to scan in a dense catalog |
 
-Wybór projektanta: Focus Studio. Użytkownik upoważnił do wyboru rekomendacji i implementacji ograniczonego prototypu. Akceptacja dotyczyć będzie prototypu przed rozszerzeniem na pozostałe ekrany.
+Designer’s choice: Focus Studio. The user authorized selecting the recommendation and implementing a limited prototype. The prototype will require approval before extending the design to other screens.
 
-## Tokeny i reguły
+## Tokens and rules
 
-- Tło #f5f7f8, powierzchnia #ffffff, tekst #172b35, tekst pomocniczy #52636d.
-- Akcent #17634b, stan wybrany #e8f3ed, obramowanie kontrolek #7d8d96.
-- Focus #245ec7, obrys 3 px z odsunięciem 3 px; nie zasłania go przyklejony nagłówek.
-- Systemowy sans-serif bez pobierania fontów. Treść 16 px / 1.6; nagłówki 24–44 px; wzory Georgia/Cambria Math z zachowaniem istniejącego renderowania.
-- Siatka odstępów 4/8/12/16/24/32/48 px. Kontener maks. 1280 px; boczne marginesy 16 px mobile, 32 px desktop.
-- Promienie 8 px kontrolki, 16 px główne karty; pojedynczy subtelny cień. Bez gradientów.
-- Przyciski min. 44 px, odstępy 8 px; na mobile równe kolumny z zawijaniem tekstu. Wybór wskazany także wagą tekstu i obramowaniem, semantycznie aria-pressed/current.
-- Symbole matematyczne i strzałki pozostają proste i dekoracyjne; bez nowej biblioteki ikon.
-- Katalog i ekran ćwiczenia: jedna kolumna na telefonie, dwie od 900 px. Długie wzory/tabele mogą przewijać się we własnych regionach, nigdy cały dokument.
-- Redesign ograniczony do nagłówka, nawigacji i workspace nauki. Wspólny renderer ćwiczeń otrzymuje styl, więc obejmuje także inne rodziny bez zmian ich treści i logiki. Statystyka, roadmapy, postępy, egzamin, scratchpad i rozwiązania zachowują swoje komponenty i style szczegółowe. Wspólna czcionka bazowa, tło oraz szerokość/marginesy shell wpływają również na ich otoczenie. Wspólna nawigacja obejmuje wszystkie cztery przedmioty, bez zmiany statusów.
+- Background #f5f7f8, surface #ffffff, text #172b35, secondary text #52636d.
+- Accent #17634b, selected state #e8f3ed, control border #7d8d96.
+- Focus #245ec7, 3 px outline with a 3 px offset; the sticky header must not obscure it.
+- System sans-serif without font downloads. Body 16 px / 1.6; headings 24–44 px; formulas Georgia/Cambria Math, preserving existing rendering.
+- Spacing scale 4/8/12/16/24/32/48 px. Maximum container width 1280 px; side margins 16 px on mobile, 32 px on desktop.
+- Corner radii 8 px for controls, 16 px for main cards; one subtle shadow. No gradients.
+- Buttons at least 44 px high, with 8 px gaps; equal columns and wrapping labels on mobile. Selection is also indicated by text weight and borders, with aria-pressed/current semantics.
+- Mathematical symbols and arrows remain simple and decorative; no new icon library.
+- Catalog and exercise screen: one column on phones, two from 900 px. Long formulas/tables may scroll within their own regions, never across the entire document.
+- The redesign is limited to the header, navigation, and learning workspace. The shared exercise renderer receives styling, so it also covers other exercise families without changing their content or logic. Statistics, roadmaps, progress, exam, scratchpad, and solutions retain their components and detailed styles. The shared base font, background, and shell width/margins also affect their surroundings. Shared navigation includes all four subjects, with statuses unchanged.
 
-## Dostępność
+## Accessibility
 
-Cel WCAG 2.2 AA w zakresie zmienianego interfejsu: kontrast tekstu min. 4.5:1, kontrolek 3:1, widoczny focus, etykiety, klawiatura, skip link, reflow i obsługa ograniczenia ruchu. Nie jest to deklaracja certyfikacji całej aplikacji. Natywne przyciski i istniejące komunikaty statusu pozostają podstawą interakcji.
+WCAG 2.2 AA is the target for the modified interface: text contrast of at least 4.5:1, control contrast of 3:1, visible focus, labels, keyboard access, a skip link, reflow, and reduced motion support. This is not a certification claim for the whole application. Native buttons and existing status messages remain the basis of interaction.
 
-## Źródła i sposób wykorzystania
+## Sources and how they were used
 
-Nie znaleziono lokalnych skilli UI UX Pro Max / Impeccable / Vercel. Niczego nie instalowano i nie uruchamiano obcych skryptów.
+No local UI UX Pro Max / Impeccable / Vercel skills were found during MT-UI-001. Nothing was installed and no external scripts were run.
 
-- [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/ui-ux-pro-max/SKILL.md): priorytet dostępności, dotyku, responsywności i semantycznych tokenów; wykorzystano publiczną dokumentację, bez generatora.
-- [Impeccable](https://github.com/pbakaus/impeccable): ograniczony zakres, krytyka hierarchii, typografia, odporność na długie treści; bez instalatora i hooków.
-- [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md): skip link, focus, reduced motion, etykiety, reflow.
-- [Mobbin](https://mobbin.com): publiczna strona prezentuje wzorce ekranów i całych przepływów; odniesienie do konsekwentnej hierarchii i nawigacji. Nie korzystano z płatnej biblioteki ani nie kopiowano ekranów.
-- Khan Academy / Brilliant: ogólna inspiracja koncentracją na nauce; bez kopiowania identyfikacji.
+- [UI UX Pro Max](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill/blob/main/.claude/skills/ui-ux-pro-max/SKILL.md): accessibility, touch, responsiveness, and semantic tokens were prioritized; public documentation was used without running the generator.
+- [Impeccable](https://github.com/pbakaus/impeccable): limited scope, hierarchy critique, typography, and resilience to long content; no installer or hooks.
+- [Vercel Web Interface Guidelines](https://github.com/vercel-labs/web-interface-guidelines/blob/main/command.md): skip link, focus, reduced motion, labels, and reflow.
+- [Mobbin](https://mobbin.com): the public page presents screen and end-to-end flow patterns; used as a reference for consistent hierarchy and navigation. No paid library was accessed and no screens were copied.
+- Khan Academy / Brilliant: general inspiration for a focus on learning; no copying of brand identity.
 
-## Kontrola kontrastu tokenów
+## Token contrast checks
 
-Obliczenie luminancji względnej sRGB: tekst na bieli 14,65:1; tekst pomocniczy na tle aplikacji 5,81:1; akcent na bieli 7,18:1; akcent na tle wybranego stanu 6,32:1; focus na bieli 6,00:1; obrys kontrolki na bieli 3,43:1. To kontrola wskazanych par tokenów, nie automatyczny audyt wszystkich stanów całej aplikacji.
+Calculated using relative sRGB luminance: text on white 14,65:1; secondary text on the application background 5,81:1; accent on white 7,18:1; accent on the selected-state background 6,32:1; focus on white 6,00:1; control outline on white 3,43:1. These checks cover the specified token pairs, rather than automatically auditing every state in the application.
 
 
-## MT-UI-003 — dopracowanie Focus Studio
+## MT-UI-003 — Focus Studio refinements
 
-Aktywne zadanie poprzedza konfigurację w DOM i w układzie mobilnym. Szybki start
-przy tytule kieruje focus do treści zadania, bez natychmiastowego otwierania
-klawiatury. Natywny panel wyboru tematu/poziomu jest zwijany, domyślnie otwarty
-ze względu na odkrywalność. Pozostała lista rodzin jest drugorzędna względem zadania.
+The active exercise precedes configuration in the DOM and mobile layout. Quick
+start beside the title moves focus to the exercise content without immediately
+opening the keyboard. The native topic/level picker is collapsible and open by
+default for discoverability. The remaining exercise-family list is secondary to
+the exercise.
 
-Wspólne klasy nauki i tokeny obejmują teraz także pilotaż Statystyki; szczegółowe
-style postępów i egzaminu zostały dopasowane bez zmiany ich modeli. Liczniki i
-stany egzaminu odróżniają wpisaną odpowiedź od pustej, nigdy poprawność przed oddaniem.
-Formularze są powiązane z trwałym regionem feedback; błędy nie polegają tylko na kolorze.
+Shared learning classes and tokens now also cover the Statistics pilot; detailed
+progress and exam styles have been aligned without changing their models. Exam
+counters and states distinguish an entered answer from an empty one, never
+revealing correctness before submission. Forms are linked to a persistent
+feedback region; errors are not conveyed by color alone.
 
-Logo i zmiana widoku zachowują pracę w pamięci. Zmiana zadania ostrzega, gdy
-zastępuje niewysłaną odpowiedź lub notatki objęte auto-clear. Odświeżenie nadal
-usuwa pracę po świadomej zgodzie na natywny komunikat przeglądarki. Bez nowego magazynu danych.
+The logo and view switching preserve work in memory. Changing the exercise warns
+when it would replace an unsubmitted answer or notes subject to auto-clear.
+Reloading still loses work after the user knowingly accepts the native browser
+warning. No new data store was introduced.
 
-Stopka: muted na tle daje obliczeniowo 5,81:1. Długie wzory mają lokalny scroll;
-nowe screenshoty i faktyczne zachowanie 320–1440/PL–EN wymagają weryfikacji w
-przeglądarce z działającym sandboxem. Nie uznajemy starszych zrzutów za dowód
-obecnego wyglądu. Szczegółowe wyniki: MT_UI_003_NIGHT_LOG.md.
+Footer: muted text on the background has a calculated contrast of 5,81:1. Long
+formulas have local scrolling; new screenshots and actual behavior at
+320–1440/PL–EN require verification in a browser with a working sandbox. Older
+screenshots are not evidence of the current appearance. Detailed results:
+MT_UI_003_NIGHT_LOG.md.

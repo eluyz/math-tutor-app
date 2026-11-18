@@ -1,105 +1,105 @@
-# MT-UI-002 — audyt Focus Studio
+# MT-UI-002 — Focus Studio audit
 
-**Decyzja: IMPROVE. Ocena ekspercka: 6,5/10. Zachować Focus Studio, poprawić hierarchię i domknąć dostępność przed rozszerzeniem prototypu.**
+**Decision: IMPROVE. Expert assessment: 6,5/10. Retain Focus Studio, improve the hierarchy, and complete accessibility work before extending the prototype.**
 
-Ocena dotyczy dostępnych ekranów i kodu, z umiarkowaną pewnością. Nie jest wynikiem badania z użytkownikami, certyfikacją WCAG ani akceptacją całej aplikacji. Nie stwierdzono potwierdzonego P0; nie oznacza to wykluczenia problemów w nieprzetestowanych przepływach. Największą przeszkodą nie jest paleta, lecz dominacja konfiguracji katalogu nad rozpoczęciem krótkiego zadania.
+The assessment covers the available screens and code, with moderate confidence. It is not the result of user research, a WCAG certification, or approval of the entire application. No confirmed P0 was found; this does not rule out problems in untested flows. The largest obstacle is the dominance of catalog configuration over starting a short exercise, rather than the palette.
 
-## 1. Zakres i wiarygodność
+## 1. Scope and confidence
 
-- Data: 17.11.2026. Skille odczytano z aktualnego `main` **307276a**.
-- Audytowano dokładny head [PR #337](https://github.com/eluyz/math-tutor-app/pull/337): **61e5ad6859e8707dab3116abe373a76074bc3733**, w oddzielnym detached worktree. Bez aktualizacji, rebase i merge gałęzi.
-- Dwie niezależne oceny: A — Product Designer/UX Researcher, bez wyników detektora; B — Frontend/Accessibility/QA, niezależna analiza kodu i detektor. Wyniki połączono dopiero po zakończeniu A. Research oznacza tu analizę heurystyczną person, nie wywiady czy test użyteczności z uczestnikami.
-- `npm ci`, build produkcyjny i uruchomienie rzeczywistej aplikacji jako preview: **OK, HTTP 200**. Build zachowuje ostrzeżenie o dużym chunku. Serwer testowy zatrzymano po audycie.
-- **Przeglądarka z sandboxem nie wystartowała.** Playwright uruchomiono z `chromiumSandbox: true`; błąd SUID helper/crashpad. Nie wyłączano sandboxa, nie zmieniano uprawnień systemowych. Brak narzędzia sterowania współdzielonym desktopem mimo deklarowanej zdolności środowiska. [Log próby](mt-ui-002-evidence/browser-launch-error.txt).
-- Wizualnie obejrzano wszystkie 11 istniejących zrzutów z PR: przed/po, katalog/ćwiczenie i koncepcje. To **wcześniej wyrenderowany interfejs**, nie nowe screenshoty z tego audytu. Wersje „przed” są opisane przez autora jako wariant bez `redesign.css`; nie traktujemy ich jako niezależnie odtworzonego baseline'u całego main.
+- Date: 17.11.2026. Skills were read from the then-current `main` **307276a**.
+- The exact head of [PR #337](https://github.com/eluyz/math-tutor-app/pull/337) was audited: **61e5ad6859e8707dab3116abe373a76074bc3733**, in a separate detached worktree. The branch was not updated, rebased, or merged.
+- Two independent assessments: A — Product Designer/UX Researcher, without detector results; B — Frontend/Accessibility/QA, with independent code analysis and the detector. Results were combined only after A was complete. Here, research means heuristic persona analysis, rather than interviews or participant usability testing.
+- `npm ci`, production build, and running the actual application as a preview: **OK, HTTP 200**. The build retains the large chunk warning. The test server was stopped after the audit.
+- **The sandboxed browser failed to launch.** Playwright was run with `chromiumSandbox: true`; SUID helper/crashpad error. The sandbox was not disabled and system permissions were unchanged. No shared desktop control tool was available despite the environment's declared capability. [Attempt log](mt-ui-002-evidence/browser-launch-error.txt).
+- All 11 existing PR screenshots were visually inspected: before/after, catalog/exercise, and concepts. This is a **previously rendered interface**, rather than new screenshots from this audit. The author describes the “before” versions as a variant without `redesign.css`; they are not treated as an independently reproduced baseline of the entire main branch.
 
-### Macierz pokrycia
+### Coverage matrix
 
-| Szerokość | Dostępny materiał wizualny | Faktyczna interakcja w tym audycie |
+| Width | Available visual material | Actual interaction in this audit |
 | --- | --- | --- |
-| 375 px | [katalog](screenshots/after-home-375.png), [ćwiczenie](screenshots/after-exercise-375.png), PL | niewykonana — sandbox |
-| 390 px | [katalog](screenshots/after-home-390.png), [ćwiczenie](screenshots/after-exercise-390.png), PL | niewykonana — sandbox |
-| 768 px | brak zrzutów; tylko analiza reguł CSS | **niezweryfikowane wizualnie** |
-| 1280 px | [katalog](screenshots/after-home-1280.png), [ćwiczenie](screenshots/after-exercise-1280.png), PL | niewykonana — sandbox |
-| 1440 px | [katalog](screenshots/after-home-1440.png), [ćwiczenie](screenshots/after-exercise-1440.png), PL | niewykonana — sandbox |
+| 375 px | [catalog](screenshots/after-home-375.png), [exercise](screenshots/after-exercise-375.png), PL | not performed — sandbox |
+| 390 px | [catalog](screenshots/after-home-390.png), [exercise](screenshots/after-exercise-390.png), PL | not performed — sandbox |
+| 768 px | no screenshots; CSS rule analysis only | **not visually verified** |
+| 1280 px | [catalog](screenshots/after-home-1280.png), [exercise](screenshots/after-exercise-1280.png), PL | not performed — sandbox |
+| 1440 px | [catalog](screenshots/after-home-1440.png), [exercise](screenshots/after-exercise-1440.png), PL | not performed — sandbox |
 
-[Odziedziczone pomiary autora](mt-ui-002-evidence/inherited-viewport-checks.json) deklarują brak poziomego overflow PL/EN, focus i równe przyciski przy czterech szerokościach. Nie są nowym wynikiem tego audytu. Nie potwierdzamy runtime EN, 768 px, zoomu, czytnika ekranu ani kompletności nawigacji klawiaturą.
+[The author's inherited measurements](mt-ui-002-evidence/inherited-viewport-checks.json) report no horizontal overflow in PL/EN, focus, and equal buttons at four widths. They are not new findings from this audit. EN runtime behavior, 768 px, zoom, screen reader use, and complete keyboard navigation are unconfirmed.
 
-## 2. TOP 10 priorytetów
+## 2. TOP 10 priorities
 
-**Dowody:** W — zaobserwowane na zrzucie; K — potwierdzone w kodzie; O — ocena projektowa, nie obiektywny błąd. P0 blokuje zadanie; P1 istotna trudność lub problem AA; P2 utrudnienie; P3 dopracowanie. Dług istniejący przed PR nie jest przypisywany prototypowi jako regresja.
+**Evidence:** W — observed in a screenshot; K — confirmed in code; O — design judgment, rather than an objective defect. P0 blocks the task; P1 is a significant difficulty or AA issue; P2 is an impediment; P3 is refinement. Debt predating the PR is not attributed to the prototype as a regression.
 
-| # | Waga / dowód | Problem, wpływ i konkretna rekomendacja |
+| # | Severity / evidence | Issue, impact, and specific recommendation |
 | --- | --- | --- |
-| 1 | **P1 · W/K + O** | **Start zadania przegrywa z katalogiem.** Na [375 px](screenshots/after-home-375.png) lista rodzin zaczyna się około y1232, a CTA „Zacznij…” około y1905; na desktopie panel zaczyna się około y763. Pierwszy ekran telefonu pokazuje głównie nawigację i konfigurację. Umieścić wyraźne rozpoczęcie jednego zadania blisko tytułu; po wyborze zadania zwinąć konfigurację do „Zmień temat/poziom”. Zachować równe przyciski w obrębie grup. |
-| 2 | **P1 · W/K** | **Zbyt słaby kontrast drobnej stopki.** `styles.css:358–360`: 12 px, `#718276` na `#f5f7f8` daje **3,79:1**, poniżej 4,5:1 dla zwykłego tekstu (WCAG 1.4.3). [Widok](screenshots/after-home-1440.png). To odziedziczony kolor; wynik obliczony z CSS, nie pomiar pikseli live. Użyć odpowiedniego tokenu muted — tu 5,81:1 — i sprawdzić wynik w przeglądarce. |
-| 3 | **P2 · K** | **Logo bez ostrzeżenia porzuca aktywną sesję nauki.** `App.tsx:308–312` zeruje zadanie, odpowiedź i `updateSession(null)`. Możliwa utrata niedokończonej sesji po przypadkowym kliknięciu. Zachować bieżącą pracę lub potwierdzać porzucenie. Zachowanie istniejące; nie wykonano scenariusza live. |
-| 4 | **P2 · K** | **Sprawdzian słabo komunikuje „udzielono odpowiedzi”.** `ExamMode.tsx:239–244` daje numer zadania w nazwie dostępnej, a `exam.css:30` zmienia tylko grubość obramowania. Dodać widoczny znacznik i tekst odpowiedziano/bez odpowiedzi w nazwie dostępnej. Stan bieżącego zadania zachować osobno. Dług istniejący; bez sesji czytnika ekranu. |
-| 5 | **P2 · K** | **Reduced motion nie obejmuje jawnego JS smooth scroll.** `App.tsx:312` ustawia `behavior: "smooth"`; redukcja z `redesign.css:106–107` dotyczy CSS. Dostosować tę akcję do preferencji ruchu. To pozostałość istniejącej akcji, nie deklaracja naruszenia AA ani obserwacja animacji live. |
-| 6 | **P2 · W + O** | **Powtarzane poziomy utrudniają skanowanie.** Trzy rodziny na [desktopie](screenshots/after-home-1280.png) każda powtarza pięć poziomów, choć ich wybór jest już nad listą. Pokazywać skrót bieżącego poziomu, a pełne listy tylko przy wyjątkach; nazwać grupę „Poziom”. Zmniejszać redundancję, nie cele dotykowe. |
-| 7 | **P2 · W/K + O** | **Język wyszukiwarki zakłada znajomość katalogu.** „Rodzina zadań”, M03/D09/W03 (`locales/ui.ts:39–40`) są mniej bezpośrednie niż nazwa tematu; na telefonie końcówka placeholdera nie mieści się w widoku. Użyć „Szukaj tematu”, np. „ułamki, granice, macierze”; wyszukiwanie kodów zachować jako dodatkową możliwość. Teksty odziedziczone. |
-| 8 | **P3 · W/K** | **Angielski status w polskim interfejsie.** „Work in progress” jest widoczny przy Statystyce na wszystkich zrzutach PL. Zlokalizować status, np. „W rozwoju”; zachować jawne rozróżnienie od pozycji planowanych. Nie jest to dowód niedostępności samej Statystyki. |
-| 9 | **P3 · W/K + O** | **Mikrotypografia dodaje szumu.** Slogan marki ma 8 px (`redesign.css:27`), etykiety statusu 11 px. Na [mobile](screenshots/after-home-390.png) mają małą wartość informacyjną względem miejsca zajętego przez nagłówek. Usunąć zbędny slogan lub zwiększyć czytelność; ograniczyć kapitaliki. Nie ma ogólnej normy WCAG nakazującej font 16 px — to ocena czytelności. |
-| 10 | **P2 · W + O** | **Powierzchnie pomocnicze mają inny język wizualny.** W [ćwiczeniu](screenshots/after-exercise-1440.png) chłodna karta i szmaragdowy wzór sąsiadują z kremowym brudnopisem i dawnymi obrysami rozwiązania. W przyszłym etapie ujednolicić ich tokeny i warianty przycisków, bez zmiany funkcji. To świadomie odłożony zakres prototypu, nie nieudana implementacja zadeklarowanej migracji. |
+| 1 | **P1 · W/K + O** | **Starting an exercise loses out to the catalog.** At [375 px](screenshots/after-home-375.png), the family list begins around y1232 and the “Zacznij…” (“Start…”) CTA around y1905; on desktop, the panel begins around y763. The first phone screen mainly shows navigation and configuration. Place a clear action to start one exercise near the title; after an exercise is selected, collapse configuration to “Zmień temat/poziom” (“Change topic/level”). Keep buttons equal within groups. |
+| 2 | **P1 · W/K** | **Insufficient contrast in the small footer text.** `styles.css:358–360`: 12 px, `#718276` on `#f5f7f8` produces **3,79:1**, below 4,5:1 for normal text (WCAG 1.4.3). [View](screenshots/after-home-1440.png). This is an inherited color; the result is calculated from CSS, rather than measured from live pixels. Use a suitable muted token — here 5,81:1 — and check the result in the browser. |
+| 3 | **P2 · K** | **The logo abandons the active learning session without warning.** `App.tsx:308–312` resets the exercise and answer and calls `updateSession(null)`. An accidental click may lose an unfinished session. Preserve current work or confirm abandonment. Existing behavior; the live scenario was not executed. |
+| 4 | **P2 · K** | **The exam communicates “answered” poorly.** `ExamMode.tsx:239–244` includes the exercise number in the accessible name, while `exam.css:30` changes only border thickness. Add a visible marker and answered/unanswered text to the accessible name. Keep the current-exercise state separate. Existing debt; no screen reader session was performed. |
+| 5 | **P2 · K** | **Reduced motion does not cover explicit JS smooth scrolling.** `App.tsx:312` sets `behavior: "smooth"`; the reduction in `redesign.css:106–107` covers CSS. Adapt this action to motion preferences. This is a remnant of an existing action, rather than a claim of an AA violation or a live observation of animation. |
+| 6 | **P2 · W + O** | **Repeated levels make scanning harder.** Each of three families on [desktop](screenshots/after-home-1280.png) repeats five levels, although a level selector already appears above the list. Show a current-level summary, with full lists only for exceptions; label the group “Poziom” (“Level”). Reduce redundancy while retaining touch target sizes. |
+| 7 | **P2 · W/K + O** | **Search wording assumes familiarity with the catalog.** “Rodzina zadań” (“Exercise family”), M03/D09/W03 (`locales/ui.ts:39–40`) are less direct than topic names; the end of the placeholder is not visible on a phone. Use “Szukaj tematu” (“Search topics”), e.g. “ułamki, granice, macierze” (“fractions, limits, matrices”); retain code search as an additional option. Inherited copy. |
+| 8 | **P3 · W/K** | **English status in the Polish interface.** “Work in progress” appears beside Statistics in every PL screenshot. Localize the status, e.g. “W rozwoju”; preserve the explicit distinction from planned entries. This is not evidence that Statistics itself is unavailable. |
+| 9 | **P3 · W/K + O** | **Microtypography adds noise.** The brand tagline is 8 px (`redesign.css:27`), and status labels are 11 px. On [mobile](screenshots/after-home-390.png), they provide little information relative to the header space they occupy. Remove the unnecessary tagline or improve readability; limit small caps. No general WCAG rule mandates a 16 px font — this is a readability judgment. |
+| 10 | **P2 · W + O** | **Supporting surfaces use a different visual language.** In the [exercise](screenshots/after-exercise-1440.png), a cool card and emerald formula sit beside a cream scratchpad and legacy solution borders. In a future phase, align their tokens and button variants without changing functionality. This was explicitly deferred from the prototype's scope, rather than an unsuccessful implementation of a promised migration. |
 
-**Ważne zastrzeżenie do #1:** pełnostronicowy zrzut pokazuje kolejność treści, nie faktyczną pozycję viewportu po wyborze. `App.tsx:132–137` przenosi focus do odpowiedzi lub tytułu po wyszukiwaniu. Nie twierdzimy, że użytkownik musi ręcznie przewijać trzy ekrany po każdym zadaniu; ewentualny skok pomijający wzór wymaga testu live.
+**Important qualification for #1:** a full-page screenshot shows content order, rather than the actual viewport position after selection. `App.tsx:132–137` moves focus to the answer or title after searching. We do not claim that users must manually scroll through three screens after every exercise; a possible jump past the formula needs a live test.
 
-## 3. Mocne i słabe strony
+## 3. Strengths and weaknesses
 
-| Mocne — zachować | Słabe / ryzyka |
+| Strengths — retain | Weaknesses / risks |
 | --- | --- |
-| Spokojna paleta, bez gradientów i niepotrzebnych efektów; stosowna dla dorosłych. | Gęstość decyzji na poziomie całego ekranu, mimo czytelnego lokalnego panelu. |
-| Równe kategorie i przedmioty, zawijanie nazw zamiast ukrywania działów w poziomym pasku. | Równe komórki nie muszą oznaczać jednakowej wysokości/przewagi wszystkich grup; na mobile układ się wydłuża. |
-| Czytelne krótkie wzory: matematyczny serif odróżniony od sans-serif interfejsu. | Brak wizualnego materiału dla długich wzorów, macierzy i formularzy wielopolowych. `overflow-wrap:anywhere` wymaga testu takich treści, samo nie dowodzi błędu. |
-| Widoczny focus odpowiedzi na zrzutach; globalny focus, skip link, pressed/current w kodzie. | Brak świeżego sprawdzenia klawiatury, zoomu i ogłaszania statusów. |
-| Życzliwa informacja o nauce na błędach; dostęp do brudnopisu, podpowiedzi i rozwiązania. | Pozostałości dawnych tokenów i semantyki stanu w innych przepływach. |
+| Calm palette without gradients or unnecessary effects; suitable for adults. | High decision density across the screen, despite a readable local panel. |
+| Equal category and subject tiles, with wrapping names instead of hiding topics in a horizontal strip. | Equal cells need not give every group the same height or prominence; the mobile layout becomes long. |
+| Readable short formulas: mathematical serif is distinct from the interface's sans-serif. | No visual material for long formulas, matrices, or multi-field forms. `overflow-wrap:anywhere` needs testing with such content; the rule alone does not prove a defect. |
+| Visible answer focus in screenshots; global focus, skip link, and pressed/current in code. | No fresh keyboard, zoom, or status announcement checks. |
+| Supportive copy about learning from mistakes; access to scratchpad, hints, and solutions. | Legacy tokens and state semantics remain in other flows. |
 
-Focus Studio wygląda bardziej uporządkowanie od wersji „przed”. Zestaw białych kart i szmaragd jest dość uniwersalny, ale dla narzędzia do pracy nie stanowi to wady samo w sobie. „Wygląda jak AI” nie jest mierzalną diagnozą; realnym problemem jest zbędna ekspozycja konfiguracji i niedokończona spójność, nie sam zaokrąglony narożnik.
+Focus Studio appears more orderly than the “before” version. White cards and emerald are a fairly generic combination, but that is not inherently a drawback for a work tool. “Looks like AI” is not a measurable diagnosis; the actual issues are unnecessary configuration exposure and incomplete consistency, rather than rounded corners themselves.
 
-## 4. Pokrycie ekranów i stanów
+## 4. Screen and state coverage
 
-| Obszar | Ustalenie i granica dowodu |
+| Area | Finding and evidence limitation |
 | --- | --- |
-| Home i nagłówek | Wizualnie ocenione: osie i równe karty są lepsze; start zadania zbyt nisko. |
-| Przedmioty | Wizualnie zachowane cztery pozycje i statusy. Przejścia analizowane w kodzie; bez klikania. |
-| Działy i trudności | Wizualnie oceniona „Powtórka podstaw”, pięć poziomów. Większy katalog studiów i długie EN wymagają testu. |
-| Ćwiczenie matematyczne | Prosta arytmetyka czytelna przy czterech szerokościach. Nie rozszerzać wniosku na wszystkie rodziny. |
-| Odpowiedzi i komunikaty | Etykiety, tekstowe wyniki i `role=status` w `App.tsx:667–704`; macierze mają etykiety wierszy/kolumn. Brak świeżych stanów invalid/incorrect/correct. |
-| Podpowiedzi i rozwiązania | Kod zachowuje stopniowe ujawnianie i przenoszenie focus do nowych nagłówków (`solutions/SolutionPanel.tsx:103`). Brak zrzutów rozwiniętych stanów. |
-| Statystyka | `StatisticsPractice.tsx:62–84`: etykieta, `aria-invalid`, stały region live oraz expanded/controls. Brak zrzutu; wizualna spójność z matematyką niepotwierdzona. Zachowanie własnych stylów jest jawną granicą prototypu. |
-| Postępy | Kod zawiera modalne potwierdzenie usunięcia i powrót focus (`ProgressDashboard.tsx:235–277`). Puste/zapisane/filtrowane stany wymagają renderowania. |
-| Sprawdzian | Stan answered wymaga poprawy semantyki; obsługa timera i trybu bez wskazówek zachowana w kodzie. Start, nawigacja, oddanie i wynik nieprzetestowane live. |
-| Mobile / typografia | Cztery odziedziczone szerokości obejrzane; 768 px, zoom, dotyk, klawiatura ekranowa i długie treści pozostają otwarte. |
+| Home and header | Visually assessed: alignment and equal cards are better; exercise entry is too low. |
+| Subjects | All four entries and statuses are visually preserved. Transitions were analyzed in code; no clicking was performed. |
+| Topics and difficulties | “Powtórka podstaw” (“Basics review”) and five levels were visually assessed. The larger university-level catalog and long EN copy need testing. |
+| Mathematical exercise | Simple arithmetic is readable at four widths. Do not extend this conclusion to all families. |
+| Answers and messages | Labels, textual outcomes, and `role=status` in `App.tsx:667–704`; matrices have row/column labels. No fresh invalid/incorrect/correct states were observed. |
+| Hints and solutions | Code preserves progressive disclosure and focus movement to new headings (`solutions/SolutionPanel.tsx:103`). No screenshots of expanded states. |
+| Statistics | `StatisticsPractice.tsx:62–84`: label, `aria-invalid`, persistent live region, and expanded/controls. No screenshot; visual consistency with mathematics is unconfirmed. Retaining its own styles is an explicit prototype boundary. |
+| Progress | Code includes modal deletion confirmation and focus restoration (`ProgressDashboard.tsx:235–277`). Empty/saved/filtered states need rendering. |
+| Exam | The answered state needs improved semantics; timer handling and the no-hints mode are preserved in code. Start, navigation, submission, and results were not tested live. |
+| Mobile / typography | Four inherited widths were inspected; 768 px, zoom, touch, the on-screen keyboard, and long content remain open. |
 
-## 5. Kierunek wizualny
+## 5. Visual direction
 
-[Porównanie koncepcji](screenshots/concepts.png) to statyczna makieta, nie test dwóch działających aplikacji.
+[The concept comparison](screenshots/concepts.png) is a static mockup, rather than a test of two working applications.
 
-| Kryterium | Focus Studio | Editorial Academy |
+| Criterion | Focus Studio | Editorial Academy |
 | --- | --- | --- |
-| Charakter | Spokojne narzędzie edukacyjne, wyraźny podział UI/wzory. | Cieplejszy, książkowy; papier, terakota i szeryfy. |
-| Gęsty katalog | Spójny sans-serif jest rozsądnym wyborem operacyjnym. | Wymaga dopracowania gęstości nagłówków; nie dowiedziono, że szeryfy są wolniejsze w użyciu. |
-| Potwierdzona dojrzałość | Istniejący prototyp, zrzuty czterech szerokości. | Wyłącznie uproszczona statyczna koncepcja. |
-| Decyzja | **Kontynuować, poprawiając strukturę.** | Zachować jako alternatywę, nie migrować bez wyraźnej korzyści. |
+| Character | Calm learning tool with a clear distinction between UI and formulas. | Warmer and book-like; paper, terracotta, and serifs. |
+| Dense catalog | Consistent sans-serif is a reasonable practical choice. | Heading density needs refinement; slower use of serifs has not been demonstrated. |
+| Demonstrated maturity | Existing prototype, screenshots at four widths. | A simplified static concept only. |
+| Decision | **Continue while improving structure.** | Retain as an alternative; do not migrate without a clear benefit. |
 
-Trzeci kierunek nie ma obecnie uzasadnienia. Zmiana palety nie rozwiąże nadmiaru decyzji przed zadaniem. Obie makiety pomijają znaczną część obciążenia rzeczywistego katalogu.
+A third direction is currently unjustified. Changing the palette will not resolve the excess decisions before an exercise. Both mockups omit a substantial part of the actual catalog's complexity.
 
-## 6. Plan — maksymalnie trzy etapy, bez implementacji w tym zadaniu
+## 6. Plan — at most three phases, without implementation in this task
 
-1. **Hierarchia i bezpieczne rozpoczęcie.** Skrócić wejście na mobile, wyeksponować jedno krótkie zadanie, ograniczyć redundancję poziomów i uprościć język wyszukiwarki. Zachować dostęp do wszystkich przedmiotów i tematów. Uzgodnić zachowanie katalogu po wejściu w ćwiczenie; nie utracić istniejącego focus ani stanu pracy.
-2. **Dostępność i spójne komponenty.** Naprawić kontrast stopki, komunikowanie answered, reduced motion i ochronę niedokończonej sesji. Stopniowo przenieść brudnopis, rozwiązania i pozostałe ekrany na zatwierdzone tokeny. Nie przebudowywać matematyki ani statystyki i nie dodawać biblioteki UI dla samego wyglądu.
-3. **Brama akceptacji.** W działającej przeglądarce z sandboxem sprawdzić 375/390/768/1280/1440 w PL/EN: home, katalog studiów, krótki i długi wzór, macierz, puste/błędne/poprawne odpowiedzi, wskazówki, rozwiązania, brudnopis, Statystykę, postępy, egzamin. Dołączyć screenshoty, 200%/400% reflow, Tab/Shift+Tab/Enter/Escape, skip/focus, czytnik, kontrast wszystkich stanów i brak dokumentowego overflow. Przeprowadzić wymagane testy i krótki test zadaniowy z dorosłymi/powracającymi użytkownikami. Przed spełnieniem tej bramy nie nadawać ACCEPT całej aplikacji.
+1. **Hierarchy and safe entry.** Shorten the mobile entry, emphasize one short exercise, reduce level redundancy, and simplify search wording. Preserve access to all subjects and topics. Agree on catalog behavior after entering an exercise; retain existing focus and work state.
+2. **Accessibility and consistent components.** Fix footer contrast, answered-state communication, reduced motion, and unfinished-session protection. Gradually move the scratchpad, solutions, and remaining screens onto the approved tokens. Do not rebuild mathematics or statistics, and do not add a UI library solely for appearance.
+3. **Acceptance gate.** In a working sandboxed browser, check 375/390/768/1280/1440 in PL/EN: home, university-level catalog, short and long formulas, a matrix, empty/incorrect/correct answers, hints, solutions, scratchpad, Statistics, progress, and exam. Include screenshots, 200%/400% reflow, Tab/Shift+Tab/Enter/Escape, skip/focus, screen reader checks, contrast in all states, and absence of document overflow. Run the required tests and a short task-based test with adult/returning users. Do not assign ACCEPT to the entire application before this gate is met.
 
-Kryterium odbioru hierarchii: osoba rozpoczynająca naukę odnajduje akcję pierwszego zadania bez przeglądania całego katalogu; po wyborze widzi kontekst pytania, odpowiedź i pomoc bez skoku dezorientującego. Dokładną miarę czasu/kliknięć ustalić w teście, nie wyprowadzać jej ze screenshotu.
+Hierarchy acceptance criterion: a person starting to learn finds the first-exercise action without browsing the entire catalog; after selecting it, they see the question context, answer, and help without a disorienting jump. Define the precise time/click measure through testing, rather than deriving it from a screenshot.
 
-## 7. Wykorzystane skille i kontrola dowodów
+## 7. Skills used and evidence checks
 
-- **UI UX Pro Max:** przeczytany `SKILL.md`, checklista review, lokalne wyszukiwania „focus not obscured”, „error summary validation”, „minimalism functional workspace”. Zastosowano kryteria interakcji, hierarchii i zgodności z zatwierdzonym systemem; automatycznej propozycji stylistycznej nie przyjęto jako decyzji projektowej.
-- **Impeccable:** przeczytane instrukcje, `context` dla checkoutu PR, critique/rubric i audit; niezależne Assessment A/B; detektor źródłowy. **5 warnings, 0 errors**, exit 2: cztery `side-tab` i Arial w dawnym `styles.css`. Arial jest nadpisany, a obramowania pytań/feedbacku pełnią funkcję. Nie uznajemy tych ostrzeżeń za dowód „AI design” ani blocker. [Wynik detektora](mt-ui-002-evidence/impeccable-detector.json).
-- **Vercel Web Design Guidelines:** przeczytany skill, pobrane [aktualne reguły użyte do audytu](mt-ui-002-evidence/vercel-guidelines-used.md); zastosowane do kontrastu, nawigacji, stanu, ruchu i formularzy.
-- **Superpowers:** dostępne w hoście; zastosowano `using-superpowers` i zasadę verification-before-completion: niezależne dowody, oddzielenie zakresów, brak deklaracji testów, które nie zostały wykonane.
-- Kontrast tokenów przeliczono niezależnie: tekst/biel 14,65:1, muted/tło 5,81:1, accent/biel 7,18:1, focus/biel 6,00:1. To wybrane pary, nie audyt wszystkich stanów.
+- **UI UX Pro Max:** read `SKILL.md` and the review checklist; local searches for “focus not obscured”, “error summary validation”, and “minimalism functional workspace”. Applied interaction, hierarchy, and approved-system criteria; an automatic style proposal was not adopted as a design decision.
+- **Impeccable:** read instructions, `context` for the PR checkout, critique/rubric and audit; independent Assessment A/B; source detector. **5 warnings, 0 errors**, exit 2: four `side-tab` findings and Arial in legacy `styles.css`. Arial is overridden, and question/feedback borders serve a purpose. These warnings are not considered evidence of “AI design” or a blocker. [Detector result](mt-ui-002-evidence/impeccable-detector.json).
+- **Vercel Web Design Guidelines:** read the skill and fetched [the current rules used for the audit](mt-ui-002-evidence/vercel-guidelines-used.md); applied them to contrast, navigation, state, motion, and forms.
+- **Superpowers:** available in the host; used `using-superpowers` and the verification-before-completion principle: independent evidence, separate scopes, and no claims for tests that were not run.
+- Token contrast was independently recalculated: text/white 14,65:1, muted/background 5,81:1, accent/white 7,18:1, focus/white 6,00:1. These are selected pairs, rather than an audit of all states.
 
-Wyniki wcześniejszych 78+15 testów i 2603 testów jednostkowych z opisu PR są deklaracją autora; nie raportujemy ich jako własnego przebiegu. W tym zadaniu wykonano instalację, build, test startu sandboxowanej przeglądarki, preview HTTP, detektor, analizę źródeł i zrzutów. Nie było nowego testu E2E, overlay ani pomiarów live. [Build](mt-ui-002-evidence/audit-build.log), [źródłowe zrzuty PR](screenshots/).
+The earlier 78+15 test results and 2603 unit tests in the PR description are the author's report; they are not presented as this audit's own run. This task performed installation, build, a sandboxed-browser launch test, an HTTP preview check, detector execution, and source/screenshot analysis. No new E2E test, overlay, or live measurements were performed. [Build](mt-ui-002-evidence/audit-build.log), [source PR screenshots](screenshots/).
 
-Źródła kodu odnoszą się do [niezmiennego drzewa PR](https://github.com/eluyz/math-tutor-app/tree/61e5ad6859e8707dab3116abe373a76074bc3733/src). Numery linii w raporcie dotyczą tej rewizji. Pierwotny raport MT-UI-002 powstał lokalnie bez zmian GitHub; został zachowany jako punkt odniesienia w sprincie MT-UI-003. Nie rozpoczęto implementacji poprawek.
+Code references point to [the immutable PR tree](https://github.com/eluyz/math-tutor-app/tree/61e5ad6859e8707dab3116abe373a76074bc3733/src). Line numbers in this report refer to that revision. The original MT-UI-002 report was produced locally without GitHub changes; it was retained as a reference point in the MT-UI-003 sprint. Implementation of the fixes had not started.
