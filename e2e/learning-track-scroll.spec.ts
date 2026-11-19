@@ -79,6 +79,9 @@ for(const width of [375,390,768,1280]) for(const en of [false,true]) {
     await page.setViewportSize({width,height:720});
     await open(page,'mathematics',en);
     const math=trackButtons(page,'mathematics',en);
+    // This is a keyboard-navigation test, not an offscreen programmatic
+    // focus stress test. Start with the actual first track button in view.
+    await math.basics.scrollIntoViewIfNeeded();
     await math.basics.focus();
     await page.keyboard.press('Tab');
     await expectVisibleFocus(page,math.university);
@@ -101,6 +104,7 @@ for(const width of [375,390,768,1280]) for(const en of [false,true]) {
 
     await open(page,'statistics',en);
     const stats=trackButtons(page,'statistics',en);
+    await stats.basics.scrollIntoViewIfNeeded();
     await stats.basics.focus();
     await page.keyboard.press('Tab');
     await expectVisibleFocus(page,stats.university);
