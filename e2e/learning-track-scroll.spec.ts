@@ -127,10 +127,13 @@ for(const width of [375,390,768,1280]) for(const en of [false,true]) {
     await nextStats.focus();
     // A user can scroll away from a focused action, then activate it with Enter.
     // Arrange an offscreen answer so this proves actual intentional scrolling.
-    await page.evaluate(()=>window.scrollTo({top:0,behavior:'instant'}));
-    expect((await page.locator('#statistics-answer').boundingBox())!.y).toBeGreaterThan(720);
+    // Task-first Statistics keeps the answer above the selector panel.
+    // Move the answer offscreen upwards, then verify explicit Next focuses it.
+    await page.evaluate(()=>window.scrollTo({top:document.documentElement.scrollHeight,behavior:'instant'}));
+    const beforeNext=await page.evaluate(()=>scrollY);
+    expect((await page.locator('#statistics-answer').boundingBox())!.y).toBeLessThan(0);
     await page.keyboard.press('Enter');
     await expectVisibleFocus(page,page.locator('#statistics-answer'));
-    expect(await page.evaluate(()=>scrollY)).toBeGreaterThan(0);
+    expect(await page.evaluate(()=>scrollY)).toBeLessThan(beforeNext-20);
   });
 }
