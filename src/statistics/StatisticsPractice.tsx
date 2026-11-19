@@ -45,8 +45,17 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   useEffect(()=>{ onDraftChange?.(raw.trim().length > 0 && assessment === null); },[raw, assessment, onDraftChange]);
 
   useEffect(()=>{
-    if(focusRequested.current && focusRequested.current!=="answer") trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.focus(focusRequested.current);
-    else if(focusRequested.current==="answer" && task) input.current?.focus();
+    const focusRequest=focusRequested.current;
+    if(focusRequest && focusRequest!=="answer") {
+      const selectedTrack=trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+      selectedTrack?.focus(focusRequest);
+      // Preserve pointer scrolling, but follow the moving focused selector
+      // for keyboard-activated track switches.
+      if(selectedTrack && !focusRequest.preventScroll) requestAnimationFrame(()=>{
+        if(document.activeElement===selectedTrack)
+          selectedTrack.scrollIntoView({block:"nearest",inline:"nearest",behavior:"instant"});
+      });
+    } else if(focusRequest==="answer" && task) input.current?.focus();
     focusRequested.current=null;
   },[task]);
 

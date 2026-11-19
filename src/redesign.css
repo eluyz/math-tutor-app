@@ -350,3 +350,10 @@ button { touch-action: manipulation; }
   .planned-practice.subject-roadmap-panel { padding: 24px 0 48px; }
   .planned-practice .planned-subject-card { padding: 20px 16px; }
 }
+
+/* Always show a clear focus ring for programmatic focus and keyboard focus.
+   An already-focused control may move below the exercise after track changes. */
+.learning-workspace .catalog-config :is(button, input, summary):focus {
+  outline: 3px solid var(--ui-focus);
+  outline-offset: 2px;
+}

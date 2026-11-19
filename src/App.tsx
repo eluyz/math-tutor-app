@@ -148,8 +148,19 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (trackFocusRequested.current) {
-      trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.focus(trackFocusRequested.current);
+    const trackFocusOptions = trackFocusRequested.current;
+    if (trackFocusOptions) {
+      const selectedTrack = trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+      selectedTrack?.focus(trackFocusOptions);
+      // Focusing an already-active button does not necessarily scroll it
+      // after an exercise changes height above the selector. Keyboard users
+      // must still be able to see that focused control.
+      if (selectedTrack && !trackFocusOptions.preventScroll) {
+        requestAnimationFrame(() => {
+          if (document.activeElement === selectedTrack)
+            selectedTrack.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+        });
+      }
     } else if (active) {
       document.getElementById(searchFocusRequested.current ? "exercise-title" : "answer")?.focus();
     }
