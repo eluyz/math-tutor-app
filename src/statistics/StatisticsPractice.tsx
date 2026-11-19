@@ -11,6 +11,7 @@ import { createStatisticsPracticeTask } from "./practiceModel";
 import { statisticsCurriculum, type StatisticsTrack, type StatisticsLesson } from "./curriculum";
 import { medianCopy } from "./st102Copy";
 import { meanCopy } from "./st101Copy";
+import { PracticeSelectorPanel } from "../ui/PracticeSelectorPanel";
 
 type Assessment = "correct" | "incorrect" | "empty" | "invalid";
 
@@ -67,11 +68,17 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   return (
     <section className="statistics-practice subject-roadmap-panel learning-workspace" aria-labelledby="statistics-title">
       <div className="subject-roadmap-inner">
-        <span className="subject-status subject-status--in-progress">{subjects.status[subjectStatus.statistics]}</span>
-        <h1 id="statistics-title" ref={heading} tabIndex={-1}>{subjects.subjects.statistics.title}</h1>
-        <p className="subject-roadmap-description">{subjects.subjects.statistics.description}</p>
-        <h2>{lesson?lesson==="median"?c.medianTitle:c.title:c.plannedTitle}</h2>
-        {task && teaching ? <div className="exercise-panel">
+        <div className="section-heading statistics-heading">
+          <div>
+            <span className="subject-status subject-status--in-progress">{subjects.status[subjectStatus.statistics]}</span>
+            <h1 id="statistics-title" ref={heading} tabIndex={-1}>{subjects.subjects.statistics.title}</h1>
+          </div>
+          <p className="subject-roadmap-description">{subjects.subjects.statistics.description}</p>
+        </div>
+        {!task && <h2>{c.plannedTitle}</h2>}
+        {task && teaching ? <div className="exercise-panel statistics-task-panel">
+          <div className="panel-top"><span>{locale==="pl"?"ĆWICZENIE":"EXERCISE"} · {difficultyConfig.find(level=>level.id===difficulty)?.labels[locale].toUpperCase()}</span><span aria-hidden="true">∑</span></div>
+          <h3 id="statistics-exercise-title">{lesson==="median"?c.medianTitle:c.title}</h3>
           <p id="statistics-question" className="question university-question" data-lesson={task.lesson} data-seed={seed} data-difficulty={difficulty}>{teaching.prompt}</p>
           <form onSubmit={submit} noValidate>
             <label htmlFor="statistics-answer">{c.answer}</label>
@@ -109,12 +116,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
           </div>
           <button className="next-button" type="button" onClick={()=>{if(!canReplaceTask()) return; setSeed(current=>nextStatisticsSeed(current));reset();}}>{c.next}</button>
         </div> : <p role="status" className="panel-intro">{c.plannedGuidance}</p>}
-        <details className="catalog-config statistics-catalog" open>
-          <summary>
-            {locale==="pl"?(task?"Zmień temat i poziom":"Wybierz temat i poziom"):(task?"Change topic and level":"Choose topic and level")}
-            <span>{c.trackLabels[track]} · {lesson?(lesson==="median"?c.medianTitle:lesson==="variance"?c.varianceTitle:c.title):c.plannedTitle} · {difficultyConfig.find(level=>level.id===difficulty)?.labels[locale]}</span>
-          </summary>
-          <div className="catalog-config-body">
+        <PracticeSelectorPanel className="statistics-catalog" title={locale==="pl"?"Zmień temat i poziom":"Change topic and level"} context={`${c.trackLabels[track]} · ${lesson?(lesson==="median"?c.medianTitle:c.title):c.plannedTitle} · ${difficultyConfig.find(level=>level.id===difficulty)?.labels[locale]}`}>
             <div ref={trackControls} className="study-groups" role="group" aria-label={c.trackLabel}>
               {statisticsCurriculum.map(t=><button key={t.id} type="button" data-track={t.id} aria-pressed={track===t.id} onClick={event=>{
                 if(t.id!==track && canReplaceTask()) {preserveTrackScroll(event.detail>0);setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals",{preventScroll:event.detail>0});}
@@ -143,8 +145,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
               </div>
             </div>
             <p id="statistics-level-unavailable" className="panel-intro">{lesson?c.levelsUnavailable:c.universityPlan}</p>
-          </div>
-        </details>
+        </PracticeSelectorPanel>
         <p className="subject-roadmap-disclaimer">{c.memory}</p>
       </div>
     </section>
