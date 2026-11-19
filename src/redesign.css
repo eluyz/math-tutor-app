@@ -224,6 +224,8 @@ button { touch-action: manipulation; }
 }
 .learning-workspace .exercise-layout[hidden] { display: none !important; }
 .learning-workspace .catalog-config { width: 100%; }
+/* Match the same navigation and task gutters in both Mathematics and Statistics. */
+.learning-workspace .catalog-config .catalog-config-body { padding-inline: var(--ui-workspace-inset); }
 .learning-workspace .catalog-config .exercise-list {
   border: 0;
   border-top: 1px solid var(--ui-line);
