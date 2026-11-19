@@ -70,6 +70,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
         <span className="subject-status subject-status--in-progress">{subjects.status[subjectStatus.statistics]}</span>
         <h1 id="statistics-title" ref={heading} tabIndex={-1}>{subjects.subjects.statistics.title}</h1>
         <p className="subject-roadmap-description">{subjects.subjects.statistics.description}</p>
+        <h2>{lesson?lesson==="median"?c.medianTitle:c.title:c.plannedTitle}</h2>
         {task && teaching ? <div className="exercise-panel">
           <p id="statistics-question" className="question university-question" data-lesson={task.lesson} data-seed={seed} data-difficulty={difficulty}>{teaching.prompt}</p>
           <form onSubmit={submit} noValidate>
@@ -114,35 +115,34 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
             <span>{c.trackLabels[track]} · {lesson?(lesson==="median"?c.medianTitle:lesson==="variance"?c.varianceTitle:c.title):c.plannedTitle} · {difficultyConfig.find(level=>level.id===difficulty)?.labels[locale]}</span>
           </summary>
           <div className="catalog-config-body">
-        <div ref={trackControls} className="study-groups" role="group" aria-label={c.trackLabel}>
-          {statisticsCurriculum.map(t=><button key={t.id} type="button" data-track={t.id} aria-pressed={track===t.id} onClick={event=>{
-            if(t.id!==track && canReplaceTask()) {preserveTrackScroll(event.detail>0);setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals",{preventScroll:event.detail>0});}
-          }}>{c.trackLabels[t.id]}</button>)}
-        </div>
-        <div className="category-picker" role="group" aria-label={c.topicLabel}>
-          {topics.map(topic=>{
-            const available="lesson" in topic?topic.lesson:null;
-            return <button key={topic.id} type="button" data-topic={topic.id} disabled={!available}
-              className={available===lesson && available?"active":""} aria-pressed={!!available && available===lesson}
-              aria-describedby={!available?"statistics-topic-unavailable":undefined}
-              onClick={()=>{if(available && available!==lesson && canReplaceTask()) {setLesson(available);setDifficulty("easy");setSeed(0);reset();}}}>
-              {c.topicLabels[topic.id]}
-            </button>;
-          })}
-        </div>
-        <p className="panel-intro" id="statistics-topic-unavailable">{c.topicsUnavailable}</p>
-        <h2>{lesson?lesson==="median"?c.medianTitle:c.title:c.plannedTitle}</h2>
-        <div className="practice-controls">
-          <div className="difficulty-picker" role="group" aria-label={c.difficulty}>
-            {difficultyConfig.map(level=><button key={level.id} type="button" data-level={level.id}
-              disabled={!lesson || !isLegacyDifficulty(level.id)} aria-pressed={!!lesson && difficulty===level.id}
-              aria-describedby={!lesson || !isLegacyDifficulty(level.id)?"statistics-level-unavailable":undefined}
-              onClick={()=>{if(lesson && isLegacyDifficulty(level.id) && level.id!==difficulty && canReplaceTask()) {setDifficulty(level.id);setSeed(0);reset();}}}>
-              {level.labels[locale]}
-            </button>)}
-          </div>
-        </div>
-        <p id="statistics-level-unavailable" className="panel-intro">{lesson?c.levelsUnavailable:c.universityPlan}</p>
+            <div ref={trackControls} className="study-groups" role="group" aria-label={c.trackLabel}>
+              {statisticsCurriculum.map(t=><button key={t.id} type="button" data-track={t.id} aria-pressed={track===t.id} onClick={event=>{
+                if(t.id!==track && canReplaceTask()) {preserveTrackScroll(event.detail>0);setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals",{preventScroll:event.detail>0});}
+              }}>{c.trackLabels[t.id]}</button>)}
+            </div>
+            <div className="category-picker" role="group" aria-label={c.topicLabel}>
+              {topics.map(topic=>{
+                const available="lesson" in topic?topic.lesson:null;
+                return <button key={topic.id} type="button" data-topic={topic.id} disabled={!available}
+                  className={available===lesson && available?"active":""} aria-pressed={!!available && available===lesson}
+                  aria-describedby={!available?"statistics-topic-unavailable":undefined}
+                  onClick={()=>{if(available && available!==lesson && canReplaceTask()) {setLesson(available);setDifficulty("easy");setSeed(0);reset();}}}>
+                  {c.topicLabels[topic.id]}
+                </button>;
+              })}
+            </div>
+            <p className="panel-intro" id="statistics-topic-unavailable">{c.topicsUnavailable}</p>
+            <div className="practice-controls">
+              <div className="difficulty-picker" role="group" aria-label={c.difficulty}>
+                {difficultyConfig.map(level=><button key={level.id} type="button" data-level={level.id}
+                  disabled={!lesson || !isLegacyDifficulty(level.id)} aria-pressed={!!lesson && difficulty===level.id}
+                  aria-describedby={!lesson || !isLegacyDifficulty(level.id)?"statistics-level-unavailable":undefined}
+                  onClick={()=>{if(lesson && isLegacyDifficulty(level.id) && level.id!==difficulty && canReplaceTask()) {setDifficulty(level.id);setSeed(0);reset();}}}>
+                  {level.labels[locale]}
+                </button>)}
+              </div>
+            </div>
+            <p id="statistics-level-unavailable" className="panel-intro">{lesson?c.levelsUnavailable:c.universityPlan}</p>
           </div>
         </details>
         <p className="subject-roadmap-disclaimer">{c.memory}</p>
