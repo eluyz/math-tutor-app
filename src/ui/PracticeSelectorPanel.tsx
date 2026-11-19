@@ -1,4 +1,4 @@
-import type { FocusEvent, ReactNode } from "react";
+import { useEffect, useRef, type FocusEvent, type ReactNode } from "react";
 
 /**
  * Single task-selector panel for all learning subjects.
@@ -18,15 +18,21 @@ function keepKeyboardFocusVisible(event: FocusEvent<HTMLElement>) {
 }
 
 export function PracticeSelectorPanel({
-  title, context, children, className = "",
+  title, context, children, className = "", expandOn = false,
 }: {
   title: string;
   context: string;
   children: ReactNode;
   className?: string;
+  /** When a practice session completes, expose selectors and difficulty controls. */
+  expandOn?: boolean;
 }) {
+  const details = useRef<HTMLDetailsElement>(null);
+  useEffect(() => {
+    if (expandOn && details.current) details.current.open = true;
+  }, [expandOn]);
   return (
-    <details className={`catalog-config ${className}`.trim()} open onFocusCapture={keepKeyboardFocusVisible}>
+    <details ref={details} className={`catalog-config ${className}`.trim()} open onFocusCapture={keepKeyboardFocusVisible}>
       <summary>{title}<span>{context}</span></summary>
       <div className="catalog-config-body">{children}</div>
     </details>

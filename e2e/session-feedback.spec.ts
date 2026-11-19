@@ -110,6 +110,9 @@ for (const { name, viewport } of [
       ], true);
       await expectSummary(page, 7, 2, 1);
       await expect(page.getByRole("status")).toHaveText("Sugerowany poziom: Średni");
+      // Rapid Next clicks must not leave difficulty selection inaccessible
+      // when the user finishes a session and wishes to choose another level.
+      await expect(page.locator(".practice .catalog-config")).toHaveAttribute("open", "");
       await expect(page.getByRole("button", { name: "Średni", exact: true })).toHaveAttribute("aria-pressed", "true");
       expect(external).toEqual([]);
       await expectOnlyProgressStorage(page);

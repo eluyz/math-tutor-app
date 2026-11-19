@@ -387,7 +387,7 @@ export default function App() {
             </section>
   );
   const catalog = (
-    <PracticeSelectorPanel title={n.choose} context={`${categoryTitle(selectedCategory, locale)} · ${difficultyLabels[difficulty]}`}>
+    <PracticeSelectorPanel title={n.choose} context={`${categoryTitle(selectedCategory, locale)} · ${difficultyLabels[difficulty]}`} expandOn={sessionDone}>
           <div className="catalog-search" role="search" aria-label={a.searchLabel}>
             <label htmlFor="catalog-search-input">{a.searchLabel}</label>
             <div className="catalog-search-controls">
