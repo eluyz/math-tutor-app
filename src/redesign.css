@@ -213,3 +213,147 @@ button { touch-action: manipulation; }
 @media (prefers-reduced-motion: reduce) {
   .site-shell *, .site-shell *::before, .site-shell *::after { animation: none !important; transition: none !important; }
 }
+
+
+/* MT-UI-007: one task-first, full-width practice design for all playable subjects. */
+.learning-workspace .exercise-layout.has-task,
+.learning-workspace .exercise-layout.catalog-only {
+  display: block;
+  grid-template-columns: minmax(0,1fr);
+  min-height: 0;
+}
+.learning-workspace .exercise-layout[hidden] { display: none !important; }
+.learning-workspace .catalog-config { width: 100%; }
+/* Match the same navigation and task gutters in both Mathematics and Statistics. */
+.learning-workspace .catalog-config .catalog-config-body { padding-inline: var(--ui-workspace-inset); }
+.learning-workspace .catalog-config .exercise-list {
+  border: 0;
+  border-top: 1px solid var(--ui-line);
+  margin-top: 18px;
+  border-radius: 0;
+  background: #f9fbfc;
+  min-width: 0;
+}
+.learning-workspace .catalog-config .exercise-list-items {
+  max-height: 300px;
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  gap: 4px;
+}
+.learning-workspace .catalog-config .exercise-item {
+  min-width: 0;
+  min-height: 72px;
+}
+.statistics-practice.subject-roadmap-panel {
+  margin: 0 0 40px;
+  padding: 32px 0 48px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+.statistics-practice .statistics-heading {
+  margin-bottom: 24px;
+}
+.statistics-practice .statistics-heading h1 {
+  margin-top: 6px;
+}
+.statistics-practice .statistics-heading p {
+  max-width: 470px;
+  font-size: 14px;
+}
+.statistics-practice .statistics-task-panel {
+  width: 100%;
+  min-width: 0;
+  min-height: 0;
+  border: 1px solid var(--ui-line);
+  border-radius: 16px;
+  background: white;
+  padding: 24px 20px;
+  margin-bottom: 20px;
+}
+.statistics-practice .statistics-task-panel h3 {
+  font-family: inherit;
+  font-size: clamp(24px,2.5vw,30px);
+  font-weight: 650;
+  letter-spacing: -.6px;
+  color: var(--ui-text);
+  line-height: 1.3;
+}
+.statistics-practice .statistics-task-panel .panel-top { margin-bottom: 14px; }
+.statistics-practice .statistics-catalog { margin-top: 0; }
+@media (min-width: 600px) {
+  .learning-workspace .catalog-config .exercise-list-items {
+    grid-template-columns: repeat(2,minmax(0,1fr));
+  }
+  .statistics-practice .statistics-task-panel { padding: 32px; }
+}
+@media (max-width: 599px) {
+  .statistics-practice.subject-roadmap-panel { padding: 24px 0 48px; }
+  .statistics-practice .statistics-task-panel { padding: 20px 16px; }
+}
+
+
+/* Planned subjects reuse the same header, full-width task slot and selector
+   panel geometry, but never pretend unavailable lessons are playable. */
+.planned-practice.subject-roadmap-panel {
+  margin: 0 0 40px;
+  padding: 32px 0 48px;
+  min-height: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+.planned-practice .section-heading { margin-bottom: 24px; }
+.planned-practice .section-heading h1 {
+  margin: 6px 0 8px;
+  font-family: inherit;
+  font-size: clamp(28px,3vw,36px);
+  font-weight: 650;
+  letter-spacing: -.8px;
+}
+.planned-practice .subject-roadmap-eyebrow {
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  color: var(--ui-accent);
+}
+.planned-practice .subject-roadmap-description { max-width: 470px; font-size: 14px; }
+.planned-practice .planned-subject-card {
+  width: 100%;
+  min-height: 0;
+  border: 1px solid var(--ui-line);
+  border-radius: 16px;
+  background: white;
+  padding: 24px 20px;
+  margin-bottom: 20px;
+}
+.planned-practice .planned-subject-card h2 {
+  font-family: inherit;
+  color: var(--ui-text);
+  font-size: clamp(24px,2.5vw,30px);
+  font-weight: 650;
+  margin: 12px 0;
+}
+.planned-practice .planned-subject-card p { color: var(--ui-muted); }
+.planned-practice .planned-subject-card .subject-roadmap-disclaimer {
+  border-radius: 8px;
+  margin-bottom: 0;
+}
+.planned-practice .subject-topic-list {
+  color: var(--ui-text);
+  margin: 0 0 16px;
+}
+@media (min-width: 600px) {
+  .planned-practice .planned-subject-card { padding: 32px; }
+}
+@media (max-width: 599px) {
+  .planned-practice.subject-roadmap-panel { padding: 24px 0 48px; }
+  .planned-practice .planned-subject-card { padding: 20px 16px; }
+}
+
+/* Always show a clear focus ring for programmatic focus and keyboard focus.
+   An already-focused control may move below the exercise after track changes. */
+.learning-workspace .catalog-config :is(button, input, summary):focus {
+  outline: 3px solid var(--ui-focus);
+  outline-offset: 2px;
+}
