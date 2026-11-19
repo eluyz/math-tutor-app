@@ -1,4 +1,5 @@
 import { expect, test, type Page } from "@playwright/test";
+import { mkdirSync } from "node:fs";
 
 /**
  * One canonical exercise-first interface for both playable subjects.
@@ -7,7 +8,7 @@ import { expect, test, type Page } from "@playwright/test";
 for (const width of [375, 390, 768, 1280]) for (const locale of ["pl", "en"] as const) {
   const en = locale === "en";
   const select = (page: Page) => page.locator(".subject-navigation").getByRole("button", {name:/Statystyka|Statistics/});
-  test(`unified exercise shell ${width}px ${locale}`, async ({ page }) => {
+  test(`unified exercise shell ${width}px ${locale}`, async ({ page }, info) => {
     await page.setViewportSize({width,height:820});
     await page.goto("/");
     if (en) await page.getByRole("button",{name:"English",exact:true}).click();
@@ -30,6 +31,12 @@ for (const width of [375, 390, 768, 1280]) for (const locale of ["pl", "en"] as 
     expect(familyBox!.y).toBeGreaterThan(mathBox!.y+mathBox!.height-1);
     // The former desktop right-hand sidebar must never sit beside the exercise.
     expect(math.locator(".exercise-layout .exercise-list")).toHaveCount(0);
+    if (locale === "pl" && [375,1280].includes(width)) {
+      mkdirSync("test-results/ui-evidence",{recursive:true});
+      const path=`test-results/ui-evidence/unified-mathematics-${width}-pl.png`;
+      await page.screenshot({path,fullPage:true});
+      await info.attach("unified-mathematics",{path,contentType:"image/png"});
+    }
 
     await select(page).click();
     const stats=page.locator(".statistics-practice");
@@ -60,12 +67,19 @@ for (const width of [375, 390, 768, 1280]) for (const locale of ["pl", "en"] as 
     const medianBox=await statsTask.boundingBox();
     const medianSelectorBox=await statsConfig.boundingBox();
     expect(medianSelectorBox!.y).toBeGreaterThanOrEqual(medianBox!.y+medianBox!.height-1);
+    if (locale === "pl" && [375,1280].includes(width)) {
+      mkdirSync("test-results/ui-evidence",{recursive:true});
+      const path=`test-results/ui-evidence/unified-statistics-${width}-pl.png`;
+      await page.screenshot({path,fullPage:true});
+      await info.attach("unified-statistics",{path,contentType:"image/png"});
+    }
   });
 }
 
-test("planned subjects stay honest placeholders without fake practice controls",async({page})=>{
+for (const width of [375,1280]) test(`planned subjects share practice shell ${width}px PL without fake exercises`,async({page},info)=>{
+  await page.setViewportSize({width,height:820});
   await page.goto("/");
-  for(const label of [/Ekonometria/,/Matematyka finansowa/]) {
+  for(const [subject,label] of [["econometrics",/Ekonometria/],["financial-math",/Matematyka finansowa/]] as const) {
     await page.locator(".subject-navigation").getByRole("button",{name:label}).click();
     await expect(page.getByText("Planowane").last()).toBeVisible();
     const planned=page.locator(".planned-practice");
@@ -81,5 +95,9 @@ test("planned subjects stay honest placeholders without fake practice controls",
     expect(Math.abs(topicsBox!.x-emptyBox!.x)).toBeLessThanOrEqual(2);
     expect(Math.abs(topicsBox!.width-emptyBox!.width)).toBeLessThanOrEqual(2);
     await expect(page.locator(".statistics-task-panel,.practice .exercise-layout:visible")).toHaveCount(0);
+    mkdirSync("test-results/ui-evidence",{recursive:true});
+    const path=`test-results/ui-evidence/unified-${subject}-${width}-pl.png`;
+    await page.screenshot({path,fullPage:true});
+    await info.attach(`unified-${subject}`,{path,contentType:"image/png"});
   }
 });
