@@ -12,6 +12,8 @@ for (const width of [375, 390, 768, 1280]) for (const locale of ["pl", "en"] as 
     await page.goto("/");
     if (en) await page.getByRole("button",{name:"English",exact:true}).click();
     const math = page.locator(".practice");
+    // Mathematics deliberately starts with no active task: launch one via its public UI.
+    await math.locator(".practice-entry .primary-button").click();
     const mathTask = math.locator(".exercise-layout.has-task");
     const mathConfig = math.locator(".catalog-config");
     await expect(mathTask).toBeVisible();
