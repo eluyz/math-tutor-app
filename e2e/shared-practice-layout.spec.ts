@@ -68,6 +68,18 @@ test("planned subjects stay honest placeholders without fake practice controls",
   for(const label of [/Ekonometria/,/Matematyka finansowa/]) {
     await page.locator(".subject-navigation").getByRole("button",{name:label}).click();
     await expect(page.getByText("Planowane").last()).toBeVisible();
+    const planned=page.locator(".planned-practice");
+    const emptyCard=planned.locator(".planned-subject-card");
+    const topicsPanel=planned.locator(".catalog-config");
+    await expect(emptyCard).toBeVisible();
+    await expect(topicsPanel).toBeVisible();
+    const emptyBox=await emptyCard.boundingBox();
+    const topicsBox=await topicsPanel.boundingBox();
+    expect(emptyBox).not.toBeNull();
+    expect(topicsBox).not.toBeNull();
+    expect(topicsBox!.y).toBeGreaterThanOrEqual(emptyBox!.y+emptyBox!.height-1);
+    expect(Math.abs(topicsBox!.x-emptyBox!.x)).toBeLessThanOrEqual(2);
+    expect(Math.abs(topicsBox!.width-emptyBox!.width)).toBeLessThanOrEqual(2);
     await expect(page.locator(".statistics-task-panel,.practice .exercise-layout:visible")).toHaveCount(0);
   }
 });

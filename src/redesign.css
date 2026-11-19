@@ -291,3 +291,62 @@ button { touch-action: manipulation; }
   .statistics-practice.subject-roadmap-panel { padding: 24px 0 48px; }
   .statistics-practice .statistics-task-panel { padding: 20px 16px; }
 }
+
+
+/* Planned subjects reuse the same header, full-width task slot and selector
+   panel geometry, but never pretend unavailable lessons are playable. */
+.planned-practice.subject-roadmap-panel {
+  margin: 0 0 40px;
+  padding: 32px 0 48px;
+  min-height: 0;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+}
+.planned-practice .section-heading { margin-bottom: 24px; }
+.planned-practice .section-heading h1 {
+  margin: 6px 0 8px;
+  font-family: inherit;
+  font-size: clamp(28px,3vw,36px);
+  font-weight: 650;
+  letter-spacing: -.8px;
+}
+.planned-practice .subject-roadmap-eyebrow {
+  margin-bottom: 10px;
+  font-size: 11px;
+  letter-spacing: 1.2px;
+  color: var(--ui-accent);
+}
+.planned-practice .subject-roadmap-description { max-width: 470px; font-size: 14px; }
+.planned-practice .planned-subject-card {
+  width: 100%;
+  min-height: 0;
+  border: 1px solid var(--ui-line);
+  border-radius: 16px;
+  background: white;
+  padding: 24px 20px;
+  margin-bottom: 20px;
+}
+.planned-practice .planned-subject-card h2 {
+  font-family: inherit;
+  color: var(--ui-text);
+  font-size: clamp(24px,2.5vw,30px);
+  font-weight: 650;
+  margin: 12px 0;
+}
+.planned-practice .planned-subject-card p { color: var(--ui-muted); }
+.planned-practice .planned-subject-card .subject-roadmap-disclaimer {
+  border-radius: 8px;
+  margin-bottom: 0;
+}
+.planned-practice .subject-topic-list {
+  color: var(--ui-text);
+  margin: 0 0 16px;
+}
+@media (min-width: 600px) {
+  .planned-practice .planned-subject-card { padding: 32px; }
+}
+@media (max-width: 599px) {
+  .planned-practice.subject-roadmap-panel { padding: 24px 0 48px; }
+  .planned-practice .planned-subject-card { padding: 20px 16px; }
+}
