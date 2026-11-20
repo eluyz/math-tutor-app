@@ -26,7 +26,7 @@ for (const width of [375, 1280]) for (const locale of ["pl", "en"] as const) {
     expect(Math.abs(taskBox!.width-selectorBox!.width)).toBeLessThanOrEqual(2);
     await expect(selector.locator("[data-topic=mean]")).toBeEnabled();
     await expect(selector.locator("[data-topic=median]")).toBeEnabled();
-    await expect(selector.locator("[data-topic=mode]")).toBeDisabled();
+    await expect(selector.locator("[data-topic=mode]")).toBeEnabled();
     await expect(selector.locator("[data-level=advanced]")).toBeDisabled();
     await expect(selector.locator("[data-level=expert]")).toBeDisabled();
     expect(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth)).toBe(false);

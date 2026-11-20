@@ -15,7 +15,9 @@ import { meanCopy } from "./st101Copy";
 import { PracticeSelectorPanel } from "../ui/PracticeSelectorPanel";
 import { createInterpretationPracticeTask, assessInterpretationResponse } from "./interpretationPractice";
 import { interpretationCopy } from "./st104Copy";
-import { StatisticsInterpretationChoices } from "./StatisticsInterpretationChoices";
+import { createModePracticeTask, assessModeResponse } from "./modePractice";
+import { modeCopy } from "./st105Copy";
+import { StatisticsChoices } from "./StatisticsChoices";
 
 type Assessment = "correct" | "incorrect" | "empty" | "invalid";
 
@@ -42,12 +44,25 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   const focusRequested=useRef<"answer"|FocusOptions|null>(null);
   const trackControls=useRef<HTMLDivElement>(null);
   const preserveTrackScroll=useTrackScroll();
-  const task=useMemo(()=>lesson==="interpretation"?createInterpretationPracticeTask(difficulty,seed):lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null,[lesson,difficulty,seed]);
-  const presentation=useMemo(()=>task?(task.lesson==="interpretation"
-    ? {kind:"choice" as const,copy:interpretationCopy(task.engine,locale)}
-    : {kind:"numeric" as const,copy:task.lesson==="median"?medianCopy(task.values,locale):task.lesson==="variance"?varianceCopy(task.values,locale):meanCopy(task.values,locale)}):null,[task,locale]);
+  const task=useMemo(()=>{
+    if(lesson==="mode") return createModePracticeTask(difficulty,seed);
+    if(lesson==="interpretation") return createInterpretationPracticeTask(difficulty,seed);
+    return lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null;
+  },[lesson,difficulty,seed]);
+  const presentation=useMemo(()=>{
+    switch(task?.lesson) {
+      case "mode": return {kind:"mode" as const,copy:modeCopy(task,locale)};
+      case "interpretation": return {kind:"interpretation" as const,copy:interpretationCopy(task.engine,locale)};
+      case "median": return {kind:"numeric" as const,copy:medianCopy(task.values,locale)};
+      case "variance": return {kind:"numeric" as const,copy:varianceCopy(task.values,locale)};
+      case "mean": return {kind:"numeric" as const,copy:meanCopy(task.values,locale)};
+      default: return null;
+    }
+  },[task,locale]);
   const teaching=presentation?.copy;
-  const titles:Record<StatisticsLesson,string>={mean:c.title,median:c.medianTitle,variance:c.varianceTitle,interpretation:c.interpretationTitle};
+  const choices=presentation && presentation.kind!=="numeric"?presentation.copy.options:null;
+  const frequencyTable=presentation?.kind==="mode"?presentation.copy.table:null;
+  const titles:Record<StatisticsLesson,string>={mean:c.title,median:c.medianTitle,variance:c.varianceTitle,interpretation:c.interpretationTitle,mode:c.modeTitle};
   const topics=statisticsCurriculum.find(t=>t.id===track)!.topics;
   useEffect(()=>{ heading.current?.focus(); },[]);
   useEffect(()=>{ onDraftChange?.(raw.trim().length > 0 && assessment === null); },[raw, assessment, onDraftChange]);
@@ -78,8 +93,8 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   function submit(event:FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if(!task) return;
-    if(task.lesson==="interpretation") {
-      const result=assessInterpretationResponse(task,raw);
+    if(task.lesson==="interpretation" || task.lesson==="mode") {
+      const result=task.lesson==="mode"?assessModeResponse(task,raw):assessInterpretationResponse(task,raw);
       setAssessment(result);
       if(result==="empty" || result==="invalid") input.current?.focus();
       return;
@@ -102,11 +117,11 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
         {task && teaching ? <div className="exercise-panel statistics-task-panel">
           <div className="panel-top"><span>{locale==="pl"?"ĆWICZENIE":"EXERCISE"} · {difficultyConfig.find(level=>level.id===difficulty)?.labels[locale].toUpperCase()}</span><span aria-hidden="true">∑</span></div>
           <h3 id="statistics-exercise-title">{titles[task.lesson]}</h3>
-          <p id="statistics-question" className="question university-question" data-lesson={task.lesson} data-seed={seed} data-difficulty={difficulty} data-exercise-id={task.lesson==="interpretation"?task.id:undefined}>{teaching.prompt}</p>
+          <p id="statistics-question" className="question university-question" data-lesson={task.lesson} data-seed={seed} data-difficulty={difficulty} data-exercise-id={"id" in task?task.id:undefined}>{teaching.prompt}</p>
           <form onSubmit={submit} noValidate>
-            {presentation?.kind==="choice" ? <>
-              <StatisticsInterpretationChoices options={presentation.copy.options} value={raw} answerRef={input}
-                legend={c.chooseAnswer} format={c.choiceFormat} invalid={assessment==="empty"||assessment==="invalid"}
+            {choices ? <>
+              <StatisticsChoices options={choices} value={raw} answerRef={input}
+                legend={c.chooseAnswer} format={task.lesson==="mode"?c.modeChoiceFormat:c.choiceFormat} invalid={assessment==="empty"||assessment==="invalid"}
                 onChange={value=>{setRaw(value);setAssessment(null);}} />
               <button className="check-button" type="submit">{c.check}</button>
             </> : <>
@@ -124,7 +139,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
           <div id="statistics-feedback" role="status" aria-live="polite" aria-atomic="true">
             {assessment && <div className={`feedback ${assessment==="empty"?"invalid":assessment}`}>
               <p>{teaching.feedback[assessment]}</p>
-              {assessment==="correct" && task.lesson!=="interpretation" && <strong>{formatRational(task.answer)}</strong>}
+              {assessment==="correct" && "answer" in task && <strong>{formatRational(task.answer)}</strong>}
             </div>}
           </div>
           <div className="hint-actions">
@@ -136,6 +151,13 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
           <div id="statistics-solution" hidden={!solution}>
             {solution && <section className="solution-panel" aria-label={c.solution}>
               <h3>{c.solution}</h3>
+              {frequencyTable && <table className="statistics-frequency-table">
+                <caption>{frequencyTable.caption}</caption>
+                <thead><tr><th scope="col">{frequencyTable.valueHeader}</th><th scope="col">{frequencyTable.frequencyHeader}</th></tr></thead>
+                <tbody>{frequencyTable.rows.map(row=><tr key={row.value}>
+                  <th scope="row">{row.value}</th><td>{row.frequency}</td>
+                </tr>)}</tbody>
+              </table>}
               <ol>{teaching.steps.map((step,index)=><li key={index}>
                 <h4>{step.title}</h4>
                 <p className="solution-calculation">{step.calculation}</p>

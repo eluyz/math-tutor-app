@@ -6,19 +6,19 @@ Math Tutor is a free, MIT-licensed mathematics and introductory statistics learn
 
 ## Learning scope
 
-| Subject | Status | Currently playable |
+| Subject | Status | Repository learning scope |
 | --- | --- | --- |
 | Mathematics | Available | Bounded foundations and university topics: algebra, linear systems, matrices, functions, limits, derivatives, integrals and selected multivariable tasks |
-| Statistics | Work in progress | Arithmetic mean (ST-101), median (ST-102), population variance (ST-103), at supported Easy/Medium/Hard levels |
+| Statistics | Work in progress | ST-101 arithmetic mean, ST-102 median, ST-103 population variance, and ST-104 statistical interpretation on the `main` baseline. ST-105 Mode is playable in the candidate checkout. All five use Easy, Medium, and Hard. |
 | Econometrics | Planned | Informational screen only |
 | Financial Mathematics | Planned | Informational screen only |
 
-The Mathematics catalog reports **266 families** and **20,157 deterministic variants**. This is not proof of independent review of every variant or complete university-syllabus coverage. ST-104 interpretation is a separate generator-only PR #342, not a published playable lesson.
+The Mathematics catalog reports **266 families** and **20,157 deterministic variants**. The independent syllabus review has its own [coverage record](CURRICULUM_COVERAGE.md).
 
 ## Learning workflow
 
 1. Choose a subject and an available topic and difficulty.
-2. Work through an exercise and submit a typed answer.
+2. Work through an exercise and submit the requested numeric answer or select a choice.
 3. Request a hint or a worked solution where available.
 4. Mathematics provides optional ten-task sessions, a separate exam workflow, scratchpad and local progress tracking.
 5. Every playable learning subject uses the same layout: heading, full-width active exercise, then topic/difficulty selector.

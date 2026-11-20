@@ -3,7 +3,9 @@ import type { StatisticsTrack, StatisticsTopic } from "../statistics/curriculum"
 
 const pl = {
   title: "ST-101 — Średnia arytmetyczna", medianTitle: "ST-102 — Mediana", varianceTitle: "ST-103 — Wariancja populacyjna", interpretationTitle: "ST-104 — Interpretacja statystyczna",
+  modeTitle: "ST-105 — Dominanta",
   chooseAnswer: "Wybierz jedną odpowiedź", choiceFormat: "Wybierz jedną z trzech odpowiedzi. Porównuj dokładne wartości bez zaokrąglania.",
+  modeChoiceFormat: "Jedna odpowiedź zawiera pełny zbiór dominant lub wskazuje ich brak.",
   trackLabel: "Ścieżka nauki", topicLabel: "Temat",
   trackLabels: { fundamentals: "Podstawy statystyki", university: "Statystyka na studia" } satisfies Record<StatisticsTrack,string>,
   topicLabels: {
@@ -16,7 +18,7 @@ const pl = {
   levelsUnavailable: "Zaawansowany i Ekspert są jeszcze niedostępne. Wybierz jeden z trzech dostępnych poziomów lekcji.",
   topicsUnavailable: "Pozostałe planowane zagadnienia są jeszcze niedostępne, m.in. rozstęp, odchylenie standardowe i wzór Bayesa. W kategorii Miary rozproszenia można ćwiczyć wyłącznie wariancję populacyjną.",
   plannedTitle: "Planowane zagadnienia na studia",
-  plannedGuidance: "Wybierz Podstawy statystyki, aby ćwiczyć średnią, medianę, wariancję populacyjną lub interpretację statystyczną.",
+  plannedGuidance: "Wybierz Podstawy statystyki, aby ćwiczyć średnią, medianę, dominantę, wariancję populacyjną lub interpretację statystyczną.",
   universityPlan: "Zagadnienia na studia są planowane; w tej ścieżce nie ma jeszcze dostępnych zadań.",
   difficulty: "Poziom trudności", answer: "Twoja odpowiedź", check: "Sprawdź",
   next: "Następne zadanie", hint1: "Pokaż podpowiedź", hint2: "Pokaż drugą podpowiedź",
@@ -30,7 +32,9 @@ export const statisticsPracticeCopy: Record<Locale, typeof pl> = {
   pl,
   en: {
     title: "ST-101 — Arithmetic mean", medianTitle: "ST-102 — Median", varianceTitle: "ST-103 — Population variance", interpretationTitle: "ST-104 — Statistical Interpretation",
+    modeTitle: "ST-105 — Mode",
     chooseAnswer: "Choose one answer", choiceFormat: "Select one of the three answers. Compare exact values without rounding.",
+    modeChoiceFormat: "One answer gives the complete set of modes or indicates that there is no mode.",
     trackLabel: "Learning track", topicLabel: "Topic",
     trackLabels: { fundamentals:"Statistics fundamentals", university:"University statistics" },
     topicLabels: {
@@ -43,7 +47,7 @@ export const statisticsPracticeCopy: Record<Locale, typeof pl> = {
     levelsUnavailable: "Advanced and Expert are not available yet. Choose one of the lesson's three available levels.",
     topicsUnavailable: "Other planned topics are not available yet, including range, standard deviation and Bayes' theorem. Under Measures of dispersion, only population variance is playable.",
     plannedTitle: "Planned university topics",
-    plannedGuidance: "Choose Statistics fundamentals to practise mean, median, population variance or statistical interpretation.",
+    plannedGuidance: "Choose Statistics fundamentals to practise mean, median, mode, population variance or statistical interpretation.",
     universityPlan: "University topics are planned; no exercises are available in this track yet.",
     difficulty: "Difficulty", answer: "Your answer", check: "Check", next: "Next exercise",
     hint1: "Show hint", hint2: "Show second hint", hintsDone: "Both hints shown",

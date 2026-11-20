@@ -289,6 +289,22 @@ button { touch-action: manipulation; }
 .statistics-choice input[type="radio"] { flex: 0 0 20px; width: 20px; height: 20px; min-height: 20px; margin: 0; accent-color: var(--ui-accent); }
 .statistics-choice:hover, .statistics-choice:has(input:checked) { border-color: var(--ui-accent); background: var(--ui-selected); }
 .statistics-choice:has(input:focus-visible) { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
+.statistics-frequency-table {
+  width: 100%;
+  max-width: 32rem;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-variant-numeric: tabular-nums;
+}
+.statistics-frequency-table caption { text-align: left; font-weight: 700; padding-bottom: .5rem; }
+.statistics-frequency-table th, .statistics-frequency-table td {
+  padding: .5rem;
+  border-bottom: 1px solid var(--ui-control);
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.statistics-frequency-table thead { background: var(--ui-selected); }
 @media (min-width: 600px) {
   .learning-workspace .catalog-config .exercise-list-items {
     grid-template-columns: repeat(2,minmax(0,1fr));
