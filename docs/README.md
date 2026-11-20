@@ -20,6 +20,8 @@ This index points to the **current English-language maintainer and contributor g
 
 The [legacy archive](archive/legacy-2026-11-20/) preserves the original `PRODUCT.md`, `ARCHITECTURE.md`, `ROADMAP.md`, `AGENTS.md`, `ERROR_TAXONOMY.md` and `CURRICULUM_COVERAGE.md` **byte-for-byte**, without rewriting old checkpoint findings.
 
+Seventeen dated development plans, audit reports and syllabus checkpoints now have English historical-status pointers at their original root paths. The full original contents are preserved verbatim in [the legacy archive](archive/legacy-2026-11-20/).
+
 Other technical evidence, including [QA audit progress](../QA_AUDIT_PROGRESS.md), [generator inventory](../GENERATORS.md), [source acceptance](../SYLLABUS_ACCEPTANCE.md), [64-skill audit](SYLLABUS_COVERAGE_V2.md), issue histories, tests and GitHub Actions artifacts, is preserved at existing paths. Some legacy audit ledgers retain Polish passages and machine-checked text; they are not represented as fully translated.
 
 A historical report's candidate/merge status does not establish the current release. Confirm the current `main` SHA, its CI, and Pages deployment independently.
