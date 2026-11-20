@@ -61,6 +61,7 @@ import { examCopy } from "./exam/copy";
 import { PlannedSubjectPanel, SubjectNavigation } from "./SubjectNavigation";
 import type { SubjectId } from "./subjectRoadmap";
 import { StatisticsPractice } from "./statistics/StatisticsPractice";
+import { PracticeSelectorPanel } from "./ui/PracticeSelectorPanel";
 import { hasUnsubmittedAnswer } from "./navigation/unsavedWork";
 import { useUnloadWarning } from "./navigation/useUnloadWarning";
 
@@ -147,8 +148,19 @@ export default function App() {
   );
 
   useEffect(() => {
-    if (trackFocusRequested.current) {
-      trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]')?.focus(trackFocusRequested.current);
+    const trackFocusOptions = trackFocusRequested.current;
+    if (trackFocusOptions) {
+      const selectedTrack = trackControls.current?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+      selectedTrack?.focus(trackFocusOptions);
+      // Focusing an already-active button does not necessarily scroll it
+      // after an exercise changes height above the selector. Keyboard users
+      // must still be able to see that focused control.
+      if (selectedTrack && !trackFocusOptions.preventScroll) {
+        requestAnimationFrame(() => {
+          if (document.activeElement === selectedTrack)
+            selectedTrack.scrollIntoView({ block: "nearest", inline: "nearest", behavior: "instant" });
+        });
+      }
     } else if (active) {
       document.getElementById(searchFocusRequested.current ? "exercise-title" : "answer")?.focus();
     }
@@ -327,10 +339,55 @@ export default function App() {
     }
   }
 
+  const familyList = (
+            <section className="exercise-list" aria-labelledby="category-families-title">
+              <div className="exercise-list-heading">
+                <h3 id="category-families-title">{a.categoryFamilies(
+                  categoryTitle(selectedCategory, locale), visibleTemplates.length,
+                )}</h3>
+              </div>
+              <div className="exercise-list-items" role="region" aria-labelledby="category-families-title" tabIndex={0}>
+              {visibleTemplates.map((template, index) => (
+                <button
+                  type="button"
+                  key={template.id}
+                  disabled={
+                    sessionNumber > 0 ||
+                    !template.supportedDifficulties.includes(difficulty)
+                  }
+                  title={
+                    template.supportedDifficulties.includes(difficulty)
+                      ? undefined
+                      : `${a.availableLevels}: ${template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}`
+                  }
+                  className={`exercise-item ${active?.templateId === template.id ? "selected" : ""}`}
+                  onClick={() => {
+                    setSearchLevelChange(null);
+                    newExercise(selectedCategory, difficulty, template.id);
+                  }}
+                  aria-current={
+                    active?.templateId === template.id ? "step" : undefined
+                  }
+                >
+                  <span className="exercise-number">
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
+                  <span className="exercise-text">
+                    <strong>{familyTitle(template, locale)}</strong>
+                    <small>
+                      {a.availableLevels}: {template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}
+                    </small>
+                  </span>
+                  <span className="exercise-state" aria-label={ui.open}>
+                    →
+                  </span>
+                </button>
+              ))}
+              </div>
+            </section>
+  );
   const catalog = (
-    <details className="catalog-config" open>
-      <summary>{n.choose}<span>{categoryTitle(selectedCategory, locale)} · {difficultyLabels[difficulty]}</span></summary>
-      <div className="catalog-config-body">
+    <PracticeSelectorPanel title={n.choose} context={`${categoryTitle(selectedCategory, locale)} · ${difficultyLabels[difficulty]}`} expandOn={sessionDone}>
           <div className="catalog-search" role="search" aria-label={a.searchLabel}>
             <label htmlFor="catalog-search-input">{a.searchLabel}</label>
             <div className="catalog-search-controls">
@@ -479,55 +536,8 @@ export default function App() {
               </div>
             )}
           </div>
-      </div>
-    </details>
-  );
-  const familyList = (
-            <aside className="exercise-list">
-              <div className="exercise-list-heading">
-                <h3 id="category-families-title">{a.categoryFamilies(
-                  categoryTitle(selectedCategory, locale), visibleTemplates.length,
-                )}</h3>
-              </div>
-              <div className="exercise-list-items" role="region" aria-labelledby="category-families-title" tabIndex={0}>
-              {visibleTemplates.map((template, index) => (
-                <button
-                  type="button"
-                  key={template.id}
-                  disabled={
-                    sessionNumber > 0 ||
-                    !template.supportedDifficulties.includes(difficulty)
-                  }
-                  title={
-                    template.supportedDifficulties.includes(difficulty)
-                      ? undefined
-                      : `${a.availableLevels}: ${template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}`
-                  }
-                  className={`exercise-item ${active?.templateId === template.id ? "selected" : ""}`}
-                  onClick={() => {
-                    setSearchLevelChange(null);
-                    newExercise(selectedCategory, difficulty, template.id);
-                  }}
-                  aria-current={
-                    active?.templateId === template.id ? "step" : undefined
-                  }
-                >
-                  <span className="exercise-number">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <span className="exercise-text">
-                    <strong>{familyTitle(template, locale)}</strong>
-                    <small>
-                      {a.availableLevels}: {template.supportedDifficulties.map((level) => difficultyLabels[level]).join(", ")}
-                    </small>
-                  </span>
-                  <span className="exercise-state" aria-label={ui.open}>
-                    →
-                  </span>
-                </button>
-              ))}
-              </div>
-            </aside>
+          {familyList}
+    </PracticeSelectorPanel>
   );
 
   return (
@@ -602,7 +612,6 @@ export default function App() {
             }}>{active ? n.resume : n.start}</button>
             {active && <p>{categoryTitle(selectedCategory, locale)} · {n.level}: {difficultyLabels[difficulty]}</p>}
           </div>
-          {!active && catalog}
           {sessionNumber > 0 && (
             <p className="session-progress" role="status">
               {a.progress(sessionNumber)}
@@ -627,7 +636,7 @@ export default function App() {
               </button>
             </div>
           )}
-          <div className={`exercise-layout ${active || summary ? "has-task" : "catalog-only"}`}>
+          <div className={`exercise-layout ${active || summary ? "has-task" : "catalog-only"}`} hidden={!active && !summary}>
             <div className="exercise-panel" hidden={!active && !summary}>
               {active ? (
                 <>
@@ -906,9 +915,8 @@ export default function App() {
                 />
               ) : null}
             </div>
-            {familyList}
           </div>
-          {active && catalog}
+          {catalog}
         </section>
         </div>
         <ProgressDashboard
