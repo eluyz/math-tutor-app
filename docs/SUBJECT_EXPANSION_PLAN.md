@@ -1,8 +1,9 @@
 # Subject expansion roadmap
 
 **Project:** Math Tutor — free, MIT-licensed learning software  
-**Status:** Implementation roadmap updated 2026-11-18  
-**Current learning scope:** Mathematics and a small, exact Statistics pilot (mean, median, population variance). Econometrics and Financial Mathematics have no exercises.
+**Status:** Implementation roadmap updated for the ST-105 candidate.
+
+**Learning scope:** Mathematics and a bounded Statistics pilot. Econometrics and Financial Mathematics are planned.
 
 ## Why expand?
 
@@ -13,26 +14,26 @@ Math Tutor currently offers deterministic mathematics exercises, guided solution
 | Subject | Status | Honest interpretation |
 | --- | --- | --- |
 | Mathematics | AVAILABLE | Existing production exercises and modes; existing limitations still apply. |
-| Statistics & Probability | WORK IN PROGRESS | Three bounded descriptive-statistics lessons: arithmetic mean, median and **population** variance (not sample variance), with PL/EN steps and Easy/Medium/Hard difficulty. Other topics remain unavailable. |
+| Statistics & Probability | WORK IN PROGRESS | Four lessons on the `main` baseline covering arithmetic mean, median, population variance and statistical interpretation. The ST-105 candidate adds Mode. Each lesson uses PL/EN and supports Easy, Medium, and Hard. |
 | Econometrics | PLANNED | Future scope after statistics foundations. |
 | Financial Mathematics | PLANNED | Future scope after statistics/econometrics priorities. |
 
-## Statistics S1 — foundation history and playable releases
+## Statistics S1 — integrated lessons and candidate scope
 
 - [Detailed specification and hand-checkable examples](STATISTICS_S1_SPEC.md)
 - [Umbrella issue #306](https://github.com/eluyz/math-tutor-app/issues/306)
 - Delivery tickets: [generator #308](https://github.com/eluyz/math-tutor-app/issues/308), [independent QA #309](https://github.com/eluyz/math-tutor-app/issues/309), [PL/EN pedagogy #310](https://github.com/eluyz/math-tutor-app/issues/310), [UI and release #311](https://github.com/eluyz/math-tutor-app/issues/311).
-- Exact-arithmetic calculation helpers and deterministic exercise generators for ST-101, ST-102 and ST-103 exist; the latter is integrated with the UI in [the release candidate PR #340](https://github.com/eluyz/math-tutor-app/pull/340).
-- Every published lesson requires owner approval, exact-head full CI and matching main/Pages deployment evidence. Keep the Statistics subject **Work in progress**; the rest of its syllabus is not a published course.
+- ST-103 population variance integration is merged in [PR #340](https://github.com/eluyz/math-tutor-app/pull/340). ST-104 statistical interpretation integration is merged in [PR #345](https://github.com/eluyz/math-tutor-app/pull/345).
+- ST-105 Mode is playable in the candidate checkout. Publication requires owner approval, full exact-head CI, and subsequent verification of main CI and Pages on the release SHA. Statistics retains **Work in progress** status. See the [ST-105 notes](ST105_MODE_NOTES.md).
 - Historical Mathematics family/variant counts must not be silently increased to include Statistics exercises.
 
 ## Broader roadmap (beyond the bounded Statistics pilot)
 
 **Statistics & Probability**
-- Arithmetic mean, median and **population** variance form the bounded pilot. Further descriptive topics (range, mode, standard deviation, grouped data) are planned, not shipped.
+- Further descriptive topics include range, standard deviation and grouped data.
 - Probability: events, conditional probability and basic combinatorics.
 - Discrete distributions (including Bernoulli/binomial) and expectation/variance.
-- Confidence intervals and hypothesis testing, with explicit assumptions.
+- Confidence intervals and hypothesis testing, with explicit assumptions. Hypothesis testing remains an unnumbered University statistics topic. The maintainer's legacy ST-105 alias for hypothesis testing is superseded by the Mode assignment.
 
 **Econometrics**
 - Simple OLS regression with manually verifiable small datasets.
@@ -49,7 +50,7 @@ Math Tutor currently offers deterministic mathematics exercises, guided solution
 ## Delivery sequence and acceptance gates
 
 - **S0 — Public direction (now):** maintain bilingual subject navigation, accurate labels, accessible responsive UI, and this plan. No misleading disabled exercise buttons. Existing mathematics retains its workflows.
-- **S1 — Statistics pilot:** one independently verified descriptive-statistics family (e.g. mean/median/variance for small finite datasets) with deterministic seeds, exact expected answers and teaching steps. Acceptance requires unit tests, independent oracle, PL/EN copy and mobile/desktop UI checks.
+- **S1 — Statistics pilot:** bounded exercises on short finite datasets with deterministic seeds, exact grading, and teaching steps. Acceptance requires unit tests, independent oracles, PL/EN copy and mobile/desktop UI checks.
 - **S2 — Statistics fundamentals:** expand to probability and distributions only after pilot feedback; document coverage per skill and avoid inflated variant counts.
 - **S3 — Econometrics pilot:** hand-checkable OLS datasets and coefficient interpretation; avoid arbitrary regression without a robust numerical specification.
 - **S4 — Financial-math pilot:** bounded present/future value and compounding with explicit rounding policy.
@@ -80,4 +81,4 @@ We do not claim any number of active users or external contributors. Track only 
 
 ## Next actionable task
 
-Implement the **Statistics S1 descriptive statistics pilot** in a separate PR; initially limit to one family and a well-specified grading policy. Keep other subjects marked Planned until actual work starts.
+Finish the ST-105 candidate's browser and release review before extending Statistics coverage.

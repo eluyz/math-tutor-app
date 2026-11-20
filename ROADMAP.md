@@ -11,7 +11,8 @@ This is a prioritized plan, **not** a promise of release dates, external adoptio
 | Mathematics and Focus Studio | Available | Preserve exact grading, local history and shared task-first UI |
 | Statistics ST-101 / ST-102 | Released | Maintain bilingual exact practice |
 | Statistics ST-103 | PR #340 merged | Confirm main CI and GitHub Pages on the same published SHA |
-| Statistics ST-104 | Generator-only PR #342 | Integrate selection-based answers later with separate UI and regression tests |
+| Statistics ST-104 | Playable integration merged in [PR #345](https://github.com/eluyz/math-tutor-app/pull/345) | Preserve bilingual exact interpretation practice |
+| Statistics ST-105 Mode | Playable candidate | Review [lesson coverage](docs/ST105_MODE_NOTES.md), run full CI on the candidate, then verify main CI and Pages after maintainer approval and merge |
 | Further Statistics topics | Planned | Define explicit scope and independent mathematical oracles |
 | Econometrics | Planned | Hand-checkable introductory regression; not currently playable |
 | Financial Mathematics | Planned | Bounded interest, present value, annuities and NPV; not currently playable |

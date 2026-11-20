@@ -12,7 +12,7 @@ Math Tutor is a browser-first application built with **React 19, TypeScript and 
 | Session workflow | `src/session.ts` | Ten-task practice sessions and first-attempt accounting |
 | Exam workflow | `src/exam/` | Distinct exam questions, review and local history |
 | Progress | `src/progress/` | Local-only persisted Mathematics session metadata |
-| Statistics | `src/statistics/` | Finite datasets, mean, median, population variance, exact teaching copy |
+| Statistics | `src/statistics/` | Finite datasets, descriptive measures, statistical interpretation, exact grading and teaching copy |
 | Shared practice UI | `src/ui/PracticeSelectorPanel.tsx`, `src/navigation/` | Task-first UI, focus behavior and unsaved-work protection |
 | Locales | `src/locales/` | English and Polish content; language does not alter mathematical answers |
 
@@ -24,7 +24,7 @@ This is **not** a universal symbolic mathematics parser. Generated variants and 
 
 ## Statistics boundary
 
-Available student-facing pilot lessons are ST-101 arithmetic mean, ST-102 median and ST-103 **population** variance, calculated with divisor `n` rather than sample divisor `n-1`. Three levels are playable in those lessons. ST-104 is generator-only in PR #342 and must not be advertised as available before integration.
+The `main` baseline integrates ST-101 arithmetic mean, ST-102 median, ST-103 population variance with divisor `n`, and ST-104 statistical interpretation. The ST-105 Mode candidate uses the shared native choice form and renders its counted observations in a semantic frequency table. Each lesson supports Easy, Medium, and Hard. See [ST-105 notes](docs/ST105_MODE_NOTES.md) for the exact assessment and release gates.
 
 Do not mix Statistics exercise state with Mathematics progress history. Future Econometrics and Financial Mathematics views are currently non-playable placeholders.
 
