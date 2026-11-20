@@ -319,7 +319,7 @@ for (const width of [375, 1280]) for (const locale of ["pl", "en"] as const) {
       expect(await history()).toBe(saved);
       await button(page, c.progress).click();
       await expect(page.locator('#progress-title')).toBeFocused();
-      await expect(page.locator('[data-stat="sessions"]')).toHaveText("1");
+      await expect(page.locator('.progress-totals [data-stat="sessions"]')).toHaveText("1");
       await button(page, c.exam).click();
       await button(page, c.startExam).click();
       await expect(statisticsButton(page)).toBeDisabled();
