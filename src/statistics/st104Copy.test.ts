@@ -18,7 +18,7 @@ for(const locale of ["pl","en"] as const) {
       if(task.kind==="compare-changes") {
         expect(copy.prompt).toContain(String(task.replacement.index+1));
         expect(copy.prompt).toContain(task.modified.values.join(", "));
-        expect(copy.prompt).toContain(locale==="pl"?"bezwzględnej":"absolute");
+        expect(copy.prompt).toContain(locale==="pl"?"wartość bezwzględną różnicy":"the absolute value of the difference");
         expect(copy.conclusion).toContain(locale==="pl"?"tej konkretnej zamiany":"this particular replacement");
       }
       if(locale==="en") expect(JSON.stringify(copy)).not.toMatch(/\b(średnia|mediana|Zamień|obserwacji|Wybierz|Podpowiedź)\b/iu);
@@ -68,6 +68,24 @@ for(const locale of ["pl","en"] as const) {
     const copy=interpretationCopy(task,locale);
     expect(copy.steps[1].calculation).toBe("μ = (−5)/2 = −5/2");
     expect(copy.steps[3].calculation).toBe("−5/2 = −5/2");
+  });
+
+  it(`defines absolute difference before asking about a sign-changing replacement ${locale}`,()=>{
+    const task=generateInterpretationTask("hard",275);
+    expect(task.kind).toBe("compare-changes");
+    if(task.kind!=="compare-changes") throw new Error("Missing replacement witness");
+    expect(task.original.mean).toEqual({numerator:-43n,denominator:9n});
+    expect(task.modified.mean).toEqual({numerator:2n,denominator:9n});
+    expect(task.original.median).toEqual({numerator:-7n,denominator:1n});
+    expect(task.modified.median).toEqual({numerator:-2n,denominator:1n});
+    expect(task.answer).toBe("equal-change");
+    const copy=interpretationCopy(task,locale);
+    expect(copy.steps[7].calculation).toBe("5 = 5");
+    // |after-before| is 5 for both measures. Using ||after|-|before||
+    // instead would give 41/9 for the mean and falsely select it as smaller.
+    expect(copy.prompt).toContain(locale==="pl"
+      ? "wartość bezwzględną różnicy między jej wartością po zamianie i przed zamianą"
+      : "the absolute value of the difference between its value after and before the replacement");
   });
 }
 it("rejects unsupported teaching locales",()=>{

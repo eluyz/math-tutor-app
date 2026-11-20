@@ -35,7 +35,7 @@ Six construction families cover mean below/equal to/above median, and mean chang
 
 ## Precise interpretation, without an incorrect robustness rule
 
-The replacement questions identify the original dataset, the one-based position and value being replaced, the replacement value, and the resulting dataset. They ask about **absolute change**, not signed change, and explicitly retain the sample size. Generated replacement values lie beyond the original minimum or maximum. This provides concrete extreme-value interventions without claiming to detect outliers by a formal rule such as IQR fences.
+The replacement questions identify the original dataset, the one-based position and value being replaced, the replacement value, and the resulting dataset. Both prompts explicitly define **absolute change** as the absolute value of the difference between the after and before values: `|after − before|`, rather than `||after| − |before||`. They explicitly retain the sample size. Generated replacement values lie beyond the original minimum or maximum. This provides concrete extreme-value interventions without claiming to detect outliers by a formal rule such as IQR fences.
 
 The median's robustness does not imply that it always changes less in every finite replacement. The engine deliberately includes counterexamples and ties:
 
@@ -44,6 +44,7 @@ The median's robustness does not imply that it always changes less in every fini
 | `[1, 2, 3, 4, 5]`, replace `5` with `105` | `3 → 23` | `3 → 3` | Median changes less: `0 < 20` |
 | `[0, 0, 0, 5, 5]`, replace one `0` with `15` | `2 → 5` | `0 → 5` | Mean changes less: `3 < 5` |
 | `[0, 0, 0, 5, 5]`, replace one `0` with `25` | `2 → 7` | `0 → 5` | Equal changes: `5 = 5` |
+| `[-2, -7, -2, -7, -2, -2, -7, -7, -7]`, replace the second observation `−7` with `38` | `−43/9 → 2/9` | `−7 → −2` | Equal absolute differences: `5 = 5`; comparing changes of magnitudes would incorrectly give `41/9 < 5` |
 
 Conclusions concern the specified observations and replacement. A mean/median ordering alone is not presented as proof of a distribution's shape. These are synthetic, dimensionless exercises, not empirical claims. Sample variance, quartiles, formal outlier classification and inference remain outside scope.
 
@@ -67,16 +68,18 @@ The optional verification script uses the already installed Vite package to load
 
 | Check | Observed local result |
 |---|---|
-| New ST-104 Vitest cases | **836 PASS** |
-| Independent TypeScript mathematical cases | **771 PASS**, included in the 836: seeds `0–255` and maximum uint32, **257 per level** |
+| New ST-104 Vitest cases | **838 PASS** |
+| Independent TypeScript mathematical cases | **771 PASS**, included in the 838: seeds `0–255` and maximum uint32, **257 per level** |
 | Independent Python oracle | **771 PASS**, **0 FAIL**; verifies **2,313** choice assessments |
-| PL/EN teaching coverage | **1,536** seeded lesson checks: 256 seeds × three levels × two locales; included in the new Vitest cases |
-| Full Vitest with one worker | **3,501 PASS**, **0 FAIL**, **0 skipped** (`npm test -- --maxWorkers=1`) |
+| PL/EN teaching coverage | **1,536** seeded lesson checks: 256 seeds × three levels × two locales; plus two sign-changing regression cases, included in the new Vitest cases |
+| Full Vitest with one worker | **3,503 PASS**, **0 FAIL**, **0 skipped** (`npm test -- --maxWorkers=1`) |
 | Existing history regression, run separately | **2 PASS**, **0 FAIL** |
 | TypeScript and production build | **PASS** |
 | Production JavaScript/CSS against the base | SHA-256 manifests identical; ST-104 is not imported into the runtime bundle |
 
-The first full run with default worker scheduling had **3,499 PASS and 1 FAIL out of 3,500**. The existing `src/university/history-regression.test.ts` preservation test exceeded its unchanged 5,000 ms limit (observed duration 5,474.09461 ms). It passed separately, and the complete suite passed with one worker. One additional metamorphic ST-104 test accounts for the subsequent total of 3,501. No assertion, test timeout, existing test or CI configuration was changed to address this scheduling-sensitive result. Default-worker CI results on the exact commit are recorded in the PR; local serial success does not assert CI success.
+The first full run with default worker scheduling had **3,499 PASS and 1 FAIL out of 3,500**. The existing `src/university/history-regression.test.ts` preservation test exceeded its unchanged 5,000 ms limit (observed duration 5,474.09461 ms). It passed separately, and the complete suite passed with one worker. An additional metamorphic ST-104 test brought the total to 3,501; two PL/EN sign-change regression tests subsequently brought it to 3,503. No assertion, test timeout, existing test or CI configuration was changed to address the scheduling-sensitive result. Default-worker CI results on the exact commit are recorded in the PR; local serial success does not assert CI success.
+
+An independent engine review identified the potential ambiguity between absolute difference and difference of magnitudes. Both new sign-change regression tests failed against the previous prompt, then passed after the bilingual clarification. Re-review confirmed no outstanding Critical or Important engine findings. This review does not constitute UI acceptance or merge approval.
 
 Coverage also includes fixed hand-calculated witnesses, retained duplicates, all-zero and singleton data, no-op replacements, half-integer medians, 100-observation datasets, safe-integer extremes with differences beyond Number's safe range, invalid and sparse input, all answer tokens, immutable snapshots, and permutation/translation/reflection properties.
 
@@ -92,4 +95,4 @@ A displayed question includes observation order and the specified replacement po
 
 ## Later interface integration
 
-This is an engine review milestone, not a released learning feature. A separate task must coordinate with ST-103, register the curriculum/practice routing, adapt the choice-based answer model, connect PL/EN teaching content, and test answer preservation, hints, solutions, keyboard interaction, progress and mobile presentation. Existing application answer fields should not be assumed to accept these choice IDs. No deployment or merge is part of this change.
+This is an engine review milestone, not a released learning feature. A separate task must coordinate with ST-103, register the curriculum/practice routing, adapt the choice-based answer model, connect PL/EN teaching content, and test answer preservation, hints, solutions, keyboard interaction, progress and mobile presentation. Existing application answer fields should not be assumed to accept these choice IDs. The teaching and assessment APIs expect complete tasks produced by the trusted generator. If future integration accepts externally constructed or deserialized tasks, its boundary must validate the complete three-choice permutation as well as the data: TypeScript's structural types alone do not enforce a complete option list at runtime. No deployment or merge is part of this change.
