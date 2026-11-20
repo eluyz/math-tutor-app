@@ -1,138 +1,42 @@
-# Produkt
+# Math Tutor — Product overview
 
-Math Tutor pomaga dorosłym odbudować pewność w matematyce po długiej przerwie. Użytkownik ma móc zacząć bez konta, rozwiązać krótkie zadanie i otrzymać zrozumiałą informację zwrotną.
+Math Tutor is a free, MIT-licensed mathematics and introductory statistics learning app for adults returning to education and university learners. It provides **English/Polish** practice tasks, exact answer checks, hints and worked solutions, without requiring accounts or paid APIs.
 
-## MT-001
+**Try the application:** https://eluyz.github.io/math-tutor-app/
 
-Prototyp obejmuje ekran startowy i trzy ćwiczenia: kolejność działań (`3 + 4 × 2`), liczby ujemne (`−7 + 12`) i podstawową algebrę (`2x + 3 = 11`). Odpowiedź jest liczbą. System pokazuje poprawny tok rozumowania po dobrej odpowiedzi oraz wskazówkę po błędnej. Dla kilku znanych pomyłek wskazówki są bardziej konkretne.
+## Learning scope
 
-Ta wersja nie ocenia sposobu rozumowania użytkownika. Rozpoznaje jedynie wybrane błędne wyniki. Nie zawiera adaptacyjnego doboru ćwiczeń, zapisu postępów, backendu ani kont.
+| Subject | Status | Currently playable |
+| --- | --- | --- |
+| Mathematics | Available | Bounded foundations and university topics: algebra, linear systems, matrices, functions, limits, derivatives, integrals and selected multivariable tasks |
+| Statistics | Work in progress | Arithmetic mean (ST-101), median (ST-102), population variance (ST-103), at supported Easy/Medium/Hard levels |
+| Econometrics | Planned | Informational screen only |
+| Financial Mathematics | Planned | Informational screen only |
 
-## MT-002
+The Mathematics catalog reports **266 families** and **20,157 deterministic variants**. This is not proof of independent review of every variant or complete university-syllabus coverage. ST-104 interpretation is a separate generator-only PR #342, not a published playable lesson.
 
-Katalog obejmuje 15 zadań w pięciu kategoriach, po trzy w każdej. Po błędnym wyniku aplikacja potwierdza, że odpowiedź nie jest matematycznie poprawna, i może przedstawić jedną lub więcej **możliwych** przyczyn. Gdy brakuje podstaw do przypisania rodzaju pomyłki, pokazuje „nieustalona przyczyna”. Nie stwierdza procesu myślenia na podstawie samego wyniku.
+## Learning workflow
 
-Podpowiedzi są odsłaniane stopniowo. W pięciu zadaniach użytkownik może dodatkowo sprawdzić pierwszy krok; poprawna i błędna odpowiedź pomocnicza prowadzą do innych wskazówek. Po poprawnym wyniku użytkownik widzi pełne wyjaśnienie i może przejść do następnego zadania. Odpowiedzi w postaci ułamków i równoważnych dokładnych liczb dziesiętnych są porównywane bez błędów zaokrągleń.
+1. Choose a subject and an available topic and difficulty.
+2. Work through an exercise and submit a typed answer.
+3. Request a hint or a worked solution where available.
+4. Mathematics provides optional ten-task sessions, a separate exam workflow, scratchpad and local progress tracking.
+5. Every playable learning subject uses the same layout: heading, full-width active exercise, then topic/difficulty selector.
 
-MT-002 nie zapisuje historii, nie dobiera adaptacyjnie ćwiczeń i nie rozpoznaje wszystkich możliwych przyczyn pomyłek. Taksonomię i ograniczenia opisuje [ERROR_TAXONOMY.md](ERROR_TAXONOMY.md).
+The five visible difficulty labels do not mean all five are playable in every lesson. Planned areas must remain honestly disabled.
 
-## MT-003A
+## Feedback and limitations
 
-Zamiast wybierać wyłącznie z 15 niezmiennych przykładów, użytkownik ćwiczy 15 rodzin zadań w trzech ręcznie wybieranych poziomach. Może losować nowy wariant w wybranej kategorii lub rodzinie oraz przejść sesję 10 zadań z licznikiem postępu i ekranem zakończenia. W sesji można przejść dalej także bez poprawnej odpowiedzi; licznik oznacza zadania pokazane, a nie liczbę poprawnych rozwiązań.
+A wrong final answer proves that the submitted result is incorrect, **not** the learner's precise reasoning error. Suggested mistake patterns are hypotheses; a verified intermediate step supports a narrower claim. See [Error taxonomy](ERROR_TAXONOMY.md).
 
-Testy potwierdzają 647 różnych treści w dostępnych pulach. Nowe zadanie powstaje tylko po działaniu użytkownika; ponowna próba zachowuje bieżący wariant. Losowanie i dane odpowiedzi pozostają w pamięci przeglądarki. Reguły błędów wynikają z parametrów danego zadania i nadal przedstawiają jedynie hipotezy. Dotychczasowe 15 przykładów pozostaje przypadkami referencyjnymi testów regresyjnych. Dobór adaptacyjny i zapis postępów nie są częścią MT-003A.
+Mathematical grading is exact within each supported answer contract; the app does not accept arbitrary symbolic input or certify an entire curriculum. It is not affiliated with a university or an examination board.
 
-## MT-003A.1 i MT-003B.1
+## Privacy and release
 
-MT-003A.1 zachowuje rodzinę i poziom w swobodnym ćwiczeniu przy „Nowy przykład” i „Następny przykład”; ręczna zmiana poziomu zachowuje rodzinę. Sesje nadal mieszają rodziny w wybranej kategorii.
+No account, backend or student telemetry is required. Supported Mathematics progress and exam metadata remain in browser storage, while the bounded Statistics pilot does not overwrite Mathematics progress. Do not promise that every unfinished draft survives refresh.
 
-MT-003B.1 dodaje podsumowanie 10 zadań i opcjonalną sugestię poziomu na następną sesję. Dla każdego zadania zapisuje tylko pierwszą ważną ocenę głównej odpowiedzi. Nieważne zapisy są pomijane, a ponowienia, podpowiedzi i poprawienie błędu nie zmieniają pierwszej oceny. Przejście dalej bez ważnej oceny oznacza pominięcie. Podsumowanie opisuje te zdarzenia, a nie wiedzę lub przyczyny błędów użytkownika.
+Every release needs an independently checked mathematical scope, PL/EN evidence, unit/build/browser acceptance, approval to merge, and matching main CI/Pages verification.
 
-Potrzeba co najmniej 7 ważnych pierwszych prób. Przy 8–10 poprawnych z 10 proponowany jest jeden poziom wyżej, przy 0–4 jeden niżej, przy 5–7 obecny, w granicach łatwy–trudny. Przy mniejszej liczbie ważnych prób aplikacja wyjaśnia brak danych i umożliwia powtórzenie obecnego poziomu. Użytkownik musi świadomie zaakceptować sugestię, aby rozpocząć nową sesję; może też pozostać przy obecnym poziomie lub wybrać inny ręcznie. Nowa sesja resetuje statystyki.
+See [Architecture](ARCHITECTURE.md), [Roadmap](ROADMAP.md), [Curriculum coverage](CURRICULUM_COVERAGE.md), and [Contributing](CONTRIBUTING.md).
 
-To pierwszy ograniczony etap adaptacji, nie pełny adaptacyjny dobór rodzin. Poziom nie zmienia się w trakcie sesji. W samym MT-003B.1 nie było trwałej historii; MT-004A dodaje zapis ukończeń, zachowując bieżącą sesję w pamięci. Nadal nie ma backendu, kont ani zewnętrznych żądań. Podsumowanie otrzymuje fokus i ma opisane wartości dostępne dla czytników ekranu oraz czytelne na telefonie.
-
-## MT-EDU-001 — autorski pakiet od algebry do macierzy
-
-Oferta zachowuje pięć dotychczasowych kategorii i rozszerza je do 35 rodzin w dwóch działach: „Powtórka podstaw” oraz „Matematyka na studia”. Nowe kategorie to wzory i równania kwadratowe, macierze oraz wyznaczniki. Cztery rodziny powtórkowe ćwiczą minusy i nawiasy, jednomiany i potęgi, współczynniki iloczynu nawiasów oraz równania z ułamkiem. Sześć rodzin kwadratowych obejmuje trzy wzory, deltę, jej interpretację i rozwiązywanie dla wszystkich trzech znaków delty.
-
-Siedem rodzin macierzowych uczy wymiaru, indeksów od 1, dodawania, odejmowania, skalowania, transpozycji prostokątnej i iloczynu AB z przykładami nieprzemienności. Użytkownik wpisuje całe macierze wynikowe do 3×3. Trzy rodziny wyznaczników obejmują ad−bc, sześć iloczynów Sarrusa i zerowy wiersz. Obliczenia są dokładne, także dla ułamków, minusów i zera.
-
-Przed odpowiedzią dostępna jest wskazówka „Jak zacząć”; po błędzie stopniowe podpowiedzi, po poprawnej odpowiedzi pełne kroki. Formularz nie podaje z góry liczby pierwiastków: użytkownik sam wybiera przypadek, a następnie wpisuje wartości, bez znaczenia kolejności. Niekompletny lub niepoprawnie zapisany formularz jest nieważną próbą. Te same wyniki correct/incorrect/invalid sterują dotychczasowymi statystykami i sugestią poziomu sesji.
-
-To samodzielnie opracowane materiały do nauki matematyki, niezależne od konkretnej instytucji, a nie formalna ocena umiejętności. Nowe rodziny bez uzasadnionej reguły pokazują neutralną nieustaloną przyczynę. Zachowano tryb swobodny w jednej rodzinie, sesje i reset formularzy. Nie ma backendu, trwałego zapisu, nowych zależności, zaokrąglania wyników ani swobodnego parsera wyrażeń. Viète, macierz odwrotna, Cramer i analiza matematyczna pozostają poza tym pakietem.
-
-## MT-EDU-002A — brudnopis i dostępne rozwiązania
-
-Panel zadania ma brudnopis Rysuj/Pisz z niezależnymi treściami, symbolami w miejscu kursora, gumką całych śladów, ograniczoną historią, odwracalnym ręcznym czyszczeniem i powiększeniem. Domyślne automatyczne czyszczenie można wyłączyć na czas pracy w karcie, także między sesjami. Automatyczny reset usuwa historię poprzedniego zadania; błędne próby, wskazówki, podgląd, zmiana trybu i rozmiaru nie usuwają notatek.
-
-Każda z 35 rodzin ma rzeczywiste, deterministyczne rozwiązanie: działanie i powód każdego kroku, a na końcu pełną odpowiedź. Przycisk jest dostępny przed oceną; kolejne etapy można odsłaniać osobno lub naraz. Podgląd przed pierwszą ważną oceną jest osobną kategorią sesji, nie sukcesem, błędem ani pominięciem. Nie zmienia wcześniejszej ważnej oceny. Do sugestii poziomu liczą się tylko samodzielnie sprawdzone odpowiedzi; dotychczasowe minimum i progi pozostają takie same.
-
-Notatki nie są interpretowane ani wysyłane; odświeżenie usuwa je wraz z ustawieniem czyszczenia. Szablony matematyczne, eksport, rozpoznawanie pisma i trwała historia pozostają poza V1. Chromium jest automatycznie testowany na 375/768/1280 px; Safari iPad/iPhone wymaga osobnego testu ręcznego na urządzeniu.
-
-## Zasady produktu
-
-- Język ma być życzliwy i nie zawstydzać po pomyłce.
-- Wyjaśnienia muszą być poprawne matematycznie i pokazywać kolejność kroków.
-- Odpowiedzi użytkownika pozostają na urządzeniu.
-- Interfejs musi działać na małym ekranie i z klawiaturą.
-
-## MT-EDU-003 — pięć poziomów oraz pełny proces PL/EN (scalone i opublikowane)
-
-Pięć poziomów to Łatwy/Easy, Średni/Medium, Trudny/Hard, Zaawansowany/Advanced i Ekspert/Expert. Dwa wyższe w 29 rodzinach łączą techniki zamiast zwiększać wyłącznie liczby: ułamkowe działania z nawiasami, przekształcenia dwustronne, kilka nawiasów przed deltą, wieloetapowe wyrażenia macierzowe i wyznaczniki. Wszystkie osiem kategorii ma oba poziomy. Sześć czynności elementarnych pozostaje jawnie ograniczone do trzech niższych. Pełna mapa i 3501 instancji są opisane oraz audytowane w GENERATORS.md.
-
-Cała nauka działa po polsku i angielsku: wybór, treść, typowane odpowiedzi, pomoc i diagnoza, uzasadnione etapy, brudnopis oraz sesje. Przełącznik w nagłówku zmienia tylko prezentację, zachowując to samo zadanie i stan pracy. Domyślny PL i preferencja języka istnieją wyłącznie w pamięci. Tekst użytkownika pozostaje jego tekstem, bez tłumaczenia, rozpoznawania pisma lub wysyłania.
-
-Historyczne przykłady pozostają, a 17 jawnych uzupełnień zapewnia minimum 10 dla małych pul. Rekomendacje obejmują pięć dostępnych poziomów w kategorii z niezmienionymi zasadami samodzielności i progami. Publikacja pozostaje osobną decyzją po CI, niezależnej recenzji i zgodzie użytkownika.
-
-## MT-004A — historia pracy i składany brudnopis (scalone i opublikowane w PR #15)
-
-„Moje postępy / My progress” zachowuje do 200 ukończonych sesji na danym urządzeniu i w danej przeglądarce. Pokazuje liczbę sesji, samodzielnych poprawnych i błędnych pierwszych ocen, podglądów przed oceną i pominięć, według kategorii i poziomów oraz w ostatnich sesjach. Kategorie i poziomy pozostają wspólne dla PL/EN. Filtry obejmują kategorię, poziom i wszystkie/ostatnie 30 dni. Procent zawsze ma mianownik samodzielnie ocenionych zadań; brak takich ocen nie staje się wynikiem 0%. Mała liczba ocen jest jawnie oznaczona, bez diagnozowania poziomu wiedzy, streaków ani nowych rekomendacji.
-
-Zapis następuje tylko po zakończeniu sesji. Utrwalane są anonimowe ID sesji, czas, kategoria, trudność, liczniki oraz rodzina i pierwszy rezultat każdego z 10 zadań. Nie zapisujemy odpowiedzi, brudnopisu, aktywnego zadania, niedokończonej sesji ani języka. Zmiana języka i nawigacja pulpit ↔ ćwiczenia zachowują pracę w bieżącej karcie. Odświeżenie przywraca jedynie historię ukończeń.
-
-Użytkownik może wyeksportować całą dostępną historię do JSON oraz usunąć ją po potwierdzeniu. Dane nie synchronizują się; wyczyszczenie przeglądarki może je bezpowrotnie usunąć. Przy niedostępnym storage nauka trwa w pamięci z komunikatem. Nieznana wersja lub uszkodzony zapis nie jest nadpisywany. Nieudane kasowanie nie jest pokazywane jako sukces.
-
-Układ zadania to: treść i dane → niewielki pasek brudnopisu → odpowiedź → Sprawdź. Brudnopis domyślnie jest zwinięty. Pokazanie/schowanie nie odmontowuje edytora, nie zmienia zaznaczenia, trybu, tekstu, rysunków ani Undo/Redo. Auto-clear nadal działa wyłącznie na granicy nowego uruchomienia zadania, według checkboxa. Powiększenie, symbole i obsługa dotyku pozostają. Schowanie powiększenia zwalnia fokus i przewijanie.
-
-Import, synchronizacja urządzeń, utrwalanie niedokończonych sesji lub notatek, adaptacyjna powtórka i nowe działy są poza tym PR. Ręczna kontrola fizycznego Safari, zielone CI, recenzja Work i zgoda użytkownika pozostają bramkami przed merge.
-
-## MT-EDU-004 — P0–P3: układy, funkcje i granice ciągów (scalone i opublikowane w PR #17)
-
-Zakres dodaje 16 rodzin i 1728 wariantów, zachowując 3501 wcześniejszych instancji. Łącznie jest 51 rodzin w 11 kategoriach. Każda nowa deklarowana para rodzina/poziom ma 24 różne treści z pełną prezentacją PL/EN. Dostępne poziomy są jawne: klasyfikacja układów i monotoniczność liniowej pozostają na 1–3, Cramer 3×3 zaczyna od hard, pozostałe rodziny wspierają pięć poziomów oprócz złożeń zaczynających od medium.
-
-Układy uczą podstawiania, eliminacji, rzędu i klasyfikacji oraz Cramera 2×2/3×3. Wyższe poziomy wymagają redukcji nawiasów i odwrócenia pomocniczych niewiadomych. Wszystkie wyniki są dokładne i sprawdzane we wszystkich oryginalnych równaniach. Wybór jednego rozwiązania wymaga wszystkich wartości; pozostałe klasy nie wymagają fikcyjnych x/y.
-
-Funkcje obejmują wartości, dziedzinę, miejsca zerowe z wykluczeniami, współczynniki liniowej z punktów i złożeń, monotoniczność, wierzchołek i oś symetrii, osiągany koniec zbioru wartości i złożenia. Nie przywracamy dziury w dziedzinie po skróceniu czynnika. Przedziały mają jawnie otwarte/zamknięte końce; formularz zer nie zdradza ich liczby.
-
-Granice ciągów wynikają z dokładnych potęg, współczynników, sprzężenia i podciągów. Odpowiedź rozróżnia liczbę, +∞, −∞ i brak granicy. Oscylacje nie stają się nieskończonością; postać różnicy rosnących wyrażeń wymaga przekształcenia. Wyjaśnienia opisują dominację, nie przybliżenia dla kilku indeksów.
-
-P0 ustawia Powiększ/Expand przed Schowaj/Hide w DOM, Tab i układzie. Brudnopis pozostaje domyślnie zwinięty. Zachowuje edytor, zaznaczenie, treści, rysunki, historię, auto-clear, pełny ekran, fokus i scroll. Scoring, podgląd przed oceną oraz lokalne postępy pozostają zgodne z wcześniejszym produktem. Nie dodano backendu, telemetrii ani usług tłumaczeniowych.
-
-Historyczny PR #17 obejmował wyłącznie P0–P3 i został scalony oraz opublikowany. Granice funkcji i pochodne rozwija odrębne MT-EDU-005; całki I01–I06 dodaje późniejszy MT-EDU-008, a dwie zmienne pozostają przyszłe. Każda nowa zmiana nadal wymaga własnego CI, recenzji i zgody na merge/publikację. Fizyczny Safari wymaga osobnego testu ręcznego.
-
-## MT-EDU-005 — dwa działy rachunku różniczkowego
-
-P0 dodaje 3 rodziny granic funkcji: punkt/jednostronne, nieskończoność i sprzężenia. P1 dodaje 9 rodzin pochodnych: wzór, wartość w punkcie, iloraz w punkcie, styczna, punkty stacjonarne, klasyfikacja ekstremów, monotoniczność, wielkości krańcowe i maksimum zysku. Ten scalony etap dodał 1152 warianty i osiągnął 63 rodziny oraz 6381 instancji. Wszystkie 5229 wcześniejszych lekcji pozostały identyczne. Rodziny mają uczciwie ograniczone poziomy i po 24 odrębne warianty każdej wspieranej pary.
-
-Osoba wracająca do nauki otrzymuje wskazówkę pierwszego działania oraz uzasadnienie każdego etapu. 0/0 jest postacią nieoznaczoną, nie wynikiem; funkcja nie otrzymuje wartości w usuniętej dziurze przez samo skracanie. Nierówne granice jednostronne dają brak granicy obustronnej. Pierwiastki analizujemy w dodatnim otoczeniu punktu, a nieskończoność przez stopnie, parzystość i znaki. Nie zastępujemy dowodu próbkami numerycznymi.
-
-Wzór pochodnej ma nazwane pola wszystkich współczynników, ze stałą oznaczoną 1. Styczna wymaga m,b, punkt stacjonarny wszystkich uporządkowanych współrzędnych, a zbiory znaków pochodnej kontrolowanego wyboru. Zerowa pochodna bez zmiany znaku nie jest nazywana ekstremum. Zadania krańcowe podają jednostki i różnicę między chwilowym tempem a dokładnym przyrostem. Maksimum zysku uwzględnia 0≤q≤Q dla ciągłej rzeczywistej produkcji, końce przedziału i możliwość straty.
-
-Pełne PL/EN, sesje, pierwsza ważna samodzielna ocena, pominięcia i podglądy, historia oraz składany brudnopis korzystają z tych samych mechanizmów co dotąd. Nie ma backendu, telemetrii, kont, nowych zależności ani parsera dowolnych napisów matematycznych. Całki, wiele zmiennych i egzamin próbny są poza MT-EDU-005.
-
-## MT-EDU-006A — wyznaczniki 4×4 i 5×5
-
-Cztery nowe rodziny uczą wyboru wygodnego wiersza/kolumny Laplace'a, poprawnych znaków dopełnień, rozwinięcia 5→4→3 i reguł operacji wierszowych. Zadania z proporcjonalnymi wierszami wyjaśniają zero bez niepotrzebnego rachunku. W rodzinie operacji wierszowych macierz wejściowa jest zwykle gęsta; ekspert wymaga zarówno odwrócenia zamiany, jak i skali. Wszystkie odpowiedzi są pojedynczym dokładnym skalarem. Każdy etap zawiera autorskie uzasadnienie PL/EN, a dotychczasowe sesje, postępy i brudnopis działają bez migracji.
-
-W [CURRICULUM_COVERAGE.md](CURRICULUM_COVERAGE.md) 64 kody służą jedynie do wstępnego porównania tematów z generatorami. Mapa nie stanowi potwierdzenia zgodności z arkuszami egzaminacyjnymi dowolnej uczelni. Math Tutor pozostaje ogólną aplikacją edukacyjną. M09–M11 obejmują kontrolowane struktury, a nie wszystkie możliwe 4×4/5×5; pełna algebra macierzy, całki i wielowymiarowa analiza są odłożone zgodnie z roadmapą. Nie publikujemy materiałów uczelni ani danych użytkownika.
-
-## MT-EDU-006B — algebra liniowa
-
-Uczeń może ćwiczyć macierze odwrotne 2×2/3×3 i sprawdzić, kiedy odwrotność nie istnieje. W równaniach macierzowych ćwiczy poprawną kolejność mnożenia `AX=B → X=A⁻¹B`. Rząd 2×3, 3×3 i 3×4 jest pokazywany przez rzeczywiste operacje wierszowe. Kronecker–Capelli zestawia `rank(A)`, `rank([A|b])` i liczbę niewiadomych. Gauss 3×3/4×4 obejmuje jedno rozwiązanie, sprzeczność i nieskończenie wiele rozwiązań; zadania klasyfikacyjne pokazują parametry, ale formularz ocenia tylko klasę, ponieważ równoważne wzory symboliczne nie są parsowane.
-
-Warianty są dostępne tylko na zadeklarowanych poziomach. P0–P2 dodają 9 rodzin i 624 warianty, a opcjonalne częściowe P3 dalsze 2 rodziny i 96 wariantów; katalog liczy 78 rodzin i 7365 instancji, z zachowaniem 6645 poprzednich. Nauka, wskazówki i uzasadnienia działają po polsku i angielsku; sesje, lokalna historia i brudnopis zachowują dotychczasową semantykę. Cramer 4 niewiadome i `XA=B` są wdrożone; układ dwóch równań macierzowych pozostaje przyszły. Materiały są autorskie i nie stanowią oficjalnych arkuszy żadnej uczelni.
-
-## MT-EDU-007 P0–P1 — funkcje elementarne i asymptoty
-
-Pięć rodzin P0 uczy warunków dziedziny logarytmów, praw potęg, kontrolowanych równań i nierówności oraz modułu. Pięć rodzin P1 dodaje granice Eulera i asymptoty pionowe, poziome oraz ukośne. Użytkownik widzi dwa kierunki nieskończoności i granice jednostronne; dziura jest odróżniana od bieguna. Wartości e^q pozostają symboliczne, a odpowiedzi są kontrolowanymi wyborami lub dokładnymi ułamkami. Łącznie P0–P1 to 10 rodzin / 768 instancji; kolejne etapy opisano niżej.
-
-## MT-EDU-007 P2 — pochodne i przegięcia
-
-Cztery nowe rodziny, 360 instancji, pokazują kiedy wolno użyć reguły de l’Hospitala dla 0/0 i ∞/∞, jak różniczkować ln|u| i e^u oraz dlaczego f''=0 nie wystarcza do wskazania przegięcia. W zadaniach rozróżnia się jeden lub dwa punkty przegięcia albo ich brak. Wyniki są dokładnymi ułamkami lub kontrolowanym wyborem, a rozwiązania zawierają znaki f'' na przedziałach. Łącznie po P0–P2 katalog miał 92 rodziny / 8493 instancje. Częściowy P3 opisano niżej.
-
-## MT-EDU-007 P3 — kontrolowane badanie funkcji (częściowe)
-
-Dwie rodziny pokazują spójne badanie przesuniętego wielomianu i prostej funkcji wymiernej. Każde rozwiązanie obejmuje dziedzinę, zera, symetrię, granice, asymptoty, tabelę znaków pochodnych, lokalne ekstrema oraz wypukłość i przegięcia. Uczeń wpisuje stacjonarne punkty na Advanced albo globalne max/min na zamkniętym przedziale na Expert. To 96 wariantów; łącznie 94 rodziny / 8589 instancji. Nie ma jeszcze ogólnych funkcji, stycznych do |x| ani rysowanego szkicu.
-
-## MT-EXAM-001 — samodzielny sprawdzian
-
-Oddzielny ekran pozwala złożyć sprawdzian z jednej lub kilku kategorii na jednym jawnie wybranym poziomie. Dostępne są 5, 10 lub 20 różnych zadań oraz praca bez limitu albo przez 15/30 minut. Dobór rozkłada zadania możliwie równomiernie między kategoriami i rodzinami. W trybie nauki nadal pozostają swobodne ćwiczenia i dziesięciozadaniowa sesja; oba tryby korzystają z tego samego niezmienionego katalogu 100 rodzin i 9021 wariantów po MT-EDU-008.
-
-Podczas sprawdzianu uczeń może przechodzić między zadaniami, wracać i poprawiać odpowiedzi. Nie widzi ocen, podpowiedzi, poprawnego wyniku ani rozwiązania. Czas jest liczony od Start do rzeczywistego terminu; po nim próba jest oddawana automatycznie. Ręczne oddanie ostrzega o pustych odpowiedziach. Po oddaniu wynik odróżnia poprawne, matematycznie błędne, nieprawidłowo zapisane i pominięte zadania. Każda poprawna odpowiedź daje jeden punkt; pozostałe dają zero. Przegląd pokazuje własny zapis i poprawny wynik, a kroki rozwiązania można odsłonić dodatkowo bez zmiany punktacji.
-
-Wersjonowana lokalna historia obejmuje najwyżej 50 ukończonych sprawdzianów i nie miesza się z historią sesji nauki. Zapisuje wyłącznie metadane zakresu, czasu i wyniku; nie zapisuje odpowiedzi ani brudnopisu. Niedokończona próba znika po odświeżeniu, o czym ekran uprzedza. Wynik nie jest oficjalną oceną konkretnej uczelni ani pełną diagnozą pomyłek. Szczegółowa diagnostyka MT-DIAG-001 i wybór pojedynczych rodzin są osobnymi przyszłymi etapami.
-
-## MT-DIAG-001 — świadoma, ograniczona analiza błędów
-
-Po błędnej odpowiedzi w nauce lub dopiero po oddaniu sprawdzianu użytkownik może poprosić o analizę. Aplikacja rozróżnia hipotezę wynikającą z samego wyniku, brak rozpoznania oraz potwierdzony brak `+C` przy prawidłowych współczynnikach. Tam, gdzie istnieje autorskie pytanie pomocnicze lub kontrolowana sonda (det 2×2/Sarrus, (AB)₁₁, Cramer 2×2/3×3, minor Laplace’a 4×4/5×5), użytkownik może wprowadzić wartość tego kroku: tylko błędny **sprawdzony** krok jest oznaczany jako błędny, bez imputowania motywów pomyłki. Dostępne są trzy inne zadania w tej samej rodzinie i trudności, sprawdzane dokładną wspólną oceną; można odsłonić rozwiązania po ważnej próbie. Dane tej powtórki zostają w pamięci karty i nie zmieniają punktów ani historii. Rozpoznawanie pełnego pisemnego toku obliczeń, nowych szczegółowych sond macierzowych i trendów jest celowo odłożone.
+The full original Polish-language product history is preserved unchanged in [the archive](docs/archive/legacy-2026-11-20/PRODUCT.md).

@@ -1,152 +1,51 @@
-# Architektura
+# Math Tutor — Technical architecture
 
-Build Vite 8 dzieli kod React/React DOM i logikę Math Tutor na osobne pliki przez `codeSplitting.groups`. Usuwa to ostrzeżenie o pojedynczym pliku ponad 500 kB bez zmiany ładowania interfejsu i bez dodatkowych zależności.
+Math Tutor is a browser-first application built with **React 19, TypeScript and Vite 8**, tested with **Vitest and Playwright** and released with GitHub Actions and Pages. Mathematical models and grading logic are kept separate from React rendering.
 
-## MT-EDU-007 P3 — częściowe, zintegrowane badanie
+## Modules
 
-`functionStudy.ts` ma dwa jawnie ograniczone modele: wielomian m(t³−3t) i funkcję wymierną m(t+1/t), gdzie t=x−a. Prezentacja pokazuje dziedzinę, dokładne zera, granice, asymptoty, znaki f' i f'', ekstrema i przegięcia. Formularz Advanced ocenia cztery współrzędne stacjonarnych punktów; Expert dwie globalne wartości na podanym zamkniętym przedziale, z jawnym porównaniem końców. `functionStudy.test.ts` niezależnie wylicza wartości i znaki wszystkich 96 wariantów PL/EN. P3 nie obejmuje innych postaci ani renderowanego szkicu.
+| Area | Source | Responsibility |
+| --- | --- | --- |
+| App and subject navigation | `src/App.tsx`, `src/SubjectNavigation.tsx`, `src/subjectRoadmap.ts` | Routes among available and planned subjects |
+| Exercise generation | `src/generators.ts`, `src/education/`, `src/university/` | Deterministic Mathematics families and bounded models |
+| Exact grading | `src/rational.ts`, `src/answers.ts`, `src/exercises.ts` | Typed answers, rational equivalence, invalid-input detection |
+| Session workflow | `src/session.ts` | Ten-task practice sessions and first-attempt accounting |
+| Exam workflow | `src/exam/` | Distinct exam questions, review and local history |
+| Progress | `src/progress/` | Local-only persisted Mathematics session metadata |
+| Statistics | `src/statistics/` | Finite datasets, mean, median, population variance, exact teaching copy |
+| Shared practice UI | `src/ui/PracticeSelectorPanel.tsx`, `src/navigation/` | Task-first UI, focus behavior and unsaved-work protection |
+| Locales | `src/locales/` | English and Polish content; language does not alter mathematical answers |
 
-## MT-EDU-007 P2 — kontrolowane przypadki pochodnych
+## Model-to-UI flow
 
-`advancedCalculus.ts` parametryzuje tylko dokładnie rozwiązywalne postaci. Reguła de l’Hospitala jest stosowana do jawnego 0/0 lub ±∞/∞ z istniejącymi pochodnymi i niezerowym mianownikiem pochodnej poza punktem; przy ponownym 0/0 warunki są sprawdzane drugi raz. Przypadki w nieskończoności uwzględniają wielomiany i logarytmy o kontrolowanej dziedzinie. Pochodne ln/e^u są liczone w punktach, gdzie logarytm jest dopuszczalny, a wynik wymierny. Dla drugiej pochodnej odpowiedź rozróżnia brak przegięcia, jedno przegięcie i dwa; sama równość f''=0 nie wystarcza. `advancedCalculus.test.ts` stosuje osobne wzory dla wartości i znaków oraz sprawdza każdy wariant w PL/EN.
+An exercise family/difficulty and controlled index or seed determine reproducible problem data. The generator provides a typed expected answer and explanatory steps. A UI component displays that data, gathers input, and submits it to the matching validator. Validation distinguishes correct, incorrect and invalid input according to that lesson's declared contract.
 
-## MT-EDU-007 P1 — dokładne granice i asymptoty
+This is **not** a universal symbolic mathematics parser. Generated variants and successful CI are not evidence of independent certification for every item.
 
-`analysisLimitsAsymptotes.ts` rozdziela parametry zadania od prezentacji PL/EN. Granice Eulera przechodzą przez dokładną tożsamość 1+t i `ln(1+t)/t→1`; odpowiedź e^q jest kontrolowanym wyborem kanonicznego wymiernego wykładnika, bez przybliżenia liczby e ani parsera wyrażeń. Asymptoty mają osobne odpowiedzi dla +∞ i −∞ albo dla granic jednostronnych. Współczynniki prostych i redukcje wymierne używają `Rational`, a brak asymptoty ma jawny wybór. `analysisLimitsAsymptotes.test.ts` wylicza niezależnie wszystkie 384 przypadki.
+## Statistics boundary
 
-## MT-EDU-007 P0 — dokładne funkcje elementarne
+Available student-facing pilot lessons are ST-101 arithmetic mean, ST-102 median and ST-103 **population** variance, calculated with divisor `n` rather than sample divisor `n-1`. Three levels are playable in those lessons. ST-104 is generator-only in PR #342 and must not be advertised as available before integration.
 
-`src/university/elementaryAnalysis.ts` opisuje autorskie parametryczne zadania log/exp/moduł i buduje prezentacje PL/EN poza React. `ElementaryAnalysisProblem` przechowuje typowany model, a `realSets.ts` normalizuje dokładne zbiory przedziałów i daje kontrolowane opcje odpowiedzi. Nie obliczamy logarytmu zmiennoprzecinkowo: korzystamy z jawnych tożsamości odwrotności funkcji i dokładnej arytmetyki `Rational`/BigInt. `elementaryAnalysis.test.ts` przelicza każdy wariant niezależnymi warunkami dziedziny, znaków i punktów brzegowych. Archiwum 7365 wcześniejszych lekcji PL/EN ma osobny test skrótów z opublikowanego `main`.
+Do not mix Statistics exercise state with Mathematics progress history. Future Econometrics and Financial Mathematics views are currently non-playable placeholders.
 
-## MT-EDU-002A — niezależne cykle życia
+## Shared UI and accessibility
 
-`src/scratchpad/model.ts` jest czystym reduktorem notatek: tekst i uporządkowane wektorowe ślady w stabilnej przestrzeni 1000×600, ograniczone migawki historii (80), wspólne odwracalne clear, atomowe pióro i gumka. Gumka sprawdza przecięcia całego przesuniętego segmentu ze śladami. Automatyczny reset według monotonnie rosnącego numeru uruchomienia usuwa także historię; nie porównuje treści ani identyfikatora wylosowanego wariantu. Opcja auto-clear domyślnie ON pozostaje w pamięci komponentu także po zakończeniu sesji. Przy OFF zachowujemy notatki i historię między uruchomieniami.
+Follow [the practice layout contract](docs/PRACTICE_LAYOUT_CONTRACT.md): subject heading, one full-width exercise, then a consistent selector panel below. Preserve keyboard and visible focus, pointer scroll position, unsaved answers, locale switches, and 375/768/1280 px layout.
 
-`Scratchpad.tsx` pozostaje zamontowany także na ekranie podsumowania (wtedy jest ukryty). Oba tryby i textarea pozostają w tym samym DOM podczas powiększania, więc przełączenia nie niszczą natywnej historii. Przy każdym nowym uruchomieniu z auto-clear ON generacja samej textarea zmienia się i React odtwarza element: odcina to natywne Undo/Redo również wtedy, gdy edytor był już pusty po Backspace. Auto-clear OFF, zmiana trybu, resize, powiększenie oraz ręczne clear nie zmieniają generacji. Niekontrolowana textarea synchronizuje wartość przy undo/clear; zwykłe wpisywanie i `insertText` do zaznaczenia korzystają z edycji przeglądarki. Gdy `insertText` nie jest dostępne, `setRangeText` ma historię aplikacji i klawiaturowe Undo/Redo. Pointer capture pilnuje jednego wskaźnika; anulowanie odrzuca niedokończoną operację, wyjście kończy ślad, a resize jedynie skaluje SVG. Modalny widok ma focus trap, Escape, odtworzenie fokusu i blokadę przewijania tła. `touch-action: none` dotyczy wyłącznie SVG. Nie ma bitmap, zapisu trwałego ani przesyłania notatek. Model wektorowy pozwala później dodać niezależne wizualne tła i eksport; nie są częścią V1.
+## Verification and deployment
 
-`src/solutions/model.ts` definiuje `SolutionStep`: etap pracy z działaniem, uzasadnieniem i typowanymi `Calculation` (operacja, wymierne argumenty, wynik), albo końcowy `AnswerSpec`. `solutionFor` konstruuje etapy 35 historycznych rodzin z parametrów i danych macierzy; nowe rodziny przekazują rozwiązanie ze swojego modelu, jak opisano w sekcji MT-EDU-004. Nie czyta ani nie dzieli `explanation`. Rachunki końcowe są wyliczane, nie kopiowane z oczekiwanej odpowiedzi; ze specyfikacji pochodzą tylko etykiety pól i dostępne opcje. Audyt każdej z 2092 instancji sprawdza wyniki etapów niezależnym mnożeniem krzyżowym i zgodność końca z katalogiem, który ma własny niezależny audyt wielomianów, równań i wyznaczników Laplace'a.
+```sh
+npm ci
+npm test
+npm run build
+npx playwright install --with-deps chromium
+npm run test:e2e
+```
 
-`SolutionPanel.tsx` konstruuje kroki dopiero po kliknięciu; niewidoczne etapy nie są montowane w DOM/ARIA. Odsłania pierwszy etap, pojedyncze kolejne lub wszystkie, kierując fokus na nowy nagłówek i aktualizując krótki status. Klucz uruchomienia resetuje panel zawsze, także przy auto-clear OFF. Wpisywanie/poprawianie odpowiedzi i podpowiedzi nie resetują rozwiązania ani brudnopisu.
+GitHub CI runs additional acceptance batches B–G. The Pages deployment is gated on completed successful CI on `main`. Verify the exact release SHA; a prior successful PR run is not deployment proof. Emulated Chrome viewport checks are not physical Safari device evidence.
 
-`session.ts` ma dodatkowy niezmienny pierwszy rezultat `solution-viewed`, zapisywany tylko przed ważną oceną. `recordFirstAttempt` nie może go nadpisać. Podsumowanie zawiera `solutionViewed`, a progi sugestii nadal opierają się wyłącznie na `correct + incorrect`. App synchronizuje zapis podglądu z referencją sesji przed pokazaniem kroków.
+## Safety
 
-## Rozszerzenie MT-EDU-001
+No new backend, account system, telemetry, paid API or unsafe evaluation without explicit scope approval. Maintain independent mathematical test oracles, exact grading, local storage safeguards, and distinct exam/session state machines.
 
-`answers.ts` definiuje kontrakt `AnswerSpec` i `AnswerInput`: scalar, list (współczynniki), matrix, choice oraz roots (kontrolowany wybór przypadku + lista wartości). `assessAnswer` najpierw waliduje kompletność i wszystkie pola, potem porównuje dokładne liczby wymierne. Pierwiastki są porównywane jako wielozbiór, więc kolejność nie ma znaczenia, ale powtórzenie jednego z dwóch różnych pierwiastków jest błędem. Żaden parser symboliczny ani tolerancja zmiennoprzecinkowa nie są używane.
-
-Dotychczasowy `Exercise` z polem `answer: Rational` pozostaje zgodny z referencyjnym katalogiem i testami. `TypedExercise` ma jawny `AnswerSpec`; `AnyExercise` łączy oba modele, a `getAnswerSpec` normalizuje stary skalar. `checkAnswer` zwraca wspólne correct/incorrect/invalid i zachowuje istniejącą diagnostykę dla skalarów. Nowe rodziny bez reguł otrzymują neutralną diagnozę. `session.ts` nadal obserwuje tylko wynik ważności/poprawności i nie zależy od rodzaju formularza.
-
-`matrices.ts` zawiera oddzielone od React, niemutujące funkcje wymiarów, sumy, różnicy, skalara, transpozycji, iloczynu i wyznacznika 2×2/3×3. Wszystkie używają `Rational`. Sarrus ma jawne trzy iloczyny dodatnie i trzy odejmowane; testy wyznaczników 3×3 korzystają z niezależnego rozwinięcia Laplace'a.
-
-`education/algebra.ts` oraz `education/matrixLessons.ts` dostarczają 20 nowych rodzin. Każda ma tylko 24 indeksy wariantu na poziom; wartości macierzy są pochodnymi indeksu, nie iloczynem dziewięciu list. `education/types.ts` tworzy identyfikatory i kanoniczne treści obejmujące dane pokazanych macierzy. `education/catalog.ts` buforuje pule. W samym MT-EDU-001 `allTemplates`/`taskPool` i generator obejmowały 35 rodzin (obecnie rejestr rozszerza katalog MT-EDU-004); `templates`/`pool` zachowują pierwotne 15 skalarne rodziny do niezależnej regresji.
-
-`AnswerFields.tsx` renderuje oznaczone pola, siatkę z porządkiem tabulacji po wierszach i kontrolowane wybory; formularz pierwiastków nie ujawnia oczekiwanego przypadku. `MatrixDisplay.tsx` pokazuje dane w tabelach z podpisami i nagłówkami. `App.tsx` zachowuje reset formularza, focus pierwszego pola, swobodną rodzinę i statystyki sesji; grupy ograniczają liczbę kategorii widocznych jednocześnie. Wszystko działa lokalnie w pamięci karty, bez nowych zależności.
-
-## Dotychczasowy produkt i regresje
-
-W MT-003B.1 `src/session.ts` przechowuje niemutowalny dziennik pierwszych ważnych ocen i pokazanych zadań jednej sesji oraz jawne funkcje podsumowania i sugestii poziomu. Zdarzenia dotyczą konkretnej instancji, więc ponowione lub nieaktualne oceny/przejścia nie zwiększają liczników. React synchronizuje stan sesji z referencją używaną przez procedury zdarzeń. `SessionSummaryPanel.tsx` przedstawia podsumowanie i przyciski świadomego wyboru; tylko rozpoczęcie kolejnej sesji na wybranym poziomie stosuje sugestię. Stan nie jest zapisywany poza pamięcią aplikacji.
-
-Statyczna aplikacja React + TypeScript zbudowana przez Vite. `src/App.tsx` obsługuje wybór kategorii, poziomów, sesję 10 zadań, formularze i stopniowe odsłanianie wskazówek. Pierwotna część `src/generators.ts` definiuje 15 rodzin, zakresy parametrów dla poziomów, konstrukcję instancji, ich wyjaśnienia i reguły błędów, skończone pule, seedowany generator pseudolosowy oraz pamięć kanonicznych treści. `src/exercises.ts` zawiera jawne typy ćwiczenia i diagnozy oraz czyste funkcje `checkAnswer`, `diagnose` i `checkStep`. `src/rational.ts` parsuje odpowiedzi i porównuje ułamki dokładnie przy użyciu `bigint`. `src/locales/pl.ts` zachowuje 15 referencyjnych zadań do regresji i zawiera komunikaty interfejsu. `src/styles.css` odpowiada za układ responsywny. Aktualną lokalizację PL/EN opisano poniżej.
-
-Odpowiedź jest parsowana jako pojedyncza liczba lub ułamek całkowitoliczbowy `a/b`. Znak `−` (U+2212) jest normalizowany do `-` po sprawdzeniu limitu długości, a następnie walidowany w dozwolonych pozycjach. Zapis dziesiętny z kropką lub przecinkiem jest przekształcany na dokładny ułamek; nie ma tolerancji zmiennoprzecinkowej. Zero w mianowniku, zbyt długie i nieprawidłowe wejścia są odrzucane. Prawidłowość wyniku jest porównywana z wartością przypisaną do zadania. Dopiero przy błędnym wyniku reguły sprawdzają, czy pasuje on do jednego lub kilku znanych wzorców; zwracają wszystkie pasujące hipotezy z niską pewnością. Brak dopasowania daje `UNDETERMINED`. Odpowiedź pomocnicza wpływa na dalszą wskazówkę, ale nie potwierdza przyczyny błędu; zmiana głównej odpowiedzi czyści poprzednią ocenę i podpowiedzi. Dotychczasowe wyjaśnienie pojawia się po poprawnej odpowiedzi; MT-EDU-002A dodaje niezależny podgląd etapów przed oceną.
-
-Rodzina określa dopuszczalne wartości parametrów dla `easy`, `medium` i `hard`; instancja zawiera `templateId`, `parameters`, `contentKey` oraz pełny model `Exercise`. Pula powstaje z iloczynu dozwolonych wartości i usuwa zduplikowane treści. Generator używa `xorshift32` z opcjonalnym seedem, losuje wyłącznie spośród niewidzianych treści i po wyczerpaniu skończonej puli rozpoczyna ją ponownie, informując o powtórce. Stan jest tylko w pamięci karty. Szczegóły i instrukcja dodawania rodzin są w [GENERATORS.md](GENERATORS.md).
-
-Vitest testuje parser, 15 referencyjnych przykładów oraz niezależnie przelicza każdą instancję z dostępnych pul, etapy pośrednie i reguły; audyt potwierdza 647 odmiennych treści. Playwright sprawdza losowanie, sesję, poziomy, telefon, komputer, dostęp z klawiatury i brak zewnętrznych żądań. `vite.config.ts` ustawia bazową ścieżkę GitHub Pages. Aplikacja nie ma backendu, telemetrii ani zewnętrznych zasobów podczas działania.
-
-Główne ograniczenie: pojedynczy wynik liczbowy nie pozwala wiarygodnie ustalić procesu myślenia użytkownika. Szczegóły i przykłady są w [ERROR_TAXONOMY.md](ERROR_TAXONOMY.md). Reguły stanowią pomoc dydaktyczną, nie pewną diagnozę sposobu rozwiązania.
-
-Bezpośrednie zależności są zgodne z użytym Node 24: React, Vite, Vitest i wtyczka React dla Vite mają licencję MIT, a TypeScript i Playwright Apache 2.0. Obie licencje pozwalają na użycie w projekcie MIT; tekst licencji projektu pozostaje w `LICENSE`.
-
-## MT-EDU-003 — trudność i lokalizacja niezależne od stanu nauki
-
-`difficulty.ts` jest kanoniczną uporządkowaną konfiguracją pięciu poziomów (ID, opisy, etykiety PL/EN), wraz z typami poziomów historycznych i wyższych. Dawne fabryki obsługują jawnie tylko trzy dawne poziomy; nie ma fallbacku. `allTemplates` dodaje rzeczywiste deklaracje `supportedDifficulties`, `taskPool` łączy historyczne pule, 17 jawnych uzupełnień i 24-wariantowe nowe wzorce. `availableDifficulties` filtruje kategorię; rekomendacja używa uporządkowanego przecięcia dostępnych poziomów. UI blokuje niedostępne rodziny, czyści odpowiedź/kroki przy świadomej zmianie i proponuje alternatywę.
-
-`advanced/schema.ts` opisuje matematyczne drzewa działań i problemy. `advanced/engine.ts` wyprowadza dokładną odpowiedź i typowane rachunki kroków; ten sam silnik używa komunikatów z `locales/math.ts` dla PL i EN. Wyniki nie są kopiowane z tekstu ani zaokrąglane. `solutions/types.ts` wydziela kontrakty i arytmetykę etapów, więc silnik nie importuje React ani generatora w czasie wykonania. Nowe zadania przekazują pełny model rozwiązania do istniejącego panelu. Historyczne rozwiązania zachowują swoją matematykę; lokalizacja ich opisów ma jawne sceny odpowiadające etapom.
-
-`LocaleProvider` przechowuje wyłącznie `locale`, domyślnie pl. `locales/catalog.ts`, `ui.ts`, `lessons-en.ts` i `math.ts` wybierają autorską prezentację, bez tłumaczenia automatycznego ani sieci. Nowy język wymaga typu locale, katalogów interfejsu/matematyki, fabryki prezentacji zadań i pełnych audytów. Stan matematyczny App pozostaje kanonicznym zadaniem; `useMemo` wyprowadza widok z `(source, locale)`. Generator nie obserwuje locale. Przechowujemy sprawdzoną odpowiedź użytkownika zamiast przetłumaczonego komunikatu, dzięki czemu feedback i pomocniczy wynik odświeżają się w nowym języku bez ponownego oceniania sesji. Fokus odpowiedzi reaguje na źródłowe zadanie, a nie na zmianę języka.
-
-`SolutionPanel` zachowuje flagę otwarcia i liczbę odsłoniętych etapów, a treść odczytuje z aktualnej prezentacji. Klucz run nie zmienia się przy locale. Scratchpad jest tym samym komponentem i tą samą textarea; tłumaczą się etykiety, a tekst, wektory i historia pozostają bez zmian. Generacja textarea nadal zmienia się wyłącznie przy nowym run z auto-clear ON. Locale nie jest zapisywane trwale; stan aktywnej nauki pozostaje w pamięci karty. Wyjątkiem od MT-004A są minimalne rekordy ukończonych sesji.
-
-Skalarne ID obejmuje poziom, usuwając dawne kolizje parametrów wspólnych dla dwóch poziomów. Wszystkie 3501 historycznych ID pozostają globalnie unikalne; MT-EDU-004 rozszerza ten audyt do 5229 bieżących instancji. Historyczne `contentKey`, pytania, wyniki i formaty nie zmieniają się; dodanie uzupełnień zmienia rozmiar niektórych pul, a więc może zmienić kolejność przy tym samym seedzie. To jawne uzupełnienie do minimum 10, a nie zmiana treści starych przykładów. Publiczny DOM ujawnia numer run, rodzinę i poziom, bez pełnych parametrów technicznego ID.
-
-## MT-004A — wersjonowana historia poza stanem aktywnej nauki
-
-`progress/model.ts` definiuje `History` (`version: 1`) i `CompletedSession`. Jeden klucz `math-tutor.progress.v1` zawiera najwyżej 200 sesji w kolejności ukończenia, również gdy zegar urządzenia zostanie cofnięty. Czas jest lokalnym odczytem zegara zapisanym jako ISO UTC; `Intl.DateTimeFormat` pokazuje lokalną datę i godzinę. Każdy rekord ma losowe UUID sesji, kategorię, poziom, sumę 10 i zgodne z nią liczniki oraz 10 par `templateId`/rezultat. Nie ma parametrów, ID ćwiczeń, odpowiedzi, treści zadań, locale, notatek ani śladów. Dekoder rekonstruuje wyłącznie dozwolone pola, sprawdza rozmiar (maks. 1 000 000 znaków), wersję, ID, ISO daty, unikalność sesji, aktualnie wspierane rodziny/poziomy/kategorie i zgodność liczników z rezultatami.
-
-`session.ts` zachowuje dotychczasową semantykę oraz opcjonalnie przenosi `templateId` do wpisu. App generuje UUID na początku sesji, a rekord tworzy z `summarizeSession` tylko przy przejściu `completed: false → true`. Nie zapisuje z efektu renderowania ani funkcji aktualizującej React; StrictMode, zmiana języka, ponowne otwarcie wyniku lub usunięcie historii nie wyzwalają ponownego zapisu starej sesji. ID deduplikuje zapis przed przycinaniem.
-
-`progress/storage.ts` izoluje I/O przez wstrzykiwany dostęp do Storage. Try/catch obejmuje także samo uzyskanie `window.localStorage`. Odmowa, quota i błąd odczytu pozostawiają wyniki w pamięci; uszkodzone/przyszłe dane nie są automatycznie nadpisywane. Niezapisane ID są śledzone tylko w pamięci, aby odzyskanie zapisu zachowało nowe wyniki. Świeży odczyt przed zakończeniem scala sekwencyjne ukończenia z innych kart, bez przywracania ich usuniętych/przyciętych, dawniej zapisanych rekordów. Nie jest to synchronizacja urządzeń ani transakcyjna baza danych. Kasowanie używa wyłącznie `removeItem` własnego klucza; dopiero sukces opróżnia stan, a błąd zachowuje dane i zgłasza brak usunięcia.
-
-`aggregate`, `filterHistory` i `breakdown` są czyste. Mianownik to `correct + incorrect`, procent przy zerze jest `null`. Podglądy i pominięcia nie są oceną; próg 7 opisuje małą ilość danych i nie tworzy nowej diagnozy ani rekomendacji. `useProgress` przechowuje stan oraz synchroniczną referencję dla procedur zdarzeń. `ProgressDashboard` lokalizuje prezentację, filtry, daty, procenty i komunikaty z `locales/progress.ts`; eksportuje cały bieżący model do lokalnego pliku Blob/JSON, bez importu i sieci. Potwierdzenie kasowania używa natywnego dialogu z bezpiecznym początkowym fokusem na Anuluj, Escape i odtworzeniem fokusu.
-
-App ukrywa widok nauki zamiast go odmontować. Scratchpad pozostaje pod treścią zadania, przed formularzem. Wewnętrzne `open` kontroluje wyłącznie atrybut `hidden` stabilnej zawartości; `expanded` pozostaje niezależnym stanem modala. Przycisk ma `aria-expanded` i `aria-controls`. Zwijanie oraz zmiana widoku zamykają powiększenie i zwalniają blokadę scrolla/focus trap, bez zmiany `run` ani generacji textarea. Generacja nadal zmienia się tylko przy nowym run z auto-clear ON. Przejście do pulpitu zachowuje odpowiedź, ocenę, postęp sesji i odsłonięte kroki.
-
-Regresje obejmują walidację, małe/zerowe mianowniki, first-attempt, duplikaty, usuwanie i odświeżenie, ograniczenie historii, odzyskanie po quota, błędy getterów, schematy PL/EN oraz Chromium 375/768/1280 px: rzeczywiste wpisywanie/Backspace/Undo/Redo, tożsamość DOM i zaznaczenie edytora, rysunek, modal, filtry, eksport i nawigację. Fizyczny Safari wymaga osobnej kontroli ręcznej.
-
-## MT-EDU-004 — modele P1–P3 poza React
-
-`university/schema.ts` definiuje układy, funkcje, drzewa wymiernych wyrażeń ciągów, sumy wyrazów geometrycznych i sprzężenia. `catalog.ts` rejestruje 16 nowych rodzin, jawne poziomy i 24 indeksy wariantu. `historicalTemplates` zachowuje 35 starych rodzin; `allTemplates` i `taskPool` dokładają katalog bez fallbacku na niższy poziom. Historia v1 waliduje nowe rodziny przez ten sam rejestr, bez migracji lub zmiany wcześniejszych zapisów.
-
-`UniversityTask` przechowuje kanoniczny problem, indeks, ID rodzina:poziom:wariant i polski `contentKey`. Prezentery systemów, funkcji i ciągów deterministycznie wyprowadzają pytanie, odpowiedź, wskazówki i rozwiązanie z tego modelu. `teaching.ts` buduje etapy z działaniem, uzasadnieniem i typowanymi dokładnymi `Calculation`. W nowych pulach model rozwiązania powstaje przy generacji; do DOM etapy nadal trafiają dopiero po odsłonięciu. Teksty są autorskimi parametrycznymi parami PL/EN, wybieranymi przez centralne locale, bez tłumaczenia sieciowego lub zamian słów. `locales/catalog.ts` wybiera prezenter bez zmiany tożsamości i stanu.
-
-`systems.ts` zawiera dokładne podstawianie, eliminację z niezerowym elementem głównym i kontrolą rzędu oraz Cramera 2×2/3×3. Przy D=0 przechodzi do klasyfikacji eliminacją. Odwraca pomocnicze niewiadome i weryfikuje każde oryginalne równanie podstawieniem. `system` w `AnswerSpec/Input` łączy wybór klasyfikacji z wymaganiem wszystkich uporządkowanych wartości tylko przy jednym rozwiązaniu. Zwykłe układy oznaczone używają uporządkowanego `list`. Wszystkie formularze najpierw sprawdzają strukturę i poprawny zapis, potem matematykę.
-
-`polynomial.ts` przechowuje współczynniki według rosnących potęg, oblicza splot, złożenie, wartości Hornerem i dokładne wymierne pierwiastki do stopnia 2. Pierwiastek całkowity jest sprawdzany, bez zaokrąglania. `realSets.ts` normalizuje sumy przedziałów, przecięcia i wykluczenia. Końce są wymierne lub nieskończone, z flagami domknięcia. Semantyczne klucze zbiorów służą wyłącznie kontrolowanym opcjom; nie porównujemy swobodnego tekstu symbolicznego. Kontekst `roots/zeros` daje poprawne etykiety pojedynczego miejsca zerowego bez nazywania go podwójnym.
-
-`limit` odróżnia skończony `Rational`, +∞, −∞ i brak granicy. Formularz nie zdradza oczekiwanego rodzaju; skończona liczba przechodzi parser przed oceną. `sequences.ts` łączy wyrażenia wymierne przed porównaniem stopni. Dla geometrii stosuje n=2k+p, grupuje równe dodatnie podstawy po kwadracie, usuwa skracające się współczynniki i porównuje oba podciągi. Nie używa próbek dużego n. Sprzężenia mają dodatni resztowy kwadrat i uzasadnione niezerowe mianowniki.
-
-`audit.ts` i `functions-audit.ts` są wyłącznie testowymi implementacjami referencyjnymi, bez importu do solverów. Audyty używają własnych BigInt i mnożenia krzyżowego, Laplace'a, bezpośrednich potęg i splotu, binarnego pierwiastka, kompletnych komórek stałego znaku oraz osobnego grupowania modułów ciągów. Testy sprawdzają każdy deklarowany poziom, wariant i rachunek pośredni, końcową odpowiedź i oba języki. E2E oblicza wyniki z publicznego polecenia niezależnymi pomocnikami, nie z ukrytej oczekiwanej odpowiedzi.
-
-P0 zmienia wyłącznie kolejność istniejących przycisków oraz ich wiersz na małym ekranie. Nie wprowadza nowego klucza, remountu lub manipulacji historią. Na 375 px nagłówek zajmuje osobny wiersz, a Expand/Hide pozostają w dwóch kolumnach w tej samej kolejności wizualnej i DOM. Testy sprawdzają klawiaturę, fokus, zaznaczenie, realne Undo/Redo, auto-clear ON/OFF, powiększenie i język.
-
-PR #17 (MT-EDU-004 P0–P3) został scalony i opublikowany. Dawne P4/P5 implementuje osobny MT-EDU-005 poniżej. P6 pozostaje przyszłym zakresem ROADMAP.
-
-## MT-EDU-005 — dokładne granice funkcji i pochodne
-
-Ten sam rejestr dokłada 12 rodzin (48 par, 1152 wariantów), razem 63/6381 i 13 kategorii. Kategorie function-limits i derivatives są odrębne od sequence-limits. Zachowano model AnswerSpec: limit, scalar, list i choice; sesje oraz schema historii v1 nie wymagają migracji. Pola współczynników mają kolejność malejących potęg z jawnie oznaczoną stałą. Nie dodano swobodnego parsera odpowiedzi.
-
-`functionLimits.ts` porównuje dokładne rzędy zera przez powtarzane dzielenie syntetyczne przez x−a. Nie dzieli przez zerowy resztowy mianownik; różnica rzędów i znak współczynników wyznaczają oba kierunki i brak granicy obustronnej. f(a) jest niezależnym, opcjonalnym parametrem. Przy ±∞ jawna zamiana x=±t sprowadza problem do dodatniego t z kontrolą parzystości. Rodzina sprzężeń ma jawne parametry dodatniego s, współczynniki radicandu i przesunięcie h=x−a; pierwsze i drugie rzędy wynikają z tożsamości różnicy kwadratów, z dodatnim granicznym sprzężeniem.
-
-`PolynomialFormula` uzyskał węzły sumy i iloczynu, zachowując wyniki dotychczasowych węzłów. `derivatives.ts` różniczkuje rekurencyjnie strukturę: suma, iloczyn, łańcuch z obiema pochodnymi; liście stosują regułę potęgową. Iloraz jest kontrolowaną osobną rodziną pochodnej w punkcie z warunkiem D(a)≠0. Styczna ma m=f′(a), b=f(a)−a·m. Analiza znaków korzysta z dokładnych zer i zbiorów przedziałów; podwójne zero pochodnej nie zmienia znaku. Ekstrema mają uzasadnienie drugą pochodną lub dokładnym brakiem zmiany znaku. Maksimum kwadratowego zysku wynika z wklęsłości i położenia punktu stacjonarnego względem [0,Q].
-
-Audyty w `functionLimits.test.ts` i `derivatives.test.ts` nie importują solverów jako źródła oczekiwanych wyników. Pierwszy rozwija P(a+h) dwumianem, niezależnie od produkcyjnego dzielenia syntetycznego. Drugi rozwija struktury osobnym splotem i porównuje wszystkie współczynniki oraz każdy pokazany pośredni wzór pochodnej; sprawdza też styczną, pełne komórki znaku i certyfikat wklęsłości. Wszystkie typowane Calculation są weryfikowane niezależną arytmetyką BigInt w PL i EN. E2E używa wyłącznie publicznego polecenia; ograniczony parser kontrolowanych wielomianów jest wyłącznie pomocnikiem testów i nie trafia do aplikacji.
-
-`history-regression.test.ts` sprawdza 51 rodzin/5229 zadań z opublikowanego main `afcb24886e80ddf06b6cee95a274c5237ef4e752`. Fixture zawiera SHA-256 pełnych zadań i rozwiązań PL/EN uporządkowanych po ID, wygenerowane z archiwum tamtego commita. Zmiana wyników, etapów, parametrów, treści lub identyfikatorów powoduje błąd, bez kopiowania całego starego katalogu do repo. Drugi test wyczerpuje wszystkie nowe pule rodzina/poziom. Testy sesji/history i E2E chronią niezmienny stan pracy, prywatność oraz natywne Undo/Redo. Nie dodano zależności ani usług; koszty generacji pozostają ograniczone do 24 indeksów na parę i buforowanych pul.
-
-## MT-EDU-006A — osobny dokładny model wyznacznika
-
-`SquareDeterminantMatrix` i `DeterminantProblem` w `university/schema.ts` obsługują 4×4/5×5 niezależnie od istniejącej granicy 1×1–3×3 w `matrixShape`, formularzu macierzy i silniku wyższych poziomów. `determinants.ts` waliduje wymiar oraz dokładne `Rational`, oblicza 4×4/5×5 przez Laplace'a z wyborem osi o najmniejszej liczbie niezerowych elementów, a 3×3 przez Sarrusa. Redukcja zapisuje jawne odwrotne operacje; współczynnik `det(A)=k·det(bieżącej)` zmienia się przy zamianie i skalowaniu, pozostaje przy dodaniu wielokrotności innego wiersza. Przed wyświetleniem wynik redukcji jest porównany z dokładnym Laplace'em.
-
-`DeterminantDisplay` pokazuje macierz jako dostępną tabelę z lokalizowaną nazwą; formularz nadal przyjmuje jeden skalar. Kanoniczny `contentKey` zawiera niezmienny zapis macierzy, więc 24 pytania danej pary rodzina/poziom są rzeczywiście różne, niezależnie od języka. Dotychczasowy stan sesji, historii i brudnopisu nie jest rozszerzany. Koszt 5×5 jest ograniczony stałym wymiarem i rzadką konstrukcją; brak ogólnej eliminacji produkcyjnej dla dużych macierzy.
-
-`determinants.test.ts` liczy każde z 264 pytań drugim algorytmem — dokładną eliminacją na BigInt — i sprawdza każdy pokazywany minor, znak, operację, czynnik, obliczenie oraz PL/EN. `determinant-regression.test.ts` porównuje SHA-256 pełnych 6381 wcześniej opublikowanych zadań i rozwiązań PL/EN z archiwum `main` `69452a655178ed073050bdf1b7dfe9e64dd15ebe`, a także wyczerpanie nowych pul. E2E obejmuje 375/768/1280 px, PL/EN, poprawne/błędne/nieważne odpowiedzi, kroki, brudnopis i sesję. Test fizycznego Safari pozostaje osobną kontrolą ręczną.
-
-## MT-EDU-006B — dokładny solver algebry liniowej
-
-`university/linearAlgebraMath.ts` waliduje prostokątne macierze wymierne osobno od starego `matrixShape` (granica 3×3 formularza). Redukcja Gaussa–Jordana ma wybór niezerowego pivota, zamianę wierszy i dokładne operacje na BigInt; służy do odwrotności i rzędu. Eliminacja do postaci schodkowej i osobne podstawienie wsteczne rozwiązują układy 3×3/4×4. `classifySystem` porównuje rzędy A i [A|b] oraz produkuje bezpieczną parametryzację z niepivotowych kolumn. Nie dzieli przez zero ani nie zwraca rozwiązania układu sprzecznego.
-
-`inverses.ts`, `ranks.ts` i `gauss.ts` zawierają oddzielne generatory oraz prezenterów PL/EN. `LinearAlgebraDisplay.tsx` pokazuje dane jako tabele A/B lub [A|b] także na małym ekranie; odpowiedź 4×4 pozostaje układem czterech nazwanych pól, a nie rozszerzeniem starej siatki macierzy. Odpowiedzi macierzowe dotyczą wyłącznie wymiarów do 3×3. Zmiana języka odbudowuje prezentację z tego samego modelu bez zmiany ID, `contentKey`, wpisów lub stanu sesji.
-
-Fixture `mtedu006a-baseline.json` zostało wygenerowane z archiwum opublikowanego `main` `ea1cae4017b1c972f7762cc36aca5f1b0e223b79`, nie z gałęzi roboczej. SHA-256 obejmuje pełne zadania i rozwiązania PL/EN dawnych 6645 instancji. Nowe audyty liczą odwrotności przez dopełnienia, rzędy przez wszystkie możliwe minory, a układy przez Cramera 3×3/4×4 i podstawienie. Produkcja nie importuje testowych oracle'i. Formularze zachowują `correct/incorrect/invalid` oraz zasady pierwszej ważnej próby, bez zmiany schematu historii. Nie ma nowej zależności ani usługi sieciowej.
-
-P3 dodaje `cramerFour.ts`: pięć wyznaczników 4×4 przez rozwinięcie Laplace'a, zero D kieruje do dokładnej klasyfikacji rzędami, a nie do ilorazu. Każde Dⱼ zastępuje tylko jedną kolumnę wektorem b; rozwiązanie czterech niewiadomych jest sprawdzane w oryginalnych równaniach. `inverse-right-applications` używa `X=BA⁻¹` dla `XA=B`, z osobną kontrolą `XA`. Audyt Cramera stosuje niezależny wzór Leibniza, a dawny model formularza nie wymaga rozszerzenia. Dwa typy P3 są wdrożone; układ dwóch równań macierzowych pozostaje odłożony.
-
-## MT-EDU-008 — dokładny model całek
-
-`src/university/integrals.ts` jest typowanym modelem sześciu rodzin P0–P2. Parametry zadań i wynik pozostają niezależne od React i języka; `presentIntegral` tworzy autorskie kroki PL/EN. Nowy `AnswerSpec.primitive` nie parsuje swobodnych wzorów: deklaruje bazę funkcji pierwotnej i dokładne wymierne współczynniki, a `AnswerFields` zbiera te wartości oraz jawne `+C`. Składnik stały nie jest częścią porównania, więc równoważność funkcji pierwotnych modulo stała jest zachowana w obrębie zadeklarowanej bazy. Tylko jednoznacznie stwierdzalny brak `+C` ma konkretną diagnozę. Całka oznaczona używa istniejącego `scalar` i dokładnego F(b)−F(a). Nie dodano zależności ani parsera wyrażeń.
-
-`integrals.test.ts` niezależnie sprawdza wszystkie 432 warianty przez różniczkowanie współczynników lub sumę momentów na granicach, a `e2e/integrals.spec.ts` kontroluje formularz, kroki, PL/EN, trzy szerokości i sesję. Dawne 8589 instancji pozostają w niezmienionych modułach generatorów; nowe zadania dokłada `universityPool` tylko w kategorii `integrals`.
-
-## MT-EXAM-001 — osobny model sprawdzianu
-
-`src/exam/model.ts` wybiera zadania z istniejącego `taskPool` bez modyfikowania generatorów. Jawna konfiguracja sprawdza kategorię, poziom i liczbę dostępnych różnych `contentKey`; algorytm z seedem przechodzi po kategoriach i najmniej użytych rodzinach. Stan obejmuje niezmienne zadania, ostatnie wpisane odpowiedzi, indeks, czas Start i termin oraz jednorazowe oddanie. Punktacja korzysta z istniejącego `assessAnswer`, lecz puste odpowiedzi klasyfikuje osobno jako pominięte. Wynik jest sumą 1/0 bez punktów częściowych; `incorrect`, `invalid` i `skipped` pozostają różnymi rezultatami. Termin opiera się na `Date.now`, a zdarzenia `focus`/`visibilitychange` i interwał sprawdzają go po uśpieniu karty. Edycja oraz nawigacja po terminie najpierw oddają próbę.
-
-`ExamMode.tsx` nie renderuje podpowiedzi, feedbacku ani `SolutionPanel` przed oddaniem. Używa istniejącego `AnswerFields` bez przycisku oceny, a po oddaniu pokazuje `FinalAnswer` i opcjonalny panel kroków. Brudnopis ma własną instancję na czas sprawdzianu. Ekran nauki pozostaje ukryty i zachowuje swój stan; identyfikatory pól i brudnopisu sprawdzianu mają osobny prefiks, aby etykiety i aria-controls wskazywały właściwy edytor. Aktywna próba blokuje przejście do pozostałych ekranów, ale pozwala zmienić język bez wymiany matematycznego zadania i odpowiedzi.
-
-`src/exam/history.ts` używa osobnego `math-tutor.exam-history.v1` i maksymalnie 50 raportów. Walidacja rekonstruuje wyłącznie dozwolone metadane, odrzuca błędne sumy i nie nadpisuje uszkodzonej ani nieznanej wersji. Żadna odpowiedź, notatka lub aktywna próba nie trafia do localStorage. Dotychczasowy `math-tutor.progress.v1`, sesja nauki i 9021 wariantów pozostają bez zmian. Testy modelu obejmują wszystkie klasy `AnswerSpec`, zegar, jednorazowe oddanie, dobór i historię; Playwright sprawdza PL/EN, szerokości 375/768/1280 px, izolację podpowiedzi, zmianę języka, brudnopis i odświeżenie.
-
-
-## MT-EDU-014 P2 — prostokątne rozwiązania parametryczne
-
-Nowe rodziny w `university/gaussRectangularParameters.ts` zwracają istniejący model `linear-system` z `method: parameters`. Wymiary 3×2/4×3/2×3 mieszczą się w dokładnym solverze; nie zmieniono schematu formularza ani React. `presentGaussParameters` obsługuje m równań i n niewiadomych, weryfikując każdą część wektorowej parametryzacji w oryginalnym układzie. Testy korzystają z niezależnych minorów/Cramera, sprawdzają operacje wierszowe, kompletność i 24 różne zbiory rozwiązań każdej pary. Fixture `mtedu014p1-baseline.json`, zarejestrowane przed zmianą generatorów na main f585218, chroni 118 rodzin / 10389 wariantów wraz z rozwiązaniami PL/EN. Nie dodano parsera wyrażeń, zależności ani usług.
+The complete historical Polish architecture record remains unchanged in [the archive](docs/archive/legacy-2026-11-20/ARCHITECTURE.md).

@@ -13,9 +13,9 @@ it("the 64-topic coverage map has one valid, evidenced row per Issue #20 code", 
   const ids = new Set(allTemplates.map(template => template.id));
   for (const row of rows) {
     const fields = row.split("|").map(field => field.trim());
-    expect(["pokryte","częściowo","brak","teoria","do weryfikacji"]).toContain(fields[3]);
+    expect(["covered","partial","missing","theory","unverified"]).toContain(fields[3]);
     for (const match of fields[4].matchAll(/`([a-z][a-z0-9-]+)`/g))
       expect(ids.has(match[1]),`${fields[1]} refers to unknown ${match[1]}`).toBe(true);
   }
-  expect(doc).toContain("Pełne pokrycie wymaga weryfikacji każdego typu zadania, rozwiązania i testu.");
+  expect(doc).toContain("Complete syllabus coverage requires independent verification of every required problem type, its worked solution and its test evidence.");
 });

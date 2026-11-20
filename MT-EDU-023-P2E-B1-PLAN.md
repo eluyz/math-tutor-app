@@ -1,14 +1,7 @@
-# MT-EDU-023 P2E-B1 — dokładne pole dwóch parabol
+# Historical Math Tutor record — area between two parabolas
 
-Baza: PR #80 scalony i opublikowany, main 27afa8238e96655b4994075036ec959d8f5cb09b; 180 rodzin i 14 853 warianty.
+This file was created for an earlier Math Tutor planning or audit checkpoint. **It is not the current release plan or a live status report.** The original source, numbers, mathematical evidence, issues and workflow links have been preserved unchanged at:
 
-- Jedna nowa rodzina: `integral-area-parabolas`, hard/advanced/expert, po 24 warianty (razem +72).
-- Krzywe to dwie prawdziwe parabole o różnych, niezerowych współczynnikach kwadratowych, z różnymi osiami. Po odjęciu f-g=delta[(x-center)^2-radius^2].
-- Odpowiedź to `∫|f−g|dx` po **wyłącznie wewnętrznych** przecięciach. Przypadki 0/1/2 przecięcia na przedziale, włącznie z dodatnią/ujemną deltą.
-- Wyniki to dokładne ułamki; objaśnienia PL/EN; test niezależny przez próbkowanie numeryczne, bez zmian trybu sprawdzianów.
-- Po ewentualnym merge: 181 rodzin, 14 925 wariantów; I07 nadal częściowo.
+[**Read the complete original record**](docs/archive/legacy-2026-11-20/MT-EDU-023-P2E-B1-PLAN.md)
 
-## Bramka
-- [ ] Vitest + TypeScript/build + Playwright PASS
-- [ ] Recenzja matematyczna i techniczna bieżącego HEAD
-- [ ] Osobna wyraźna zgoda właściciela na Squash and merge (bez auto-merge)
+For current scope and release status, see the [English README](README.md), [roadmap](ROADMAP.md), [documentation index](docs/README.md) and [QA evidence register](QA_AUDIT_PROGRESS.md). Archived statements such as "pending", "unmerged", and historical catalog counts refer to their original dates and SHA references.
