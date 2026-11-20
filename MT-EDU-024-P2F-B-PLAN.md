@@ -1,22 +1,7 @@
-# MT-EDU-024 P2F-B — nowe przypadki I03/I04
+# Historical Math Tutor record — substitution and integration by parts
 
-Baza: `main` commit `0c462bcfa95c3b317478716d09a50cd6e8e44f52`, 184 rodziny / 15 141 wariantów, CI/Pages SUCCESS.
+This file was created for an earlier Math Tutor planning or audit checkpoint. **It is not the current release plan or a live status report.** The original source, numbers, mathematical evidence, issues and workflow links have been preserved unchanged at:
 
-## P2F-B1: integral-log-substitution
-- Całka ∫ k·2a(ax+b)/((ax+b)²+c) dx z a,k≠0, c>0; u=(ax+b)²+c.
-- Przez podstawienie u′dx=du uzyskujemy k·ln(u)+C. Mianownik dodatni na R; nie wprowadzamy niejawnego ograniczenia dziedziny.
-- Warianty uwzględniają ujemne a,k, dokładne wymierne parametry, 24 warianty na hard/advanced/expert.
+[**Read the complete original record**](docs/archive/legacy-2026-11-20/MT-EDU-024-P2F-B-PLAN.md)
 
-## P2F-B2: integral-parts-trig-linear
-- ∫kx sin(ax+b) dx = −(k/a)x cos(ax+b)+(k/a²)sin(ax+b)+C.
-- ∫kx cos(ax+b) dx = (k/a)x sin(ax+b)+(k/a²)cos(ax+b)+C.
-- Oba rodzaje, a,k≠0, u=x i dv jako funkcja trygonometryczna; 24 warianty na hard/advanced/expert.
-
-## Bramki
-- [ ] Niezależna weryfikacja dokładnych współczynników, pochodnych i dziedziny dla 144 wariantów.
-- [ ] Vitest i TypeScript/build SUCCESS na aktualnym HEAD.
-- [ ] Pełny Playwright Chromium SUCCESS na aktualnym HEAD: PL/EN i 375/1280 px.
-- [ ] Niezależna recenzja matematyczna i techniczna oraz brak nierozwiązanych uwag.
-- [ ] Osobna wyraźna zgoda właściciela na Squash and merge. BEZ AUTOSCALANIA.
-
-Docelowo po zatwierdzonym merge: 186 rodzin / 15 285 wariantów. Nadal tylko częściowe pokrycie I03/I04. Bez trybu sprawdzianów i bez uczelnianej specyfiki w UI.
+For current scope and release status, see the [English README](README.md), [roadmap](ROADMAP.md), [documentation index](docs/README.md) and [QA evidence register](QA_AUDIT_PROGRESS.md). Archived statements such as "pending", "unmerged", and historical catalog counts refer to their original dates and SHA references.

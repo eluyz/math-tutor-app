@@ -1,24 +1,7 @@
-# MT-EDU-022 P2D-B — wykresy SVG podczas pełnego badania funkcji
+# Historical Math Tutor record — SVG graphing in function study
 
-## Stan bazowy
-- Zatwierdzony Squash and merge PR #78, commit `main` `95b7f3a54584f047aec2cff694747d5a0cf0c5f1`; 178 rodzin / 14 709 wariantów.
-- Kontrola pełnego CI na main po #78 i publikacji Pages jest osobnym zadaniem po scaIeniu; nie wyciągać wniosków o sukcesie przed zakończeniem run.
-- Wprowadzamy wykresy do *istniejących* generatorów `analysis-study-quartic` i `analysis-study-rational-shift`, bez duplikatów i nowych wariantów.
+This file was created for an earlier Math Tutor planning or audit checkpoint. **It is not the current release plan or a live status report.** The original source, numbers, mathematical evidence, issues and workflow links have been preserved unchanged at:
 
-## Problem użytkownika / decyzje
-- Dotychczas ćwiczenia tylko opisywały kształt krzywej i znaki pochodnej. Wykres wspiera wzrokową kontrolę wyprowadzenia, ale pokazanie go **przed odpowiedzią** ułatwiłoby mechaniczne odczytanie części rozwiązań. Dlatego SVG jest widoczny **dopiero po kliknięciu „Pokaż rozwiązanie / Show solution”**, obok krokowego dowodu.
-- Realne wykresy funkcji obliczane deterministycznie ze współczynników zadania, nie z gotowego obrazka ani generowanej ilustracji.
-- Używamy lokalnych znormalizowanych współrzędnych `u=(x-a)/q`, `z=(f(x)-k)/scale` dla czytelności wielu wariantów. Linia `x=a` oraz `y=k` jest **linią odniesienia, niekoniecznie osią OX/OY**. Znaczniki x i współrzędne punktów stacjonarnych są podpisane prawdziwymi, dokładnymi wartościami.
-- Dla kwartycznej trzy wyróżnione punkty i krzywa typu W/M z dwoma przegięciami. Dla wymiernej dwie odrębne gałęzie, asymptota pionowa x=a, przerywana ukośna y=m(x-a)+k oraz dwa stacjonarne punkty — nie łączymy gałęzi przez biegun.
-- Tekstowy odpowiednik, tytuł i opis SVG oraz rozwijana lista punktów w obu językach, responsywność telefonu i desktopu, zero dodatkowych bibliotek.
+[**Read the complete original record**](docs/archive/legacy-2026-11-20/MT-EDU-022-P2D-B-PLAN.md)
 
-## Kontrole
-- [ ] Matematyczna weryfikacja wszystkich 144 geometrii na podstawie niezależnych wzorów, punktów i liczbowej dokładności.
-- [ ] Pełne Vitest PASS.
-- [ ] TypeScript + produkcyjny build PASS.
-- [ ] Playwright PASS, PL/EN, mobile/desktop, ukrywanie przed ujawnieniem, poprawna liczba krzywych/punktów/asymptot.
-- [ ] Końcowa recenzja kodu i dostępności, bez błędów.
-- [ ] **Osobna nowa zgoda użytkownika na Squash and merge P2D-B**.
-
-## Ograniczenia
-- Nie ma ręcznego rysowania krzywej przez użytkownika ani automatycznej oceny takiego szkicu. Status D09 pozostaje **częściowo**, podobnie D05/D07/D08/D10. Brak zmian w `AnswerSpec` i historii postępów.
+For current scope and release status, see the [English README](README.md), [roadmap](ROADMAP.md), [documentation index](docs/README.md) and [QA evidence register](QA_AUDIT_PROGRESS.md). Archived statements such as "pending", "unmerged", and historical catalog counts refer to their original dates and SHA references.
