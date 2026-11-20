@@ -186,6 +186,8 @@ it("dokumentacja odzwierciedla policzone instancje i rzeczywisty zasięg L4/L5",
     new URL("../../README.md", import.meta.url),
     "utf8",
   );
-  expect(["rodzin", "rodziny"].some((form) => readme.includes(`**${allTemplates.length} ${form}**`))).toBe(true);
-  expect(readme).toContain(`**${all.length} instancji**`);
+  // Public repository documentation is English; keep the real catalog
+  // counts checked rather than preserving old Polish-language assertions.
+  expect(readme).toContain(`**${allTemplates.length} exercise families**`);
+  expect(readme).toContain(`**${all.length.toLocaleString("en-US")} deterministic variants**`);
 });
