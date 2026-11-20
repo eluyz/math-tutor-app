@@ -2,6 +2,13 @@ import { describe, expect, it } from "vitest";
 import { subjectCopy, subjectOrder, subjectStatus } from "./subjectRoadmap";
 
 describe("subject expansion roadmap", () => {
+  it.each(["pl","en"] as const)("includes the playable interpretation lesson in the %s Statistics scope",locale=>{
+    const statistics=subjectCopy[locale].subjects.statistics;
+    const interpretation=locale==="pl"?/interpretacj\S* statystyczn\S*/i:/statistical interpretation/i;
+    expect(statistics.description).toMatch(interpretation);
+    expect(statistics.nextStep).toMatch(interpretation);
+    expect(statistics.description).toMatch(locale==="pl"?/nie jest pełny kurs/:/not a complete statistics course/);
+  });
   it("keeps mathematics available and future subjects visibly non-released", () => {
     expect(subjectStatus.mathematics).toBe("available");
     for (const id of subjectOrder.filter((subject) => subject !== "mathematics")) {
