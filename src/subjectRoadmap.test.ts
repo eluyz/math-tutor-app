@@ -2,9 +2,12 @@ import { describe, expect, it } from "vitest";
 import { subjectCopy, subjectOrder, subjectStatus } from "./subjectRoadmap";
 
 describe("subject expansion roadmap", () => {
-  it.each(["pl","en"] as const)("includes the playable interpretation lesson in the %s Statistics scope",locale=>{
+  it.each(["pl","en"] as const)("includes playable Mode and interpretation lessons in the %s Statistics scope",locale=>{
     const statistics=subjectCopy[locale].subjects.statistics;
     const interpretation=locale==="pl"?/interpretacj\S* statystyczn\S*/i:/statistical interpretation/i;
+    const mode=locale==="pl"?/\bdominant\S*/i:/\bmode\b/i;
+    expect(statistics.description).toMatch(mode);
+    expect(statistics.nextStep).toMatch(mode);
     expect(statistics.description).toMatch(interpretation);
     expect(statistics.nextStep).toMatch(interpretation);
     expect(statistics.description).toMatch(locale==="pl"?/nie jest pełny kurs/:/not a complete statistics course/);

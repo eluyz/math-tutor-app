@@ -80,9 +80,13 @@ describe("ST-105 PL/EN solutions from displayed observations", () => {
       expect(copy.table.rows.map(row => [row.value, row.frequency])).toEqual(rows);
       expect(copy.options.map(option => option.id)).toEqual(question.options.map(option => option.id));
       expect(new Set(copy.options.map(option => option.label)).size).toBe(3);
-      expect(copy.options.find(option => option.id === answer)?.label).toBe(result || copy.options.find(option => option.id === "no-mode")?.label);
-      if (result) expect(copy.conclusion).toContain(result);
+      if (result) {
+        expect(copy.options.find(option => option.id === answer)?.label).toBe(result);
+        expect(copy.conclusion).toContain(result);
+      }
     }
+    expect(pl.options.find(option => option.id === "no-mode")?.label).toBe("Brak dominanty");
+    expect(en.options.find(option => option.id === "no-mode")?.label).toBe("No mode");
     expect(pl.prompt).toContain("co najmniej 2");
     expect(en.prompt).toContain("at least 2");
     expect(pl.hints[1]).toContain("brak dominanty");

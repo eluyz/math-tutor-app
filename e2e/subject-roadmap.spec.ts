@@ -16,7 +16,7 @@ for (const { name, viewport } of [
       await subjects.getByRole("button", { name: /Statystyka i prawdopodobieństwo/ }).click();
       await expect(page.getByRole("heading", { name: "Statystyka i prawdopodobieństwo" })).toBeVisible();
       await expect(page.getByText("W rozwoju").last()).toBeVisible();
-      await expect(page.getByText(/Pilotaż obejmuje średnią arytmetyczną, medianę, wariancję populacyjną i interpretację statystyczną z dokładnym sprawdzaniem odpowiedzi/)).toBeVisible();
+      await expect(page.getByText(/Pilotaż obejmuje średnią arytmetyczną, medianę, dominantę, wariancję populacyjną i interpretację statystyczną z dokładnym sprawdzaniem odpowiedzi/)).toBeVisible();
       await expect(page.getByRole("heading", { name: "ST-101 — Średnia arytmetyczna" })).toBeVisible();
       await expect(page.getByRole("navigation", { name: "Działy Math Tutor" }).getByRole("button", { name: /Statystyka i prawdopodobieństwo/ })).toHaveAttribute("aria-current", "page");
 

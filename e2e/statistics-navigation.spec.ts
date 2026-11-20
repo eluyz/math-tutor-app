@@ -26,8 +26,9 @@ for(const width of [320,375,1280]) for(const en of [false,true]) {
   await expect(tracks.getByRole("button")).toHaveText(en?["Statistics fundamentals","University statistics"]:["Podstawy statystyki","Statystyka na studia"]);
   await expect(p.locator("[data-track=fundamentals]")).toHaveAttribute("aria-pressed","true");
   await expect(topics.getByRole("button")).toHaveCount(7);
-  await expect(topics.locator("button:enabled")).toHaveCount(4);
-  expect(await topics.locator("button:enabled").evaluateAll(buttons=>buttons.map(button=>button.getAttribute("data-topic")))).toEqual(["mean","median","dispersion","interpretation"]);
+  await expect(topics.locator("button:enabled")).toHaveCount(5);
+  expect(await topics.locator("button:enabled").evaluateAll(buttons=>buttons.map(button=>button.getAttribute("data-topic")))).toEqual(["mean","median","mode","dispersion","interpretation"]);
+  expect(await topics.locator("button:disabled").evaluateAll(buttons=>buttons.map(button=>button.getAttribute("data-topic")))).toEqual(["data-tables","charts"]);
   await expect(p.locator("[data-topic=mean]")).toHaveAttribute("aria-pressed","true");
   await expect(p.locator("[data-topic=median]")).toBeEnabled();
   await expect(p.locator("[data-topic=dispersion]")).toBeEnabled();
@@ -50,6 +51,8 @@ for(const width of [320,375,1280]) for(const en of [false,true]) {
   await expect(p.locator("[data-track=university]")).toHaveAttribute("aria-pressed","true");
   await expect(topics.getByRole("button")).toHaveCount(9);
   await expect(topics.locator("button:enabled")).toHaveCount(0);
+  expect(await topics.locator("button:disabled").evaluateAll(buttons=>buttons.map(button=>button.getAttribute("data-topic"))))
+   .toEqual(["descriptive","combinatorics","probability","conditional","random-variables","distributions","estimation","hypothesis-tests","correlation"]);
   await expect(levels.locator("button:enabled")).toHaveCount(0);
   for(const level of await levels.getByRole("button").all()) await expect(level).toHaveAttribute("aria-pressed","false");
   await expect(p.locator(".question,form,.solution-calculation")).toHaveCount(0);

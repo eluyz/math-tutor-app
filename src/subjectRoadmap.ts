@@ -48,9 +48,9 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statystyka i prawdopodobieństwo",
         title: "Statystyka i prawdopodobieństwo",
-        description: "Pilotaż obejmuje średnią arytmetyczną, medianę, wariancję populacyjną i interpretację statystyczną z dokładnym sprawdzaniem odpowiedzi. Inne lekcje nie są jeszcze udostępnione; to nie jest pełny kurs statystyki.",
-        topics: ["Statystyka opisowa: średnia, mediana, wariancja i interpretacja wyników", "Podstawy prawdopodobieństwa i kombinatoryka", "Rozkłady losowe i estymacja", "Przedziały ufności i testy hipotez"],
-        nextStep: "Zweryfikować wyniki pilotażu średniej, mediany, wariancji populacyjnej i interpretacji statystycznej przed rozbudową kolejnych zagadnień.",
+        description: "Pilotaż obejmuje średnią arytmetyczną, medianę, dominantę, wariancję populacyjną i interpretację statystyczną z dokładnym sprawdzaniem odpowiedzi. To nie jest pełny kurs statystyki.",
+        topics: ["Statystyka opisowa: średnia, mediana, dominanta, wariancja i interpretacja wyników", "Podstawy prawdopodobieństwa i kombinatoryka", "Rozkłady losowe i estymacja", "Przedziały ufności i testy hipotez"],
+        nextStep: "Zweryfikować wyniki pilotażu średniej, mediany, dominanty, wariancji populacyjnej i interpretacji statystycznej przed rozbudową kolejnych zagadnień.",
       },
       econometrics: {
         label: "Ekonometria",
@@ -81,9 +81,9 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statistics & Probability",
         title: "Statistics & Probability",
-        description: "This pilot covers arithmetic mean, median, population variance and statistical interpretation, with exact answer checking. Other lessons are not available yet; this is not a complete statistics course.",
-        topics: ["Descriptive statistics: mean, median, variance and interpretation", "Probability basics and combinatorics", "Random variables, distributions and estimation", "Confidence intervals and hypothesis testing"],
-        nextStep: "Review the mean, median, population-variance and statistical interpretation pilot before approving further lessons.",
+        description: "This pilot covers arithmetic mean, median, mode, population variance and statistical interpretation, with exact answer checking. This is not a complete statistics course.",
+        topics: ["Descriptive statistics: mean, median, mode, variance and interpretation", "Probability basics and combinatorics", "Random variables, distributions and estimation", "Confidence intervals and hypothesis testing"],
+        nextStep: "Review the pilot for mean, median, mode, population variance and statistical interpretation before approving further lessons.",
       },
       econometrics: {
         label: "Econometrics",
