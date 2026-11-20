@@ -28,6 +28,7 @@ for(const width of [375,768,1280]) for(const locale of ["pl","en"] as const) {
       const p=page.locator(".statistics-practice");
       await p.locator("[data-topic=interpretation]").click();
       await expect(p.getByRole("heading",{name:c.title,exact:true})).toBeVisible();
+      await expect(p.locator(".statistics-heading .subject-roadmap-description")).toContainText(en?"statistical interpretation":"interpretację statystyczną");
       return p;
     }
     const selected=(p:Locator,id:string)=>p.locator(`input[type=radio][value="${id}"]`);
@@ -83,6 +84,14 @@ for(const width of [375,768,1280]) for(const locale of ["pl","en"] as const) {
       await expect(p.locator(".question")).toHaveAttribute("data-exercise-id","st104-easy-0");
       await expect(selected(p,answers[0])).toBeChecked();
       await expect(p.locator(".learning-hint")).toHaveCount(2);
+      await expect(p.getByRole("radiogroup",{name:en?"Wybierz jedną odpowiedź":"Choose one answer"})).toBeVisible();
+      for(const [id,sign] of [["mean-below-median","<"],["mean-equals-median","="],["mean-above-median",">"]]) {
+        await expect(selected(p,id)).toHaveAccessibleName(en?`Średnia ${sign} mediana`:`Mean ${sign} median`);
+      }
+      await expect(p.locator(".learning-hint").first()).toHaveText(en
+        ? "Oblicz średnią ze wszystkich obserwacji, a medianę wyznacz po ich uporządkowaniu."
+        : "Calculate the mean from every observation, then obtain the median from the ordered data.");
+      await expect(p.locator(".solution-panel h4").first()).toHaveText(en?"Liczba i suma obserwacji":"Observation count and sum");
       expect(await p.locator(".solution-calculation").allTextContents()).toEqual(steps);
       await p.getByRole("button",{name:en?"Sprawdź":"Check",exact:true}).click();
       await expect(p.locator(".feedback")).toContainText(en?"Poprawna odpowiedź.":"Correct answer.");
@@ -172,6 +181,11 @@ for(const width of [375,768,1280]) for(const locale of ["pl","en"] as const) {
       expect(Math.abs(card!.width-selector!.width)).toBeLessThanOrEqual(2);
       for(const label of await p.locator(".statistics-choice").all()) {
         const box=await label.boundingBox();expect(box).not.toBeNull();expect(box!.height).toBeGreaterThanOrEqual(44);
+        const radio=await label.locator("input").boundingBox(),text=await label.locator("span").boundingBox();
+        expect(radio).not.toBeNull();expect(text).not.toBeNull();
+        expect(text!.x-radio!.x-radio!.width).toBeGreaterThanOrEqual(8);
+        expect(Math.abs((radio!.y+radio!.height/2)-(text!.y+text!.height/2))).toBeLessThanOrEqual(2);
+        expect(await label.evaluate(el=>parseFloat(getComputedStyle(el).fontSize))).toBeGreaterThanOrEqual(16);
       }
       for(const track of ["university","fundamentals"]) {
         const target=p.locator(`[data-track=${track}]`);
@@ -180,7 +194,15 @@ for(const width of [375,768,1280]) for(const locale of ["pl","en"] as const) {
         expect(box).not.toBeNull();await page.mouse.click(box!.x+box!.width/2,box!.y+box!.height/2);
         await expect(target).toHaveAttribute("aria-pressed","true");
         // A shorter document can clamp scroll naturally; an additional focus jump cannot.
-        await expect.poll(()=>page.evaluate(old=>Math.abs(scrollY-Math.min(old,Math.max(0,document.documentElement.scrollHeight-innerHeight))),before)).toBeLessThanOrEqual(2);
+        const offsets=await page.evaluate(async old=>{
+          const deltas:number[]=[];
+          for(let frame=0;frame<6;frame++) {
+            await new Promise<void>(resolve=>requestAnimationFrame(()=>resolve()));
+            deltas.push(Math.abs(scrollY-Math.min(old,Math.max(0,document.documentElement.scrollHeight-innerHeight))));
+          }
+          return deltas;
+        },before);
+        expect(Math.max(...offsets)).toBeLessThanOrEqual(2);
       }
       await expect(p.locator(".question")).toHaveAttribute("data-lesson","mean");
       await noOverflow(page);
