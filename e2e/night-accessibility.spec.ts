@@ -5,7 +5,15 @@ const contrast=(a:number[],b:number[])=>{
 };
 for(const width of [320,375,390,768,1280,1440]) test(`keyboard, contrast and reflow ${width}`,async({page})=>{
   await page.setViewportSize({width,height:900}); await page.emulateMedia({reducedMotion:'reduce'}); await page.goto('/');
-  await page.keyboard.press('Tab'); await expect(page.getByRole('link',{name:'Przejdź do treści'})).toBeFocused();
+  const skip=page.getByRole('link',{name:'Przejdź do treści'});
+  // Keyboard APIs do not auto-wait for React's asynchronous initial render.
+  await expect(skip).toBeVisible();
+  await page.keyboard.press('Tab');
+  console.log('INITIAL_TAB_FOCUS',JSON.stringify(await page.evaluate(()=>({
+    tag:document.activeElement?.tagName,id:document.activeElement?.id,
+    href:document.activeElement?.getAttribute('href'),hasFocus:document.hasFocus(),
+  }))));
+  await expect(skip).toBeFocused();
   await page.keyboard.press('Enter'); await expect(page.getByRole('main')).toBeFocused();
   const colors=await page.locator('footer p').evaluate(el=>({fg:getComputedStyle(el).color.match(/[\d.]+/g)!.map(Number),bg:getComputedStyle(document.documentElement).backgroundColor.match(/[\d.]+/g)!.map(Number)}));
   expect(contrast(colors.fg,colors.bg)).toBeGreaterThanOrEqual(4.5);
