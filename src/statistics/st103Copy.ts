@@ -4,7 +4,7 @@ import { addRational, multiplyRational, rational, subtractRational } from "../ra
 import { summarizeIntegerDataset } from "./descriptive";
 import type { TeachingCopy } from "./st101Copy";
 
-/** Exact original population-variance teaching; no sample-variance grading or UI. */
+/** Exact original population-variance teaching; never grade using sample variance. */
 export function varianceCopy(values: readonly number[], locale: Locale): TeachingCopy {
   if (locale !== "pl" && locale !== "en") throw new RangeError("Unsupported teaching locale");
   const summary=summarizeIntegerDataset(values);

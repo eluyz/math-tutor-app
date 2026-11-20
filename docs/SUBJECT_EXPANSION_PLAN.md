@@ -1,8 +1,8 @@
 # Subject expansion roadmap
 
 **Project:** Math Tutor — free, MIT-licensed learning software  
-**Status:** Planning and UI scaffolding in progress as of 2026-11-16  
-**Current release:** Mathematics only. Statistics, econometrics, and financial mathematics have **no published exercises**.
+**Status:** Implementation roadmap updated 2026-11-18  
+**Current learning scope:** Mathematics and a small, exact Statistics pilot (mean, median, population variance). Econometrics and Financial Mathematics have no exercises.
 
 ## Why expand?
 
@@ -13,22 +13,23 @@ Math Tutor currently offers deterministic mathematics exercises, guided solution
 | Subject | Status | Honest interpretation |
 | --- | --- | --- |
 | Mathematics | AVAILABLE | Existing production exercises and modes; existing limitations still apply. |
-| Statistics & Probability | WORK IN PROGRESS | Scoping and navigation published; exercise generators not released. |
+| Statistics & Probability | WORK IN PROGRESS | Three bounded descriptive-statistics lessons: arithmetic mean, median and **population** variance (not sample variance), with PL/EN steps and Easy/Medium/Hard difficulty. Other topics remain unavailable. |
 | Econometrics | PLANNED | Future scope after statistics foundations. |
 | Financial Mathematics | PLANNED | Future scope after statistics/econometrics priorities. |
 
-## Statistics S1 implementation checkpoint (2026-11-16)
+## Statistics S1 — foundation history and playable releases
 
 - [Detailed specification and hand-checkable examples](STATISTICS_S1_SPEC.md)
 - [Umbrella issue #306](https://github.com/eluyz/math-tutor-app/issues/306)
 - Delivery tickets: [generator #308](https://github.com/eluyz/math-tutor-app/issues/308), [independent QA #309](https://github.com/eluyz/math-tutor-app/issues/309), [PL/EN pedagogy #310](https://github.com/eluyz/math-tutor-app/issues/310), [UI and release #311](https://github.com/eluyz/math-tutor-app/issues/311).
-- A pure, exact-arithmetic descriptive-statistics calculation helper and unit fixtures are being developed in a separate branch. **These are internal foundations, not published exercise generators.**
-- Do not update the Statistics tab to Available or count new families/variants before a tested, published subject integration exists.
+- Exact-arithmetic calculation helpers and deterministic exercise generators for ST-101, ST-102 and ST-103 exist; the latter is integrated with the UI in [the release candidate PR #340](https://github.com/eluyz/math-tutor-app/pull/340).
+- Every published lesson requires owner approval, exact-head full CI and matching main/Pages deployment evidence. Keep the Statistics subject **Work in progress**; the rest of its syllabus is not a published course.
+- Historical Mathematics family/variant counts must not be silently increased to include Statistics exercises.
 
-## Planned scope, not yet shipped
+## Broader roadmap (beyond the bounded Statistics pilot)
 
 **Statistics & Probability**
-- Descriptive statistics: mean, median, variance, standard deviation; data and grouped data must be distinguished.
+- Arithmetic mean, median and **population** variance form the bounded pilot. Further descriptive topics (range, mode, standard deviation, grouped data) are planned, not shipped.
 - Probability: events, conditional probability and basic combinatorics.
 - Discrete distributions (including Bernoulli/binomial) and expectation/variance.
 - Confidence intervals and hypothesis testing, with explicit assumptions.

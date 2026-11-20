@@ -1,17 +1,17 @@
 # Math Tutor
 
-**Open-source university learning roadmap — 16 November 2026**
+**Open-source university learning roadmap — 18 November 2026**
 
-Math Tutor provides bilingual (Polish / English) mathematics practice today. We are expanding the learning platform responsibly with visible subject navigation:
+Math Tutor provides bilingual (Polish / English) Mathematics practice and a bounded Statistics pilot. Both are accessible through the shared subject navigation:
 
 | Subject | Status | Currently available |
 | --- | --- | --- |
 | Mathematics | **Available** | Existing practice exercises, feedback and session modes |
-| Statistics & Probability | **Work in progress** | Roadmap and subject placeholder only; **no exercises yet** |
+| Statistics & Probability | **Work in progress** | Exact mean (ST-101), median (ST-102), and population variance (ST-103) practice at Easy/Medium/Hard; this is **not** a full Statistics course |
 | Econometrics | **Planned** | Roadmap and subject placeholder only; **no exercises yet** |
 | Financial Mathematics | **Planned** | Roadmap and subject placeholder only; **no exercises yet** |
 
-See the [subject expansion plan](docs/SUBJECT_EXPANSION_PLAN.md), including planned topics, QA gates and the first statistics pilot. Planned subjects are not included in the current exercise-family and variant counts.
+See the [subject expansion plan](docs/SUBJECT_EXPANSION_PLAN.md) for released versus planned learning topics and QA gates. Statistics lessons are not included in the historical Mathematics exercise-family and variant counts. Population variance means division by **n**, not sample variance division by **n−1**.
 
 ## Existing mathematics release history
 

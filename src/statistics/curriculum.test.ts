@@ -3,7 +3,7 @@ import { statisticsCurriculum } from "./curriculum";
 import { statisticsPracticeCopy } from "../locales/statistics";
 
 describe("Statistics canonical proposed curriculum",()=>{
- it("has two stable tracks and 15 unique topics, with only mean and median playable",()=>{
+ it("has two stable tracks and 15 unique topics, with only mean, median and population variance playable",()=>{
   expect(statisticsCurriculum.map(t=>t.id)).toEqual(["fundamentals","university"]);
   expect(statisticsCurriculum.map(t=>t.topics.length)).toEqual([6,9]);
   const ids:string[]=[],lessons:string[]=[];
@@ -11,7 +11,7 @@ describe("Statistics canonical proposed curriculum",()=>{
    ids.push(topic.id);if("lesson" in topic) lessons.push(topic.lesson);
   }
   expect(new Set(ids).size).toBe(15);
-  expect(lessons).toEqual(["mean","median"]);
+  expect(lessons).toEqual(["mean","median","variance"]);
  });
  it("provides a single complete PL/EN label mapping without inventing availability",()=>{
   for(const locale of ["pl","en"] as const) {

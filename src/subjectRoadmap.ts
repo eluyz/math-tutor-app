@@ -48,9 +48,9 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statystyka i prawdopodobieństwo",
         title: "Statystyka i prawdopodobieństwo",
-        description: "Pilotaż obejmuje średnią arytmetyczną i medianę z dokładnym sprawdzaniem odpowiedzi. Pozostałe lekcje nie są jeszcze udostępnione; to nie jest pełny kurs statystyki.",
+        description: "Pilotaż obejmuje średnią arytmetyczną, medianę i wariancję populacyjną z dokładnym sprawdzaniem odpowiedzi. Inne lekcje nie są jeszcze udostępnione; to nie jest pełny kurs statystyki.",
         topics: ["Statystyka opisowa: średnia, mediana, wariancja", "Podstawy prawdopodobieństwa i kombinatoryka", "Rozkłady losowe i estymacja", "Przedziały ufności i testy hipotez"],
-        nextStep: "Zweryfikować pilotaż średniej arytmetycznej i mediany przed osobną decyzją o kolejnych lekcjach.",
+        nextStep: "Zweryfikować wyniki pilotażu średniej, mediany i wariancji populacyjnej przed rozbudową kolejnych zagadnień.",
       },
       econometrics: {
         label: "Ekonometria",
@@ -81,9 +81,9 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statistics & Probability",
         title: "Statistics & Probability",
-        description: "This pilot covers arithmetic mean and median, with exact answer checking. Other lessons are not available yet; this is not a complete statistics course.",
+        description: "This pilot covers arithmetic mean, median and population variance, with exact answer checking. Other lessons are not available yet; this is not a complete statistics course.",
         topics: ["Descriptive statistics: mean, median and variance", "Probability basics and combinatorics", "Random variables, distributions and estimation", "Confidence intervals and hypothesis testing"],
-        nextStep: "Review the mean-and-median pilot before separately approving further lessons.",
+        nextStep: "Review the mean, median and population-variance pilot before approving further lessons.",
       },
       econometrics: {
         label: "Econometrics",

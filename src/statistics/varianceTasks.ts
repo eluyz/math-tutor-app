@@ -1,4 +1,4 @@
-/** Unreleased ST-103 population (not sample) variance exercises. */
+/** ST-103 exact population (not sample) variance tasks. */
 import type { Rational } from "../rational";
 import { generateMeanDataset, type DatasetDifficulty } from "./datasets";
 import { summarizeIntegerDataset } from "./descriptive";
