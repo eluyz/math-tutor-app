@@ -25,8 +25,9 @@ for(const width of [320,375,1280]) for(const en of [false,true]) {
   const levels=p.getByRole("group",{name:en?"Difficulty":"Poziom trudności",exact:true});
   await expect(tracks.getByRole("button")).toHaveText(en?["Statistics fundamentals","University statistics"]:["Podstawy statystyki","Statystyka na studia"]);
   await expect(p.locator("[data-track=fundamentals]")).toHaveAttribute("aria-pressed","true");
-  await expect(topics.getByRole("button")).toHaveCount(6);
-  await expect(topics.locator("button:enabled")).toHaveCount(3);
+  await expect(topics.getByRole("button")).toHaveCount(7);
+  await expect(topics.locator("button:enabled")).toHaveCount(4);
+  expect(await topics.locator("button:enabled").evaluateAll(buttons=>buttons.map(button=>button.getAttribute("data-topic")))).toEqual(["mean","median","dispersion","interpretation"]);
   await expect(p.locator("[data-topic=mean]")).toHaveAttribute("aria-pressed","true");
   await expect(p.locator("[data-topic=median]")).toBeEnabled();
   await expect(p.locator("[data-topic=dispersion]")).toBeEnabled();

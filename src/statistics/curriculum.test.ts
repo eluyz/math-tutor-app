@@ -3,15 +3,16 @@ import { statisticsCurriculum } from "./curriculum";
 import { statisticsPracticeCopy } from "../locales/statistics";
 
 describe("Statistics canonical proposed curriculum",()=>{
- it("has two stable tracks and 15 unique topics, with only mean, median and population variance playable",()=>{
+ it("preserves both tracks and the original topics, adding only the separate ST-104 interpretation lesson",()=>{
   expect(statisticsCurriculum.map(t=>t.id)).toEqual(["fundamentals","university"]);
-  expect(statisticsCurriculum.map(t=>t.topics.length)).toEqual([6,9]);
+  expect(statisticsCurriculum.map(t=>t.topics.length)).toEqual([7,9]);
   const ids:string[]=[],lessons:string[]=[];
   for(const track of statisticsCurriculum) for(const topic of track.topics) {
    ids.push(topic.id);if("lesson" in topic) lessons.push(topic.lesson);
   }
-  expect(new Set(ids).size).toBe(15);
-  expect(lessons).toEqual(["mean","median","variance"]);
+  expect(new Set(ids).size).toBe(16);
+  expect(ids).toEqual(["data-tables","mean","median","mode","dispersion","charts","interpretation","descriptive","combinatorics","probability","conditional","random-variables","distributions","estimation","hypothesis-tests","correlation"]);
+  expect(lessons).toEqual(["mean","median","variance","interpretation"]);
  });
  it("provides a single complete PL/EN label mapping without inventing availability",()=>{
   for(const locale of ["pl","en"] as const) {

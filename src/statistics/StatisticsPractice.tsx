@@ -13,6 +13,9 @@ import { medianCopy } from "./st102Copy";
 import { varianceCopy } from "./st103Copy";
 import { meanCopy } from "./st101Copy";
 import { PracticeSelectorPanel } from "../ui/PracticeSelectorPanel";
+import { createInterpretationPracticeTask, assessInterpretationResponse } from "./interpretationPractice";
+import { interpretationCopy } from "./st104Copy";
+import { StatisticsInterpretationChoices } from "./StatisticsInterpretationChoices";
 
 type Assessment = "correct" | "incorrect" | "empty" | "invalid";
 
@@ -22,7 +25,7 @@ export function nextStatisticsSeed(seed: number): number {
   return seed === 0xffffffff ? 0 : seed + 1;
 }
 
-/** Mean, median and population-variance pilot; no Mathematics progress or storage changes. */
+/** Statistics lessons share local presentation state; no Mathematics progress/storage changes. */
 export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onDraftChange?: (draft: boolean) => void}) {
   const c=statisticsPracticeCopy[locale];
   const subjects=subjectCopy[locale];
@@ -39,8 +42,12 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   const focusRequested=useRef<"answer"|FocusOptions|null>(null);
   const trackControls=useRef<HTMLDivElement>(null);
   const preserveTrackScroll=useTrackScroll();
-  const task=useMemo(()=>lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null,[lesson,difficulty,seed]);
-  const teaching=useMemo(()=>task?(task.lesson==="median"?medianCopy(task.values,locale):task.lesson==="variance"?varianceCopy(task.values,locale):meanCopy(task.values,locale)):null,[task,locale]);
+  const task=useMemo(()=>lesson==="interpretation"?createInterpretationPracticeTask(difficulty,seed):lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null,[lesson,difficulty,seed]);
+  const presentation=useMemo(()=>task?(task.lesson==="interpretation"
+    ? {kind:"choice" as const,copy:interpretationCopy(task.engine,locale)}
+    : {kind:"numeric" as const,copy:task.lesson==="median"?medianCopy(task.values,locale):task.lesson==="variance"?varianceCopy(task.values,locale):meanCopy(task.values,locale)}):null,[task,locale]);
+  const teaching=presentation?.copy;
+  const titles:Record<StatisticsLesson,string>={mean:c.title,median:c.medianTitle,variance:c.varianceTitle,interpretation:c.interpretationTitle};
   const topics=statisticsCurriculum.find(t=>t.id===track)!.topics;
   useEffect(()=>{ heading.current?.focus(); },[]);
   useEffect(()=>{ onDraftChange?.(raw.trim().length > 0 && assessment === null); },[raw, assessment, onDraftChange]);
@@ -71,6 +78,12 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   function submit(event:FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if(!task) return;
+    if(task.lesson==="interpretation") {
+      const result=assessInterpretationResponse(task,raw);
+      setAssessment(result);
+      if(result==="empty" || result==="invalid") input.current?.focus();
+      return;
+    }
     const parsed=parseAnswer(raw);
     setAssessment(parsed.kind==="invalid" ? (parsed.reason==="empty"?"empty":"invalid")
       : equalRational(parsed.value,task.answer)?"correct":"incorrect");
@@ -88,9 +101,15 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
         {!task && <h2>{c.plannedTitle}</h2>}
         {task && teaching ? <div className="exercise-panel statistics-task-panel">
           <div className="panel-top"><span>{locale==="pl"?"ĆWICZENIE":"EXERCISE"} · {difficultyConfig.find(level=>level.id===difficulty)?.labels[locale].toUpperCase()}</span><span aria-hidden="true">∑</span></div>
-          <h3 id="statistics-exercise-title">{lesson==="median"?c.medianTitle:lesson==="variance"?c.varianceTitle:c.title}</h3>
-          <p id="statistics-question" className="question university-question" data-lesson={task.lesson} data-seed={seed} data-difficulty={difficulty}>{teaching.prompt}</p>
+          <h3 id="statistics-exercise-title">{titles[task.lesson]}</h3>
+          <p id="statistics-question" className="question university-question" data-lesson={task.lesson} data-seed={seed} data-difficulty={difficulty} data-exercise-id={task.lesson==="interpretation"?task.id:undefined}>{teaching.prompt}</p>
           <form onSubmit={submit} noValidate>
+            {presentation?.kind==="choice" ? <>
+              <StatisticsInterpretationChoices options={presentation.copy.options} value={raw} answerRef={input}
+                legend={c.chooseAnswer} format={c.choiceFormat} invalid={assessment==="empty"||assessment==="invalid"}
+                onChange={value=>{setRaw(value);setAssessment(null);}} />
+              <button className="check-button" type="submit">{c.check}</button>
+            </> : <>
             <label htmlFor="statistics-answer">{c.answer}</label>
             <p id="statistics-format" className="panel-intro">{c.format}</p>
             <div className="answer-row">
@@ -100,11 +119,12 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
                 onChange={event=>{setRaw(event.target.value);setAssessment(null);}} />
               <button className="check-button" type="submit">{c.check}</button>
             </div>
+            </>}
           </form>
           <div id="statistics-feedback" role="status" aria-live="polite" aria-atomic="true">
             {assessment && <div className={`feedback ${assessment==="empty"?"invalid":assessment}`}>
               <p>{teaching.feedback[assessment]}</p>
-              {assessment==="correct" && <strong>{formatRational(task.answer)}</strong>}
+              {assessment==="correct" && task.lesson!=="interpretation" && <strong>{formatRational(task.answer)}</strong>}
             </div>}
           </div>
           <div className="hint-actions">
@@ -126,7 +146,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
           </div>
           <button className="next-button" type="button" onClick={()=>{if(!canReplaceTask()) return; setSeed(current=>nextStatisticsSeed(current));reset();}}>{c.next}</button>
         </div> : <p role="status" className="panel-intro">{c.plannedGuidance}</p>}
-        <PracticeSelectorPanel className="statistics-catalog" title={locale==="pl"?"Zmień temat i poziom":"Change topic and level"} context={`${c.trackLabels[track]} · ${lesson?(lesson==="median"?c.medianTitle:lesson==="variance"?c.varianceTitle:c.title):c.plannedTitle} · ${difficultyConfig.find(level=>level.id===difficulty)?.labels[locale]}`}>
+        <PracticeSelectorPanel className="statistics-catalog" title={locale==="pl"?"Zmień temat i poziom":"Change topic and level"} context={`${c.trackLabels[track]} · ${lesson?titles[lesson]:c.plannedTitle} · ${difficultyConfig.find(level=>level.id===difficulty)?.labels[locale]}`}>
             <div ref={trackControls} className="study-groups" role="group" aria-label={c.trackLabel}>
               {statisticsCurriculum.map(t=><button key={t.id} type="button" data-track={t.id} aria-pressed={track===t.id} onClick={event=>{
                 if(t.id!==track && canReplaceTask()) {preserveTrackScroll(event.detail>0);setTrack(t.id);setLesson(t.id==="fundamentals"?"mean":null);setDifficulty("easy");setSeed(0);reset(t.id==="fundamentals",{preventScroll:event.detail>0});}

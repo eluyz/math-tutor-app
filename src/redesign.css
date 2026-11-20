@@ -281,6 +281,14 @@ button { touch-action: manipulation; }
 }
 .statistics-practice .statistics-task-panel .panel-top { margin-bottom: 14px; }
 .statistics-practice .statistics-catalog { margin-top: 0; }
+.statistics-choices { min-width: 0; margin: 0 0 16px; padding: 0; border: 0; }
+.statistics-choices legend { font-weight: 650; margin-bottom: 8px; }
+.statistics-choice-options { display: grid; gap: 8px; }
+.statistics-choice { display: flex; align-items: center; gap: 12px; min-height: 48px; padding: 12px 16px; border: 1px solid var(--ui-control); border-radius: 8px; background: var(--ui-surface); color: var(--ui-text); cursor: pointer; touch-action: manipulation; overflow-wrap: anywhere; }
+.statistics-choice span { min-width: 0; }
+.statistics-choice input[type="radio"] { flex: 0 0 20px; width: 20px; height: 20px; min-height: 20px; margin: 0; accent-color: var(--ui-accent); }
+.statistics-choice:hover, .statistics-choice:has(input:checked) { border-color: var(--ui-accent); background: var(--ui-selected); }
+.statistics-choice:has(input:focus-visible) { outline: 3px solid var(--ui-focus); outline-offset: 3px; }
 @media (min-width: 600px) {
   .learning-workspace .catalog-config .exercise-list-items {
     grid-template-columns: repeat(2,minmax(0,1fr));
