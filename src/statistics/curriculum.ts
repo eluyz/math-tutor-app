@@ -1,7 +1,7 @@
 /** Proposed course taxonomy, not a declaration of a complete Statistics syllabus. */
 export const statisticsCurriculum = [
   { id: "fundamentals", topics: [
-    {id:"data-tables"}, {id:"mean",lesson:"mean"}, {id:"median",lesson:"median"},
+    {id:"data-tables",lesson:"frequency-tables"}, {id:"mean",lesson:"mean"}, {id:"median",lesson:"median"},
     {id:"mode",lesson:"mode"}, {id:"dispersion",lesson:"variance"}, {id:"charts"}, {id:"interpretation",lesson:"interpretation"},
   ] },
   { id: "university", topics: [

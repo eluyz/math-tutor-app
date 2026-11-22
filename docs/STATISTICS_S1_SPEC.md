@@ -1,6 +1,6 @@
 # Statistics S1 — descriptive-statistics pilot specification
 
-**Status:** Bounded pilot in progress. ST-101 through ST-104 are integrated on the `main` baseline. ST-105 Mode is playable in its candidate checkout.
+**Status:** Bounded pilot in progress. ST-101 through ST-105 are integrated on the `main` baseline. ST-106 Frequency tables is playable in the candidate checkout.
 
 **Created:** 2026-11-16  
 **Source of truth:** [ST-001 umbrella issue](https://github.com/eluyz/math-tutor-app/issues/306), [subject expansion roadmap](SUBJECT_EXPANSION_PLAN.md).  
@@ -8,15 +8,15 @@
 
 ## User problem and learning outcome
 
-A beginner studying economics or finance should be able to calculate and interpret the mean, median, **population** variance and mode of a short finite dataset, with step-by-step feedback.
+A beginner studying economics or finance should be able to calculate and interpret the mean, median, **population** variance and mode of a short finite dataset and read counts and shares from a simple frequency table, with step-by-step feedback.
 
 ## Pilot scope
 
-- Inputs: short integer datasets for Easy, Medium, and Hard. Mode uses 5, 7, and 9 observations respectively. The Mode calculation utility accepts 1–100 safe integers.
-- Outputs: exact rational mean, median and **population** variance, exact comparisons for statistical interpretation, and complete sets of modes for Mode.
+- Inputs: short integer datasets for Easy, Medium, and Hard. Mode uses 5, 7, and 9 observations respectively. The Mode calculation utility accepts 1–100 safe integers. Frequency tables show three to five distinct integer values and their counts.
+- Outputs: exact rational mean, median and **population** variance, exact comparisons for statistical interpretation, and complete sets of modes for Mode, and exact counts, proportions and percentages for frequency tables.
 - Data: small deterministic lists with repeats, zero variance, negative values, odd/even lengths and unsorted input.
 - Units: for economic examples, identify measurement unit and explain that variance is expressed in **squared** units.
-- Answer format: equivalent fractions and finite decimals for numeric lessons. Statistical interpretation and Mode use single-choice answers.
+- Answer format: equivalent fractions and finite decimals for numeric lessons. Statistical interpretation, Mode and Frequency tables use single-choice answers.
 - Explicit exclusion: sample variance, standard deviation with irrational outcomes, weighted means, histogram/grouped data, quartiles and inferential procedures are **future work**.
 
 ## Mathematical definitions
@@ -27,6 +27,7 @@ For n observations x₁, ..., xₙ:
 - Median: sort observations; use central observation for odd n or arithmetic mean of two central observations for even n.
 - Population variance: σ² = Σ(xᵢ − μ)² / n. **Not** the unbiased sample variance s² = Σ(xᵢ − x̄)² / (n − 1).
 - Mode: collect all values at the maximum observed frequency when that frequency is at least two. At maximum frequency one, the set of modes is empty.
+- A frequency table gives a count per discrete value. For the selected count k and positive total N, the relative frequency is k/N and the percentage share is (100k/N)%.
 - Numerical engine: exact integer/BigInt calculation using Σ(n·xᵢ − Σx)² / n³; simplification via the existing rational utility.
 
 ### Hand-checkable acceptance fixtures
@@ -48,13 +49,15 @@ These expected values are written explicitly as QA fixtures rather than being ge
 2. **ST-102 Median:** display unsorted values; ask for median. Hints: sort → identify central index(s) → calculate.
 3. **ST-103 Population variance:** give mean or derive mean → squared deviations → divide by n, **not n−1**.
 4. **ST-104 Interpretation:** compare mean and median or select which summary changes less after replacing one observation.
-5. **ST-105 Mode (candidate):** choose the complete set of values at the highest frequency if that frequency is at least two. Choose **No mode** if all values occur once. See the [lesson scope and numbering](ST105_MODE_NOTES.md).
+5. **ST-105 Mode:** choose the complete set of values at the highest frequency if that frequency is at least two. Choose **No mode** if all values occur once. See the [lesson scope and numbering](ST105_MODE_NOTES.md).
+6. **ST-106 Frequency tables (candidate)** presents an ungrouped frequency table and asks for exact counts or shares. See the [family map and exact notation](ST106_FREQUENCY_TABLES_NOTES.md).
 
 ## Difficulty and education
 
 - Easy: 5 odd-count small nonnegative values; integer outcome.
 - Medium: 6–8 values, unsorted, repeated values; fractional median or mean allowed.
 - Hard: 7–9 values, some negatives, variance with nonintegral rational answer; must remain hand-checkable.
+- ST-106 progresses from reading counts to deriving single-category shares and interpreting a subset, cumulative count or complement.
 - Explanations must use PL/EN with conceptually equivalent steps, not just translated labels.
 - Error messages: confusion between mean and median; median without sorting; population vs sample variance; forgetting to square; arithmetic mistakes. Never assert a specific cause from a wrong result alone.
 

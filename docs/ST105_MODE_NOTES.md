@@ -2,7 +2,7 @@
 
 ## Scope and numbering
 
-The candidate enables the existing **Mode / Dominanta** topic in Statistics fundamentals. It follows ST-101 arithmetic mean, ST-102 median, ST-103 population variance, and ST-104 statistical interpretation. Easy, Medium, and Hard are playable. Statistics keeps its **Work in progress** status, with Advanced, Expert, and all University statistics topics disabled.
+The existing **Mode / Dominanta** topic in Statistics fundamentals is playable on the `main` baseline after [PR #346](https://github.com/eluyz/math-tutor-app/pull/346). It follows ST-101 arithmetic mean, ST-102 median, ST-103 population variance, and ST-104 statistical interpretation. Easy, Medium, and Hard are playable. Statistics keeps its **Work in progress** status, with Advanced, Expert, and all University statistics topics disabled.
 
 The maintainer assigned **ST-105** to Mode and supplied a historical ST-105 alias for hypothesis testing. That alias is superseded. Hypothesis testing remains an unnumbered, planned University statistics topic. The current Markdown and reachable Git history searches found no competing numbered specification. The oldest matching repository roadmap entry lists hypothesis testing without a number. [Historical roadmap at 85ed692](https://github.com/eluyz/math-tutor-app/blob/85ed692aaacd36625b63a0ea4c76d3180f863391/docs/SUBJECT_EXPANSION_PLAN.md)
 
@@ -32,4 +32,4 @@ The existing Statistics practice state preserves exercise identity, selection, f
 
 The unit suite checks 259 seeds per level with independent counts, literal edge cases, malformed responses and choices, and matching PL/EN mathematics. Playwright covers PL/EN at 375 and 1280 CSS px, plus 320 px smoke cases for the Hard safe-integer exercise. The browser cases cover native keyboard and focus, grading, replay, locale changes, discard confirmation, track scroll, responsive tables, and Mathematics, Statistics, progress and exam regressions.
 
-Local Chromium aborts before loading the application because its sandbox helper is misconfigured. The Playwright Chromium download returns HTTP 403 in this environment. The browser cases are collected locally and run in the existing early recovery gate and full browser suite in CI. Release requires the candidate CI results, maintainer approval, and verification of main CI and the Pages deployment against the release SHA.
+During ST-105 candidate verification, local Chromium aborted before loading the application because its sandbox helper was misconfigured, and the Playwright Chromium download returned HTTP 403. The browser cases were collected locally and configured in the early recovery gate and full browser suite in CI. The merged PR records the candidate checks. Publication verification uses main CI and the Pages deployment on the release SHA.

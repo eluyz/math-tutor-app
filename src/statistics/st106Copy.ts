@@ -79,8 +79,11 @@ export function frequencyCopy(question: FrequencyQuestion, locale: Locale): Freq
     ? "Dodaj liczebności wszystkich wierszy, aby obliczyć N. Podziel wybraną liczebność k przez N."
     : "Add the frequencies of all rows to find N. Divide the selected count k by N.";
   const percentHint = pl
-    ? "Pomnóż k/N przez 100 i dopisz znak %. Zapis (100/3)% oznacza dokładnie 100/3 procent."
-    : "Multiply k/N by 100 and attach the percent sign. The notation (100/3)% means exactly 100/3 percent.";
+    ? "Pomnóż k/N przez 100 i dopisz znak %. Jeśli wynik jest ułamkiem, zapisz go w nawiasie i nie zaokrąglaj."
+    : "Multiply k/N by 100 and attach the percent sign. Keep any fraction in parentheses without rounding.";
+  const percentExplanation = answer.denominator === 1n ? percentHint : `${percentHint} ${pl
+    ? `Zapis ${result} oznacza dokładnie ${formatRational(answer)} procent.`
+    : `The notation ${result} means exactly ${formatRational(answer)} percent.`}`;
   const steps: FrequencyTeachingCopy["steps"][number][] = [
     {
       title: pl ? "Oblicz łączną liczebność N" : "Find the total frequency N",
@@ -98,7 +101,7 @@ export function frequencyCopy(question: FrequencyQuestion, locale: Locale): Freq
       ? pl ? "Oblicz udział procentowy" : "Find the percentage share"
       : pl ? "Oblicz częstość względną" : "Find the relative frequency",
     calculation: unit === "percentage" ? `(100 × ${share})% = ${result}` : `k/N = ${share} = ${result}`,
-    explanation: unit === "percentage" ? percentHint : fractionHint,
+    explanation: unit === "percentage" ? percentExplanation : fractionHint,
   });
 
   return {

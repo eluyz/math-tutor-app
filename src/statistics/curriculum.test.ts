@@ -3,7 +3,7 @@ import { statisticsCurriculum } from "./curriculum";
 import { statisticsPracticeCopy } from "../locales/statistics";
 
 describe("Statistics canonical proposed curriculum",()=>{
- it("preserves both tracks and the original topics, making the existing Mode topic playable",()=>{
+ it("preserves both tracks and the original topics, making the existing Data & tables topic playable",()=>{
   expect(statisticsCurriculum.map(t=>t.id)).toEqual(["fundamentals","university"]);
   expect(statisticsCurriculum.map(t=>t.topics.length)).toEqual([7,9]);
   const ids:string[]=[],lessons:string[][]=[],unavailable:string[]=[];
@@ -14,8 +14,8 @@ describe("Statistics canonical proposed curriculum",()=>{
   }
   expect(new Set(ids).size).toBe(16);
   expect(ids).toEqual(["data-tables","mean","median","mode","dispersion","charts","interpretation","descriptive","combinatorics","probability","conditional","random-variables","distributions","estimation","hypothesis-tests","correlation"]);
-  expect(lessons).toEqual([["mean","mean"],["median","median"],["mode","mode"],["dispersion","variance"],["interpretation","interpretation"]]);
-  expect(unavailable).toEqual(["data-tables","charts","descriptive","combinatorics","probability","conditional","random-variables","distributions","estimation","hypothesis-tests","correlation"]);
+  expect(lessons).toEqual([["data-tables","frequency-tables"],["mean","mean"],["median","median"],["mode","mode"],["dispersion","variance"],["interpretation","interpretation"]]);
+  expect(unavailable).toEqual(["charts","descriptive","combinatorics","probability","conditional","random-variables","distributions","estimation","hypothesis-tests","correlation"]);
  });
  it("provides a single complete PL/EN label mapping without inventing availability",()=>{
   for(const locale of ["pl","en"] as const) {

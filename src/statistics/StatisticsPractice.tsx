@@ -17,9 +17,13 @@ import { createInterpretationPracticeTask, assessInterpretationResponse } from "
 import { interpretationCopy } from "./st104Copy";
 import { createModePracticeTask, assessModeResponse } from "./modePractice";
 import { modeCopy } from "./st105Copy";
+import { createFrequencyPracticeTask, assessFrequencyResponse } from "./frequencyPractice";
+import { frequencyCopy } from "./st106Copy";
+import { FrequencyTable } from "./FrequencyTable";
 import { StatisticsChoices } from "./StatisticsChoices";
 
 type Assessment = "correct" | "incorrect" | "empty" | "invalid";
+const questionTableId = "statistics-question-table";
 
 /** Real next-task policy, shared by the click handler and its uint32-boundary test. */
 export function nextStatisticsSeed(seed: number): number {
@@ -45,12 +49,14 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   const trackControls=useRef<HTMLDivElement>(null);
   const preserveTrackScroll=useTrackScroll();
   const task=useMemo(()=>{
+    if(lesson==="frequency-tables") return createFrequencyPracticeTask(difficulty,seed);
     if(lesson==="mode") return createModePracticeTask(difficulty,seed);
     if(lesson==="interpretation") return createInterpretationPracticeTask(difficulty,seed);
     return lesson?createStatisticsPracticeTask(lesson,difficulty,seed):null;
   },[lesson,difficulty,seed]);
   const presentation=useMemo(()=>{
     switch(task?.lesson) {
+      case "frequency-tables": return {kind:"frequency-tables" as const,copy:frequencyCopy(task,locale)};
       case "mode": return {kind:"mode" as const,copy:modeCopy(task,locale)};
       case "interpretation": return {kind:"interpretation" as const,copy:interpretationCopy(task.engine,locale)};
       case "median": return {kind:"numeric" as const,copy:medianCopy(task.values,locale)};
@@ -61,8 +67,9 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   },[task,locale]);
   const teaching=presentation?.copy;
   const choices=presentation && presentation.kind!=="numeric"?presentation.copy.options:null;
-  const frequencyTable=presentation?.kind==="mode"?presentation.copy.table:null;
-  const titles:Record<StatisticsLesson,string>={mean:c.title,median:c.medianTitle,variance:c.varianceTitle,interpretation:c.interpretationTitle,mode:c.modeTitle};
+  const questionTable=presentation?.kind==="frequency-tables"?presentation.copy.table:null;
+  const solutionTable=presentation?.kind==="mode"?presentation.copy.table:null;
+  const titles:Record<StatisticsLesson,string>={mean:c.title,median:c.medianTitle,variance:c.varianceTitle,interpretation:c.interpretationTitle,mode:c.modeTitle,"frequency-tables":c.frequencyTitle};
   const topics=statisticsCurriculum.find(t=>t.id===track)!.topics;
   useEffect(()=>{ heading.current?.focus(); },[]);
   useEffect(()=>{ onDraftChange?.(raw.trim().length > 0 && assessment === null); },[raw, assessment, onDraftChange]);
@@ -93,15 +100,20 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
   function submit(event:FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if(!task) return;
-    if(task.lesson==="interpretation" || task.lesson==="mode") {
-      const result=task.lesson==="mode"?assessModeResponse(task,raw):assessInterpretationResponse(task,raw);
-      setAssessment(result);
-      if(result==="empty" || result==="invalid") input.current?.focus();
-      return;
+    let result: Assessment;
+    switch(task.lesson) {
+      case "frequency-tables": result=assessFrequencyResponse(task,raw); break;
+      case "mode": result=assessModeResponse(task,raw); break;
+      case "interpretation": result=assessInterpretationResponse(task,raw); break;
+      default: {
+        const parsed=parseAnswer(raw);
+        setAssessment(parsed.kind==="invalid" ? (parsed.reason==="empty"?"empty":"invalid")
+          : equalRational(parsed.value,task.answer)?"correct":"incorrect");
+        return;
+      }
     }
-    const parsed=parseAnswer(raw);
-    setAssessment(parsed.kind==="invalid" ? (parsed.reason==="empty"?"empty":"invalid")
-      : equalRational(parsed.value,task.answer)?"correct":"incorrect");
+    setAssessment(result);
+    if(result==="empty" || result==="invalid") input.current?.focus();
   }
   return (
     <section className="statistics-practice subject-roadmap-panel learning-workspace" aria-labelledby="statistics-title">
@@ -118,10 +130,12 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
           <div className="panel-top"><span>{locale==="pl"?"ĆWICZENIE":"EXERCISE"} · {difficultyConfig.find(level=>level.id===difficulty)?.labels[locale].toUpperCase()}</span><span aria-hidden="true">∑</span></div>
           <h3 id="statistics-exercise-title">{titles[task.lesson]}</h3>
           <p id="statistics-question" className="question university-question" data-lesson={task.lesson} data-seed={seed} data-difficulty={difficulty} data-exercise-id={"id" in task?task.id:undefined}>{teaching.prompt}</p>
+          {questionTable && <FrequencyTable table={questionTable} id={questionTableId} describedBy="statistics-question" />}
           <form onSubmit={submit} noValidate>
             {choices ? <>
               <StatisticsChoices options={choices} value={raw} answerRef={input}
                 legend={c.chooseAnswer} format={task.lesson==="mode"?c.modeChoiceFormat:c.choiceFormat} invalid={assessment==="empty"||assessment==="invalid"}
+                details={questionTable?questionTableId:undefined}
                 onChange={value=>{setRaw(value);setAssessment(null);}} />
               <button className="check-button" type="submit">{c.check}</button>
             </> : <>
@@ -151,13 +165,7 @@ export function StatisticsPractice({locale, onDraftChange}: {locale: Locale; onD
           <div id="statistics-solution" hidden={!solution}>
             {solution && <section className="solution-panel" aria-label={c.solution}>
               <h3>{c.solution}</h3>
-              {frequencyTable && <table className="statistics-frequency-table">
-                <caption>{frequencyTable.caption}</caption>
-                <thead><tr><th scope="col">{frequencyTable.valueHeader}</th><th scope="col">{frequencyTable.frequencyHeader}</th></tr></thead>
-                <tbody>{frequencyTable.rows.map(row=><tr key={row.value}>
-                  <th scope="row">{row.value}</th><td>{row.frequency}</td>
-                </tr>)}</tbody>
-              </table>}
+              {solutionTable && <FrequencyTable table={solutionTable} />}
               <ol>{teaching.steps.map((step,index)=><li key={index}>
                 <h4>{step.title}</h4>
                 <p className="solution-calculation">{step.calculation}</p>

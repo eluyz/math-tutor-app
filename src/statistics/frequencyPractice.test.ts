@@ -40,7 +40,11 @@ describe("ST-106 bilingual practice adapter", () => {
     for (const locale of ["pl", "en"] as const) {
       const copy = frequencyCopy(q, locale);
       expect(copy.options.map(option => option.label)).toContain("(100/3)%");
+      expect(copy.hints[1]).not.toContain("(100/3)%");
+      expect(copy.hints[1]).toMatch(locale === "pl" ? /nie zaokrąglaj/i : /without rounding/i);
       expect(copy.steps.map(step => step.calculation)).toEqual(["N = 1 + 2 = 3", "k = 1", "(100 × 1/3)% = (100/3)%"]);
+      expect(copy.steps[2].explanation).toContain("(100/3)%");
+      expect(copy.steps[2].explanation).toMatch(locale === "pl" ? /dokładnie 100\/3 procent/ : /exactly 100\/3 percent/);
       expect(copy.conclusion).toContain("(100/3)%");
     }
   });
