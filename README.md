@@ -13,7 +13,7 @@
 | Subject | Availability | Learning scope |
 | --- | --- | --- |
 | **Mathematics** | **Available** | Arithmetic, algebra, equations, matrices, determinants, systems of equations, functions, limits, derivatives, integrals, and selected multivariable topics. |
-| **Statistics & Probability** | **Work in progress** | The `main` baseline includes arithmetic mean (ST-101), median (ST-102), population variance (ST-103), statistical interpretation (ST-104), and Mode (ST-105). The ST-106 candidate adds exact practice with frequency tables. The lessons support Easy, Medium, and Hard. |
+| **Statistics & Probability** | **Work in progress** | The `main` baseline includes arithmetic mean (ST-101), median (ST-102), population variance (ST-103), statistical interpretation (ST-104), Mode (ST-105), and frequency tables (ST-106). The ST-107 candidate adds bar-chart interpretation. The lessons support Easy, Medium, and Hard. |
 | **Econometrics** | Planned | Roadmap only; no playable exercises. |
 | **Financial Mathematics** | Planned | Roadmap only; no playable exercises. |
 
@@ -40,7 +40,9 @@ Five difficulty labels are visible in the shared interface, but individual lesso
 
 The Mode lesson asks for every value tied at the highest frequency, provided that it occurs at least twice. Choose **No mode** when each value occurs once. See the [ST-105 lesson notes](docs/ST105_MODE_NOTES.md).
 
-The ST-106 candidate uses simple tables of integer values to teach counts, relative frequencies and percentage shares. See the [ST-106 lesson notes and release checks](docs/ST106_FREQUENCY_TABLES_NOTES.md).
+The Frequency tables lesson uses simple tables of integer values to teach counts, relative frequencies and percentage shares. [ST-106 lesson notes](docs/ST106_FREQUENCY_TABLES_NOTES.md)
+
+The ST-107 candidate teaches learners to read vertical bar charts, compare and combine counts, and recognize what a chart can establish about a recorded snapshot. [ST-107 lesson notes and release checks](docs/ST107_CHARTS_NOTES.md)
 
 > **Important scope note:** Statistics currently includes a *population* variance lesson, using division by **n**, not sample variance with **n − 1**. The Statistics track is **not** a complete course, and the application is not affiliated with a university or an official examination board.
 

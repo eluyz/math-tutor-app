@@ -305,6 +305,37 @@ button { touch-action: manipulation; }
   overflow-wrap: anywhere;
 }
 .statistics-frequency-table thead { background: var(--ui-selected); }
+
+.statistics-chart-data {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+  gap: .75rem 1.5rem;
+  margin-block: 1rem;
+}
+.statistics-chart-data .statistics-frequency-table { margin: 0; }
+.statistics-chart-figure { margin: 0; }
+.statistics-bar-chart {
+  display: block;
+  width: 100%;
+  max-width: 28rem;
+  height: auto;
+  color: var(--ui-text);
+  fill: currentColor;
+  font-size: 17px;
+  font-variant-numeric: tabular-nums;
+}
+.statistics-chart-grid { stroke: var(--ui-line); }
+.statistics-chart-axis { stroke: currentColor; stroke-width: 1.5; }
+.statistics-chart-bar { fill: var(--ui-accent); }
+.statistics-chart-value, .statistics-chart-axis-label { font-weight: 650; }
+@media (min-width: 760px) {
+  .statistics-chart-data { grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); }
+}
+@media (forced-colors: active) {
+  .statistics-chart-bar { fill: CanvasText; }
+}
+
 @media (min-width: 600px) {
   .learning-workspace .catalog-config .exercise-list-items {
     grid-template-columns: repeat(2,minmax(0,1fr));

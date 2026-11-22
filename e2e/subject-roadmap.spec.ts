@@ -17,6 +17,7 @@ for (const { name, viewport } of [
       await expect(page.getByRole("heading", { name: "Statystyka i prawdopodobieństwo" })).toBeVisible();
       await expect(page.getByText("W rozwoju").last()).toBeVisible();
       await expect(page.getByText(/Pilotaż obejmuje średnią arytmetyczną, medianę, dominantę, wariancję populacyjną i interpretację statystyczną z dokładnym sprawdzaniem odpowiedzi/)).toBeVisible();
+      await expect(page.locator(".statistics-heading .subject-roadmap-description")).toContainText("wykresy słupkowe");
       await expect(page.getByText(/czytać tabele liczebności i obliczać udziały/)).toBeVisible();
       await expect(page.getByRole("heading", { name: "ST-101 — Średnia arytmetyczna" })).toBeVisible();
       await expect(page.getByRole("navigation", { name: "Działy Math Tutor" }).getByRole("button", { name: /Statystyka i prawdopodobieństwo/ })).toHaveAttribute("aria-current", "page");

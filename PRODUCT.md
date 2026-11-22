@@ -9,7 +9,7 @@ Math Tutor is a free, MIT-licensed mathematics and introductory statistics learn
 | Subject | Status | Repository learning scope |
 | --- | --- | --- |
 | Mathematics | Available | Bounded foundations and university topics: algebra, linear systems, matrices, functions, limits, derivatives, integrals and selected multivariable tasks |
-| Statistics | Work in progress | ST-101 arithmetic mean, ST-102 median, ST-103 population variance, and ST-104 statistical interpretation on the `main` baseline. ST-105 Mode is playable in the candidate checkout. All five use Easy, Medium, and Hard. |
+| Statistics | Work in progress | ST-101 arithmetic mean, ST-102 median, ST-103 population variance, ST-104 statistical interpretation, ST-105 Mode and ST-106 frequency tables on the `main` baseline. ST-107 adds chart interpretation in the candidate checkout. All seven lessons use Easy, Medium, and Hard. |
 | Econometrics | Planned | Informational screen only |
 | Financial Mathematics | Planned | Informational screen only |
 

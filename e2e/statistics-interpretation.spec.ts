@@ -68,7 +68,7 @@ for(const width of [375,768,1280]) for(const locale of ["pl","en"] as const) {
       }
       for(const level of ["advanced","expert"]) await expect(p.locator(`[data-level=${level}]`)).toBeDisabled();
       await expect(p.locator("[data-topic=data-tables]")).toBeEnabled();
-      await expect(p.locator("[data-topic=charts]")).toBeDisabled();
+      await expect(p.locator("[data-topic=charts]")).toBeEnabled();
       await expect(p.locator("[data-topic=mode]")).toBeEnabled();
     });
 

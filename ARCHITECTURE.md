@@ -24,7 +24,7 @@ This is **not** a universal symbolic mathematics parser. Generated variants and 
 
 ## Statistics boundary
 
-The `main` baseline integrates ST-101 arithmetic mean, ST-102 median, ST-103 population variance with divisor `n`, and ST-104 statistical interpretation. The ST-105 Mode candidate uses the shared native choice form and renders its counted observations in a semantic frequency table. Each lesson supports Easy, Medium, and Hard. See [ST-105 notes](docs/ST105_MODE_NOTES.md) for the exact assessment and release gates.
+The `main` baseline integrates ST-101 arithmetic mean, ST-102 median, ST-103 population variance with divisor `n`, ST-104 statistical interpretation, ST-105 Mode and ST-106 frequency tables. The ST-107 candidate renders chart data in a native SVG and the shared semantic table, and grades selections through the shared native choice form. Each lesson supports Easy, Medium, and Hard. [ST-107 notes](docs/ST107_CHARTS_NOTES.md)
 
 Do not mix Statistics exercise state with Mathematics progress history. Future Econometrics and Financial Mathematics views are currently non-playable placeholders.
 

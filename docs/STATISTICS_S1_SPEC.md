@@ -1,6 +1,6 @@
 # Statistics S1 — descriptive-statistics pilot specification
 
-**Status:** Bounded pilot in progress. ST-101 through ST-105 are integrated on the `main` baseline. ST-106 Frequency tables is playable in the candidate checkout.
+**Status:** Bounded pilot in progress. ST-101 through ST-106 are integrated on the `main` baseline. ST-107 Charts & interpretation is playable in the candidate checkout.
 
 **Created:** 2026-11-16  
 **Source of truth:** [ST-001 umbrella issue](https://github.com/eluyz/math-tutor-app/issues/306), [subject expansion roadmap](SUBJECT_EXPANSION_PLAN.md).  
@@ -8,15 +8,15 @@
 
 ## User problem and learning outcome
 
-A beginner studying economics or finance should be able to calculate and interpret the mean, median, **population** variance and mode of a short finite dataset and read counts and shares from a simple frequency table, with step-by-step feedback.
+A beginner studying economics or finance should be able to calculate and interpret the mean, median, **population** variance and mode of a short finite dataset and read counts and shares from a simple frequency table. The chart lesson covers extracting exact counts and evaluating which claims a recorded snapshot supports.
 
 ## Pilot scope
 
-- Inputs: short integer datasets for Easy, Medium, and Hard. Mode uses 5, 7, and 9 observations respectively. The Mode calculation utility accepts 1–100 safe integers. Frequency tables show three to five distinct integer values and their counts.
-- Outputs: exact rational mean, median and **population** variance, exact comparisons for statistical interpretation, and complete sets of modes for Mode, and exact counts, proportions and percentages for frequency tables.
+- Inputs: short integer datasets for Easy, Medium, and Hard. Mode uses 5, 7, and 9 observations respectively. The Mode calculation utility accepts 1–100 safe integers. Frequency tables show three to five distinct integer values and their counts. Bar charts show three to five rooms and integer visit counts for one recorded hour.
+- Outputs: exact rational mean, median and **population** variance, exact comparisons for statistical interpretation, complete sets of modes, exact counts, proportions and percentages for frequency tables, and exact counts, comparisons and evidence judgments for bar charts.
 - Data: small deterministic lists with repeats, zero variance, negative values, odd/even lengths and unsorted input.
 - Units: for economic examples, identify measurement unit and explain that variance is expressed in **squared** units.
-- Answer format: equivalent fractions and finite decimals for numeric lessons. Statistical interpretation, Mode and Frequency tables use single-choice answers.
+- Answer format: equivalent fractions and finite decimals for numeric lessons. Statistical interpretation, Mode, Frequency tables and Charts & interpretation use single-choice answers.
 - Explicit exclusion: sample variance, standard deviation with irrational outcomes, weighted means, histogram/grouped data, quartiles and inferential procedures are **future work**.
 
 ## Mathematical definitions
@@ -50,7 +50,8 @@ These expected values are written explicitly as QA fixtures rather than being ge
 3. **ST-103 Population variance:** give mean or derive mean → squared deviations → divide by n, **not n−1**.
 4. **ST-104 Interpretation:** compare mean and median or select which summary changes less after replacing one observation.
 5. **ST-105 Mode:** choose the complete set of values at the highest frequency if that frequency is at least two. Choose **No mode** if all values occur once. See the [lesson scope and numbering](ST105_MODE_NOTES.md).
-6. **ST-106 Frequency tables (candidate)** presents an ungrouped frequency table and asks for exact counts or shares. See the [family map and exact notation](ST106_FREQUENCY_TABLES_NOTES.md).
+6. **ST-106 Frequency tables** presents an ungrouped frequency table and asks for exact counts or shares. See the [family map and exact notation](ST106_FREQUENCY_TABLES_NOTES.md).
+7. **ST-107 Charts & interpretation (candidate)** presents zero-based vertical bar charts with a complete text table. It covers exact readings and assessing statements about the observations. [Lesson scope and evidence limits](ST107_CHARTS_NOTES.md)
 
 ## Difficulty and education
 
@@ -58,6 +59,7 @@ These expected values are written explicitly as QA fixtures rather than being ge
 - Medium: 6–8 values, unsorted, repeated values; fractional median or mean allowed.
 - Hard: 7–9 values, some negatives, variance with nonintegral rational answer; must remain hand-checkable.
 - ST-106 progresses from reading counts to deriving single-category shares and interpreting a subset, cumulative count or complement.
+- ST-107 progresses from reading and finding extrema, to comparing and combining two bars, to assessing conclusions about the recorded visits.
 - Explanations must use PL/EN with conceptually equivalent steps, not just translated labels.
 - Error messages: confusion between mean and median; median without sorting; population vs sample variance; forgetting to square; arithmetic mistakes. Never assert a specific cause from a wrong result alone.
 

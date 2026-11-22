@@ -133,6 +133,11 @@ for(const width of [375,390,768,1280]) for(const en of [false,true]) {
     await expectVisibleFocus(page,page.locator('[data-topic=data-tables]'));
     await page.keyboard.press('Tab');
     await expectVisibleFocus(page,page.locator('[data-topic=mean]'));
+    for (const topic of ['median', 'mode', 'dispersion', 'charts', 'interpretation']) {
+      await page.keyboard.press('Tab');
+      await expectVisibleFocus(page,page.locator(`[data-topic=${topic}]`));
+    }
+
 
     const nextStats=page.locator('.statistics-practice').getByRole('button',{name:en?'Next exercise':'Następne zadanie',exact:true});
     await nextStats.focus();

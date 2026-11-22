@@ -2,7 +2,7 @@ type FrequencyTableContent = Readonly<{
   caption: string;
   valueHeader: string;
   frequencyHeader: string;
-  rows: readonly Readonly<{ value: number; frequency: number }>[];
+  rows: readonly Readonly<{ value: number | string; frequency: number }>[];
 }>;
 
 export function FrequencyTable({ table, id, describedBy }: {

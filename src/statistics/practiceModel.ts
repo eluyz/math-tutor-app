@@ -6,7 +6,7 @@ import { generateMedianTask } from "./medianTasks";
 import { generateVarianceTask } from "./varianceTasks";
 
 export type StatisticsPracticeTask = Readonly<{
-  lesson: Exclude<StatisticsLesson, "interpretation" | "mode" | "frequency-tables">;
+  lesson: Exclude<StatisticsLesson, "interpretation" | "mode" | "frequency-tables" | "charts">;
   difficulty: DatasetDifficulty;
   seed: number;
   values: readonly number[];

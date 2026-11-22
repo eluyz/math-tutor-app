@@ -2,11 +2,15 @@ import { describe, expect, it } from "vitest";
 import { subjectCopy, subjectOrder, subjectStatus } from "./subjectRoadmap";
 
 describe("subject expansion roadmap", () => {
-  it.each(["pl","en"] as const)("includes playable frequency tables, Mode and interpretation lessons in the %s Statistics scope",locale=>{
+  it.each(["pl","en"] as const)("includes playable frequency tables, bar charts, Mode and interpretation lessons in the %s Statistics scope",locale=>{
     const statistics=subjectCopy[locale].subjects.statistics;
     const interpretation=locale==="pl"?/interpretacj\S* statystyczn\S*/i:/statistical interpretation/i;
     const mode=locale==="pl"?/\bdominant\S*/i:/\bmode\b/i;
     const frequencies=locale==="pl"?/tabel\S* liczebności/i:/frequency tables/i;
+    const charts=locale==="pl"?/wykres\S* słupkow\S*/i:/bar charts/i;
+    expect(statistics.description).toMatch(charts);
+    expect(statistics.description).toContain(locale==="pl"?"czytać tabele liczebności i obliczać udziały":"read frequency tables and calculate shares");
+    expect(statistics.nextStep).toMatch(charts);
     expect(statistics.description).toMatch(frequencies);
     expect(statistics.nextStep).toMatch(frequencies);
     expect(statistics.description).toMatch(mode);
