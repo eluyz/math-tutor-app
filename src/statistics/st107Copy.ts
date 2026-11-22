@@ -45,7 +45,7 @@ function claimLabel(claim: ChartClaim, pl: boolean): string {
       return pl ? `Plakat w sali ${claim.category} wpłynął na liczbę wizyt w tej sali.`
         : `A poster in room ${claim.category} changed the number of visits to that room.`;
     case "future":
-      return pl ? `We wtorek od 9:00 do 10:00 sala ${claim.category} będzie miała dokładnie ${claim.value} wizyt.`
+      return pl ? `We wtorek od 9:00 do 10:00 liczba wizyt w sali ${claim.category} wyniesie dokładnie ${claim.value}.`
         : `Room ${claim.category} will have exactly ${visits(claim.value)} on Tuesday, 9–10 a.m.`;
     case "population":
       return pl ? "Wszystkie wizyty w salach budynku w tej godzinie odbyły się w salach pokazanych na wykresie."
@@ -207,8 +207,8 @@ function describeExercise(task: ChartTask, read: Reading, pl: boolean): LessonCo
           pl ? "Zwróć uwagę na sale i godzinę, których dotyczą dane." : "Notice which rooms and hour the data cover.",
           supported
             ? pl ? "Sprawdź porównanie, sumę i różnicę, korzystając z dokładnych liczb." : "Check the comparison, sum and difference using the exact counts."
-            : pl ? "Sprawdź dwa stwierdzenia liczbowe. Zastanów się, jakich danych wymaga trzecie."
-              : "Verify the two numerical statements. Think about what evidence the remaining claim would need.",
+            : pl ? "Sprawdź każde stwierdzenie, korzystając z danych dla pokazanych sal i godziny. Które wymaga innych danych?"
+              : "Check each claim against the counts for the rooms and hour shown. Which claim needs more evidence?",
         ],
         steps: [readingStep([query.left, query.right], read, pl), ...claims.map(claim => evidenceStep(rows, claim, read, pl))],
         conclusion: supported ? statement

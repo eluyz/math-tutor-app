@@ -89,3 +89,20 @@ it("spells out direction, distinct sum operands and equality for the shown data"
   expect(chartCopy(createChartPracticeTask("medium", 1), "pl").prompt).toMatch(/wartość bezwzględna/);
   expect(() => chartCopy(createChartPracticeTask("easy", 0), "es" as "en")).toThrow(RangeError);
 });
+
+it("checks each claim against the observed rooms and hour when a forecast appears second", () => {
+  const task = createChartPracticeTask("hard", 27);
+  const forecast = task.options[1].answer;
+  expect(forecast.kind === "claim" && forecast.claim.kind).toBe("future");
+  expect(chartCopy(task, "en").hints[1]).toMatch(/each claim.*rooms.*hour/);
+  expect(chartCopy(task, "pl").hints[1]).toMatch(/każde stwierdzenie.*sal.*godzin/);
+});
+
+it("uses grammatical Polish forecasts for visit counts of one and two", () => {
+  for (const [seed, count] of [[33, 1], [171, 2]]) {
+    const task = createChartPracticeTask("hard", seed);
+    const future = task.options.find(({ answer }) => answer.kind === "claim" && answer.claim.kind === "future")!;
+    const label = chartCopy(task, "pl").options.find(option => option.id === future.id)?.label;
+    expect(label).toMatch(new RegExp(`liczba wizyt w sali [A-E] wyniesie dokładnie ${count}\\.`));
+  }
+});

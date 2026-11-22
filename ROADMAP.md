@@ -10,10 +10,11 @@ This is a prioritized plan, **not** a promise of release dates, external adoptio
 | --- | --- | --- |
 | Mathematics and Focus Studio | Available | Preserve exact grading, local history and shared task-first UI |
 | Statistics ST-101 / ST-102 | Released | Maintain bilingual exact practice |
-| Statistics ST-103 | PR #340 merged | Confirm main CI and GitHub Pages on the same published SHA |
+| Statistics ST-103 | Playable integration merged in PR #340 | Preserve bilingual exact population-variance practice |
 | Statistics ST-104 | Playable integration merged in [PR #345](https://github.com/eluyz/math-tutor-app/pull/345) | Preserve bilingual exact interpretation practice |
 | Statistics ST-105 Mode | Playable integration merged in [PR #346](https://github.com/eluyz/math-tutor-app/pull/346) | Preserve exact bilingual Mode practice |
-| Statistics ST-106 Frequency tables | Playable candidate | Complete exact-head CI and maintainer review, then verify main CI and Pages after approval and merge. See the [lesson notes](docs/ST106_FREQUENCY_TABLES_NOTES.md). |
+| Statistics ST-106 Frequency tables | Integrated on the verified `main` baseline | Preserve exact bilingual frequency-table practice. [Lesson notes](docs/ST106_FREQUENCY_TABLES_NOTES.md) |
+| Statistics ST-107 Charts & interpretation | Playable candidate | Complete exact-head CI and maintainer review. Verify main CI and Pages on the release SHA after any owner-approved merge. [Lesson notes](docs/ST107_CHARTS_NOTES.md) |
 | Further Statistics topics | Planned | Define explicit scope and independent mathematical oracles |
 | Econometrics | Planned | Hand-checkable introductory regression; not currently playable |
 | Financial Mathematics | Planned | Bounded interest, present value, annuities and NPV; not currently playable |

@@ -2,7 +2,7 @@
 export const statisticsCurriculum = [
   { id: "fundamentals", topics: [
     {id:"data-tables",lesson:"frequency-tables"}, {id:"mean",lesson:"mean"}, {id:"median",lesson:"median"},
-    {id:"mode",lesson:"mode"}, {id:"dispersion",lesson:"variance"}, {id:"charts"}, {id:"interpretation",lesson:"interpretation"},
+    {id:"mode",lesson:"mode"}, {id:"dispersion",lesson:"variance"}, {id:"charts",lesson:"charts"}, {id:"interpretation",lesson:"interpretation"},
   ] },
   { id: "university", topics: [
     {id:"descriptive"}, {id:"combinatorics"}, {id:"probability"}, {id:"conditional"},

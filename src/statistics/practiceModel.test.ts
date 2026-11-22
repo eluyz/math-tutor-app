@@ -49,6 +49,7 @@ describe("Statistics playable lesson adapter",()=>{
  });
  it("rejects unavailable lessons/levels without a fallback",()=>{
   expect(()=>createStatisticsPracticeTask("mode" as "mean","easy",0)).toThrow(RangeError);
+  expect(()=>createStatisticsPracticeTask("charts" as "mean","easy",0)).toThrow(RangeError);
   for(const level of ["advanced","expert"] as const) expect(()=>createStatisticsPracticeTask("median",level,0)).toThrow(RangeError);
   expect(()=>createStatisticsPracticeTask("median","easy",-1)).toThrow(RangeError);
  });

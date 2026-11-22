@@ -1,6 +1,6 @@
 # ST-106 — Frequency tables
 
-The candidate activates the existing **Data & tables / Dane i tabele** topic in Statistics fundamentals. All exercises present a simple ungrouped table of distinct integer values and their absolute frequencies. Categories include zero and negative values. Counts are nonnegative integers and their total is positive. The generated tables have three or five rows. Grouped data, histograms, chart interpretation and inferential techniques remain future scope. Hypothesis testing remains an unnumbered University statistics topic.
+ST-106 activates the existing **Data & tables / Dane i tabele** topic in Statistics fundamentals. All exercises present a simple ungrouped table of distinct integer values and their absolute frequencies. Categories include zero and negative values. Counts are nonnegative integers and their total is positive. The generated tables have three or five rows. Grouped data, histograms and inferential techniques are outside this lesson’s scope. A separate candidate covers [ST-107 bar-chart interpretation](ST107_CHARTS_NOTES.md). Hypothesis testing remains an unnumbered University statistics topic.
 
 ## Exercise families
 
@@ -22,6 +22,6 @@ The table is visible with the prompt, with a bilingual caption and scoped header
 
 The unit oracle independently calculates selected counts and compares exact fractions by cross multiplication for 259 seeds per difficulty. Literal fixtures include thirds, reducible fractions, zero, all-selected data, ties, unsorted and signed categories, and malformed data and responses. Browser checks read the rendered table and options in both languages at 375 and 1280 CSS px, with 320 px smoke cases. They also cover keyboard navigation, state, redraw and existing Statistics and Mathematics workflows.
 
-In the local environment, installed Chromium aborted before opening the app because its SUID sandbox helper was misconfigured. The standard Playwright browser download returned HTTP 403. Collection establishes which tests are registered. Full Playwright and batches B–G require exact-head CI runtime evidence.
+During ST-106 candidate verification, local Chromium aborted before opening the app because its SUID sandbox helper was misconfigured. The standard Playwright browser download returned HTTP 403. Collection establishes which tests are registered. Full Playwright and batches B–G require exact-head CI runtime evidence.
 
-Statistics retains **Work in progress** status. ST-101 through ST-105 are integrated on the `main` baseline. ST-106 publication requires exact-head candidate CI, review and maintainer approval, followed by verification of main CI and Pages on the release SHA.
+Statistics retains **Work in progress** status. ST-106 is integrated on the `main` baseline at `d8b8be61774450cb0d3b3f49ceca74f7b7ef838a`, with successful main CI and Pages on that SHA. [Main CI](https://github.com/eluyz/math-tutor-app/actions/runs/45072584420) · [Pages](https://github.com/eluyz/math-tutor-app/actions/runs/45076496402)

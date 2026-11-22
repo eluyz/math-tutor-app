@@ -1,7 +1,7 @@
 # Subject expansion roadmap
 
 **Project:** Math Tutor — free, MIT-licensed learning software  
-**Status:** Implementation roadmap updated for the ST-106 candidate.
+**Status:** Implementation roadmap updated for the ST-107 candidate.
 
 **Learning scope:** Mathematics and a bounded Statistics pilot. Econometrics and Financial Mathematics are planned.
 
@@ -14,7 +14,7 @@ Math Tutor currently offers deterministic mathematics exercises, guided solution
 | Subject | Status | Honest interpretation |
 | --- | --- | --- |
 | Mathematics | AVAILABLE | Existing production exercises and modes; existing limitations still apply. |
-| Statistics & Probability | WORK IN PROGRESS | The `main` baseline covers arithmetic mean, median, population variance, statistical interpretation and Mode. The ST-106 candidate adds frequency tables. Each lesson uses PL/EN and supports Easy, Medium, and Hard. |
+| Statistics & Probability | WORK IN PROGRESS | The `main` baseline covers arithmetic mean, median, population variance, statistical interpretation, Mode and frequency tables. ST-107 adds vertical bar-chart interpretation in the candidate checkout. Each lesson uses PL/EN and supports Easy, Medium, and Hard. |
 | Econometrics | PLANNED | Future scope after statistics foundations. |
 | Financial Mathematics | PLANNED | Future scope after statistics/econometrics priorities. |
 
@@ -25,7 +25,8 @@ Math Tutor currently offers deterministic mathematics exercises, guided solution
 - Delivery tickets: [generator #308](https://github.com/eluyz/math-tutor-app/issues/308), [independent QA #309](https://github.com/eluyz/math-tutor-app/issues/309), [PL/EN pedagogy #310](https://github.com/eluyz/math-tutor-app/issues/310), [UI and release #311](https://github.com/eluyz/math-tutor-app/issues/311).
 - ST-103 population variance integration is merged in [PR #340](https://github.com/eluyz/math-tutor-app/pull/340). ST-104 statistical interpretation integration is merged in [PR #345](https://github.com/eluyz/math-tutor-app/pull/345).
 - ST-105 Mode is integrated in [PR #346](https://github.com/eluyz/math-tutor-app/pull/346). See the [ST-105 notes](ST105_MODE_NOTES.md).
-- ST-106 Frequency tables is playable in the candidate checkout. Publication requires owner approval, full exact-head CI, and subsequent verification of main CI and Pages on the release SHA. Statistics retains **Work in progress** status. See the [ST-106 notes](ST106_FREQUENCY_TABLES_NOTES.md).
+- ST-106 Frequency tables is integrated on the verified `main` baseline. [ST-106 notes](ST106_FREQUENCY_TABLES_NOTES.md)
+- ST-107 Charts & interpretation is playable in the candidate checkout. It completes the seven basic topic entry points with a bounded bar-chart lesson. The nine University topics remain planned and Statistics retains **Work in progress** status. [ST-107 notes](ST107_CHARTS_NOTES.md)
 - Historical Mathematics family/variant counts must not be silently increased to include Statistics exercises.
 
 ## Broader roadmap (beyond the bounded Statistics pilot)
@@ -82,4 +83,4 @@ We do not claim any number of active users or external contributors. Track only 
 
 ## Next actionable task
 
-Finish the ST-106 candidate's browser and release review before extending Statistics coverage.
+Complete the ST-107 candidate’s exact-head CI and maintainer review. An owner-approved release requires main CI and Pages verification on its release SHA.
