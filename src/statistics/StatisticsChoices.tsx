@@ -1,7 +1,7 @@
 import type { RefObject } from "react";
 
 /** Native radios retain browser arrow/Space behavior and one keyboard tab stop. */
-export function StatisticsChoices({ options, value, onChange, answerRef, legend, format, invalid }: {
+export function StatisticsChoices({ options, value, onChange, answerRef, legend, format, invalid, details }: {
   options: readonly Readonly<{ id: string; label: string }>[];
   value: string;
   onChange: (value: string) => void;
@@ -9,9 +9,10 @@ export function StatisticsChoices({ options, value, onChange, answerRef, legend,
   legend: string;
   format: string;
   invalid: boolean;
+  details?: string;
 }) {
   return <fieldset className="statistics-choices" role="radiogroup" aria-invalid={invalid} aria-labelledby="statistics-choice-legend"
-    aria-describedby="statistics-question statistics-choice-format statistics-feedback">
+    aria-describedby="statistics-question statistics-choice-format statistics-feedback" aria-details={details}>
     <legend id="statistics-choice-legend">{legend}</legend>
     <p id="statistics-choice-format" className="panel-intro">{format}</p>
     <div className="statistics-choice-options">

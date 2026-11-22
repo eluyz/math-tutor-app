@@ -85,7 +85,7 @@ The mapping organizes eight broad areas: matrices (M), systems (U), sequences (C
 
 Historical checkpoints reported **64/64 mapped skills**, **14 bounded**, **50 partial**, and separate SOURCE_PASS numbers. These figures describe different evidence classes at their own dates; do not combine them or claim that 64/64 tasks have passed original-source acceptance.
 
-Statistics has its own bounded pilot and exercise inventory. The `main` baseline contains ST-101 through ST-104. The ST-105 Mode candidate activates the existing Fundamentals topic. See the [Statistics roadmap](docs/SUBJECT_EXPANSION_PLAN.md).
+Statistics has its own bounded pilot and exercise inventory. The `main` baseline contains ST-101 through ST-105. The ST-106 candidate activates the existing Data & tables topic in Fundamentals, covering absolute and relative frequency, percentage share, and interpretation of ungrouped discrete frequency tables at Easy, Medium, and Hard. See the [Statistics roadmap](docs/SUBJECT_EXPANSION_PLAN.md).
 
 - [Full original 64-competency report, unchanged](docs/archive/legacy-2026-11-20/CURRICULUM_COVERAGE.md) — includes the detailed Polish descriptions, assumptions and method limitations for each row.
 - [Source-form closure audit](docs/SYLLABUS_COVERAGE_V2.md)

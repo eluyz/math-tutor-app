@@ -130,6 +130,8 @@ for(const width of [375,390,768,1280]) for(const en of [false,true]) {
     await page.keyboard.press('Tab');
     await expectVisibleFocus(page,stats.university);
     await page.keyboard.press('Tab');
+    await expectVisibleFocus(page,page.locator('[data-topic=data-tables]'));
+    await page.keyboard.press('Tab');
     await expectVisibleFocus(page,page.locator('[data-topic=mean]'));
 
     const nextStats=page.locator('.statistics-practice').getByRole('button',{name:en?'Next exercise':'Następne zadanie',exact:true});

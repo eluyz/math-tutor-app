@@ -40,7 +40,7 @@ jobs:
         run: npx playwright test e2e/learning-track-scroll.spec.ts --workers=2 --reporter=list,github
 
       - name: Run targeted UI recovery regressions
-        run: npx playwright test e2e/night-navigation.spec.ts e2e/night-subjects.spec.ts e2e/night-layout.spec.ts e2e/night-accessibility.spec.ts e2e/ui-validation.spec.ts e2e/statistics-integration.spec.ts e2e/statistics-median.spec.ts e2e/statistics-navigation.spec.ts e2e/statistics-practice.spec.ts e2e/statistics-interpretation.spec.ts e2e/statistics-mode.spec.ts e2e/subject-roadmap.spec.ts e2e/local-progress.spec.ts --workers=2 --reporter=list,github
+        run: npx playwright test e2e/night-navigation.spec.ts e2e/night-subjects.spec.ts e2e/night-layout.spec.ts e2e/night-accessibility.spec.ts e2e/ui-validation.spec.ts e2e/statistics-integration.spec.ts e2e/statistics-median.spec.ts e2e/statistics-navigation.spec.ts e2e/statistics-practice.spec.ts e2e/statistics-interpretation.spec.ts e2e/statistics-mode.spec.ts e2e/statistics-frequency-tables.spec.ts e2e/subject-roadmap.spec.ts e2e/local-progress.spec.ts --workers=2 --reporter=list,github
 
       - name: Run browser tests
         run: npm run test:e2e
