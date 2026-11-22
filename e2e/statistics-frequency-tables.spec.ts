@@ -327,7 +327,7 @@ for (const locale of ["pl", "en"] as const) {
 test("ST-106 preserves ST-101–105, Mathematics progress and exam lock", async ({ page }) => {
   await page.goto("/");
   await button(page, "English").click();
-  await button(page, "Multiplication first").click();
+  await page.locator(".exercise-list-items").getByRole("button", { name: /Multiplication first/ }).click();
   await button(page, "Start a session (10 exercises)").click();
   const result = numeric(await page.locator(".practice .question").innerText());
   await page.locator("#answer").fill(`${result.numerator}/${result.denominator}`);
