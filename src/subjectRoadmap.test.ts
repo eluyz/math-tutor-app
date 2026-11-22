@@ -9,6 +9,7 @@ describe("subject expansion roadmap", () => {
     const frequencies=locale==="pl"?/tabel\S* liczebności/i:/frequency tables/i;
     const charts=locale==="pl"?/wykres\S* słupkow\S*/i:/bar charts/i;
     expect(statistics.description).toMatch(charts);
+    expect(statistics.description).toContain(locale==="pl"?"czytać tabele liczebności i obliczać udziały":"read frequency tables and calculate shares");
     expect(statistics.nextStep).toMatch(charts);
     expect(statistics.description).toMatch(frequencies);
     expect(statistics.nextStep).toMatch(frequencies);

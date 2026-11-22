@@ -48,7 +48,7 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statystyka i prawdopodobieństwo",
         title: "Statystyka i prawdopodobieństwo",
-        description: "Pilotaż obejmuje średnią arytmetyczną, medianę, dominantę, wariancję populacyjną i interpretację statystyczną z dokładnym sprawdzaniem odpowiedzi. Możesz też czytać tabele liczebności, obliczać udziały i interpretować wykresy słupkowe. To nie jest pełny kurs statystyki.",
+        description: "Pilotaż obejmuje średnią arytmetyczną, medianę, dominantę, wariancję populacyjną i interpretację statystyczną z dokładnym sprawdzaniem odpowiedzi. Możesz też czytać tabele liczebności i obliczać udziały, a także interpretować wykresy słupkowe. To nie jest pełny kurs statystyki.",
         topics: ["Statystyka opisowa: tabele liczebności, wykresy słupkowe, średnia, mediana, dominanta, wariancja i interpretacja wyników", "Podstawy prawdopodobieństwa i kombinatoryka", "Rozkłady losowe i estymacja", "Przedziały ufności i testy hipotez"],
         nextStep: "Zweryfikować wyniki pilotażu tabel liczebności, wykresów słupkowych, średniej, mediany, dominanty, wariancji populacyjnej i interpretacji statystycznej przed rozbudową kolejnych zagadnień.",
       },
@@ -81,7 +81,7 @@ export const subjectCopy: Record<Locale, RoadmapCopy> = {
       statistics: {
         label: "Statistics & Probability",
         title: "Statistics & Probability",
-        description: "This pilot covers arithmetic mean, median, mode, population variance and statistical interpretation, with exact answer checking. You can also read frequency tables, calculate shares and interpret bar charts. This is not a complete statistics course.",
+        description: "This pilot covers arithmetic mean, median, mode, population variance and statistical interpretation, with exact answer checking. You can also read frequency tables and calculate shares, and practise interpreting bar charts. This is not a complete statistics course.",
         topics: ["Descriptive statistics: frequency tables, bar charts, mean, median, mode, variance and interpretation", "Probability basics and combinatorics", "Random variables, distributions and estimation", "Confidence intervals and hypothesis testing"],
         nextStep: "Review the pilot for frequency tables, bar charts, mean, median, mode, population variance and statistical interpretation before approving further lessons.",
       },
