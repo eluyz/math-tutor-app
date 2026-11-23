@@ -1,3 +1,6 @@
+> [!IMPORTANT]
+> **2026-11-08 CREDIT-SAVER OVERRIDE (pending separate PR release):** the older three-agent / 21-ready-Issue narrative below is historical. The current cost-control proposal in [MT-CREDIT-SAVER-01](./MT_CREDIT_SAVER_01.md) changes LIVE policy to **one agent, one active pilot Issue (#217), max one assignment per tick**, and requires `MT_CREDIT_MONTH_OK=YYYY-MM` for the current UTC month. The existing `MT_DISPATCH_LIVE=false` remains unchanged. Do not activate until this change passes CI and is owner-approved and merged.
+
 # MT-NIGHT-02 — safe Copilot dispatcher
 
 Owner plan: Issue #227; source backlog: Issue #200.

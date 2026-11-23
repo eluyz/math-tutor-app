@@ -2,7 +2,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {readFileSync} from "node:fs";
 import {policyCheck,isProtected,matchesQuota,eligiblePR,parseRepairs,readTrustedQA,latestCI,
-  evaluatePR,repairPrompt,activeCount,activePRConflict,mainRelease} from "./mt-repair.mjs";
+  evaluatePR,repairPrompt,activeCount,activePRConflict,mainRelease,monthlyBudgetOK} from "./mt-repair.mjs";
 const cfg=policyCheck(JSON.parse(readFileSync(new URL("../../docs/MT_REPAIR_01_POLICY.json",import.meta.url),"utf8")));
 const a="a".repeat(40),b="b".repeat(40),c="c".repeat(40);
 const pr=(sha=a,number=250)=>({number,state:"open",merged_at:null,base:{ref:"main"},head:{sha,repo:{full_name:"eluyz/math-tutor-app"}},user:{login:"Copilot"},body:"Fixes #209",title:"Independent math tests"});
@@ -11,8 +11,8 @@ const comment=(body,login="eluyz",id=1)=>({id,user:{login},body,created_at:"2026
 const repairs=(p,head=p.head.sha,attempt=1)=>comment("<!-- MT-REPAIR-01:v1 pr="+p.number+" sha="+head+" attempt="+attempt+" trigger=QA -->\n@copilot repair","eluyz",attempt);
 const qa=(p,verdict="NEEDS_FIXES",login="eluyz")=>comment("<!-- MT-QA:v1 pr="+p.number+" sha="+p.head.sha+" verdict="+verdict+" -->\nFindings:\n- Wrong Hessian sign at x=0 and y=2; expected determinant -8, got +8.",login,25);
 test("policy prevents automatic merge, unlimited loops or unchecked permissions",()=>{
-  assert.equal(cfg.automatic_merge,false);assert.equal(cfg.max_repairs_per_pr,2);
-  assert.equal(cfg.max_active_agent_sessions,3);assert.equal(cfg.allowed_issue_numbers.length,22);
+  assert.equal(cfg.automatic_merge,false);assert.equal(cfg.max_repairs_per_pr,1);
+  assert.equal(cfg.max_active_agent_sessions,1);assert.equal(cfg.allowed_issue_numbers.length,22);
   for(const key of ["automatic_merge","require_protected_main","require_night_02_released"]){
     const x=structuredClone(cfg);x[key]=key==="automatic_merge"?true:false;
     assert.throws(()=>policyCheck(x),/UNSAFE/);
@@ -72,27 +72,26 @@ test("detailed QA NEEDS_FIXES launches one bounded repair on same PR",()=>{
 test("never re-request a repair on the same head SHA",()=>{
   const p=pr();assert.equal(evaluatePR(p,[repairs(p)],[ci(p,"failure")],cfg).status,"WAITING_NEW_SHA");
 });
-test("two attempts exhaust budget across commits",()=>{
-  const p=pr(c),logs=[repairs(p,a,1),repairs(p,b,2)];
+test("one completed repair exhausts budget after a changed SHA and a fresh failing CI",()=>{
+  const p=pr(c),logs=[repairs(p,a,1)];
   const x=evaluatePR(p,logs,[ci(p,"failure")],cfg);
   assert.equal(x.status,"BLOCKED");assert.equal(x.reason,"RETRY_BUDGET_EXHAUSTED");
 });
-test("one attempt may continue once, only after new SHA and fresh CI",()=>{
+test("a second repair is never scheduled, even after a new SHA",()=>{
   const p=pr(b),res=evaluatePR(p,[repairs(p,a,1)],[ci(p,"failure")],cfg);
-  assert.equal(res.status,"NEEDS_FIXES");assert.equal(res.attempts,1);
-  assert.match(repairPrompt(p,res),/attempt=2 trigger=CI/);
+  assert.equal(res.status,"BLOCKED");assert.equal(res.reason,"RETRY_BUDGET_EXHAUSTED");
 });
 test("modified independent QA tests stop repairs, production-only changes may continue",()=>{
   const p=pr(b),history=[repairs(p,a,1)];
   assert.equal(evaluatePR(p,history,[ci(p,"success")],cfg,{afterRepairFiles:["src/qa/oracle.test.ts"]}).reason,"REPAIR_CHANGED_PROTECTED_QA");
-  assert.equal(evaluatePR(p,history,[ci(p,"failure")],cfg,{afterRepairFiles:["src/university/graphIntegratedAsymptotes.ts"]}).status,"NEEDS_FIXES");
+  assert.equal(evaluatePR(p,history,[ci(p,"failure")],cfg,{afterRepairFiles:["src/university/graphIntegratedAsymptotes.ts"]}).status,"BLOCKED");
 });
 test("duplicate or missing retry markers fail closed",()=>{
   const p=pr();
   assert.throws(()=>parseRepairs([repairs(p,a,1),repairs(p,b,1)],p),/INVALID/);
   assert.throws(()=>parseRepairs([repairs(p,a,2)],p),/INVALID/);
 });
-test("active task counter preserves global three-slot budget",()=>{
+test("active task counter prevents exceeding one shared slot",()=>{
   assert.equal(activeCount([{state:"queued"},{state:"in_progress"},{state:"completed"}]),2);
   assert.throws(()=>activeCount([{state:"unknown_running"}]),/UNKNOWN/);
   assert.throws(()=>activeCount(Array(100).fill({state:"completed"})),/TRUNCATED/);
@@ -109,4 +108,10 @@ test("never start a second Copilot session on a PR with a running task",()=>{
   assert.equal(activePRConflict(tasks,p),true);
   assert.equal(activePRConflict([{state:"completed",artifacts:[]}],p),false);
   assert.throws(()=>activePRConflict([{state:"queued",artifacts:[]}],p),/UNMAPPED/);
+});
+
+test("monthly credit consent expires automatically in the next UTC month",()=>{
+ assert.equal(monthlyBudgetOK("2026-12","2026-12"),true);
+ assert.equal(monthlyBudgetOK("2026-11","2026-12"),false);
+ assert.equal(monthlyBudgetOK(undefined,"2026-12"),false);
 });

@@ -19,8 +19,11 @@ export function isCopilot(issue) {
 }
 export function validateConfig(cfg) {
   if (!cfg || cfg.schema_version!==1 || cfg.repository!==REPO || cfg.mode!=="DRY_RUN_BY_DEFAULT" ||
-      cfg.automatic_merge!==false || cfg.max_active!==3 ||
-      !positive(cfg.max_assignments_per_tick) || cfg.max_assignments_per_tick>3 ||
+      cfg.automatic_merge!==false || cfg.max_active!==1 ||
+      cfg.max_assignments_per_tick!==1 || cfg.budget_mode!=="MANUAL_MONTHLY_GATE" ||
+      cfg.monthly_gate_variable!=="MT_CREDIT_MONTH_OK" || cfg.pilot_batch_max!==3 ||
+      !Array.isArray(cfg.queue) || cfg.queue.length<1 || cfg.queue.length>cfg.pilot_batch_max ||
+      !Array.isArray(cfg.parked_issues) ||
       JSON.stringify(cfg.lanes)!==JSON.stringify(LANES) ||
       !cfg.seed_dispatched || !Array.isArray(cfg.queue) ||
       !Array.isArray(cfg.excluded_dependency_gated) || cfg.paused_on_quota!==true)
@@ -45,9 +48,14 @@ export function validateConfig(cfg) {
     if (!Array.isArray(cfg.seed_dispatched[lane]) ||
         !cfg.seed_dispatched[lane].every(positive)) throw Error("Invalid seed lane");
   }
+  for (const n of cfg.parked_issues) if (!positive(n) || ids.has(n) || cfg.excluded_dependency_gated.includes(n))
+    throw Error("Parked issue entered active queue or excluded dependencies");
   for (const n of cfg.excluded_dependency_gated) if (!positive(n) || ids.has(n))
     throw Error("Blocked dependency appeared in dispatch queue");
   return cfg;
+}
+export function creditMonthApproved(approved,utcMonth) {
+  return typeof approved==="string" && /^\d{4}-\d{2}$/.test(approved) && approved===utcMonth;
 }
 export function quotaBlocked(prs) {
   return prs.some(p=>p.state==="open" &&
@@ -148,6 +156,8 @@ async function evaluate(cfg, env) {
   if (!branch.protected) overview.blockers.push("MAIN_NOT_PROTECTED");
   if (!release.pass) overview.blockers.push("MAIN_CI_OR_PAGES_NOT_PASS");
   if (quota) overview.blockers.push("COPILOT_QUOTA_WARNING_IN_OPEN_PR");
+  if (!creditMonthApproved(env.creditMonth,new Date().toISOString().slice(0,7)))
+    overview.blockers.push("MONTHLY_AI_CREDIT_BUDGET_NOT_APPROVED");
   if (!live) {
     overview.blockers.push("DRY_RUN_NO_ASSIGNMENT");
     return overview;
@@ -199,6 +209,7 @@ export async function main() {
   if(process.argv.includes("--check")) {process.stdout.write("MT-NIGHT-02 CONFIG_PASS; tasks="+cfg.queue.length+"\n");return;}
   const env={repository:process.env.GITHUB_REPOSITORY,ref:process.env.GITHUB_REF,
     event:process.env.GITHUB_EVENT_NAME,live:process.env.MT_DISPATCH_LIVE,
+    creditMonth:process.env.MT_CREDIT_MONTH_OK,
     read:process.env.GITHUB_TOKEN,pat:process.env.MT_COPILOT_DISPATCH_PAT};
   const report=await evaluate(cfg,env);
   const summary=summarize(report);

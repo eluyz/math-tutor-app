@@ -12,8 +12,9 @@ const safeErr=e=>String(e?.message||e).slice(0,250);
 
 export function policyCheck(c){
   if(!c||c.schema_version!==1||c.repository!==REPO||c.mode!=="DRY_RUN_BY_DEFAULT"||
-    c.automatic_merge!==false||c.max_active_agent_sessions!==3||
-    c.max_repairs_per_pr!==2||c.max_new_repairs_per_tick!==1||
+    c.automatic_merge!==false||c.max_active_agent_sessions!==1||
+    c.max_repairs_per_pr!==1||c.max_new_repairs_per_tick!==1||
+    c.credit_budget_mode!=="MANUAL_MONTHLY_GATE"||c.monthly_gate_variable!=="MT_CREDIT_MONTH_OK"||
     c.require_protected_main!==true||c.require_night_02_released!==true||
     c.require_main_ci_pages_pass!==true||c.stop_if_quota_reported!==true||
     JSON.stringify(c.trusted_qa_reviewers)!=='["eluyz"]'||
@@ -32,6 +33,7 @@ export function isProtected(p,c){
     /(?:^|\/)[^/]+\.(?:test|spec)\.[cm]?[jt]sx?$/.test(p)||
     p.startsWith("docs/qa")||p.startsWith("docs/QA_");
 }
+export function monthlyBudgetOK(approved,utcMonth){return typeof approved==="string"&&/^\d{4}-\d{2}$/.test(approved)&&approved===utcMonth;}
 export function matchesQuota(prs){
   return prs.some(p=>p.state==="open"&&
     /\b(?:quota exhausted|quota limits|session quota|usage limit|limit reached|credits exhausted)\b/i
@@ -52,7 +54,7 @@ export function parseRepairs(comments,p){
     for(const m of String(x.body||"").matchAll(REPAIR)){
       if(Number(m[1])!==p.number)continue;
       const attempt=Number(m[3]);
-      if(!isInt(attempt)||attempt>2||!SHA.test(m[2]))throw Error("INVALID_REPAIR_LOG");
+      if(!isInt(attempt)||attempt>1||!SHA.test(m[2]))throw Error("INVALID_REPAIR_LOG");
       logs.push({sha:m[2],attempt,trigger:m[4],id:x.id,created_at:x.created_at});
     }
   }
@@ -115,7 +117,7 @@ export function repairPrompt(pr,result){
     "Exact-head GitHub CI failed; run ID: "+result.ci_run_id+". Investigate the real failed CI logs. Do not infer mathematical failure from CI alone.";
   return [mark,
     "@copilot Please repair the exact issues below on THIS existing pull-request branch. Do not create another PR.",
-    "Repair attempt "+i+"/2. Starting PR SHA: "+pr.head.sha+".",
+    "Repair attempt "+i+"/1. Starting PR SHA: "+pr.head.sha+".",
     "Evidence: "+evidence,
     "Scope: minimal production-code correction only. Do NOT edit tests, independent QA oracles, fixtures, GitHub workflows, repository policy, package files or test configuration. If needed, STOP and explain BLOCKED instead of bypassing checks.",
     "Do NOT add unrelated variants or weaken acceptance. Ensure correct mathematical answers and steps in PL/EN. Run targeted tests and build when possible. Summarize changed files and actual results.",
@@ -235,7 +237,7 @@ function markdown(s){
     "# MT-REPAIR-01 checkpoint",
     "Mode: "+s.mode+" | main: "+s.main_sha,
     "Protected main: "+s.protected_main+" | CI+Pages: "+s.main_ci_pages_pass+" | NIGHT-02: "+s.night02_released,
-    "Quota blocked: "+s.quota_blocked+" | agent slots: "+s.active+"/3",
+    "Quota blocked: "+s.quota_blocked+" | agent slots: "+s.active+"/1",
     "Candidates: "+(s.possible.map(x=>"#"+x.number+" ("+x.trigger+")").join(", ")||"none"),
     "Repair comments sent: "+s.dispatched.length,
     "Global blockers: "+(s.global_blockers.join(", ")||"none"),
@@ -250,6 +252,8 @@ export async function main(){
     !["schedule","workflow_dispatch"].includes(process.env.GITHUB_EVENT_NAME))throw Error("UNTRUSTED_EVENT_OR_BRANCH");
   const live=process.env.MT_REPAIR_LIVE==="true";
   const s=await measure(c,process.env.GITHUB_TOKEN,live);
+  if(!monthlyBudgetOK(process.env.MT_CREDIT_MONTH_OK,new Date().toISOString().slice(0,7)))
+    s.global_blockers.push("MONTHLY_AI_CREDIT_BUDGET_NOT_APPROVED");
   if(!live)s.global_blockers.push("DRY_RUN_NO_WRITES");
   else await dispatch(c,s,process.env.GITHUB_TOKEN,process.env.MT_COPILOT_DISPATCH_PAT);
   mkdirSync(".repair01",{recursive:true});
